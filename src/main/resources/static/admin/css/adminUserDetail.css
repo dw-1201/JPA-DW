@@ -1,0 +1,193 @@
+.admin-menu-title-container {
+    width: 100%;
+
+}
+.admin-menu-title {
+    padding: 0px 0px 20px 20px;
+    box-sizing: border-box;
+}
+
+.admin-menu-title h4 {
+    
+    height: 40px;
+    box-shadow: 0.5px 0.5px 0.5px 1px rgb(198, 197, 197);
+    background-color: white;
+    box-sizing: border-box;
+    padding: 10px 10px 10px 20px;
+}
+
+
+.admin-main-wrap {
+    position: relative;
+
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: white;
+    width: 1272px;
+    box-shadow: 0.5px 0.5px 0.5px 1px rgb(198, 197, 197);
+
+}
+
+.admin-main-bcc {
+    padding: 20px 0px 20px 20px;
+} 
+
+
+
+.user-stan-title, .user-extra-title {
+    height: 35px;
+}
+
+.user-stan-info {
+    display: flex;
+    justify-content: space-between;
+    /* border: 1px solid red; */
+}
+
+
+.user-img {
+    border: 1px solid gray;
+    width: 180px;
+    height: 180px;
+}
+.user-img > img {
+    width: 100%;
+    height: 100%;
+}
+.user-info-table {
+    font-size: 13px;
+    border: 1px solid gray;
+    height: 180px;
+}
+.user-info-table tr th {
+    box-sizing: border-box;
+    padding-left: 7px;
+    text-align: start;
+    border: 1px solid gray;
+}
+.user-info-table tr td {
+    box-sizing: border-box;
+    padding-left: 7px;
+    border: 1px solid gray;
+
+}
+
+.user-info-table th {
+
+    background-color: rgb(202, 203, 209);
+}
+
+#self-intro {
+    padding: 7px;
+}
+
+
+/* 반려견 정보 */
+.registerd-pet-info-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.registerd-pet-info-dl {
+    border: 1px solid gray;
+    display: flex;
+    width: 400px;
+}
+
+.registerd-pet-dd {
+    width: 400px;
+}
+
+.registerd-pet-img {
+    box-sizing: border-box;
+    padding: 5px;
+    width: 350px;
+    height: 160px;
+}
+.registerd-pet-img > img {
+    width: 100%;
+    height: 100%;
+}
+
+.registerd-pet-detail-info-ul {
+    font-size: 13px;
+    box-sizing: border-box;
+    padding: 10px;
+    line-height: 1.8;
+}
+
+
+/* 기타 추가 회원 정보 */
+.extra-wrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.user-extra-title {
+    display: flex;
+}
+
+.user-extra-title > h5 {
+    width: 300px;
+}
+.user-extra-title > p {
+    font-size: 13px;
+    text-align: end;
+    width: 300px;
+}
+
+.community-info-container {
+    display: flex;
+    justify-content: center;
+}
+
+.commnunity-table-column th {
+    text-align: start;
+}
+
+.community-info-list {
+    font-size: 13px;
+    width: 580px;
+    height: 180px;
+}
+
+.community-info-list td {
+    border-bottom: 1px solid gray;
+}
+
+.community-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient:vertical;
+    display: -webkit-box;
+    line-height: 2.5;
+}
+
+
+
+.commnunity-table-column th:nth-child(3),
+.commnunity-table-column th:nth-child(4),
+.community-count, .community-reply{
+    text-align: center;
+}
+
+
+
+.pagination-ul {
+    font-size: 13px;
+    margin: 20px auto;
+    width: 200px;
+    display: flex;
+    align-items: center;
+}
+
+.pagination-ul li {
+    text-align: center;
+    width: 100%;
+}
+.pagination-ul li a {
+    color: black;
+}

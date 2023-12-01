@@ -1,0 +1,289 @@
+.admin-menu-title-container {
+    width: 100%;
+
+}
+.admin-menu-title {
+    padding: 0px 0px 20px 20px;
+    box-sizing: border-box;
+}
+
+.admin-menu-title h4 {
+    
+    height: 40px;
+    box-shadow: 0.5px 0.5px 0.5px 1px rgb(198, 197, 197);
+    background-color: white;
+    box-sizing: border-box;
+    padding: 10px 10px 10px 20px;
+}
+
+
+.admin-main-wrap {
+    position: relative;
+
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: white;
+    width: 1272px;
+    box-shadow: 0.5px 0.5px 0.5px 1px rgb(198, 197, 197);
+
+}
+
+.admin-main-bcc {
+    padding: 20px 0px 20px 20px;
+} 
+
+.walk-main-title {
+    padding: 0px 0px 6px 2px;
+}
+
+.admin-walk-search-container {
+    height: 40px;
+    border-bottom: 2px solid black;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+#search-form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#walk-search-cate,
+#faq-search-cate {
+    width: 100px;
+    height: 25px;
+
+}
+
+.input-form {
+    padding-left: 10px;
+}
+#walk-search-keyword,
+#faq-search-keyword {
+    height: 21px;
+    width: 200px;
+}
+.result-btn {
+    padding-left: 5px;
+}
+.result-walk-submit-btn {
+    width: 90px;
+    height: 23px;
+    cursor: pointer;
+}
+
+
+
+
+.radio-box-form {
+    font-size: 13px;
+    text-align: end;
+    width: 100%;
+}
+.radio-box-form  input{
+    vertical-align: middle;
+}
+
+
+
+
+
+
+
+
+
+.walk-reg {
+    width: 100%;
+    text-align: end;
+    
+}
+
+
+
+.admin-walk-list-container {
+    width: 1232px;
+}
+
+.column,
+.row {
+    box-sizing: border-box;
+    padding: 5px;
+    border: 1px solid gray;
+    font-size: 13px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.column {
+    background-color: rgba(215, 215, 215, 0.762);
+    font-weight: bold;
+}
+
+.row {cursor: pointer;}
+
+.rr:hover{
+    background-color: rgba(21, 126, 217, 0.527);
+
+}
+
+
+
+.walk-number-column,
+.walk-number {
+    width: 70px;
+}
+
+.walk-id-column,
+.walk-id {
+    width: 120px;
+}
+
+.walk-title-column,
+.walk-title {
+    width: 400px;
+}
+
+.walk-date-column,
+.walk-date {
+    width:190px;
+}
+
+.walk-locate-column,
+.walk-locate {
+    width: 200px;
+}
+
+.walk-gether-state-column, 
+.walk-gether-status-column,
+.walk-gether-state,
+.walk-gether-status {
+    width: 90px;
+}
+
+.walk-etc-column,
+.walk-etc {
+    width: 70px;
+}
+
+
+
+.btns {
+    padding: none;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+
+}
+.btns:after {
+    content: "";
+    width: 0%;
+    height: 100%;
+    top: 0;
+    position: absolute;
+    left: 0;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+    background-color: #F8BE41;
+}
+.btns:hover:after {
+    width: 100%;
+    z-index: -1;
+}
+
+.detail-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.admin-walk-list-table {
+    display: flex;
+}
+
+
+
+
+
+
+
+
+
+
+
+.btn {
+    font-family: 'GmarketSansMedium';
+    font-size: 12px;
+    height: 35px;
+    width: 100%;
+    padding: 3px;
+    cursor: pointer;
+    border: 1px solid rgba(128, 128, 128, 0.277);    
+    position: relative;
+    z-index: 1;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+}
+.btn:after {
+    content: "";
+    width: 0%;
+    height: 100%;
+    top: 0;
+    position: absolute;
+    left: 0;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+    background-color: #F8BE41;
+}
+.btn:hover:after {
+    width: 100%;
+    z-index: -1;
+}
+
+
+
+
+
+
+
+.pagination-wrap {
+    padding: 5px;
+}
+
+.pagination-ul {
+    margin: 0 auto;
+    width: 200px;
+    display: flex;
+    align-items: center;
+}
+
+.pagination-ul li {
+    text-align: center;
+    width: 100%;
+}
+.pagination-ul li a {
+    color: black;
+}
+
+
+

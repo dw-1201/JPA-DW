@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/common/css/common.css">
+    <link rel="stylesheet" href="/fragment/css/footer.css">
+    <link rel="stylesheet" href="/fragment/css/header.css">
+    <link rel="stylesheet" href="../css/reviewupdate.css">
+    <title>상품 리뷰 수정페이지</title>
+</head>
+<body>
+       <!-- header 시작 -->
+       <div class="header">
+        <div class="header-section01">
+            <div class="header-section01-nav">
+                <ul>
+                    <li><a href="">로그인</a></li>
+                    <li><a href="">장바구니</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="header-section02">
+            <div class="header-section02-container">
+                <div class="header-logo"><a href=""><img src="/img/logo.png" alt=""></a></div>
+                <div class="header-section02-nav">
+                    <ul>
+                        <li><a href="">쇼핑</a></li>
+                        <li><a href="">커뮤니티</a></li>
+                        <li><a href="">산책메이트</a></li>
+                        <li><a href="">병원찾기</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- header 끝 -->
+    <main>
+        <div class="main-container">
+            <div class="page-view">
+              
+                <div class="review-container">
+                  <form class="new-post-form" action="" method="" enctype="multipart/form-data" >
+                    <div class="form-group">
+                      <label for="post-title"  class="title">제목
+                      </label>
+                
+                      <input type="text" id="post-title" readonly />
+                    </div>
+                    <div class="form-group">
+                      <label for="post-content">내용</label>
+                      <textarea id="post-content" name="eventBoardContent" rows="10" required></textarea>
+                      <div class="grade-group">
+                        <!--자신이 작성한 평점 그대로 받아오기-->
+                          <span class="text-bold">평점</span>
+                          <span class="rating-count">★★★★★</span>
+                     
+                      </div>
+                    </div>
+                    <div class="file-group">
+                      <ul class="file-wrap">
+                        <!--이미지 불러오기-->
+                        <li class="img-list"></li>
+                        <li class="img-list"></li>
+                        <li class="img-list"></li>
+          
+                      </ul>
+                    </div>
+                    <button type="submit" class="update-btn">수정하기</button>
+                  </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="footer">
+        <div class="footer-container01">
+            <div class="footer-containerbox01">
+                <div class="footer-container01-nav">
+                    <ul>
+                        <li>(주)산책갈개</li>
+                        <li>복영헌 임형준 노의진 이지윤</li>
+                        <li>서울특별시 노원구 상계로1길 34 세일학원 5층</li>
+                        <li>02-933-5890</li>
+                    </ul>
+                </div>
+                <div class="footer-container01-img">
+                    <img src="/img/dog02.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="footer-container02">
+            <div class="footer-containerbox02">
+                <div>Copyright ©SCGG All Rights Reserved.</div>
+                <div class="footer-container02-nav">
+                    <ul>
+                        <li><a href="">이용약관</a></li>
+                        <li><a href="">개인정보처리방침</a></li>
+                        <li><a href="">사업자정보확인</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--footer 끝-->
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="../js/reviewupdate.js"></script>
+</body>
+</html>            

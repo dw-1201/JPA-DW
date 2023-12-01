@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>동물병원검색</title>
+  <link rel="stylesheet" href="/common/css/common.css">
+  <link rel="stylesheet" href="/fragment/css/header.css">
+  <link rel="stylesheet" href="/fragment/css/footer.css">
+  <link rel="stylesheet" href="/map/css/map.css">
+  <script defer src ="/map/js/map.js"></script>
+<link rel="icon" href="/img/favicon.ico" type="image/x-icosn" sizes="16x16">
+</head>
+<body>
+<!-- header 시작 -->
+<div class="header">
+    <div class="header-section01">
+        <div class="header-section01-nav">
+            <ul>
+                <li><a href="">로그인</a></li>
+                <li><a href="">장바구니</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="header-section02">
+        <div class="header-section02-container">
+            <div class="header-logo"><a href="/index/html/index.html"><img src="/img/logo.png" alt=""></a></div>
+            <div class="header-section02-nav">
+                <ul>
+                    <li><a href="/shopping/html/shop.html">쇼핑</a></li>
+                    <li><a href="">커뮤니티</a></li>
+                    <li><a href="">산책메이트</a></li>
+                    <li><a href="/map/html/map.html">병원찾기</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- header 끝 -->
+<!-- main 시작 -->
+  <div class="main-content">
+    <div class="main-content-contaniner">
+
+        <div class="main-content-title">
+            <div class="title-info">
+                <img src="/img/cart-fly.png" alt="">
+                <div class="main-content-title-text01">동물 병원 찾기</div>
+            </div>
+            <!-- <img src="../img/map.png" alt=""> -->
+        </div>
+
+
+
+
+        <div class="main-content-list">
+
+
+            <div class="main-box3-searchbox">
+
+<!-- 검색 시작 -->
+        <div class="container-section2">
+
+          <form onsubmit="searchPlaces(); return false;">
+            <img src="/img/ICON-24px-Search.svg" alt="" class="input-img">
+              <input type="text" value="노원역" id="keyword" size="15" class="main-container-up-section2-searchbox"> 
+              <button class="main-container-up-section2-button" type="submit" id="map-btn">검색</button>
+          </form>
+      </div>   
+<!-- 검색  끝-->
+      <div class="container-section3">
+          <div>
+              <div id="menu_wrap" class="bg_white">
+                 <div class="placelist"><ul id="placesList"></ul></div> 
+                  <div id="pagination"></div>
+              </div>
+          </div>
+          <div id="map"></div>
+      </div>
+    </div>
+</div>
+</div>
+<!-- main 끝 -->
+<!-- footer 시작 -->
+<div class="footer">
+    <div class="footer-container01">
+        <div class="footer-containerbox01">
+            <div class="footer-container01-nav">
+                <ul>
+                    <li>(주)산책갈개</li>
+                    <li>복영헌 임형준 노의진 이지윤</li>
+                    <li>서울특별시 노원구 상계로1길 34 세일학원 5층</li>
+                    <li>02-933-5890</li>
+                </ul>
+            </div>
+            <div class="footer-container01-img">
+                <img src="/img/dog02.png" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="footer-container02">
+        <div class="footer-containerbox02">
+            <div>Copyright ©SCGG All Rights Reserved.</div>
+            <div class="footer-container02-nav">
+                <ul>
+                    <li><a href="">이용약관</a></li>
+                    <li><a href="/fragment/html/privacy.html">개인정보처리방침</a></li>
+                    <li><a href="">사업자정보확인</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- footer 끝 -->
+</body>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=79456d24cd75f2f903717b6cfb3032ac&libraries=services"></script>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/common/css/common.css">
+    <link rel="stylesheet" href="/fragment/css/footer.css">
+    <link rel="stylesheet" href="/fragment/css/header.css">
+    <link rel="stylesheet" href="../css/mypgpet.css">
+    <title>반려동물 프로필</title>
+</head>
+<body>
+       <!-- header 시작 -->
+       <div class="header">
+        <div class="header-section01">
+            <div class="header-section01-nav">
+                <ul>
+                    <li><a href="">로그인</a></li>
+                    <li><a href="">장바구니</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="header-section02">
+            <div class="header-section02-container">
+                <div class="header-logo"><a href=""><img src="/img/logo.png" alt=""></a></div>
+                <div class="header-section02-nav">
+                    <ul>
+                        <li><a href="">쇼핑</a></li>
+                        <li><a href="">커뮤니티</a></li>
+                        <li><a href="">산책메이트</a></li>
+                        <li><a href="">병원찾기</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- header 끝 -->
+    <main>
+        <div class="main-container">
+            <div class="menu-area">
+                <nav class="menu-choice-area">
+                    <ul class="menu-choice">
+                        <li class="choice-p">
+                            <a href="/mypg/html/mypgmain.html" class="pro"> 프로필</a>
+                        </li>
+                        <li class="choice-w">
+                            <a href="/mypg/html/mywrite.html" class="mywrite">내가 작성한 글</a>
+                        </li>
+                        <li>
+                            <a href="/mypg/html/buylist.html" class="mybuy">주문내역</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="detail-pro-choice">
+                <ul class="detail-choice">
+                    <li class="my-pro">
+                        <a href="../html/mypgmain.html" class="my-pro-detail">내프로필</a>
+                    </li>
+                    <li class="my-pet">
+                        <a href="../html/mypgpet.html" class="my-pet-detail">반려동물 프로필</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="petmain">
+                <div class="text-area">
+                    <h2>나의 반려동물</h2>
+                </div>
+                <!--사용자의 펫 등록 데이터 리스트-->
+                <div class="pet-inter-area">
+                    <ul class="pet-inter-info">
+                        <!--클릭시 쿼리스트링으로 순번을 같이 넘겨준다-->
+                        <li class="pet-detail-area" data-petnum="">
+                            <div class="pet-detail-info">
+                                <div class="pet-img-area">
+                                    <img src="../../img/dog02.png" class="pet-img">
+                                </div>
+                                <div class="pet-detail">
+                                    <div class="petname">달이</div>
+                                    <div class="petdate">
+                                        <span class="pet-brith">2022-01-01</span>
+                                        <span class="pet-age"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="x-box">
+                                <span>x</span>
+                            </div>
+                        </li>
+                        <li class="pet-detail-area">
+                            <div class="pet-detail-info">
+                                <div class="pet-img-area">
+                                    <img src="../../img/dog02.png" class="pet-img">
+                                </div>
+                                <div class="pet-detail">
+                                    <div class="petname">달이</div>
+                                    <div class="petdate">
+                                        <span class="pet-brith">2023-01-01</span>
+                                        <span class="pet-age"></span>
+                                    </div>
+                                </div>
+                                <div class="x-box">
+                                    <span>x</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="pet-detail-area">
+                            <div class="pet-detail-info">
+                                <div class="pet-img-area">
+                                    <img src="../../img/dog02.png" class="pet-img">
+                                </div>
+                                <div class="pet-detail">
+                                    <div class="petname">달이</div>
+                                    <div class="petdate"> 
+                                        <span class="pet-brith">2020-01-01</span>
+                                        <span class="pet-age"></span>
+                                </div>
+                                <div class="x-box">
+                                    <span>x</span>
+                                </div>
+                            </div>
+                        </li>
+                   
+                      
+                      
+                    </ul>
+                    <!--내용 없을때 나타나는 페이지-->
+                    <div class="nonepage">
+                        <div class="none-img-area">
+                            <div class="none-img">
+                                <img src="../img/b556fdf429d8de25c3acf62f8186ddb9.png"/>
+                            </div>
+                        </div>
+                        <div class="nonetext-area">
+                            <p>등록된 내용이 없습니다.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="addbtn-area">
+                            <div class="addbtn">
+                                <a href="../html/registerpet.html" >추가하기</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+    <!-- footer 시작 -->
+    <div class="footer">
+        <div class="footer-container01">
+            <div class="footer-containerbox01">
+                <div class="footer-container01-nav">
+                    <ul>
+                        <li>(주)산책갈개</li>
+                        <li>복영헌 임형준 노의진 이지윤</li>
+                        <li>서울특별시 노원구 상계로1길 34 세일학원 5층</li>
+                        <li>02-933-5890</li>
+                    </ul>
+                </div>
+                <div class="footer-container01-img">
+                    <img src="/img/dog02.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="footer-container02">
+            <div class="footer-containerbox02">
+                <div>Copyright ©SCGG All Rights Reserved.</div>
+                <div class="footer-container02-nav">
+                    <ul>
+                        <li><a href="">이용약관</a></li>
+                        <li><a href="">개인정보처리방침</a></li>
+                        <li><a href="">사업자정보확인</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--footer 끝-->
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="../js/mypgpet.js"></script>
+</body>
+</html>

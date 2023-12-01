@@ -1,0 +1,335 @@
+body{
+    font-family: 'Pretendard-Regular';
+}
+  
+a{color: black;}
+
+*{
+    margin: 0px;
+    padding: 0px;
+
+}
+
+.main-container{
+    width: 1024px;
+    /* border: 1px solid black; */
+    margin: 0px auto;
+}
+
+/* .userupdate-form{
+    padding-top: 40px;
+} */
+
+.joinupdate-form{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: 650px;
+    margin: 0 auto;
+
+}
+
+.title{
+    /* border: 1px solid black; */
+    padding-top: 15px;
+    text-align: center;
+}
+
+/*파일 사진 추가 css*/
+
+
+/*파일 첨부 css*/
+
+
+
+.img-group{
+/* border: 1px solid black; */
+padding-top: 30px;
+position: relative;
+}
+
+.img-area{
+    /* border: 1px solid black; */
+    width: 150px;
+    height: 150px;
+    border-radius: 30%;
+    margin: 0px auto;
+}
+
+.img{
+    width: 150px;
+    height: 150px;
+    border-radius: 30%;
+    background: url('/mypg/img/b556fdf429d8de25c3acf62f8186ddb9.png')
+    no-repeat ;
+    background-size: 150px 150px;
+}
+
+.addbtn-area{
+    /* border: 1px solid black; */
+    margin-top: 15px;
+    /* position: relative; */
+    cursor: pointer;
+}
+
+.imgbtn{
+    /* border: 1px solid black; */
+    width: 100px;
+    height: 30px;
+    display: inline-block;
+    line-height: 30px;
+    font-size: 20px;
+    border-radius: 30px;
+    background-color: #fcd11e;
+    cursor: pointer;
+    margin-left: 100px;
+    
+}
+
+input[type='file'] {
+    /* position: absolute; */
+    width: 100px;
+    height: 30px;
+    border: 1px solid black;
+  
+    /* top: 10px; */
+    opacity: 0;
+    cursor: pointer;
+}
+
+.joinupdate-input{
+    /* border: 1px solid black; */
+}
+
+.x-box::after {
+    content: 'x';
+    border: 1px solid red;
+    background-color: red;
+    color: white;
+    display: block;
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    top: 50px;
+    right: 260px;
+    text-align: center;
+    line-height: 13px;
+}
+
+.joinupdate-id-input {
+    margin-top: 20px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+
+.userupdate-input {
+    position: relative;
+    padding-bottom: 10px;
+}
+
+
+
+.input-title {
+    font-size: 13px;
+    position: absolute;
+    left: 140px;
+    top: 10px;
+}
+
+.check {
+    display: none;
+    color: red;
+    font-size: 13px;
+}
+
+
+.joinupdate-input input {
+    border-radius: 5px;
+    border: 1px solid rgba(128, 128, 128, 0.516);
+    width: 400px;
+    box-sizing: border-box;
+    text-indent: 15px;
+    padding: 30px 0px 10px 0px;
+    font-size: 13px;
+}
+
+#nickname{
+    /* border: 1px solid black; */
+    width: 340px;
+    text-indent: 15px;
+    padding: 30px 0px 10px 0px;
+    font-size: 13px;
+    border-radius: 5px;
+   
+}
+
+.nicknameBtn{
+    border: 1px solid black;
+    width: 55px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: white;
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: bold;
+
+}
+
+.login-address-input {
+    position: relative;
+    
+}
+
+
+.login-address-input input {
+
+}
+
+
+
+.login-address-input .join-img {
+    top: 9px;
+}
+
+.address-post-code {
+    border-radius: 5px;
+    border: 1px solid rgba(128, 128, 128, 0.516);
+    width: 400px;
+    margin: 0 auto;
+}
+
+#addressPost {
+    background-color: white;
+    border: none;
+    width: 20%;
+    margin-left: -70px;
+}
+#address {
+    background-color: white;
+    border: none;
+    width: 60%;
+}
+
+#addressDetail {
+    padding: 15px 0px 15px 0px;
+    width: 90px;
+    text-indent: 0;
+    text-align: center;
+}
+#addressDetails {
+    padding: 15px 0px 15px 0px;
+
+    width: 300px;
+    text-indent: 10px;
+}
+
+.addrBtn {
+    font-family: 'GmarketSansMedium';
+    cursor: pointer;
+    width: 70px;
+    height: 35px;
+    position: absolute;
+    top: 13px;
+    background: white;
+    right: 125px;
+    border-radius: 10px;
+
+    
+}
+
+
+.join-btn {
+    text-align: center;
+}
+
+.join-submit-btn {
+    width: 360px;
+    height: 40px;
+    border-radius:20px;
+    border: none;
+    background-color: #fcd11e;
+    box-shadow:  0 2px 4px rgba(0,0,0,.15); 
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.join-submit-btn:hover {
+    width: 360px;
+    height: 40px;
+    border-radius:20px;
+    border: none;
+    background-color: #fcd11e;
+    box-shadow:  inset 2px 4px rgba(0,0,0,.15); 
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.interduce-area{
+    /* border: 1px solid black; */
+    padding-top: 20px;
+    position: relative;
+
+}
+
+.interduce-text{
+    /* border: 1px solid black; */
+    position: absolute;
+    top : 10px;
+    font-size: 14px;
+}
+
+
+#interduce-content {
+    margin: 10px 0;
+    width: 370px;
+    resize: none;
+    border: none;
+    /* background-color: #f7f7f7; */
+    height: 80px;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.interduce-length-check{
+    /* border: 1px solid black; */
+    position: absolute;
+    width: 150px;
+    height: 20px;
+    top : 8px;
+    right: 130px;
+}
+
+.user-delete{
+    padding: 10px 0px 20px 0px;
+    /* border: 1px solid black; */
+    text-align: center;
+
+}
+
+.user-delete-btn{
+    width: 360px;
+    height: 40px;
+    border-radius:20px;
+    border: none;
+    background-color: #e0e0e0;
+    box-shadow:  0 2px 4px rgba(0,0,0,.15); 
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+.user-delete-btn:hover {
+    width: 360px;
+    height: 40px;
+    border-radius:20px;
+    border: none;
+    background-color: #e0e0e0;
+    box-shadow:  inset 2px 4px rgba(0,0,0,.15); 
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}

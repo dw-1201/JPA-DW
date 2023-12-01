@@ -1,0 +1,103 @@
+.admin-menu-title-container {
+    width: 100%;
+
+}
+.admin-menu-title {
+    padding: 0px 0px 20px 20px;
+    box-sizing: border-box;
+}
+
+.admin-menu-title h4 {
+    
+    height: 40px;
+    box-shadow: 0.5px 0.5px 0.5px 1px rgb(198, 197, 197);
+    background-color: white;
+    box-sizing: border-box;
+    padding: 10px 10px 10px 20px;
+}
+
+
+.admin-main-wrap {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
+    height: 382px;
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: white;
+    width: 1272px;
+    box-shadow: 0.5px 0.5px 0.5px 1px rgb(198, 197, 197);
+
+}
+
+.admin-main-bcc {
+    padding: 20px 0px 20px 20px;
+} 
+
+
+
+.chart, .recent-join-user {
+    height: 340px;
+    border: 1px solid gray;
+}
+
+.chart-title, .recent-join-title {
+    
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    height: 35px;
+    background-color: rgba(169, 176, 176, 0.532);
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.join-chart, .join-user-table {
+    box-sizing: border-box;
+    padding-top: 30px;
+    width: 600px !important;
+    height: 300px;
+}
+
+.join-user-table {
+    width: 100%;
+    height: 200px;
+    text-align: center;
+    font-size: 13px;
+    padding: 30px 15px 15px 15px;
+}
+
+.join-user-table th {
+    background-color: rgba(169, 176, 176, 0.532);
+
+}
+.join-user-table tr td {
+    border: 1px solid gray;
+}
+
+.user-status {
+    padding: 15px 10px 10px 10px;
+}
+
+.user-status-ul {
+    box-sizing: border-box;
+    background-color: rgba(169, 176, 176, 0.532);
+    height: 80px;
+    padding-top: 10px;
+    text-align: center;
+    display: grid;
+    grid-template-columns:  1fr 1fr 1fr 1fr;
+    
+}
+
+.user-status-ul li {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.admin-user-info {
+    font-size: 20px;
+    padding-top: 5px;
+}

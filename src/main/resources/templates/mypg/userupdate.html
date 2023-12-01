@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/common/css/common.css">
+    <link rel="stylesheet" href="/fragment/css/footer.css">
+    <link rel="stylesheet" href="/fragment/css/header.css">
+    <link rel="stylesheet" href="../css/userupdate.css">
+    <title>회원정보 수정</title>
+</head>
+<body>
+       <!-- header 시작 -->
+       <div class="header">
+        <div class="header-section01">
+            <div class="header-section01-nav">
+                <ul>
+                    <li><a href="">로그인</a></li>
+                    <li><a href="">장바구니</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="header-section02">
+            <div class="header-section02-container">
+                <div class="header-logo"><a href=""><img src="/img/logo.png" alt=""></a></div>
+                <div class="header-section02-nav">
+                    <ul>
+                        <li><a href="">쇼핑</a></li>
+                        <li><a href="">커뮤니티</a></li>
+                        <li><a href="">산책메이트</a></li>
+                        <li><a href="">병원찾기</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- header 끝 -->
+    <main>
+        <div class="main-container">
+                <div class="title">
+                    <h1>회원정보 수정</h1>
+                </div>
+                <form action="" method="" class="joinupdate-form">
+           
+                    <div class="form-group">
+                        <div class="img-group">
+                            <!--백단 잡업시 수정 필요-->
+                            <div class="img-area">
+                                <div class="img"></div>
+                            </div>  
+                              
+                        </div>
+                        <div class="addbtn-area">
+                            <label for="post-image" class="imgbtn">
+                               사진추가
+                            </label>
+                            <input type="file" id="post-image" name="petImg" accept="image/*" multiple/>
+                        </div>
+                    </div>
+
+                    <div class="joinupdate-input">
+                       
+                        <div class="joinupdate-id-input userupdate-input">
+                            <input type="text" id="userId" name="userId" placeholder="고정 아이디" disabled />
+                            <label for="userId" class="input-title">아이디</label>
+                        </div>
+                        <div class="nickname-input userupdate-input">
+                            <input type="text" id="nickname" name="nick-name" placeholder="한글과 숫자,영문을 사용해서 1글자 이상 작성하세요" required/>
+                            <label for="nickname" class="input-title">닉네임</label>
+
+                            <button type="button" class="nicknameBtn" value="중복검사" onclick="">중복검사</button>
+                        </div>
+                        <div class="login-pw-input userupdate-input">
+                            <input type="password" id="userPassword" name="userPassword" placeholder="특수문자와 숫자를 포함하여 8자 이상 기입하세요 " oninput="checkPw()"/>
+                            <label for="userId" class="input-title">비밀번호</label>
+        
+                            <label for="userPassword" class="userPw-available check"><span class="material-symbols-outlined check-icon">
+                                done
+                                </span></label>
+                            <label for="userPassword" class="userPw-unavailable check"><span>사용 불가능한 비밀번호입니다.</span></label>
+                        </div>
+                        <div class="login-pw-ch-input userupdate-input">
+                            <!-- <img src="/user/img/userPw.png" alt="userPasswordCh" class="userPw-img join-img"/> -->
+                            <input type="password" id="userPasswordCh" name="userPasswordCh" placeholder="비밀번호를 다시 입력해주세요"/>
+                            <label for="userId" class="input-title">비밀번호 확인</label>
+        
+                            <label for="userPasswordCh" class="userPwChOk check"><span class="material-symbols-outlined check-icon">
+                                done
+                                </span></label>
+        
+                            <label for="userPasswordCh" class="userPwCh check"><span>비밀번호가 일치하지 않습니다.</span></label>
+                        </div>
+                        <div class="login-name-input userupdate-input">
+                            <!-- <img src="/user/img/userId.png" alt="userName" class="userName-img join-img"/> -->
+                            <input type="text" id="userName" name="userName" placeholder="수정불가." disabled/>
+                            <label for="userId" class="input-title">이름</label>
+        
+                        </div>
+                        <div class="login-phone-input userupdate-input">
+                            <!-- <img src="/user/img/phone.png" alt="userPhone" class="userPhone-img join-img"/> -->
+                            <input type="text" id="userPhone" name="userPhone" placeholder="번호를 입력해주세요.( -제외 )" maxlength="11" onkeyup=""/>
+                            <label for="userPhone" class="input-title">휴대폰 번호</label>
+                        </div>
+                        <div class="login-email-input userupdate-input">
+                            <input type="text" id="userEmail" name="userEmail" placeholder="디폴트 이메일/ 수정불가" disabled/>                          
+                            <label for="userEmail" class="input-title">이메일</label>
+                        </div>
+                        <div class="login-address-input userupdate-input">
+                            <div class="address-post-code">
+                                <!-- <img src="/user/img/addr.png" alt="userAddress" class="userAddress-img join-img"/> -->
+                                <input class="postalCode" type="text" id="addressPost" name="addressPost" disabled>
+                                <input type="text" id="address" name="address"  disabled/>
+        
+                                <label for="userId" class="input-title">주소</label>
+        
+                            </div>
+                            <div class="address-main userupdate-input">
+                                <!-- <img src="/user/img/addr.png" alt="userAddress" class="userAddress-img join-img"/> -->
+                            </div>
+                                <input type="text" id="addressDetail" name="addressDetail"/>
+                                <input type="text" id="addressDetails" name="addressDetails" placeholder="상세주소 입력" />
+                            <button type="button" class="addrBtn" value="우편번호 찾기" onclick="addressFind()">주소찾기</button>
+                        </div>
+                        <div class="interduce-area">
+                            <label for="interduce-content" class="interduce-text">간단소개</label>
+                            <textarea name="interduceContent" id="interduce-content" placeholder="1~200이내로 간단소개 해주세요." cols="30" rows="2" required ></textarea>
+                            <div class="interduce-length-check"></div>
+                        </div>
+                    </div>
+        
+                    <div class="join-btn">
+                        <button class="join-submit-btn" type="button">수정하기</button>
+                    </div>
+                </form>
+                <div class="user-delete">
+                    <button class="user-delete-btn" type="button">회원탈퇴</button>
+                </div>
+        </div>
+    </main> 
+      <!-- footer 시작 -->
+      <div class="footer">
+        <div class="footer-container01">
+            <div class="footer-containerbox01">
+                <div class="footer-container01-nav">
+                    <ul>
+                        <li>(주)산책갈개</li>
+                        <li>복영헌 임형준 노의진 이지윤</li>
+                        <li>서울특별시 노원구 상계로1길 34 세일학원 5층</li>
+                        <li>02-933-5890</li>
+                    </ul>
+                </div>
+                <div class="footer-container01-img">
+                    <img src="/img/dog02.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="footer-container02">
+            <div class="footer-containerbox02">
+                <div>Copyright ©SCGG All Rights Reserved.</div>
+                <div class="footer-container02-nav">
+                    <ul>
+                        <li><a href="">이용약관</a></li>
+                        <li><a href="">개인정보처리방침</a></li>
+                        <li><a href="">사업자정보확인</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--footer 끝-->
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <script src="../js/userupdate.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" ></script>
+</body>
+</html>               

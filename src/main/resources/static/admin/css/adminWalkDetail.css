@@ -1,0 +1,172 @@
+.admin-menu-title-container {
+    width: 100%;
+
+}
+.admin-menu-title {
+    padding: 0px 0px 20px 20px;
+    box-sizing: border-box;
+}
+
+.admin-menu-title h4 {
+    
+    height: 40px;
+    box-shadow: 0.5px 0.5px 0.5px 1px rgb(198, 197, 197);
+    background-color: white;
+    box-sizing: border-box;
+    padding: 10px 10px 10px 20px;
+}
+
+
+.admin-main-wrap {
+    position: relative;
+
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: white;
+    width: 1272px;
+    box-shadow: 0.5px 0.5px 0.5px 1px rgb(198, 197, 197);
+
+}
+
+.admin-main-bcc {
+    padding: 20px 0px 20px 20px;
+} 
+
+
+
+
+/* Qna 내용  */
+
+.qna-info-table {
+    font-size: 13px;
+    width: 100%;
+}
+
+.qna-info-table th {
+    width: 100px;
+    padding: 4px;
+    box-sizing: border-box;
+    background-color: rgba(128, 128, 128, 0.424);
+}
+.qna-info-table td {
+    padding: 4px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.qna-info-column td{
+
+    text-align: start;
+}
+
+.delete-td {
+    background-color: rgb(141, 168, 168);
+    width: 60px;
+}
+
+.delete-qna-btn {
+    border: none;
+    background-color: rgb(141, 168, 168);
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.qna-info-title td {
+    text-align: start;
+}
+
+.qna-info-img {
+    height: 200px;
+}
+.qna-registerd-imgs {
+    width:100% ;
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+.qna-info-img td {
+    padding: 7px;
+    box-sizing: border-box;
+    
+ 
+}
+.qna-info-img img {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+.qna-info-content td {
+    text-align: start;
+    height: 300px;
+}
+
+.content-textarea {
+    box-sizing: border-box;
+    padding: 20px;
+    height: 300px;
+    width: 100%;
+    border: none;
+    resize: none;
+}
+
+
+
+
+/* Qna관련 댓글 설정 */
+.qna-reply-title {
+    display: flex;
+}
+
+.showBtn {
+    cursor: pointer;
+}
+
+.qna-reply-section {
+    /* border: 2px solid red; */
+    display: none;
+}
+
+.qna-reply-ul {
+    font-size: 13px;
+    align-items: center;
+    display: flex;
+    border-bottom: 1px solid gray;
+}
+.qna-reply-ul  li {
+    box-sizing: border-box;
+    padding: 10px;
+    /* border: 2px solid blue; */
+}
+
+.reply-writer {
+    width: 130px;
+}
+
+.reply-content {
+    line-height: 1.7;
+    width: 100%;
+}
+.reply-reg-date {
+    text-align: end;
+    width: 150px;
+}
+.reply-btn {
+    width: 90px
+}
+.delete-btn {
+    text-align: end;
+}
+.delete-submit-btn {
+    display: in;
+    cursor: pointer;
+    width: 40px;
+    border: none;
+    background-color: white;
+}
+
+.delete-submit-btn:hover{
+    border-bottom: 1px solid gray;
+}

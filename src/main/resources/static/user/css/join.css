@@ -1,0 +1,261 @@
+.join-page-wrap {
+    width: 1024px;
+    margin: 150px auto;
+    font-family: 'GmarketSansMedium';
+}
+.img-container {
+    width: 100%;
+    height: 200px;
+    min-width: 900px;
+    text-align: center;
+    margin: 120px 0px 70px 0px;
+    position: relative;
+}
+.title-logo {
+    width: 300px;
+    margin: 0 auto;
+    position: relative;
+
+}
+
+.title-logo a {
+    display: flex;
+    margin: 0 auto;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.puppy-img {
+    width: 150px;
+    height: 180px;
+}
+.title-img {
+ position: relative;
+   
+}
+
+
+.join-term-title  {
+   padding-bottom: 20px;
+  
+}
+.join-term-title p {
+    font-size: 12px;
+}
+
+.join-input {
+    display: flex;
+    flex-direction: column;
+    width: 650px;
+    margin: 0 auto;
+
+}
+
+.total-select-checkbox {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding: 10px;
+    background-color: rgba(242, 216, 70, 0.615);
+}
+
+
+.total-select-checkbox label{
+    cursor: pointer;
+}
+
+#total-check {
+    vertical-align: middle;
+    width: 20px;
+}
+
+.join-term {
+    font-size: 14px;
+    color: gray;
+    width: 650px;
+    height: 140px;
+    border: 1px solid rgba(128, 128, 128, 0.525);
+    border-radius: 5px;
+    padding: 15px;
+    box-sizing: border-box;
+    margin: 10px 0px 0px 0px;
+    line-height: 2.5;
+    
+}
+.join-term label {
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+}
+
+.must {
+    margin-left: 5px;
+    color: rgba(193, 27, 27, 0.983);
+}
+.more-btn {
+    width: 100%;
+    text-align: end;
+}
+
+.more-btn a{
+    border-bottom: 1px solid gray;
+    color: gray;
+    font-size: 11px;
+    
+}
+
+.join-term input {
+    margin-right: 10px;
+    width: 11px !important;
+    
+}
+.terms {
+    display: flex;
+    align-items: center;
+}
+
+
+
+.check-icon {
+    position: absolute;
+    z-index: 99;
+    right: 2px;
+    color:  green;
+    top: 4px;
+}
+
+
+.join-input-title {
+    padding-top: 30px;
+}
+
+
+
+.join-id-input {
+    margin-top: 20px;
+}
+
+
+.user-input {
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.join-img {
+    
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top:14px;
+    left: 12px;
+    
+}
+
+.input-title {
+    font-size: 13px;
+    position: absolute;
+    left: 15px;
+    top: 10px;
+}
+
+.check {
+    display: none;
+    color: red;
+    font-size: 13px;
+}
+
+
+.join-input input {
+    border-radius: 5px;
+    border: 1px solid rgba(128, 128, 128, 0.516);
+    width: 650px;
+    box-sizing: border-box;
+    text-indent: 15px;
+    padding: 30px 0px 10px 0px;
+    font-size: 13px;
+}
+
+
+
+
+
+.login-address-input {
+    position: relative;
+    
+}
+
+
+.login-address-input input {
+
+}
+
+
+
+.login-address-input .join-img {
+    top: 9px;
+}
+
+.address-post-code {
+    border-radius: 5px;
+    border: 1px solid rgba(128, 128, 128, 0.516);
+}
+
+#addressPost {
+    background-color: white;
+
+    border: none;
+    width: 10%;
+}
+#address {
+    background-color: white;
+    border: none;
+    width: 70%;
+}
+
+#addressDetail {
+    padding: 15px 0px 15px 0px;
+    width: 90px;
+    text-indent: 0;
+    text-align: center;
+}
+#addressDetails {
+    padding: 15px 0px 15px 0px;
+
+    width: 554px;
+    text-indent: 10px;
+}
+
+.addrBtn {
+    font-family: 'GmarketSansMedium';
+    cursor: pointer;
+    width: 100px;
+    height: 35px;
+    position: absolute;
+    top: 13px;
+    background: white;
+    right: 8px;
+    border-radius: 10px;
+}
+
+
+.join-btn {
+    text-align: center;
+}
+
+.join-submit-btn {
+    border: none;
+    height: 40px;
+    width: 650px;
+    font-size: 15px;
+    cursor: pointer;
+    background-color: rgba(242, 216, 70, 0.615);
+    font-family: 'GmarketSansMedium';
+    letter-spacing: 2px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+}

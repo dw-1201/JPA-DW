@@ -2,9 +2,88 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/common/css/common.css">
+    <link rel="stylesheet" href="/user/css/login.css">
 
+    <title>로그인</title>
+</head>
+<body >
+<main class="main">
+    <div class="img-container">
+        <div class="title-logo">
+            <a href="/index/html/index.html">
+                <img src="/user/img/puppy-img.png" alt="puppy-img" class="puppy-img"/>
+                <img src="/user/img/main-logo.png" alt="title" class="title-img"/>
+            </a>
+        </div>
+    </div>
+    <div class="login-page-wrap">
+        <div class="login-info-wrap">
+            <div class="login-title">
+                <h3>로그인</h3>
+                <span>안녕하세요! 반갑습니다 :)</span>
+            </div>
+            <div class="login-info-section">
+                <form action="" method="" id="login-form">
+                    <div class="login-input">
+                        <div class="login-id-input">
+                            <img src="/user/img/userId.png" alt="userId" class="userId-img"/>
+                            <input type="text" id="userId" name="userId" placeholder="아이디"/>
+                        </div>
+                        <div class="login-pw-input">
+                            <img src="/user/img/userPw.png" alt="userPassword" class="userPw-img"/>
+                            <input type="password" id="userPassword" name="userPassword" placeholder="비밀번호"/>
+                        </div>
+
+                        <div class="message-output">
+                            <label for="userId" class="id-input-ch"><span>
+                                아이디를 입력해주세요<!--아이디 미기입 시 메시지 출력 칸--></span></label>
+                            <label for="userPassword" class="pw-input-ch"><span>
+                                비밀번호를 입력해주세요<!--비밀번호 미기입 시 메시지 출력 칸--></span></label>
+                            <label class="login-error"><span>
+                                아이디 또는 비밀번호를 다시 확인해주세요<!--로그인 실패 시 메시지 출력 칸--></span></label>
+                        </div>    
+
+                        <div class="login-btn">
+                            <button class="login-submit-btn" type="submit">로그인</button>
+                        </div>   
+                    </div>
+                </form>
+            </div>
+        
+            <div class="find-join-section">
+                <ul class="move-to-section">
+                    <li><a href="/user/html/findId.html">아이디 찾기</a></li>
+                    <li>|</li>
+                    <li><a href="/user/html/findPw.html">비밀번호 찾기</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="blank-line">
+        </div>
+        
+        <div class="adv-section">
+            <div class="adv-img-container">
+                <img src="/user/img/login-img.jpg" alt="login-img" class="login-img"/>
+                <!-- <img src="/user/img/login-img2.jpg" alt="login-img" class="login-img2"/> -->
+
+            </div>
+        </div>
+    </div>
+    <div class="join-section">
+        <div class="move-to-join">
+            <p><span>아직 산책할개 회원이 아니신가요?</span> 회원가입 후 다양한 혜택을 누려보세요!</p>
+            <button class="join-btn">회원가입하기</button>
+        </div>
+    </div>
+    <div class="copyright-section">
+        <div class="copyright">
+            <p> Copyright &copy; 산책할개 Corp All Rights Reserved</p>
+        </div>
+    </div>
+</main>
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<script src="/user/js/login.js"></script>
 </body>
 </html>

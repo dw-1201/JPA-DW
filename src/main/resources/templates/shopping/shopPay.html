@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>주문서</title>
+  <link rel="stylesheet" href="/common/css/common.css">
+  <link rel="stylesheet" href="/fragment/css/header.css">
+  <link rel="stylesheet" href="/fragment/css/footer.css">
+  <link rel="stylesheet" href="/shopping/css/shopPay.css">
+<link rel="icon" href="/img/favicon.ico" type="image/x-icosn" sizes="16x16">
+</head>
+<body>
+<!-- header 시작 -->
+<div class="header">
+    <div class="header-section01">
+        <div class="header-section01-nav">
+            <ul>
+                <li><a href="">로그인</a></li>
+                <li><a href="">장바구니</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="header-section02">
+        <div class="header-section02-container">
+            <div class="header-logo"><a href=""><img src="/img/logo.png" alt=""></a></div>
+            <div class="header-section02-nav">
+                <ul>
+                    <li><a href="/shopping/html/shop.html">쇼핑</a></li>
+                    <li><a href="">커뮤니티</a></li>
+                    <li><a href="">산책메이트</a></li>
+                    <li><a href="/map/html/map.html">병원찾기</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- header 끝 -->
+<!-- main 시작 -->
+
+<main class="main-content">
+    <div class="main-content-contaniner">   
+        <div class="title-info">
+          <h2>
+            주문서
+          </h2>
+          <img src="https://store.bemypet.kr/wp-content/themes/bemypet-store-child/assets/icons/pc_orderlist_balbadak.svg" alt="">
+        </div>
+
+<!-- 미들 -->
+  <div class="middle-content">
+    <div>
+      <div class="name-box">
+        <label>이름&nbsp; 
+          <addr class="required">*</addr>
+        </label>
+        <input type="text" placeholder="이름 입력" class="inputbox" id="userName">
+      </div>
+  
+      <div class="name-box2">
+        <label>도로명 주소&nbsp;
+          <addr class="required">*</addr>
+        </label>
+
+        <input type="text" class="postalCode" placeholder="우편 번호" type="text" id="addressPost" name="addressPost" disabled/>
+        <input type="text" placeholder="도로명 및 번지" class="inputbox1" id="address" name="address"  disabled/>
+        <input type="text" class="inputbox2" id="addressDetail" name="addressDetail" disabled/>
+        <input type="text" placeholder="상세 도로명을 입력해주세요" class="inputbox1" id="addressDetails" name="addressDetails" >
+          <button class="box2-serch" value="우편번호 찾기" onclick="addressFind()">주소 찾기</button>
+      </div>
+
+      <div class="name-box4">
+        <label>전화 번호&nbsp;
+          <addr class="required">*</addr>
+        </label>
+        <input type="text" placeholder="전화 번호 입력" class="inputbox2" id="userPhone">
+      </div>
+
+      <div class="name-box4">
+        <label>이메일 주소&nbsp;
+          <addr class="required">*</addr>
+        </label>
+        <input type="text" placeholder="이메일 입력" class="inputbox2" id="userEmail">
+      </div>
+
+      <div class="name-box4">
+        <label>주문 메모&nbsp;
+          <!-- <addr class="required">*</addr> -->
+        </label>
+        <textarea name="" id="" cols="30" rows="10" placeholder="주문 관련 메시지, 예) 배송 관련 메모." class="inputbox3" ></textarea>
+      </div>
+
+
+    </div>
+    </div>
+
+
+<!-- 미들 -->
+
+<div class="product">
+  고객님의 주문내역
+</div>
+<div class="content-price">
+  <div class="name">
+    삼색이 필로우 고양이 인형
+  </div>
+  <div class="product-total">
+    <span>33,000</span>
+    <span>x</span>
+    <span>1</span>
+    <span>=</span>
+    <span>33,000</span>
+  </div>
+</div>
+<div class="content-price3">
+  <span>총 결제 금액 :&nbsp;</span><span>33,000</span><span>&nbsp;원</span>
+</div>
+
+<div class="cartButton-Box">
+  <button class="cart-button">결제 진행하기</button>
+</div>
+<div class="room">
+
+</div>
+    </div>
+</main>
+<!-- main 끝 -->
+
+
+<!-- footer 시작 -->
+<div class="footer">
+    <div class="footer-container01">
+        <div class="footer-containerbox01">
+            <div class="footer-container01-nav">
+                <ul>
+                    <li>(주)산책갈개</li>
+                    <li>복영헌 임형준 노의진 이지윤</li>
+                    <li>서울특별시 노원구 상계로1길 34 세일학원 5층</li>
+                    <li>02-933-5890</li>
+                </ul>
+            </div>
+            <div class="footer-container01-img">
+                <img src="/img/dog02.png" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="footer-container02">
+        <div class="footer-containerbox02">
+            <div>Copyright ©SCGG All Rights Reserved.</div>
+            <div class="footer-container02-nav">
+                <ul>
+                    <li><a href="/fragment/html/terms.html">이용약관</a></li>
+                    <li><a href="/fragment/html/privacy.html">개인정보처리방침</a></li>
+                    <li><a href="">사업자정보확인</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- footer 끝 -->
+
+</body>
+<script defer src="/shopping/js/shopPay.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" ></script>
+</html>
