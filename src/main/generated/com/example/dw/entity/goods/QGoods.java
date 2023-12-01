@@ -34,11 +34,15 @@ public class QGoods extends EntityPathBase<Goods> {
 
     public final QGoodsMainImg goodsMainImg;
 
+    public final DateTimePath<java.time.LocalDateTime> goodsModifyDate = createDateTime("goodsModifyDate", java.time.LocalDateTime.class);
+
     public final StringPath goodsName = createString("goodsName");
 
     public final NumberPath<Long> goodsPrice = createNumber("goodsPrice", Long.class);
 
     public final NumberPath<Long> goodsQuantity = createNumber("goodsQuantity", Long.class);
+
+    public final DateTimePath<java.time.LocalDateTime> goodsRegisterDate = createDateTime("goodsRegisterDate", java.time.LocalDateTime.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
