@@ -1,0 +1,34 @@
+server:
+  port: 10004
+
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:XE
+    username: dw
+    password: 1111
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+#      ddl-auto: create-drop
+#      ddl-auto: update
+#      ddl-auto: validate
+    properties:
+      hibernate:
+#        show_sql: true
+        format_sql: true
+#        default_batch_fetch_size: 1000 #최적화 옵션
+
+logging.level:
+  org.hibernate.SQL: debug
+
+#  org.hibernate.type: trace
+
+# 파일 경로 설정
+#  file.dir=C:/upload/
+
+  # 문자인증
+#  smsservice.serviceId = ncp:sms:kr:317191750931:redmedicine
+#  smsservice.accessKey = oyEpUB0ISONyYhRS0eoF
+#  smsservice.secretKey = 6VE8paDtAxkpEJOkOAIlJoKzwvbfZalNDzzUq1M5
