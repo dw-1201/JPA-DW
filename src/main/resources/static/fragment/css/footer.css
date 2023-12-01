@@ -1,0 +1,79 @@
+/* 푸터 시작 */
+
+.footer{
+  /* width: 1535.5px; */
+  width: 100%;
+  min-width: 1024px;
+  height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #F5F5F5;
+
+  font-family: 'Pretendard-Regular';
+}
+.footer-container01{
+  width: 100%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  border-bottom: 0.5px solid #E4E4E4;
+  /* background-color: bisque; */
+}
+.footer-containerbox01{
+  width: 70%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: yellow; */
+}
+.footer-container01-nav{
+  width: 80%;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  /* background-color: blueviolet; */
+}
+.footer-container01-nav li{
+  margin: 3px 0;
+}
+.footer-container01-img{
+  width: 40%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: palevioletred; */
+}
+.footer-container01-img img{
+  width: 75px;
+  height: 90px;
+}
+.footer-container02{
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  /* background-color: pink; */
+}
+.footer-containerbox02{
+  width: 70%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+  font-size: 13px;
+  /* background-color: greenyellow; */
+}
+/* .footer-container02-nav{
+   
+}*/
+.footer-container02-nav li{
+  display: inline-block;
+  margin: 0 20px;
+}
+/* 푸터 끝 */

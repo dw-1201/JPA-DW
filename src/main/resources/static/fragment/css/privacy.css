@@ -1,0 +1,35 @@
+/* 개인css */
+input, button{
+  cursor: pointer;
+}
+a{
+  color: black;
+  font-size: 20px;
+}
+/* 폰트 적용 */
+body,html {
+  /* font-family: 'NanumSquareNeo-Variable'; */
+}
+
+/* 공통 끝 */
+
+/* 메인 시작 */
+main{
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.main-outline-container{
+  width: 980px;
+  height: auto;
+}
+.main-outline-container02{
+  width: 980px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+/* 메인 끝 */

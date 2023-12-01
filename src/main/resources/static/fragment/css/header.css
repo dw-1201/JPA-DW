@@ -1,0 +1,82 @@
+/* 헤더 시작 */
+.header{
+  /* width: 1535.5px; */
+  width: 100%;
+  min-width: 1024px;
+  height: 130px;
+  /* display: flex; */
+  flex-direction: column;
+  justify-content: center;
+  /* background-color: aqua; */
+
+  font-family: 'Pretendard-Regular';
+
+
+
+}
+.header-section01{
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  background-color: #FCD11E;
+}
+.header-section01-nav{
+  /* width: 70%; */
+  height: 100%;
+  min-width: 1024px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  /* font-size: 13px; */
+  /* background-color: red; */
+}
+.header-section01-nav li{
+  display: inline-block;
+  margin-right: 20px;
+}
+.header-section02{
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  /* background-color: blueviolet; */
+
+  border-bottom: 1px solid #ffefb0;
+}
+.header-section02-container{
+  /* width: 45%; */
+  min-width:1024px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  /* background-color: pink; */
+
+  font-family: 'Pretendard-Regular';
+}
+.header-logo{
+  width: 15%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: aquamarine; */
+}
+.header-logo img{
+  width: 140px;
+  height: 60px;
+  /* background-color: red; */
+}
+.header-section02-nav{
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  height: 100%;
+  /* background-color: palevioletred; */
+}
+.header-section02-nav li{
+  display: inline-block;
+  margin: 0 20px 0 50px;
+}
+/* 헤더 끝 */
