@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/common/css/common.css">
+    <link rel="stylesheet" href="/admin/css/adminUserDetail.css">
+    <link rel="stylesheet" href="/admin/css/adminAside.css">
+    <title>관리자 페이지</title>
+</head>
+<body class="body">
+    <div class="top-section">
+        <div class="top-title">
+            <h3>관리자 페이지</h3>
+        </div>
+    </div>
+    <div class="admin-index-wrap" >
+        <div class="admin-fragment">
+            <div class="admin-hidden-title">
+                <h3>관리자 페이지</h3>
+            </div>
+            <aside class="aside">
+                <ul class="side-menu">
+                    <li class="user-manage admin-manage">회원 관리
+                        <div class="sub-menu">
+                            <ul class="sub-menu-ul">
+                                <li><a href="/admin/html/adminIndex.html">회원 현황</a></li>
+                                <li><a href="/admin/html/adminUserList.html">회원 목록</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="goods-manage admin-manage">상품 관리
+                        <div class="sub-menu">
+                            <ul class="sub-menu-ul">
+                                <li><a href="/admin/html/adminGoodsList.html">상품 목록</a></li>
+                                <li><a href="/admin/html/adminGoodsQue.html">상품 문의</a></li>
+                                <li><a href="/admin/html/adminGoodsReview.html">상품 리뷰</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="order-manage admin-manage">주문 관리
+                        <div class="sub-menu">
+                            <ul class="sub-menu-ul">
+                                <li><a href="/admin/html/adminOrderManage.html">주문 현황</a></li>
+                                    <li><a href="/admin/html/adminOrderList.html">주문 목록</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="notice-manage admin-manage">커뮤니티 관리
+                        <div class="sub-menu">
+                            <ul class="sub-menu-ul"> 
+                                <li><a href="/admin/html/adminNoticeList.html">공지 목록</a></li>
+                                <li><a href="/admin/html/adminQnaList.html">QnA 목록</a></li>
+                                <li><a href="/admin/html/adminFreeList.html">자유게시판글 목록</a></li>
+                                <li><a href="/admin/html/adminWalkList.html">산책글 목록</a></li>
+    
+                            </ul>
+                        </div>
+                    </li>
+              
+                </ul>
+            </aside>
+         </div>
+<main class="main">
+    <div class="admin-menu-title-container">
+        <div class="admin-menu-title">
+            <h4>회원 상세</h4>
+        </div>
+    </div>
+    <div class="admin-main-bcc">
+        <div class="admin-main-wrap">
+            <div class="user-stan-title">
+                <h4>회원 기본 정보</h4>
+            </div>
+            <div class="user-stan-info">
+                <div class="user-img">
+                    <img src="/user/img/user-default-img.png" alt="user-img" />
+                </div>
+                <div class="user-info first-section">
+                    <table class="user-info-table"  cellspacing="0">
+                        <tr>
+                            <colgroup>
+                                <col style="width: 100px;">
+                                <col style="width: 415px;">
+                                <col style="width: 100px;">
+                                <col style="width: 415px;">
+                            </colgroup>
+                        </tr>
+                        <tr>
+                            <th scope="row">아이디</th>
+                            <td>bokbok1234</td>
+                            <th scope="row" rowspan="3">주소</th>
+                            <td class="postal-code">020202</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">이름</th>
+                            <td>복영헌</td>
+                            <td class="address">서울특별시 노원구</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">닉네임</th>
+                            <td>Bokka</td>
+                            <td class="detail-address">3층 3333호</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">휴대전화</th>
+                            <td>01055555555</td>
+                            <th scope="row" rowspan="3">자기소개</th>
+                            <td rowspan="3" id="self-intro">안녕하세유 반가와유 아 세 호 유 세 우</td>
+                            
+                        </tr>
+                        <tr>
+                            <th scope="row">이메일</th>
+                            <td>bokbok12@nate.com</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">가입일</th>
+                            <td>2023-11-01</td>
+                        </tr>
+                    </table>
+                </div>
+               
+            </div>
+        </div>
+
+
+
+        <!-- 등록 반려견 정보 -->
+        <div class="admin-main-wrap" style="margin-top: 30px;">
+             <div class="user-extra-title">
+                <h4>등록 반려견 정보</h4>
+            </div>
+            <div class="registerd-pet-info-container">
+                <dl class="registerd-pet-info-dl">
+                    <dt class="registerd-pet-img">
+                        <img src="/user/img/user-default-img.png" alt="pet-img" />
+                    </dt>
+                    <dd class="registerd-pet-dd">
+                        <div class="registerd-pet-detail-info">
+                            <ul class="registerd-pet-detail-info-ul">
+                                <li class="pet-name">이름 : <span>구찌</span></li>
+                                <li class="pet-species">견종 : <span>말티즈</span></li>
+                                <li class="pet-birth">생일 : <span>2014-05-04</span></li>
+                                <li class="pet-gender">성별 : <span>남아</span></li>
+                                <li class="pet-x">중성화 여부 : 예 </li>
+                                <li class="pet-weight">몸무게 : 5.2kg </li>
+                            </ul>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="registerd-pet-info-dl">
+                    <dd class="registerd-pet-img">
+                        <img src="/user/img/user-default-img.png" alt="pet-img" />
+                    </dd>
+                    <dd class="registerd-pet-dd">
+                        <div class="registerd-pet-detail-info">
+                            <ul class="registerd-pet-detail-info-ul">
+                                <li class="pet-name">이름 : <span>구찌</span></li>
+                                <li class="pet-species">견종 : <span>말티즈</span></li>
+                                <li class="pet-birth">생일 : <span>2014-05-04</span></li>
+                                <li class="pet-gender">성별 : <span>남아</span></li>
+                                <li class="pet-x">중성화 여부 : 예 </li>
+                                <li class="pet-weight">몸무게 : 5.2kg </li>
+                            </ul>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="registerd-pet-info-dl">
+                    <dt class="registerd-pet-img">
+                        <img src="/user/img/user-default-img.png" alt="pet-img" />
+                    </dt>
+                    <dd class="registerd-pet-dd">
+                        <div class="registerd-pet-detail-info">
+                            <ul class="registerd-pet-detail-info-ul">
+                                <li class="pet-name">이름 : <span>구찌</span></li>
+                                <li class="pet-species">견종 : <span>말티즈</span></li>
+                                <li class="pet-birth">생일 : <span>2014-05-04</span></li>
+                                <li class="pet-gender">성별 : <span>남아</span></li>
+                                <li class="pet-x">중성화 여부 : 예 </li>
+                                <li class="pet-weight">몸무게 : 5.2kg </li>
+                            </ul>
+                        </div>
+                    </dd>
+                </dl>
+
+
+            </div>
+        </div>
+
+        <!-- 기타 회원 추가 정보 -->
+        <div class="extra-wrap">
+            <div class="admin-main-wrap admin-extra-wrap" style="margin-top: 10px; width: 620px;">
+                <div class="user-extra-title">
+                <h5>게시글</h5>
+                <p>총 게시글 : <span>5</span></p>
+            </div>
+            <div class="community-info-container">
+                <table class="community-info-list">
+                    <tr class="commnunity-table-column">
+                       <th width="310">제목</th>
+                       <th width="90">작성일자</th>
+                       <th width="40">조회수</th>
+                       <th width="40">댓글수</th>
+                    </tr>
+                    <tr>
+                        <td class="community-title" >냠냠이와 함께냠냠이와 함께냠냠이와 함께냠냠이와 함께냠냠이와 함께냠냠이와 함께</td>
+                        <td class="community-reg-date">2011-11-11</td>
+                        <td class="community-count">22</td>
+                        <td class="community-reply">10</td>
+                    </tr>
+                    <tr>
+                        <td class="community-title">냠냠이와 함께</td>
+                        <td class="community-reg-date">2011-11-11</td>
+                        <td class="community-count">22</td>
+                        <td class="community-reply">10</td>
+                    </tr>
+                    <tr>
+                        <td class="community-title">냠냠이와 함께</td>
+                        <td class="community-reg-date">2011-11-11</td>
+                        <td class="community-count">22</td>
+                        <td class="community-reply">10</td>
+                    </tr>
+                    <tr>
+                        <td class="community-title">냠냠이와 함께</td>
+                        <td class="community-reg-date">2011-11-11</td>
+                        <td class="community-count">22</td>
+                        <td class="community-reply">10</td>
+                    </tr>
+                    <tr>
+                        <td class="community-title">냠냠이와 함께</td>
+                        <td class="community-reg-date">2011-11-11</td>
+                        <td class="community-count">22</td>
+                        <td class="community-reply">10</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="pagination-container">
+                <ul class="pagination-ul">
+                    <li><a href="#">&lt;</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">&gt;</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="admin-main-wrap admin-extra-wrap" style="margin-top: 10px; width: 620px;">
+            <div class="user-extra-title">
+                <h5>주문내역</h5>
+                <p>총 주문 금액 : <span>409,000원</span></p>
+
+            </div>
+            <div class="community-info-container">
+                <table class="community-info-list">
+                    <tr class="commnunity-table-column">
+                       <th width="300">상품명</th>
+                       <th width="90">주문일자</th>
+                       <th width="40">수량</th>
+                       <th width="80">금액</th>
+                    </tr>
+                    <tr>
+                        <td class="community-title" >냠냠이가 좋아하는 영양제</td>
+                        <td class="community-reg-date">2011-11-11</td>
+                        <td class="community-count">22</td>
+                        <td class="community-reply">19,000</td>
+                    </tr>
+                    <tr>
+                        <td class="community-title">냠냠이와 함께</td>
+                        <td class="community-reg-date">2011-11-11</td>
+                        <td class="community-count">22</td>
+                        <td class="community-reply">10</td>
+                    </tr>
+                    <tr>
+                        <td class="community-title">냠냠이와 함께</td>
+                        <td class="community-reg-date">2011-11-11</td>
+                        <td class="community-count">22</td>
+                        <td class="community-reply">10</td>
+                    </tr>
+                    <tr>
+                        <td class="community-title">냠냠이와 함께</td>
+                        <td class="community-reg-date">2011-11-11</td>
+                        <td class="community-count">22</td>
+                        <td class="community-reply">10</td>
+                    </tr>
+                    <tr>
+                        <td class="community-title">냠냠이와 함께</td>
+                        <td class="community-reg-date">2011-11-11</td>
+                        <td class="community-count">22</td>
+                        <td class="community-reply">10</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="pagination-container">
+                <ul class="pagination-ul">
+                    <li><a href="#">&lt;</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">&gt;</a></li>
+                </ul>
+            </div>
+        </div>
+   </div>
+    </div>
+</main>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<script src="/admin/js/adminUserDetail.js"></script>
+<script src="/fragment/js/adminSide.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/common/css/common.css">
+    <link rel="stylesheet" href="/admin/css/adminAside.css">
+    <link rel="stylesheet" href="/admin/css/adminWalkList.css">
+    <title>관리자 페이지</title>
+</head>
+<body class="body">
+<div class="top-section">
+    <div class="top-title">
+        <h3>관리자 페이지</h3>
+    </div>
+</div>
+
+<div class="admin-index-wrap" >
+    <div class="admin-fragment">
+        <div class="admin-hidden-title">
+            <h3>관리자 페이지</h3>
+        </div>
+        <aside class="aside">
+            <ul class="side-menu">
+                <li class="user-manage admin-manage">회원 관리
+                    <div class="sub-menu">
+                        <ul class="sub-menu-ul">
+                            <li><a href="/admin/html/adminIndex.html">회원 현황</a></li>
+                            <li><a href="/admin/html/adminUserList.html">회원 목록</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="goods-manage admin-manage">상품 관리
+                    <div class="sub-menu">
+                        <ul class="sub-menu-ul">
+                            <li><a href="/admin/html/adminGoodsList.html">상품 목록</a></li>
+                            <li><a href="/admin/html/adminGoodsQue.html">상품 문의</a></li>
+                            <li><a href="/admin/html/adminGoodsReview.html">상품 리뷰</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="order-manage admin-manage">주문 관리
+                    <div class="sub-menu">
+                        <ul class="sub-menu-ul">
+                            <li><a href="/admin/html/adminOrderManage.html">주문 현황</a></li>
+                                <li><a href="/admin/html/adminOrderList.html">주문 목록</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="notice-manage admin-manage">커뮤니티 관리
+                    <div class="sub-menu">
+                        <ul class="sub-menu-ul"> 
+                            <li><a href="/admin/html/adminNoticeList.html">공지 목록</a></li>
+                            <li><a href="/admin/html/adminQnaList.html">QnA 목록</a></li>
+                            <li><a href="/admin/html/adminFreeList.html">자유게시판글 목록</a></li>
+                            <li><a href="/admin/html/adminWalkList.html">산책글 목록</a></li>
+
+                        </ul>
+                    </div>
+                </li>
+          
+            </ul>
+        </aside>
+     </div>
+
+<main class="main">
+    <div class="admin-menu-title-container">
+        <div class="admin-menu-title">
+            <h4>산책모집 목록</h4>
+        </div>
+    </div>
+
+    <div class="admin-main-bcc">
+        <div class="admin-main-wrap walk-wrap">
+           
+            <div class="admin-walk-search-container">
+                <form action="" method="" id="search-form">
+                    <div class="select-form">
+                        <select id="walk-search-cate" name="walk-search-cate">
+                            <option value="1">제목</option>
+                            <option value="2">작성자</option>
+                        </select>
+                    </div>
+                    <div class="input-form">
+                        <input type="text" name="walk-search-keyword" id="walk-search-keyword" />
+                    </div>
+                    
+                    <div class="result-btn">
+                        <button type="button" class="result-walk-submit-btn">검색</button>
+                    </div>
+                    <div class="radio-box-form">
+                        <label for="status">
+                            <input type="radio" name="status" id="status" checked/> 
+                        최신순
+                        </label>
+                        <label for="status-y">
+                            <input type="radio" name="status" id="status-y"/>
+                         모집완료
+                        </label>
+                        <label for="status-n">
+                            <input type="radio" name="status" id="status-n"/> 
+                        모집대기 
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="admin-walk-list-container">
+                <div class="admin-walk-list">
+                    <div class="admin-walk-list-table">
+                        <div class="walk-number-column column">게시번호</div>
+                        <div class="walk-id-column column">작성자</div>
+                        <div class="walk-title-column column">제목</div>
+                        <div class="walk-locate-column column">지역</div>
+                        <div class="walk-date-column column"> 희망시간</div>
+                        <div class="walk-gether-state-column column">모집상태</div>
+                        <div class="walk-gether-status-column column">모집현황</div>
+                        <div class="walk-etc-column column">비고</div>
+                    </div>
+                    
+                </div>
+                <div class="admin-walk-lists">
+                    <div class="admin-walk-list-table rr">
+                        <div class="walk-number row">10</div>
+                        <div class="walk-id row">bokbok1234</div>
+                        <div class="walk-title row">산책하실분!</div>
+                        <div class="walk-locate row">서울특별시 노원구</div>
+                        <div class="walk-date row">2023-11-11 14:00</div>
+                        <div class="walk-gether-state row">모집중</div>
+                        <div class="walk-gether-status row"> 3 / 4</div>
+                        <div class="walk-etc btns row">
+                            <a href="/admin/html/adminWalkDetail.html" class="detail-btn">상세</a>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </div>
+        <div class="admin-main-wrap pagination-wrap" style="margin-top: 5px;">
+            <div class="pagination-container">
+                <ul class="pagination-ul">
+                    <li><a href="#">&lt;</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">&gt;</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<script src="/admin/js/adminWalkList.js"></script>
+<script src="/fragment/js/adminSide.js"></script>
+</body>
+</html>

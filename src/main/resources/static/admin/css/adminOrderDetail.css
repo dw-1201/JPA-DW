@@ -1,0 +1,150 @@
+.admin-menu-title-container {
+    width: 100%;
+
+}
+.admin-menu-title {
+    padding: 0px 0px 20px 20px;
+    box-sizing: border-box;
+}
+
+.admin-menu-title h4 {
+    
+    height: 40px;
+    box-shadow: 0.5px 0.5px 0.5px 1px rgb(198, 197, 197);
+    background-color: white;
+    box-sizing: border-box;
+    padding: 10px 10px 10px 20px;
+}
+
+
+.admin-main-wrap {
+    position: relative;
+
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: white;
+    width: 1272px;
+    box-shadow: 0.5px 0.5px 0.5px 1px rgb(198, 197, 197);
+
+}
+
+.admin-main-bcc {
+    padding: 20px 0px 20px 20px;
+} 
+
+
+
+.order-user-stan-title, .order-extra-title {
+    height: 35px;
+}
+
+.order-stan-info {
+    display: flex;
+    justify-content: space-between;
+    /* border: 1px solid red; */
+}
+
+
+.order-img {
+    border: 1px solid gray;
+    width: 180px;
+    height: 180px;
+}
+.order-img > img {
+    width: 100%;
+    height: 100%;
+}
+.order-info-table {
+    font-size: 13px;
+    border: 1px solid gray;
+    height: 180px;
+}
+.order-info-table tr th {
+    box-sizing: border-box;
+    padding-left: 7px;
+    text-align: start;
+    border: 1px solid gray;
+}
+.order-info-table tr td {
+    box-sizing: border-box;
+    padding-left: 7px;
+    border: 1px solid gray;
+
+}
+
+.order-info-table th {
+
+    background-color: rgb(209, 209, 202);
+}
+
+
+
+
+/* 주문 상품 정보 */
+.ordered-goods-info-container {
+    box-sizing: border-box;
+    height: 333px;
+    padding: 10px 100px 0px 100px;
+    overflow: hidden;
+
+}
+.ordered-goods-info-dl {
+    
+    border-bottom: 1px solid gray;
+    display: flex;
+    width: 100%;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+
+.ordered-goods-info-dl:last-child{
+    margin-bottom: 0px;
+}
+
+
+
+.ordered-goods-dd {
+    width: 100%;
+}
+
+.ordered-goods-img {
+    box-sizing: border-box;
+    padding: 5px;
+    width: 180px;
+    height: 130px;
+}
+.ordered-goods-img > img {
+    width: 100%;
+    height: 100%;
+}
+
+.ordered-goods-detail-info-ul {
+    text-align: end;
+    font-size: 13px;
+    box-sizing: border-box;
+    padding: 10px;
+    line-height: 1.8;
+}
+
+.show-more-btn {
+    box-sizing: border-box;
+    padding: 10px 100px 0px 100px;
+    width: 100%;
+    display: none;
+}
+.show-more-btn button {
+    cursor: pointer;
+    height: 32px;
+
+    width: 100%;
+}
+
+.on {
+
+    height: auto;
+}
+
+
+.order-result {
+    text-align: center;
+}

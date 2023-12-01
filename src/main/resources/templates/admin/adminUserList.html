@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/common/css/common.css">
+    <link rel="stylesheet" href="/admin/css/adminAside.css">
+    <link rel="stylesheet" href="/admin/css/adminUserList.css">
+    <title>관리자 페이지</title>
+</head>
+<body class="body">
+<div class="top-section">
+    <div class="top-title">
+        <h3>관리자 페이지</h3>
+    </div>
+</div>
+
+<div class="admin-index-wrap" >
+    <div class="admin-fragment">
+        <div class="admin-hidden-title">
+            <h3>관리자 페이지</h3>
+        </div>
+        <aside class="aside">
+            <ul class="side-menu">
+                <li class="user-manage admin-manage">회원 관리
+                    <div class="sub-menu">
+                        <ul class="sub-menu-ul">
+                            <li><a href="/admin/html/adminIndex.html">회원 현황</a></li>
+                            <li><a href="/admin/html/adminUserList.html">회원 목록</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="goods-manage admin-manage">상품 관리
+                    <div class="sub-menu">
+                        <ul class="sub-menu-ul">
+                            <li><a href="/admin/html/adminGoodsList.html">상품 목록</a></li>
+                            <li><a href="/admin/html/adminGoodsQue.html">상품 문의</a></li>
+                            <li><a href="/admin/html/adminGoodsReview.html">상품 리뷰</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="order-manage admin-manage">주문 관리
+                    <div class="sub-menu">
+                        <ul class="sub-menu-ul">
+                            <li><a href="/admin/html/adminOrderManage.html">주문 현황</a></li>
+                                <li><a href="/admin/html/adminOrderList.html">주문 목록</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="notice-manage admin-manage">커뮤니티 관리
+                    <div class="sub-menu">
+                        <ul class="sub-menu-ul"> 
+                            <li><a href="/admin/html/adminNoticeList.html">공지 목록</a></li>
+                            <li><a href="/admin/html/adminQnaList.html">QnA 목록</a></li>
+                            <li><a href="/admin/html/adminFreeList.html">자유게시판글 목록</a></li>
+                            <li><a href="/admin/html/adminWalkList.html">산책글 목록</a></li>
+
+                        </ul>
+                    </div>
+                </li>
+          
+            </ul>
+        </aside>
+     </div>
+
+<main class="main">
+    <div class="admin-menu-title-container">
+        <div class="admin-menu-title">
+            <h4>회원 목록</h4>
+        </div>
+    </div>
+    <div class="admin-main-bcc">
+        <div class="admin-main-wrap">
+            <div class="user-info-search-container">
+                <form action="" method="" id="search-form">
+                    <div class="select-form">
+                        <select id="search-cate" name="search-cate">
+                            <option value="1">아이디</option>
+                            <option value="2">이름</option>
+                        </select>
+                    </div>
+                    <div class="input-form">
+                        <input type="text" name="search-keword" id="search-keword" />
+                    </div>
+                    <div class="result-btn">
+                        <button type="button" class="result-submit-btn">검색</button>
+                    </div>
+                </form>
+            </div>
+            <div class="user-info-list-container">
+                <table class="user-info-table" border="1" cellspacing="0">
+                    <tr class="table-column">
+                        <th width="230">아이디</th>
+                        <th width="120">이름</th>
+                        <th width="260">이메일</th>
+                        <th width="160">전화번호</th>
+                        <th width="100">게시글수</th>
+                        <th width="100">댓글수</th>
+                        <th>비고</th>
+                    </tr>
+                    <tr>
+                        <td>bokbok1234</td>
+                        <td>복영헌</td>
+                        <td>bokbok1234@nate.com</td>
+                        <td>01054664593</td>
+                        <td>13</td>
+                        <td>55</td>
+                        <td class="list-btns">
+                            <button type="button" class="detail-btn btn">상세보기</button>
+                            <button type="button" class="delete-btn btn">탈퇴처리</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>bokbok1234</td>
+                        <td>복영헌</td>
+                        <td>bokbok1234@nate.com</td>
+                        <td>01054664593</td>
+                        <td>13</td>
+                        <td>55</td>
+                        <td class="list-btns">
+                            <button type="button" class="detail-btn btn">상세보기</button>
+                            <button type="button" class="delete-btn btn">탈퇴처리</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>bokbok1234</td>
+                        <td>복영헌</td>
+                        <td>bokbok1234@nate.com</td>
+                        <td>01054664593</td>
+                        <td>13</td>
+                        <td>55</td>
+                        <td class="list-btns">
+                            <button type="button" class="detail-btn btn">상세보기</button>
+                            <button type="button" class="delete-btn btn">탈퇴처리</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>bokbok1234</td>
+                        <td>복영헌</td>
+                        <td>bokbok1234@nate.com</td>
+                        <td>01054664593</td>
+                        <td>13</td>
+                        <td>55</td>
+                        <td class="list-btns">
+                            <button type="button" class="detail-btn btn">상세보기</button>
+                            <button type="button" class="delete-btn btn">탈퇴처리</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>bokbok1234</td>
+                        <td>복영헌</td>
+                        <td>bokbok1234@nate.com</td>
+                        <td>01054664593</td>
+                        <td>13</td>
+                        <td>55</td>
+                        <td class="list-btns">
+                            <button type="button" class="detail-btn btn">상세보기</button>
+                            <button type="button" class="delete-btn btn">탈퇴처리</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>bokbok1234</td>
+                        <td>복영헌</td>
+                        <td>bokbok1234@nate.com</td>
+                        <td>01054664593</td>
+                        <td>13</td>
+                        <td>55</td>
+                        <td class="list-btns">
+                            <button type="button" class="detail-btn btn">상세보기</button>
+                            <button type="button" class="delete-btn btn">탈퇴처리</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>bokbok1234</td>
+                        <td>복영헌</td>
+                        <td>bokbok1234@nate.com</td>
+                        <td>01054664593</td>
+                        <td>13</td>
+                        <td>55</td>
+                        <td class="list-btns">
+                            <button type="button" class="detail-btn btn">상세보기</button>
+                            <button type="button" class="delete-btn btn">탈퇴처리</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>bokbok1234</td>
+                        <td>복영헌</td>
+                        <td>bokbok1234@nate.com</td>
+                        <td>01054664593</td>
+                        <td>13</td>
+                        <td>55</td>
+                        <td class="list-btns">
+                            <button type="button" class="detail-btn btn">상세보기</button>
+                            <button type="button" class="delete-btn btn">탈퇴처리</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>bokbok1234</td>
+                        <td>복영헌</td>
+                        <td>bokbok1234@nate.com</td>
+                        <td>01054664593</td>
+                        <td>13</td>
+                        <td>55</td>
+                        <td class="list-btns">
+                            <button type="button" class="detail-btn btn">상세보기</button>
+                            <button type="button" class="delete-btn btn">탈퇴처리</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>bokbok1234</td>
+                        <td>복영헌</td>
+                        <td>bokbok1234@nate.com</td>
+                        <td>01054664593</td>
+                        <td>13</td>
+                        <td>55</td>
+                        <td class="list-btns">
+                            <button type="button" class="detail-btn btn">상세보기</button>
+                            <button type="button" class="delete-btn btn">탈퇴처리</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>bokbok1234</td>
+                        <td>복영헌</td>
+                        <td>bokbok1234@nate.com</td>
+                        <td>01054664593</td>
+                        <td>13</td>
+                        <td>55</td>
+                        <td class="list-btns">
+                            <button type="button" class="detail-btn btn">상세보기</button>
+                            <button type="button" class="delete-btn btn">탈퇴처리</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>bokbok1234</td>
+                        <td>복영헌</td>
+                        <td>bokbok1234@nate.com</td>
+                        <td>01054664593</td>
+                        <td>13</td>
+                        <td>55</td>
+                        <td class="list-btns">
+                            <button type="button" class="detail-btn btn">상세보기</button>
+                            <button type="button" class="delete-btn btn">탈퇴처리</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>bokbok1234</td>
+                        <td>복영헌</td>
+                        <td>bokbok1234@nate.com</td>
+                        <td>01054664593</td>
+                        <td>13</td>
+                        <td>55</td>
+                        <td class="list-btns">
+                            <button type="button" class="detail-btn btn">상세보기</button>
+                            <button type="button" class="delete-btn btn">탈퇴처리</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>bokbok1234</td>
+                        <td>복영헌</td>
+                        <td>bokbok1234@nate.com</td>
+                        <td>01054664593</td>
+                        <td>13</td>
+                        <td>55</td>
+                        <td class="list-btns">
+                            <button type="button" class="detail-btn btn">상세보기</button>
+                            <button type="button" class="delete-btn btn">탈퇴처리</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>bokbok1234</td>
+                        <td>복영헌</td>
+                        <td>bokbok1234@nate.com</td>
+                        <td>01054664593</td>
+                        <td>13</td>
+                        <td>55</td>
+                        <td class="list-btns">
+                            <button type="button" class="detail-btn btn">상세보기</button>
+                            <button type="button" class="delete-btn btn">탈퇴처리</button>
+                        </td>
+                    </tr>    
+                </table>
+            </div>
+        </div>
+        <div class="admin-main-wrap pagination-wrap" style="margin-top: 10px;">
+            <div class="pagination-container">
+                <ul class="pagination-ul">
+                    <li><a href="#">&lt;</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">&gt;</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<script src="/admin/js/adminUserList.js"></script>
+<script src="/fragment/js/adminSide.js"></script>
+</body>
+</html>
