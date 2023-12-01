@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name="pet_category")
 public class PetCategory {
     @Id
-    @GeneratedValue
+    @GeneratedValue @Column(name = "pet_category_id")
     private Long id;
 
     private String categoryName;

@@ -1,11 +1,13 @@
 package com.example.dw.entity.goods;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.example.dw.entity.user.Users;
+import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name="goods_que")
@@ -14,5 +16,28 @@ import lombok.Setter;
 public class GoodsQue {
     @Id
     @GeneratedValue
+    @Column(name="goods_que_id")
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private Users users;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="goods_id")
+    private Goods goods;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "goodsQue")
+    private GoodsQueReply goodsQueReply;
+
+
+    private String queContent;
+    @Default
+    private LocalDateTime queRegisterDate = LocalDateTime.now();
+    @Default
+    private LocalDateTime queModifyDate = LocalDateTime.now();
+
+
+
+
 }
