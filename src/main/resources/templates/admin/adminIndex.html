@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/common/css/common.css">
+    <link rel="stylesheet" href="/admin/css/adminAside.css">
+    <link rel="stylesheet" href="/admin/css/adminIndex.css">
+
+    <title>관리자 페이지</title>
+</head>
+<body class="body">
+    <div class="top-section">
+        <div class="top-title">
+            <h3>관리자 페이지</h3>
+        </div>
+    </div>
+    
+    <div class="admin-index-wrap" >
+        <div class="admin-fragment">
+            <div class="admin-hidden-title">
+                <h3>관리자 페이지</h3>
+            </div>
+            <aside class="aside">
+                <ul class="side-menu">
+                    <li class="user-manage admin-manage">회원 관리
+                        <div class="sub-menu">
+                            <ul class="sub-menu-ul">
+                                <li><a href="/admin/html/adminIndex.html">회원 현황</a></li>
+                                <li><a href="/admin/html/adminUserList.html">회원 목록</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="goods-manage admin-manage">상품 관리
+                        <div class="sub-menu">
+                            <ul class="sub-menu-ul">
+                                <li><a href="/admin/html/adminGoodsList.html">상품 목록</a></li>
+                                <li><a href="/admin/html/adminGoodsQue.html">상품 문의</a></li>
+                                <li><a href="/admin/html/adminGoodsReview.html">상품 리뷰</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="order-manage admin-manage">주문 관리
+                        <div class="sub-menu">
+                            <ul class="sub-menu-ul">
+                                <li><a href="/admin/html/adminOrderManage.html">주문 현황</a></li>
+                                    <li><a href="/admin/html/adminOrderList.html">주문 목록</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="notice-manage admin-manage">커뮤니티 관리
+                        <div class="sub-menu">
+                            <ul class="sub-menu-ul"> 
+                                <li><a href="/admin/html/adminNoticeList.html">공지 목록</a></li>
+                                <li><a href="/admin/html/adminQnaList.html">QnA 목록</a></li>
+                                <li><a href="/admin/html/adminFreeList.html">자유게시판글 목록</a></li>
+                                <li><a href="/admin/html/adminWalkList.html">산책글 목록</a></li>
+    
+                            </ul>
+                        </div>
+                    </li>
+              
+                </ul>
+            </aside>
+         </div>
+<main class="main">
+    <div class="admin-menu-title-container">
+        <div class="admin-menu-title">
+            <h4>회원 현황</h4>
+        </div>
+    </div>
+    <div class="admin-main-bcc">
+        <div class="admin-main-wrap">
+            <div class="chart">
+                <div class="chart-title">
+                    <h4>일별 회원 가입 현황</h4>
+                </div>
+                <div class="chart-container">
+                    <canvas id="weekly-join-chart" class="join-chart"></canvas>
+                </div>
+            </div>
+            <div class="recent-join-user">
+                <div class="recent-join-title">
+                    <h4>신규 가입 회원 현황</h4>
+                </div>
+                <div class="join-user-table-container">
+                    <table class="join-user-table">
+                        <tr>
+                            <th>아이디</th>
+                            <th>이름</th>
+                            <th>이메일</th>
+                            <th>휴대폰 번호</th>
+                            <th>가입 일자</th>
+                        </tr>
+                        <tr>
+                            <td>bokbok1234</td>
+                            <td>복영헌</td>
+                            <td>bokbok1234@nate.com</td>
+                            <td>01054664593</td>
+                            <td>2023-11-21</td>
+                        </tr>
+                        <tr>
+                            <td>bokbok1234</td>
+                            <td>복영헌</td>
+                            <td>bokbok1234@nate.com</td>
+                            <td>01054664593</td>
+                            <td>2023-11-21</td>
+
+                        </tr>
+                        <tr>
+                            <td>bokbok1234</td>
+                            <td>복영헌</td>
+                            <td>bokbok1234@nate.com</td>
+                            <td>01054664593</td>
+                            <td>2023-11-21</td>
+
+                        </tr>
+                        <tr>
+                            <td>bokbok1234</td>
+                            <td>복영헌</td>
+                            <td>bokbok1234@nate.com</td>
+                            <td>01054664593</td>
+                            <td>2023-11-21</td>
+
+                        </tr>
+                    
+                
+                    </table>
+                </div>
+                <div class="user-status">
+                    <ul class="user-status-ul">
+                        <li>전체회원
+                            <div class="total-user admin-user-info" style="color:rgb(0, 157, 255)">
+                                0
+                            </div>
+                        </li>
+                        <li>오늘 가입회원
+                            <div class="today-join-user admin-user-info" style="color:rgb(235, 153, 1)">
+                                0
+                            </div>
+                        </li>
+                        <li>오늘 탈퇴회원
+                            <div class="delete-user admin-user-info" style="color:gray">
+                                0
+                            </div>
+                        </li>
+                        <li>총 탈퇴회원
+                            <div class="total-delete-user admin-user-info">
+                                0
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="admin-main-wrap" style="margin-top: 50px;">
+            <div class="chart">
+                <div class="chart-title">
+                    <h4>일별 회원 가입 현황</h4>
+                </div>
+                <div class="chart-container">
+                    <!-- <canvas id="" class=""></canvas> -->
+                </div>
+            </div>
+            <div class="recent-join-user">
+                <div class="recent-join-title">
+                    <h4>신규 가입 회원 현황</h4>
+                </div>
+                <div class="join-user-table-container">
+                    <table class="join-user-table">
+                        <tr>
+                            <th>아이디</th>
+                            <th>이름</th>
+                            <th>이메일</th>
+                            <th>휴대폰 번호</th>
+                            <th>가입 일자</th>
+                        </tr>
+                        <tr>
+                            <td>bokbok1234</td>
+                            <td>복영헌</td>
+                            <td>bokbok1234@nate.com</td>
+                            <td>01054664593</td>
+                            <td>2023-11-21</td>
+                        </tr>
+                        <tr>
+                            <td>bokbok1234</td>
+                            <td>복영헌</td>
+                            <td>bokbok1234@nate.com</td>
+                            <td>01054664593</td>
+                            <td>2023-11-21</td>
+
+                        </tr>
+                        <tr>
+                            <td>bokbok1234</td>
+                            <td>복영헌</td>
+                            <td>bokbok1234@nate.com</td>
+                            <td>01054664593</td>
+                            <td>2023-11-21</td>
+
+                        </tr>
+                        <tr>
+                            <td>bokbok1234</td>
+                            <td>복영헌</td>
+                            <td>bokbok1234@nate.com</td>
+                            <td>01054664593</td>
+                            <td>2023-11-21</td>
+
+                        </tr>
+                    
+                
+                    </table>
+                </div>
+                <div class="user-status">
+                    <ul class="user-status-ul">
+                        <li>전체회원
+                            <div class="total-user admin-user-info" style="color:rgb(0, 157, 255)">
+                                0
+                            </div>
+                        </li>
+                        <li>오늘 가입회원
+                            <div class="today-join-user admin-user-info" style="color:rgb(235, 153, 1)">
+                                0
+                            </div>
+                        </li>
+                        <li>오늘 탈퇴회원
+                            <div class="delete-user admin-user-info" style="color:gray">
+                                0
+                            </div>
+                        </li>
+                        <li>총 탈퇴회원
+                            <div class="total-delete-user admin-user-info">
+                                0
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script src="/admin/js/adminIndex.js"></script>
+<script src="/fragment/js/adminSide.js"></script>
+</body>
+</html>

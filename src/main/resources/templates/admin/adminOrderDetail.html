@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/common/css/common.css">
+    <link rel="stylesheet" href="/admin/css/adminOrderDetail.css">
+    <link rel="stylesheet" href="/admin/css/adminAside.css">
+    <title>관리자 페이지</title>
+</head>
+<body class="body">
+    <div class="top-section">
+        <div class="top-title">
+            <h3>관리자 페이지</h3>
+        </div>
+    </div>
+    <div class="admin-index-wrap" >
+        <div class="admin-fragment">
+            <div class="admin-hidden-title">
+                <h3>관리자 페이지</h3>
+            </div>
+            <aside class="aside">
+                <ul class="side-menu">
+                    <li class="user-manage admin-manage">회원 관리
+                        <div class="sub-menu">
+                            <ul class="sub-menu-ul">
+                                <li><a href="/admin/html/adminIndex.html">회원 현황</a></li>
+                                <li><a href="/admin/html/adminUserList.html">회원 목록</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="goods-manage admin-manage">상품 관리
+                        <div class="sub-menu">
+                            <ul class="sub-menu-ul">
+                                <li><a href="/admin/html/adminGoodsList.html">상품 목록</a></li>
+                                <li><a href="/admin/html/adminGoodsQue.html">상품 문의</a></li>
+                                <li><a href="/admin/html/adminGoodsReview.html">상품 리뷰</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="order-manage admin-manage">주문 관리
+                        <div class="sub-menu">
+                            <ul class="sub-menu-ul">
+                                <li><a href="/admin/html/adminOrderManage.html">주문 현황</a></li>
+                                    <li><a href="/admin/html/adminOrderList.html">주문 목록</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="notice-manage admin-manage">커뮤니티 관리
+                        <div class="sub-menu">
+                            <ul class="sub-menu-ul"> 
+                                <li><a href="/admin/html/adminNoticeList.html">공지 목록</a></li>
+                                <li><a href="/admin/html/adminQnaList.html">QnA 목록</a></li>
+                                <li><a href="/admin/html/adminFreeList.html">자유게시판글 목록</a></li>
+                                <li><a href="/admin/html/adminWalkList.html">산책글 목록</a></li>
+    
+                            </ul>
+                        </div>
+                    </li>
+              
+                </ul>
+            </aside>
+         </div>
+<main class="main">
+    <div class="admin-menu-title-container">
+        <div class="admin-menu-title">
+            <h4>주문 상세</h4>
+        </div>
+    </div>
+    <div class="admin-main-bcc">
+        <div class="admin-main-wrap">
+            <div class="order-user-stan-title">
+                <h4>주문 회원 정보</h4>
+            </div>
+            <div class="order-stan-info">
+                <div class="order-img">
+                    <img src="/user/img/user-default-img.png" alt="order-img" />
+                </div>
+                <div class="order-info first-section">
+                    <table class="order-info-table"  cellspacing="0">
+                        <tr>
+                            <colgroup>
+                                <col style="width: 100px;">
+                                <col style="width: 415px;">
+                                <col style="width: 100px;">
+                                <col style="width: 415px;">
+                            </colgroup>
+                        </tr>
+                        <tr>
+                            <th scope="row">아이디</th>
+                            <td>bokbok1234</td>
+                            <th scope="row" rowspan="3">주소</th>
+                            <td class="postal-code">020202</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">이름</th>
+                            <td>복영헌</td>
+                            <td class="address">서울특별시 노원구</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">닉네임</th>
+                            <td>Bokka</td>
+                            <td class="detail-address">3층 3333호</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">휴대전화</th>
+                            <td>01055555555</td>
+                            <th scope="row">주문 일자</th>
+                            <td>2023-11-11</td>
+                           
+                            
+                        </tr>
+                    </table>
+                </div>
+               
+            </div>
+        </div>
+
+
+
+        <!-- 주문 상품 정보 -->
+        <div class="admin-main-wrap" style="margin-top: 30px;">
+             <div class="order-extra-title">
+                <h4>주문 상품 정보</h4>
+            </div>
+            <div class="ordered-goods-info-container">
+                <dl class="ordered-goods-info-dl">
+                    <dt class="ordered-goods-img">
+                        <img src="/user/img/user-default-img.png" alt="ordered-goods-img" />
+                    </dt>
+                    <dd class="ordered-goods-dd">
+                        <div class="ordered-goods-detail-info">
+                            <ul class="ordered-goods-detail-info-ul">
+                                <li class="goods-name"><span>냠냠이가 좋아하는 냠냠이</span></li>
+                                <li class="goods-quantity"><span>10 EA</span></li>
+                                <li class="goods-per-price"><span>13,000원</span></li>
+                                <li class="goods-totla-price"><span>130,000원</span></li>
+                            </ul>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="ordered-goods-info-dl">
+                    <dt class="ordered-goods-img">
+                        <img src="/user/img/user-default-img.png" alt="ordered-goods-img" />
+                    </dt>
+                    <dd class="ordered-goods-dd">
+                        <div class="ordered-goods-detail-info">
+                            <ul class="ordered-goods-detail-info-ul">
+                                <li class="goods-name"><span>냠냠이가 좋아하는 냠냠이</span></li>
+                                <li class="goods-quantity"><span>10 EA</span></li>
+                                <li class="goods-per-price"><span>13,000원</span></li>
+                                <li class="goods-totla-price"><span>130,000원</span></li>
+                            </ul>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="ordered-goods-info-dl">
+                    <dt class="ordered-goods-img">
+                        <img src="/user/img/user-default-img.png" alt="ordered-goods-img" />
+                    </dt>
+                    <dd class="ordered-goods-dd">
+                        <div class="ordered-goods-detail-info">
+                            <ul class="ordered-goods-detail-info-ul">
+                                <li class="goods-name"><span>냠냠이가 좋아하는 냠냠이</span></li>
+                                <li class="goods-quantity"><span>10 EA</span></li>
+                                <li class="goods-per-price"><span>13,000원</span></li>
+                                <li class="goods-totla-price"><span>130,000원</span></li>
+                            </ul>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="ordered-goods-info-dl">
+                    <dt class="ordered-goods-img">
+                        <img src="/user/img/user-default-img.png" alt="ordered-goods-img" />
+                    </dt>
+                    <dd class="ordered-goods-dd">
+                        <div class="ordered-goods-detail-info">
+                            <ul class="ordered-goods-detail-info-ul">
+                                <li class="goods-name"><span>냠냠이가 좋아하는 냠냠이</span></li>
+                                <li class="goods-quantity"><span>10 EA</span></li>
+                                <li class="goods-per-price"><span>13,000원</span></li>
+                                <li class="goods-totla-price"><span>130,000원</span></li>
+                            </ul>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="ordered-goods-info-dl">
+                    <dt class="ordered-goods-img">
+                        <img src="/user/img/user-default-img.png" alt="ordered-goods-img" />
+                    </dt>
+                    <dd class="ordered-goods-dd">
+                        <div class="ordered-goods-detail-info">
+                            <ul class="ordered-goods-detail-info-ul">
+                                <li class="goods-name"><span>냠냠이가 좋아하는 냠냠이</span></li>
+                                <li class="goods-quantity"><span>10 EA</span></li>
+                                <li class="goods-per-price"><span>13,000원</span></li>
+                                <li class="goods-totla-price"><span>130,000원</span></li>
+                            </ul>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="ordered-goods-info-dl">
+                    <dt class="ordered-goods-img">
+                        <img src="/user/img/user-default-img.png" alt="ordered-goods-img" />
+                    </dt>
+                    <dd class="ordered-goods-dd">
+                        <div class="ordered-goods-detail-info">
+                            <ul class="ordered-goods-detail-info-ul">
+                                <li class="goods-name"><span>냠냠이가 좋아하는 냠냠이</span></li>
+                                <li class="goods-quantity"><span>10 EA</span></li>
+                                <li class="goods-per-price"><span>13,000원</span></li>
+                                <li class="goods-totla-price"><span>130,000원</span></li>
+                            </ul>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="ordered-goods-info-dl">
+                    <dt class="ordered-goods-img">
+                        <img src="/user/img/user-default-img.png" alt="ordered-goods-img" />
+                    </dt>
+                    <dd class="ordered-goods-dd">
+                        <div class="ordered-goods-detail-info">
+                            <ul class="ordered-goods-detail-info-ul">
+                                <li class="goods-name"><span>냠냠이가 좋아하는 냠냠이</span></li>
+                                <li class="goods-quantity"><span>10 EA</span></li>
+                                <li class="goods-per-price"><span>13,000원</span></li>
+                                <li class="goods-totla-price"><span>130,000원</span></li>
+                            </ul>
+                        </div>
+                    </dd>
+                </dl>
+                
+               
+               
+
+            </div>
+            <div class="order-result">
+
+            </div>
+
+            <div class="show-more-btn">
+                <button  >더보기</button>
+            </div>
+        </div>
+        <div class="admin-main-wrap" style="margin-top: 10px;">
+            <div class="order-result">
+                <p>총 주문 금액 : <span>333,000원</span></p>
+            </div>
+        </div>
+
+    
+    </div>
+</main>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<script src="/admin/js/adminOrderDetail.js"></script>
+<script src="/fragment/js/adminSide.js"></script>
+
+</body>
+</html>
