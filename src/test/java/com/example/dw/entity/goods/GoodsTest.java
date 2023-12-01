@@ -28,6 +28,7 @@ class GoodsTest {
 
         goodsCategory.setGoodsCategoryName("ㅑㅑㅑㅑㅑ");
         em.persist(goodsCategory);
+
         goods.setGoodsCategory(goodsCategory);
         goods.setGoodsName("아아아");
         goods.setGoodsMade("123");
