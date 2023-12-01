@@ -37,6 +37,7 @@ class UsersTest {
         address.setAddress("123");
         address.setDetail("123");
 
+        users.setUserAccount("id");
         users.setUserName("name");
         users.setUserPassword("1234");
         users.setUserPhone("01012341234");
