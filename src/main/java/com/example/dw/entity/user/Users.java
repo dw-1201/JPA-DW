@@ -16,6 +16,7 @@ public class Users {
     @Column(name = "uesr_id")
     private Long id;
 
+    private String userAccount;
     private String userName;
     private String userPassword;
     private String userEmail;
