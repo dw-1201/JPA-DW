@@ -22,7 +22,9 @@ public class QUsers extends EntityPathBase<Users> {
 
     public static final QUsers users = new QUsers("users");
 
-    public final QAddress address;
+    public final StringPath address = createString("address");
+
+    public final StringPath detail = createString("detail");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
@@ -46,6 +48,8 @@ public class QUsers extends EntityPathBase<Users> {
 
     public final StringPath userPhone = createString("userPhone");
 
+    public final StringPath zipCode = createString("zipCode");
+
     public QUsers(String variable) {
         this(Users.class, forVariable(variable), INITS);
     }
@@ -64,7 +68,6 @@ public class QUsers extends EntityPathBase<Users> {
 
     public QUsers(Class<? extends Users> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.address = inits.isInitialized("address") ? new QAddress(forProperty("address")) : null;
         this.userFile = inits.isInitialized("userFile") ? new QUserFile(forProperty("userFile"), inits.get("userFile")) : null;
     }
 
