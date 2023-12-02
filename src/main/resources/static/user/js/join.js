@@ -102,42 +102,72 @@ function join(){
             if($('.userIdCh').css('display')=='block'){
                 alert("아이디 양식을 확인해주세요.")
                 return false;
+
+            }
+
+            if($('.userId-unavailable').css('display')=='block'){
+                alert("중복된 아이디입니다. 다른 아이디를 입력해주세요")
+                return false;
+
             }
 
             if($('.userPw-unavailable').css('display')=='block'){
                 alert("비밀번호 양식을 확인해주세요.")
                 return false;
+
             }
 
 
             if($('.userPwCh').css('display')=='block'){
                 alert("비밀번호 확인이 일치하지 않습니다.")
                 return false;
+
             }
 
             if($('.userPhoneCh').css('display')=='block'){
                 alert("휴대폰 번호 양식을 확인해주세요");
                 return false;
+
             }
+            if($('.userPhone-unavailable').css('display')=='block'){
+                alert("이미 가입된 번호입니다. 번호를 확인해주세요")
+                return false;
+    
+            }
+
 
             if($('.userEmailCh').css('display')=='block'){
                 alert("이메일 양식을 확인해주세요");
                 return false;
+
+            }
+            if($('.userEmail-unavailable').css('display')=='block'){
+                alert("이미 가입된 이메일입니다. 이메일을 확인해주세요")
+                return false;
+    
             }
 
-            if (!(userId && userEmail && userName && pwCh && pwCh2 && userPhone && userPostCode && userAddress && userAddressDetails)) {
+
+        if (!(userId && userEmail && userName && pwCh && pwCh2 && userPhone && userPostCode && userAddress && userAddressDetails)) {
 
                 alert("모든 정보를 입력해주세요")
                 return false;
+
             }
-            $('#join_form').submit();
-	        alert(userName + " 님 환영합니다.")
-	        return true;
+        $('#join-form').submit();
+        alert(userName + " 님 환영합니다.")
+
+        return true;
+
     })
 
 
 }
 $('document').ready(function(){
+    checkId();
+    checkEmail()
+    checkAccount()
+    checkPhone()
 	join();
 })
 
@@ -158,7 +188,6 @@ function checkId(){
 
     })
 }
-checkId();
 
 
 
@@ -208,15 +237,18 @@ $('#userPhone').keyup(function(){
     const pattern = /^(010)[0-9]{3,4}[0-9]{4}$/;
 
     let phoneCheck = pattern.test(userPhone);
-	
-	if(!phoneCheck) {
-		$('.userPhoneCh').css('display', 'block');
-		
-		return;
-	}else {
-		$('.userPhoneCh').css('display', 'none');
 
-	}
+    if(userPhone.length>5){
+        if(!phoneCheck) {
+            $('.userPhoneCh').css('display', 'block');
+
+            return;
+        }else {
+            $('.userPhoneCh').css('display', 'none');
+
+        }
+    }
+
 	
 })
 
@@ -228,13 +260,15 @@ $('#userEmail').keyup(function() {
 	const pattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z]+/;
 	
 	let emailCheck = pattern.test(userEmail);
-	
-	if (emailCheck) {
-		$('.userEmailCh').css('display', 'none')
-	} else {
-		$('.userEmailCh').css('display', 'block')
-		return;
-	}
+	if(userEmail.length > 7){
+        if (emailCheck) {
+            $('.userEmailCh').css('display', 'none')
+        } else {
+            $('.userEmailCh').css('display', 'block')
+            return;
+        }
+    }
+
 })
 
 
@@ -255,3 +289,81 @@ function AllCharacterCheck(obj){
         obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움
     }
 }
+
+
+
+//아이디 중복확인
+function checkAccount() {
+    $('#userId').change(function () {
+        let userAccount = $('#userId').val();
+        $.ajax({
+
+            url: '/users/account/check',
+            type: 'post',
+            data: {
+                userAccount: userAccount
+            },
+            success: function(result) {
+                if (result) {
+                    $('.userId-unavailable').css('display','none');
+                    $('.userId-available').css('display','block')
+                } else {
+                    $('.userId-unavailable').css('display','block');
+                    $('.userId-available').css('display','none')
+                }
+            }, error: function (a, b, c) {
+                console.error(c);
+            }
+        })
+    })
+}
+//이메일 중복체크
+function checkEmail(){
+    $('#userEmail').change(function (){
+
+        let userEmail = $('#userEmail').val();
+        $.ajax({
+            url:'/users/email/check',
+            type: 'post',
+            data : {userEmail : userEmail},
+            success : function (result){
+                if(result){
+                    $('.userEmail-unavailable').css('display','none');
+                    $('.userEmail-available').css('display','block')
+                }else{
+                    $('.userEmail-unavailable').css('display','block');
+                    $('.userEmail-available').css('display','none')
+                }
+            },error : function (a,b,c){
+                console.error(c);
+            }
+        })
+
+    })
+}
+
+//휴대폰 중복 체크
+function checkPhone(){
+    $('#userPhone').change(function (){
+
+        let userPhone = $('#userPhone').val();
+        $.ajax({
+
+            url : '/users/phone/check',
+            type : 'post',
+            data : {userPhone : userPhone},
+            success : function (result){
+                if(result){
+                    $('.userPhone-unavailable').css('display','none');
+                    $('.userPhone-available').css('display','block')
+                }else {
+                    $('.userPhone-unavailable').css('display','block');
+                    $('.userPhone-available').css('display','none')
+                }
+            },error : function (a,b,c){
+                console.error(c);
+            }
+        })
+    })
+}
+

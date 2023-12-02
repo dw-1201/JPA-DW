@@ -7,12 +7,15 @@ function login(){
         if(userId ==""){
             $('.id-input-ch').css('display', 'block')
             $('.pw-input-ch').css('display','none');
+            $('.login-error').css('display', 'none');
             return false;
         }
 
         if(userPw ==""){
             $('.id-input-ch').css('display', 'none')
             $('.pw-input-ch').css('display','block');
+            $('.login-error').css('display', 'none');
+
             return false;
         }
 
@@ -23,6 +26,11 @@ function login(){
 
 $('document').ready(function() {
 	login();
+})
+
+
+$('.join-btn').on('click', function (){
+    window.location.href="/user/join";
 })
 
 

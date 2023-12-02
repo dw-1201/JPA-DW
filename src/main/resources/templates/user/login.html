@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +12,7 @@
 <main class="main">
     <div class="img-container">
         <div class="title-logo">
-            <a href="/index/html/index.html">
+            <a href="/index/">
                 <img src="/user/img/puppy-img.png" alt="puppy-img" class="puppy-img"/>
                 <img src="/user/img/main-logo.png" alt="title" class="title-img"/>
             </a>
@@ -25,11 +25,11 @@
                 <span>안녕하세요! 반갑습니다 :)</span>
             </div>
             <div class="login-info-section">
-                <form action="" method="" id="login-form">
+                <form th:action="@{/user/login}" method="post" id="login-form">
                     <div class="login-input">
                         <div class="login-id-input">
                             <img src="/user/img/userId.png" alt="userId" class="userId-img"/>
-                            <input type="text" id="userId" name="userId" placeholder="아이디"/>
+                            <input type="text" id="userId" name="userAccount" placeholder="아이디"/>
                         </div>
                         <div class="login-pw-input">
                             <img src="/user/img/userPw.png" alt="userPassword" class="userPw-img"/>
@@ -41,9 +41,13 @@
                                 아이디를 입력해주세요<!--아이디 미기입 시 메시지 출력 칸--></span></label>
                             <label for="userPassword" class="pw-input-ch"><span>
                                 비밀번호를 입력해주세요<!--비밀번호 미기입 시 메시지 출력 칸--></span></label>
-                            <label class="login-error"><span>
-                                아이디 또는 비밀번호를 다시 확인해주세요<!--로그인 실패 시 메시지 출력 칸--></span></label>
-                        </div>    
+
+                            <label class="login-error" th:if="${isNotLogin == '0'}">
+                                <span >
+                                아이디 또는 비밀번호를 다시 확인해주세요
+                                </span>
+                            </label>
+                        </div>
 
                         <div class="login-btn">
                             <button class="login-submit-btn" type="submit">로그인</button>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,13 +15,13 @@
     <div class="join-page-wrap">
         <div class="img-container">
             <div class="title-logo">
-                <a href="/index/html/index.html">
+                <a href="/index/">
                     <img src="/user/img/puppy-img.png" alt="puppy-img" class="puppy-img"/>
                     <img src="/user/img/main-logo.png" alt="title" class="title-img"/>
                 </a>
             </div>
         </div>
-        <form action="" method="" id="join-form">
+        <form th:action="@{/user/createUser}" method="post"  id="join-form" >
            
             <div class="join-input">
                 <div class="join-term-title">
@@ -30,7 +30,7 @@
                 </div>
                 <div class="total-select-checkbox">
                     <label for="total-check">
-                    <input type="checkbox" id="total-check" name="total-check">
+                    <input type="checkbox" id="total-check" name="total-check" >
                     아래 약관에 모두 동의합니다.
                     </label>
                 </div>
@@ -62,7 +62,7 @@
                 </div>
                 <div class="join-id-input user-input">
                     <!-- <img src="/user/img/userId.png" alt="userId" class="userId-img join-img"/> -->
-                    <input type="text" id="userId" name="userId" placeholder="영문 소문자, 숫자를 사용한 6~13자리" onkeyup="AllCharacterCheck(this)" />
+                    <input type="text" id="userId" name="userAccount" placeholder="영문 소문자, 숫자를 사용한 6~13자리" onkeyup="AllCharacterCheck(this)" />
                     <label for="userId" class="input-title">아이디</label>
 
                     <!--추후 비동기로 중복여부 확인-->
@@ -70,6 +70,9 @@
                         done
                         </span></label>
                     <label for="userId" class="userId-unavailable check"><span>이미 가입된 아이디입니다.</span></label>
+                    <label for="userId" class="userId-available check"><span class="material-symbols-outlined check-icon">
+                        done
+                        </span></label>
                     <label for="userId" class="userIdCh check"><span>아이디 양식을 확인해주세요.</span></label>
 
                 </div>
@@ -81,7 +84,7 @@
                     <label for="userPassword" class="userPw-available check"><span class="material-symbols-outlined check-icon">
                         done
                         </span></label>
-                    <label for="userPassword" class="userPw-unavailable check"><span>사용 불가능한 비밀번호입니다.</span></label>
+                    <label for="userPassword" class="userPw-unavailable check"><span>비밀번호 양식이 올바르지 않습니다.</span></label>
                 </div>
                 <div class="login-pw-ch-input user-input">
                     <!-- <img src="/user/img/userPw.png" alt="userPasswordCh" class="userPw-img join-img"/> -->
@@ -118,7 +121,7 @@
                     <label for="userId" class="input-title">이메일</label>
 
                     <!--이메일 중복검사 추후-->
-                    <label for="userEmail" class="userEmail-available check"><span class="material-symbols-outlined">
+                    <label for="userEmail" class="userEmail-available check"><span class="material-symbols-outlined check-icon">
                         done
                         </span></label>
                     <label for="userEmail" class="userEmail-unavailable check"><span>이미 가입된 이메일입니다.</span></label>
@@ -127,8 +130,8 @@
                 <div class="login-address-input user-input">
                     <div class="address-post-code">
                         <!-- <img src="/user/img/addr.png" alt="userAddress" class="userAddress-img join-img"/> -->
-                        <input class="postalCode" type="text" id="addressPost" name="addressPost" disabled>
-                        <input type="text" id="address" name="address"  disabled/>
+                        <input class="postalCode" type="text" id="addressPost" name="zipCode" readonly>
+                        <input type="text" id="address" name="address"  readonly/>
 
                         <label for="userId" class="input-title">주소</label>
 
@@ -137,7 +140,7 @@
                         <!-- <img src="/user/img/addr.png" alt="userAddress" class="userAddress-img join-img"/> -->
                     </div>
                         <input type="text" id="addressDetail" name="addressDetail"/>
-                        <input type="text" id="addressDetails" name="addressDetails" placeholder="상세주소 입력" />
+                        <input type="text" id="addressDetails" name="detail" placeholder="상세주소 입력" />
                     <button type="button" class="addrBtn" value="우편번호 찾기" onclick="addressFind()">주소찾기</button>
                 </div>
             </div>

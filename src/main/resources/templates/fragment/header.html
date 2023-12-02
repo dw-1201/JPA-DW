@@ -8,11 +8,17 @@
 </head>
 <body>
       <!-- header 시작 -->
-      <div class="header">
+      <div class="header" th:fragment="header">
         <div class="header-section01">
             <div class="header-section01-nav">
-                <ul>
-                    <li><a href="/user/html/login.html">로그인</a></li>
+                <ul  th:if="${session.userId == null}">
+                    <li><a href="/user/enterLogin">로그인</a></li>
+                    <li><a href="">장바구니</a></li>
+                </ul>
+                <ul  th:if="${session.userId != null}">
+                    <form th:action="@{/user/logout}" method="post">
+                        <li><button>로그아웃</button></li>
+                    </form>
                     <li><a href="">장바구니</a></li>
                 </ul>
             </div>

@@ -97,14 +97,19 @@
 .message-output {
     position: relative;
 }
-.id-input-ch, .pw-input-ch,.login-error {
+.id-input-ch, .pw-input-ch{
     position:absolute;
     display: none;
     color: red;
     font-size: 13px;
     top: -20px;
 }
-
+.login-error {
+    position:absolute;
+    color: red;
+    font-size: 13px;
+    top: -20px;
+}
 .login-btn {
     margin-top: 15px;
     height: 30px;
