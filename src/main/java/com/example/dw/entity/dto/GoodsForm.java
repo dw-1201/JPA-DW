@@ -24,7 +24,6 @@ public class GoodsForm {
     private String goodsMade;
     private String goodsCertify;
     private String goodsDetailContent;
-
     private GoodsCategory goodsCategory;
 
 
