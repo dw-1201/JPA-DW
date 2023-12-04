@@ -1,14 +1,12 @@
 package com.example.dw.service;
 
-import com.example.dw.entity.dto.FreeBoardWritingForm;
-import com.example.dw.entity.dto.freeBoardDto.FreeBoardDto;
-import com.example.dw.entity.freeBoard.FreeBoard;
+import com.example.dw.domain.form.FreeBoardWritingForm;
+import com.example.dw.domain.entity.freeBoard.FreeBoard;
 import com.example.dw.repository.FreeBoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

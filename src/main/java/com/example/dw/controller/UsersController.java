@@ -1,8 +1,8 @@
 package com.example.dw.controller;
 
 
-import com.example.dw.entity.dto.JoinForm;
-import com.example.dw.entity.user.Users;
+import com.example.dw.domain.form.JoinForm;
+import com.example.dw.domain.entity.user.Users;
 import com.example.dw.service.UsersService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

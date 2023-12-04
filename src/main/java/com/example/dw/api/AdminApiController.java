@@ -1,9 +1,8 @@
 package com.example.dw.api;
 
-import com.example.dw.entity.dto.admin.FaqBoardDto;
+import com.example.dw.domain.dto.admin.FaqBoardDto;
 import com.example.dw.service.AdminService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

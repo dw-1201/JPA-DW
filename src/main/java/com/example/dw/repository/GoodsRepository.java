@@ -1,6 +1,6 @@
 package com.example.dw.repository;
 
-import com.example.dw.entity.goods.Goods;
+import com.example.dw.domain.entity.goods.Goods;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -15,10 +15,11 @@ spring:
       file-size-threshold: 100MB
   jpa:
     hibernate:
-#      ddl-auto: create
+      ddl-auto: create
 #      ddl-auto: create-drop
 #      ddl-auto: update
-      ddl-auto: validate
+#      ddl-auto: validate
+
     properties:
       hibernate:
 #        show_sql: true

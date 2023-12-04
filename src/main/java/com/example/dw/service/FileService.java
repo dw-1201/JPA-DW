@@ -1,12 +1,8 @@
 package com.example.dw.service;
 
-import com.example.dw.entity.dto.GoodsCategoryForm;
-import com.example.dw.entity.dto.GoodsDetailImgForm;
-import com.example.dw.entity.dto.GoodsForm;
-import com.example.dw.entity.dto.GoodsMainImgForm;
-import com.example.dw.entity.goods.Goods;
-import com.example.dw.entity.goods.GoodsDetailImg;
-import com.example.dw.entity.goods.GoodsMainImg;
+import com.example.dw.domain.form.GoodsDetailImgForm;
+import com.example.dw.domain.form.GoodsMainImgForm;
+import com.example.dw.domain.entity.goods.Goods;
 import com.example.dw.repository.GoodsDetailImgRepository;
 import com.example.dw.repository.GoodsMainImgRepository;
 import com.example.dw.repository.GoodsRepository;

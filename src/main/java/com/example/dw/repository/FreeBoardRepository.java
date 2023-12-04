@@ -1,9 +1,7 @@
 package com.example.dw.repository;
 
-import com.example.dw.entity.freeBoard.FreeBoard;
+import com.example.dw.domain.entity.freeBoard.FreeBoard;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
 
 public interface FreeBoardRepository extends JpaRepository<FreeBoard, Long> {
 

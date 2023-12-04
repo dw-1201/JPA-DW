@@ -1,16 +1,10 @@
 package com.example.dw.controller;
 
-import com.example.dw.entity.dto.FreeBoardWritingForm;
-import com.example.dw.entity.dto.freeBoardDto.FreeBoardDto;
-import com.example.dw.entity.freeBoard.FreeBoard;
+import com.example.dw.domain.form.FreeBoardWritingForm;
 import com.example.dw.service.FreeBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/community/*")

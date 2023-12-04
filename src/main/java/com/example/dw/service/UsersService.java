@@ -1,9 +1,9 @@
 package com.example.dw.service;
 
 
-import com.example.dw.entity.dto.JoinForm;
+import com.example.dw.domain.form.JoinForm;
 
-import com.example.dw.entity.user.Users;
+import com.example.dw.domain.entity.user.Users;
 import com.example.dw.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
