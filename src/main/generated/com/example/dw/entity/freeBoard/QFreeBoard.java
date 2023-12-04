@@ -40,6 +40,8 @@ public class QFreeBoard extends EntityPathBase<FreeBoard> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final com.example.dw.entity.user.QUsers users;
+
     public QFreeBoard(String variable) {
         this(FreeBoard.class, forVariable(variable), INITS);
     }
@@ -59,6 +61,7 @@ public class QFreeBoard extends EntityPathBase<FreeBoard> {
     public QFreeBoard(Class<? extends FreeBoard> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.freeBoardLike = inits.isInitialized("freeBoardLike") ? new QFreeBoardLike(forProperty("freeBoardLike"), inits.get("freeBoardLike")) : null;
+        this.users = inits.isInitialized("users") ? new com.example.dw.entity.user.QUsers(forProperty("users"), inits.get("users")) : null;
     }
 
 }

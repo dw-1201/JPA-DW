@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/common/css/common.css">
+    <link rel="stylesheet" href="/fragment/css/header.css">
+    <link rel="stylesheet" href="/fragment/css/footer.css">
+    <link rel="stylesheet" href="/community/css/freeBoardWriting.css">
+    <title>자유게시판 글 작성페이지</title>
+</head>
+<body>
+<!-- header 시작 -->
+<div class="header" th:replace="fragment/header :: header">
+
+</div>
+<!-- header 끝 -->
+
+    <!-- main 시작 -->
+    <main>
+        <div class="main-container">
+
+            <!--글쓰기 시작-->
+            <form action="/community/freeBoardWriting" method="POST" class="writingForm" enctype="multipart/form-data">
+            <div class="content-box">
+                <div class="content-title-box">
+                    <div class="content-title">자유게시판 글 작성</div>
+                    <div class="content-title-input">
+                        <input type="text"  name="freeBoardTitle"  placeholder="제목을 입력해주세요">
+                    </div>
+                </div>
+                <div class="content-content-box">
+                    <textarea name="freeBoardContent" id="Content"></textarea>
+                </div>
+            </div>
+            <div class="file-box">
+                <div class="file-box-title">사진 업로드</div>
+                <div class="file-box-imgs">
+                    <div><img src="" alt=""></div>
+                    <div><img src="" alt=""></div>
+                    <div><img src="" alt=""></div>
+                    <div><img src="" alt=""></div>
+                    <div><img src="" alt=""></div>
+                </div>
+                <div class="file-box-etc">
+                    <div class="file-input-btn">
+                        <label for="file">
+                            <div class="btn-upload">
+                                <img src="/img/addfile.png" alt="">
+                            </div>
+                          </label>
+                          <input type="file" name="file" id="file" multiple>
+                    </div>
+                    <div class="file-input-text">개당 업로드 용량: 20MB, 최대 5개 업로드 가능합니다.</div>
+                </div>
+            </div>
+            <div class="btn-box">
+                <button class="add-content-btn" type="submit">글 등록</button>
+            </div>
+
+            <!--글쓰기 끝-->
+
+
+        </div>
+    </main>
+    <!-- main 끝 -->
+
+<!-- footer 시작 -->
+<div class="footer" th:replace="fragment/footer :: footer">
+
+</div>
+<!-- footer 끝 -->
+</body>
+</html>
