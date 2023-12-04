@@ -24,8 +24,7 @@ public class GoodsForm {
     private String goodsMade;
     private String goodsCertify;
     private String goodsDetailContent;
-    private LocalDateTime goodsRegisterDate;
-    private LocalDateTime goodsModifyDate;
+
     private GoodsCategory goodsCategory;
 
 
@@ -40,8 +39,7 @@ public class GoodsForm {
         this.goodsMade = goodsMade;
         this.goodsCertify = goodsCertify;
         this.goodsDetailContent = goodsDetailContent;
-        this.goodsRegisterDate = goodsRegisterDate;
-        this.goodsModifyDate = goodsModifyDate;
+
         this.goodsCategory = goodsCategory;
     }
 
