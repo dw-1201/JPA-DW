@@ -2,17 +2,14 @@ package com.example.dw.entity.goods;
 
 import com.example.dw.entity.user.Users;
 import jakarta.persistence.*;
-import lombok.Builder;
+import lombok.*;
 import lombok.Builder.Default;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name="goods_que")
 @Getter
-@Setter
 public class GoodsQue {
     @Id
     @GeneratedValue
@@ -30,8 +27,8 @@ public class GoodsQue {
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "goodsQue")
     private GoodsQueReply goodsQueReply;
 
-
     private String queContent;
+
     @Default
     private LocalDateTime queRegisterDate = LocalDateTime.now();
     @Default

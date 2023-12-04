@@ -1,17 +1,14 @@
 package com.example.dw.entity.goods;
 
 import jakarta.persistence.*;
-import lombok.Builder;
+import lombok.*;
 import lombok.Builder.Default;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name="goods_que_reply")
 @Getter
-@Setter
 public class GoodsQueReply {
     @Id
     @GeneratedValue @Column(name="goods_que_reply_id")
