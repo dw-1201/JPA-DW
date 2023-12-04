@@ -1,5 +1,6 @@
 package com.example.dw.controller;
 
+import com.example.dw.entity.dto.FaqBoardForm;
 import com.example.dw.entity.dto.NoticeBoardForm;
 import com.example.dw.service.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequiredArgsConstructor
@@ -31,6 +33,11 @@ public class AdminController {
         return "/admin/adminGoodsReg";
     }
 
+    @GetMapping("/noticeList")
+        public String noticeList(){
+            return "/admin/adminNoticeList";
+
+    }
 
     //공지사항 작성 페이지 이동
     @GetMapping("/noticeWrite")
@@ -46,6 +53,21 @@ public class AdminController {
 
         return "/admin/adminNoticeList";
 
+    }
+
+    //Faq작성 페이지 이동
+    @GetMapping("/faqWrite")
+    public String faqWritePage(){
+        return "/admin/adminFaqReg";
+    }
+
+    //Faq 작성
+    @PostMapping("/faqWrite")
+    public RedirectView faqWrite(FaqBoardForm faqBoardForm){
+
+        adminService.faqRegister(faqBoardForm);
+
+        return new RedirectView("/admin/noticeList");
     }
 
 
