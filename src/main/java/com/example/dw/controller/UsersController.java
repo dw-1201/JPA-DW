@@ -1,25 +1,16 @@
 package com.example.dw.controller;
 
 
-import com.example.dw.entity.dto.UsersForm;
+import com.example.dw.entity.dto.JoinForm;
 import com.example.dw.entity.user.Users;
-import com.example.dw.repository.UsersRepository;
 import com.example.dw.service.UsersService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/user/*")
@@ -43,10 +34,11 @@ public class UsersController {
 
     //회원가입
     @PostMapping("/createUser")
-    public String save(UsersForm usersForm){
+    public String save(JoinForm joinForm){
 
-        System.out.println("[ 회원 가입 정보 ]: " + usersForm.toString());
-        usersService.join(usersForm);
+
+        System.out.println("[ 회원 가입 정보 ]: " + joinForm.toString());
+        usersService.join(joinForm);
         return "/user/login";
     }
 

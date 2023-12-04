@@ -1,17 +1,18 @@
 package com.example.dw.entity.admin;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
-
-import static lombok.Builder.*;
+import lombok.Builder;
+import lombok.Builder.Default;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Setter
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "notice_board")
 public class NoticeBoard {
     @Id
@@ -21,9 +22,24 @@ public class NoticeBoard {
 
     private String noticeBoardTitle;
     private String noticeBoardContent;
+
     @Default
     private Long noticeBoardViewCount = 0L;
-    private LocalDateTime noticeBoardRd;
-    private LocalDateTime noticeBoardMd;
+    @Default
+    private LocalDateTime noticeBoardRd = LocalDateTime.now();
+    @Default
+    private LocalDateTime noticeBoardMd = LocalDateTime.now();
 
+
+    @Builder
+    public NoticeBoard(Long id, String noticeBoardTitle, String noticeBoardContent,
+                       Long noticeBoardViewCount, LocalDateTime noticeBoardRd,
+                       LocalDateTime noticeBoardMd) {
+        this.id = id;
+        this.noticeBoardTitle = noticeBoardTitle;
+        this.noticeBoardContent = noticeBoardContent;
+        this.noticeBoardViewCount = noticeBoardViewCount;
+        this.noticeBoardRd = noticeBoardRd;
+        this.noticeBoardMd = noticeBoardMd;
+    }
 }

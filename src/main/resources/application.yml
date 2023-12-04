@@ -7,7 +7,12 @@ spring:
     url: jdbc:oracle:thin:@localhost:1521:XE
     username: dw
     password: 1111
-
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 40MB
+      max-request-size: 40MB
+      file-size-threshold: 100MB
   jpa:
     hibernate:
       ddl-auto: create
@@ -26,9 +31,10 @@ logging.level:
 #  org.hibernate.type: trace
 
 # 파일 경로 설정
-#  file.dir=C:/upload/
+file.dir : C:/jpa_dw/goods
 
   # 문자인증
-#  smsservice.serviceId = ncp:sms:kr:317191750931:redmedicine
 #  smsservice.accessKey = oyEpUB0ISONyYhRS0eoF
 #  smsservice.secretKey = 6VE8paDtAxkpEJOkOAIlJoKzwvbfZalNDzzUq1M5
+
+

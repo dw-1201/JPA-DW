@@ -1,6 +1,7 @@
 package com.example.dw.entity.user;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Builder.Default;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Builder
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Table(name = "users")
 public class Users {
@@ -32,9 +33,13 @@ public class Users {
     private String userNickName;
     private String userIntroduction;
 
-    private String zipCode;
-    private String address;
-    private String detail;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name="zipCode", column = @Column(name="zip_code")),
+            @AttributeOverride(name="address", column = @Column(name="address")),
+            @AttributeOverride(name="detail", column = @Column(name="detail")),
+    })
+    private Address address;
 
 
     @OneToOne(mappedBy = "users" ,fetch = FetchType.LAZY)
@@ -42,13 +47,14 @@ public class Users {
     private UserFile userFile;
 
     @OneToMany(mappedBy = "users")
-//    @JoinColumn(name="pet_id")
     private List<Pet> pet = new ArrayList<>();
 
 
     @Builder
-    public Users(Long id, String userAccount, String userName, String userPassword, String userEmail, String userPhone, LocalDateTime userJoinDate, String userNickName,
-                 String userIntroduction, String zipCode, String address, String detail, UserFile userFile, List<Pet> pet) {
+    public Users(Long id, String userAccount, String userName, String userPassword, String userEmail, String userPhone,
+                 LocalDateTime userJoinDate, String userNickName,
+                 String userIntroduction, Address address,
+                 UserFile userFile, List<Pet> pet) {
         this.id = id;
         this.userAccount = userAccount;
         this.userName = userName;
@@ -58,9 +64,7 @@ public class Users {
         this.userJoinDate = userJoinDate;
         this.userNickName = userNickName;
         this.userIntroduction = userIntroduction;
-        this.zipCode = zipCode;
-        this.address = address;
-        this.detail = detail;
+        this.address=address;
         this.userFile = userFile;
         this.pet = pet;
     }
