@@ -28,6 +28,8 @@ public class QUsers extends EntityPathBase<Users> {
 
     public final ListPath<Pet, QPet> pet = this.<Pet, QPet>createList("pet", Pet.class, QPet.class, PathInits.DIRECT2);
 
+    public final ListPath<com.example.dw.entity.question.Question, com.example.dw.entity.question.QQuestion> questions = this.<com.example.dw.entity.question.Question, com.example.dw.entity.question.QQuestion>createList("questions", com.example.dw.entity.question.Question.class, com.example.dw.entity.question.QQuestion.class, PathInits.DIRECT2);
+
     public final StringPath userAccount = createString("userAccount");
 
     public final StringPath userEmail = createString("userEmail");
