@@ -1,8 +1,8 @@
 package com.example.dw.service;
 
 
-import com.example.dw.entity.dto.QnaBoardForm;
-import com.example.dw.entity.question.Question;
+import com.example.dw.domain.form.QnaBoardForm;
+import com.example.dw.domain.entity.question.Question;
 import com.example.dw.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

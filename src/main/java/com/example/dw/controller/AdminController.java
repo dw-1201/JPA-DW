@@ -1,7 +1,7 @@
 package com.example.dw.controller;
 
-import com.example.dw.entity.dto.FaqBoardForm;
-import com.example.dw.entity.dto.NoticeBoardForm;
+import com.example.dw.domain.form.FaqBoardForm;
+import com.example.dw.domain.form.NoticeBoardForm;
 import com.example.dw.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

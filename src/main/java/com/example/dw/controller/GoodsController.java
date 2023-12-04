@@ -1,15 +1,10 @@
 package com.example.dw.controller;
 
-import com.example.dw.entity.dto.GoodsCategoryForm;
-import com.example.dw.entity.dto.GoodsDetailImgForm;
-import com.example.dw.entity.dto.GoodsForm;
-import com.example.dw.entity.dto.GoodsMainImgForm;
-import com.example.dw.entity.goods.GoodsDetailImg;
-import com.example.dw.repository.GoodsRepository;
+import com.example.dw.domain.form.GoodsCategoryForm;
+import com.example.dw.domain.form.GoodsForm;
 import com.example.dw.service.FileService;
 import com.example.dw.service.GoodsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
