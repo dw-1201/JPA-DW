@@ -17,4 +17,6 @@ public class QnaController {
         return "/community/qnaList";
     }
 
+
+
 }
