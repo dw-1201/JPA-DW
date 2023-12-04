@@ -21,9 +21,9 @@ public class QFaqBoard extends EntityPathBase<FaqBoard> {
 
     public final StringPath faqBoardContent = createString("faqBoardContent");
 
-    public final DateTimePath<java.time.LocalDateTime> faqBoardMd = createDateTime("faqBoardMd", java.time.LocalDateTime.class);
+    public final DatePath<java.time.LocalDate> faqBoardMd = createDate("faqBoardMd", java.time.LocalDate.class);
 
-    public final DateTimePath<java.time.LocalDateTime> faqBoardRd = createDateTime("faqBoardRd", java.time.LocalDateTime.class);
+    public final DatePath<java.time.LocalDate> faqBoardRd = createDate("faqBoardRd", java.time.LocalDate.class);
 
     public final StringPath faqBoardTitle = createString("faqBoardTitle");
 
