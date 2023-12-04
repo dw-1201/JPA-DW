@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="/fragment/css/header.css">
     <link rel="stylesheet" href="/fragment/css/footer.css">
     <link rel="stylesheet" href="/community/css/freeBoardList.css">
+    <!-- moment.js CDN 추가 -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.29.1/moment.min.js"></script>
     <title>자유게시판</title>
 </head>
 
@@ -32,7 +34,7 @@
             <div class="search-container">
                 <div class="searchbox">
 
-                    <form action="/community/freeBoardList/search" method="GET" role="search">
+                    <form action="/community/freeBoardList/search" id="searchForm" method="GET" role="search">
                     <img src="/img/magnifier.png" alt="">
                     <input type="text" name="keyword" id="search" th:value="${keyword}" placeholder="찾으시는 인기글이 있으신가요?">
                     </form>
@@ -100,34 +102,33 @@
                     <div class="list-content">
 
 
-                        <!-- 리스트 시작-->
-                        <td th:each="freeBoardList : ${searchList}">
-                        <div class="content-text-box">
-                            <div class="list-content-title" th:text="${freeBoardList.freeBoardTitle}"></div>
-                            <div class="list-content-content" th:text="${freeBoardList.freeBoardContent}"></div>
-                            <div class="list-content-etc">
-                                <div class="list-content-id">
-                                    <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt=""></div>
-                                    <span th:text="${freeBoardList.users.id}"></span>
-                                </div>
-                                <div class="list-content-reply">
-                                    <span>댓글</span>
-                                    <span class="reply-count" th:text="${freeBoardList.freeBoardViewCount}">5</span>
-                                </div>
-                                <div class="list-content-time">
-                                    <span th:text="${#temporals.format(freeBoardList.freeBoardMd, 'yyyy-MM-dd HH:mm')}"></span>
+                        <!-- 리스트 시작 -->
+                        <td th:each="freeBoardDto : ${searchList}">
+                            <div class="content-text-box">
+                                <div class="list-content-title" th:text="${freeBoardDto.freeBoardTitle}"></div>
+                                <div class="list-content-content" th:text="${freeBoardDto.freeBoardContent}"></div>
+                                <div class="list-content-etc">
+                                    <div class="list-content-id">
+                                        <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt=""></div>
+                                        <span th:text="${freeBoardDto.users.id}"></span>
+                                    </div>
+                                    <div class="list-content-reply">
+                                        <span>댓글</span>
+                                        <span class="reply-count" th:text="${freeBoardDto.freeBoardViewCount}"></span>
+                                    </div>
+                                    <div class="list-content-time">
+                                        <span th:text="${#temporals.format(freeBoardDto.freeBoardRd, 'yyyy-MM-dd HH:mm')}"></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="content-img-box" >
-                            <div class="content-img" th:if="${not #lists.isEmpty(freeBoardList.freeBoardImg)}">
-                                <img src="${freeBoardList.freeBoardImg[0].imageUrl}" alt="">
+                            <div class="content-img-box" th:if="${not #lists.isEmpty(freeBoardDto.freeBoardImg)}">
+                                <div class="content-img">
+                                    <img th:src="${freeBoardDto.freeBoardImg[0].imageUrl}" alt="">
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    </td>
+                        </td>
+                        <!-- 리스트 끝 -->
 
-                    <!-- 리스트 끝-->
 
 
                 </div>
@@ -155,4 +156,5 @@
 </div>
 <!-- footer 끝 -->
 </body>
+
 </html>

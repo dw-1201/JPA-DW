@@ -5,10 +5,13 @@ import com.example.dw.entity.user.UserFile;
 import com.example.dw.entity.user.Users;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.Builder.Default;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static lombok.Builder.*;
 
 @Entity
 @Getter
@@ -29,9 +32,14 @@ public class FreeBoard {
 //    @Column(columnDefinition = "TEXT" , nullable = false)
     private String freeBoardContent;
 
-    private LocalDateTime freeBoardRd;
-    private LocalDateTime freeBoardMd;
-    private Long freeBoardViewCount;
+    @Default
+    private LocalDateTime freeBoardRd = LocalDateTime.now();
+
+    @Default
+    private LocalDateTime freeBoardMd = LocalDateTime.now();
+
+    @Default
+    private Long freeBoardViewCount = 0L;
 
     @OneToMany(mappedBy = "freeBoard" ,fetch = FetchType.LAZY)
     private List<FreeBoardImg> freeBoardImg = new ArrayList<>();

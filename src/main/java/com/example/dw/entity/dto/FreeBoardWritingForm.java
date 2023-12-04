@@ -21,6 +21,7 @@ public class FreeBoardWritingForm {
     private String freeBoardTitle;
     private String freeBoardContent;
 
+
     public FreeBoard toEntity(){
         return FreeBoard.builder()
                 .freeBoardTitle(freeBoardTitle)
@@ -32,5 +33,6 @@ public class FreeBoardWritingForm {
     public FreeBoardWritingForm(String freeBoardTitle, String freeBoardContent) {
         this.freeBoardTitle = freeBoardTitle;
         this.freeBoardContent = freeBoardContent;
+
     }
 }

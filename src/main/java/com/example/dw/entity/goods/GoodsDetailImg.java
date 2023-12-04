@@ -1,13 +1,13 @@
 package com.example.dw.entity.goods;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name="goods_detail_img")
 @Getter
-@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class GoodsDetailImg {
     @Id
     @GeneratedValue
@@ -21,4 +21,15 @@ public class GoodsDetailImg {
     @ManyToOne(fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
     @JoinColumn(name = "goods_id")
     private Goods goods;
+
+
+    @Builder
+    public GoodsDetailImg(Long id, String goodsDetailImgName, String goodsDetailImgPath, String goodsDetailImgUuid, Goods goods) {
+        this.id = id;
+        this.goodsDetailImgName = goodsDetailImgName;
+        this.goodsDetailImgPath = goodsDetailImgPath;
+        this.goodsDetailImgUuid = goodsDetailImgUuid;
+        this.goods = goods;
+    }
+
 }

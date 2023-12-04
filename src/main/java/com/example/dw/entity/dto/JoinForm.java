@@ -1,5 +1,6 @@
 package com.example.dw.entity.dto;
 
+import com.example.dw.entity.user.Address;
 import com.example.dw.entity.user.Pet;
 import com.example.dw.entity.user.UserFile;
 import com.example.dw.entity.user.Users;
@@ -17,7 +18,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class UsersForm  {
+public class JoinForm {
 
     private Long id;
 //    @NotBlank(message ="아이디를 입력해주세요")
@@ -31,36 +32,30 @@ public class UsersForm  {
 
 //    @NotBlank
 //    @Email(message = "이메일 양식이 아닙니다.")
+    private String userName;
     private String userEmail;
 //    @NotBlank
     private String userPhone;
-
     private LocalDateTime userJoinDate;
-    private String userNickName;
-    private String userIntroduction;
     private String zipCode;
     private String address;
     private String detail;
-    private UserFile userFile;
-    private List<Pet> pet;
+
 
 
     @Builder
-    public UsersForm(Long id, String userAccount, String userPassword, String userEmail, String userPhone, LocalDateTime userJoinDate,
-                     String userNickName, String userIntroduction, String zipCode, String address, String detail, UserFile userFile, List<Pet> pet) {
+    public JoinForm(Long id, String userAccount, String userPassword, String userName, String userEmail, String userPhone, LocalDateTime userJoinDate,
+                    String zipCode, String address, String detail) {
         this.id = id;
         this.userAccount = userAccount;
         this.userPassword = userPassword;
+        this.userName=userName;
         this.userEmail = userEmail;
         this.userPhone = userPhone;
         this.userJoinDate = userJoinDate;
-        this.userNickName = userNickName;
-        this.userIntroduction = userIntroduction;
         this.zipCode = zipCode;
         this.address = address;
         this.detail = detail;
-        this.userFile = userFile;
-        this.pet = pet;
     }
 
 
@@ -70,15 +65,10 @@ public class UsersForm  {
                 .id(id)
                 .userAccount(userAccount)
                 .userPassword(userPassword)
+                .userName(userName)
                 .userEmail(userEmail)
                 .userPhone(userPhone)
-                .userNickName(userNickName)
-                .userIntroduction(userIntroduction)
-                .zipCode(zipCode)
-                .address(address)
-                .detail(detail)
-                .userFile(userFile)
-                .pet(pet)
+                .address(new Address(zipCode, address, detail))
                 .build();
     }
 

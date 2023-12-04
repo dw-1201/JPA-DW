@@ -1,18 +1,14 @@
 package com.example.dw.service;
 
 
-import com.example.dw.entity.dto.UsersForm;
+import com.example.dw.entity.dto.JoinForm;
 
 import com.example.dw.entity.user.Users;
 import com.example.dw.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -26,7 +22,6 @@ public class UsersService {
     //아이디 중복체크
     @Transactional(readOnly = true)
     public boolean existsByUserAccount(String userAccount){
-
         return usersRepository.existsByUserAccount(userAccount);
     }
 
@@ -44,9 +39,11 @@ public class UsersService {
 
     //회원가입
     @Transactional
-    public Long join(UsersForm usersForm){
+    public Long join(JoinForm joinForm){
 
-        Users users = usersForm.toEntity();
+
+        Users users = joinForm.toEntity();
+
         usersRepository.save(users);
         return users.getId();
     }

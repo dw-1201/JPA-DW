@@ -1,6 +1,7 @@
 package com.example.dw.controller;
 
 import com.example.dw.entity.dto.FreeBoardWritingForm;
+import com.example.dw.entity.dto.freeBoardDto.FreeBoardDto;
 import com.example.dw.entity.freeBoard.FreeBoard;
 import com.example.dw.service.FreeBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,20 +29,20 @@ public class FreeBoardController {
      * 게시글 리스트 페이지
      * @return
      */
-    @GetMapping("")
-    public String freeBoardList(){
+    @GetMapping("/freeBoardList")
+    public String freeBoard(){
         return "/community/freeBoardList";
     }
+//    @GetMapping("")
+//    public String freeBoardList(Model model){
+//        List<FreeBoard> freeBoardDtoList = freeBoardService.getFreeBoardList();
+//        freeBoardDtoList.stream()
+//                .map(o -> new FreeBoardDto(o.getId(),o.getFreeBoardTitle(),o.getFreeBoardContent())
+//        model.addAttribute("freeBoardList",freeBoardDtoList);
+//
+//        return "/community/freeBoardList";
+//    }
 
-    @GetMapping("freeBoardList/search")
-    public ModelAndView search(@RequestParam String keyword) {
-        List<FreeBoard> searchList = freeBoardService.search(keyword);
-
-        ModelAndView modelAndView = new ModelAndView("/community/freeBoardList/search");
-        modelAndView.addObject("searchList", searchList);
-
-        return modelAndView;
-    }
 
     /**
      * 게시 글쓰기 페이지
