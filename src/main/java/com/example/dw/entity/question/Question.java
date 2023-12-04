@@ -3,13 +3,17 @@ package com.example.dw.entity.question;
 import com.example.dw.entity.freeBoard.FreeBoardComment;
 import com.example.dw.entity.freeBoard.FreeBoardImg;
 import com.example.dw.entity.freeBoard.FreeBoardLike;
+import com.example.dw.entity.user.Users;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static lombok.Builder.*;
 
 @Entity
 @Getter
@@ -23,8 +27,11 @@ public class Question {
 
     private String questionTitle;
     private String questionContent;
-    private LocalDateTime questionRd;
-    private LocalDateTime questionMd;
+
+    @Default
+    private LocalDateTime questionRd= LocalDateTime.now();
+    @Default
+    private LocalDateTime questionMd=LocalDateTime.now();
     private Long questionViewCount;
 
     @OneToMany(mappedBy = "question" ,fetch = FetchType.LAZY)
@@ -35,4 +42,21 @@ public class Question {
 
     @OneToOne(mappedBy = "question" ,fetch = FetchType.LAZY)
     private QuestionLike questionLike;
+
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "users_id")
+    private Users users;
+
+    @Builder
+    public Question(Long id,String questionTitle,String questionContent,List<QuestionImg>questionImg){
+        this.id = id;
+        this.questionTitle=questionTitle;
+        this.questionContent=questionContent;
+        this.questionImg=questionImg;
+
+
+    }
+
+
+
 }

@@ -40,6 +40,8 @@ public class QQuestion extends EntityPathBase<Question> {
 
     public final NumberPath<Long> questionViewCount = createNumber("questionViewCount", Long.class);
 
+    public final com.example.dw.entity.user.QUsers users;
+
     public QQuestion(String variable) {
         this(Question.class, forVariable(variable), INITS);
     }
@@ -59,6 +61,7 @@ public class QQuestion extends EntityPathBase<Question> {
     public QQuestion(Class<? extends Question> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.questionLike = inits.isInitialized("questionLike") ? new QQuestionLike(forProperty("questionLike"), inits.get("questionLike")) : null;
+        this.users = inits.isInitialized("users") ? new com.example.dw.entity.user.QUsers(forProperty("users"), inits.get("users")) : null;
     }
 
 }

@@ -11,29 +11,9 @@
 </head>
 <body>
        <!-- header 시작 -->
-       <div class="header">
-        <div class="header-section01">
-            <div class="header-section01-nav">
-                <ul>
-                    <li><a href="">로그인</a></li>
-                    <li><a href="">장바구니</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="header-section02">
-            <div class="header-section02-container">
-                <div class="header-logo"><a href=""><img src="/img/logo.png" alt=""></a></div>
-                <div class="header-section02-nav">
-                    <ul>
-                        <li><a href="">쇼핑</a></li>
-                        <li><a href="">커뮤니티</a></li>
-                        <li><a href="">산책메이트</a></li>
-                        <li><a href="">병원찾기</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+       <div class="header" th:replace="fragment/header :: header">
+
+       </div>
     <!-- header 끝 -->
     <main>
         <div class="main-container">

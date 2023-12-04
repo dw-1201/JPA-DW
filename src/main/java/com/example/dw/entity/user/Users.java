@@ -1,5 +1,6 @@
 package com.example.dw.entity.user;
 
+import com.example.dw.entity.question.Question;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -49,12 +50,15 @@ public class Users {
     @OneToMany(mappedBy = "users")
     private List<Pet> pet = new ArrayList<>();
 
+    @OneToMany(mappedBy = "users",fetch = FetchType.LAZY)
+    private List<Question> questions =new ArrayList<>();
+
 
     @Builder
     public Users(Long id, String userAccount, String userName, String userPassword, String userEmail, String userPhone,
                  LocalDateTime userJoinDate, String userNickName,
                  String userIntroduction, Address address,
-                 UserFile userFile, List<Pet> pet) {
+                 UserFile userFile, List<Pet> pet, List<Question> questions) {
         this.id = id;
         this.userAccount = userAccount;
         this.userName = userName;
@@ -67,5 +71,6 @@ public class Users {
         this.address=address;
         this.userFile = userFile;
         this.pet = pet;
+        this.questions= questions;
     }
 }
