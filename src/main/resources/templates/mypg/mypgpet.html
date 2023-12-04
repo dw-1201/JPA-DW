@@ -6,34 +6,14 @@
     <link rel="stylesheet" href="/common/css/common.css">
     <link rel="stylesheet" href="/fragment/css/footer.css">
     <link rel="stylesheet" href="/fragment/css/header.css">
-    <link rel="stylesheet" href="../css/mypgpet.css">
+    <link rel="stylesheet" href="/mypg/css/mypgpet.css">
     <title>반려동물 프로필</title>
 </head>
 <body>
        <!-- header 시작 -->
-       <div class="header">
-        <div class="header-section01">
-            <div class="header-section01-nav">
-                <ul>
-                    <li><a href="">로그인</a></li>
-                    <li><a href="">장바구니</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="header-section02">
-            <div class="header-section02-container">
-                <div class="header-logo"><a href=""><img src="/img/logo.png" alt=""></a></div>
-                <div class="header-section02-nav">
-                    <ul>
-                        <li><a href="">쇼핑</a></li>
-                        <li><a href="">커뮤니티</a></li>
-                        <li><a href="">산책메이트</a></li>
-                        <li><a href="">병원찾기</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+       <div class="header" th:replace="fragment/header :: header">
+
+       </div>
     <!-- header 끝 -->
     <main>
         <div class="main-container">
@@ -55,10 +35,10 @@
             <div class="detail-pro-choice">
                 <ul class="detail-choice">
                     <li class="my-pro">
-                        <a href="../html/mypgmain.html" class="my-pro-detail">내프로필</a>
+                        <a href="/mypg/main" class="my-pro-detail">내프로필</a>
                     </li>
                     <li class="my-pet">
-                        <a href="../html/mypgpet.html" class="my-pet-detail">반려동물 프로필</a>
+                        <a href="/mypg/petregister" class="my-pet-detail">반려동물 프로필</a>
                     </li>
                 </ul>
             </div>
