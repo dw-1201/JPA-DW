@@ -66,17 +66,36 @@ $('.notice-modify-btn').on('click',function(){
     window.location.href="/admin/html/adminNoticeModify.html";
 })
 
+$(document).ready(function (){
+    faqList(searchFaqForm());
+})
+
+//input에서 받은 결과를 넘긴다.
+function searchFaqForm(){
+    let cate = $('#faq-search-cate').val();
+    let keyword = $('#faq-search-keyword').val();
 
 
-faqList();
+    return {
+        cate : cate,
+        keyword : keyword
+    };
+}
 
-function faqList(callback){
+
+$('.result-faq-submit-btn').on('click', function (){
+    faqList(searchFaqForm());
+
+})
+
+function faqList( searchForm, callback){
 
 
     $.ajax({
 
         url:'/admins/noticeList',
         type:'get',
+        data:searchForm,
         dataType:'json',
         success :function (result){
             console.log(result)
@@ -89,6 +108,9 @@ function faqList(callback){
 
     })
 }
+
+
+
 
 
 function showFaqList(result){
