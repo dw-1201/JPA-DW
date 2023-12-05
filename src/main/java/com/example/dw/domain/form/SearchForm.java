@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 @NoArgsConstructor
-public class SearchFaqForm {
+public class SearchForm {
 
     private String cate;
     private String keyword;

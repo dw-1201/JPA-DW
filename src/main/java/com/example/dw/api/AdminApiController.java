@@ -1,18 +1,14 @@
 package com.example.dw.api;
 
 import com.example.dw.domain.dto.admin.FaqBoardDto;
-import com.example.dw.domain.form.SearchFaqForm;
+import com.example.dw.domain.form.SearchForm;
 import com.example.dw.repository.admin.FaqBoardRepositoryCustom;
-import com.example.dw.repository.admin.FaqBoardRepositoryImpl;
 import com.example.dw.service.AdminService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -23,22 +19,21 @@ public class AdminApiController {
     private final FaqBoardRepositoryCustom faqBoardRepositoryCustom;
 
     //faq조회
-    @GetMapping("/noticeList")
-    public List<FaqBoardDto> findFaqList(SearchFaqForm searchFaqForm){
+    @GetMapping("/noticeList/{page}")
+    public Page<FaqBoardDto> findFaqList(
+            @PathVariable("page") int page,
+            SearchForm searchForm){
 
-        System.out.println("넘어온 카테고리 : "+searchFaqForm.getCate());
-        System.out.println("넘어온 키워드 :  "+searchFaqForm.getKeyword());
+        Pageable pageable = PageRequest.of(page, 5);
 
-        List<FaqBoardDto> result = faqBoardRepositoryCustom.findFaqListBySearch();
+        System.out.println("넘어온 카테고리 : "+ searchForm.getCate());
+        System.out.println("넘어온 키워드 :  "+ searchForm.getKeyword());
+
+        Page<FaqBoardDto> result = faqBoardRepositoryCustom.findFaqListBySearch(pageable, searchForm);
+        System.out.println(result.stream().count());
 
         System.out.println(result.toString());
-//        List<FaqBoardDto> lists =
-//                adminService.faqList().stream().map(o-> new FaqBoardDto(o.getId(),
-//                o.getFaqBoardTitle(), o.getFaqBoardContent(),
-//                o.getFaqBoardViewCount(), o.getFaqBoardRd(),o.getFaqBoardRd())).
-//                collect(Collectors.toList());
-//
-//        System.out.println(lists.toString());
+
         return result;
     }
 
