@@ -1,13 +1,12 @@
 package com.example.dw.repository.admin;
 
 import com.example.dw.domain.dto.admin.FaqBoardDto;
-import com.example.dw.domain.entity.admin.FaqBoard;
-import com.example.dw.domain.form.SearchFaqForm;
-
-import java.util.List;
+import com.example.dw.domain.form.SearchForm;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface FaqBoardRepositoryCustom {
 
-    List<FaqBoardDto> findFaqListBySearch();
+    Page<FaqBoardDto> findFaqListBySearch(Pageable pageable, SearchForm searchForm);
 
 }

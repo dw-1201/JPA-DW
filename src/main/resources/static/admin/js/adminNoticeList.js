@@ -67,7 +67,7 @@ $('.notice-modify-btn').on('click',function(){
 })
 
 $(document).ready(function (){
-    faqList(searchFaqForm());
+    faqList(0,searchFaqForm());
 })
 
 //input에서 받은 결과를 넘긴다.
@@ -84,22 +84,28 @@ function searchFaqForm(){
 
 
 $('.result-faq-submit-btn').on('click', function (){
-    faqList(searchFaqForm());
+    faqList(0, searchFaqForm());
 
 })
 
-function faqList( searchForm, callback){
+function faqList( page,searchForm, callback){
 
 
     $.ajax({
 
-        url:'/admins/noticeList',
+        url:`/admins/noticeList/${page}`,
         type:'get',
         data:searchForm,
         dataType:'json',
         success :function (result){
-            console.log(result)
-           showFaqList(result)
+            console.log(result.pageable)
+            console.log(result.number)
+
+            console.log(result.content)
+
+
+           showFaqList(result.content)
+            pagination(result)
 
         },error : function (a,b,c){
             console.error(c);
@@ -153,12 +159,63 @@ function showFaqList(result){
 
     })
     textInput.html(text);
+}
 
+function pagination(result) {
+    let paginations = $('.pagination-ul');
+    paginations.empty();
+
+    const totalPages = result.totalPages;
+    const currentPage = result.number;
+
+    if (totalPages > 0) {
+        const maxButtons = 5;
+        let startPage = Math.max(0, currentPage - Math.floor(maxButtons / 2));
+        let endPage = Math.min(totalPages - 1, startPage + maxButtons - 1);
+
+        if (totalPages <= maxButtons) {
+            startPage = 0;
+            endPage = totalPages - 1;
+        } else if (endPage - startPage < maxButtons - 1) {
+            startPage = Math.max(0, totalPages - maxButtons);
+        }
+
+        if (currentPage > 0) {
+            paginations.append(`<li><a href="#" data-page="${currentPage - 1}">&lt;</a></li>`);
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
+            paginations.append(`<li><a href="#" data-page="${i}">${i + 1}</a></li>`);
+        }
+
+        if (currentPage < totalPages - 1) {
+            paginations.append(`<li><a href="#" data-page="${currentPage + 1}">&gt;</a></li>`);
+        }
+    }
+
+    paginations.find('a').on('click', function (e) {
+        e.preventDefault();
+        const page = parseInt($(this).data('page'));
+        faqList(page, searchFaqForm());
+    });
 }
 
 
 
+$(function() {
+    $("#faq-search-keyword").keypress(function(e){
+        //검색어 입력 후 엔터키 입력하면 조회버튼 클릭
+        if(e.keyCode && e.keyCode == 13){
+            $(".result-faq-submit-btn").trigger("click");
+            return false;
+        }
+        //엔터키 막기
+        if(e.keyCode && e.keyCode == 13){
+            e.preventDefault();
+        }
+    });
 
+});
 
 
 
