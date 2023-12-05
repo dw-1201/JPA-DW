@@ -5,7 +5,7 @@ import com.example.dw.domain.entity.admin.FaqBoard;
 import com.example.dw.domain.entity.admin.NoticeBoard;
 import com.example.dw.domain.form.FaqBoardForm;
 import com.example.dw.domain.form.NoticeBoardForm;
-import com.example.dw.repository.FaqBoardRepository;
+import com.example.dw.repository.admin.FaqBoardRepository;
 import com.example.dw.repository.NoticeBoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

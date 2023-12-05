@@ -1,5 +1,6 @@
 package com.example.dw.domain.dto.admin;
 
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +18,8 @@ public class FaqBoardDto {
     private LocalDate faqBoardRd;
     private LocalDate faqBoardMd;
 
+
+    @QueryProjection
     public FaqBoardDto(Long id, String faqBoardTitle, String faqBoardContent,
                        Long faqBoardViewCount, LocalDate faqBoardRd, LocalDate faqBoardMd) {
         this.id = id;
@@ -26,6 +29,8 @@ public class FaqBoardDto {
         this.faqBoardRd = faqBoardRd;
         this.faqBoardMd = faqBoardMd;
     }
+
+
 
 
 

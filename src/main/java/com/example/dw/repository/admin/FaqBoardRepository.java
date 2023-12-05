@@ -1,4 +1,4 @@
-package com.example.dw.repository;
+package com.example.dw.repository.admin;
 
 import com.example.dw.domain.entity.admin.FaqBoard;
 import org.springframework.data.jpa.repository.JpaRepository;
