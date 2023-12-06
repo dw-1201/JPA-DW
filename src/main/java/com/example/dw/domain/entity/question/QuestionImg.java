@@ -1,13 +1,16 @@
 package com.example.dw.domain.entity.question;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "question_img")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class QuestionImg {
     @Id
     @GeneratedValue

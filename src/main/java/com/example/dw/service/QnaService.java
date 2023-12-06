@@ -1,7 +1,7 @@
 package com.example.dw.service;
 
 
-import com.example.dw.domain.form.QnaBoardForm;
+import com.example.dw.domain.form.QuestionForm;
 import com.example.dw.domain.entity.question.Question;
 import com.example.dw.repository.community.QuestionRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +20,9 @@ public class QnaService {
     // 글 작성
 
     @Transactional
-    public Long writer(QnaBoardForm qnaBoardForm){
+    public Long writer(QuestionForm questionForm){
 
-        Question question =qnaBoardForm.toEntity();
+        Question question = questionForm.toEntity();
 
         questionRepository.save(question);
 

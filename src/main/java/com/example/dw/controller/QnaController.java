@@ -1,7 +1,7 @@
 package com.example.dw.controller;
 
 
-import com.example.dw.domain.form.QnaBoardForm;
+import com.example.dw.domain.form.QuestionForm;
 import com.example.dw.service.QnaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -32,10 +32,10 @@ public class QnaController {
 
 
     @PostMapping("/qnawriteform")
-    public RedirectView write(QnaBoardForm qnaBoardForm){
-        System.out.println(qnaBoardForm.getQuestionTitle());
-        System.out.println(qnaBoardForm.getQuestionContent());
-        qnaService.writer(qnaBoardForm);
+    public RedirectView write(QuestionForm questionForm){
+        System.out.println(questionForm.getQuestionTitle());
+        System.out.println(questionForm.getQuestionContent());
+        qnaService.writer(questionForm);
 
         return new RedirectView("qna/qmain");
     }

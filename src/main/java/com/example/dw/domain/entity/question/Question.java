@@ -2,9 +2,7 @@ package com.example.dw.domain.entity.question;
 
 import com.example.dw.domain.entity.user.Users;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,6 +14,7 @@ import static lombok.Builder.*;
 @Getter
 @Setter
 @Table(name = "question")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Question {
     @Id
     @GeneratedValue

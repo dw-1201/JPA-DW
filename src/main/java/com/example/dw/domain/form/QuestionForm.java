@@ -12,7 +12,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class QnaBoardForm {
+public class QuestionForm {
 
     private Long id;
 
@@ -21,7 +21,7 @@ public class QnaBoardForm {
 
 
     @Builder
-    public QnaBoardForm(Long id,String questionTitle,String questionContent){
+    public QuestionForm(Long id, String questionTitle, String questionContent){
         this.id=id;
         this.questionTitle=questionTitle;
         this.questionContent=questionContent;
