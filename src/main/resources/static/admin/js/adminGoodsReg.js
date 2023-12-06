@@ -1,4 +1,4 @@
-import * as goodsReg from './imgModule/img.js'
+import * as goodsReg from './module/img.js'
 
 
 
