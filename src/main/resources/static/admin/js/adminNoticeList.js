@@ -46,14 +46,29 @@ $(document).ready(function(){
 
 
 
-//faq 등록 페이지 이동
+// faq 등록 페이지 이동
 $('.notice-faq-btn').on('click',function(){
     window.location.href="/admin/faqWrite";
 })
+// //faq 수정 페이지 이동
+// $('.faq-list').on('click','.faq-modify-btn',function(){
+//
+//     let faqBoardId = $('.faq-modify-btn').data('faqnum')
+//     window.location.href="/admin/faqModify?faqBoardId=" + faqBoardId ;
+//
+//
+//
+// })
 
-//faq 수정 페이지 이동
-$('.faq-modify-btn').on('click',function(){
-    window.location.href="/admin/html/adminFaqModify.html";
+//faq 삭제
+$('.faq-list').on('click','.faq-delete-btn',function(){
+
+    let faqBoardId = $('.faq-delete-btn').data('faqnum')
+
+    if(confirm("삭제하시겠습니까?")){
+        window.location.href="/admin/faqDelete/" + faqBoardId ;
+    }
+
 })
 
 //공지사항 등록 페이지 이동
@@ -65,6 +80,8 @@ $('.notice-reg-btn').on('click',function(){
 $('.notice-modify-btn').on('click',function(){
     window.location.href="/admin/html/adminNoticeModify.html";
 })
+
+
 
 $(document).ready(function (){
     faqList(0,searchFaqForm());
@@ -147,13 +164,12 @@ function showFaqList(result){
                         <section class="notice-content">
                             <p>${r.faqBoardContent}</p>
                             <div class="notice-etc">
-                                <button class="faq-modify-btn btns" type="button" ${r.id}>수정</button>
-                                <button class="faq-delete-btn btns" type="button" ${r.id}>삭제</button>
+                                <a href="/admin/faqModifyPage/${r.id}"><button class="faq-modify-btn btns" type="button" data-faqnum="${r.id}">수정</button></a>
+                                <button class="faq-delete-btn btns" type="button" data-faqnum="${r.id}">삭제</button>
                             </div>
                         </section>
                  </div>
             
-        
         
         `;
 
@@ -162,7 +178,7 @@ function showFaqList(result){
 }
 
 function pagination(result) {
-    let paginations = $('.pagination-ul');
+    let paginations = $('.faq-pagination-ul');
     paginations.empty();
 
     const totalPages = result.totalPages;
@@ -179,17 +195,30 @@ function pagination(result) {
         } else if (endPage - startPage < maxButtons - 1) {
             startPage = Math.max(0, totalPages - maxButtons);
         }
-
+        //화살표 <
         if (currentPage > 0) {
             paginations.append(`<li><a href="#" data-page="${currentPage - 1}">&lt;</a></li>`);
+        }else{
+            paginations.append(`<li></li>`)
         }
 
+        //페이징 버튼
         for (let i = startPage; i <= endPage; i++) {
-            paginations.append(`<li><a href="#" data-page="${i}">${i + 1}</a></li>`);
+            if(i==currentPage){
+                paginations.append(`<li><a href="#" class="active-btn" data-page="${i}">${i + 1}</a></li>`);
+
+            }else{
+                paginations.append(`<li><a href="#" data-page="${i}">${i + 1}</a></li>`);
+
+            }
         }
 
+
+        //화살표 >
         if (currentPage < totalPages - 1) {
             paginations.append(`<li><a href="#" data-page="${currentPage + 1}">&gt;</a></li>`);
+        }else{
+            paginations.append(`<li></li>`)
         }
     }
 

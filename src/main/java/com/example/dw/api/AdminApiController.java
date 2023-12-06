@@ -26,11 +26,7 @@ public class AdminApiController {
 
         Pageable pageable = PageRequest.of(page, 5);
 
-        System.out.println("넘어온 카테고리 : "+ searchForm.getCate());
-        System.out.println("넘어온 키워드 :  "+ searchForm.getKeyword());
-
         Page<FaqBoardDto> result = faqBoardRepositoryCustom.findFaqListBySearch(pageable, searchForm);
-        System.out.println(result.stream().count());
 
         System.out.println(result.toString());
 
