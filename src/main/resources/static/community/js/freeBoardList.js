@@ -4,34 +4,37 @@ $(document).ready(function (){
     freeBoardList(0,searchFreeBoardForm());
 })
 
+$('.ddd').on('click', function (){
+    freeBoardList(0, searchFreeBoardForm());
+
+})
+
+let keyword = $('#freeBoard-search-keyword').val();
+
 //input에서 받은 결과를 넘긴다.
 function searchFreeBoardForm(){
-    let cate = $('#freeBoard-search-keyword').val();
     let keyword = $('#freeBoard-search-keyword').val();
 
-
     return {
-        cate : cate,
         keyword : keyword
     };
 }
 
 
-function freeBoardList( page,searchForm, callback){
+function freeBoardList( page, keyword, callback){
 
 
     $.ajax({
 
-        url:`/community/freeBoardList/${page}`,
+        url:`/communities/freeBoardList/${page}`,
         type:'get',
-        data:searchForm,
+        // data:searchForm,
+        data: { keyword: keyword.keyword },
         dataType:'json',
         success :function (result){
             console.log(result.pageable)
             console.log(result.number)
-
             console.log(result.content)
-
 
             showFreeBoardList(result.content)
             pagination(result)
@@ -55,16 +58,17 @@ function showFreeBoardList(result) {
     result.forEach(r => {
         text += `
             <div class="content-text-box">
+            <input type="hidden" value="${r.id}" name="freeBoardId">
                 <div class="list-content-title">${r.freeBoardTitle}</div>
                 <div class="list-content-content">${r.freeBoardContent}</div>
                 <div class="list-content-etc">
                     <div class="list-content-id">
                         <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt=""></div>
-                        <span>${r.id}</span>
+                        <span>${r.userAccount}</span>
                     </div>
                     <div class="list-content-reply">
-                        <span>조회수</span>
-                        <span class="reply-count">${r.freeBoardViewCount}</span>
+                        <span>조회수 ${r.freeBoardViewCount}</span>
+                        <span class="reply-count"></span>
                     </div>
                     <div class="list-content-time">
                         <span>${r.freeBoardRd}</span>
@@ -136,20 +140,19 @@ function pagination(result) {
 
 
 // 자유게시판 게시글 조회
-$(function() {
-    $("#freeBoard-search-keyword").keypress(function(e){
-        //검색어 입력 후 엔터키 입력하면 조회버튼 클릭
-        if(e.keyCode && e.keyCode == 13){
-            $(".result-btn").trigger("click");
-            return false;
-        }
-        //엔터키 막기
-        // if(e.keyCode && e.keyCode == 13){
-        //     e.preventDefault();
-        // }
-    });
-
-});
+// $(function() {
+//     $("#freeBoard-search-keyword").keypress(function(e){
+//         //검색어 입력 후 엔터키 입력하면 조회버튼 클릭
+//         if(e.keyCode && e.keyCode == 13){
+//             $(".result-btn").trigger("click");
+//             return false;
+//         }
+//         //엔터키 막기
+//         if(e.keyCode && e.keyCode == 13){
+//             e.preventDefault();
+//         }
+//     });
+// });
 
 
 

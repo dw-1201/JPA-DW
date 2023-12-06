@@ -1,6 +1,9 @@
 server:
   port: 10004
 
+
+
+
 spring:
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
@@ -15,10 +18,10 @@ spring:
       file-size-threshold: 100MB
   jpa:
     hibernate:
-      ddl-auto: create
+#      ddl-auto: create
 #      ddl-auto: create-drop
 #      ddl-auto: update
-#      ddl-auto: validate
+      ddl-auto: validate
 
     properties:
       hibernate:

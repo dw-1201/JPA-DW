@@ -23,7 +23,9 @@ public class FreeBoardService {
 
     //전체 조회
     public List<FreeBoard> getFreeBoardList(){
+        System.out.println("=============");
         List<FreeBoard> freeBoards = freeBoardRepository.findAll();
+        System.out.println(freeBoards +"-----------");
         return freeBoards;
     }
 
