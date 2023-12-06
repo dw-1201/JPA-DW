@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -29,6 +31,11 @@ public class QnaService {
     }
 
     //질의 사항 전체 조회
+    @Transactional
+    public List<Question> qnaList(){
+        List<Question> questionList = questionRepository.findAll();
 
+        return questionList;
+    }
 
 }

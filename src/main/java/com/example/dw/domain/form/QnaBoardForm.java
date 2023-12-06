@@ -19,14 +19,12 @@ public class QnaBoardForm {
     private String questionTitle;
     private String questionContent;
 
-    private List<QuestionImg> questionImg = new ArrayList<>();
 
     @Builder
-    public QnaBoardForm(Long id,String questionTitle,String questionContent,List<QuestionImg> questionImg){
+    public QnaBoardForm(Long id,String questionTitle,String questionContent){
         this.id=id;
         this.questionTitle=questionTitle;
         this.questionContent=questionContent;
-        this.questionImg=questionImg;
     }
 
 
@@ -35,9 +33,7 @@ public class QnaBoardForm {
             .id(id)
             .questionTitle(questionTitle)
             .questionContent(questionContent)
-            .questionImg(questionImg)
             .build();
-
     }
 
 
