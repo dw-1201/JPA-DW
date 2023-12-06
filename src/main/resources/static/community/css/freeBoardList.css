@@ -11,6 +11,12 @@ body{
 a{
     color: black;
 }
+label{
+    cursor: pointer;
+}
+.input-radio{
+    cursor: pointer;
+}
 main{
     width: 100%;
     height: auto;
@@ -117,6 +123,7 @@ main{
     align-items: center;
     background-color: #fffdf4;
 }
+
 .best-content-title{
     width: 90%;
     height: 30%;
