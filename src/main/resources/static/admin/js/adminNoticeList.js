@@ -5,7 +5,7 @@ import  * as page from './module/pagination.js';
 //공지게시판
 //마우스 클릭 효과
 $(document).ready(function(){
-    $('.rr').on('click', function(){
+    $('.lists').on('click', 'rr',function(){
 
         let $currentSection = $(this).children('.row')
         $currentSection.toggleClass('active');

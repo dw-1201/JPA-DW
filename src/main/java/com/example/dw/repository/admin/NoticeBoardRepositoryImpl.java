@@ -67,6 +67,9 @@ public class NoticeBoardRepositoryImpl implements NoticeBoardRepositoryCustom {
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
+
+
+
         return contents;
     }
 }
