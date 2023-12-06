@@ -4,8 +4,6 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 //faq게시판 조회
 @Data
 @NoArgsConstructor
@@ -15,13 +13,13 @@ public class FaqBoardDto {
     private String faqBoardTitle;
     private String faqBoardContent;
     private Long faqBoardViewCount;
-    private LocalDate faqBoardRd;
-    private LocalDate faqBoardMd;
+    private String faqBoardRd;
+    private String faqBoardMd;
 
 
     @QueryProjection
     public FaqBoardDto(Long id, String faqBoardTitle, String faqBoardContent,
-                       Long faqBoardViewCount, LocalDate faqBoardRd, LocalDate faqBoardMd) {
+                       Long faqBoardViewCount, String faqBoardRd, String faqBoardMd) {
         this.id = id;
         this.faqBoardTitle = faqBoardTitle;
         this.faqBoardContent = faqBoardContent;

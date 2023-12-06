@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,8 +70,8 @@
             </div>
         </div>
         <div class="admin-main-bcc">
-            <div class="admin-main-wrap">
-                <form action="" method="" id="notice-form">
+            <div class="admin-main-wrap" th:object="${detail}">
+                <form th:action="@{/admin/faqModify/{id}/edit (id=*{id})}"  th:method="put" id="notice-form">
                     <table class="notice-reg-table">
                         <tr>
                         <colgroup>
@@ -81,11 +81,11 @@
                         </tr>
                         <tr class="notice-reg-tr">
                             <th>제목</th>
-                            <td><input type="text" name="notice-title" id="notice-title" value="기존 타이틀"></td>
+                            <td><input type="text" name="faqBoardTitle" id="notice-title" th:value="*{faqBoardTitle}"></td>
                         </tr>
                         <tr class="notice-reg-tr">
                             <th>내용</th>
-                            <td><textarea name="notice-content" id="notice-content" >기존 내용</textarea></td>
+                            <td><textarea name="faqBoardContent" id="notice-content" th:text="*{faqBoardContent}" ></textarea></td>
                         </tr>
                     </table>
                     <div class="notice-btns">

@@ -1,4 +1,4 @@
-import * as goodsReg from './imgModule/img.js'
+import * as goodsReg from './module/img.js'
 
 // 상품 메인사진
 let goodsMainImg = $('#goods-main-img');
