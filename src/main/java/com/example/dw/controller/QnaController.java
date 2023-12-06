@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequiredArgsConstructor
@@ -31,11 +32,11 @@ public class QnaController {
 
 
     @PostMapping("/qnawriteform")
-    public String write(QnaBoardForm qnaBoardForm){
+    public RedirectView write(QnaBoardForm qnaBoardForm){
         System.out.println(qnaBoardForm.getQuestionTitle());
         System.out.println(qnaBoardForm.getQuestionContent());
         qnaService.writer(qnaBoardForm);
 
-        return "/community/qnaList";
+        return new RedirectView("qna/qmain");
     }
 }

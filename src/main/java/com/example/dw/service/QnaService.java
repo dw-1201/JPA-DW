@@ -3,7 +3,7 @@ package com.example.dw.service;
 
 import com.example.dw.domain.form.QnaBoardForm;
 import com.example.dw.domain.entity.question.Question;
-import com.example.dw.repository.QuestionRepository;
+import com.example.dw.repository.community.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,5 +27,8 @@ public class QnaService {
         return question.getId();
 
     }
+
+    //질의 사항 전체 조회
+
 
 }
