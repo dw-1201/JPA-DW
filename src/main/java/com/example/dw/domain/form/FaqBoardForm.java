@@ -14,12 +14,24 @@ public class FaqBoardForm {
     private String faqBoardTitle;
     private String faqBoardContent;
 
+
+
+
+    public FaqBoardForm(String faqBoardTitle, String faqBoardContent){
+        this.faqBoardTitle = faqBoardTitle;
+        this.faqBoardContent = faqBoardContent;
+    }
+
+
     @Builder
     public FaqBoardForm(Long id, String faqBoardTitle, String faqBoardContent) {
         this.id = id;
         this.faqBoardTitle = faqBoardTitle;
         this.faqBoardContent = faqBoardContent;
+
+
     }
+
 
     public FaqBoard toEntity(){
         return FaqBoard.builder()
@@ -28,4 +40,6 @@ public class FaqBoardForm {
                 .faqBoardContent(faqBoardContent)
                 .build();
     }
+
+
 }

@@ -23,8 +23,7 @@ public class NoticeBoard {
     private String noticeBoardTitle;
     private String noticeBoardContent;
 
-    @Default
-    private Long noticeBoardViewCount = 0L;
+    private Long noticeBoardViewCount;
     @Default
     private LocalDateTime noticeBoardRd = LocalDateTime.now();
     @Default
