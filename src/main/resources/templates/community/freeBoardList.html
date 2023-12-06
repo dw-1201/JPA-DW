@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="/fragment/css/header.css">
     <link rel="stylesheet" href="/fragment/css/footer.css">
     <link rel="stylesheet" href="/community/css/freeBoardList.css">
-    <!-- moment.js CDN 추가 -->
-    <script src="https://cdn.jsdelivr.net/momentjs/2.29.1/moment.min.js"></script>
     <title>자유게시판</title>
 </head>
 
@@ -32,42 +30,52 @@
                 </ul>
             </div>
             <div class="search-container">
-                <div class="searchbox">
 
-                    <form action="/community/freeBoardList/search" id="searchForm" method="GET" role="search">
-                    <img src="/img/magnifier.png" alt="">
-                    <input type="text" name="keyword" id="search" th:value="${keyword}" placeholder="찾으시는 인기글이 있으신가요?">
-                    </form>
+                <div class="searchbox"  > <!--id="searchForm" -->
+                <a href="" class="result-btn"><img src="/img/magnifier.png" alt=""></a>
+                <input type="text" name="keyword" id="freeBoard-search-keyword"  placeholder="찾으시는 인기글이 있으신가요?">
+                <button type="button" class="ddd" >버튼</button>
 
-                </div>
+            </div>
+
             </div>
             <div class="best-container">
                 <div class="best-container-title">인기글</div>
                 <div class="best-container-contents">
-                    <div class="best-container-content">
+
+                    <a href="" class="best-container-content">
+
                         <div class="best-content-title">쌀강냉이 보고가실래여?</div>
                         <div class="best-content-content">우리 애 쌀강냉이 구경하고 가셔요</div>
                         <div class="best-content-etc">
                             <div class="best-cotnent-reply">댓글<span>5</span></div>
                             <div class="best-content-date">2023-11-23</div>
                         </div>
-                    </div>
-                    <div class="best-container-content">
+
+                    </a>
+
+                    <a href="" class="best-container-content">
+
                         <div class="best-content-title">쌀강냉이 보고가실래여?</div>
                         <div class="best-content-content">우리 애 쌀강냉이 구경하고 가셔요</div>
                         <div class="best-content-etc">
                             <div class="best-cotnent-reply">댓글<span>5</span></div>
                             <div class="best-content-date">2023-11-23</div>
                         </div>
-                    </div>
-                    <div class="best-container-content">
+
+                    </a>
+
+                    <a href="" class="best-container-content">
+
                         <div class="best-content-title">쌀강냉이 보고가실래여?</div>
                         <div class="best-content-content">우리 애 쌀강냉이 구경하고 가셔요</div>
                         <div class="best-content-etc">
                             <div class="best-cotnent-reply">댓글<span>5</span></div>
                             <div class="best-content-date">2023-11-23</div>
                         </div>
-                    </div>
+
+                    </a>
+
                 </div>
             </div>
             <div class="list-container">
@@ -76,58 +84,56 @@
                         <ul>
                             <li>
                                 <label>
-                                    <input type="radio" value="recent">
+                                    <input type="radio" value="recent" name="radio" class="input-radio">
                                     <span>최신 순</span>
                                 </label>
                             </li>
                             <li>
                                 <label>
-                                    <input type="radio" value="reply">
+                                    <input type="radio" value="reply" name="radio" class="input-radio">
                                     <span>댓글 순</span>
                                 </label>
                             </li>
                             <li>
                                 <label>
-                                    <input type="radio" value="best">
+                                    <input type="radio" value="best" name="radio" class="input-radio">
                                     <span>인기 순</span>
                                 </label>
                             </li>
                         </ul>
                     </div>
                     <div class="write-btn-box">
-                        <div class="write-btn"><a href="/community/freeBoardWriting">글쓰기</a></div>
+                        <a class="write-btn" href="/community/freeBoardWriting">글쓰기</a>
                     </div>
                 </div>
                 <div class="list-contents-box">
                     <div class="list-content">
 
 
-                        <!-- 리스트 시작 -->
-                        <td th:each="freeBoardDto : ${searchList}">
-                            <div class="content-text-box">
-                                <div class="list-content-title" th:text="${freeBoardDto.freeBoardTitle}"></div>
-                                <div class="list-content-content" th:text="${freeBoardDto.freeBoardContent}"></div>
-                                <div class="list-content-etc">
-                                    <div class="list-content-id">
-                                        <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt=""></div>
-                                        <span th:text="${freeBoardDto.users.id}"></span>
-                                    </div>
-                                    <div class="list-content-reply">
-                                        <span>댓글</span>
-                                        <span class="reply-count" th:text="${freeBoardDto.freeBoardViewCount}"></span>
-                                    </div>
-                                    <div class="list-content-time">
-                                        <span th:text="${#temporals.format(freeBoardDto.freeBoardRd, 'yyyy-MM-dd HH:mm')}"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="content-img-box" th:if="${not #lists.isEmpty(freeBoardDto.freeBoardImg)}">
-                                <div class="content-img">
-                                    <img th:src="${freeBoardDto.freeBoardImg[0].imageUrl}" alt="">
-                                </div>
-                            </div>
-                        </td>
-                        <!-- 리스트 끝 -->
+    <!-- 리스트 시작 -->
+<!--        <div class="content-text-box">-->
+<!--            <div class="list-content-title" th:text="${freeBoardDto.freeBoardTitle}"></div>-->
+<!--            <div class="list-content-content" th:text="${freeBoardDto.freeBoardContent}"></div>-->
+<!--            <div class="list-content-etc">-->
+<!--                <div class="list-content-id">-->
+<!--                    <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt=""></div>-->
+<!--                    <span th:text="${freeBoardDto.users.id}"></span>-->
+<!--                </div>-->
+<!--                <div class="list-content-reply">-->
+<!--                    <span>댓글</span>-->
+<!--                    <span class="reply-count" th:text="${freeBoardDto.freeBoardViewCount}"></span>-->
+<!--                </div>-->
+<!--                <div class="list-content-time">-->
+<!--                    <span th:text="${#temporals.format(freeBoardDto.freeBoardRd, 'yyyy-MM-dd HH:mm')}"></span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="content-img-box" th:if="${not #lists.isEmpty(freeBoardDto.freeBoardImg)}">-->
+<!--            <div class="content-img">-->
+<!--                <img th:src="${freeBoardDto.freeBoardImg[0].imageUrl}" alt="">-->
+<!--            </div>-->
+<!--        </div>-->
+    <!-- 리스트 끝 -->
 
 
 
@@ -135,14 +141,14 @@
             </div>
             <div class="list-page-container">
                 <div class="list-pages">
-                    <ul>
-                        <li><a href="">&lt;</a></li>
-                        <li><a href="">1</a></li>
-                        <li><a href="">2</a></li>
-                        <li><a href="">3</a></li>
-                        <li><a href="">4</a></li>
-                        <li><a href="">5</a></li>
-                        <li><a href="">&gt;</a></li>
+                    <ul class="pagination-ul">
+<!--                        <li><a href="">&lt;</a></li>-->
+<!--                        <li><a href="">1</a></li>-->
+<!--                        <li><a href="">2</a></li>-->
+<!--                        <li><a href="">3</a></li>-->
+<!--                        <li><a href="">4</a></li>-->
+<!--                        <li><a href="">5</a></li>-->
+<!--                        <li><a href="">&gt;</a></li>-->
                     </ul>
                 </div>
             </div>
@@ -155,6 +161,8 @@
 
 </div>
 <!-- footer 끝 -->
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<script src="/community/js/freeBoardList.js"></script>
 </body>
 
 </html>

@@ -2,10 +2,13 @@ package com.example.dw.domain.entity.freeBoard;
 
 import com.example.dw.domain.entity.user.Users;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Builder.Default;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,10 +32,10 @@ public class FreeBoard {
     private String freeBoardContent;
 
     @Default
-    private LocalDateTime freeBoardRd = LocalDateTime.now();
+    private LocalDate freeBoardRd = LocalDate.now();
 
     @Default
-    private LocalDateTime freeBoardMd = LocalDateTime.now();
+    private LocalDate freeBoardMd = LocalDate.now();
 
     @Default
     private Long freeBoardViewCount = 0L;
@@ -51,7 +54,7 @@ public class FreeBoard {
     private Users users;
 
     @Builder
-    public FreeBoard(Long id, String freeBoardTitle, String freeBoardContent, LocalDateTime freeBoardRd, LocalDateTime freeBoardMd, Long freeBoardViewCount, List<FreeBoardImg> freeBoardImg, List<FreeBoardComment> freeBoardComment, FreeBoardLike freeBoardLike, Users users) {
+    public FreeBoard(Long id, String freeBoardTitle, String freeBoardContent, LocalDate freeBoardRd, LocalDate freeBoardMd, Long freeBoardViewCount, List<FreeBoardImg> freeBoardImg, List<FreeBoardComment> freeBoardComment, FreeBoardLike freeBoardLike, Users users) {
         this.id = id;
         this.freeBoardTitle = freeBoardTitle;
         this.freeBoardContent = freeBoardContent;
