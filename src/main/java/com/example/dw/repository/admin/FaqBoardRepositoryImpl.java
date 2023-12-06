@@ -5,7 +5,6 @@ import com.example.dw.domain.dto.admin.QFaqBoardDto;
 import com.example.dw.domain.form.SearchForm;
 import com.querydsl.core.types.dsl.StringPath;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -53,8 +52,8 @@ public class FaqBoardRepositoryImpl implements FaqBoardRepositoryCustom{
         //faqContent와 일치하면 faqBoardContent로 where절에 입력
         StringPath cate = searchForm.getCate().equals("faqTitle") ? faqBoard.faqBoardTitle : searchForm.getCate().equals("faqContent") ? faqBoard.faqBoardContent : faqBoard.faqBoardTitle;
 
-        System.out.println("[선택된 카테고리] : "+cate + "===");
-        System.out.println("[입력된 검색키워드] :" + searchForm.getKeyword() + "===");
+        System.out.println("[선택된 공지사항 카테고리] : "+cate + "===");
+        System.out.println("[입력된 공지사항 검색키워드] :" + searchForm.getKeyword() + "===");
 
         List<FaqBoardDto> contents = jpaQueryFactory
                 .select(new QFaqBoardDto(

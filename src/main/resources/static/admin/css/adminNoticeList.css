@@ -30,7 +30,9 @@
 .faq-section {
     min-height: 346px;
 }
-
+.notice-section {
+    min-height: 526px;
+}
 .notice-wrap {
     min-width : 526px
 }
@@ -146,7 +148,7 @@
 .notice-modify-date-comlumn,
 .notice-reg-date,
 .notice-modify-date {
-    width: 165px;
+    width: 200px;
 }
 .notice-view-count-comlumn,
 .notice-etc-comlumn,

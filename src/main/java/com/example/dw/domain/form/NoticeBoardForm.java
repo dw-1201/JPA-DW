@@ -14,14 +14,20 @@ public class NoticeBoardForm {
     private String noticeBoardTitle;
     private String noticeBoardContent;
 
+
+    public NoticeBoardForm(String noticeBoardTitle, String noticeBoardContent){
+        this.noticeBoardTitle=noticeBoardTitle;
+        this.noticeBoardContent=noticeBoardContent;
+
+    }
+
+    @Builder
     public NoticeBoardForm(Long id, String noticeBoardTitle, String noticeBoardContent
                            ) {
         this.id = id;
         this.noticeBoardTitle = noticeBoardTitle;
         this.noticeBoardContent = noticeBoardContent;
     }
-
-    @Builder
 
     public NoticeBoard toEntity(){
         return NoticeBoard.builder()
