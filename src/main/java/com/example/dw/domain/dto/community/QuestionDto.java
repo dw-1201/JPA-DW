@@ -1,21 +1,10 @@
 package com.example.dw.domain.dto.community;
 
 
-import com.example.dw.domain.entity.question.QuestionComment;
-import com.example.dw.domain.entity.user.QUsers;
 import com.example.dw.domain.entity.user.Users;
-import com.querydsl.core.annotations.QueryProjection;
-import com.querydsl.core.types.dsl.DateTimePath;
-import com.querydsl.core.types.dsl.NumberPath;
-import com.querydsl.core.types.dsl.StringPath;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
 import java.time.LocalDateTime;
 
-@Data
-@NoArgsConstructor
 public class QuestionDto {
 
     private Long id;
@@ -39,6 +28,4 @@ public class QuestionDto {
         this.users = users;
 
     }
-
-
 }
