@@ -22,7 +22,7 @@ public class QGoods extends EntityPathBase<Goods> {
 
     public static final QGoods goods = new QGoods("goods");
 
-    public final QGoodsCategory goodsCategory;
+    public final EnumPath<GoodsCategory> goodsCategory = createEnum("goodsCategory", GoodsCategory.class);
 
     public final StringPath goodsCertify = createString("goodsCertify");
 
@@ -34,7 +34,7 @@ public class QGoods extends EntityPathBase<Goods> {
 
     public final QGoodsMainImg goodsMainImg;
 
-    public final DateTimePath<java.time.LocalDateTime> goodsModifyDate = createDateTime("goodsModifyDate", java.time.LocalDateTime.class);
+    public final StringPath goodsModifyDate = createString("goodsModifyDate");
 
     public final StringPath goodsName = createString("goodsName");
 
@@ -42,7 +42,7 @@ public class QGoods extends EntityPathBase<Goods> {
 
     public final NumberPath<Long> goodsQuantity = createNumber("goodsQuantity", Long.class);
 
-    public final DateTimePath<java.time.LocalDateTime> goodsRegisterDate = createDateTime("goodsRegisterDate", java.time.LocalDateTime.class);
+    public final StringPath goodsRegisterDate = createString("goodsRegisterDate");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
@@ -64,7 +64,6 @@ public class QGoods extends EntityPathBase<Goods> {
 
     public QGoods(Class<? extends Goods> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.goodsCategory = inits.isInitialized("goodsCategory") ? new QGoodsCategory(forProperty("goodsCategory")) : null;
         this.goodsMainImg = inits.isInitialized("goodsMainImg") ? new QGoodsMainImg(forProperty("goodsMainImg"), inits.get("goodsMainImg")) : null;
     }
 

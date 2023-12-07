@@ -1,4 +1,4 @@
-package com.example.dw.repository;
+package com.example.dw.repository.goods;
 
 import com.example.dw.domain.entity.goods.GoodsMainImg;
 import org.springframework.data.jpa.repository.JpaRepository;
