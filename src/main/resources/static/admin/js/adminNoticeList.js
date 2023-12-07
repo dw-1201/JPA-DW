@@ -1,39 +1,11 @@
-//faq 슬라이딩
-$(document).ready(function() {
-    // Use event delegation to bind click event to a static parent element
-    $('.admin-faq-list-container').on('click', '.admin-notice-lists .rr', function() {
-        let $currentSection = $(this).next('.notice-content');
+import * as list from './module/list.js';
+import  * as page from './module/pagination.js';
 
-        // Toggle the current section
-        $currentSection.stop().slideToggle(400);
-        // Collapse other sections
-        $(this).parent().siblings().find('.notice-content').slideUp(400);
-    });
-});
-
-
-
-//공지게시판
-//슬라이드 업다운
-// $(document).ready(function() {
-//     $('.admin-notice-lists').each(function() {
-//         let $toggle = $(this).find('.rr');
-//
-//         $toggle.click(function() {
-//             let $currentSection = $(this).next('.notice-content');
-//
-//             // 현재 항목 열고/닫기
-//             $currentSection.stop().slideToggle(400);
-//             // 다른 항목 닫기
-//             $(this).parent().siblings().find('.notice-content').slideUp(400);
-//         });
-//     });
-// });
 
 //공지게시판
 //마우스 클릭 효과
 $(document).ready(function(){
-    $('.rr').on('click', function(){
+    $('.lists').on('click', 'rr',function(){
 
         let $currentSection = $(this).children('.row')
         $currentSection.toggleClass('active');
@@ -46,46 +18,53 @@ $(document).ready(function(){
 
 
 
-// faq 등록 페이지 이동
-$('.notice-faq-btn').on('click',function(){
-    window.location.href="/admin/faqWrite";
-})
-// //faq 수정 페이지 이동
-// $('.faq-list').on('click','.faq-modify-btn',function(){
-//
-//     let faqBoardId = $('.faq-modify-btn').data('faqnum')
-//     window.location.href="/admin/faqModify?faqBoardId=" + faqBoardId ;
-//
-//
-//
-// })
-
-//faq 삭제
-$('.faq-list').on('click','.faq-delete-btn',function(){
-
-    let faqBoardId = $('.faq-delete-btn').data('faqnum')
-
-    if(confirm("삭제하시겠습니까?")){
-        window.location.href="/admin/faqDelete/" + faqBoardId ;
-    }
-
-})
-
-//공지사항 등록 페이지 이동
-$('.notice-reg-btn').on('click',function(){
-    window.location.href="/admin/noticeWrite";
-})
-
-//공지사항 수정 페이지 이동
-$('.notice-modify-btn').on('click',function(){
-    window.location.href="/admin/html/adminNoticeModify.html";
-})
-
-
-
 $(document).ready(function (){
-    faqList(0,searchFaqForm());
+
+    //faq등록
+    $('.notice-faq-btn').on('click',function(){
+        window.location.href="/admin/faqWrite";
+    })
+
+    //faq삭제
+    $('.faq-list').on('click','.faq-delete-btn',function(){
+
+        let faqBoardId = $('.faq-delete-btn').data('faqnum')
+
+        if(confirm("삭제하시겠습니까?")){
+            window.location.href="/admin/faqDelete/" + faqBoardId ;
+        }
+
+    })
+
+
+    //공지사항 등록
+    $('.notice-reg-btn').on('click',function(){
+        window.location.href="/admin/noticeWrite";
+    })
+
+    //공지사항 삭제
+    $('.notice-list').on('click','.notice-delete-btn',function(){
+        let noticeBoardId = $(this).data('noticenum');
+
+        if(confirm("삭제하시겠습니까?")){
+            window.location.href="/admin/noticeDelete/" +noticeBoardId;
+        }
+    })
+
+
+    //리스트 뿌리기
+    list.list(0, searchFaqForm(), 'admins','faqList', showFaqList)
+    list.list(0, searchNoticeForm(),'admins', 'noticeList', showNoticeList)
+
+    //슬라이딩효과
+    list.sliding('.admin-faq-list-container', '.faq-content');
+    list.sliding('.admin-notice-list-container', '.notice-content');
+
+    //검색창 엔터키 반응
+    page.enterKey('#faq-search-keyword','.result-faq-submit-btn');
+    page.enterKey('#notice-search-keyword','.result-notice-submit-btn');
 })
+
 
 //input에서 받은 결과를 넘긴다.
 function searchFaqForm(){
@@ -99,40 +78,27 @@ function searchFaqForm(){
     };
 }
 
+function searchNoticeForm(){
+    let cate = $('#notice-search-cate').val();
+    let keyword = $('#notice-search-keyword').val();
 
+
+    return {
+        cate : cate,
+        keyword : keyword
+    };
+}
+
+//검색결과
 $('.result-faq-submit-btn').on('click', function (){
-    faqList(0, searchFaqForm());
+    list.list(0, searchFaqForm(), 'admins','faqList', showFaqList)
 
 })
 
-function faqList( page,searchForm, callback){
+$('.result-notice-submit-btn').on('click', function (){
+    list.list(0, searchNoticeForm(),'admins', 'noticeList', showNoticeList)
 
-
-    $.ajax({
-
-        url:`/admins/noticeList/${page}`,
-        type:'get',
-        data:searchForm,
-        dataType:'json',
-        success :function (result){
-            console.log(result.pageable)
-            console.log(result.number)
-
-            console.log(result.content)
-
-
-           showFaqList(result.content)
-            pagination(result)
-
-        },error : function (a,b,c){
-            console.error(c);
-        }
-
-
-    })
-}
-
-
+})
 
 
 
@@ -141,7 +107,7 @@ function showFaqList(result){
     let text ='';
     let textInput = $('.faq-list');
 
-    result.forEach(r=>{
+    result.content.forEach(r=>{
 
         text+= `
             <div class="admin-notice-lists admin-faq-lists">
@@ -174,81 +140,69 @@ function showFaqList(result){
         `;
 
     })
+
     textInput.html(text);
-}
 
-function pagination(result) {
     let paginations = $('.faq-pagination-ul');
-    paginations.empty();
-
-    const totalPages = result.totalPages;
-    const currentPage = result.number;
-
-    if (totalPages > 0) {
-        const maxButtons = 5;
-        let startPage = Math.max(0, currentPage - Math.floor(maxButtons / 2));
-        let endPage = Math.min(totalPages - 1, startPage + maxButtons - 1);
-
-        if (totalPages <= maxButtons) {
-            startPage = 0;
-            endPage = totalPages - 1;
-        } else if (endPage - startPage < maxButtons - 1) {
-            startPage = Math.max(0, totalPages - maxButtons);
-        }
-        //화살표 <
-        if (currentPage > 0) {
-            paginations.append(`<li><a href="#" data-page="${currentPage - 1}">&lt;</a></li>`);
-        }else{
-            paginations.append(`<li></li>`)
-        }
-
-        //페이징 버튼
-        for (let i = startPage; i <= endPage; i++) {
-            if(i==currentPage){
-                paginations.append(`<li><a href="#" class="active-btn" data-page="${i}">${i + 1}</a></li>`);
-
-            }else{
-                paginations.append(`<li><a href="#" data-page="${i}">${i + 1}</a></li>`);
-
-            }
-        }
-
-
-        //화살표 >
-        if (currentPage < totalPages - 1) {
-            paginations.append(`<li><a href="#" data-page="${currentPage + 1}">&gt;</a></li>`);
-        }else{
-            paginations.append(`<li></li>`)
-        }
-    }
-
+    page.pagination(result, paginations)
     paginations.find('a').on('click', function (e) {
         e.preventDefault();
         const page = parseInt($(this).data('page'));
-        faqList(page, searchFaqForm());
+        list.list(page, searchFaqForm(), 'admins','faqList', showFaqList);
     });
 }
 
 
 
-$(function() {
-    $("#faq-search-keyword").keypress(function(e){
-        //검색어 입력 후 엔터키 입력하면 조회버튼 클릭
-        if(e.keyCode && e.keyCode == 13){
-            $(".result-faq-submit-btn").trigger("click");
-            return false;
+function showNoticeList(result){
+
+    let text ='';
+    let textInput = $('.notice-list');
+
+    result.content.forEach(r=>{
+
+        text+= `
+            <div class="admin-notice-lists admin-faq-lists">
+                    <div class="admin-notice-list-table rr">
+                        <div class="notice-number row">${r.id}</div>
+                        <div class="notice-title row">${r.noticeBoardTitle}</div>
+                        <div class="notice-reg-date row">${r.noticeBoardRd}</div>
+                        `;
+        if(r.noticeBoardMd != r.noticeBoardRd){
+            text+=`        <div class="notice-reg-date row">${r.noticeBoardMd}</div>`;
+
+        }else {
+            text+=`        <div class="notice-reg-date row"> - </div>`;
+
         }
-        //엔터키 막기
-        if(e.keyCode && e.keyCode == 13){
-            e.preventDefault();
-        }
+        text+=`       
+                <div class="notice-view-count row">${r.noticeBoardViewCount}</div>
+                        
+                    </div>
+                        <section class="notice-content faq-content">
+                            <p>${r.noticeBoardContent}</p>
+                            <div class="notice-etc">
+                                <a href="/admin/noticeModifyPage/${r.id}"><button class="notice-modify-btn btns" type="button" data-faqnum="${r.id}">수정</button></a>
+                                <button class="notice-delete-btn btns" type="button" data-noticenum="${r.id}">삭제</button>
+                            </div>
+                        </section>
+                 </div>
+            
+        
+        `;
+
+    })
+
+    textInput.html(text);
+
+    let paginations = $('.notice-pagination-ul');
+    page.pagination(result, paginations)
+    paginations.find('a').on('click', function (e) {
+        e.preventDefault();
+        const page = parseInt($(this).data('page'));
+        list.list(page, searchNoticeForm(), 'admins','noticeList', showNoticeList);
     });
-
-});
-
-
-
-
+}
 
 
 

@@ -7,10 +7,12 @@ import lombok.*;
 @Table(name="goods_main_img")
 @Getter
 @Builder
+@ToString(exclude="goods")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class GoodsMainImg {
     @Id
     @GeneratedValue
+    @Column(name = "goods_main_img_id")
     private Long id;
 
     private String goodsMainImgName;

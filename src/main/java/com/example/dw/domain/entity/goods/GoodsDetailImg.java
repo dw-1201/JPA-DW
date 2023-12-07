@@ -8,9 +8,11 @@ import lombok.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
+@ToString(exclude="goods")
 public class GoodsDetailImg {
     @Id
     @GeneratedValue
+    @Column(name="goods_detail_img_id")
     private Long id;
 
 
@@ -32,4 +34,11 @@ public class GoodsDetailImg {
         this.goods = goods;
     }
 
+
+    public GoodsDetailImg(Long id, String goodsDetailImgName, String goodsDetailImgPath, String goodsDetailImgUuid) {
+        this.id = id;
+        this.goodsDetailImgName = goodsDetailImgName;
+        this.goodsDetailImgPath = goodsDetailImgPath;
+        this.goodsDetailImgUuid = goodsDetailImgUuid;
+    }
 }

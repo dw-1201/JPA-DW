@@ -82,4 +82,41 @@ public class AdminService {
 
     }
 
+    //공지사항 상세 보기
+    @Transactional
+    public NoticeBoard noticeDetail(Long id){
+        NoticeBoard detail = noticeBoardRepository.findById(id).get();
+
+        return Optional.ofNullable(detail).orElseThrow(()->{
+            throw new IllegalArgumentException("존재하지 않음");
+        });
+    }
+
+    //공지사항 수정
+    @Transactional
+    public NoticeBoard noticeModify(NoticeBoardForm noticeBoardForm,Long id){
+
+        //영속상태로
+        NoticeBoard noticeBoard = noticeBoardRepository.findById(id).get();
+
+        //변경감지
+        noticeBoard.update(noticeBoardForm);
+
+        return Optional.ofNullable(noticeBoard).orElseThrow(()->{
+            throw new IllegalArgumentException("존재하지 않음");
+        });
+    }
+
+    //공지사항 삭제
+    @Transactional
+    public void noticeDelete(Long id ){
+
+        if (id == null) {
+
+            throw new IllegalArgumentException("존재하지 않는 공지사항 게시 번호");
+        }
+
+        noticeBoardRepository.deleteById(id);
+    }
+
 }
