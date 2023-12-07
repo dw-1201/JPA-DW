@@ -1,9 +1,9 @@
 //리스트 불러오기
-export function list(page,searchForm, section, callback){
+export function list(page,searchForm, name ,section, callback){
 
     $.ajax({
 
-        url:`/admins/${section}/${page}`,
+        url:`/${name}/${section}/${page}`,
         type:'get',
         data:searchForm,
         dataType:'json',

@@ -1,4 +1,4 @@
-import * as list from './module/notice.js';
+import * as list from './module/list.js';
 import  * as page from './module/pagination.js';
 
 
@@ -53,8 +53,8 @@ $(document).ready(function (){
 
 
     //리스트 뿌리기
-    list.list(0, searchFaqForm(), 'faqList', showFaqList)
-    list.list(0, searchNoticeForm(), 'noticeList', showNoticeList)
+    list.list(0, searchFaqForm(), 'admins','faqList', showFaqList)
+    list.list(0, searchNoticeForm(),'admins', 'noticeList', showNoticeList)
 
     //슬라이딩효과
     list.sliding('.admin-faq-list-container', '.faq-content');
@@ -91,12 +91,12 @@ function searchNoticeForm(){
 
 //검색결과
 $('.result-faq-submit-btn').on('click', function (){
-    list.list(0, searchFaqForm(), 'faqList', showFaqList)
+    list.list(0, searchFaqForm(), 'admins','faqList', showFaqList)
 
 })
 
 $('.result-notice-submit-btn').on('click', function (){
-    list.list(0, searchNoticeForm(), 'noticeList', showNoticeList)
+    list.list(0, searchNoticeForm(),'admins', 'noticeList', showNoticeList)
 
 })
 
@@ -148,7 +148,7 @@ function showFaqList(result){
     paginations.find('a').on('click', function (e) {
         e.preventDefault();
         const page = parseInt($(this).data('page'));
-        list.list(page, searchFaqForm(), 'faqList', showFaqList);
+        list.list(page, searchFaqForm(), 'admins','faqList', showFaqList);
     });
 }
 
@@ -200,7 +200,7 @@ function showNoticeList(result){
     paginations.find('a').on('click', function (e) {
         e.preventDefault();
         const page = parseInt($(this).data('page'));
-        list.list(page, searchNoticeForm(), 'noticeList', showNoticeList);
+        list.list(page, searchNoticeForm(), 'admins','noticeList', showNoticeList);
     });
 }
 
