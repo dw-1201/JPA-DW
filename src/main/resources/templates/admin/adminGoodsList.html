@@ -30,9 +30,10 @@
     <div class="admin-main-bcc">
         <div class="admin-main-wrap" >
             <div class="goods-info-search-container">
-                <form th:action="@{/goods/register}" method="post" id="search-form">
+                <form action="" method="" id="search-form">
                     <div class="select-form">
                         <select id="search-cate" name="search-cate">
+                            <option value="전체보기">전체보기</option>
                             <option value="간식">간식</option>
                             <option value="영양제">영양제</option>
                             <option value="장난감">영양제</option>
@@ -41,10 +42,10 @@
                         </select>
                     </div>
                     <div class="input-form">
-                        <input type="text" name="search-keyword" id="search-keyword" />
+                        <input type="text" name="search-keyword" id="goods-search-keyword" />
                     </div>
                     <div class="result-btn">
-                        <button type="button" class="result-submit-btn">검색</button>
+                        <button type="button" class="result-submit-btn goods-list-search-btn">검색</button>
                     </div>
                 </form>
                 <div class="reg-btn">
@@ -63,7 +64,7 @@
                         <th width="200">마지막 수정일</th>
                         <th>비고</th>
                     </tr>
-                    <tbody class="goods-lists">
+                    <tbody class="goods-table-lists">
 
 
                     </tbody>

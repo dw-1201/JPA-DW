@@ -16,53 +16,11 @@
 </div>
 <div class="admin-index-wrap" >
     <div class="admin-fragment">
-        <div class="admin-hidden-title">
-            <h3>관리자 페이지</h3>
+        <div class="admin-fragment-section"  th:replace="fragment/adminSide :: admin">
         </div>
-        <aside class="aside">
-            <ul class="side-menu">
-                <li class="user-manage admin-manage">회원 관리
-                    <div class="sub-menu">
-                        <ul class="sub-menu-ul">
-                            <li><a href="/admin/html/adminIndex.html">회원 현황</a></li>
-                            <li><a href="/admin/html/adminUserList.html">회원 목록</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="goods-manage admin-manage">상품 관리
-                    <div class="sub-menu">
-                        <ul class="sub-menu-ul">
-                            <li><a href="/admin/html/adminGoodsList.html">상품 목록</a></li>
-                            <li><a href="/admin/html/adminGoodsQue.html">상품 문의</a></li>
-                            <li><a href="/admin/html/adminGoodsReview.html">상품 리뷰</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="order-manage admin-manage">주문 관리
-                    <div class="sub-menu">
-                        <ul class="sub-menu-ul">
-                            <li><a href="/admin/html/adminOrderManage.html">주문 현황</a></li>
-                                <li><a href="/admin/html/adminOrderList.html">주문 목록</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="notice-manage admin-manage">커뮤니티 관리
-                    <div class="sub-menu">
-                        <ul class="sub-menu-ul"> 
-                            <li><a href="/admin/html/adminNoticeList.html">공지 목록</a></li>
-                            <li><a href="/admin/html/adminQnaList.html">QnA 목록</a></li>
-                            <li><a href="/admin/html/adminFreeList.html">자유게시판글 목록</a></li>
-                            <li><a href="/admin/html/adminWalkList.html">산책글 목록</a></li>
+    </div>
 
-                        </ul>
-                    </div>
-                </li>
-          
-            </ul>
-        </aside>
-     </div>
-
-<main class="main">
+    <main class="main">
     <div class="admin-menu-title-container">
         <div class="admin-menu-title">
             <h4>상품 등록</h4>
@@ -75,11 +33,11 @@
                     <h4>상품 기본 정보</h4>
                 </div>
                 <form action="" method="" id="goods-img-form" enctype="multipart/form-data">
-                    <!-- 상품 기본 정보 입력 영역 -->
+                    <!-- 상품 기본 정보 수정 영역 -->
                     
                     <div class="goods-info-container">
                         
-                        <table class="goods-info-table" border="1" cellspacing="0">
+                        <table class="goods-info-table" border="1" cellspacing="0" th:each="goods : ${detail}">
                             <tr>
                                 <colgroup>
                                     <col />
@@ -92,35 +50,35 @@
                                 <th class="goods-table-column" scope="row">카테고리</th>
                                 <td>
                                     <select name="goodsCategory" id="goods-cate" >
-                                        <option value="간식">간식</option>
-                                        <option value="영양제">영양제</option>
-                                        <option value="장난감">장난감</option>
+                                        <option value="간식" th:selected="${goods.goodsCategory=='간식'}">간식</option>
+                                        <option value="영양제" th:selected="${goods.goodsCategory=='영양제'}">영양제</option>
+                                        <option value="장난감" th:selected="${goods.goodsCategory=='장난감'}">장난감</option>
                                         <option value="간식이">간식2</option>
                                         <option value="생식이">간식3</option>
                                     </select>
                                 </td>
                                 <th scope="row" rowspan="6">상품 설명</th>
-                                <td rowspan="6" class="goods-detail-textarea"><textarea id="goods-detail" name="goods-detail" rows="4"></textarea></td>
+                                <td rowspan="6" class="goods-detail-textarea"><textarea id="goods-detail" name="goods-detail" rows="4"  th:text="${goods.goodsDetailContent}"></textarea></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">상품명</th>
-                                <td><input type="text" name="goods-name" id="goods-name" maxlength="30" /></td>
+                                <td><input type="text" name="goods-name" id="goods-name" maxlength="30" th:value="${goods.goodsName}"/></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">상품 수량</th>
-                                <td><input type="number" name="goods-quantity" id="goods-quantity" min="0"/></td>
+                                <td><input type="number" name="goods-quantity" id="goods-quantity" min="0" th:value="${goods.goodsQuantity}"/></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">상품 가격</th>
-                                <td><input type="number" name="goods-price" id="goods-price" min="0"/></td>
+                                <td><input type="number" name="goods-price" id="goods-price" min="0" th:value="${goods.goodsPrice}"/></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">제조국(원산지)</th>
-                                <td><input type="text" name="goods-made-in" id="goods-made-in"/></td>
+                                <td><input type="text" name="goods-made-in" id="goods-made-in" th:value="${goods.goodsMade}"/></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">인증허가</th>
-                                <td><input type="text" name="goods-certify" id="goods-certify"/></td>
+                                <td><input type="text" name="goods-certify" id="goods-certify" th:value="${goods.goodsCertify}"/></td>
                             </tr>
 
                         </table>
@@ -129,7 +87,7 @@
                         <h4>상품 사진 정보</h4>
                     </div>
                     <div class="goods-imgs-wrap">
-                        
+
                         <!-- 상품 메인 사진 -->
                         <div class="goods-main-img-file">
                             <input type="file" name="goods-main-img" id="goods-main-img" accept="image/*"/>

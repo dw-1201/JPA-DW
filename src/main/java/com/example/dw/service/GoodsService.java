@@ -17,18 +17,38 @@ public class GoodsService {
 
 
     private final GoodsRepository goodsRepository;
-
-
-
+    private final FileService fileService;
 
 
     //상품 기본 정보 등록
+    @Transactional
     public Long register(GoodsForm goodsForm) throws IOException {
 
 
         Goods goods = goodsRepository.save(goodsForm.toEntity());
 
         return goods.getId();
+    }
+    
+    //상품 수정
+    
+    //상품 삭제
+    @Transactional
+    public void delete(Long goodsId){
+
+        if (goodsId == null) {
+            
+            throw new IllegalArgumentException("유효하지 않은 번호");
+        }
+
+//        goodsRepository.findById(goodsId).stream().forEach(
+//                r-> System.out.println(r.getGoodsDetailImg().toString()+"===========")
+//        );
+
+        fileService.removeMainImg(goodsId);
+        fileService.removeDetailImgs(goodsId);
+        goodsRepository.deleteById(goodsId);
+
     }
 
 

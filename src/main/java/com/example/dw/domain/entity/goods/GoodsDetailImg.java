@@ -7,7 +7,6 @@ import lombok.*;
 @Table(name="goods_detail_img")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
 @ToString(exclude="goods")
 public class GoodsDetailImg {
     @Id

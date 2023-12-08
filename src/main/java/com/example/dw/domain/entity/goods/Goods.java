@@ -16,8 +16,6 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @ToString(exclude={"goodsMainImg", "goodsDetailImg"})
-
-@Builder
 @EntityListeners(AuditingEntityListener.class)
 public class Goods {
     @Id
