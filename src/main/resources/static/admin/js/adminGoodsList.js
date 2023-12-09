@@ -7,23 +7,19 @@ $('.move-to-reg ').on('click', function(){
     window.location.href="/goods/goodsReg";
 })
 
-
-//상품 상세 보기
-$('.detail-btn').on('click', function(){
-    window.location.href="/admin/";
-})
-
 function searchGoodsForm(){
     let cate = $('#search-cate').val();
-    let keyword = $('#search-keyword').val();
+    let keyword = $('#goods-search-keyword').val();
 
+    if(cate ==='전체보기'){
+        cate = '';
+    }
 
     return {
         cate : cate,
         keyword : keyword
     };
 }
-
 
 //검색결과
 $('.result-submit-btn').on('click', function (){
@@ -35,27 +31,28 @@ $('.result-submit-btn').on('click', function (){
 $(document).ready(function (){
 
     list.list(0,searchGoodsForm(),'goodsr', 'goodsList', showGoodsList);
+    page.enterKey('#goods-search-keyword', '.goods-list-search-btn');
+
 })
 
 
 function showGoodsList(result){
     let text ='';
-    let textInput = $('.goods-lists');
+    let textInput = $('.goods-table-lists');
     
     result.content.forEach(r=>{
 
 
         text += `
         
-                            <tr class="goods-lists">
-
+                       <tr class="goods-lists">
                         <td>${r.goodsName}</td>
                         <td>${r.goodsPrice}원</td>
                         <td>${r.goodsQuantity} ea</td>
                         <td>추후 조인</td>
                         <td>${r.goodsRegisterDate}</td>
                         `;
-        if(r.goodsRegisterDate = r.goodsModifyDate){
+        if(r.goodsRegisterDate == r.goodsModifyDate){
            text += ` <td>-</td>`;
         } else {
             text += `<td>${r.goodsModifyDate}</td>`;
@@ -63,9 +60,9 @@ function showGoodsList(result){
         }
         text+=`
                         <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
+                            <a href="/goods/detail/${r.id}"><button type="button" class="detail-btn btn" data-goodsnum="${r.id}">상세보기</button></a>
                         </td>
-                                            </tr>
+                      </tr>
 
         `;
 

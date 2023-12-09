@@ -1,16 +1,14 @@
 package com.example.dw.controller;
 
+import com.example.dw.domain.dto.goods.GoodsDetailResultDto;
 import com.example.dw.domain.form.GoodsForm;
-import com.example.dw.repository.goods.GoodsRepository;
 import com.example.dw.repository.goods.GoodsRepositoryCustom;
 import com.example.dw.service.FileService;
 import com.example.dw.service.GoodsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -26,7 +24,6 @@ public class GoodsController {
     private final GoodsService goodsService;
     private final FileService fileService;
     private final GoodsRepositoryCustom goodsRepositoryCustom;
-    private final GoodsRepository goodsRepository;
 
     //상품리스트
     @GetMapping("/goodsList")
@@ -63,18 +60,60 @@ public class GoodsController {
         return new RedirectView("/goods/goodsList");
     }
 
-//    //상품 상세 페이지 이동
-//    @GetMapping("/detail/{goodsId}")
-//    public Optional<GoodsDetailDto> goodsDetail(@PathVariable("goodsId") Long goodsId){
-//
-//        Optional<GoodsDetailDto> result =
-//        goodsRepositoryCustom.findGoodsById(goodsId);
-//
-//
-//        System.out.println(result.toString()+"===================");
-//        return result;
-//
-//    }
+    //상품 상세 페이지 이동
+    @GetMapping("/detail/{goodsId}")
+    public String goodsDetail(@PathVariable("goodsId") Long goodsId, Model model){
 
+        List<GoodsDetailResultDto> result =
+                goodsRepositoryCustom.findGoodsById(goodsId);
+
+
+
+        System.out.println("[상품 상세 정보] : "+result.toString());
+        model.addAttribute("detail", result);
+
+
+        return "/admin/adminGoodsDetail";
+
+    }
+
+    //상품 수정 페이지 이동
+    @GetMapping("/modify/{goodsId}")
+    public String goodsModifyPage(@PathVariable("goodsId") Long goodsId, Model model){
+
+        List<GoodsDetailResultDto> result =
+                goodsRepositoryCustom.findGoodsById(goodsId);
+
+        model.addAttribute("detail", result);
+
+        return "/admin/adminGoodsModify";
+    }
+
+    //상품 수정
+    @PutMapping("/modify/{goodsId}/edit")
+    public RedirectView goodsModify(@PathVariable("goodsId") Long goodsId,
+                                    GoodsForm goodsForm,
+                                    @RequestParam("goodsMainImg") MultipartFile file,
+                                    @RequestParam("goodsDetailImg") List<MultipartFile> files) throws IOException{
+
+        goodsForm.setId(goodsId);
+        System.out.println("받아오는 상품번호 : "+goodsForm.getId());
+
+
+        goodsService.modify(goodsForm,file,files);
+
+        return new RedirectView("/goods/goodsList");
+    }
+
+
+    //상품 삭제
+    @GetMapping("/delete/{goodsId}")
+    public RedirectView goodsDelete(@PathVariable("goodsId") Long goodsId){
+
+
+        goodsService.delete(goodsId);
+
+        return new RedirectView("/goods/goodsList");
+    }
 
 }

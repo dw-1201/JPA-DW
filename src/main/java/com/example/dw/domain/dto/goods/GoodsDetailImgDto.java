@@ -1,10 +1,8 @@
 package com.example.dw.domain.dto.goods;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 public class GoodsDetailImgDto {
 
 
@@ -12,12 +10,18 @@ public class GoodsDetailImgDto {
     private String goodsDetailImgName;
     private String goodsDetailImgPath;
     private String goodsDetailImgUuid;
+    private Long goodsDetailImgId;
 
 
-    public GoodsDetailImgDto(Long id, String goodsDetailImgName, String goodsDetailImgPath, String goodsDetailImgUuid) {
+    public GoodsDetailImgDto(Long id, String goodsDetailImgName, String goodsDetailImgPath, String goodsDetailImgUuid
+    ,Long goodsDetailImgId) {
         this.id = id;
         this.goodsDetailImgName = goodsDetailImgName;
         this.goodsDetailImgPath = goodsDetailImgPath;
         this.goodsDetailImgUuid = goodsDetailImgUuid;
+        this.goodsDetailImgId=goodsDetailImgId;
     }
+
+
+
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,51 +18,9 @@
 </div>
 <div class="admin-index-wrap" >
     <div class="admin-fragment">
-        <div class="admin-hidden-title">
-            <h3>관리자 페이지</h3>
+        <div class="admin-fragment-section"  th:replace="fragment/adminSide :: admin">
         </div>
-        <aside class="aside">
-            <ul class="side-menu">
-                <li class="user-manage admin-manage">회원 관리
-                    <div class="sub-menu">
-                        <ul class="sub-menu-ul">
-                            <li><a href="/admin/html/adminIndex.html">회원 현황</a></li>
-                            <li><a href="/admin/html/adminUserList.html">회원 목록</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="goods-manage admin-manage">상품 관리
-                    <div class="sub-menu">
-                        <ul class="sub-menu-ul">
-                            <li><a href="/admin/html/adminGoodsList.html">상품 목록</a></li>
-                            <li><a href="/admin/html/adminGoodsQue.html">상품 문의</a></li>
-                            <li><a href="/admin/html/adminGoodsReview.html">상품 리뷰</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="order-manage admin-manage">주문 관리
-                    <div class="sub-menu">
-                        <ul class="sub-menu-ul">
-                            <li><a href="/admin/html/adminOrderManage.html">주문 현황</a></li>
-                                <li><a href="/admin/html/adminOrderList.html">주문 목록</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="notice-manage admin-manage">커뮤니티 관리
-                    <div class="sub-menu">
-                        <ul class="sub-menu-ul"> 
-                            <li><a href="/admin/html/adminNoticeList.html">공지 목록</a></li>
-                            <li><a href="/admin/html/adminQnaList.html">QnA 목록</a></li>
-                            <li><a href="/admin/html/adminFreeList.html">자유게시판글 목록</a></li>
-                            <li><a href="/admin/html/adminWalkList.html">산책글 목록</a></li>
-
-                        </ul>
-                    </div>
-                </li>
-          
-            </ul>
-        </aside>
-     </div>
+    </div>
 
 <main class="main">
     <div class="admin-menu-title-container">
@@ -70,21 +28,21 @@
             <h4>상품 상세</h4>
         </div>
     </div>
-    <div class="admin-main-bcc">
-        <div class="admin-main-wrap">
+    <div class="admin-main-bcc" >
+        <div class="admin-main-wrap" >
         
-           <div class="goods-img-reg-section">
+           <div class="goods-img-reg-section"  >
                 <div class="goods-stan-info-title">
-                    <h4>상품 기본 정보</h4>
-                    <div class="reg-btn">
-                        <button class="reg-submit-btn modify-btn">수정</button>
-                        <button class="reg-submit-btn delete-btn">삭제</button>
+                    <h4 >상품 기본 정보</h4>
+                    <div class="reg-btn" th:each="goods : ${detail}">
+                        <button class="reg-submit-btn modify-btn" th:data-goodsid="${goods.id}">수정</button>
+                        <button class="reg-submit-btn delete-btn" th:data-goodsid="${goods.id}">삭제</button>
                     </div>
                 </div>
                     
                     <div class="goods-info-container">
                         
-                        <table class="goods-info-table" border="1" cellspacing="0" >
+                        <table class="goods-info-table" border="1" cellspacing="0" th:each="goods : ${detail}" >
                             <tr>
                                 <colgroup>
                                     <col />
@@ -96,42 +54,42 @@
                             <tr>
                                 <th class="goods-table-column" scope="row">카테고리</th>
                                 <td>
-                                    <select name="goods-cate" id="goods-cate" >
-                                        <option value="1">간식</option>
-                                        <option value="2">영양제</option>
-                                        <option value="3">장난감</option>
+                                    <select name="goodsCategory" id="goods-cate" disabled>
+                                        <option th:selected="${goods.goodsCategory=='간식'}">간식</option>
+                                        <option th:selected="${goods.goodsCategory=='영양제'}">영양제</option>
+                                        <option th:selected="${goods.goodsCategory=='장난감'}">장난감</option>
                                         <option value="4">간식</option>
                                         <option value="5">간식</option>
                                     </select>
                                 </td>
                                 <th scope="row" rowspan="6">상품 설명</th>
-                                <td rowspan="6" class="goods-detail-textarea"><textarea id="goods-detail" name="goods-detail" rows="4" readonly></textarea></td>
+                                <td rowspan="6" class="goods-detail-textarea" th:text="${goods.goodsDetailContent}" ></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">상품명</th>
-                                <td><input type="text" name="goods-name" id="goods-name" maxlength="30" readonly /></td>
+                                <td><input type="text" name="goodsName" id="goods-name" maxlength="30" th:value="${goods.goodsName}" readonly /></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">상품 수량</th>
-                                <td><input type="number" name="goods-quantity" id="goods-quantity" min="0" readonly/></td>
+                                <td><input type="number" name="goodsQuantity" id="goods-quantity" min="0" th:value="${goods.goodsQuantity}" readonly/></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">상품 가격</th>
-                                <td><input type="number" name="goods-price" id="goods-price" min="0" readonly/></td>
+                                <td><input type="number" name="goodsPrice" id="goods-price" min="0" th:value="${goods.goodsPrice}" readonly/></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">제조국(원산지)</th>
-                                <td><input type="text" name="goods-made-in" id="goods-made-in"readonly /></td>
+                                <td><input type="text" name="goodsMade" id="goods-made-in" th:value="${goods.goodsMade}" readonly /></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">인증허가</th>
-                                <td><input type="text" name="goods-certify" id="goods-certify" readonly/></td>
+                                <td><input type="text" name="goodsCertify" id="goods-certify" th:value="${goods.goodsCertify}" readonly/></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">최초 등록일</th>
-                                <td><input type="text" name="goods-reg-date" id="goods-reg-date" readonly/></td>
+                                <td><input type="text" name="goodsRegisterDate" id="goods-reg-date" th:value="${goods.goodsRegisterDate}" readonly/></td>
                                 <th class="goods-table-column" scope="row">마지막 수정일</th>
-                                <td><input type="text" name="goods-last-modify-date" id="goods-last-modify-date" readonly/></td>
+                                <td><input type="text" name="goodsModifyDate" id="goods-last-modify-date" th:value="${goods.goodsModifyDate}" readonly/></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">판매량</th>
@@ -146,46 +104,28 @@
                         <h4>상품 사진 정보</h4>
                     </div>
                     <div class="goods-imgs-wrap">
-                        
-                        <!-- 상품 메인 사진 -->
-                        <div class="goods-main-img-file">
-                            <input type="file" name="goods-main-img" id="goods-main-img" accept="image/*"/>
-                        </div>
-                        <!-- 상품 설명 사진 -->
-                        <div class="goods-detail-img-file">
-                            <input type="file" name="goods-detail-img" id="goods-detail-img" accept="image/*" multiple/>
-                        </div>
                         <!-- 상품 메인 및 설명 사진의 미리보기가 나오는 영역 -->
                         <div class="image-lists">
                             <ul class="image-lists-ul">
-                                <li class="goods-main-img-p">
-                                    <div class="img-title">
-                                        <span>상품 메인 사진</span>
+                                <li class="goods-main-img-p" th:each="goods : ${detail}" >
+                                    <div class="img-title" >
+                                        <img th:src="'/jpa_dw/goods/'+${goods.goodsMainImgPath}+'/'+${goods.goodsMainImgUuid}+'_'+${goods.goodsMainImgName}" alt="상품 메인사진"/>
+                                        <div class="main-img-title">
+                                            <span>상품 메인 사진</span>
+                                        </div>
                                     </div>
                                 </li>
-                                <li class="goods-detail-img-p">
+                                <th:block  th:each="detail : ${detail}">
+                                <li class="goods-detail-img-p" th:each="imgs, iterState : ${detail.goodsDetailImgs}">
                                     <div class="img-title">
-                                        <span>상품 상세 사진-1</span>
+                                        <img th:src="'/jpa_dw/goods/'+${imgs.goodsDetailImgPath}+'/'+${imgs.goodsDetailImgUuid}+'_'+${imgs.goodsDetailImgName}" alt="상품 상세사진"/>
+                                        <div class="detail-img-title">
+                                            <span th:text="'상품 상세 사진 -' + ${iterState.index+1}"></span>
+                                        </div>
                                     </div>
                                 </li>
-                                <li class="goods-detail-img-p active-img">
-                                    <div class="img-title">
-                                        <span>상품 상세 사진-2</span>
-                                    </div>
+                                </th:block>
 
-                                </li>
-                                <li class="goods-detail-img-p active-img">
-                                    <div class="img-title">
-                                        <span>상품 상세 사진-3</span>
-                                    </div>
-
-                                </li>
-                                <li class="goods-detail-img-p active-img">
-                                    <div class="img-title">
-                                        <span>상품 상세 사진-4</span>
-                                    </div>
-
-                                </li>
                             </ul>
                         </div>
                     </div>
@@ -213,60 +153,7 @@
                         <td>2011-05-11</td>
                         <td id="reply-td"><button type="button" class="reply-complete reply-btn">답변완료</button></td>
                     </tr>
-                    <tr>
-                        <td>bokbok1234</td>
-                        <td class="q-content">이거 냠냠이가 먹어도 되나요?</td>
-                        <td>2011-05-11</td>
-                        <td id="reply-td"><button type="button" class="reply-need reply-btn">답변하기</button></td>
-                    </tr>
-                    <tr>
-                        <td>bokbok1234</td>
-                        <td class="q-content">이거 냠냠이가 먹어도 되나요?</td>
-                        <td>2011-05-11</td>
-                        <td id="reply-td"><button type="button" class="reply-need reply-btn">답변하기</button></td>
-                    </tr>
-                    <tr>
-                        <td>bokbok1234</td>
-                        <td class="q-content">이거 냠냠이가 먹어도 되나요?</td>
-                        <td>2011-05-11</td>
-                        <td id="reply-td"><button type="button" class="reply-need reply-btn">답변하기</button></td>
-                    </tr>
-                    <tr>
-                        <td>bokbok1234</td>
-                        <td class="q-content">이거 냠냠이가 먹어도 되나요?</td>
-                        <td>2011-05-11</td>
-                        <td id="reply-td"><button type="button" class="reply-need reply-btn">답변하기</button></td>
-                    </tr>
-                    <tr>
-                        <td>bokbok1234</td>
-                        <td class="q-content">이거 냠냠이가 먹어도 되나요?ㅇ란어라ㅣㄴ어라ㅣㄴㅇ런이ㅏ런아ㅣ런아ㅣ런아ㅣㄹ런아ㅣ런아ㅣsdfㄴㅇ라ㅓㄴㅇ리ㅏㄴ알;나ㅣㅇ린아런아ㅣ런아ㅣ런이ㅏㄹㄴ어라ㅣㄴ얼나ㅣㅇ런아ㅣ런아ㅣ런이라ㄹ</td>
-                        <td>2011-05-11</td>
-                        <td id="reply-td"><button type="button" class="reply-complete reply-btn">답변완료</button></td>
-                    </tr>
-                    <tr>
-                        <td>bokbok1234</td>
-                        <td class="q-content">이거 냠냠이가 먹어도 되나요?</td>
-                        <td>2011-05-11</td>
-                        <td id="reply-td"><button type="button" class="reply-complete reply-btn">답변완료</button></td>
-                    </tr>
-                    <tr>
-                        <td>bokbok1234</td>
-                        <td class="q-content">이거 냠냠이가 먹어도 되나요?</td>
-                        <td>2011-05-11</td>
-                        <td id="reply-td"><button type="button" class="reply-complete reply-btn">답변완료</button></td>
-                    </tr>
-                    <tr>
-                        <td>bokbok1234</td>
-                        <td class="q-content">이거 냠냠이가 먹어도 되나요?</td>
-                        <td>2011-05-11</td>
-                        <td id="reply-td"> <button type="button" class="reply-need reply-btn">답변하기</button></td>
-                    </tr>
-                    <tr>
-                        <td>bokbok1234</td>
-                        <td class="q-content">이거 냠냠이가 먹어도 되나요?</td>
-                        <td>2011-05-11</td>
-                        <td id="reply-td"><button type="button" class="reply-need reply-btn ">답변하기</button></td>
-                    </tr>
+
                     
                 </table>
                     <div class="pagination-container">
@@ -303,60 +190,7 @@
                         <td>2011-05-11</td>
                         <td id="reply-td"><button type="button" class="reply-complete reply-btn">답변완료</button></td>
                     </tr>
-                    <tr>
-                        <td>bokbok1234</td>
-                        <td class="q-content">이거 냠냠이가 먹어도 되나요?</td>
-                        <td>2011-05-11</td>
-                        <td id="reply-td"><button type="button" class="reply-need reply-btn">답변하기</button></td>
-                    </tr>
-                    <tr>
-                        <td>bokbok1234</td>
-                        <td class="q-content">이거 냠냠이가 먹어도 되나요?</td>
-                        <td>2011-05-11</td>
-                        <td id="reply-td"><button type="button" class="reply-need reply-btn">답변하기</button></td>
-                    </tr>
-                    <tr>
-                        <td>bokbok1234</td>
-                        <td class="q-content">이거 냠냠이가 먹어도 되나요?</td>
-                        <td>2011-05-11</td>
-                        <td id="reply-td"><button type="button" class="reply-need reply-btn">답변하기</button></td>
-                    </tr>
-                    <tr>
-                        <td>bokbok1234</td>
-                        <td class="q-content">이거 냠냠이가 먹어도 되나요?</td>
-                        <td>2011-05-11</td>
-                        <td id="reply-td"><button type="button" class="reply-need reply-btn">답변하기</button></td>
-                    </tr>
-                    <tr>
-                        <td>bokbok1234</td>
-                        <td class="q-content">이거 냠냠이가 먹어도 되나요?ㅇ란어라ㅣㄴ어라ㅣㄴㅇ런이ㅏ런아ㅣ런아ㅣ런아ㅣㄹ런아ㅣ런아ㅣsdfㄴㅇ라ㅓㄴㅇ리ㅏㄴ알;나ㅣㅇ린아런아ㅣ런아ㅣ런이ㅏㄹㄴ어라ㅣㄴ얼나ㅣㅇ런아ㅣ런아ㅣ런이라ㄹ</td>
-                        <td>2011-05-11</td>
-                        <td id="reply-td"><button type="button" class="reply-complete reply-btn">답변완료</button></td>
-                    </tr>
-                    <tr>
-                        <td>bokbok1234</td>
-                        <td class="q-content">이거 냠냠이가 먹어도 되나요?</td>
-                        <td>2011-05-11</td>
-                        <td id="reply-td"><button type="button" class="reply-complete reply-btn">답변완료</button></td>
-                    </tr>
-                    <tr>
-                        <td>bokbok1234</td>
-                        <td class="q-content">이거 냠냠이가 먹어도 되나요?</td>
-                        <td>2011-05-11</td>
-                        <td id="reply-td"><button type="button" class="reply-complete reply-btn">답변완료</button></td>
-                    </tr>
-                    <tr>
-                        <td>bokbok1234</td>
-                        <td class="q-content">이거 냠냠이가 먹어도 되나요?</td>
-                        <td>2011-05-11</td>
-                        <td id="reply-td"> <button type="button" class="reply-need reply-btn">답변하기</button></td>
-                    </tr>
-                    <tr>
-                        <td>bokbok1234</td>
-                        <td class="q-content">이거 냠냠이가 먹어도 되나요?</td>
-                        <td>2011-05-11</td>
-                        <td id="reply-td"><button type="button" class="reply-need reply-btn ">답변하기</button></td>
-                    </tr>
+
                     
                 </table>
                     <div class="pagination-container">

@@ -22,7 +22,6 @@ public class AdminService {
     private final NoticeBoardRepository noticeBoardRepository;
     private final FaqBoardRepository faqBoardRepository;
 
-
     //공지사항 작성
     @Transactional
     public Long register(NoticeBoardForm noticeBoardForm){

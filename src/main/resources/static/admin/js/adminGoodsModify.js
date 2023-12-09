@@ -2,7 +2,7 @@ import * as goodsReg from './module/img.js'
 
 // 상품 메인사진
 let goodsMainImg = $('#goods-main-img');
-let goodsMainImgList = $('.goods-main-img-p');
+let goodsMainImgList = $('.goods-main-modify-img-p');
 
 
 // file change이벤트로 미리보기 갱신하기
@@ -26,7 +26,7 @@ goodsMainImgList.on('click', function (e) {
 
 //상품 설명사진
 let goodsDetailImg = $('#goods-detail-img');
-let goodsDetailImgList = $('.goods-detail-img-p');
+let goodsDetailImgList = $('.goods-detail-modify-img-p');
 
 // file change이벤트로 미리보기 갱신하기
 goodsDetailImg.on('change', function () {

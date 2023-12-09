@@ -6,12 +6,14 @@ import com.example.dw.domain.form.SearchForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface GoodsRepositoryCustom {
 
     Page<GoodsDto> findGoodsAll(Pageable pageable, SearchForm searchForm);
-    Optional<GoodsDetailResultDto> findGoodsById(Long id);
+
+    List<GoodsDetailResultDto> findGoodsById(Long id);
+
 
 
 }

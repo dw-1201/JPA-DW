@@ -4,6 +4,7 @@ import com.example.dw.domain.entity.admin.FaqBoard;
 import com.example.dw.domain.entity.admin.NoticeBoard;
 import com.example.dw.domain.form.FaqBoardForm;
 import com.example.dw.domain.form.NoticeBoardForm;
+import com.example.dw.repository.goods.GoodsRepositoryCustom;
 import com.example.dw.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,7 @@ import org.springframework.web.servlet.view.RedirectView;
 public class AdminController {
 
     private final AdminService adminService;
-
+    private final GoodsRepositoryCustom goodsRepositoryCustom;
 
     @GetMapping("/FBList")
     public String FreeBoardList(){
@@ -144,4 +145,6 @@ public class AdminController {
         return new RedirectView("/admin/noticeList");
 
     }
+
+
 }

@@ -1,13 +1,11 @@
 package com.example.dw.domain.dto.goods;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 //전체조회한 것들 중에 상품 상세사진(여러개)를 리스트로 담기위한 DTO
 @Data
-@NoArgsConstructor
 public class GoodsDetailResultDto {
 
 

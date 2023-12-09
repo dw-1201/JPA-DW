@@ -2,11 +2,9 @@ package com.example.dw.domain.dto.goods;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 //전체 조회 DTO
 @Data
-@NoArgsConstructor
 public class GoodsDetailDto {
 
 
@@ -20,9 +18,11 @@ public class GoodsDetailDto {
     private String goodsRegisterDate;
     private String goodsModifyDate;
     private String goodsCategory;
+    private Long goodsMainImgId;
     private String goodsMainImgName;
     private String goodsMainImgPath;
     private String goodsMainImgUuid;
+    private Long goodsDetailImgId;
     private String goodsDetailImgName;
     private String goodsDetailImgPath;
     private String goodsDetailImgUuid;
@@ -30,8 +30,9 @@ public class GoodsDetailDto {
     @QueryProjection
     public GoodsDetailDto(Long id, String goodsName, Long goodsQuantity, Long goodsPrice,
                           String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate,
-                          String goodsModifyDate, String goodsCategory, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid,
-                          String goodsDetailImgName, String goodsDetailImgPath, String goodsDetailImgUuid) {
+                          String goodsModifyDate, String goodsCategory, Long goodsMainImgId,String goodsMainImgName, String goodsMainImgPath,
+                          String goodsMainImgUuid, Long goodsDetailImgId, String goodsDetailImgName, String goodsDetailImgPath,
+                          String goodsDetailImgUuid) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;
@@ -42,12 +43,15 @@ public class GoodsDetailDto {
         this.goodsRegisterDate = goodsRegisterDate;
         this.goodsModifyDate = goodsModifyDate;
         this.goodsCategory = goodsCategory;
+        this.goodsMainImgId= goodsMainImgId;
         this.goodsMainImgName = goodsMainImgName;
         this.goodsMainImgPath = goodsMainImgPath;
         this.goodsMainImgUuid = goodsMainImgUuid;
+        this.goodsDetailImgId = goodsDetailImgId;
         this.goodsDetailImgName = goodsDetailImgName;
         this.goodsDetailImgPath = goodsDetailImgPath;
         this.goodsDetailImgUuid = goodsDetailImgUuid;
     }
 }
+
 

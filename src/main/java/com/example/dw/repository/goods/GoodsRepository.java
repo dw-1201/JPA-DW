@@ -11,4 +11,6 @@ public interface GoodsRepository extends JpaRepository<Goods, Long> {
         Optional<Goods> findById(Long id);
 
 
+
+
 }

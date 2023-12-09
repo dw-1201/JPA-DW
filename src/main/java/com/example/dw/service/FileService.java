@@ -1,8 +1,11 @@
 package com.example.dw.service;
 
+import com.example.dw.domain.dto.goods.GoodsDetailImgDto;
+import com.example.dw.domain.dto.goods.GoodsMainImgDto;
+import com.example.dw.domain.entity.goods.Goods;
+import com.example.dw.domain.entity.goods.GoodsMainImg;
 import com.example.dw.domain.form.GoodsDetailImgForm;
 import com.example.dw.domain.form.GoodsMainImgForm;
-import com.example.dw.domain.entity.goods.Goods;
 import com.example.dw.repository.goods.GoodsDetailImgRepository;
 import com.example.dw.repository.goods.GoodsMainImgRepository;
 import com.example.dw.repository.goods.GoodsRepository;
@@ -15,7 +18,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -42,12 +49,11 @@ public class FileService {
 
         File uploadPath = new File(mainImg, getUploadPath());
 
-        if(!uploadPath.exists()){
+        if (!uploadPath.exists()) {
             uploadPath.mkdirs();
         }
         File upLoadFile = new File(uploadPath, sysName);
         file.transferTo(upLoadFile);
-
 
 
         return
@@ -70,6 +76,7 @@ public class FileService {
         GoodsMainImgForm goodsMainImgForm = saveImg(file);
         Optional<Goods> goods = goodsRepository.findById(id);
 
+
         goodsMainImgForm.setGoods(goods.get());
         goodsMainImgRepository.save(goodsMainImgForm.toEntity());
 
@@ -88,7 +95,7 @@ public class FileService {
 
         File uploadPath = new File(mainImg, getUploadPath());
 
-        if(!uploadPath.exists()){
+        if (!uploadPath.exists()) {
             uploadPath.mkdirs();
         }
         File upLoadFile = new File(uploadPath, sysName);
@@ -108,24 +115,74 @@ public class FileService {
     public void registerDetailImg(List<MultipartFile> files, Long id) throws IOException {
 
         //파일 여러개
-            for(MultipartFile file : files) {
-                GoodsDetailImgForm goodsDetailImgForm = saveDetailImg(file);
-                Optional<Goods> goods = goodsRepository.findById(id);
+        for (MultipartFile file : files) {
+            GoodsDetailImgForm goodsDetailImgForm = saveDetailImg(file);
+            Optional<Goods> goods = goodsRepository.findById(id);
 
-                goodsDetailImgForm.setGoods(goods.get());
-                goodsDetailImgRepository.save(goodsDetailImgForm.toEntity());
+            goodsDetailImgForm.setGoods(goods.get());
+            goodsDetailImgRepository.save(goodsDetailImgForm.toEntity());
 
-            }
+        }
 
     }
 
 
     //경로설정
-    private String getUploadPath(){
+    private String getUploadPath() {
         return new SimpleDateFormat("yyyy/MM/dd").format(new Date());
     }
-    
-    
 
 
+    //메인 사진 삭제
+    @Transactional
+    public void removeMainImg(Long goodsId) {
+        if (goodsId == null) {
+            throw new IllegalArgumentException("유효하지 않은 상품 번호");
+        }
+
+        GoodsMainImg img = goodsMainImgRepository.findByGoodsId(goodsId).get();
+
+        //dto로 감싸기
+        GoodsMainImgDto goodsMainImgDto = new GoodsMainImgDto(img.getGoods().getId(), img.getGoodsMainImgPath(), img.getGoodsMainImgUuid(), img.getGoodsMainImgName(), img.getId());
+
+        File mainImgTarget = new File(mainImg, goodsMainImgDto.getGoodsMainImgPath() + "/" + goodsMainImgDto.getGoodsMainImgUuid() + "_" + goodsMainImgDto.getGoodsMainImgName());
+
+
+        if (mainImgTarget.exists()) {
+            mainImgTarget.delete();
+
+            System.out.println("[ 삭제되는 상품 메인 사진 ]" + goodsMainImgDto.getGoodsMainImgPath() + "/" + goodsMainImgDto.getGoodsMainImgUuid() + "_" + goodsMainImgDto.getGoodsMainImgName());
+            goodsMainImgRepository.deleteById(goodsMainImgDto.getId());
+
+        }
+
+    }
+
+    //상세 사진 삭제
+    @Transactional
+    public void removeDetailImgs(Long goodsId) {
+
+        if (goodsId == null) {
+            throw new IllegalArgumentException("유효하지 않은 상품 번호");
+        }
+
+        //Dto로 감싸기
+        List<GoodsDetailImgDto> goodsDetailImgDtos = goodsDetailImgRepository.findAllByGoodsId(goodsId).stream().map(o -> new GoodsDetailImgDto(
+                o.getGoods().getId(), o.getGoodsDetailImgName(), o.getGoodsDetailImgPath(), o.getGoodsDetailImgUuid(), o.getId()
+        )).collect(Collectors.toList());
+
+        for (GoodsDetailImgDto goodsDetailImg : goodsDetailImgDtos) {
+            File detailImgTarget = new File(mainImg, goodsDetailImg.getGoodsDetailImgPath() + "/" + goodsDetailImg.getGoodsDetailImgUuid() + "_" + goodsDetailImg.getGoodsDetailImgName());
+
+
+            if (detailImgTarget.exists()) {
+                detailImgTarget.delete();
+
+                System.out.println("[ 삭제되는 상품 상세 사진 ]" + goodsDetailImg.getGoodsDetailImgPath() + "/" + goodsDetailImg.getGoodsDetailImgUuid() + "_" + goodsDetailImg.getGoodsDetailImgName() + "\n");
+                goodsDetailImgRepository.deleteById(goodsDetailImg.getGoodsDetailImgId());
+
+            }
+        }
+
+    }
 }
