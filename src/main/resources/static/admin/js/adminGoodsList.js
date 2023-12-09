@@ -52,7 +52,7 @@ function showGoodsList(result){
                         <td>추후 조인</td>
                         <td>${r.goodsRegisterDate}</td>
                         `;
-        if(r.goodsRegisterDate = r.goodsModifyDate){
+        if(r.goodsRegisterDate == r.goodsModifyDate){
            text += ` <td>-</td>`;
         } else {
             text += `<td>${r.goodsModifyDate}</td>`;

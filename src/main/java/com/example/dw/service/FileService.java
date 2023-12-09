@@ -76,6 +76,7 @@ public class FileService {
         GoodsMainImgForm goodsMainImgForm = saveImg(file);
         Optional<Goods> goods = goodsRepository.findById(id);
 
+
         goodsMainImgForm.setGoods(goods.get());
         goodsMainImgRepository.save(goodsMainImgForm.toEntity());
 
@@ -139,18 +140,22 @@ public class FileService {
             throw new IllegalArgumentException("유효하지 않은 상품 번호");
         }
 
-        GoodsMainImg img = goodsMainImgRepository.findById(goodsId).get();
+        GoodsMainImg img = goodsMainImgRepository.findByGoodsId(goodsId).get();
 
         //dto로 감싸기
-        GoodsMainImgDto goodsMainImgDto = new GoodsMainImgDto(img.getId(), img.getGoodsMainImgPath(), img.getGoodsMainImgUuid(), img.getGoodsMainImgName());
+        GoodsMainImgDto goodsMainImgDto = new GoodsMainImgDto(img.getGoods().getId(), img.getGoodsMainImgPath(), img.getGoodsMainImgUuid(), img.getGoodsMainImgName(), img.getId());
 
         File mainImgTarget = new File(mainImg, goodsMainImgDto.getGoodsMainImgPath() + "/" + goodsMainImgDto.getGoodsMainImgUuid() + "_" + goodsMainImgDto.getGoodsMainImgName());
 
+
         if (mainImgTarget.exists()) {
             mainImgTarget.delete();
+
+            System.out.println("[ 삭제되는 상품 메인 사진 ]" + goodsMainImgDto.getGoodsMainImgPath() + "/" + goodsMainImgDto.getGoodsMainImgUuid() + "_" + goodsMainImgDto.getGoodsMainImgName());
+            goodsMainImgRepository.deleteById(goodsMainImgDto.getId());
+
         }
 
-        goodsMainImgRepository.deleteByGoodsId(goodsId);
     }
 
     //상세 사진 삭제
@@ -163,24 +168,21 @@ public class FileService {
 
         //Dto로 감싸기
         List<GoodsDetailImgDto> goodsDetailImgDtos = goodsDetailImgRepository.findAllByGoodsId(goodsId).stream().map(o -> new GoodsDetailImgDto(
-                o.getId(), o.getGoodsDetailImgName(), o.getGoodsDetailImgPath(), o.getGoodsDetailImgUuid(), o.getGoods().getId()
+                o.getGoods().getId(), o.getGoodsDetailImgName(), o.getGoodsDetailImgPath(), o.getGoodsDetailImgUuid(), o.getId()
         )).collect(Collectors.toList());
-
 
         for (GoodsDetailImgDto goodsDetailImg : goodsDetailImgDtos) {
             File detailImgTarget = new File(mainImg, goodsDetailImg.getGoodsDetailImgPath() + "/" + goodsDetailImg.getGoodsDetailImgUuid() + "_" + goodsDetailImg.getGoodsDetailImgName());
 
 
-            System.out.println("[ 삭제되는 상품 사진 ]" + goodsDetailImg.getGoodsDetailImgPath() + "/" + goodsDetailImg.getGoodsDetailImgUuid() + "_" + goodsDetailImg.getGoodsDetailImgName() + "\n");
-
             if (detailImgTarget.exists()) {
-
-
                 detailImgTarget.delete();
-            }
 
+                System.out.println("[ 삭제되는 상품 상세 사진 ]" + goodsDetailImg.getGoodsDetailImgPath() + "/" + goodsDetailImg.getGoodsDetailImgUuid() + "_" + goodsDetailImg.getGoodsDetailImgName() + "\n");
+                goodsDetailImgRepository.deleteById(goodsDetailImg.getGoodsDetailImgId());
+
+            }
         }
-        goodsDetailImgRepository.deleteByGoodsId(goodsId);
 
     }
 }

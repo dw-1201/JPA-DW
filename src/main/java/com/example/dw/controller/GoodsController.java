@@ -89,9 +89,27 @@ public class GoodsController {
         return "/admin/adminGoodsModify";
     }
 
+    //상품 수정
+    @PutMapping("/modify/{goodsId}/edit")
+    public RedirectView goodsModify(@PathVariable("goodsId") Long goodsId,
+                                    GoodsForm goodsForm,
+                                    @RequestParam("goodsMainImg") MultipartFile file,
+                                    @RequestParam("goodsDetailImg") List<MultipartFile> files) throws IOException{
+
+        goodsForm.setId(goodsId);
+        System.out.println("받아오는 상품번호 : "+goodsForm.getId());
+
+
+        goodsService.modify(goodsForm,file,files);
+
+        return new RedirectView("/goods/goodsList");
+    }
+
+
     //상품 삭제
     @GetMapping("/delete/{goodsId}")
     public RedirectView goodsDelete(@PathVariable("goodsId") Long goodsId){
+
 
         goodsService.delete(goodsId);
 

@@ -21,6 +21,7 @@ import java.util.Optional;
 
 import static com.example.dw.domain.entity.goods.QGoods.goods;
 import static com.example.dw.domain.entity.goods.QGoodsDetailImg.goodsDetailImg;
+import static com.example.dw.domain.entity.goods.QGoodsMainImg.goodsMainImg;
 import static java.util.stream.Collectors.*;
 
 @Repository
@@ -116,15 +117,17 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
                         goods.goodsRegisterDate,
                         goods.goodsModifyDate,
                         goods.goodsCategory.stringValue(),
-                        goods.goodsMainImg.goodsMainImgName,
-                        goods.goodsMainImg.goodsMainImgPath,
-                        goods.goodsMainImg.goodsMainImgUuid,
+                        goodsMainImg.id,
+                        goodsMainImg.goodsMainImgName,
+                        goodsMainImg.goodsMainImgPath,
+                        goodsMainImg.goodsMainImgUuid,
                         goodsDetailImg.id,
                         goodsDetailImg.goodsDetailImgName,
                         goodsDetailImg.goodsDetailImgPath,
                         goodsDetailImg.goodsDetailImgUuid
                 ))
                 .from(goods)
+                .leftJoin(goods.goodsMainImg, goodsMainImg)
                 .leftJoin(goods.goodsDetailImg, goodsDetailImg)
                 .where(goods.id.eq(id))
                 .fetch()).orElseThrow(()->{

@@ -8,7 +8,7 @@ import java.util.List;
 public interface GoodsDetailImgRepository extends JpaRepository<GoodsDetailImg, Long> {
 
     //상품번호로 삭제
-    void deleteByGoodsId(Long id);
+    void deleteById(Long id);
 
 
     List<GoodsDetailImg> findAllByGoodsId(Long id);

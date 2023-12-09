@@ -1,5 +1,6 @@
 package com.example.dw.domain.entity.goods;
 
+import com.example.dw.domain.form.GoodsDetailImgForm;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,7 +20,7 @@ public class GoodsDetailImg {
     private String goodsDetailImgPath;
     private String goodsDetailImgUuid;
 
-    @ManyToOne(fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "goods_id")
     private Goods goods;
 
@@ -40,4 +41,14 @@ public class GoodsDetailImg {
         this.goodsDetailImgPath = goodsDetailImgPath;
         this.goodsDetailImgUuid = goodsDetailImgUuid;
     }
+
+
+    public GoodsDetailImg updateDetailImg(GoodsDetailImgForm goodsDetailImgForm){
+        this.goodsDetailImgName = goodsDetailImgForm.getGoodsDetailImgName();
+        this.goodsDetailImgPath=goodsDetailImgForm.getGoodsDetailImgPath();
+        this.goodsDetailImgPath=goodsDetailImgForm.getGoodsDetailImgUuid();
+
+        return this;
+    }
+
 }

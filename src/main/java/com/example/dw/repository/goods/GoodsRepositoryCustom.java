@@ -11,7 +11,9 @@ import java.util.List;
 public interface GoodsRepositoryCustom {
 
     Page<GoodsDto> findGoodsAll(Pageable pageable, SearchForm searchForm);
+
     List<GoodsDetailResultDto> findGoodsById(Long id);
+
 
 
 }

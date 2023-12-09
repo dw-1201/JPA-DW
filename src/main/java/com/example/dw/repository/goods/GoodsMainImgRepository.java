@@ -9,8 +9,8 @@ public interface GoodsMainImgRepository extends JpaRepository<GoodsMainImg, Long
 
 
     //상품번호로 삭제
-    void deleteByGoodsId(Long goodsId);
+    void deleteById(Long id);
 
 
-    Optional<GoodsMainImg> findById(Long id);
+    Optional<GoodsMainImg> findByGoodsId(Long goodsId);
 }
