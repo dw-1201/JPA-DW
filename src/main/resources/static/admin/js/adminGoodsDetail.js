@@ -1,6 +1,26 @@
+
+//상품 수정 페이지 이동
 $('.modify-btn').on('click', function(){
-    window.location.href="/admin/html/adminGoodsModify.html";
+
+    let goodsId = $(this).data('goodsid')
+
+    window.location.href="/goods/modify/" + goodsId;
 })
+
+//상품 삭제
+$('.delete-btn').on('click', function (){
+
+    let goodsId = $(this).data('goodsid')
+
+    if(confirm("상품을 삭제하시겠습니까?")){
+        window.location.href="/goods/delete/" + goodsId;
+
+    }
+
+})
+
+
+
 
 
 $(document).ready(function(){
@@ -17,7 +37,6 @@ $(document).ready(function(){
 
     })
 })
-
 
 
 

@@ -54,7 +54,4 @@ public class FaqBoard {
         this.faqBoardMd=LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
         return this;
     }
-//
-//    @CreatedDate
-//    private String createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
 }

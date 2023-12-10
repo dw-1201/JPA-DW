@@ -18,11 +18,9 @@ public class QGoods extends EntityPathBase<Goods> {
 
     private static final long serialVersionUID = 1739350835L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QGoods goods = new QGoods("goods");
 
-    public final QGoodsCategory goodsCategory;
+    public final EnumPath<GoodsCategory> goodsCategory = createEnum("goodsCategory", GoodsCategory.class);
 
     public final StringPath goodsCertify = createString("goodsCertify");
 
@@ -32,9 +30,9 @@ public class QGoods extends EntityPathBase<Goods> {
 
     public final StringPath goodsMade = createString("goodsMade");
 
-    public final QGoodsMainImg goodsMainImg;
+    public final ListPath<GoodsMainImg, QGoodsMainImg> goodsMainImg = this.<GoodsMainImg, QGoodsMainImg>createList("goodsMainImg", GoodsMainImg.class, QGoodsMainImg.class, PathInits.DIRECT2);
 
-    public final DateTimePath<java.time.LocalDateTime> goodsModifyDate = createDateTime("goodsModifyDate", java.time.LocalDateTime.class);
+    public final StringPath goodsModifyDate = createString("goodsModifyDate");
 
     public final StringPath goodsName = createString("goodsName");
 
@@ -42,30 +40,20 @@ public class QGoods extends EntityPathBase<Goods> {
 
     public final NumberPath<Long> goodsQuantity = createNumber("goodsQuantity", Long.class);
 
-    public final DateTimePath<java.time.LocalDateTime> goodsRegisterDate = createDateTime("goodsRegisterDate", java.time.LocalDateTime.class);
+    public final StringPath goodsRegisterDate = createString("goodsRegisterDate");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public QGoods(String variable) {
-        this(Goods.class, forVariable(variable), INITS);
+        super(Goods.class, forVariable(variable));
     }
 
     public QGoods(Path<? extends Goods> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QGoods(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QGoods(PathMetadata metadata, PathInits inits) {
-        this(Goods.class, metadata, inits);
-    }
-
-    public QGoods(Class<? extends Goods> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.goodsCategory = inits.isInitialized("goodsCategory") ? new QGoodsCategory(forProperty("goodsCategory")) : null;
-        this.goodsMainImg = inits.isInitialized("goodsMainImg") ? new QGoodsMainImg(forProperty("goodsMainImg"), inits.get("goodsMainImg")) : null;
+        super(Goods.class, metadata);
     }
 
 }

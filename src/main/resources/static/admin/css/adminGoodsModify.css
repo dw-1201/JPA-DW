@@ -136,7 +136,7 @@
     opacity: 0;
     cursor: pointer;
     z-index: 9;
-   
+
 }
 
 
@@ -144,15 +144,15 @@
     display: none;
 }
 
+.main-img-title,
+.detail-img-title {
+    padding:0px 5px 5px 5px;
+}
 
 .img-title span {
-    position: absolute;
-    bottom: -33px;
     border: 1px solid gray;
     border-radius: 5px;
-    display: block;
     width: 222px;
-    left: -2px;
     height: 25px;
     display: flex;
     justify-content: center;
@@ -160,11 +160,16 @@
     font-size: 13px;
 
 }
-
+.modify-title {
+    position: absolute;
+    bottom: -45px;
+    left: -2px;
+}
 
 
 /* 공통설정 */
-.goods-main-img-p, .goods-detail-img-p {
+.goods-main-img-p img, .goods-detail-img-p img,
+.goods-main-modify-img-p, .goods-detail-modify-img-p{
     
         cursor: default;
         background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNiIgaGVpZ2h0PSIzNiI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48ZyBzdHJva2U9IiNCNUI1QjUiIHN0cm9rZS13aWR0aD0iMS41IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0IDQpIj48cmVjdCB3aWR0aD0iMjgiIGhlaWdodD0iMjgiIHJ4PSIzLjUiLz48Y2lyY2xlIGN4PSI4LjU1NiIgY3k9IjguNTU2IiByPSIyLjMzMyIvPjxwYXRoIGQ9Ik0yOCAxOC42NjdsLTcuNzc3LTcuNzc4TDMuMTExIDI4Ii8+PC9nPjxwYXRoIGQ9Ik0wIDBoMzZ2MzZIMHoiLz48L2c+PC9zdmc+)

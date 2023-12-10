@@ -1,4 +1,4 @@
-package com.example.dw;
+package com.example.dw.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
