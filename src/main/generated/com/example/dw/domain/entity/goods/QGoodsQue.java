@@ -24,7 +24,7 @@ public class QGoodsQue extends EntityPathBase<GoodsQue> {
 
     public final QGoods goods;
 
-    public final QGoodsQueReply goodsQueReply;
+    public final ListPath<GoodsQueReply, QGoodsQueReply> goodsQueReply = this.<GoodsQueReply, QGoodsQueReply>createList("goodsQueReply", GoodsQueReply.class, QGoodsQueReply.class, PathInits.DIRECT2);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
@@ -32,7 +32,9 @@ public class QGoodsQue extends EntityPathBase<GoodsQue> {
 
     public final DateTimePath<java.time.LocalDateTime> queModifyDate = createDateTime("queModifyDate", java.time.LocalDateTime.class);
 
-    public final DateTimePath<java.time.LocalDateTime> queRegisterDate = createDateTime("queRegisterDate", java.time.LocalDateTime.class);
+    public final StringPath queRegisterDate = createString("queRegisterDate");
+
+    public final NumberPath<Integer> state = createNumber("state", Integer.class);
 
     public final com.example.dw.domain.entity.user.QUsers users;
 
@@ -55,7 +57,6 @@ public class QGoodsQue extends EntityPathBase<GoodsQue> {
     public QGoodsQue(Class<? extends GoodsQue> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.goods = inits.isInitialized("goods") ? new QGoods(forProperty("goods")) : null;
-        this.goodsQueReply = inits.isInitialized("goodsQueReply") ? new QGoodsQueReply(forProperty("goodsQueReply"), inits.get("goodsQueReply")) : null;
         this.users = inits.isInitialized("users") ? new com.example.dw.domain.entity.user.QUsers(forProperty("users"), inits.get("users")) : null;
     }
 

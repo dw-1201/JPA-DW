@@ -18,16 +18,36 @@ spring:
       file-size-threshold: 100MB
   jpa:
     hibernate:
-      ddl-auto: create
+#      ddl-auto: create
 #      ddl-auto: create-drop
 #      ddl-auto: update
-#      ddl-auto: validate
-
+      ddl-auto: validate
+    defer-datasource-initialization: true
     properties:
       hibernate:
 #        show_sql: true
         format_sql: true
         default_batch_fetch_size: 1000 #최적화 옵션
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: bokyh0327
+    password: icuxxcepnqjblyrv
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 5000
+          starttls:
+            enable: true
+
+
+
+
+  sql:
+    init:
+      mode: always
+
 
 logging.level:
   org.hibernate.SQL: debug
@@ -41,4 +61,6 @@ file.dir: C:/jpa_dw/goods
 #  smsservice.accessKey = oyEpUB0ISONyYhRS0eoF
 #  smsservice.secretKey = 6VE8paDtAxkpEJOkOAIlJoKzwvbfZalNDzzUq1M5
 
+#이메일
+user.email: bokyh0327
 

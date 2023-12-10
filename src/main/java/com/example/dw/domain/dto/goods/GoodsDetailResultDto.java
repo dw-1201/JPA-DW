@@ -11,8 +11,8 @@ public class GoodsDetailResultDto {
 
     private Long id;
     private String goodsName;
-    private Long goodsQuantity;
-    private Long goodsPrice;
+    private int goodsQuantity;
+    private int goodsPrice;
     private String goodsMade;
     private String goodsCertify;
     private String goodsDetailContent;
@@ -25,7 +25,7 @@ public class GoodsDetailResultDto {
     private List<GoodsDetailImgDto> goodsDetailImgs;
 
 
-    public GoodsDetailResultDto(Long id, String goodsName, Long goodsQuantity, Long goodsPrice, String goodsMade,
+    public GoodsDetailResultDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade,
                                 String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate,
                                 String goodsCategory, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid) {
         this.id = id;
@@ -43,7 +43,7 @@ public class GoodsDetailResultDto {
         this.goodsMainImgUuid = goodsMainImgUuid;
     }
 
-    public GoodsDetailResultDto(Long id, String goodsName, Long goodsQuantity, Long goodsPrice,
+    public GoodsDetailResultDto(Long id, String goodsName, int goodsQuantity, int goodsPrice,
                                 String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate,
                                 String goodsCategory, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid,
                                 List<GoodsDetailImgDto> goodsDetailImgs) {
