@@ -93,6 +93,7 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
                         cateGoryNameEq(searchForm),
                         goodsNameEq(searchForm)
                 )
+                .orderBy(goods.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();

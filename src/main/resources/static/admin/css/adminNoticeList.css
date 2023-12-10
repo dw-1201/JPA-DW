@@ -102,7 +102,7 @@
     width: 1232px;
 }
 
-.colmumn,
+.column,
 .row {
     box-sizing: border-box;
     padding: 5px;
@@ -114,7 +114,7 @@
     justify-content: center;
 }
 
-.colmumn {
+.column {
     background-color: rgba(215, 215, 215, 0.762);
     font-weight: bold;
 }
@@ -134,24 +134,24 @@
 
 
 
-.notice-number-comlumn,
+.notice-number-column,
 .notice-number {
     width: 120px;
 }
 
-.notice-title-comlumn,
+.notice-title-column,
 .notice-title {
     width: 100%;
 }
 
-.notice-reg-date-comlumn,
-.notice-modify-date-comlumn,
+.notice-reg-date-column,
+.notice-modify-date-column,
 .notice-reg-date,
 .notice-modify-date {
-    width: 200px;
+    width: 240px;
 }
-.notice-view-count-comlumn,
-.notice-etc-comlumn,
+.notice-view-count-column,
+.notice-etc-column,
 .notice-view-count,
 .notice-etc {
     width: 120px;

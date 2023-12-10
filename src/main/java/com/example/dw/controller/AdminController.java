@@ -4,7 +4,6 @@ import com.example.dw.domain.entity.admin.FaqBoard;
 import com.example.dw.domain.entity.admin.NoticeBoard;
 import com.example.dw.domain.form.FaqBoardForm;
 import com.example.dw.domain.form.NoticeBoardForm;
-import com.example.dw.repository.goods.GoodsRepositoryCustom;
 import com.example.dw.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -18,15 +17,19 @@ import org.springframework.web.servlet.view.RedirectView;
 public class AdminController {
 
     private final AdminService adminService;
-    private final GoodsRepositoryCustom goodsRepositoryCustom;
 
+    
+    //관리자 로그인 페이지
+    //관리자 로그인
+    //관리자 로그아웃
+    
+    
+    
     @GetMapping("/FBList")
     public String FreeBoardList(){
         return "/admin/adminFreeList";
     }
-
-
-
+    
     //공지리스트
     @GetMapping("/noticeList")
         public String noticeList(){
@@ -146,5 +149,14 @@ public class AdminController {
 
     }
 
+    //////////////////////
+    //회원 목록
+    @GetMapping("/userList")
+    public String userList(){
+
+
+
+     return "/admin/adminUserList";
+    }
 
 }

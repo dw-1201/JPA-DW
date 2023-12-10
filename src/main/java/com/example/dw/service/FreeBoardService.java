@@ -3,7 +3,7 @@ package com.example.dw.service;
 import com.example.dw.domain.entity.freeBoard.FreeBoard;
 import com.example.dw.domain.entity.user.Users;
 import com.example.dw.domain.form.FreeBoardWritingForm;
-import com.example.dw.repository.UsersRepository;
+import com.example.dw.repository.user.UsersRepository;
 import com.example.dw.repository.freeBoard.FreeBoardRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
