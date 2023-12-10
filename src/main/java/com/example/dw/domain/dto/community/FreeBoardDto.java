@@ -3,7 +3,6 @@ package com.example.dw.domain.dto.community;
 import com.example.dw.domain.entity.freeBoard.FreeBoardComment;
 import com.example.dw.domain.entity.freeBoard.FreeBoardImg;
 import com.example.dw.domain.entity.freeBoard.FreeBoardLike;
-import com.example.dw.domain.entity.user.Users;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,15 +28,15 @@ public class FreeBoardDto {
     private FreeBoardLike freeBoardLike;
 
     //유저 정보 추가
-    private String userAccount;
-    private Long userId;;
-//    private Users users;
+    private Long userId;  // User의 id 필드
+    private String userAccount;  // User의 userAccount 필드
+    private String userNickName;  // User의 userNickName 필드
 
     @QueryProjection
     public FreeBoardDto(Long id, String freeBoardTitle, String freeBoardContent,
                         LocalDate freeBoardRd, LocalDate freeBoardMd, Long freeBoardViewCount,
                         List<FreeBoardImg> freeBoardImg, List<FreeBoardComment> freeBoardComment,
-                        FreeBoardLike freeBoardLike, Users users) {
+                        FreeBoardLike freeBoardLike,  Long userId, String userAccount, String userNickName) {
         this.id = id;
         this.freeBoardTitle = freeBoardTitle;
         this.freeBoardContent = freeBoardContent;
@@ -49,12 +48,8 @@ public class FreeBoardDto {
         this.freeBoardLike = freeBoardLike;
 
         // 유저 정보 추가
-        if (users != null) {
-            // Hibernate.initialize를 사용하지 않고 바로 값을 가져오도록 변경
-            this.userAccount = users.getUserAccount();
-            this.userId = users.getId();
-        }
-//        this.userAccount = users.getUserAccount();
-//        this.userId = users.getId();
+        this.userId = userId;
+        this.userAccount = userAccount;
+        this.userNickName = userNickName;
     }
 }

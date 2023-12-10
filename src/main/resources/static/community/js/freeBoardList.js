@@ -13,13 +13,10 @@ let keyword = $('#freeBoard-search-keyword').val();
 
 //input에서 받은 결과를 넘긴다.
 function searchFreeBoardForm(){
-    let keyword = $('#freeBoard-search-keyword').val();
-
     return {
-        keyword : keyword
+        keyword : $('#freeBoard-search-keyword').val()
     };
 }
-
 
 function freeBoardList( page, keyword, callback){
 

@@ -26,24 +26,6 @@ public class FreeBoardApiController {
         this.freeBoardRepositoryCustom = freeBoardRepositoryCustom;
     }
 
-//    @GetMapping("/freeBoardList/{page}")
-//    public Page<FreeBoardDto> freeBoardDtoList(
-//            @PathVariable("page") int page,
-//            SearchForm searchForm){
-//
-//        Pageable pageable = PageRequest.of(page, 5);
-//
-//        System.out.println("자유게시판 카테고리 : "+ searchForm.getCate());
-//        System.out.println("자유게시판 키워드 :  "+ searchForm.getKeyword());
-//
-//        Page<FreeBoardDto> result = freeBoardRepositoryCustom.findFreeBoardListBySearch(pageable, searchForm);
-//        System.out.println(result.stream().count());
-//
-//        System.out.println(result.toString());
-//
-//        return result;
-//    }
-
     @GetMapping("/freeBoardList/{page}")
     public Page<FreeBoardDto> freeBoardDtoList(
             @PathVariable("page") int page,
@@ -66,4 +48,6 @@ public class FreeBoardApiController {
 
         return result;
     }
+
+
 }
