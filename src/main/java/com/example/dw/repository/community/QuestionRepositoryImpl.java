@@ -54,6 +54,7 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
 
                 ))
                 .from(question)
+                .leftJoin(question.users)
 //                .join(questi)
 //                .on(question.id.eq(questionComment.question.id))
 //                .where(cate.like("%"+searchForm.getKeyword()+"%"))
@@ -61,7 +62,7 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
 
                 .fetch();
 
-//            contentList.forEach(e->e.);
+
 
             return contentList;
     }
