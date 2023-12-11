@@ -40,7 +40,7 @@ public class Question {
     private QuestionLike questionLike;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "users_id")
+    @JoinColumn(name = "user_id")
     private Users users;
 
     @Builder
@@ -49,8 +49,6 @@ public class Question {
         this.questionTitle=questionTitle;
         this.questionContent=questionContent;
         this.questionImg=questionImg;
-
-
     }
 
 

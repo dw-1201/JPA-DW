@@ -20,6 +20,7 @@
     <main>
         <div class="main-container">
             <form th:action="@{/qna/qnawriteform}" method="post" class="" enctype="multipart/form-data">
+                    <input type="hidden" th:value="${user.userId}">
                 <div class="content-box">
                     <div class="content-title-box">
                         <div class="content-title">QnA 질문 작성</div>
@@ -52,9 +53,11 @@
                         <div class="file-input-text">개당 업로드 용량: 20MB, 최대 5개 업로드 가능합니다.</div>
                     </div>
                 </div>
+
                 <div class="btn-box">
                     <button type="submit" class="add-content-btn">질문 등록</button>
                 </div>
+                <input type="hidden" name="questionRd" class="questionRd">
             </form>
         </div>
     </main>

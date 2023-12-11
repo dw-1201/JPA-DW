@@ -8,6 +8,6 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface QuestionRepositoryCuston {
-//    Page<QuestionDto> findQnaListBySearch(Pageable pageable, SearchForm searchForm);
-    List<QuestionDto> findQnaListBySearch();
+    Page<QuestionDto> findQnaListBySearch(Pageable pageable, SearchForm searchForm);
+//    List<QuestionDto> findQnaListBySearch();
 }

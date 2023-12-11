@@ -3,9 +3,13 @@ package com.example.dw.domain.dto.community;
 
 import com.example.dw.domain.entity.user.Users;
 import com.querydsl.core.annotations.QueryProjection;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+@Data
+@NoArgsConstructor
 public class QuestionDto {
 
     private Long id;
@@ -16,17 +20,20 @@ public class QuestionDto {
     //조회수
 //    private Long questionViewCount;
 
-    private Users users;
-    //댓글 수를 확인
+    //유저정보 추가
+    private Long userId;
+
+    //사용자 이미지
+
 
     @QueryProjection
-    public QuestionDto(Long id, String questionTitle, String questionContent, LocalDateTime questionRd, LocalDateTime questionMd, Users users) {
+    public QuestionDto(Long id, String questionTitle, String questionContent, LocalDateTime questionRd, LocalDateTime questionMd, Long userId) {
         this.id = id;
         this.questionTitle = questionTitle;
         this.questionContent = questionContent;
         this.questionRd = questionRd;
         this.questionMd = questionMd;
-        this.users = users;
+        this.userId = userId;
 
     }
 }
