@@ -25,6 +25,8 @@ public class GoodsMainImgForm {
         this.goods=goods;
     }
 
+
+
     public GoodsMainImg toEntity(){
         return GoodsMainImg.builder()
                 .id(id)

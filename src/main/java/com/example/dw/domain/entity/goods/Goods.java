@@ -1,11 +1,14 @@
 package com.example.dw.domain.entity.goods;
 
+import com.example.dw.domain.form.GoodsForm;
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.Builder;
-import lombok.Builder.Default;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +16,8 @@ import java.util.List;
 @Table(name="goods")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Builder
+@ToString(exclude={"goodsMainImg", "goodsDetailImg"})
+@EntityListeners(AuditingEntityListener.class)
 public class Goods {
     @Id
     @GeneratedValue
@@ -26,24 +30,35 @@ public class Goods {
     private String goodsMade;
     private String goodsCertify;
     private String goodsDetailContent;
-    @Default
-    private LocalDateTime goodsRegisterDate = LocalDateTime.now();
-    @Default
-    private LocalDateTime goodsModifyDate = LocalDateTime.now();
+    @CreatedDate
+    private String goodsRegisterDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+    @LastModifiedDate
+    private String goodsModifyDate;
 
-    @ManyToOne(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+
+    @Enumerated(EnumType.STRING)
     private GoodsCategory goodsCategory;
 
-    @OneToOne(mappedBy = "goods" ,fetch = FetchType.LAZY)
-    private GoodsMainImg goodsMainImg;
 
-    @OneToMany(mappedBy = "goods" ,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "goods" ,fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<GoodsMainImg> goodsMainImg = new ArrayList<>();
+
+    @OneToMany(mappedBy = "goods" ,fetch = FetchType.LAZY, orphanRemoval = true)
     private List<GoodsDetailImg> goodsDetailImg = new ArrayList<>();
 
 
+
+    public Goods(Long id, String goodsName, Long goodsQuantity, Long goodsPrice, GoodsCategory goodsCategory){
+        this.id=id;
+        this.goodsName=goodsName;
+        this.goodsQuantity=goodsQuantity;
+        this.goodsPrice=goodsPrice;
+        this.goodsCategory=goodsCategory;
+    }
+
     @Builder
-    public Goods(Long id, String goodsName, Long goodsQuantity, Long goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, LocalDateTime goodsRegisterDate,
-                 LocalDateTime goodsModifyDate, GoodsCategory goodsCategory, GoodsMainImg goodsMainImg, List<GoodsDetailImg> goodsDetailImg) {
+    public Goods(Long id, String goodsName, Long goodsQuantity, Long goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate,
+                 String goodsModifyDate, GoodsCategory goodsCategory, List<GoodsMainImg> goodsMainImg, List<GoodsDetailImg> goodsDetailImg) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;
@@ -56,5 +71,18 @@ public class Goods {
         this.goodsCategory = goodsCategory;
         this.goodsMainImg = goodsMainImg;
         this.goodsDetailImg = goodsDetailImg;
+    }
+
+    //상품 수정
+    public Goods update(GoodsForm goodsForm){
+        this.goodsName= goodsForm.getGoodsName();
+        this.goodsQuantity= goodsForm.getGoodsQuantity();
+        this.goodsPrice= goodsForm.getGoodsPrice();
+        this.goodsMade= goodsForm.getGoodsMade();
+        this.goodsCertify= goodsForm.getGoodsCertify();
+        this.goodsModifyDate=LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+        this.goodsCategory=goodsForm.getGoodsCategory();
+
+        return this;
     }
 }

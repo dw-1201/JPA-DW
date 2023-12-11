@@ -39,6 +39,7 @@ logging.level:
 
 # 파일 경로 설정
 file.dir : C:/jpa_dw/goods
+file.dir: C:/jpa_dw/goods
 
   # 문자인증
 #  smsservice.accessKey = oyEpUB0ISONyYhRS0eoF

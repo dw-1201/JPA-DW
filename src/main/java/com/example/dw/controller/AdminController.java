@@ -1,8 +1,10 @@
 package com.example.dw.controller;
 
 import com.example.dw.domain.entity.admin.FaqBoard;
+import com.example.dw.domain.entity.admin.NoticeBoard;
 import com.example.dw.domain.form.FaqBoardForm;
 import com.example.dw.domain.form.NoticeBoardForm;
+import com.example.dw.repository.goods.GoodsRepositoryCustom;
 import com.example.dw.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,22 +18,14 @@ import org.springframework.web.servlet.view.RedirectView;
 public class AdminController {
 
     private final AdminService adminService;
-
+    private final GoodsRepositoryCustom goodsRepositoryCustom;
 
     @GetMapping("/FBList")
     public String FreeBoardList(){
         return "/admin/adminFreeList";
     }
 
-    @GetMapping("/goodsList")
-    public String GoodsList(){
-        return "/admin/adminGoodsList";
-    }
 
-    @GetMapping("/goodsReg")
-    public String goodsRegister(){
-        return "/admin/adminGoodsReg";
-    }
 
     //공지리스트
     @GetMapping("/noticeList")
@@ -102,7 +96,7 @@ public class AdminController {
 
         return new RedirectView("/admin/noticeList");
     }
-
+    //추후 삭제는 비동기로 바꿀까 생각중
     //faq 삭제
     @GetMapping("/faqDelete/{id}")
         public RedirectView faqDelete(
@@ -113,5 +107,44 @@ public class AdminController {
         return new RedirectView("/admin/noticeList");
 
     }
+
+    //공지사항 수정 페이지
+    @GetMapping("/noticeModifyPage/{noticeBoardId}")
+    public String noticeModifyPage(@PathVariable("noticeBoardId")Long noticeBoardId,
+                                  Model model){
+
+        NoticeBoard noticeBoard = adminService.noticeDetail(noticeBoardId);
+        NoticeBoardForm noticeBoardForm = new NoticeBoardForm();
+        noticeBoardForm.setId(noticeBoardId);
+        noticeBoardForm.setNoticeBoardTitle(noticeBoard.getNoticeBoardTitle());
+        noticeBoardForm.setNoticeBoardContent(noticeBoard.getNoticeBoardContent());
+
+        model.addAttribute("detail", noticeBoardForm);
+        return "/admin/adminNoticeModify";
+    }
+    
+    //공지사항 수정 완료
+    @PutMapping("/noticeModify/{id}/edit")
+    public RedirectView noticeModify(@PathVariable("id") Long id,
+                                     NoticeBoardForm noticeBoardForm){
+
+        adminService.noticeModify(noticeBoardForm,id);
+
+        return new RedirectView("/admin/noticeList");
+
+    }
+
+
+    //추후 삭제는 비동기로 바꿀까 생각중
+    //공지사항 삭제
+    @GetMapping("/noticeDelete/{id}")
+    public RedirectView noticeDelete(@PathVariable("id") Long id){
+
+        adminService.noticeDelete(id);
+
+        return new RedirectView("/admin/noticeList");
+
+    }
+
 
 }
