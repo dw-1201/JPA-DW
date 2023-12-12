@@ -159,13 +159,7 @@ public class AdminController {
      return "/admin/adminUserList";
     }
 
-//    @PostConstruct
-//    public void adminAccount(){
-//        Admin admin = new Admin();
-//        admin.setId(1L);
-//        admin.setAdminAccount("admin");
-//        admin.setAdminPassword("1234");
-//    }
+
 
 
 

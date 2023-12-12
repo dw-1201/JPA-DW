@@ -12,10 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -48,7 +45,6 @@ public class AdminApiController {
             @PathVariable("page") int page,
             SearchForm searchForm
     ){
-        System.out.println("=======================");
         Pageable pageable = PageRequest.of(page, 10);
 
         Page<NoticeBoardDto> result = noticeBoardRepositoryCustom.findNoticeListBySearch(pageable,searchForm);
@@ -59,13 +55,14 @@ public class AdminApiController {
     //회원목록 조회
     @GetMapping("/userList/{page}")
     public Page<UserListDto> findUserList(
-            @PathVariable("page") int page
+            @PathVariable("page") int page,
+            String userState,
+            String cate, String keyword
     ){
 
         Pageable pageable = PageRequest.of(page, 15);
 
-
-        return usersRepositoryCustom.findByAll(pageable);
+        return usersRepositoryCustom.findByAll(pageable, cate, keyword, userState);
 
     }
 

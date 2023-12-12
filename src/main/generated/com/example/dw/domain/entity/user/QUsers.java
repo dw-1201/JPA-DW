@@ -50,6 +50,8 @@ public class QUsers extends EntityPathBase<Users> {
 
     public final StringPath userPhone = createString("userPhone");
 
+    public final NumberPath<Integer> userState = createNumber("userState", Integer.class);
+
     public QUsers(String variable) {
         this(Users.class, forVariable(variable), INITS);
     }
