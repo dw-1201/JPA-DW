@@ -37,11 +37,8 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
         return jpaQueryFactory.select(users.count())
                 .from(users)
                 .where(
-
-
                         userStateEq(userState),
                         cateEq(cate, keyword)
-
                 )
                 .fetchOne();
     }
@@ -57,7 +54,6 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
         ))
                 .from(users)
                 .where(
-
                         userStateEq(userState),
                         cateEq(cate, keyword)
                 )

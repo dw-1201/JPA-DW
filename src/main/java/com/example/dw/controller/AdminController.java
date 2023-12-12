@@ -150,12 +150,10 @@ public class AdminController {
     }
 
     //////////////////////
-    //회원 목록
+    //회원 리스트
     @GetMapping("/userList")
     public String userList(){
-
-
-
+        
      return "/admin/adminUserList";
     }
 
