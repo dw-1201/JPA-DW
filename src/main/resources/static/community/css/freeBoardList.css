@@ -11,12 +11,6 @@ body{
 a{
     color: black;
 }
-label{
-    cursor: pointer;
-}
-.input-radio{
-    cursor: pointer;
-}
 main{
     width: 100%;
     height: auto;
@@ -123,7 +117,6 @@ main{
     align-items: center;
     background-color: #fffdf4;
 }
-
 .best-content-title{
     width: 90%;
     height: 30%;
@@ -154,12 +147,12 @@ main{
 }
 .list-container{
     width: 100%;
-    height: 1600px;
+    height: 2100px;
     /* background-color: orange; */
 }
 .order-n-writebtn{
     width: 100%;
-    height: 130px;
+    height: 100px;
 
     display: flex;
     justify-content: space-between;
@@ -174,7 +167,7 @@ main{
     height: 30px;
 
     /* background-color: blue; */
-    
+
 }
 .list-order-box ul{
     margin: 0 10px;
@@ -210,22 +203,27 @@ main{
 }
 .list-contents-box{
     width: 100%;
-    height: 1350px;
+    height: 1850px;
     /* background-color: gold; */
+
+    /* margin: 20px auto; */
 }
 .list-content{
     width: 100%;
-    height: 150px;
+    height: 180px;
     border-bottom: 1px solid #E4E4E4;
     box-sizing: border-box;
     padding: 0 20px;
-    display: flex;
+    /* display: flex; */
     align-items: center;
     /* background-color: olivedrab; */
+
+
 }
 .content-text-box{
     width: 80%;
     height: 100%;
+    /* display: flex; */
     /* background-color: aqua; */
 }
 .list-content-title{
@@ -256,9 +254,9 @@ main{
 }
 .list-content-id, .list-content-reply{
     display: flex;
-    align-items: center; 
+    align-items: center;
     box-sizing: border-box;
-    padding: 8px 20px 8px 0; 
+    padding: 8px 20px 8px 0;
 }
 .list-content-id img{
     width: 25px;
@@ -270,18 +268,20 @@ main{
     margin: 0 3px;
 }
 .content-img-box{
-    width: 20%;
-    height: 100%;
+    width: 980px;
+    height: 10px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: end;
+    align-items: end;
     /* background-color: pink; */
 }
 .content-img{
-    width: 95%;
-    height: 95%;
+    width: 200px;
+    height: 150px;
     border-radius: 10px;
     background-color: #FCD11E;
+
+    display: flex;
 }
 .content-img img{
     width: 100%;

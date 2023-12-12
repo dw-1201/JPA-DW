@@ -32,7 +32,7 @@ public class FreeBoardApiController {
             @RequestParam(value = "keyword", required = false)
                     String keyword) {
 
-        Pageable pageable = PageRequest.of(page, 5);
+        Pageable pageable = PageRequest.of(page, 10);
 
         System.out.println("자유게시판 키워드: " + keyword);
 
@@ -41,10 +41,10 @@ public class FreeBoardApiController {
         System.out.println("자유게시판 글 개수 : "+result.stream().count());
 
 
-        for (FreeBoardDto freeBoardDto : result.getContent()) {
-            System.out.println("자유게시판 번호: " + freeBoardDto.getId());
-            System.out.println("자유게시판 제목: " + freeBoardDto.getFreeBoardTitle());
-        }
+//        for (FreeBoardDto freeBoardDto : result.getContent()) {
+//            System.out.println("자유게시판 번호: " + freeBoardDto.getId());
+//            System.out.println("자유게시판 제목: " + freeBoardDto.getFreeBoardTitle());
+//        }
 
         return result;
     }

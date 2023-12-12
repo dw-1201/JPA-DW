@@ -50,10 +50,12 @@ function freeBoardList( page, keyword, callback){
 
 function showFreeBoardList(result) {
     let text = '';
-    let textInput = $('.list-content');
+    let textInput = $('.list-contents-box');
 
     result.forEach(r => {
         text += `
+<a href="/community/freeBoardDetail/${r.id}">
+<div class="list-content">
             <div class="content-text-box">
             <input type="hidden" value="${r.id}" name="freeBoardId">
                 <div class="list-content-title">${r.freeBoardTitle}</div>
@@ -82,14 +84,16 @@ function showFreeBoardList(result) {
         text += `
                 </div>
             </div>
-        </div>
+
         <!-- 추가 부분 -->
         <div class="content-img-box">
             <div class="content-img">
-                <img alt="">
+                <img src="${r.freeBoardImgRoute}/${r.freeBoardImgUuid}" alt="${r.freeBoardImgName}">
             </div>
         </div> 
-        `;
+    </div>
+</div>
+</a>`;
     });
 
     textInput.html(text);

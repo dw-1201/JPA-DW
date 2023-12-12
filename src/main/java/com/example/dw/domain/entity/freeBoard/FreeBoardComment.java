@@ -1,15 +1,20 @@
 package com.example.dw.domain.entity.freeBoard;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Setter
+//@Setter
 @Table(name = "free_board_comment")
+@Builder
+@NoArgsConstructor
+        (access = AccessLevel.PROTECTED)
 public class FreeBoardComment {
     @Id
     @GeneratedValue
@@ -20,8 +25,18 @@ public class FreeBoardComment {
     private LocalDateTime freeBoardCommentRd;
     private LocalDateTime freeBoardCommentMd;
 
-
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "free_board_id")
     private FreeBoard freeBoard;
+
+    @Builder
+    public FreeBoardComment(Long id, String freeBoardCommentContent,
+                LocalDateTime freeBoardCommentRd, LocalDateTime freeBoardCommentMd,
+                FreeBoard freeBoard) {
+        this.id = id;
+        this.freeBoardCommentContent = freeBoardCommentContent;
+        this.freeBoardCommentRd = freeBoardCommentRd;
+        this.freeBoardCommentMd = freeBoardCommentMd;
+        this.freeBoard = freeBoard;
+    }
 }
