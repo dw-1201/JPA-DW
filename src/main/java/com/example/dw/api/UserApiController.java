@@ -14,13 +14,6 @@ public class UserApiController {
 
     private final UsersService usersService;
 
-//    @PostMapping("/findAccout")
-//    public boolean findAccount(String userName, String userPhone, String userEmail){
-//
-//
-//
-//
-//    }
 
 
 }
