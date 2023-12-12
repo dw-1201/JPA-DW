@@ -157,7 +157,6 @@ main{
 }
 .list-container{
     width: 100%;
-    height: 1810px;
     /* background-color: orange; */
 }
 .list-order-box{
@@ -178,7 +177,7 @@ main{
 }
 .list-contents-box{
     width: 100%;
-    height: 1350px;
+    height: 830px;
     /* background-color: gold; */
 
 
@@ -300,4 +299,8 @@ main{
     box-sizing: border-box;
     padding: 15px 0;
     /* background-color: yellow; */
+}
+
+.search-btn{
+   display: none;
 }

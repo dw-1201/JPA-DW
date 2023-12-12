@@ -27,10 +27,12 @@ public class QnaListApiController {
 
     @GetMapping("/qnalist/{page}")
     public Page<QuestionDto> findQnAList(
-            @PathVariable("page") int page, SearchForm searchForm){
+            @PathVariable("page") int page, String keyword){
         Pageable pageable = PageRequest.of(page,5);
-        Page<QuestionDto> result = questionRepositoryCuston.findQnaListBySearch(pageable,searchForm);
+        Page<QuestionDto> result = questionRepositoryCuston.findQnaListBySearch(pageable,keyword);
         System.out.println( result+"안뇽");
+        System.out.println(keyword+"검색 내용!");
+        System.out.println();
 
         return result;
 

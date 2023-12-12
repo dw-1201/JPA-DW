@@ -22,18 +22,23 @@ public class QuestionDto {
 
     //유저정보 추가
     private Long userId;
+    private String userName;
+
 
     //사용자 이미지
 
+    //댓글수 조회
+    private Long questionCommentId;
 
     @QueryProjection
-    public QuestionDto(Long id, String questionTitle, String questionContent, LocalDateTime questionRd, LocalDateTime questionMd, Long userId) {
+    public QuestionDto(Long id, String questionTitle, String questionContent, LocalDateTime questionRd, LocalDateTime questionMd, Long userId,String userName) {
         this.id = id;
         this.questionTitle = questionTitle;
         this.questionContent = questionContent;
         this.questionRd = questionRd;
         this.questionMd = questionMd;
         this.userId = userId;
+        this.userName = userName;
 
     }
 }

@@ -1,15 +1,16 @@
 // 리스트 불러오기
-export function list(page,callback){
+export function list(page,searchForm,name,section,callback){
 
     $.ajax({
 
-        url:`/qnar/qnalist/${page}`,
+        url:`/${name}/${section}/${page}`,
         type:'get',
-        data:{page:page},
+        data:searchForm,
         dataType:'json',
         success: function (result){
             console.log(result.content)
             console.log(result.pageable)
+
 
             if(callback){
                 callback(result)

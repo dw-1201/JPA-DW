@@ -33,21 +33,22 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
 
     // qna 리스트 확인
     @Override
-    public Page<QuestionDto> findQnaListBySearch(Pageable pageable, SearchForm searchForm) {
-        List<QuestionDto> countests =getQuestionList(pageable,searchForm);
-        Long count = getCount(searchForm);
+    public Page<QuestionDto> findQnaListBySearch(Pageable pageable,String keyword) {
+        List<QuestionDto> content =getQuestionList(pageable,keyword);
+        Long count = getCount(keyword);
 
         System.out.println("[상품 개수]"+count+"개");
+        System.out.println("검색 내용"+keyword);
+        content.forEach(r-> System.out.println("[리스트제목]"+r.getQuestionTitle()+" 입니다."));
 
-        countests.forEach(r-> System.out.println("[리스트제목]"+r.getQuestionTitle()+" 입니다."));
-
-        return new PageImpl<>(countests,pageable,count);
+        return new PageImpl<>(content,pageable,count);
     }
 
 
 
 //    전체 리스트 코드
-    private List<QuestionDto> getQuestionList(Pageable pageable, SearchForm searchForm){
+    private List<QuestionDto> getQuestionList(Pageable pageable, String keyword){
+
 
         List<QuestionDto> contentList= jpaQueryFactory
                 .select(new QQuestionDto(
@@ -56,28 +57,32 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
                         question.questionContent,
                         question.questionRd,
                         question.questionMd,
-                        question.users.id
+                        question.users.id,
+                        question.users.userName
                 ))
                 .from(question)
+                .where(qnatitleEq(keyword))
                 .orderBy(question.questionRd.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
 
                 contentList.forEach(r ->
-                        System.out.println(r.getId()+"나와랑!!"));
+                        System.out.println(r.getId()+r.getUserName()+"나와랑!!")
+                       );
 
+        System.out.println(keyword+"검색내용이비낟");
             return contentList;
     }
 
 
  // 전체 페이지 조회 및 검색어 확인
-    private Long getCount(SearchForm searchForm){
+    private Long getCount(String keyword){
 
         Long count = jpaQueryFactory
                 .select(question.count())
                 .from(question)
-                .where( qnatitleEq(searchForm))
+                .where(qnatitleEq(keyword))
                 .fetchOne();
 
         return count;
@@ -85,9 +90,9 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
     }
 
     // 검색 조건 코드
-    private BooleanExpression qnatitleEq(SearchForm searchForm){
-        return StringUtils.hasText(searchForm.getKeyword()) ? question.questionTitle.containsIgnoreCase(searchForm.getKeyword()) : null;
+    private BooleanExpression qnatitleEq(String keyword){
+        return StringUtils.hasText(keyword) ? question.questionTitle.containsIgnoreCase(keyword) : null;
     }
 
-
+    //
 }

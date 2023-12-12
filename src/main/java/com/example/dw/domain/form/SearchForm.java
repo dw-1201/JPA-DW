@@ -14,7 +14,7 @@ public class SearchForm {
 
 
     public SearchForm(String keyword) {
-        this.keyword = keyword
+        this.keyword = keyword;
     }
 
 }
