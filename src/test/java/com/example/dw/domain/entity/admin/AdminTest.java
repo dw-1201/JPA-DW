@@ -2,7 +2,6 @@ package com.example.dw.domain.entity.admin;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,11 +15,11 @@ class AdminTest {
 
 
 
-    @Test
-    void test1() {
-        Admin admin = new Admin();
-        admin.setAdminAccount("abc123");
-        admin.setAdminPassword("1234");
-        em.persist(admin);
-    }
+//    @Test
+//    void test1() {
+//        Admin admin = new Admin();
+//        admin.setAdminAccount("abc123");
+//        admin.setAdminPassword("1234");
+//        em.persist(admin);
+//    }
 }

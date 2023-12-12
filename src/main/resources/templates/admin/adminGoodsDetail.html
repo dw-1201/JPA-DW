@@ -89,7 +89,12 @@
                                 <th class="goods-table-column" scope="row">최초 등록일</th>
                                 <td><input type="text" name="goodsRegisterDate" id="goods-reg-date" th:value="${goods.goodsRegisterDate}" readonly/></td>
                                 <th class="goods-table-column" scope="row">마지막 수정일</th>
-                                <td><input type="text" name="goodsModifyDate" id="goods-last-modify-date" th:value="${goods.goodsModifyDate}" readonly/></td>
+                                <th:block th:if="${goods.goodsRegisterDate==goods.goodsModifyDate}">
+                                <td><input type="text" name="goodsModifyDate" id="goods-last-modify-date"  value="" readonly/></td>
+                                </th:block>
+                                <th:block th:unless="${goods.goodsRegisterDate==goods.goodsModifyDate}" >
+                                <td><input type="text" name="goodsModifyDate" id="goods-last-modify-date"  th:value="${goods.goodsModifyDate}" readonly/></td>
+                                </th:block>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">판매량</th>
@@ -177,7 +182,7 @@
                     </span>
             </div>
             <div class="goods-related-review-container">
-                <table class="goods-related-reivew" >
+                <table class="goods-related-review" >
                     <tr>
                         <th>작성자</th>
                         <th width="956">문의 내용</th>

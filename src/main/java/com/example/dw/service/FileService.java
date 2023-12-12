@@ -3,7 +3,6 @@ package com.example.dw.service;
 import com.example.dw.domain.dto.goods.GoodsDetailImgDto;
 import com.example.dw.domain.dto.goods.GoodsMainImgDto;
 import com.example.dw.domain.entity.goods.Goods;
-import com.example.dw.domain.entity.goods.GoodsMainImg;
 import com.example.dw.domain.form.GoodsDetailImgForm;
 import com.example.dw.domain.form.GoodsMainImgForm;
 import com.example.dw.repository.goods.GoodsDetailImgRepository;
@@ -22,7 +21,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -140,10 +138,9 @@ public class FileService {
             throw new IllegalArgumentException("유효하지 않은 상품 번호");
         }
 
-        GoodsMainImg img = goodsMainImgRepository.findByGoodsId(goodsId).get();
+        GoodsMainImgDto img = goodsMainImgRepository.findByGoodsId(goodsId).get();
 
-        //dto로 감싸기
-        GoodsMainImgDto goodsMainImgDto = new GoodsMainImgDto(img.getGoods().getId(), img.getGoodsMainImgPath(), img.getGoodsMainImgUuid(), img.getGoodsMainImgName(), img.getId());
+        GoodsMainImgDto goodsMainImgDto = new GoodsMainImgDto(img.getId(), img.getGoodsMainImgPath(), img.getGoodsMainImgUuid(), img.getGoodsMainImgName(), img.getGoodsId());
 
         File mainImgTarget = new File(mainImg, goodsMainImgDto.getGoodsMainImgPath() + "/" + goodsMainImgDto.getGoodsMainImgUuid() + "_" + goodsMainImgDto.getGoodsMainImgName());
 
@@ -166,10 +163,8 @@ public class FileService {
             throw new IllegalArgumentException("유효하지 않은 상품 번호");
         }
 
-        //Dto로 감싸기
-        List<GoodsDetailImgDto> goodsDetailImgDtos = goodsDetailImgRepository.findAllByGoodsId(goodsId).stream().map(o -> new GoodsDetailImgDto(
-                o.getGoods().getId(), o.getGoodsDetailImgName(), o.getGoodsDetailImgPath(), o.getGoodsDetailImgUuid(), o.getId()
-        )).collect(Collectors.toList());
+        List<GoodsDetailImgDto> goodsDetailImgDtos = goodsDetailImgRepository.findAllByGoodsId(goodsId);
+
 
         for (GoodsDetailImgDto goodsDetailImg : goodsDetailImgDtos) {
             File detailImgTarget = new File(mainImg, goodsDetailImg.getGoodsDetailImgPath() + "/" + goodsDetailImg.getGoodsDetailImgUuid() + "_" + goodsDetailImg.getGoodsDetailImgName());
@@ -179,7 +174,7 @@ public class FileService {
                 detailImgTarget.delete();
 
                 System.out.println("[ 삭제되는 상품 상세 사진 ]" + goodsDetailImg.getGoodsDetailImgPath() + "/" + goodsDetailImg.getGoodsDetailImgUuid() + "_" + goodsDetailImg.getGoodsDetailImgName() + "\n");
-                goodsDetailImgRepository.deleteById(goodsDetailImg.getGoodsDetailImgId());
+                goodsDetailImgRepository.deleteById(goodsDetailImg.getId());
 
             }
         }

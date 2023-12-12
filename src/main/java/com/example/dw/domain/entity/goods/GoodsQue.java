@@ -2,14 +2,24 @@ package com.example.dw.domain.entity.goods;
 
 import com.example.dw.domain.entity.user.Users;
 import jakarta.persistence.*;
-import lombok.*;
-import lombok.Builder.Default;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Entity
 @Table(name="goods_que")
 @Getter
+@Builder
+@EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class GoodsQue {
     @Id
     @GeneratedValue
@@ -24,17 +34,28 @@ public class GoodsQue {
     @JoinColumn(name="goods_id")
     private Goods goods;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "goodsQue")
-    private GoodsQueReply goodsQueReply;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "goodsQue", orphanRemoval = true)
+    private List<GoodsQueReply> goodsQueReply;
 
     private String queContent;
 
-    @Default
-    private LocalDateTime queRegisterDate = LocalDateTime.now();
-    @Default
-    private LocalDateTime queModifyDate = LocalDateTime.now();
+    @CreatedDate
+    private String queRegisterDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    @LastModifiedDate
+    private LocalDateTime queModifyDate;
 
+    @Builder.Default
+    private Integer state = 0;
 
-
-
+    @Builder
+    public GoodsQue(Long id, Users users, Goods goods, List<GoodsQueReply> goodsQueReply, String queContent, String queRegisterDate, LocalDateTime queModifyDate, Integer state) {
+        this.id = id;
+        this.users = users;
+        this.goods = goods;
+        this.goodsQueReply = goodsQueReply;
+        this.queContent = queContent;
+        this.queRegisterDate = queRegisterDate;
+        this.queModifyDate = queModifyDate;
+        this.state = state;
+    }
 }
