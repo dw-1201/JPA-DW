@@ -89,7 +89,7 @@ function showUserList(result){
                         <td>${r.userName}</td>
                         <td>${r.userEmail}</td>
                         <td>${r.userPhone}</td>
-                        <td>추후 조인</td>
+                        <td>${r.freeBoardCount + r.qnaBoardCount}</td>
                         <td>추후 조인</td>
                         <td class="list-btns">
                             <button type="button" class="detail-btn btn">상세보기</button>

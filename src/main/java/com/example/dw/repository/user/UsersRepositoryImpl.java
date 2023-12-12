@@ -12,7 +12,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
-
+import static com.example.dw.domain.entity.question.QQuestion.question;
+import static com.example.dw.domain.entity.freeBoard.QFreeBoard.freeBoard;
 import static com.example.dw.domain.entity.user.QUsers.users;
 
 @Repository
@@ -43,20 +44,26 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
                 .fetchOne();
     }
 
-
+    //회원리스트
     private List<UserListDto> getUserList(Pageable pageable, String cate, String keyword, String userState){
         return jpaQueryFactory.select(new QUserListDto(
                 users.id,
                 users.userAccount,
                 users.userName,
                 users.userEmail,
-                users.userPhone
+                users.userPhone,
+                freeBoard.count(),
+                question.count()
+
         ))
                 .from(users)
+                .leftJoin(users.freeBoard, freeBoard)
+                .leftJoin(users.questions, question)
                 .where(
                         userStateEq(userState),
                         cateEq(cate, keyword)
                 )
+                .groupBy(users.id, users.userAccount, users.userName, users.userEmail, users.userPhone)
                 .orderBy(users.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -71,7 +78,7 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
     }
 
 
-    //셀렉트 옵션 동적 메소드
+    //회원리스트 - 셀렉트 옵션 동적 메소드
     private BooleanExpression cateEq(String cate, String keyword) {
         if (StringUtils.hasText(cate) && StringUtils.hasText(keyword)) {
             switch (cate) {

@@ -14,15 +14,19 @@ public class UserListDto {
     private String userName;
     private String userEmail;
     private String userPhone;
+    private Long freeBoardCount;
+    private Long qnaBoardCount;
 
 
     @QueryProjection
-    public UserListDto(Long id, String userAccount, String userName, String userEmail, String userPhone) {
+    public UserListDto(Long id, String userAccount, String userName, String userEmail, String userPhone, Long freeBoardCount, Long qnaBoardCount) {
         this.id = id;
         this.userAccount = userAccount;
         this.userName = userName;
         this.userEmail = userEmail;
         this.userPhone = userPhone;
+        this.freeBoardCount=freeBoardCount;
+        this.qnaBoardCount=qnaBoardCount;
     }
 
 }
