@@ -44,8 +44,9 @@ function showGoodsList(result){
 
 
         text += `
-        
-                       <tr class="goods-lists">
+                      <tr class="goods-lists">
+                        <td>${r.id}</td>
+                        <td>${r.goodsCategory}</td>
                         <td>${r.goodsName}</td>
                         <td>${r.goodsPrice}원</td>
                         <td>${r.goodsQuantity} ea</td>
@@ -53,9 +54,9 @@ function showGoodsList(result){
                         <td>${r.goodsRegisterDate}</td>
                         `;
         if(r.goodsRegisterDate == r.goodsModifyDate){
-           text += ` <td>-</td>`;
+           text += `    <td>-</td>`;
         } else {
-            text += `<td>${r.goodsModifyDate}</td>`;
+            text += `   <td>${r.goodsModifyDate}</td>`;
 
         }
         text+=`

@@ -6,11 +6,14 @@ import com.example.dw.domain.entity.question.Question;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
-import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +21,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-//@Setter
+@SQLDelete(sql="UPDATE users set user_state = 0 where user_id = ?")
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "users")
 public class Users {
     @Id @GeneratedValue
@@ -31,10 +35,11 @@ public class Users {
     private String userEmail;
     private String userPhone;
 
-    @Default
-    private LocalDateTime userJoinDate = LocalDateTime.now();
+    @CreatedDate
+    private String userJoinDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
     private String userNickName;
     private String userIntroduction;
+
 
     @Embedded
     @AttributeOverrides({
@@ -49,7 +54,7 @@ public class Users {
     @JoinColumn(name = "user_file_id")
     private UserFile userFile;
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "users", orphanRemoval = true)
     private List<Pet> pet = new ArrayList<>();
 
     @OneToMany(mappedBy = "users" ,fetch = FetchType.LAZY)
@@ -57,11 +62,14 @@ public class Users {
     @OneToMany(mappedBy = "users",fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Question> questions =new ArrayList<>();
 
+    @Builder.Default
+    private int userState = 1;
+
     @Builder
     public Users(Long id, String userAccount, String userName, String userPassword, String userEmail, String userPhone,
-                 LocalDateTime userJoinDate, String userNickName,
+                 String userJoinDate, String userNickName,
                  String userIntroduction, Address address,
-                 UserFile userFile, List<Pet> pet,List<FreeBoard> freeBoard, List<Question> questions) {
+                 UserFile userFile, List<Pet> pet,List<FreeBoard> freeBoard, List<Question> questions, int userState) {
         this.id = id;
         this.userAccount = userAccount;
         this.userName = userName;
@@ -76,5 +84,13 @@ public class Users {
         this.pet = pet;
         this.freeBoard = freeBoard;
         this.questions= questions;
+        this.userState=userState;
+    }
+
+
+    //임시비밀번호로 비밀번호 수정
+    public Users updatePassword(String rePassword){
+        this.userPassword=rePassword;
+        return this;
     }
 }

@@ -40,7 +40,7 @@ public class QUsers extends EntityPathBase<Users> {
 
     public final StringPath userIntroduction = createString("userIntroduction");
 
-    public final DateTimePath<java.time.LocalDateTime> userJoinDate = createDateTime("userJoinDate", java.time.LocalDateTime.class);
+    public final StringPath userJoinDate = createString("userJoinDate");
 
     public final StringPath userName = createString("userName");
 
@@ -49,6 +49,8 @@ public class QUsers extends EntityPathBase<Users> {
     public final StringPath userPassword = createString("userPassword");
 
     public final StringPath userPhone = createString("userPhone");
+
+    public final NumberPath<Integer> userState = createNumber("userState", Integer.class);
 
     public QUsers(String variable) {
         this(Users.class, forVariable(variable), INITS);

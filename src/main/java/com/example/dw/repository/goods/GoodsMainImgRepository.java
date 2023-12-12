@@ -1,5 +1,6 @@
 package com.example.dw.repository.goods;
 
+import com.example.dw.domain.dto.goods.GoodsMainImgDto;
 import com.example.dw.domain.entity.goods.GoodsMainImg;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,5 +13,5 @@ public interface GoodsMainImgRepository extends JpaRepository<GoodsMainImg, Long
     void deleteById(Long id);
 
 
-    Optional<GoodsMainImg> findByGoodsId(Long goodsId);
+    Optional<GoodsMainImgDto> findByGoodsId(Long goodsId);
 }

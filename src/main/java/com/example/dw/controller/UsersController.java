@@ -1,14 +1,18 @@
 package com.example.dw.controller;
 
 
-import com.example.dw.domain.form.JoinForm;
 import com.example.dw.domain.entity.user.Users;
+import com.example.dw.domain.form.JoinForm;
+import com.example.dw.repository.user.UsersRepository;
 import com.example.dw.service.UsersService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -18,6 +22,8 @@ import org.springframework.web.servlet.view.RedirectView;
 public class UsersController {
 
     private final UsersService usersService;
+    private final UsersRepository usersRepository;
+
 
     //로그인창 이동
     @GetMapping("/enterLogin")
@@ -71,4 +77,36 @@ public class UsersController {
         return "redirect:/index/";
     }
 
+
+
+    //계정찾기 페이지 이동
+    @GetMapping("/findAccount")
+    public String findAccountPage(){
+        return "/user/findId";
+    }
+
+    //계정 찾기
+    @ResponseBody
+    @PostMapping("/accountCheck")
+    public boolean accountCheck(String userName, String userPhone, String userEmail){
+
+        boolean accountCheck = usersRepository.existsByUserNameAndUserEmailAndUserPhone(userName, userEmail, userPhone);
+        return accountCheck;
+    }
+
+    //비밀번호 찾기 페이지 이동
+    @GetMapping("/findPw")
+    public String findPwPage(){
+        return "/user/findPw";
+    }
+
+    //비밀번호 찾기
+    @ResponseBody
+    @PostMapping("/accountCheckForPw")
+    public boolean accountCheckForPw(String userName, String userAccount, String userEmail){
+
+        boolean accountCheck = usersRepository.existsByUserNameAndUserAccountAndUserEmail(userName, userAccount, userEmail);
+        return accountCheck;
+
+    }
 }

@@ -17,7 +17,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.example.dw.domain.entity.goods.QGoods.goods;
 import static com.example.dw.domain.entity.goods.QGoodsDetailImg.goodsDetailImg;
@@ -61,7 +60,6 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
     }
 
 
-
     private Long getCount(SearchForm searchForm){
         Long count = jpaQueryFactory
                 .select(goods.count())
@@ -75,8 +73,6 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
     }
     //상품 리스트 조회
     private List<GoodsDto> getGoodsList(Pageable pageable, SearchForm searchForm){
-
-
 
         List<GoodsDto> content = jpaQueryFactory
                 .select(new QGoodsDto(
@@ -93,6 +89,7 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
                         cateGoryNameEq(searchForm),
                         goodsNameEq(searchForm)
                 )
+                .orderBy(goods.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -105,7 +102,7 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
 
     //상품상세 조회
     private List<GoodsDetailDto> getGoodsDetail(Long id){
-        return Optional.ofNullable(jpaQueryFactory
+        return jpaQueryFactory
                 .select(new QGoodsDetailDto(
                         goods.id,
                         goods.goodsName,
@@ -130,8 +127,7 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
                 .leftJoin(goods.goodsMainImg, goodsMainImg)
                 .leftJoin(goods.goodsDetailImg, goodsDetailImg)
                 .where(goods.id.eq(id))
-                .fetch()).orElseThrow(()->{
-                    throw new IllegalArgumentException("조회결과 없음");});
+                .fetch();
     }
 
 

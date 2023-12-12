@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,8 +27,8 @@
         </div>
         <div class="findAccount-choice">
             <ul class="tap-choice">
-                <li class="move-to-id non-click"><a href="/user/html/findId.html">아이디 찾기</a></li>
-                <li class="move-to-pw click"><a href="/user/html/findPw.html">비밀번호 찾기</a></li>
+                <li class="move-to-id non-click"><a href="/user/findAccount">아이디 찾기</a></li>
+                <li class="move-to-pw click"><a href="/user/findPw">비밀번호 찾기</a></li>
             </ul>
         </div>
        <form action="" method="" id="findId-form">
@@ -49,16 +49,21 @@
                     <button type="button" class="submit-code-btn">인증번호 받기</button>
                 </div>
                 <div class="error-comment">
+                    <div class="send-email error-msg" style="color: #235bcd">인증 메일이 발송되었습니다. 메일함을 확인해주세요.</div>
                     <div class="input-userInfo error-msg">비밀번호 찾기를 위해 가입정보를 입력해주세요.</div>
                     <div class="non-search-result error-msg">가입정보를 확인할 수 없습니다.<br> 입력하신 정보를 다시 한 번 확인해주세요.</div>
                 </div>
                 <div class="verification">
                     <img src="/user/img/verified.png" alt="verification" class="verify-img"/>
-                    <input type="text" id="verifiedCode" name="verifiedCode" placeholder="인증번호 입력해주세요." maxlength="6" />
+                    <input type="text" id="verifiedCode" name="verifiedCode" placeholder="인증번호 입력해주세요." readonly maxlength="6" />
                 </div>
             
                 <div class="result-btn">
                     <button class="result-submit-btn" type="button">인증번호 확인</button>
+                </div>
+                <div class="error-validation">
+                    <div class="input-number-validation validation-msg">인증번호가 올바르지 않습니다.</div>
+                    <div class="non-search-result validation-msg">가입정보를 확인할 수 없습니다.<br> 입력하신 정보를 다시 한 번 확인해주세요.</div>
                 </div>
                 <div class="miss-info">
                     <p class="miss">인증번호가 오지 않나요?</p>
@@ -73,6 +78,7 @@
 
        </form>
     </div>
+    <input type="hidden" id="confirm" name="confirm" value=""/>
 </main>
 
 

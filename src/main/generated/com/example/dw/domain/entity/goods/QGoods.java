@@ -36,9 +36,9 @@ public class QGoods extends EntityPathBase<Goods> {
 
     public final StringPath goodsName = createString("goodsName");
 
-    public final NumberPath<Long> goodsPrice = createNumber("goodsPrice", Long.class);
+    public final NumberPath<Integer> goodsPrice = createNumber("goodsPrice", Integer.class);
 
-    public final NumberPath<Long> goodsQuantity = createNumber("goodsQuantity", Long.class);
+    public final NumberPath<Integer> goodsQuantity = createNumber("goodsQuantity", Integer.class);
 
     public final StringPath goodsRegisterDate = createString("goodsRegisterDate");
 

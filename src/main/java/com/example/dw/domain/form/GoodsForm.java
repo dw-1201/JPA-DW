@@ -6,16 +6,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Data
 @NoArgsConstructor
 public class GoodsForm {
 
     private Long id;
     private String goodsName;
-    private Long goodsQuantity;
-    private Long goodsPrice;
+    private int goodsQuantity;
+    private int goodsPrice;
     private String goodsMade;
     private String goodsCertify;
     private String goodsDetailContent;
@@ -23,9 +21,8 @@ public class GoodsForm {
 
 
     @Builder
-    public GoodsForm(Long id, String goodsName, Long goodsQuantity, Long goodsPrice, String goodsMade,
-                     String goodsCertify, String goodsDetailContent, LocalDateTime goodsRegisterDate,
-                     LocalDateTime goodsModifyDate, GoodsCategory goodsCategory) {
+    public GoodsForm(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade,
+                     String goodsCertify, String goodsDetailContent, GoodsCategory goodsCategory) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;
@@ -33,7 +30,6 @@ public class GoodsForm {
         this.goodsMade = goodsMade;
         this.goodsCertify = goodsCertify;
         this.goodsDetailContent = goodsDetailContent;
-
         this.goodsCategory = goodsCategory;
     }
 
