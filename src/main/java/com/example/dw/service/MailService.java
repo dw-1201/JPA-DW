@@ -134,7 +134,6 @@ public static String tempPassword(int leng){
     public MimeMessage pwMail(String userName, String userAccount, String mail){
 
         String rePassword = tempPassword(10);
-        System.out.println("유우저어 : " + userAccount);
         System.out.println("임시비밀번호 :"+ rePassword);
 
         MimeMessage message = javaMailSender.createMimeMessage();

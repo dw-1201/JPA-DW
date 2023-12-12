@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -20,6 +21,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@SQLDelete(sql="UPDATE users set user_state = 0 where user_id = ?")
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "users")
 public class Users {
@@ -60,11 +62,14 @@ public class Users {
     @OneToMany(mappedBy = "users",fetch = FetchType.LAZY)
     private List<Question> questions =new ArrayList<>();
 
+    @Builder.Default
+    private int userState = 1;
+
     @Builder
     public Users(Long id, String userAccount, String userName, String userPassword, String userEmail, String userPhone,
                  String userJoinDate, String userNickName,
                  String userIntroduction, Address address,
-                 UserFile userFile, List<Pet> pet,List<FreeBoard> freeBoard, List<Question> questions) {
+                 UserFile userFile, List<Pet> pet,List<FreeBoard> freeBoard, List<Question> questions, int userState) {
         this.id = id;
         this.userAccount = userAccount;
         this.userName = userName;
@@ -79,6 +84,7 @@ public class Users {
         this.pet = pet;
         this.freeBoard = freeBoard;
         this.questions= questions;
+        this.userState=userState;
     }
 
 
