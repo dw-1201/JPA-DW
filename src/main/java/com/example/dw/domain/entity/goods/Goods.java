@@ -25,8 +25,8 @@ public class Goods {
     private Long id;
 
     private String goodsName;
-    private Long goodsQuantity;
-    private Long goodsPrice;
+    private int goodsQuantity;
+    private int goodsPrice;
     private String goodsMade;
     private String goodsCertify;
     private String goodsDetailContent;
@@ -48,7 +48,7 @@ public class Goods {
 
 
 
-    public Goods(Long id, String goodsName, Long goodsQuantity, Long goodsPrice, GoodsCategory goodsCategory){
+    public Goods(Long id, String goodsName, int goodsQuantity, int goodsPrice, GoodsCategory goodsCategory){
         this.id=id;
         this.goodsName=goodsName;
         this.goodsQuantity=goodsQuantity;
@@ -57,7 +57,7 @@ public class Goods {
     }
 
     @Builder
-    public Goods(Long id, String goodsName, Long goodsQuantity, Long goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate,
+    public Goods(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate,
                  String goodsModifyDate, GoodsCategory goodsCategory, List<GoodsMainImg> goodsMainImg, List<GoodsDetailImg> goodsDetailImg) {
         this.id = id;
         this.goodsName = goodsName;

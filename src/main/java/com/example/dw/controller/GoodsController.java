@@ -5,6 +5,7 @@ import com.example.dw.domain.form.GoodsForm;
 import com.example.dw.repository.goods.GoodsRepositoryCustom;
 import com.example.dw.service.FileService;
 import com.example.dw.service.GoodsService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,10 +40,24 @@ public class GoodsController {
 
     //상품 등록
     @PostMapping("/register")
-    public RedirectView goodsRegister(GoodsForm goodsForm,
+    public String goodsRegister(@Valid GoodsForm goodsForm,
                                       @RequestParam("goodsMainImg") MultipartFile file,   //메인사진
                                       @RequestParam("goodsDetailImg") List<MultipartFile> files //상세사진
+//                                    , BindingResult bindingResult, Model model
+//
     ) throws IOException {
+
+//        if(bindingResult.hasErrors()){
+//            model.addAttribute("error", goodsForm);
+//
+//
+//            Map<String, String> validatorResult = goodsService.validateHandling(bindingResult);
+//            for(String key : validatorResult.keySet()){
+//                model.addAttribute(key, validatorResult.get(key));
+//            }
+//
+//            return "/goods/adminGoodsReg";
+//        }
 
         //해당 컨트롤러로 타고 들어오는 정보 내용
         System.out.println("[상품 등록 정보 ] : " + goodsForm.toString());
@@ -57,7 +72,7 @@ public class GoodsController {
         fileService.registerMainImg(file, id);      //메인사진
         fileService.registerDetailImg(files, id);   //상세사진
 
-        return new RedirectView("/goods/goodsList");
+        return ("redirect:/goods/goodsList");
     }
 
     //상품 상세 페이지 이동

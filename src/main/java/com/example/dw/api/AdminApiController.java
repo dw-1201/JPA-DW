@@ -2,10 +2,11 @@ package com.example.dw.api;
 
 import com.example.dw.domain.dto.admin.FaqBoardDto;
 import com.example.dw.domain.dto.admin.NoticeBoardDto;
+import com.example.dw.domain.dto.user.UserListDto;
 import com.example.dw.domain.form.SearchForm;
 import com.example.dw.repository.admin.FaqBoardRepositoryCustom;
-import com.example.dw.repository.goods.GoodsRepositoryCustom;
 import com.example.dw.repository.admin.NoticeBoardRepositoryCustom;
+import com.example.dw.repository.user.UsersRepositoryCustom;
 import com.example.dw.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,7 +25,7 @@ public class AdminApiController {
     private final AdminService adminService;
     private final FaqBoardRepositoryCustom faqBoardRepositoryCustom;
     private final NoticeBoardRepositoryCustom noticeBoardRepositoryCustom;
-    private final GoodsRepositoryCustom goodsRepositoryCustom;
+    private final UsersRepositoryCustom usersRepositoryCustom;
 
     //faq조회
     @GetMapping("/faqList/{page}")
@@ -55,6 +56,18 @@ public class AdminApiController {
         return result;
     }
 
+    //회원목록 조회
+    @GetMapping("/userList/{page}")
+    public Page<UserListDto> findUserList(
+            @PathVariable("page") int page
+    ){
+
+        Pageable pageable = PageRequest.of(page, 15);
+
+
+        return usersRepositoryCustom.findByAll(pageable);
+
+    }
 
 
 

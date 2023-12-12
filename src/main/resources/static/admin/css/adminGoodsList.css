@@ -68,7 +68,8 @@
 .input-form {
     padding-left: 10px;
 }
-#search-keword {
+#goods-search-keyword {
+    text-indent: 10px;
     height: 21px;
     width: 200px;
 }
@@ -118,11 +119,11 @@
 
 .goods-info-table tr td {
     cursor: pointer;
-    padding: 4px;
+    text-align: center;
 }
 
 .table-column > th{
-    text-align: start;
+    text-align: center;
     padding: 4px;
     
 }

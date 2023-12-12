@@ -11,15 +11,15 @@ public class GoodsDto {
 
     private Long id;
     private String goodsName;
-    private Long goodsQuantity;
-    private Long goodsPrice;
+    private int goodsQuantity;
+    private int goodsPrice;
     private String goodsCategory;
     private String goodsRegisterDate;
     private String goodsModifyDate;
 
 
     @QueryProjection
-    public GoodsDto(Long id, String goodsName, Long goodsQuantity, Long goodsPrice, String categoryName, String goodsRegisterDate, String goodsModifyDate) {
+    public GoodsDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String categoryName, String goodsRegisterDate, String goodsModifyDate) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;
