@@ -80,4 +80,11 @@ public class Users {
         this.freeBoard = freeBoard;
         this.questions= questions;
     }
+
+
+    //임시비밀번호로 비밀번호 수정
+    public Users updatePassword(String rePassword){
+        this.userPassword=rePassword;
+        return this;
+    }
 }

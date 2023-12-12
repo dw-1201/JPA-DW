@@ -35,6 +35,12 @@
  left: -70px   ;
    
 }
+.findAccount-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 40px;
+}
 
 .findAccount-title span {
     font-size: 14px;
@@ -147,12 +153,26 @@
     left: 10px;
     height: 30px;
 }
+.send-email {
+    color: #235bcd;
+}
 
 .error-msg {
+    left: 10px;
     display: none;
     font-size: 13px;
     color: rgb(202, 11, 11);
     position: absolute;
+}
+
+
+.validation-msg {
+    left: 10px;
+    display: none;
+    font-size: 13px;
+    color: rgb(202, 11, 11);
+    position: absolute;
+    top: 290px;
 }
 
 .result-btn {
@@ -165,6 +185,7 @@
     justify-content: end;
     align-items: center;
     margin-top: 3px;
+
 }
 
 .miss {
@@ -187,5 +208,6 @@
 }
 
 .on {
+
     display: block;
 }
