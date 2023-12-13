@@ -24,21 +24,26 @@ public class QuestionDto {
     private Long userId;
     private String userName;
 
-
     //사용자 이미지
 
-    //댓글수 조회
-    private Long questionCommentId;
+
 
     @QueryProjection
-    public QuestionDto(Long id, String questionTitle, String questionContent, LocalDateTime questionRd, LocalDateTime questionMd, Long userId,String userName) {
+    public QuestionDto(Long id, String questionTitle, String questionContent, LocalDateTime questionRd, LocalDateTime questionMd, Users user) {
         this.id = id;
         this.questionTitle = questionTitle;
         this.questionContent = questionContent;
         this.questionRd = questionRd;
         this.questionMd = questionMd;
-        this.userId = userId;
-        this.userName = userName;
+
+        // 유저 정보 추가
+        if (user != null) {
+            // Hibernate.initialize를 사용하지 않고 바로 값을 가져오도록 변경
+            this.userId=user.getId();
+            this.userName =user.getUserName();
+
+        }
+
 
     }
 }

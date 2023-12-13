@@ -12,7 +12,7 @@ import static lombok.Builder.*;
 
 @Entity
 @Getter
-@Setter
+
 @Table(name = "question")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Question {
@@ -44,11 +44,12 @@ public class Question {
     private Users users;
 
     @Builder
-    public Question(Long id,String questionTitle,String questionContent,List<QuestionImg>questionImg){
+    public Question(Long id,String questionTitle,String questionContent,List<QuestionImg>questionImg, Users users){
         this.id = id;
         this.questionTitle=questionTitle;
         this.questionContent=questionContent;
         this.questionImg=questionImg;
+        this.users =users;
     }
 
 
