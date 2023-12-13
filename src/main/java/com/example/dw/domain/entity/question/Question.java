@@ -2,9 +2,7 @@ package com.example.dw.domain.entity.question;
 
 import com.example.dw.domain.entity.user.Users;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,8 +12,9 @@ import static lombok.Builder.*;
 
 @Entity
 @Getter
-@Setter
+
 @Table(name = "question")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Question {
     @Id
     @GeneratedValue
@@ -41,17 +40,16 @@ public class Question {
     private QuestionLike questionLike;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "users_id")
+    @JoinColumn(name = "user_id")
     private Users users;
 
     @Builder
-    public Question(Long id,String questionTitle,String questionContent,List<QuestionImg>questionImg){
+    public Question(Long id,String questionTitle,String questionContent,List<QuestionImg>questionImg, Users users){
         this.id = id;
         this.questionTitle=questionTitle;
         this.questionContent=questionContent;
         this.questionImg=questionImg;
-
-
+        this.users =users;
     }
 
 
