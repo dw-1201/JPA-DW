@@ -78,6 +78,7 @@ public class Goods {
         this.goodsName= goodsForm.getGoodsName();
         this.goodsQuantity= goodsForm.getGoodsQuantity();
         this.goodsPrice= goodsForm.getGoodsPrice();
+        this.goodsDetailContent=goodsForm.getGoodsDetailContent();
         this.goodsMade= goodsForm.getGoodsMade();
         this.goodsCertify= goodsForm.getGoodsCertify();
         this.goodsModifyDate=LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));

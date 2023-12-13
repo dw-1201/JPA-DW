@@ -93,4 +93,10 @@ public class Users {
         this.userPassword=rePassword;
         return this;
     }
+
+    //회원복구
+    public Users recoverUsersState(){
+        this.userState=1;
+        return this;
+    }
 }

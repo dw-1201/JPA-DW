@@ -1,6 +1,8 @@
 package com.example.dw.repository.user;
 
+import com.example.dw.domain.dto.user.QUserDetailDto;
 import com.example.dw.domain.dto.user.QUserListDto;
+import com.example.dw.domain.dto.user.UserDetailDto;
 import com.example.dw.domain.dto.user.UserListDto;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -12,8 +14,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
-import static com.example.dw.domain.entity.question.QQuestion.question;
+import java.util.Optional;
+
 import static com.example.dw.domain.entity.freeBoard.QFreeBoard.freeBoard;
+import static com.example.dw.domain.entity.question.QQuestion.question;
 import static com.example.dw.domain.entity.user.QUsers.users;
 
 @Repository
@@ -31,6 +35,14 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
         Long counts = getCount(cate, keyword ,userState);
 
         return new PageImpl<>(content, pageable, counts);
+    }
+
+    @Override
+    public Optional<UserDetailDto> findByUserId(Long userId) {
+
+        UserDetailDto detail = getUserDetail(userId);
+
+        return Optional.ofNullable(detail);
     }
 
 
@@ -52,6 +64,7 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
                 users.userName,
                 users.userEmail,
                 users.userPhone,
+                users.userState,
                 freeBoard.count(),
                 question.count()
 
@@ -63,13 +76,40 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
                         userStateEq(userState),
                         cateEq(cate, keyword)
                 )
-                .groupBy(users.id, users.userAccount, users.userName, users.userEmail, users.userPhone)
+                .groupBy(users.id, users.userAccount, users.userName, users.userEmail, users.userPhone, users.userState)
                 .orderBy(users.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
 
     }
+
+    //회원 상세 정보
+    private UserDetailDto getUserDetail(Long userId){
+        return jpaQueryFactory.select(new QUserDetailDto(
+                users.id,
+                users.userAccount,
+                users.userName,
+                users.userNickName,
+                users.userPhone,
+                users.userEmail,
+                users.userJoinDate,
+                users.address.zipCode,
+                users.address.address,
+                users.address.detail,
+                users.userIntroduction
+        ))
+                .from(users)
+                .where(users.id.eq(userId))
+                .fetchOne();
+    }
+
+
+
+
+
+
+
 
     //회원상태
     private BooleanExpression userStateEq(String userState){

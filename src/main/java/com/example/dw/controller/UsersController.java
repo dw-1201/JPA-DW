@@ -50,21 +50,28 @@ public class UsersController {
 
     //로그인
     @PostMapping("/login")
-    public RedirectView login(String userAccount, String userPassword, HttpServletRequest req, RedirectAttributes redirectAttributes){
+    public RedirectView login(String userAccount, String userPassword, HttpServletRequest req, RedirectAttributes redirectAttributes) {
         Users users;
+
+
         try {
             users = usersService.login(userAccount, userPassword);
-        }catch(Exception e){
+
+            // 로그인 성공 시 userState가 1인지 확인
+            if (users.getUserState() == 1) {
+                req.getSession().setAttribute("userId", users.getId());
+                req.getSession().setAttribute("userAccount", users.getUserAccount());
+                req.getSession().setAttribute("userName", users.getUserName());
+                return new RedirectView("/index/");
+            } else {
+                // userState가 1이 아니면 로그인 실패 처리
+                redirectAttributes.addFlashAttribute("isNotLogin", "0");
+                return new RedirectView("/user/enterLogin");
+            }
+        } catch (Exception e) {
             redirectAttributes.addFlashAttribute("isNotLogin", "0");
             return new RedirectView("/user/enterLogin");
         }
-
-        req.getSession().setAttribute("userId", users.getId());
-        req.getSession().setAttribute("userAccount", users.getUserAccount());
-        req.getSession().setAttribute("userName", users.getUserName());
-
-        return new RedirectView("/index/");
-
     }
 
     //로그아웃

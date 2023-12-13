@@ -1,9 +1,13 @@
 package com.example.dw.controller;
 
+import com.example.dw.domain.dto.user.UserDetailDto;
 import com.example.dw.domain.entity.admin.FaqBoard;
 import com.example.dw.domain.entity.admin.NoticeBoard;
+import com.example.dw.domain.entity.user.Users;
 import com.example.dw.domain.form.FaqBoardForm;
 import com.example.dw.domain.form.NoticeBoardForm;
+import com.example.dw.repository.user.UsersRepository;
+import com.example.dw.repository.user.UsersRepositoryCustom;
 import com.example.dw.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -11,12 +15,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.Optional;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin/*")
 public class AdminController {
 
     private final AdminService adminService;
+    private final UsersRepositoryCustom usersRepositoryCustom;
+    private final UsersRepository usersRepository;
 
     
     //관리자 로그인 페이지
@@ -157,6 +165,41 @@ public class AdminController {
      return "/admin/adminUserList";
     }
 
+    //회원 상세 보기
+    @GetMapping("/userDetail/{userId}")
+    public String userDetail(@PathVariable("userId") Long userId, Model model){
+
+        Optional<UserDetailDto> userDetail = usersRepositoryCustom.findByUserId(userId);
+
+        //옵셔널 객체로 감싸진 경우 타임리프로 받을 수 없다.
+        //따라서 ifPresent로 추출하여 모델 객체에 담아줘야함
+        userDetail.ifPresent(  detail -> model.addAttribute("detail", detail));
+
+        return "/admin/adminUserDetail";
+    }
+
+    //회원 탈퇴
+    @GetMapping("/userDelete/{userId}")
+    public RedirectView userDelete(@PathVariable("userId") Long userId){
+
+        usersRepository.deleteById(userId);
+
+        return new RedirectView("/admin/userList");
+
+    }
+
+    //회원 복구
+    @GetMapping("/userRecover/{userId}")
+    public RedirectView userRecover(@PathVariable("userId") Long userId){
+
+        Users users = usersRepository.findById(userId).get();
+
+        users.recoverUsersState();
+
+        usersRepository.save(users);
+
+        return new RedirectView("/admin/userList");
+    }
 
 
 
