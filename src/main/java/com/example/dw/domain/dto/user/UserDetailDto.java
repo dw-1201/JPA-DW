@@ -5,6 +5,8 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @NoArgsConstructor
 public class UserDetailDto {
@@ -15,14 +17,14 @@ public class UserDetailDto {
     private String userNickName;
     private String userPhone;
     private String userEmail;
-    private String userJoinDate;
+    private LocalDate userJoinDate;
     private String zipCode;
     private String address;
     private String detail;
     private String intro;
 
     @QueryProjection
-    public UserDetailDto(Long id, String userAccount, String userName, String userNickName, String userPhone, String userEmail, String userJoinDate, String zipCode, String address, String detail, String intro) {
+    public UserDetailDto(Long id, String userAccount, String userName, String userNickName, String userPhone, String userEmail, LocalDate userJoinDate, String zipCode, String address, String detail, String intro) {
         this.id = id;
         this.userAccount = userAccount;
         this.userName = userName;

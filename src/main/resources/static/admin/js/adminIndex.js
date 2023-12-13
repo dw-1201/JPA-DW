@@ -1,57 +1,58 @@
-let joinCanvas = document.getElementById('weekly-join-chart');
+$(document).ready(function (){
+    dailyJoinUserCount()
 
-let data = {
-    labels: [
-
-        '1','2','3','4','5','6','7'
-    ],
-    datasets: [{
-        label: '일별 회원가입',
-        data: [21,33,35,36,45,39, 99],
-        fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        borderWidth: 2
-    }]
-};
-
-let myLineChart = new Chart(joinCanvas.getContext('2d'), {
-    type: 'bar',
-    data: data
-});
+})
 
 
+function dailyJoinUserCount(){
 
-// $(document).ready(function() {
-//     let floatPosition = parseInt($(".admin-fragment").css('top'));
+    $.ajax({
 
-//     $(window).scroll(function() {
-//     let scrollTop = $(window).scrollTop() ;
-//     let attachedPosition = scrollTop + floatPosition + "px";
+        url : '/admins/daily',
+        type :'get',
+        dataType:'json',
+        success : function (result){
 
-//     $(".admin-fragment").css('top', attachedPosition);
-    
+            console.log(result)
+            let joinCanvas = document.getElementById('weekly-join-chart');
+            let labels = [];
+            let counts = [];
+            let data = '';
+        result.forEach(function (daily){
+                labels.push(daily.joinDate);
+                counts.push(daily.counts);
+        })
+            data = {
+                labels : labels,
+                datasets : [{
+                    label: '일별 회원가입',
+                    data: counts,
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    borderWidth:2
+                }]
 
-//     }).scroll();
+            }
+            let myLineChart = new Chart(joinCanvas.getContext('2d'), {
+                type: 'bar',
+                data: data
+            });
 
-//     });
+        }
 
-// $(document).ready(function(){
-//     let adminHeaderHeight = $('.top-section').height();
-//     console.log(adminHeaderHeight)
 
-//     $('.admin-hidden-title').hide();
 
-//     $(window).scroll(function(){
-//         let fixedAdminTitle = $(this).scrollTop()>=adminHeaderHeight;
+    })
 
-//         if(fixedAdminTitle){
-//             $('.admin-hidden-title').fadeIn(100);
-//         }else {
-//             $('.admin-hidden-title').hide();
+}
 
-//         }
-//     })
-// })
+
+
+
+
+
+
+
 
 
 

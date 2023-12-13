@@ -2,6 +2,7 @@ package com.example.dw.api;
 
 import com.example.dw.domain.dto.admin.FaqBoardDto;
 import com.example.dw.domain.dto.admin.NoticeBoardDto;
+import com.example.dw.domain.dto.admin.UserChartDto;
 import com.example.dw.domain.dto.user.UserListDto;
 import com.example.dw.domain.form.SearchForm;
 import com.example.dw.repository.admin.FaqBoardRepositoryCustom;
@@ -12,7 +13,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -39,7 +45,7 @@ public class AdminApiController {
         return result;
     }
 
-    //공지사항 조회
+    //공지사항 조회ㅁ
     @GetMapping("/noticeList/{page}")
     public Page<NoticeBoardDto> findNoticeList(
             @PathVariable("page") int page,
@@ -66,6 +72,13 @@ public class AdminApiController {
 
     }
 
+    //주단위 일별 회원가입자 수
+    @GetMapping("/daily")
+    public List<UserChartDto> getDaily() {
+
+        System.out.println(usersRepositoryCustom.findJoinCountByAll()+"===========");
+        return usersRepositoryCustom.findJoinCountByAll();
+    }
 
 
 }

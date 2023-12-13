@@ -158,6 +158,13 @@ public class AdminController {
     }
 
     //////////////////////
+
+    //회원현황
+    @GetMapping("/userStatus")
+    public String userStatus(){
+        return "/admin/adminIndex";
+    }
+
     //회원 리스트
     @GetMapping("/userList")
     public String userList(){

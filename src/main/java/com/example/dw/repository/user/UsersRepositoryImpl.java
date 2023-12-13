@@ -1,5 +1,6 @@
 package com.example.dw.repository.user;
 
+import com.example.dw.domain.dto.admin.UserChartDto;
 import com.example.dw.domain.dto.user.QUserDetailDto;
 import com.example.dw.domain.dto.user.QUserListDto;
 import com.example.dw.domain.dto.user.UserDetailDto;
@@ -13,8 +14,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.example.dw.domain.entity.freeBoard.QFreeBoard.freeBoard;
 import static com.example.dw.domain.entity.question.QQuestion.question;
@@ -43,6 +47,11 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
         UserDetailDto detail = getUserDetail(userId);
 
         return Optional.ofNullable(detail);
+    }
+
+    @Override
+    public List<UserChartDto> findJoinCountByAll() {
+        return getDailyJoinCount();
     }
 
 
@@ -104,8 +113,36 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
                 .fetchOne();
     }
 
+    public List<UserChartDto> getDailyJoinCount() {
+        LocalDate endDate = LocalDate.now(); // 현재 날짜
+        LocalDate startDate = endDate.minusWeeks(1); // 일주일 전 날짜
 
+        // 일주일 간의 날짜 목록 생성
+        List<LocalDate> datesInRange = startDate.datesUntil(endDate.plusDays(1))
+                .collect(Collectors.toList());
 
+        Map<LocalDate, Long> dailyCounts = jpaQueryFactory
+                .select(users.userJoinDate, users.count())
+                .from(users)
+                .where(users.userJoinDate.between(startDate, endDate))
+                .groupBy(users.userJoinDate)
+                .fetch()
+                .stream()
+                .collect(Collectors.toMap(
+                        tuple -> tuple.get(users.userJoinDate),
+                        tuple -> tuple.get(users.count()),
+                        (count1, count2) -> count1 + count2
+                ));
+
+        // 빈 값을 가진 날짜에 대한 결과 추가
+        for (LocalDate date : datesInRange) {
+            dailyCounts.putIfAbsent(date, 0L);
+        }
+
+        return dailyCounts.entrySet().stream()
+                .map(entry -> new UserChartDto(entry.getKey(), entry.getValue()))
+                .collect(Collectors.toList());
+    }
 
 
 

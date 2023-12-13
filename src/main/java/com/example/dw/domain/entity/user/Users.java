@@ -12,8 +12,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +20,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@SQLDelete(sql="UPDATE users set user_state = 0 where user_id = ?")
 @EntityListeners(AuditingEntityListener.class)
+@SQLDelete(sql="UPDATE users set user_state = 0 where user_id = ?")
 @Table(name = "users")
 public class Users {
     @Id @GeneratedValue
@@ -36,7 +35,7 @@ public class Users {
     private String userPhone;
 
     @CreatedDate
-    private String userJoinDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+    private LocalDate userJoinDate ;
     private String userNickName;
     private String userIntroduction;
 
@@ -67,7 +66,7 @@ public class Users {
 
     @Builder
     public Users(Long id, String userAccount, String userName, String userPassword, String userEmail, String userPhone,
-                 String userJoinDate, String userNickName,
+                 LocalDate userJoinDate, String userNickName,
                  String userIntroduction, Address address,
                  UserFile userFile, List<Pet> pet,List<FreeBoard> freeBoard, List<Question> questions, int userState) {
         this.id = id;
@@ -99,4 +98,13 @@ public class Users {
         this.userState=1;
         return this;
     }
+
+
+//    @PrePersist
+//    public void onPrePersist(){
+//        this.userJoinDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+//    }
+
+
+
 }
