@@ -1,14 +1,11 @@
 package com.example.dw.domain.entity.question;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
-@Setter
+
 @Table(name = "question_img")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class QuestionImg {
@@ -24,4 +21,13 @@ public class QuestionImg {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "question_id")
     private Question question;
+
+    @Builder
+    public QuestionImg(Long id, String questionImgRoute, String questionImgName, String questionImgUuid, Question question) {
+        this.id = id;
+        this.questionImgRoute = questionImgRoute;
+        this.questionImgName = questionImgName;
+        this.questionImgUuid = questionImgUuid;
+        this.question = question;
+    }
 }

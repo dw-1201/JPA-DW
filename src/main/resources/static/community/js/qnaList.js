@@ -46,7 +46,7 @@ function showQnaBoardList(result) {
                                 <div class="list-content-id">
                                     <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt="">
                                     </div>
-                                    <span>${r.userName}</span>
+                                    <span class="userName">${r.userName}</span>
                                 </div>
                                 <div class="list-content-reply">
                                     <span>댓글</span>
@@ -62,7 +62,7 @@ function showQnaBoardList(result) {
 
 
     });
-    // console.log(text);
+    console.log($('.userName').text());
     textInput.html(text);
 
     let paginations = $('.list-pagestions');

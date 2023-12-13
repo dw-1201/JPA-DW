@@ -4,8 +4,12 @@ import com.example.dw.domain.dto.goods.GoodsDetailImgDto;
 import com.example.dw.domain.dto.goods.GoodsMainImgDto;
 import com.example.dw.domain.entity.goods.Goods;
 import com.example.dw.domain.entity.goods.GoodsMainImg;
+import com.example.dw.domain.entity.question.Question;
 import com.example.dw.domain.form.GoodsDetailImgForm;
 import com.example.dw.domain.form.GoodsMainImgForm;
+import com.example.dw.domain.form.QuestionImgForm;
+import com.example.dw.repository.community.QuestionImgRepository;
+import com.example.dw.repository.community.QuestionRepository;
 import com.example.dw.repository.goods.GoodsDetailImgRepository;
 import com.example.dw.repository.goods.GoodsMainImgRepository;
 import com.example.dw.repository.goods.GoodsRepository;
@@ -33,10 +37,17 @@ public class FileService {
     @Value("${file.dir}")
     private String mainImg;
 
+    @Value("${file.que}")
+    private String questionImg;
+
 
     private final GoodsMainImgRepository goodsMainImgRepository;
     private final GoodsDetailImgRepository goodsDetailImgRepository;
     private final GoodsRepository goodsRepository;
+
+    private final QuestionRepository questionRepository;
+    private final QuestionImgRepository questionImgRepository;
+
 
     //상품 메인 사진 로컬서버 저장
     @Transactional
@@ -185,4 +196,53 @@ public class FileService {
         }
 
     }
+
+
+
+    //qna 게시판 등록 파일 저장(로컬) 최대 5장
+    @Transactional
+    public QuestionImgForm savequestionImg(MultipartFile file) throws IOException{
+
+
+        String originName = file.getOriginalFilename();
+        UUID uuid = UUID.randomUUID();
+        String sysName = uuid.toString() + "_" + originName;
+
+        File uploadPath = new File(questionImg, getUploadPath());
+
+        if (!uploadPath.exists()) {
+            uploadPath.mkdirs();
+        }
+        File upLoadFile = new File(uploadPath, sysName);
+        file.transferTo(upLoadFile);
+
+        return
+                QuestionImgForm.builder()
+                .questionImgName(originName)
+                .questionImgRoute(getUploadPath())
+                .questionImgUuid(uuid.toString())
+                .build();
+
+
+    }
+
+
+    //qeu 이미지 DB 저장
+    @Transactional
+    public void registerquestionImg(List<MultipartFile> files, Long id) throws IOException {
+
+        //파일 여러개
+        for (MultipartFile file : files) {
+            QuestionImgForm questionImgForm= savequestionImg(file);
+            Optional<Question> question = questionRepository.findById(id);
+
+            questionImgForm.setQuestion(question.get());
+            questionImgRepository.save(questionImgForm.toEntity());
+        }
+
+    }
+
+
+
+
 }

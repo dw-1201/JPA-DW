@@ -19,8 +19,8 @@
     <!-- main 시작 -->
     <main>
         <div class="main-container">
-            <form th:action="@{/qna/qnawriteform}" method="post" class="" enctype="multipart/form-data">
-
+            <form action="/qna/qnaregister" method="post" class="" enctype="multipart/form-data">
+                <input type="hidden" name="userId" th:value="${session.userId}">
                 <div class="content-box">
                     <div class="content-title-box">
                         <div class="content-title">QnA 질문 작성</div>
@@ -35,20 +35,23 @@
                 <div class="file-box">
                     <div class="file-box-title">사진 업로드</div>
                     <div class="file-box-imgs">
-                        <div><img src="" alt=""></div>
-                        <div><img src="" alt=""></div>
-                        <div><img src="" alt=""></div>
-                        <div><img src="" alt=""></div>
-                        <div><img src="" alt=""></div>
+                        <ul class="file-wrap">
+                            <li class="img-list"></li>
+                            <li class="img-list"></li>
+                            <li class="img-list"></li>
+                            <li class="img-list"></li>
+                            <li class="img-list"></li>
+
+                        </ul>
                     </div>
                     <div class="file-box-etc">
                         <div class="file-input-btn">
-                            <label for="file">
+                            <label for="files">
                                 <div class="btn-upload">
                                     <img src="/img/addfile.png" alt="">
                                 </div>
-                              </label>
-                              <input type="file" name="file" id="file">
+                            </label>
+                              <input type="file" name="questionImg" id="files"  accept="image/*" multiple/>
                         </div>
                         <div class="file-input-text">개당 업로드 용량: 20MB, 최대 5개 업로드 가능합니다.</div>
                     </div>
@@ -63,35 +66,11 @@
     </main>
 
     <!-- footer 시작 -->
-    <div class="footer">
-        <div class="footer-container01">
-            <div class="footer-containerbox01">
-                <div class="footer-container01-nav">
-                    <ul>
-                        <li>(주)산책갈개</li>
-                        <li>복영헌 임형준 노의진 이지윤</li>
-                        <li>서울특별시 노원구 상계로1길 34 세일학원 5층</li>
-                        <li>02-933-5890</li>
-                    </ul>
-                </div>
-                <div class="footer-container01-img">
-                    <img src="/img/dog02.png" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="footer-container02">
-            <div class="footer-containerbox02">
-                <div>Copyright ©SCGG All Rights Reserved.</div>
-                <div class="footer-container02-nav">
-                    <ul>
-                        <li><a href="">이용약관</a></li>
-                        <li><a href="">개인정보처리방침</a></li>
-                        <li><a href="">사업자정보확인</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <div class="footer" th:replace="fragment/footer :: footer">
+
     </div>
     <!-- footer 끝 -->
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <script src="/community/js/writingQna.js"></script>
 </body>
 </html>

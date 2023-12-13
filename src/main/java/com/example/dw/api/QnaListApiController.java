@@ -30,9 +30,10 @@ public class QnaListApiController {
             @PathVariable("page") int page, String keyword){
         Pageable pageable = PageRequest.of(page,5);
         Page<QuestionDto> result = questionRepositoryCuston.findQnaListBySearch(pageable,keyword);
-        System.out.println( result+"안뇽");
+        System.out.println(result+"안뇽");
         System.out.println(keyword+"검색 내용!");
-        System.out.println();
+        System.out.println("여기는 레스트");
+
 
         return result;
 

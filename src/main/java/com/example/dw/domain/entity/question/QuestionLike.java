@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Entity
 @Getter
-@Setter
+
 @Table(name = "question_like")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class QuestionLike {

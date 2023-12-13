@@ -37,7 +37,7 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
         List<QuestionDto> content =getQuestionList(pageable,keyword);
         Long count = getCount(keyword);
 
-        System.out.println("[상품 개수]"+count+"개");
+        System.out.println("[개수]"+count+"개");
         System.out.println("검색 내용"+keyword);
         content.forEach(r-> System.out.println("[리스트제목]"+r.getQuestionTitle()+" 입니다."));
 
@@ -57,10 +57,10 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
                         question.questionContent,
                         question.questionRd,
                         question.questionMd,
-                        question.users.id,
-                        question.users.userName
+                        question.users
                 ))
                 .from(question)
+                .leftJoin(question.users)
                 .where(qnatitleEq(keyword))
                 .orderBy(question.questionRd.desc())
                 .offset(pageable.getOffset())
@@ -68,7 +68,7 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
                 .fetch();
 
                 contentList.forEach(r ->
-                        System.out.println(r.getId()+r.getUserName()+"나와랑!!")
+                        System.out.println(r.getId()+"나와랑!!")
                        );
 
         System.out.println(keyword+"검색내용이비낟");
