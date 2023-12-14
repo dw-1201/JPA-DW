@@ -113,6 +113,7 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
                 .fetchOne();
     }
 
+    //주단위 일별 회원가입자 수
     public List<UserChartDto> getDailyJoinCount() {
         LocalDate endDate = LocalDate.now(); // 현재 날짜
         LocalDate startDate = endDate.minusWeeks(1); // 일주일 전 날짜
@@ -129,16 +130,22 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
                 .fetch()
                 .stream()
                 .collect(Collectors.toMap(
+                        //튜플로 반환되므로 튜플에서 꺼내서 Map으로 감싸준다.
                         tuple -> tuple.get(users.userJoinDate),
                         tuple -> tuple.get(users.count()),
-                        (count1, count2) -> count1 + count2
+                        (count1, count2) -> count1 + count2 
+                        //동일한 날짜값이 있으면 duplicate 에러 발생
+                        //count1은 날짜 , count2는 새로운 데이터값이다.
+                        //에러 방지를 위해 두 값을 서로 합쳐준다. -> 즉 카운트 합산
                 ));
 
+        //위에서 생성한 일주일 간 날짜를 가져온다.(datesInRange)
         // 빈 값을 가진 날짜에 대한 결과 추가
         for (LocalDate date : datesInRange) {
             dailyCounts.putIfAbsent(date, 0L);
         }
 
+        //메소드의 반환타입인 List<UserChartDto>에 맞추기위해 entrySet().map()을 이용하여 변환한다.
         return dailyCounts.entrySet().stream()
                 .map(entry -> new UserChartDto(entry.getKey(), entry.getValue()))
                 .collect(Collectors.toList());
