@@ -10,5 +10,4 @@ public interface FreeBoardRepository extends JpaRepository<FreeBoard, Long> {
     //기본키로 검색
     Optional<FreeBoard> findById(Long id);
 
-
 }

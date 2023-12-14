@@ -147,7 +147,8 @@ main{
 }
 .list-container{
     width: 100%;
-    height: 2100px;
+    /*height: 2100px;*/
+    height: auto;
     /* background-color: orange; */
 }
 .order-n-writebtn{
@@ -203,7 +204,8 @@ main{
 }
 .list-contents-box{
     width: 100%;
-    height: 1850px;
+    /*height: 1850px;*/
+    height: auto;
     /* background-color: gold; */
 
     /* margin: 20px auto; */

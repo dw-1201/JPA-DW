@@ -284,7 +284,7 @@ main{
 
     color: white;
 }
-.update-btn, .remove-btn{
+.update-btn, .remove-btn, .list-btn{
     width: 60px;
     height: 30px;
 
@@ -297,6 +297,7 @@ main{
 
     border-radius: 10px;
     background-color: #FCD11E;
+    border: none;
 }
 .reply-container{
     width: 100%;
@@ -436,10 +437,12 @@ main{
     border-radius: 20px;
     background-color: #f1efef;
     cursor: pointer;
-}
-.update-reply a, .delete-reply a{
+
+    border: none;
+
     color: #898787;
 }
+
 .ad-contaniner{
     width: 100%;
     height: 200px;

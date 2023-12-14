@@ -22,8 +22,8 @@ public class FreeBoardComment {
     private Long id;
 
     private String freeBoardCommentContent;
-    private LocalDateTime freeBoardCommentRd;
-    private LocalDateTime freeBoardCommentMd;
+    private LocalDateTime freeBoardCommentRd = LocalDateTime.now();
+    private LocalDateTime freeBoardCommentMd = LocalDateTime.now();
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "free_board_id")

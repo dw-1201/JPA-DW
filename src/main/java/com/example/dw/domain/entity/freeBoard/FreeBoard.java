@@ -1,6 +1,7 @@
 package com.example.dw.domain.entity.freeBoard;
 
 import com.example.dw.domain.entity.user.Users;
+import com.example.dw.domain.form.FreeBoardModifyForm;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -64,7 +65,6 @@ public class FreeBoard {
     @JoinColumn(name = "user_id")
     private Users users;
 
-
     @Builder
     public FreeBoard(Long id, String freeBoardTitle, String freeBoardContent,
                      LocalDate freeBoardRd, LocalDate freeBoardMd, Long freeBoardViewCount,
@@ -80,6 +80,15 @@ public class FreeBoard {
         this.freeBoardComment = freeBoardComment;
         this.freeBoardLike = freeBoardLike;
         this.users = users;
+    }
+
+    //자유게시판 수정
+    public FreeBoard update(FreeBoardModifyForm freeBoardModifyForm) {
+        this.freeBoardTitle = freeBoardModifyForm.getFreeBoardTitle();
+        this.freeBoardContent = freeBoardModifyForm.getFreeBoardContent();
+        this.freeBoardMd = freeBoardModifyForm.getFreeBoardMd();
+
+        return this;
     }
 }
 

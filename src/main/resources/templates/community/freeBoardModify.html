@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/fragment/css/header.css">
     <link rel="stylesheet" href="/fragment/css/footer.css">
     <link rel="stylesheet" href="/community/css/freeBoardWriting.css">
-    <title>자유게시판 글 작성페이지</title>
+    <title>자유게시판 글 수정페이지</title>
 </head>
 <body>
 <!-- header 시작 -->
@@ -18,19 +18,19 @@
 
     <!-- main 시작 -->
     <main>
-        <div class="main-container">
+        <div class="main-container" th:each="freeBoard : ${detail}">
 
-            <!--글쓰기 시작-->
-            <form action="/community/freeBoardWriting" method="POST" class="writingForm" enctype="multipart/form-data">
+            <!--글수정 시작-->
+            <form th:action="@{/community/modify/{id}/edit (id=${freeBoard.id})}" th:method="put" class="writingForm" enctype="multipart/form-data">
             <div class="content-box">
                 <div class="content-title-box">
-                    <div class="content-title">자유게시판 글 작성</div>
+                    <div class="content-title">자유게시판 글 수정</div>
                     <div class="content-title-input">
-                        <input type="text"  name="freeBoardTitle"  placeholder="제목을 입력해주세요">
+                        <input type="text"  name="freeBoardTitle" placeholder="제목을 입력해주세요" th:value="${freeBoard.freeBoardTitle}">
                     </div>
                 </div>
                 <div class="content-content-box">
-                    <textarea name="freeBoardContent" id="Content"></textarea>
+                    <textarea name="freeBoardContent" id="Content" th:text="${freeBoard.freeBoardContent}"></textarea>
                 </div>
             </div>
             <div class="file-box">
@@ -55,13 +55,14 @@
                 </div>
             </div>
             <div class="btn-box">
-                <button class="add-content-btn" type="submit">글 등록</button>
+                <button class="add-content-btn" type="submit">글 수정</button>
             </div>
 
             <!--글쓰기 끝-->
 
             </form>
         </div>
+
     </main>
     <!-- main 끝 -->
 
