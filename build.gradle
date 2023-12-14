@@ -55,33 +55,33 @@ dependencies {
     //메일인증
     implementation 'org.springframework.boot:spring-boot-starter-mail'
 
-
-tasks.named('bootBuildImage') {
-    builder = 'paketobuildpacks/builder-jammy-base:latest'
 }
+    tasks.named('bootBuildImage') {
+        builder = 'paketobuildpacks/builder-jammy-base:latest'
+    }
 
-tasks.named('test') {
-    useJUnitPlatform()
-}
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
 
-def querydslSrcDir = 'src/main/generated'
-sourceSets {
-    main {
-        java {
-            srcDirs += [ querydslSrcDir ]
+    def querydslSrcDir = 'src/main/generated'
+    sourceSets {
+        main {
+            java {
+                srcDirs += [querydslSrcDir]
+            }
         }
     }
-}
 
-compileJava {
-    options.compilerArgs << '-Aquerydsl.generatedAnnotationClass=javax.annotation.Generated'
-}
+    compileJava {
+        options.compilerArgs << '-Aquerydsl.generatedAnnotationClass=javax.annotation.Generated'
+    }
 
-tasks.withType(JavaCompile) {
-    options.generatedSourceOutputDirectory = file(querydslSrcDir)
-}
+    tasks.withType(JavaCompile) {
+        options.generatedSourceOutputDirectory = file(querydslSrcDir)
+    }
 
-clean {
-    delete file(querydslSrcDir)
-}
+    clean {
+        delete file(querydslSrcDir)
+    }
 

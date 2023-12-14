@@ -3,11 +3,7 @@ package com.example.dw.service;
 import com.example.dw.domain.dto.goods.GoodsDetailImgDto;
 import com.example.dw.domain.dto.goods.GoodsMainImgDto;
 import com.example.dw.domain.entity.goods.Goods;
-<<<<<<< HEAD
-=======
-import com.example.dw.domain.entity.goods.GoodsMainImg;
 import com.example.dw.domain.entity.question.Question;
->>>>>>> project/v1
 import com.example.dw.domain.form.GoodsDetailImgForm;
 import com.example.dw.domain.form.GoodsMainImgForm;
 import com.example.dw.domain.form.QuestionImgForm;
