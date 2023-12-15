@@ -1,10 +1,7 @@
 package com.example.dw.repository.user;
 
 import com.example.dw.domain.dto.admin.UserChartDto;
-import com.example.dw.domain.dto.user.QUserDetailDto;
-import com.example.dw.domain.dto.user.QUserListDto;
-import com.example.dw.domain.dto.user.UserDetailDto;
-import com.example.dw.domain.dto.user.UserListDto;
+import com.example.dw.domain.dto.user.*;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -15,9 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.example.dw.domain.entity.freeBoard.QFreeBoard.freeBoard;
@@ -52,6 +47,11 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
     @Override
     public List<UserChartDto> findJoinCountByAll() {
         return getDailyJoinCount();
+    }
+
+    @Override
+    public Map<String, List> newUserStatus() {
+        return getUserStatsBy();
     }
 
 
@@ -150,6 +150,83 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
                 .map(entry -> new UserChartDto(entry.getKey(), entry.getValue()))
                 .collect(Collectors.toList());
     }
+
+
+
+
+
+
+    private Map<String, List> getUserStatsBy() {
+        LocalDate nowDate = LocalDate.now();
+
+        //신규 가입 회원 현황
+        List<UserRecentJoinDto> recentJoinDtoList = jpaQueryFactory.select(new QUserRecentJoinDto(
+                users.id,
+                users.userAccount,
+                users.userName,
+                users.userEmail,
+                users.userPhone,
+                users.userJoinDate
+
+        ))
+                .from(users)
+                .orderBy(users.id.desc())
+                .limit(4)
+                .where()
+                .fetch();
+
+        //전체 가입자 수
+        Long totalCount = jpaQueryFactory.select(
+                users.count()
+        )
+                .from(users)
+                .fetchOne();
+
+        //당일 가입 회원 수
+        Long joinCount = jpaQueryFactory.select(
+                users.count()
+        )
+                .from(users)
+                .where(users.userJoinDate.eq(nowDate).and(
+                        users.userState.eq(1)
+                ))
+                .fetchOne();
+
+        //당일 탈퇴 회원 수
+        Long deleteCountByDay = jpaQueryFactory.select(
+                users.count()
+        )
+                .from(users)
+                .where(users.userDeleteDate.eq(nowDate).and(
+                        users.userState.eq(0)
+                ))
+                .fetchOne();
+
+        //총 탈퇴회원 수
+        Long deleteTotalCount = jpaQueryFactory.select(
+                users.count()
+        )
+                .from(users)
+                .where(
+                        users.userState.eq(0)
+                )
+                .fetchOne();
+
+        List<Long> count = new ArrayList<>();
+        count.add(totalCount);
+        count.add(joinCount);
+        count.add(deleteCountByDay);
+        count.add(deleteTotalCount);
+
+        Map<String, List> userStats = new HashMap<>();
+        userStats.put("userInfoCount", count);
+        userStats.put("userRecent", recentJoinDtoList);
+
+        return userStats;
+    }
+
+
+
 
 
 

@@ -8,7 +8,6 @@ import com.example.dw.domain.form.SearchForm;
 import com.example.dw.repository.admin.FaqBoardRepositoryCustom;
 import com.example.dw.repository.admin.NoticeBoardRepositoryCustom;
 import com.example.dw.repository.user.UsersRepositoryCustom;
-import com.example.dw.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,13 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/admins/*")
 public class AdminApiController {
 
-    private final AdminService adminService;
     private final FaqBoardRepositoryCustom faqBoardRepositoryCustom;
     private final NoticeBoardRepositoryCustom noticeBoardRepositoryCustom;
     private final UsersRepositoryCustom usersRepositoryCustom;
@@ -45,7 +44,7 @@ public class AdminApiController {
         return result;
     }
 
-    //공지사항 조회ㅁ
+    //공지사항 조회
     @GetMapping("/noticeList/{page}")
     public Page<NoticeBoardDto> findNoticeList(
             @PathVariable("page") int page,
@@ -76,9 +75,24 @@ public class AdminApiController {
     @GetMapping("/daily")
     public List<UserChartDto> getDaily() {
 
-        System.out.println(usersRepositoryCustom.findJoinCountByAll()+"===========");
+
+
         return usersRepositoryCustom.findJoinCountByAll();
     }
+
+    //신규 가입 현황
+    @GetMapping("/newUserStatus")
+    public Map<String, List> status(){
+
+        Map<String, List> status = usersRepositoryCustom.newUserStatus();
+
+
+         return status;
+
+    }
+
+
+
 
 
 }

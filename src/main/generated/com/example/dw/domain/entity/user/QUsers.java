@@ -34,6 +34,8 @@ public class QUsers extends EntityPathBase<Users> {
 
     public final StringPath userAccount = createString("userAccount");
 
+    public final DatePath<java.time.LocalDate> userDeleteDate = createDate("userDeleteDate", java.time.LocalDate.class);
+
     public final StringPath userEmail = createString("userEmail");
 
     public final QUserFile userFile;

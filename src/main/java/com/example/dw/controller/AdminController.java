@@ -1,18 +1,23 @@
 package com.example.dw.controller;
 
+import com.example.dw.domain.dto.admin.AdminDto;
 import com.example.dw.domain.dto.user.UserDetailDto;
 import com.example.dw.domain.entity.admin.FaqBoard;
 import com.example.dw.domain.entity.admin.NoticeBoard;
 import com.example.dw.domain.entity.user.Users;
 import com.example.dw.domain.form.FaqBoardForm;
 import com.example.dw.domain.form.NoticeBoardForm;
+import com.example.dw.repository.AdminRepository;
 import com.example.dw.repository.user.UsersRepository;
 import com.example.dw.repository.user.UsersRepositoryCustom;
 import com.example.dw.service.AdminService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Optional;
@@ -25,11 +30,44 @@ public class AdminController {
     private final AdminService adminService;
     private final UsersRepositoryCustom usersRepositoryCustom;
     private final UsersRepository usersRepository;
+    private final AdminRepository adminRepository;
 
     
     //관리자 로그인 페이지
+    @GetMapping("/enterLogin")
+    public String adminLoginPage(){
+        return "/admin/adminLogin";
+    }
+
     //관리자 로그인
+    @PostMapping("/login")
+    public RedirectView adminLogin(String adminAccount, String adminPassword, HttpServletRequest req, RedirectAttributes redirectAttributes){
+        AdminDto admin = null;
+
+        try {
+             admin = adminService.adminLogin(adminAccount, adminPassword);
+
+        }catch(Exception e){
+            redirectAttributes.addFlashAttribute("isLogin","0");
+            return new RedirectView("/admin/enterLogin");
+
+        }
+
+        req.getSession().setAttribute("adminId", admin.getId());
+        return new RedirectView("/admin/userStatus");
+
+    }
+
+
+
     //관리자 로그아웃
+    @PostMapping("/logout")
+    public RedirectView adminLogout(HttpSession session){
+
+        session.invalidate();
+
+        return new RedirectView("/admin/enterLogin");
+    }
     
     
     
@@ -50,6 +88,7 @@ public class AdminController {
     public String noticeWritePage(){
         return "/admin/adminNoticeReg";
     }
+
 
     //공지사항 작성
     @PostMapping("/noticeWrite")
@@ -165,6 +204,7 @@ public class AdminController {
         return "/admin/adminIndex";
     }
 
+
     //회원 리스트
     @GetMapping("/userList")
     public String userList(){
@@ -189,6 +229,9 @@ public class AdminController {
     @GetMapping("/userDelete/{userId}")
     public RedirectView userDelete(@PathVariable("userId") Long userId){
 
+
+        Users users = usersRepository.findById(userId).get();
+        users.deleteDate();
         usersRepository.deleteById(userId);
 
         return new RedirectView("/admin/userList");
@@ -199,11 +242,8 @@ public class AdminController {
     @GetMapping("/userRecover/{userId}")
     public RedirectView userRecover(@PathVariable("userId") Long userId){
 
-        Users users = usersRepository.findById(userId).get();
 
-        users.recoverUsersState();
-
-        usersRepository.save(users);
+            adminService.modifyUserStatus(userId);
 
         return new RedirectView("/admin/userList");
     }

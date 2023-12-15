@@ -101,7 +101,6 @@ public class GoodsService {
 
         fileService.removeMainImg(goodsId);
         fileService.removeDetailImgs(goodsId);
-
         goodsRepository.deleteById(goodsId);
 
 
