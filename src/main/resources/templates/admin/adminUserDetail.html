@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/common/css/common.css">
     <link rel="stylesheet" href="/admin/css/adminUserDetail.css">
-    <link rel="stylesheet" href="/admin/css/adminAside.css">
+    <link rel="stylesheet" href="/fragment/css/adminSide.css">
     <title>관리자 페이지</title>
 </head>
 <body class="body">
@@ -32,12 +32,12 @@
             <div class="user-stan-title">
                 <h4>회원 기본 정보</h4>
             </div>
-            <div class="user-stan-info">
+            <div class="user-stan-info" >
                 <div class="user-img">
                     <img src="/user/img/user-default-img.png" alt="user-img" />
                 </div>
-                <div class="user-info first-section">
-                    <table class="user-info-table"  cellspacing="0">
+                <div class="user-info first-section" >
+                    <table class="user-info-table"  cellspacing="0" th:each="userDetail : ${detail}" >
                         <tr>
                             <colgroup>
                                 <col style="width: 100px;">
@@ -46,36 +46,36 @@
                                 <col style="width: 415px;">
                             </colgroup>
                         </tr>
-                        <tr>
+                        <tr >
                             <th scope="row">아이디</th>
-                            <td>bokbok1234</td>
+                            <td th:text="${userDetail.userAccount}"></td>
                             <th scope="row" rowspan="3">주소</th>
-                            <td class="postal-code">020202</td>
+                            <td class="postal-code" th:text="${userDetail.zipCode}"></td>
                         </tr>
                         <tr>
                             <th scope="row">이름</th>
-                            <td>복영헌</td>
-                            <td class="address">서울특별시 노원구</td>
+                            <td th:text="${userDetail.userName}"></td>
+                            <td class="address" th:text="${userDetail.address}"></td>
                         </tr>
                         <tr>
                             <th scope="row">닉네임</th>
-                            <td>Bokka</td>
-                            <td class="detail-address">3층 3333호</td>
+                            <td th:text="${userDetail.userNickName}"></td>
+                            <td class="detail-address" th:text="${userDetail.detail}">3층 3333호</td>
                         </tr>
                         <tr>
                             <th scope="row">휴대전화</th>
-                            <td>01055555555</td>
+                            <td th:text="${userDetail.userPhone}"></td>
                             <th scope="row" rowspan="3">자기소개</th>
-                            <td rowspan="3" id="self-intro">안녕하세유 반가와유 아 세 호 유 세 우</td>
+                            <td rowspan="3" id="self-intro" th:text="${userDetail.intro}"></td>
                             
                         </tr>
                         <tr>
                             <th scope="row">이메일</th>
-                            <td>bokbok12@nate.com</td>
+                            <td th:text="${userDetail.userEmail}"></td>
                         </tr>
                         <tr>
                             <th scope="row">가입일</th>
-                            <td>2023-11-01</td>
+                            <td th:text="${userDetail.userJoinDate}"></td>
                         </tr>
                     </table>
                 </div>

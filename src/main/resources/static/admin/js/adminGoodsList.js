@@ -4,7 +4,7 @@ import  * as page from './module/pagination.js';
 
 //등록 페이지 이동
 $('.move-to-reg ').on('click', function(){
-    window.location.href="/goods/goodsReg";
+    window.location.href="/admin/goodsReg";
 })
 
 function searchGoodsForm(){
@@ -23,14 +23,14 @@ function searchGoodsForm(){
 
 //검색결과
 $('.result-submit-btn').on('click', function (){
-    list.list(0,searchGoodsForm(),'goodsr', 'goodsList', showGoodsList);
+    list.list(0,searchGoodsForm(),'admins', 'goodsList', showGoodsList);
 
 })
 
 
 $(document).ready(function (){
 
-    list.list(0,searchGoodsForm(),'goodsr', 'goodsList', showGoodsList);
+    list.list(0,searchGoodsForm(),'admins', 'goodsList', showGoodsList);
     page.enterKey('#goods-search-keyword', '.goods-list-search-btn');
 
 })
@@ -61,7 +61,7 @@ function showGoodsList(result){
         }
         text+=`
                         <td class="list-btns">
-                            <a href="/goods/detail/${r.id}"><button type="button" class="detail-btn btn" data-goodsnum="${r.id}">상세보기</button></a>
+                            <a href="/admin/detail/${r.id}"><button type="button" class="detail-btn btn" data-goodsnum="${r.id}">상세보기</button></a>
                         </td>
                       </tr>
 
@@ -77,7 +77,7 @@ function showGoodsList(result){
     paginations.find('a').on('click', function (e) {
         e.preventDefault();
         const page = parseInt($(this).data('page'));
-        list.list(page, searchGoodsForm(),'goodsr', 'goodsList', showGoodsList);
+        list.list(page, searchGoodsForm(),'admins', 'goodsList', showGoodsList);
     });
 
 }

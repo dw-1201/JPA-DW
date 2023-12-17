@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>관리자 사이드</title>
 </head>
 <body>
@@ -16,7 +15,7 @@
             <li class="user-manage admin-manage">회원 관리
                 <div class="sub-menu">
                     <ul class="sub-menu-ul">
-                        <li><a href="/admin/html/adminIndex.html">회원 현황</a></li>
+                        <li><a href="/admin/userStatus">회원 현황</a></li>
                         <li><a href="/admin/userList">회원 목록</a></li>
                     </ul>
                 </div>
@@ -24,7 +23,7 @@
             <li class="goods-manage admin-manage">상품 관리
                 <div class="sub-menu">
                     <ul class="sub-menu-ul">
-                        <li><a href="/goods/goodsList">상품 목록</a></li>
+                        <li><a href="/admin/goodsList">상품 목록</a></li>
                         <li><a href="/admin/html/adminGoodsQue.html">상품 문의</a></li>
                         <li><a href="/admin/html/adminGoodsReview.html">상품 리뷰</a></li>
                     </ul>
@@ -45,13 +44,17 @@
                         <li><a href="/admin/html/adminQnaList.html">QnA 목록</a></li>
                         <li><a href="/admin/html/adminFreeList.html">자유게시판글 목록</a></li>
                         <li><a href="/admin/html/adminWalkList.html">산책글 목록</a></li>
-
                     </ul>
                 </div>
             </li>
-
         </ul>
+        <div class="admin-logout-section">
+            <form action="/admin/logout" method="post" id="admin-logout-form">
+                <button class="admin-logout-btn">로그아웃</button>
+            </form>
+        </div>
     </aside>
 </div>
+
 </body>
 </html>

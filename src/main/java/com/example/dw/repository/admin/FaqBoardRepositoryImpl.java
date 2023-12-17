@@ -3,12 +3,13 @@ package com.example.dw.repository.admin;
 import com.example.dw.domain.dto.admin.FaqBoardDto;
 import com.example.dw.domain.dto.admin.QFaqBoardDto;
 import com.example.dw.domain.form.SearchForm;
-import com.querydsl.core.types.dsl.StringPath;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -35,25 +36,19 @@ public class FaqBoardRepositoryImpl implements FaqBoardRepositoryCustom{
     }
 
     private Long getCount(SearchForm searchForm){
-        StringPath cate = searchForm.getCate().equals("faqTitle") ? faqBoard.faqBoardTitle : searchForm.getCate().equals("faqContent") ? faqBoard.faqBoardContent : faqBoard.faqBoardTitle;
 
         Long count = jpaQueryFactory
                 .select(faqBoard.count())
                 .from(faqBoard)
-                .where(cate.like("%" + searchForm.getKeyword()+"%"))
+                .where(
+                        cateKeywordEq(searchForm)
+
+                )
                 .fetchOne();
         return count;
     }
 
     private List<FaqBoardDto> getFaqBoardList(Pageable pageable, SearchForm searchForm){
-
-
-        //셀렉트 검색 카테고리가 faqTitle과 일치하면 faqBoardTitle로 where절
-        //faqContent와 일치하면 faqBoardContent로 where절에 입력
-        StringPath cate = searchForm.getCate().equals("faqTitle") ? faqBoard.faqBoardTitle : searchForm.getCate().equals("faqContent") ? faqBoard.faqBoardContent : faqBoard.faqBoardTitle;
-
-        System.out.println("[선택된 공지사항 카테고리] : "+cate + "===");
-        System.out.println("[입력된 공지사항 검색키워드] :" + searchForm.getKeyword() + "===");
 
         List<FaqBoardDto> contents = jpaQueryFactory
                 .select(new QFaqBoardDto(
@@ -66,7 +61,10 @@ public class FaqBoardRepositoryImpl implements FaqBoardRepositoryCustom{
 
                         ))
                 .from(faqBoard)
-                .where(cate.like("%" + searchForm.getKeyword() + "%"))
+                .where(
+
+                        cateKeywordEq(searchForm)
+                )
                 .orderBy(faqBoard.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -74,4 +72,21 @@ public class FaqBoardRepositoryImpl implements FaqBoardRepositoryCustom{
 
         return contents;
     }
+
+
+    private BooleanExpression cateKeywordEq(SearchForm searchForm){
+        if(StringUtils.hasText(searchForm.getCate())&&StringUtils.hasText(searchForm.getKeyword())){
+            switch (searchForm.getCate()){
+                case "faqBoardTitle" :
+                    return faqBoard.faqBoardTitle.containsIgnoreCase(searchForm.getKeyword());
+                case "faqBoardContent" :
+                    return faqBoard.faqBoardContent.containsIgnoreCase(searchForm.getKeyword());
+                default:
+                    break;
+            }
+
+        }
+        return faqBoard.id.isNotNull();
+    }
+
 }

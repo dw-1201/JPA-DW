@@ -1,12 +1,10 @@
 package com.example.dw.service;
 
 
-import com.example.dw.domain.entity.user.Users;
-import com.example.dw.domain.form.QuestionWritingForm;
 import com.example.dw.domain.entity.question.Question;
-import com.example.dw.repository.UsersRepository;
+import com.example.dw.domain.form.QuestionWritingForm;
 import com.example.dw.repository.community.QuestionRepository;
-import jakarta.servlet.http.HttpSession;
+import com.example.dw.repository.user.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

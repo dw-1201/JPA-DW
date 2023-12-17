@@ -1,27 +1,73 @@
 package com.example.dw.controller;
 
+import com.example.dw.domain.dto.admin.AdminDto;
 import com.example.dw.domain.entity.admin.FaqBoard;
 import com.example.dw.domain.entity.admin.NoticeBoard;
 import com.example.dw.domain.form.FaqBoardForm;
 import com.example.dw.domain.form.NoticeBoardForm;
-import com.example.dw.service.AdminService;
+import com.example.dw.repository.AdminRepository;
+import com.example.dw.repository.user.UsersRepository;
+import com.example.dw.repository.user.UsersRepositoryCustom;
+import com.example.dw.service.AdminNoticeService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin/*")
-public class AdminController {
+public class AdminNoticeController {
 
-    private final AdminService adminService;
+    private final AdminNoticeService adminNoticeService;
+    private final UsersRepositoryCustom usersRepositoryCustom;
+    private final UsersRepository usersRepository;
+    private final AdminRepository adminRepository;
 
     
     //관리자 로그인 페이지
+    @GetMapping("/enterLogin")
+    public String adminLoginPage(){
+        return "/admin/adminLogin";
+    }
+
     //관리자 로그인
+    @PostMapping("/login")
+    public RedirectView adminLogin(String adminAccount, String adminPassword, HttpServletRequest req, RedirectAttributes redirectAttributes){
+        AdminDto admin = null;
+        System.out.println(adminAccount);
+        System.out.println(adminPassword);
+
+        try {
+             admin = adminNoticeService.adminLogin(adminAccount, adminPassword);
+
+        }catch(Exception e){
+            System.out.println("로그인 실풰");
+            redirectAttributes.addFlashAttribute("isLogin","0");
+            return new RedirectView("/admin/enterLogin");
+
+        }
+        System.out.println("로그인 성겅");
+
+        req.getSession().setAttribute("adminId", admin.getId());
+        return new RedirectView("/admin/userStatus");
+
+    }
+
+
+
     //관리자 로그아웃
+    @PostMapping("/logout")
+    public RedirectView adminLogout(HttpSession session){
+
+        session.invalidate();
+
+        return new RedirectView("/admin/enterLogin");
+    }
     
     
     
@@ -43,11 +89,12 @@ public class AdminController {
         return "/admin/adminNoticeReg";
     }
 
+
     //공지사항 작성
     @PostMapping("/noticeWrite")
     public String noticeWrite(NoticeBoardForm noticeBoardForm){
 
-        adminService.register(noticeBoardForm);
+        adminNoticeService.register(noticeBoardForm);
         return "/admin/adminNoticeList";
 
     }
@@ -66,7 +113,7 @@ public class AdminController {
 
 
 
-        adminService.faqRegister(faqBoardForm);
+        adminNoticeService.faqRegister(faqBoardForm);
 
         return new RedirectView("/admin/noticeList");
     }
@@ -75,7 +122,7 @@ public class AdminController {
     @GetMapping("/faqModifyPage/{faqBoardId}")
     public String faqModifyPage(@PathVariable("faqBoardId") Long faqBoardId, Model model){
 
-        FaqBoard faqBoard = adminService.faqDetail(faqBoardId);
+        FaqBoard faqBoard = adminNoticeService.faqDetail(faqBoardId);
 
         FaqBoardForm faqBoardForm = new FaqBoardForm();
         faqBoardForm.setId(faqBoardId);
@@ -94,7 +141,7 @@ public class AdminController {
             FaqBoardForm faqBoardForm){
         System.out.println(faqBoardId+"===========================");
 
-        adminService.faqModify(faqBoardForm, faqBoardId);
+        adminNoticeService.faqModify(faqBoardForm, faqBoardId);
 
 
         return new RedirectView("/admin/noticeList");
@@ -105,7 +152,9 @@ public class AdminController {
         public RedirectView faqDelete(
                 @PathVariable("id") Long faqBoardId){
 
-        adminService.faqDelete(faqBoardId);
+        
+        
+        adminNoticeService.faqDelete(faqBoardId);
 
         return new RedirectView("/admin/noticeList");
 
@@ -116,7 +165,7 @@ public class AdminController {
     public String noticeModifyPage(@PathVariable("noticeBoardId")Long noticeBoardId,
                                   Model model){
 
-        NoticeBoard noticeBoard = adminService.noticeDetail(noticeBoardId);
+        NoticeBoard noticeBoard = adminNoticeService.noticeDetail(noticeBoardId);
         NoticeBoardForm noticeBoardForm = new NoticeBoardForm();
         noticeBoardForm.setId(noticeBoardId);
         noticeBoardForm.setNoticeBoardTitle(noticeBoard.getNoticeBoardTitle());
@@ -131,7 +180,7 @@ public class AdminController {
     public RedirectView noticeModify(@PathVariable("id") Long id,
                                      NoticeBoardForm noticeBoardForm){
 
-        adminService.noticeModify(noticeBoardForm,id);
+        adminNoticeService.noticeModify(noticeBoardForm,id);
 
         return new RedirectView("/admin/noticeList");
 
@@ -143,24 +192,11 @@ public class AdminController {
     @GetMapping("/noticeDelete/{id}")
     public RedirectView noticeDelete(@PathVariable("id") Long id){
 
-        adminService.noticeDelete(id);
+        adminNoticeService.noticeDelete(id);
 
         return new RedirectView("/admin/noticeList");
 
     }
-
-    //////////////////////
-    //회원 목록
-    @GetMapping("/userList")
-    public String userList(){
-
-
-
-     return "/admin/adminUserList";
-    }
-
-
-
 
 
 }

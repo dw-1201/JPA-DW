@@ -46,15 +46,28 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
             List<GoodsDetailDto> list = getGoodsDetail(id);
 
         return
-                list.stream()
-                .collect(groupingBy(o -> new GoodsDetailResultDto(o.getId(), o.getGoodsName(), o.getGoodsQuantity(), o.getGoodsPrice(), o.getGoodsMade(),
-                        o.getGoodsCertify(), o.getGoodsDetailContent(), o.getGoodsRegisterDate(), o.getGoodsModifyDate(), o.getGoodsCategory(),
-                        o.getGoodsMainImgName(), o.getGoodsMainImgPath(), o.getGoodsMainImgUuid()), mapping(o-> new GoodsDetailImgDto(o.getId(), o.getGoodsDetailImgName(), o.getGoodsDetailImgPath(), o.getGoodsDetailImgUuid(), o.getGoodsDetailImgId()), toList())
+                list.stream().collect(groupingBy(o->new GoodsDetailResultDto(
+                        o.getId(),o.getGoodsName(),o.getGoodsQuantity(), o.getGoodsPrice(), o.getGoodsMade(), o.getGoodsCertify(), o.getGoodsDetailContent(),
+                        o.getGoodsRegisterDate(), o.getGoodsModifyDate(), o.getGoodsCategory(), o.getGoodsMainImgName(), o.getGoodsMainImgPath(), o.getGoodsMainImgUuid()), mapping(o->new GoodsDetailImgDto(
+                                o.getId(), o.getGoodsDetailImgName(), o.getGoodsDetailImgPath(), o.getGoodsDetailImgUuid(), o.getGoodsDetailImgId()),toList())
+                        )
+                ).entrySet().stream().map(e->new GoodsDetailResultDto(
+                        e.getKey().getId(), e.getKey().getGoodsName(), e.getKey().getGoodsQuantity(), e.getKey().getGoodsPrice(), e.getKey().getGoodsMade(), e.getKey().getGoodsCertify(),
+                        e.getKey().getGoodsDetailContent(), e.getKey().getGoodsRegisterDate(), e.getKey().getGoodsModifyDate(), e.getKey().getGoodsCategory(),
+                        e.getKey().getGoodsMainImgName(),e.getKey().getGoodsMainImgPath(), e.getKey().getGoodsMainImgUuid(), e.getValue())).collect(toList());
 
-                )).entrySet().stream()
-                .map(e-> new GoodsDetailResultDto(e.getKey().getId(), e.getKey().getGoodsName(), e.getKey().getGoodsQuantity(), e.getKey().getGoodsPrice(), e.getKey().getGoodsMade(), e.getKey().getGoodsCertify(), e.getKey().getGoodsDetailContent(),
-                        e.getKey().getGoodsRegisterDate(), e.getKey().getGoodsModifyDate(), e.getKey().getGoodsCategory(), e.getKey().getGoodsMainImgName(), e.getKey().getGoodsMainImgPath(), e.getKey().getGoodsMainImgUuid(), e.getValue()))
-                .collect(toList());
+
+
+
+//                list.stream()
+//                .collect(groupingBy(o -> new GoodsDetailResultDto(o.getId(), o.getGoodsName(), o.getGoodsQuantity(), o.getGoodsPrice(), o.getGoodsMade(),
+//                        o.getGoodsCertify(), o.getGoodsDetailContent(), o.getGoodsRegisterDate(), o.getGoodsModifyDate(), o.getGoodsCategory(),
+//                        o.getGoodsMainImgName(), o.getGoodsMainImgPath(), o.getGoodsMainImgUuid()), mapping(o-> new GoodsDetailImgDto(o.getId(), o.getGoodsDetailImgName(), o.getGoodsDetailImgPath(), o.getGoodsDetailImgUuid(), o.getGoodsDetailImgId()), toList())
+//
+//                )).entrySet().stream()
+//                .map(e-> new GoodsDetailResultDto(e.getKey().getId(), e.getKey().getGoodsName(), e.getKey().getGoodsQuantity(), e.getKey().getGoodsPrice(), e.getKey().getGoodsMade(), e.getKey().getGoodsCertify(), e.getKey().getGoodsDetailContent(),
+//                        e.getKey().getGoodsRegisterDate(), e.getKey().getGoodsModifyDate(), e.getKey().getGoodsCategory(), e.getKey().getGoodsMainImgName(), e.getKey().getGoodsMainImgPath(), e.getKey().getGoodsMainImgUuid(), e.getValue()))
+//                .collect(toList());
 
 
     }
@@ -117,11 +130,11 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
                         goodsMainImg.id,
                         goodsMainImg.goodsMainImgName,
                         goodsMainImg.goodsMainImgPath,
-                        goodsMainImg.goodsMainImgUuid,
-                        goodsDetailImg.id,
-                        goodsDetailImg.goodsDetailImgName,
-                        goodsDetailImg.goodsDetailImgPath,
-                        goodsDetailImg.goodsDetailImgUuid
+                goodsMainImg.goodsMainImgUuid,
+                goodsDetailImg.id,
+                goodsDetailImg.goodsDetailImgName,
+                goodsDetailImg.goodsDetailImgPath,
+                goodsDetailImg.goodsDetailImgUuid
                 ))
                 .from(goods)
                 .leftJoin(goods.goodsMainImg, goodsMainImg)

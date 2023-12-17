@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -17,7 +16,6 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @ToString(exclude={"goodsMainImg", "goodsDetailImg"})
-@EntityListeners(AuditingEntityListener.class)
 public class Goods {
     @Id
     @GeneratedValue
@@ -31,7 +29,7 @@ public class Goods {
     private String goodsCertify;
     private String goodsDetailContent;
     @CreatedDate
-    private String goodsRegisterDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+    private String goodsRegisterDate ;
     @LastModifiedDate
     private String goodsModifyDate;
 
@@ -78,11 +76,25 @@ public class Goods {
         this.goodsName= goodsForm.getGoodsName();
         this.goodsQuantity= goodsForm.getGoodsQuantity();
         this.goodsPrice= goodsForm.getGoodsPrice();
+        this.goodsDetailContent=goodsForm.getGoodsDetailContent();
         this.goodsMade= goodsForm.getGoodsMade();
         this.goodsCertify= goodsForm.getGoodsCertify();
         this.goodsModifyDate=LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
         this.goodsCategory=goodsForm.getGoodsCategory();
 
         return this;
+    }
+
+    
+    //날짜포맷
+    @PrePersist
+    public void onPrePersist(){
+        this.goodsRegisterDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+        this.goodsModifyDate=this.goodsRegisterDate;
+    }
+    
+    @PreUpdate
+    public void onPreUpdate(){
+        this.goodsModifyDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
     }
 }
