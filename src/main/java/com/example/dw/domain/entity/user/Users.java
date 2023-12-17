@@ -2,6 +2,7 @@ package com.example.dw.domain.entity.user;
 
 import com.example.dw.domain.embedded.Address;
 import com.example.dw.domain.entity.freeBoard.FreeBoard;
+import com.example.dw.domain.entity.freeBoard.FreeBoardComment;
 import com.example.dw.domain.entity.question.Question;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -61,6 +62,8 @@ public class Users {
     private List<FreeBoard> freeBoard = new ArrayList<>();
     @OneToMany(mappedBy = "users",fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Question> questions =new ArrayList<>();
+    @OneToMany(mappedBy = "users", orphanRemoval = true)
+    private List<FreeBoardComment> freeBoardComments = new ArrayList<>();
 
     @Builder.Default
     private int userState = 1;
@@ -69,7 +72,8 @@ public class Users {
     public Users(Long id, String userAccount, String userName, String userPassword, String userEmail, String userPhone,
                  String userJoinDate, String userNickName,
                  String userIntroduction, Address address,
-                 UserFile userFile, List<Pet> pet,List<FreeBoard> freeBoard, List<Question> questions, int userState) {
+                 UserFile userFile, List<Pet> pet,List<FreeBoard> freeBoard, List<Question> questions,
+                 List<FreeBoardComment> freeBoardComments, int userState) {
         this.id = id;
         this.userAccount = userAccount;
         this.userName = userName;
@@ -84,6 +88,7 @@ public class Users {
         this.pet = pet;
         this.freeBoard = freeBoard;
         this.questions= questions;
+        this.freeBoardComments = freeBoardComments;
         this.userState=userState;
     }
 

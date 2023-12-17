@@ -1,5 +1,4 @@
 
-
 $(document).ready(function (){
     freeBoardList(0,searchFreeBoardForm());
 })
@@ -44,60 +43,54 @@ function freeBoardList( page, keyword, callback){
     })
 }
 
-
-
-
-
+//자유게시판 리스트
 function showFreeBoardList(result) {
     let text = '';
     let textInput = $('.list-contents-box');
 
     result.forEach(r => {
-        text += `
-<a href="/community/freeBoardDetail/${r.id}">
-<div class="list-content">
-            <div class="content-text-box">
-            <input type="hidden" value="${r.id}" name="freeBoardId">
-                <div class="list-content-title">${r.freeBoardTitle}</div>
-                <div class="list-content-content">${r.freeBoardContent}</div>
-                <div class="list-content-etc">
-                    <div class="list-content-id">
-                        <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt=""></div>
-                        <span>${r.userAccount}</span>
-                    </div>
-                    <div class="list-content-reply">
-                        <span>조회수 ${r.freeBoardViewCount}</span>
-                        <span class="reply-count"></span>
-                    </div>
-                    <div class="list-content-time">
-                        <span>${r.freeBoardRd}</span>
-            `;
-        if (r.freeBoardMd != r.freeBoardRd) {
-            text += `        
-                        <div class="list-content-time">${r.freeBoardMd}</div>
-                    `;
-        } else {
-            text += `        
-                        <div class="list-content-time"> - </div>
-                    `;
-        }
-        text += `
-                </div>
-            </div>
-
-        <!-- 추가 부분 -->
-        <div class="content-img-box">
-            <div class="content-img">
-                <img src="${r.freeBoardImgRoute}/${r.freeBoardImgUuid}" alt="${r.freeBoardImgName}">
-            </div>
-        </div> 
-    </div>
-</div>
-</a>`;
+        text += createFreeBoardListItem(r);
     });
 
     textInput.html(text);
 }
+
+function createFreeBoardListItem(r) {
+    let listItem = `
+        <a href="/community/freeBoardDetail/${r.id}">
+            <div class="list-content">
+                <div class="content-text-box">
+                    <input type="hidden" value="${r.id}" name="freeBoardId">
+                    <div class="list-content-title">${r.freeBoardTitle}</div>
+                    <div class="list-content-content">${r.freeBoardContent}</div>
+                    <div class="list-content-etc">
+                        <div class="list-content-id">
+                            <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt=""></div>
+                            <span>${r.userAccount}</span>
+                        </div>
+                        <div class="list-content-reply">
+                            <span>조회수 ${r.freeBoardViewCount}</span>
+                            <span class="reply-count"></span>
+                        </div>
+                        <div class="list-content-time">
+                            <span>${r.freeBoardRd}</span>
+                            <div class="list-content-time">${r.freeBoardMd}</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 추가 부분 -->
+                <div class="content-img-box">
+                    <div class="content-img">
+                        <img src="${r.freeBoardImgRoute}/${r.freeBoardImgUuid}" alt="${r.freeBoardImgName}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>`;
+
+    return listItem;
+}
+
 
 
 function pagination(result) {

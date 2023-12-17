@@ -51,7 +51,8 @@ export function getList(freeBoardId, callback) {
     // jQuery의 $.ajax 함수를 사용하여 서버로 HTTP GET 요청을 보냅니다.
     $.ajax({
         // 요청할 URL을 지정합니다. ${freeBoardId}는 프로필 번호를 나타내며 요청 URL에 동적으로 삽입됩니다.
-        url: `/replies/list/${freeBoardId}`,
+        url: `/replies/freeBoard/${freeBoardId}`,
+        // url: `/replies/list/${freeBoardId}`,
         // 요청의 HTTP 메서드를 지정합니다.
         type: 'get',
         // 서버에서 반환되는 데이터의 형식을 JSON으로 지정합니다.
@@ -116,8 +117,6 @@ export function modify(freeBoardCommentId, reply, callback){
 }
 
 
-
-// 'remove'라는 이름의 JavaScript 함수를 정의합니다.
 // 이 함수는 두 개의 매개변수를 받습니다.
 // 1. freeBoardCommentId: 삭제할 댓글 번호를 나타내는 매개변수입니다.
 // 2. callback: 삭제가 성공한 경우 호출할 콜백 함수를 나타내는 매개변수입니다.
@@ -143,11 +142,10 @@ export function remove(freeBoardCommentId, callback) {
     });
 }
 
-
-
 export function getListPage(pageInfo, callback){
     $.ajax({
-        url: `/replies/list/${pageInfo.freeBoardId}/${pageInfo.page}`,
+        url: `/replies/freeBoard/${pageInfo.freeBoardId}/${pageInfo.page}`,
+        // url: `/replies/list/${pageInfo.freeBoardId}/${pageInfo.page}`,
         type : 'get',
         dataType : 'json',
         success : function (result){

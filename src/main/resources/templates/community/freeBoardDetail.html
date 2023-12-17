@@ -25,6 +25,7 @@
             
             <!-- 글 시작 -->
             <div class="content-container" th:each="freeBoard : ${detail}">
+               <input type="hidden" th:value="${freeBoard.id}" id="freeBoardId">
                 <div class="content-box">
                     <div class="img-box">
                         <div class="imgs">
@@ -54,63 +55,46 @@
                         </div>
                         <div class="content-text">
                             <p th:text="${freeBoard.freeBoardContent}" >
-
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="btn-box">
+<!--                    좋아요, 싫어요 버튼 주석 -->
                     <div class="like-box">
-                        <div class="like-btns" id="like">
-                            <div class="like-btn-imgs"><img src="/img/like.png" alt=""></div>
-                            <div class="likes" name="freeBoardLike" >5</div>
-                        </div>
-                        <div class="like-btns" id="dislike">
-                            <div class="like-btn-imgs"><img src="/img/dislike.png" alt=""></div>
-                            <div class="likes" name="freeBoardLike">0</div>
-                        </div>
+<!--                        <div class="like-btns" id="like">-->
+<!--                            <div class="like-btn-imgs"><img src="/img/like.png" alt=""></div>-->
+<!--                            <div class="likes" name="freeBoardLike" >5</div>-->
+<!--                        </div>-->
+<!--                        <div class="like-btns" id="dislike">-->
+<!--                            <div class="like-btn-imgs"><img src="/img/dislike.png" alt=""></div>-->
+<!--                            <div class="likes" name="freeBoardLike">0</div>-->
+<!--                        </div>-->
                     </div>
                     <div class="btns-box">
                         <button class="update-btn" th:data-freeBoardId="${freeBoard.id}">수정</button>
                         <button class="remove-btn" th:data-freeBoardId="${freeBoard.id}">삭제</button>
-                        <button class="list-btn">삭제</button>
+                        <button class="list-btn">목록</button>
                     </div>
                 </div>
             </div>
             <!-- 글 끝 -->
 
-            <!-- 댓글 입력 시작 -->
+            <!-- 댓글 시작 -->
             <div class="reply-container">
                 <div class="reply-title">댓글</div>
                 <div class="reply-input">
-                    <textarea name="" placeholder="댓글을 입력해주세요" id="reply-content"></textarea>
+                    <textarea name="freeBoardContent" placeholder="댓글을 입력해주세요" id="reply-content"></textarea>
                     <button type="button" class="btn-reply">등록</button>
                 </div>
                 <!-- 댓글 리스트 시작 -->
                 <div class="reply-list">
-                    <div class="reply">
-                        <div class="id-and-date">
-                            <div class="reply-info">
-                                <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                                <div class="reply-id">콩콩콩이</div>
-                            </div>
-                            <div class="reply-date">2023-11-24</div>
-                        </div>
-                        <div class="reply-content-n-btns">
-                            <div class="reply-content" >
-                                역시 합사에는 시간이 필요하군요 ㅎㅎㅎ 근데 애들 저렇게 있으니까 너무 보기 좋아요 
-                            </div>
-                            <span class="reply-btns"></span>
-                            <div class="reply-btns">
-                                <button type="button" class="update-reply">수정</button>
-                                <button type="button" class="delete-reply">삭제</button>
-                            </div>
-                        </div>
-                    </div>
+<!--                    <div class="reply">-->
 
-
+<!--                    </div>-->
                 </div>
-            </div>
+
+            <!-- 댓글 입력 끝 -->
             <div class="ad-contaniner"></div>
         </div>
     </main>
@@ -123,9 +107,10 @@
 <!--<input type="hidden" th:value="${freeBoard.freeBoardId}" class="freeBoard-num">-->
 <!-- footer 끝 -->
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-<script src="/community/js/freeBoardDetail.js"></script>
+<script type="module" src="/community/js/freeBoardDetail.js"></script>
 <script th:inline="javascript"> // 타임리프 문법을 자바스크립트에서 사용하기 위한 설정
 let loginNumber = [[${session.userId}]]; // 타임리프 문법은 [] 2개로 감싸줘야 한다.
 </script>
 </body>
 </html>
+

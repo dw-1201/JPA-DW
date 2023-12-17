@@ -1,5 +1,4 @@
 package com.example.dw.repository.freeBoard;
-
 import com.example.dw.domain.dto.community.FreeBoardDetailDto;
 import com.example.dw.domain.dto.community.FreeBoardDto;
 import com.example.dw.domain.dto.community.QFreeBoardDetailDto;
@@ -55,6 +54,9 @@ public class FreeBoardRepositoryImpl implements FreeBoardRepositoryCustom{
                 .where(freeBoard.id.eq(id))
                 .fetch();
     }
+
+
+
 
     private List<FreeBoardDto> getFreeBoardList(Pageable pageable, String keyword){
 

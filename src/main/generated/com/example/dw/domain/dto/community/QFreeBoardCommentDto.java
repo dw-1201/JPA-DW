@@ -13,8 +13,8 @@ public class QFreeBoardCommentDto extends ConstructorExpression<FreeBoardComment
 
     private static final long serialVersionUID = -2094189850L;
 
-    public QFreeBoardCommentDto(com.querydsl.core.types.Expression<Long> freeBoardCommentId, com.querydsl.core.types.Expression<String> freeBoardCommentContent, com.querydsl.core.types.Expression<java.time.LocalDateTime> freeBoardCommentRd, com.querydsl.core.types.Expression<java.time.LocalDateTime> freeBoardCommentMd, com.querydsl.core.types.Expression<Long> freeBoardId) {
-        super(FreeBoardCommentDto.class, new Class<?>[]{long.class, String.class, java.time.LocalDateTime.class, java.time.LocalDateTime.class, long.class}, freeBoardCommentId, freeBoardCommentContent, freeBoardCommentRd, freeBoardCommentMd, freeBoardId);
+    public QFreeBoardCommentDto(com.querydsl.core.types.Expression<Long> id, com.querydsl.core.types.Expression<String> freeBoardCommentContent, com.querydsl.core.types.Expression<java.time.LocalDateTime> freeBoardCommentRd, com.querydsl.core.types.Expression<java.time.LocalDateTime> freeBoardCommentMd, com.querydsl.core.types.Expression<Long> freeBoardId, com.querydsl.core.types.Expression<Long> userId) {
+        super(FreeBoardCommentDto.class, new Class<?>[]{long.class, String.class, java.time.LocalDateTime.class, java.time.LocalDateTime.class, long.class, long.class}, id, freeBoardCommentContent, freeBoardCommentRd, freeBoardCommentMd, freeBoardId, userId);
     }
 
 }

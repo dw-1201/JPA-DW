@@ -11,6 +11,9 @@ body{
 a{
     color: black;
 }
+label{
+    cursor: pointer;
+}
 main{
     width: 100%;
     height: auto;
@@ -169,6 +172,9 @@ main{
 
     /* background-color: blue; */
 
+}
+.list-order-box input{
+    cursor: pointer;
 }
 .list-order-box ul{
     margin: 0 10px;

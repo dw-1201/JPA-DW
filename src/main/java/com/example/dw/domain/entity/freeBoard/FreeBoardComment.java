@@ -1,8 +1,11 @@
 package com.example.dw.domain.entity.freeBoard;
 
+import com.example.dw.domain.entity.user.Users;
+import com.example.dw.domain.form.FreeBoardCommentForm;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,21 +25,34 @@ public class FreeBoardComment {
     private Long id;
 
     private String freeBoardCommentContent;
+
+    @Default
     private LocalDateTime freeBoardCommentRd = LocalDateTime.now();
+    @Default
     private LocalDateTime freeBoardCommentMd = LocalDateTime.now();
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "free_board_id")
     private FreeBoard freeBoard;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private Users users;
 
     @Builder
     public FreeBoardComment(Long id, String freeBoardCommentContent,
                 LocalDateTime freeBoardCommentRd, LocalDateTime freeBoardCommentMd,
-                FreeBoard freeBoard) {
+                FreeBoard freeBoard, Users users) {
         this.id = id;
         this.freeBoardCommentContent = freeBoardCommentContent;
         this.freeBoardCommentRd = freeBoardCommentRd;
         this.freeBoardCommentMd = freeBoardCommentMd;
         this.freeBoard = freeBoard;
+        this.users = users;
+    }
+
+    public FreeBoardComment update(FreeBoardCommentForm freeBoardCommentForm){
+        this.freeBoardCommentContent = freeBoardCommentForm.getFreeBoardCommentContent();
+        return this;
     }
 }
