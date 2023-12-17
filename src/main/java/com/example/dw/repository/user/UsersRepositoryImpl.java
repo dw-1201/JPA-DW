@@ -126,6 +126,7 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
                 .select(users.userJoinDate, users.count())
                 .from(users)
                 .where(users.userJoinDate.between(startDate, endDate))
+                .orderBy(users.userJoinDate.desc())
                 .groupBy(users.userJoinDate)
                 .fetch()
                 .stream()

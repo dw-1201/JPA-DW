@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/common/css/common.css">
-    <link rel="stylesheet" href="/admin/css/adminAside.css">
+    <link rel="stylesheet" href="/fragment/css/adminSide.css">
     <link rel="stylesheet" href="/admin/css/adminGoodsModify.css">
     <title>관리자 페이지</title>
 </head>
@@ -32,7 +32,7 @@
                 <div class="goods-stan-info-title">
                     <h4>상품 기본 정보</h4>
                 </div>
-                <form th:action="@{/goods/modify/{id}/edit (id=${goods.id})}" th:method="put"   id="goods-img-form" enctype="multipart/form-data">
+                <form th:action="@{/admin/modify/{id}/edit (id=${goods.id})}" th:method="put"   id="goods-img-form" enctype="multipart/form-data">
                     <!-- 상품 기본 정보 수정 영역 -->
                     
                     <div class="goods-info-container">

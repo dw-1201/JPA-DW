@@ -1,5 +1,5 @@
+/* adminSide.css가 연결된 모든 페이지 body에 대한 설정 */
 .body {
-    
     font-family: 'S-CoreDream-3Light';
     width: 100%;
     height: 100%;
@@ -7,6 +7,7 @@
     position: relative;
 }
 
+/* 관리자 페이지 타이틀 설정 */
 .top-section {
     font-size: 15px;
     margin: 20px auto;
@@ -21,8 +22,10 @@
     box-shadow: 0.5px 0.5px 0.5px 1px rgb(198, 197, 197);
 }
 
+/* 스크롤 다운 시 관리자 페이지 타이틀 등장 설정 */
 .admin-hidden-title {
     display: none;
+
     justify-content: center;
     align-items: center;
     font-size: 14px;
@@ -34,24 +37,27 @@
     position: absolute;
     background-color: white;
     box-shadow: 0.5px 0.5px 0.5px 1px rgb(198, 197, 197);
-    
+
 }
 
-
+/* 관리자페이지 전체 Wrap */
 .admin-index-wrap {
     width: 1550px;
     margin: 10px auto;
     height: 100%;
     display: flex;
 }
+
+/* 관리자페이지 사이드메뉴 컨테이너  */
 .admin-fragment {
     display: block;
     margin: 0 auto;
     width: 1550px;
-    height: 100%;
+    height: 490px;
     position: relative;
 }
 
+/* 관리자페이지 사이드메뉴 설정 */
 .aside {
     top: 0;
     position: absolute;
@@ -63,60 +69,41 @@
 
 }
 
+/* 사이드메뉴 세부 설정 */
 .side-menu {
-    
+
     font-size: 14px;
     padding: 50px 10px 10px 30px;
 }
 
+/* 사이드메뉴-메뉴 설정 */
 .admin-manage {
     margin-bottom: 20px;
 }
 
+/* 하위 메뉴 */
 .sub-menu {
     font-size: 13px;
     padding: 3px 10px 10px 10px;
 }
 
+/* 하위메뉴  */
 .sub-menu a {
     color: rgba(192, 192, 192, 0.833);
 }
 
 
-
-
-
-
-/* .admin-menu-title-container {
+.admin-logout-section {
+    border: 2px solid orange;
     width: 100%;
-
-}
-.admin-menu-title {
-    padding: 0px 0px 20px 20px;
-    box-sizing: border-box;
 }
 
-.admin-menu-title h4 {
-    
-    height: 40px;
-    box-shadow: 0.5px 0.5px 0.5px 1px rgb(198, 197, 197);
-    background-color: white;
-    box-sizing: border-box;
-    padding: 10px 10px 10px 20px;
+.admin-logout-section form {
+    border: 2px solid red;
+    text-align: end;
 }
 
-
-.admin-main-wrap {
-    position: relative;
-
-    box-sizing: border-box;
-    padding: 20px;
-    background-color: white;
-    width: 1272px;
-    box-shadow: 0.5px 0.5px 0.5px 1px rgb(198, 197, 197);
-
+.admin-logout-btn {
+    width: 100px;
+    cursor: pointer;
 }
-
-.admin-main-bcc {
-    padding: 20px 0px 20px 20px;
-}  */
