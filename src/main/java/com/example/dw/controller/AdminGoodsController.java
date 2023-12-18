@@ -131,4 +131,15 @@ public class AdminGoodsController {
         return new RedirectView("/admin/goodsList");
     }
 
+
+    @GetMapping("/goodsQna")
+    public String goodsQna(){
+        return "admin/adminGoodsQue";
+    }
+
+    @GetMapping("/goodsReview")
+    public String goodsReview(){
+        return "admin/adminGoodsReview";
+    }
+
 }

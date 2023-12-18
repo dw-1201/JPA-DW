@@ -75,7 +75,7 @@ public class UsersController {
     }
 
     //로그아웃
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public String logout(HttpServletRequest req){
         HttpSession session = req.getSession(false);
         if(session != null){

@@ -110,22 +110,22 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
 
     //상품상세 조회
     private List<AdminGoodsDetailDto> getGoodsDetail(Long id){
-        return jpaQueryFactory
+        List<AdminGoodsDetailDto> lists =  jpaQueryFactory
                 .select(new QAdminGoodsDetailDto(
-                        goods.id,
-                        goods.goodsName,
-                        goods.goodsQuantity,
-                        goods.goodsPrice,
-                        goods.goodsMade,
-                        goods.goodsCertify,
-                        goods.goodsDetailContent,
-                        goods.goodsRegisterDate,
-                        goods.goodsModifyDate,
-                        goods.goodsCategory.stringValue(),
+                            goods.id,
+                            goods.goodsName,
+                            goods.goodsQuantity,
+                            goods.goodsPrice,
+                            goods.goodsMade,
+                            goods.goodsCertify,
+                            goods.goodsDetailContent,
+                            goods.goodsRegisterDate,
+                            goods.goodsModifyDate,
+                            goods.goodsCategory.stringValue(),
                         goodsMainImg.id,
                         goodsMainImg.goodsMainImgName,
                         goodsMainImg.goodsMainImgPath,
-                goodsMainImg.goodsMainImgUuid,
+                        goodsMainImg.goodsMainImgUuid,
                 goodsDetailImg.id,
                 goodsDetailImg.goodsDetailImgName,
                 goodsDetailImg.goodsDetailImgPath,
@@ -136,6 +136,14 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
                 .leftJoin(goods.goodsDetailImg, goodsDetailImg)
                 .where(goods.id.eq(id))
                 .fetch();
+
+
+        lists.stream().forEach(r->{
+            System.out.println(r.getId()+"=====================");
+        });
+
+        return lists;
+
     }
 
 

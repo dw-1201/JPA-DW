@@ -13,4 +13,6 @@ public interface GoodsDetailImgRepository extends JpaRepository<GoodsDetailImg, 
 
 
     List<AdminGoodsDetailImgDto> findAllByGoodsId(Long id);
+
+
 }
