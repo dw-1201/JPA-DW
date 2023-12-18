@@ -92,4 +92,6 @@ public class Goods {
     public void onPreUpdate(){
         this.goodsModifyDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
     }
+
+
 }

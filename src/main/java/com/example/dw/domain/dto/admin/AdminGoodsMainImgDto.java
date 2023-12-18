@@ -1,9 +1,9 @@
-package com.example.dw.domain.dto.goods;
+package com.example.dw.domain.dto.admin;
 
 import lombok.Data;
 
 @Data
-public class GoodsMainImgDto {
+public class AdminGoodsMainImgDto {
 
 
     private Long id;
@@ -12,7 +12,7 @@ public class GoodsMainImgDto {
     private String goodsMainImgName;
     private Long goodsId;
 
-    public GoodsMainImgDto(Long id, String goodsMainImgPath, String goodsMainImgUuid, String goodsMainImgName, Long goodsId) {
+    public AdminGoodsMainImgDto(Long id, String goodsMainImgPath, String goodsMainImgUuid, String goodsMainImgName, Long goodsId) {
         this.id = id;
         this.goodsMainImgPath = goodsMainImgPath;
         this.goodsMainImgUuid = goodsMainImgUuid;

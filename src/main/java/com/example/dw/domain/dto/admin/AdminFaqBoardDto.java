@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 //faq게시판 조회
 @Data
 @NoArgsConstructor
-public class FaqBoardDto {
+public class AdminFaqBoardDto {
 
     private Long id;
     private String faqBoardTitle;
@@ -18,8 +18,8 @@ public class FaqBoardDto {
 
 
     @QueryProjection
-    public FaqBoardDto(Long id, String faqBoardTitle, String faqBoardContent,
-                       Long faqBoardViewCount, String faqBoardRd, String faqBoardMd) {
+    public AdminFaqBoardDto(Long id, String faqBoardTitle, String faqBoardContent,
+                            Long faqBoardViewCount, String faqBoardRd, String faqBoardMd) {
         this.id = id;
         this.faqBoardTitle = faqBoardTitle;
         this.faqBoardContent = faqBoardContent;

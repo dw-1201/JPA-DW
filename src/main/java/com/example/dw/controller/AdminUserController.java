@@ -1,6 +1,6 @@
 package com.example.dw.controller;
 
-import com.example.dw.domain.dto.user.UserDetailDto;
+import com.example.dw.domain.dto.admin.UserDetailDto;
 import com.example.dw.domain.entity.user.Users;
 import com.example.dw.repository.user.UsersRepository;
 import com.example.dw.repository.user.UsersRepositoryCustom;

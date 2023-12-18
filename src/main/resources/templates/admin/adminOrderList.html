@@ -17,52 +17,14 @@
 
 <div class="admin-index-wrap" >
     <div class="admin-fragment">
-        <div class="admin-hidden-title">
-            <h3>관리자 페이지</h3>
-        </div>
-        <aside class="aside">
-            <ul class="side-menu">
-                <li class="user-manage admin-manage">회원 관리
-                    <div class="sub-menu">
-                        <ul class="sub-menu-ul">
-                            <li><a href="/admin/html/adminIndex.html">회원 현황</a></li>
-                            <li><a href="/admin/html/adminUserList.html">회원 목록</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="goods-manage admin-manage">상품 관리
-                    <div class="sub-menu">
-                        <ul class="sub-menu-ul">
-                            <li><a href="/admin/html/adminGoodsList.html">상품 목록</a></li>
-                            <li><a href="/admin/html/adminGoodsQue.html">상품 문의</a></li>
-                            <li><a href="/admin/html/adminGoodsReview.html">상품 리뷰</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="order-manage admin-manage">주문 관리
-                    <div class="sub-menu">
-                        <ul class="sub-menu-ul">
-                            <li><a href="/admin/html/adminOrderManage.html">주문 현황</a></li>
-                                <li><a href="/admin/html/adminOrderList.html">주문 목록</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="notice-manage admin-manage">커뮤니티 관리
-                    <div class="sub-menu">
-                        <ul class="sub-menu-ul"> 
-                            <li><a href="/admin/html/adminNoticeList.html">공지 목록</a></li>
-                            <li><a href="/admin/html/adminQnaList.html">QnA 목록</a></li>
-                            <li><a href="/admin/html/adminFreeList.html">자유게시판글 목록</a></li>
-                            <li><a href="/admin/html/adminWalkList.html">산책글 목록</a></li>
-                        </ul>
-                    </div>
-                </li>
-          
-            </ul>
-        </aside>
-     </div>
 
-<main class="main">
+        <div class="admin-fragment-section"  th:replace="fragment/adminSide :: admin">
+
+        </div>
+    </div>
+
+
+    <main class="main">
     <div class="admin-menu-title-container">
         <div class="admin-menu-title">
             <h4>주문 목록</h4>

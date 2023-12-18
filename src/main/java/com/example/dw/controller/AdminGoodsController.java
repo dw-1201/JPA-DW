@@ -1,6 +1,6 @@
 package com.example.dw.controller;
 
-import com.example.dw.domain.dto.goods.GoodsDetailResultDto;
+import com.example.dw.domain.dto.admin.AdminGoodsDetailResultDto;
 import com.example.dw.domain.form.GoodsForm;
 import com.example.dw.repository.goods.GoodsRepositoryCustom;
 import com.example.dw.service.AdminGoodsService;
@@ -79,7 +79,7 @@ public class AdminGoodsController {
     @GetMapping("/detail/{goodsId}")
     public String goodsDetail(@PathVariable("goodsId") Long goodsId, Model model){
 
-        List<GoodsDetailResultDto> result =
+        List<AdminGoodsDetailResultDto> result =
                 goodsRepositoryCustom.findGoodsById(goodsId);
 
 
@@ -96,7 +96,7 @@ public class AdminGoodsController {
     @GetMapping("/modify/{goodsId}")
     public String goodsModifyPage(@PathVariable("goodsId") Long goodsId, Model model){
 
-        List<GoodsDetailResultDto> result =
+        List<AdminGoodsDetailResultDto> result =
                 goodsRepositoryCustom.findGoodsById(goodsId);
 
         model.addAttribute("detail", result);
@@ -129,6 +129,17 @@ public class AdminGoodsController {
         adminGoodsService.delete(goodsId);
 
         return new RedirectView("/admin/goodsList");
+    }
+
+
+    @GetMapping("/goodsQna")
+    public String goodsQna(){
+        return "admin/adminGoodsQue";
+    }
+
+    @GetMapping("/goodsReview")
+    public String goodsReview(){
+        return "admin/adminGoodsReview";
     }
 
 }

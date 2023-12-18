@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="/common/css/common.css">
   <title>header</title>
 </head>
 <body>
@@ -12,14 +12,62 @@
         <div class="header-section01">
             <div class="header-section01-nav">
                 <ul  th:if="${session.userId == null}">
-                    <li><a href="/user/enterLogin">로그인</a></li>
-                    <li><a href="">장바구니</a></li>
+                    <li><a href="/user/enterLogin">
+                        <div class="top-section">
+<!--                            <span class="material-symbols-outlined">-->
+<!--                            lock-->
+<!--                            </span>-->
+                            <p>로그인</p>
+                        </div>
+                        </a>
+                    </li>
+                    <li><a href="">
+                        <div class="top-section">
+<!--                          <span class="material-symbols-outlined">-->
+<!--                        person_add-->
+<!--                        </span>-->
+                            <p>회원가입</p>
+                        </div>
+                    </a>
+                    </li>
+                    <li><a href="">
+                        <div class="top-section">
+<!--                         <span class="material-symbols-outlined">-->
+<!--                        shopping_cart-->
+<!--                        </span>-->
+                            <p>장바구니</p>
+                        </div>
+                    </a>
+                    </li>
                 </ul>
                 <ul  th:if="${session.userId != null}">
-                    <form th:action="@{/user/logout}" method="post">
-                        <li><button>로그아웃</button></li>
-                    </form>
-                    <li><a href="">장바구니</a></li>
+                    <li><a href="/user/logout">
+                        <div class="top-section">
+<!--                            <span class="material-symbols-outlined">-->
+<!--                            lock_open-->
+<!--                            </span>-->
+                            <p>로그아웃</p>
+                        </div>
+                    </a>
+                    </li>
+                    <li><a href="">
+                        <div class="top-section">
+<!--                          <span class="material-symbols-outlined">-->
+<!--                            person-->
+<!--                          </span>-->
+                            <p>마이페이지</p>
+                        </div>
+                    </a>
+                    </li>
+                    <li><a href="">
+                        <div class="top-section">
+<!--                         <span class="material-symbols-outlined">-->
+<!--                        shopping_cart-->
+<!--                        </span>-->
+                            <p>장바구니</p>
+                        </div>
+                    </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -30,9 +78,9 @@
                         <img src="/img/logo.png" alt=""></a></div>
                 <div class="header-section02-nav">
                     <ul>
-                        <li><a href="/shopping/html/shop.html">쇼핑</a></li>
                         <li><a href="/community/freeBoardList">커뮤니티</a></li>
                         <li><a href="">산책메이트</a></li>
+                        <li><a href="/shopping/html/shop.html">쇼핑</a></li>
                         <li><a href="/map/html/map.html">병원찾기</a></li>
                     </ul>
                 </div>

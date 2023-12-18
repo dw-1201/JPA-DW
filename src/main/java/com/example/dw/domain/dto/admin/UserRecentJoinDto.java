@@ -1,4 +1,4 @@
-package com.example.dw.domain.dto.user;
+package com.example.dw.domain.dto.admin;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;

@@ -1,7 +1,7 @@
 package com.example.dw.service;
 
-import com.example.dw.domain.dto.goods.GoodsDetailImgDto;
-import com.example.dw.domain.dto.goods.GoodsMainImgDto;
+import com.example.dw.domain.dto.admin.AdminGoodsDetailImgDto;
+import com.example.dw.domain.dto.admin.AdminGoodsMainImgDto;
 import com.example.dw.domain.entity.goods.Goods;
 import com.example.dw.domain.entity.question.Question;
 import com.example.dw.domain.form.GoodsDetailImgForm;
@@ -149,18 +149,18 @@ public class FileService {
             throw new IllegalArgumentException("유효하지 않은 상품 번호");
         }
 
-        GoodsMainImgDto img = goodsMainImgRepository.findByGoodsId(goodsId).get();
+        AdminGoodsMainImgDto img = goodsMainImgRepository.findByGoodsId(goodsId).get();
 
-        GoodsMainImgDto goodsMainImgDto = new GoodsMainImgDto(img.getId(), img.getGoodsMainImgPath(), img.getGoodsMainImgUuid(), img.getGoodsMainImgName(), img.getGoodsId());
+        AdminGoodsMainImgDto adminGoodsMainImgDto = new AdminGoodsMainImgDto(img.getId(), img.getGoodsMainImgPath(), img.getGoodsMainImgUuid(), img.getGoodsMainImgName(), img.getGoodsId());
 
-        File mainImgTarget = new File(mainImg, goodsMainImgDto.getGoodsMainImgPath() + "/" + goodsMainImgDto.getGoodsMainImgUuid() + "_" + goodsMainImgDto.getGoodsMainImgName());
+        File mainImgTarget = new File(mainImg, adminGoodsMainImgDto.getGoodsMainImgPath() + "/" + adminGoodsMainImgDto.getGoodsMainImgUuid() + "_" + adminGoodsMainImgDto.getGoodsMainImgName());
 
 
         if (mainImgTarget.exists()) {
             mainImgTarget.delete();
 
-            System.out.println("[ 삭제되는 상품 메인 사진 ]" + goodsMainImgDto.getGoodsMainImgPath() + "/" + goodsMainImgDto.getGoodsMainImgUuid() + "_" + goodsMainImgDto.getGoodsMainImgName());
-            goodsMainImgRepository.deleteById(goodsMainImgDto.getId());
+            System.out.println("[ 삭제되는 상품 메인 사진 ]" + adminGoodsMainImgDto.getGoodsMainImgPath() + "/" + adminGoodsMainImgDto.getGoodsMainImgUuid() + "_" + adminGoodsMainImgDto.getGoodsMainImgName());
+            goodsMainImgRepository.deleteById(adminGoodsMainImgDto.getId());
 
         }
 
@@ -174,10 +174,10 @@ public class FileService {
             throw new IllegalArgumentException("유효하지 않은 상품 번호");
         }
 
-        List<GoodsDetailImgDto> goodsDetailImgDtos = goodsDetailImgRepository.findAllByGoodsId(goodsId);
+        List<AdminGoodsDetailImgDto> adminGoodsDetailImgDtos = goodsDetailImgRepository.findAllByGoodsId(goodsId);
 
 
-        for (GoodsDetailImgDto goodsDetailImg : goodsDetailImgDtos) {
+        for (AdminGoodsDetailImgDto goodsDetailImg : adminGoodsDetailImgDtos) {
             File detailImgTarget = new File(mainImg, goodsDetailImg.getGoodsDetailImgPath() + "/" + goodsDetailImg.getGoodsDetailImgUuid() + "_" + goodsDetailImg.getGoodsDetailImgName());
 
 
