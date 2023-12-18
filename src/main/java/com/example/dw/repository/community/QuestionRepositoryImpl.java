@@ -1,11 +1,6 @@
 package com.example.dw.repository.community;
 
 
-
-
-
-
-
 import com.example.dw.domain.dto.community.QQuestionDto;
 import com.example.dw.domain.dto.community.QuestionDto;
 import com.example.dw.domain.form.SearchForm;
