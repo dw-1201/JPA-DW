@@ -46,23 +46,23 @@ public class QnaService {
     }
 
     //작성 글 수정
-//    @Transactional
-//    public Question modify(QuestionWritingForm questionWritingForm, List<MultipartFile> files)
-//    throws IOException{
-//
-//        if(!files.get(0).isEmpty()){
-//            fileService.removequeDetailImgs(questionWritingForm.getId());
-//
-//            fileService.registerquestionImg(files,questionWritingForm.getId());
-//        }
-//
-//        Question question = questionRepository.findById(questionWritingForm.getId()).get();
-//
-//        //qna 기본내용 업데이트
-//        question.update(questionWritingForm);
-//        System.out.println("서비스단 완료");
-//        return Optional.ofNullable(question).orElseThrow(()->{
-//            throw new IllegalArgumentException("조회 정보 없음");});
-//    }
+    @Transactional
+    public Question modify(QuestionWritingForm questionWritingForm, List<MultipartFile> files)
+    throws IOException{
+
+        if(!files.get(0).isEmpty()){
+            fileService.removequeDetailImgs(questionWritingForm.getId());
+
+            fileService.registerquestionImg(files,questionWritingForm.getId());
+        }
+
+        Question question = questionRepository.findById(questionWritingForm.getId()).get();
+
+        //qna 기본내용 업데이트
+        question.update(questionWritingForm);
+        System.out.println("서비스단 완료");
+        return Optional.ofNullable(question).orElseThrow(()->{
+            throw new IllegalArgumentException("조회 정보 없음");});
+    }
 
 }
