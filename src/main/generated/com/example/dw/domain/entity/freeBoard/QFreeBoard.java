@@ -24,15 +24,17 @@ public class QFreeBoard extends EntityPathBase<FreeBoard> {
 
     public final ListPath<FreeBoardComment, QFreeBoardComment> freeBoardComment = this.<FreeBoardComment, QFreeBoardComment>createList("freeBoardComment", FreeBoardComment.class, QFreeBoardComment.class, PathInits.DIRECT2);
 
+    public final NumberPath<Long> freeBoardCommentCount = createNumber("freeBoardCommentCount", Long.class);
+
     public final StringPath freeBoardContent = createString("freeBoardContent");
 
     public final ListPath<FreeBoardImg, QFreeBoardImg> freeBoardImg = this.<FreeBoardImg, QFreeBoardImg>createList("freeBoardImg", FreeBoardImg.class, QFreeBoardImg.class, PathInits.DIRECT2);
 
     public final QFreeBoardLike freeBoardLike;
 
-    public final DatePath<java.time.LocalDate> freeBoardMd = createDate("freeBoardMd", java.time.LocalDate.class);
+    public final StringPath freeBoardMd = createString("freeBoardMd");
 
-    public final DatePath<java.time.LocalDate> freeBoardRd = createDate("freeBoardRd", java.time.LocalDate.class);
+    public final StringPath freeBoardRd = createString("freeBoardRd");
 
     public final StringPath freeBoardTitle = createString("freeBoardTitle");
 
