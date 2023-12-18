@@ -18,7 +18,7 @@ public class QuestionImg {
     private String questionImgName;
     private String questionImgUuid;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
     private Question question;
 
@@ -30,4 +30,6 @@ public class QuestionImg {
         this.questionImgUuid = questionImgUuid;
         this.question = question;
     }
+
+
 }

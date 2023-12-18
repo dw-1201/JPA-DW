@@ -1,10 +1,13 @@
 package com.example.dw.domain.entity.question;
 
 import com.example.dw.domain.entity.user.Users;
+import com.example.dw.domain.form.QuestionWritingForm;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,13 +27,14 @@ public class Question {
     private String questionTitle;
     private String questionContent;
 
-    @Default
-    private LocalDateTime questionRd= LocalDateTime.now();
+    @CreatedDate
+    private String questionRd;
     @Default
     private LocalDateTime questionMd=LocalDateTime.now();
+
     private Long questionViewCount;
 
-    @OneToMany(mappedBy = "question" ,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "question" ,fetch = FetchType.LAZY, orphanRemoval = true)
     private List<QuestionImg> questionImg = new ArrayList<>();
 
     @OneToMany(mappedBy = "question" ,fetch = FetchType.LAZY)
@@ -39,7 +43,7 @@ public class Question {
     @OneToOne(mappedBy = "question" ,fetch = FetchType.LAZY)
     private QuestionLike questionLike;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private Users users;
 
@@ -52,6 +56,21 @@ public class Question {
         this.users =users;
     }
 
+    @PrePersist
+    public void onPrePersist(){
+        this.questionRd = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+    }
 
+    // questionViewCount 업데이트
+
+
+    //question 업데이트
+    public Question update(QuestionWritingForm questionWritingForm){
+        this.questionTitle=questionWritingForm.getQuestionTitle();
+        this.questionContent=questionWritingForm.getQuestionContent();
+
+
+        return this;
+    }
 
 }

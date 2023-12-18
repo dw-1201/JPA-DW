@@ -1,7 +1,5 @@
 package com.example.dw.domain.dto.community;
 
-
-import com.example.dw.domain.entity.user.Users;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +9,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class QuestionDto {
+public class QuestionListDto {
 
     private Long id;
     private String questionTitle;
@@ -26,10 +24,14 @@ public class QuestionDto {
     private String userName;
 
     //사용자 이미지
-//    List<QuestionImgDto> questionImgDtoList;
+    List<QuestionImgDto> questionImgDtoList;
+//    private Long questionImgId;
+//    private String questionImgRoute;
+//    private String questionImgName;
+//    private String questionImgUuid;
 
     @QueryProjection
-    public QuestionDto(Long id, String questionTitle, String questionContent, String questionRd, LocalDateTime questionMd, Long userId, String userName) {
+    public QuestionListDto(Long id, String questionTitle, String questionContent, String questionRd, LocalDateTime questionMd, Long userId, String userName, List<QuestionImgDto> questionImgDtoList) {
         this.id = id;
         this.questionTitle = questionTitle;
         this.questionContent = questionContent;
@@ -37,5 +39,8 @@ public class QuestionDto {
         this.questionMd = questionMd;
         this.userId = userId;
         this.userName = userName;
+        this.questionImgDtoList = questionImgDtoList;
     }
+
+
 }
