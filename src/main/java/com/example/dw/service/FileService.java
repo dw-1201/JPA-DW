@@ -1,7 +1,14 @@
 package com.example.dw.service;
 
+<<<<<<< HEAD
 import com.example.dw.domain.dto.admin.AdminGoodsDetailImgDto;
 import com.example.dw.domain.dto.admin.AdminGoodsMainImgDto;
+=======
+import com.example.dw.domain.dto.community.QuestionDetailDto;
+import com.example.dw.domain.dto.community.QuestionImgDto;
+import com.example.dw.domain.dto.goods.GoodsDetailImgDto;
+import com.example.dw.domain.dto.goods.GoodsMainImgDto;
+>>>>>>> project/v1
 import com.example.dw.domain.entity.goods.Goods;
 import com.example.dw.domain.entity.question.Question;
 import com.example.dw.domain.form.GoodsDetailImgForm;
@@ -9,6 +16,7 @@ import com.example.dw.domain.form.GoodsMainImgForm;
 import com.example.dw.domain.form.QuestionImgForm;
 import com.example.dw.repository.community.QuestionImgRepository;
 import com.example.dw.repository.community.QuestionRepository;
+import com.example.dw.repository.community.QuestionRepositoryCuston;
 import com.example.dw.repository.goods.GoodsDetailImgRepository;
 import com.example.dw.repository.goods.GoodsMainImgRepository;
 import com.example.dw.repository.goods.GoodsRepository;
@@ -45,6 +53,7 @@ public class FileService {
 
     private final QuestionRepository questionRepository;
     private final QuestionImgRepository questionImgRepository;
+    private final QuestionRepositoryCuston questionRepositoryCuston;
 
 
     //상품 메인 사진 로컬서버 저장
@@ -222,14 +231,14 @@ public class FileService {
     }
 
 
-    //qeu 이미지 DB 저장
+    //que 이미지 DB 저장
     @Transactional
-    public void registerquestionImg(List<MultipartFile> files, Long id) throws IOException {
+    public void registerquestionImg(List<MultipartFile> files, Long questionId) throws IOException {
+        System.out.println("파일 처리 질문 아이기 : "+questionId);
 
-        //파일 여러개
         for (MultipartFile file : files) {
             QuestionImgForm questionImgForm= savequestionImg(file);
-            Optional<Question> question = questionRepository.findById(id);
+            Optional<Question> question = questionRepository.findById(questionId);
 
             questionImgForm.setQuestion(question.get());
             questionImgRepository.save(questionImgForm.toEntity());
@@ -238,6 +247,31 @@ public class FileService {
     }
 
 
+    //que 기존 사진 삭제
+//    public void removequeDetailImgs(Long questionId) {
+//        System.out.println("파일 삭제 아이디 : " + questionId);
+//        if (questionId == null) {
+//            throw new IllegalArgumentException("유효하지 않은 상품 번호");
+//        }
+//        System.out.println(questionRepositoryCuston.findAllByQuestionId(questionId).toString() + "1-------1");
+//
+//        List<QuestionImgDto> questionImgDtos = questionRepositoryCuston.findAllByQuestionId(questionId);
+//        System.out.println(questionImgDtos.toString()+"나는 누구이인가");
+//
+//        for (QuestionImgDto questionImgDto : questionImgDtos) {
+//            File detailImgTarget = new File(questionImg, questionImgDto.getQuestionImgRoute() + "/" + questionImgDto.getQuestionImgUuid() + "_" + questionImgDto.getQuestionImgName());
+//            System.out.println("반복문");
+//            System.out.println(questionImgDto.toString()+"삭제 파일 입니다.");
+//            System.out.println(detailImgTarget.toString()+"저는 파일입니다.");
+//            if (detailImgTarget.exists()) {
+//                detailImgTarget.delete();
+//
+//                System.out.println("[ 삭제 상품사진 ]" + questionImgDto.getQuestionImgRoute() + "/" + questionImgDto.getQuestionImgUuid() + "_" + questionImgDto.getQuestionImgName() + "\n");
+//                questionImgRepository.deleteQuestionImgById(questionImgDto.getId());
+//            }
+//
+//        }
+//    }
 
 
 }

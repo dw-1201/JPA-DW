@@ -295,11 +295,11 @@ main{
     justify-content: end;
     align-items: center;
 
-    cursor: pointer;
+
 
     color: white;
 }
-.update-btn, .remove-btn{
+.modify-btn, .remove-btn{
     width: 60px;
     height: 30px;
 
@@ -312,6 +312,28 @@ main{
 
     border-radius: 10px;
     background-color: #FCD11E;
+    cursor: pointer;
+    border: none;
+    color: white;
+}
+
+.modify-btn:hover, .remove-btn:hover{
+    width: 60px;
+    height: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 13px;
+    margin: 0 3px;
+
+    border-radius: 10px;
+    background-color: #FCD11E;
+    cursor: pointer;
+    border: none;
+    color: white;
+    font-weight: bold;
 }
 .reply-container{
     width: 100%;

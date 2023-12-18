@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,28 +11,8 @@
 </head>
 <body>
     <!-- header 시작 -->
-    <div class="header">
-        <div class="header-section01">
-            <div class="header-section01-nav">
-                <ul>
-                    <li><a href="">로그인</a></li>
-                    <li><a href="">장바구니</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="header-section02">
-            <div class="header-section02-container">
-                <div class="header-logo"><a href=""><img src="/img/logo.png" alt=""></a></div>
-                <div class="header-section02-nav">
-                    <ul>
-                        <li><a href="/shopping/html/shop.html">쇼핑</a></li>
-                        <li><a href="/community/html/freeBoardList.html">커뮤니티</a></li>
-                        <li><a href="/walkingMate/html/walkingMateList.html">산책메이트</a></li>
-                        <li><a href="/map/html/map.html">병원찾기</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <div class="header" th:replace="fragment/header :: header">
+
     </div>
     <!-- header 끝 -->
 
@@ -40,21 +20,18 @@
     <main>
         <div class="main-container">
             <div class="cate-title">
-                <div class="cate-dogCate">포메라니안</div>
                 <div class="cate-title-text">QnA</div>
             </div>
-            
+
             <!-- 글 시작 -->
-            <div class="content-container">
-                <div class="content-box">
+            <div class="content-container" th:each="question : ${detail}">
+                <div class="content-box" >
                     <div class="img-box">
-                        <div class="imgs">
+                        <div class="imgs" >
                             <ul class="slider">
-                                <li><img src="/img/slideDog01.jfif" alt=""></li>
-                                <li><img src="/img/slideDog02.png" alt=""></li>
-                                <li><img src="/img/slideDog03.jfif" alt=""></li>
-                                <li><img src="/img/slideDog04.jpg" alt=""></li>
-                                <li><img src="/img/slideDog05.jpg" alt=""></li>
+                                <th:block th:each="imgs:${question.questionDetailDtoList}">
+                                <li><img th:src="'/jpa_dw/question/'+${imgs.questionImgRoute}+'/'+${imgs.questionImgUuid}+'_'+${imgs.questionImgName}" alt=""></li>
+                                </th:block>
                             </ul>
                         </div>
                         <div class="slide-btns">
@@ -64,53 +41,31 @@
                     </div>
                     <div class="text-box">
                         <div class="text-title-box">
-                            <div class="text-title">둘째 강아지 입양 후 첫째 강아지 반응</div>    
+                            <div class="text-title" th:text="${question.questionTitle}"></div>
                         </div>
                         <div class="info">
                             <div class="info-id">
                                 <div class="info-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                                <div>쌀강냉이</div>
+                                <div th:text="${question.userName}"></div>
                             </div>
-                            <div class="text-date">2023-11-25</div>
+                            <div class="text-date" th:text="${question.questionRd}"></div>
                         </div>
                         <div class="content-text">
-                            <p>
-제가 얼마 전에 둘째 강아지를 입양했는데요
+                            <p th:text="${question.questionContent}">
 
-2개월 된 아기예요 첫째는 4살 됐구요!
-                                
-저희 첫째 강아지가 울타리 안에 있는 애기를 볼 때 꼬리 흔들고 엎드려서 구경하고 냄새 맡고 관심이 많아요 앞발을 넣어서 살살 건드리고 같이 장난치고 그래요
-                                
-울타리 청소하려고 제가 잠깐 애기를 꺼내면 첫째가 냄새를 맡으려고 달려와서 킁킁대는데
-                                
-첫째가 흥분도가 좀 높아서 제가 걱정이 돼서 애기를 멀리 떨어뜨리거나 첫째를 막아서면 갑자기 흥분하면서 저한테 으르렁대고 애기를 물려고 하는 것 같아요
-                                
-평소엔 한 번도 저에게 으르렁대거나 입질을 전혀 하지 않는데두요 ㅠㅠ
-                                
-애기 냄새 맡으려고 흥분하면서 다가오면 맡게 둬도 될까요?
-                                
-애기를 물거나 해치려고 하는 행동일까요?
-                                
-서열정리나 이런 것 때문에 싸우지 않는 이상 둘 사이에 끼어들지 말라는 말을 많이 들었는데 아무래도 체급 차이가 나니까 싸움이 시작되면 애기한텐 치명상일까 봐 어째야될지 모르겠네요 ㅠㅠ
-울타리에서 꺼내기 전엔 짖든 뭘 하든 첫째는 너무 평온하고 사실 킁킁대는 거 막지만 않으면 으르렁대거나 입질을 하진 않아요
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="btn-box">
-                    <div class="like-box">
-                        <div class="like-btns" id="like">
-                            <div class="like-btn-imgs"><img src="/img/like.png" alt=""></div>
-                            <div class="likes">5</div>
-                        </div>
-                        <div class="like-btns" id="dislike">
-                            <div class="like-btn-imgs"><img src="/img/dislike.png" alt=""></div>
-                            <div class="likes">0</div>
-                        </div>
+
+
+                    <div class="btns-box" th:if="${question.userId == session.userId}">
+                        <button  class="modify-btn" th:data-questionid="${question.id}">수정</button>
+                        <button  class="remove-btn" th:data-questionid="${question.id}">삭제</button>
                     </div>
-                    <div class="btns-box">
-                        <div class="update-btn">수정</div>
-                        <div class="remove-btn">삭제</div>
+                    <div class="btns-box" th:unless="${question.userId == session.userId}">
+
                     </div>
                 </div>
             </div>
@@ -332,36 +287,11 @@
     <!-- main 끝 -->
 
     <!-- footer 시작 -->
-    <div class="footer">
-        <div class="footer-container01">
-            <div class="footer-containerbox01">
-                <div class="footer-container01-nav">
-                    <ul>
-                        <li>(주)산책갈개</li>
-                        <li>복영헌 임형준 노의진 이지윤</li>
-                        <li>서울특별시 노원구 상계로1길 34 세일학원 5층</li>
-                        <li>02-933-5890</li>
-                    </ul>
-                </div>
-                <div class="footer-container01-img">
-                    <img src="/img/dog02.png" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="footer-container02">
-            <div class="footer-containerbox02">
-                <div>Copyright ©SCGG All Rights Reserved.</div>
-                <div class="footer-container02-nav">
-                    <ul>
-                        <li><a href="">이용약관</a></li>
-                        <li><a href="">개인정보처리방침</a></li>
-                        <li><a href="">사업자정보확인</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <div class="footer" th:replace="fragment/footer :: footer">
+
     </div>
     <!-- footer 끝 -->
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script src="/community/js/qnaDetail.js"></script>
 </body>
 </html>

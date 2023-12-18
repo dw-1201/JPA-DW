@@ -32,3 +32,16 @@ next.addEventListener('click', function () {
     moveSlide(currentIdx + 1);
   }
 });
+
+
+
+//수정 페이지 이동
+$('.modify-btn').on('click',function (){
+    let questionId = $(this).data('questionid');
+
+    console.log(questionId);
+
+    window.location.href="/qna/modify/" + questionId;
+
+})
+
