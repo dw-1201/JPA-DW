@@ -1,7 +1,7 @@
 package com.example.dw.repository.admin;
 
-import com.example.dw.domain.dto.admin.FaqBoardDto;
-import com.example.dw.domain.dto.admin.QFaqBoardDto;
+import com.example.dw.domain.dto.admin.AdminFaqBoardDto;
+import com.example.dw.domain.dto.admin.QAdminFaqBoardDto;
 import com.example.dw.domain.form.SearchForm;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -26,10 +26,10 @@ public class FaqBoardRepositoryImpl implements FaqBoardRepositoryCustom{
     }
 
     @Override
-    public Page<FaqBoardDto> findFaqListBySearch(Pageable pageable, SearchForm searchForm) {
+    public Page<AdminFaqBoardDto> findFaqListBySearch(Pageable pageable, SearchForm searchForm) {
 
 
-        List<FaqBoardDto> content = getFaqBoardList(pageable, searchForm);
+        List<AdminFaqBoardDto> content = getFaqBoardList(pageable, searchForm);
         Long counts = getCount(searchForm);
         return new PageImpl<>(content, pageable, counts);
 
@@ -48,10 +48,10 @@ public class FaqBoardRepositoryImpl implements FaqBoardRepositoryCustom{
         return count;
     }
 
-    private List<FaqBoardDto> getFaqBoardList(Pageable pageable, SearchForm searchForm){
+    private List<AdminFaqBoardDto> getFaqBoardList(Pageable pageable, SearchForm searchForm){
 
-        List<FaqBoardDto> contents = jpaQueryFactory
-                .select(new QFaqBoardDto(
+        List<AdminFaqBoardDto> contents = jpaQueryFactory
+                .select(new QAdminFaqBoardDto(
                         faqBoard.id,
                         faqBoard.faqBoardTitle,
                         faqBoard.faqBoardContent,

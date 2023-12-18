@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class GoodsDto {
+public class AdminGoodsDto {
 
     private Long id;
     private String goodsName;
@@ -19,7 +19,7 @@ public class GoodsDto {
 
 
     @QueryProjection
-    public GoodsDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String categoryName, String goodsRegisterDate, String goodsModifyDate) {
+    public AdminGoodsDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String categoryName, String goodsRegisterDate, String goodsModifyDate) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;

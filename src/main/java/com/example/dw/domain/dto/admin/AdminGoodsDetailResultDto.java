@@ -1,4 +1,4 @@
-package com.example.dw.domain.dto.goods;
+package com.example.dw.domain.dto.admin;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import java.util.List;
 
 //전체조회한 것들 중에 상품 상세사진(여러개)를 리스트로 담기위한 DTO
 @Data
-public class GoodsDetailResultDto {
+public class AdminGoodsDetailResultDto {
 
 
     private Long id;
@@ -22,12 +22,12 @@ public class GoodsDetailResultDto {
     private String goodsMainImgName;
     private String goodsMainImgPath;
     private String goodsMainImgUuid;
-    private List<GoodsDetailImgDto> goodsDetailImgs;
+    private List<AdminGoodsDetailImgDto> goodsDetailImgs;
 
 
-    public GoodsDetailResultDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade,
-                                String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate,
-                                String goodsCategory, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid) {
+    public AdminGoodsDetailResultDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade,
+                                     String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate,
+                                     String goodsCategory, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;
@@ -43,10 +43,10 @@ public class GoodsDetailResultDto {
         this.goodsMainImgUuid = goodsMainImgUuid;
     }
 
-    public GoodsDetailResultDto(Long id, String goodsName, int goodsQuantity, int goodsPrice,
-                                String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate,
-                                String goodsCategory, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid,
-                                List<GoodsDetailImgDto> goodsDetailImgs) {
+    public AdminGoodsDetailResultDto(Long id, String goodsName, int goodsQuantity, int goodsPrice,
+                                     String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate,
+                                     String goodsCategory, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid,
+                                     List<AdminGoodsDetailImgDto> goodsDetailImgs) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;

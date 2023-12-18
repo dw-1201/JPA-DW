@@ -1,7 +1,7 @@
 package com.example.dw.api;
 
 
-import com.example.dw.domain.dto.admin.GoodsDto;
+import com.example.dw.domain.dto.admin.AdminGoodsDto;
 import com.example.dw.domain.form.SearchForm;
 import com.example.dw.repository.goods.GoodsRepositoryCustom;
 import lombok.RequiredArgsConstructor;
@@ -21,11 +21,11 @@ public class AdminGoodsApiController {
     private final GoodsRepositoryCustom goodsRepositoryCustom;
 
     @GetMapping("/goodsList/{page}")
-    public Page<GoodsDto> findGoodsList(
+    public Page<AdminGoodsDto> findGoodsList(
             @PathVariable("page") int page, SearchForm searchForm){
 
         Pageable pageable = PageRequest.of(page, 15);
-        Page<GoodsDto> result = goodsRepositoryCustom.findGoodsAll(pageable, searchForm);
+        Page<AdminGoodsDto> result = goodsRepositoryCustom.findGoodsAll(pageable, searchForm);
         return result;
 
     }

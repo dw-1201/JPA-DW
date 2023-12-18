@@ -42,6 +42,8 @@
     border: 1px solid gray;
 }
 
+
+
 .chart-title, .recent-join-title {
     
     display: flex;
@@ -70,6 +72,9 @@
     padding: 30px 15px 15px 15px;
 }
 
+.recent-user-th {
+    height: 36px;
+}
 .recent-user-list {
     min-height: 120px;
 }

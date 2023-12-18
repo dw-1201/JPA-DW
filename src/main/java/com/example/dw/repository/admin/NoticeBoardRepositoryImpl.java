@@ -1,8 +1,8 @@
 package com.example.dw.repository.admin;
 
 
-import com.example.dw.domain.dto.admin.NoticeBoardDto;
-import com.example.dw.domain.dto.admin.QNoticeBoardDto;
+import com.example.dw.domain.dto.admin.AdminNoticeBoardDto;
+import com.example.dw.domain.dto.admin.QAdminNoticeBoardDto;
 import com.example.dw.domain.form.SearchForm;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -28,9 +28,9 @@ public class NoticeBoardRepositoryImpl implements NoticeBoardRepositoryCustom {
 
 
     @Override
-    public Page<NoticeBoardDto> findNoticeListBySearch(Pageable pageable, SearchForm searchForm) {
+    public Page<AdminNoticeBoardDto> findNoticeListBySearch(Pageable pageable, SearchForm searchForm) {
 
-        List<NoticeBoardDto> content = getNoticeBoardList(pageable, searchForm);
+        List<AdminNoticeBoardDto> content = getNoticeBoardList(pageable, searchForm);
         Long count = getCount(searchForm);
 
         return new PageImpl<>(content, pageable, count);
@@ -51,10 +51,10 @@ public class NoticeBoardRepositoryImpl implements NoticeBoardRepositoryCustom {
         return count;
     }
 
-    private List<NoticeBoardDto> getNoticeBoardList(Pageable pageable, SearchForm searchForm){
+    private List<AdminNoticeBoardDto> getNoticeBoardList(Pageable pageable, SearchForm searchForm){
 
-        List<NoticeBoardDto> contents = jpaQueryFactory
-                .select(new QNoticeBoardDto(
+        List<AdminNoticeBoardDto> contents = jpaQueryFactory
+                .select(new QAdminNoticeBoardDto(
                         noticeBoard.id,
                         noticeBoard.noticeBoardTitle,
                         noticeBoard.noticeBoardContent,

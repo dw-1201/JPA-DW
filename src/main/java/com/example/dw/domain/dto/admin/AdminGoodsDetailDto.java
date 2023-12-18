@@ -1,11 +1,11 @@
-package com.example.dw.domain.dto.goods;
+package com.example.dw.domain.dto.admin;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 
 //전체 조회 DTO
 @Data
-public class GoodsDetailDto {
+public class AdminGoodsDetailDto {
 
 
     private Long id;
@@ -28,8 +28,8 @@ public class GoodsDetailDto {
     private String goodsDetailImgUuid;
 
     @QueryProjection
-    public GoodsDetailDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate, String goodsCategory, Long goodsMainImgId,
-                          String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid, Long goodsDetailImgId, String goodsDetailImgName, String goodsDetailImgPath, String goodsDetailImgUuid) {
+    public AdminGoodsDetailDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate, String goodsCategory, Long goodsMainImgId,
+                               String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid, Long goodsDetailImgId, String goodsDetailImgName, String goodsDetailImgPath, String goodsDetailImgUuid) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;

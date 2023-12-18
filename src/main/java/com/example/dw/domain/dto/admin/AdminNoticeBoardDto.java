@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class NoticeBoardDto {
+public class AdminNoticeBoardDto {
 
     private Long id;
     private String noticeBoardTitle;
@@ -16,8 +16,8 @@ public class NoticeBoardDto {
     private String noticeBoardMd;
 
     @QueryProjection
-    public NoticeBoardDto(Long id, String noticeBoardTitle, String noticeBoardContent,
-                          Long noticeBoardViewCount, String noticeBoardRd, String noticeBoardMd) {
+    public AdminNoticeBoardDto(Long id, String noticeBoardTitle, String noticeBoardContent,
+                               Long noticeBoardViewCount, String noticeBoardRd, String noticeBoardMd) {
         this.id = id;
         this.noticeBoardTitle = noticeBoardTitle;
         this.noticeBoardContent = noticeBoardContent;

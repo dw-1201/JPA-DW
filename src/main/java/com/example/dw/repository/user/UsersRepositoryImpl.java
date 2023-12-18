@@ -1,7 +1,6 @@
 package com.example.dw.repository.user;
 
-import com.example.dw.domain.dto.admin.UserChartDto;
-import com.example.dw.domain.dto.user.*;
+import com.example.dw.domain.dto.admin.*;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +44,7 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
     }
 
     @Override
-    public List<UserChartDto> findJoinCountByAll() {
+    public List<AdminUserChartDto> findJoinCountByAll() {
         return getDailyJoinCount();
     }
 
@@ -114,7 +113,7 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
     }
 
     //주단위 일별 회원가입자 수
-    public List<UserChartDto> getDailyJoinCount() {
+    public List<AdminUserChartDto> getDailyJoinCount() {
         LocalDate endDate = LocalDate.now(); // 현재 날짜
         LocalDate startDate = endDate.minusWeeks(1); // 일주일 전 날짜
 
@@ -146,9 +145,9 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
             dailyCounts.putIfAbsent(date, 0L);
         }
 
-        //메소드의 반환타입인 List<UserChartDto>에 맞추기위해 entrySet().map()을 이용하여 변환한다.
+        //메소드의 반환타입인 List<AdminUserChartDto>에 맞추기위해 entrySet().map()을 이용하여 변환한다.
         return dailyCounts.entrySet().stream()
-                .map(entry -> new UserChartDto(entry.getKey(), entry.getValue()))
+                .map(entry -> new AdminUserChartDto(entry.getKey(), entry.getValue()))
                 .collect(Collectors.toList());
     }
 
