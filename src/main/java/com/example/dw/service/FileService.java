@@ -1,14 +1,9 @@
 package com.example.dw.service;
 
-<<<<<<< HEAD
+
 import com.example.dw.domain.dto.admin.AdminGoodsDetailImgDto;
 import com.example.dw.domain.dto.admin.AdminGoodsMainImgDto;
-=======
-import com.example.dw.domain.dto.community.QuestionDetailDto;
-import com.example.dw.domain.dto.community.QuestionImgDto;
-import com.example.dw.domain.dto.goods.GoodsDetailImgDto;
-import com.example.dw.domain.dto.goods.GoodsMainImgDto;
->>>>>>> project/v1
+
 import com.example.dw.domain.entity.goods.Goods;
 import com.example.dw.domain.entity.question.Question;
 import com.example.dw.domain.form.GoodsDetailImgForm;
