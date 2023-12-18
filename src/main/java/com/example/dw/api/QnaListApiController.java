@@ -37,20 +37,20 @@ public class QnaListApiController {
     }
 
 
-//    @GetMapping("/qnalist/{page}")
-//    public Page<QuestionListDto> findQnAList(
-//            @PathVariable("page") int page, String keyword){
-//        Pageable pageable = PageRequest.of(page,5);
-//        Page<QuestionListDto> result = questionRepositoryCuston.findQnaListBySearch(pageable,keyword);
-//        System.out.println(result+"안뇽");
-//        System.out.println(keyword+"검색 내용!");
-//        System.out.println("여기는 레스트");
-//
-//
-//
-//        return result;
-//
-//    }
+    @GetMapping("/qnalist/{page}")
+    public Page<QuestionListDto> findQnAList(
+            @PathVariable("page") int page, String keyword){
+        Pageable pageable = PageRequest.of(page,5);
+        Page<QuestionListDto> result = questionRepositoryCuston.findQnaListBySearch(pageable,keyword);
+        System.out.println(result+"안뇽");
+        System.out.println(keyword+"검색 내용!");
+        System.out.println("여기는 레스트");
+
+
+
+        return result;
+
+    }
 
 
 

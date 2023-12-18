@@ -14,13 +14,18 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 import static com.example.dw.domain.entity.question.QQuestion.question;
+import static com.example.dw.domain.entity.question.QQuestionImg.questionImg;
+import static java.util.stream.Collectors.groupingBy;
 
+import java.util.Collections;
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 
 @Repository
@@ -31,16 +36,94 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
     public QuestionRepositoryImpl(JPAQueryFactory jpaQueryFactory){this.jpaQueryFactory=jpaQueryFactory;}
 
     // qna 리스트 확인
-//    @Override
-//    public Page<QuestionListDto> findQnaListBySearch(Pageable pageable,String keyword,QuestionDto questionDto,QuestionImgDto questionImgDto) {
-//
-//
-//
-//
-//
-////        return new PageImpl<>(lists, pageable, count);
-//        return null;
-//    }
+    @Override
+    public Page<QuestionListDto> findQnaListBySearch(Pageable pageable, String keyword) {
+        //검색어
+        BooleanExpression keywordTitle = qnatitleEq(keyword);
+
+        //페이징 및 검색조건을 적용하여 question 엔티티 조회
+        List<QuestionDto> content = jpaQueryFactory
+                .select(new QQuestionDto(
+                        question.id,
+                        question.questionTitle,
+                        question.questionContent,
+                        question.questionRd,
+                        question.questionMd,
+                        question.users.id,
+                        question.users.userName
+                ))
+                .from(question)
+                .where( keywordTitle )
+                .orderBy(question.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        // 페이징을 위한 전체 데이터 수 조회
+        Long count = getCount(keyword);
+
+
+        List<QuestionListDto> contents =
+                content.stream().map(questionDto -> {
+                    QuestionImgDto questionImgDto = jpaQueryFactory
+                            .select(new QQuestionImgDto(
+                                    questionImg.id,
+                                    questionImg.questionImgRoute,
+                                    questionImg.questionImgName,
+                                    questionImg.questionImgUuid,
+                                    question.id
+                            ))
+                            .from(questionImg)
+                            .leftJoin(questionImg.question, question)
+                            .on(questionImg.question.id.eq(question.id))
+                            .fetchFirst();
+
+                    QuestionImgDto imgDto = new QuestionImgDto(
+                            questionImgDto.getId(),
+                            questionImgDto.getQuestionImgRoute(),
+                            questionImgDto.getQuestionImgName(),
+                            questionImgDto.getQuestionImgUuid(),
+                            questionImgDto.getQuestionId()
+                    );
+
+                    return new QuestionListDto(
+                            questionDto.getId(),
+                            questionDto.getQuestionTitle(),
+                            questionDto.getQuestionContent(),
+                            questionDto.getQuestionRd(),
+                            questionDto.getQuestionMd(),
+                            questionDto.getUserId(),
+                            questionDto.getUserName(),
+                            Collections.singletonList(imgDto)
+                    );
+                }).collect(Collectors.toList());
+
+        System.out.println(contents.toString()+"리스트 ");
+
+
+
+
+        return new PageImpl<>(contents, pageable,count);
+    }
+
+
+    // 전체 페이지 조회 및 검색어 확인
+    private Long getCount(String keyword){
+
+        Long count = jpaQueryFactory
+                .select(question.count())
+                .from(question)
+                .where(qnatitleEq(keyword))
+                .fetchOne();
+
+        return count;
+
+    }
+
+        // 검색 조건 코드
+    private BooleanExpression qnatitleEq(String keyword){
+        return StringUtils.hasText(keyword) ? question.questionTitle.containsIgnoreCase(keyword) : null;
+    }
 
 //    @Override
 //    public List<QuestionDetailResultDto> findQnaById(Long id) {
@@ -72,61 +155,8 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
 //                .fetch();
 //    }
 
-    //    전체 리스트 코드
-//    private List<QuestionDto> getQuestionList(Pageable pageable, String keyword){
-//
-//
-//        List<QuestionDto> contentList= jpaQueryFactory
-//                .select(new QQuestionDto(
-//                        question.id,
-//                        question.questionTitle,
-//                        question.questionContent,
-//                        question.questionRd,
-//                        question.questionMd,
-//                        users.id,
-//                        users.userName,
-//                        questionImg.id,
-//                        questionImg.questionImgRoute,
-//                        questionImg.questionImgName,
-//                        questionImg.questionImgUuid
-//                ))
-//                .from(question)
-//                .leftJoin(question.questionImg,questionImg)
-//                .leftJoin(question.users,users)
-//                .where(
-//                        qnatitleEq(keyword))
-//                .offset(pageable.getOffset())
-//                .limit(pageable.getPageSize())
-//                .fetch();
-//
-//
-//                contentList.forEach(r ->
-//                        System.out.println(r.getId()+"나와랑!!")
-//                       );
-//
-//
-//
-//            return contentList;
-//    }
-//
-//
- // 전체 페이지 조회 및 검색어 확인
-    private Long getCount(String keyword){
 
-        Long count = jpaQueryFactory
-                .select(question.count())
-                .from(question)
-                .where(qnatitleEq(keyword))
-                .fetchOne();
 
-        return count;
-
-    }
-//
-//    // 검색 조건 코드
-    private BooleanExpression qnatitleEq(String keyword){
-        return StringUtils.hasText(keyword) ? question.questionTitle.containsIgnoreCase(keyword) : null;
-    }
 
 //    // 게시판 번호를 보내주면 데이터가 뽑히는지 확인
 //
@@ -157,36 +187,7 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
 //                });
 //    }
 
-// question의 값을 불러오기
-    public List<QuestionListDto> getQuestion(Pageable pageable, String keyword){
-//        List<QuestionListDto> questionListDtos = jpaQueryFactory
-//                .select(new QQuestionListDto(
-//                        question.id,
-//                        question.questionTitle,
-//                        question.questionContent,
-//                        question.questionRd,
-//                        question.questionMd,
-//                        question.users.id,
-//                        question.users.userName,
-//                        new QQuestionImgDto(
-//                                questionImg.id,
-//                                questionImg.questionImgRoute,
-//                                questionImg.questionImgName,
-//                                questionImg.questionImgUuid,
-//                                questionImg.question.id
-//                        )
-//                )).
-//                .from(question)
-//                .leftJoin(questionImg).on(question.id.eq(questionImg.question.id))
-//                .where( qnatitleEq(keyword))
-//                .offset(pageable.getOffset())
-//                .limit(pageable.getPageSize())
-//                .fetch();
-
-        return null;
-
-    }
-
-
 
 }
+
+
