@@ -141,13 +141,13 @@ main{
 
     /* background-color: firebrick; */
 }
-.selct-one-member{
+.select-one-member{
     width: 100px;
     height: 25px;
 
     /* background-color: yellow; */
 }
-.selct-one-member select{
+.select-one-member select{
     width: 100%;
     height: 100%;
 

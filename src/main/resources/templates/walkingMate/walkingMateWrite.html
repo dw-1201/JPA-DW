@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/fragment/css/header.css">
     <link rel="stylesheet" href="/fragment/css/footer.css">
     <link rel="stylesheet" href="/walkingMate/css/walkingMateWrite.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <title>산책메이트 글 작성</title>
 </head>
 <body>
@@ -39,32 +40,23 @@
 
     <!-- main 시작 -->
     <main>
+        <form action="/walk/registerWalkMate" method="post">
         <div class="main-container">
             <div class="cate-title-box">산책메이트</div>
             <div class="mate-title-box">
                 <div class="title-input-wrap">
-                    <input type="text" placeholder="제목을 입력해주새요">
+                    <input type="text" name="walkingMateTitle" placeholder="제목을 입력해주새요">
                 </div>
             </div>
             <div class="mate-content-box">
-                <textarea name="" placeholder="내용을 입력해주세요"></textarea>
+                <textarea name="walkingMateContent" placeholder="내용을 입력해주세요"></textarea>
             </div>
             <div class="mate-select-box">
                 <div class="select-time">
                     <div class="select-time-title">약속 시간</div>
                     <div class="selct-one-time">
-                        <select name="" id="">
-                            <option value="">10:00</option>
-                            <option value="">11:00</option>
-                            <option value="">12:00</option>
-                            <option value="">13:00</option>
-                            <option value="">14:00</option>
-                            <option value="">15:00</option>
-                            <option value="">16:00</option>
-                            <option value="">17:00</option>
-                            <option value="">18:00</option>
-                            <option value="">19:00</option>
-                            <option value="">20:00</option>
+                        <select name="walkingMateTime" id="walkingMateTime">
+
                         </select>
                     </div>
 
@@ -73,11 +65,11 @@
 
                 <div class="select-member">
                     <div class="select-member-title">산책 인원</div>
-                    <div class="selct-one-member">
-                        <select name="" id="">
-                            <option value="">2 명</option>
-                            <option value="">3 명</option>
-                            <option value="">4 명</option>
+                    <div class="select-one-member">
+                        <select name="walkingMatePerson" >
+                            <option value="2">2 명</option>
+                            <option value="3">3 명</option>
+                            <option value="4">4 명</option>
 
                         </select>
                     </div>
@@ -101,31 +93,35 @@
                     <div class="title-n-date">
                         <div class="select-date-title">약속 날짜</div>
                         <div class="selected-date-wrap">
-                            <div class="selected-date">2023-11-28</div>
+                            <div class="selected-date"><input type="text"  value=""/> 2023-11-28</div>
                             <img src="/img/magnifier.png" alt="">
+
                         </div>
                     </div>
                     <div class="calender-wrap">
-                        <div class="calender"></div>
+                        <input type="text" id="datepicker" name="walkingMateDate"/>
                     </div>
                 </div>
                 <div class="select-region">
                     <div class="select-region-title-n-search">
                         <div class="select-region-title">약속 장소</div>
                         <div class="searchbox">
-                            <input type="text">
-                            <img src="/img/magnifier.png" alt="">
+                            <input type="text" id="addr" name="walkingMateFullAddress" value="" />
+                            <input type="text" id="city" name="walkCity" value=""/>
+                            <input type="text" id="county" name="walkCounty" value=""/>
+                            <img src="/img/magnifier.png" alt="" id="search-btn">
                         </div>
                     </div>
                     <div class="map-wrap">
-                        <div class="map"></div>
+                        <div id="map" class="map"></div>
                     </div>
                 </div>
             </div>
             <div class="mate-btn-box">
-                <div class="mate-btn">글 등록</div>
+                <div class="mate-btn"><button class="submit-btn">글 등록</button></div>
             </div>
         </div>
+        </form>
     </main>
 
     <!-- footer 시작 -->
@@ -159,5 +155,15 @@
         </div>
     </div>
     <!-- footer 끝 -->
+
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2d8cddce5e1cf36a90728390b847c19c&autoload=false&libraries=services"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" ></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="/walkingMate/js/walkingMateWrite.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
 </body>
 </html>
