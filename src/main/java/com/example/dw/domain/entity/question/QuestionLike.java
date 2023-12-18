@@ -2,13 +2,16 @@ package com.example.dw.domain.entity.question;
 
 import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
-@Setter
+
 @Table(name = "question_like")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class QuestionLike {
     @Id
     @GeneratedValue

@@ -50,7 +50,7 @@ public class GoodsService {
         return validatorResult;
     }
 
-    
+
     //상품 수정
     @Transactional
     public Goods modify(GoodsForm goodsForm, MultipartFile file, List<MultipartFile> files)
@@ -61,7 +61,7 @@ public class GoodsService {
 
                 //기존 사진 삭제
                 fileService.removeMainImg(goodsForm.getId());
-                
+
                 //새로 수정된 사진 로컬 서버 저장 및 DB저장
                 fileService.registerMainImg(file, goodsForm.getId());
             }else{
@@ -88,7 +88,7 @@ public class GoodsService {
 
     }
 
-    
+
     //상품 삭제
     @Transactional
     public void delete(Long goodsId){
@@ -101,7 +101,6 @@ public class GoodsService {
 
         fileService.removeMainImg(goodsId);
         fileService.removeDetailImgs(goodsId);
-
         goodsRepository.deleteById(goodsId);
 
 

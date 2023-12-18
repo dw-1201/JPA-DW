@@ -1,47 +1,68 @@
 
+// 검색어 입력 이벤트 감지
+$('#freeBoard-search-keyword').on('input', function() {
+    keyword = $(this).val();
+});
+
+// 엔터 키 입력 시 검색 실행
+$('#freeBoard-search-keyword').on('keyup', function(event) {
+    if (event.key === 'Enter') {
+        freeBoardList(0, keyword);
+    }
+});
+
+let keyword; // 전역 변수로 변경
+
 $(document).ready(function (){
-    freeBoardList(0,searchFreeBoardForm());
-})
+    keyword = $('#freeBoard-search-keyword').val(); // 전역 변수에 할당
+    freeBoardList(0, keyword);
+});
 
 $('.ddd').on('click', function (){
-    freeBoardList(0, searchFreeBoardForm());
-
-})
-
-let keyword = $('#freeBoard-search-keyword').val();
+    keyword = $('#freeBoard-search-keyword').val(); // 전역 변수에 할당
+    freeBoardList(0, keyword);
+});
 
 //input에서 받은 결과를 넘긴다.
-function searchFreeBoardForm(){
-    return {
-        keyword : $('#freeBoard-search-keyword').val()
-    };
-}
+// function searchFreeBoardForm(){
+//     return {
+//         keyword : $('#freeBoard-search-keyword').val()
+//     };
+// }
 
-function freeBoardList( page, keyword, callback){
-
-
+function freeBoardList(page, keyword, callback){
     $.ajax({
-
         url:`/communities/freeBoardList/${page}`,
         type:'get',
-        // data:searchForm,
-        data: { keyword: keyword.keyword },
+        data: { keyword: keyword,
+        }, // 데이터 전달 수정
         dataType:'json',
-        success :function (result){
-            console.log(result.pageable)
-            console.log(result.number)
-            console.log(result.content)
-
-            showFreeBoardList(result.content)
-            pagination(result)
-
-        },error : function (a,b,c){
+        success: function(result) {
+            console.log(result.pageable);
+            console.log(result.number);
+            console.log(result.content);
+            console.log(result.commentCount);
+            showFreeBoardList(result.content);
+            pagination(result);
+        },
+        error: function(a, b, c) {
             console.error(c);
         }
-
-
-    })
+    });
 }
+// 정렬 라디오 버튼에 이벤트 추가
+// $('.input-radio').on('change', function() {
+//     const sort = $(this).val();
+//     keyword = $('#freeBoard-search-keyword').val();
+//     freeBoardList(0, keyword, sort);
+// });
+//
+// // 초기 로딩 시 최신순으로 데이터 가져오기
+// $(document).ready(function() {
+//     keyword = $('#freeBoard-search-keyword').val();
+//     const sort = 'recent'; // 기본 정렬 기준
+//     freeBoardList(0, keyword, sort);
+// });
 
 //자유게시판 리스트
 function showFreeBoardList(result) {
@@ -55,7 +76,45 @@ function showFreeBoardList(result) {
     textInput.html(text);
 }
 
+// 시간 차이 계산 및 출력할 시간 설정 함수
+function getTimeAgo(postTime) {
+    const currentTime = new Date();
+    const timeDifference = currentTime - postTime;
+    const seconds = Math.floor(timeDifference / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const months = Math.floor(days / 30);
+    const years = Math.floor(months / 12);
+
+    let timeAgo;
+    if (seconds < 60) {
+        timeAgo = `${seconds}초 전`;
+    } else if (minutes < 60) {
+        timeAgo = `${minutes}분 전`;
+    } else if (hours < 24) {
+        timeAgo = `${hours}시간 전`;
+    } else if (days < 30) {
+        timeAgo = `${days}일 전`;
+    } else if (months < 12) {
+        timeAgo = `${months}달 전`;
+    } else {
+        timeAgo = `${years}년 전`;
+    }
+
+    return timeAgo;
+}
+
+
+
+// 리스트 아이템 생성 함수
 function createFreeBoardListItem(r) {
+    const postTime = new Date(r.freeBoardRd);
+    const timeAgo = getTimeAgo(postTime);
+
+    const modifiedTime = new Date(r.freeBoardMd);
+    const modifiedTimeAgo = getTimeAgo(modifiedTime);
+
     let listItem = `
         <a href="/community/freeBoardDetail/${r.id}">
             <div class="list-content">
@@ -69,12 +128,11 @@ function createFreeBoardListItem(r) {
                             <span>${r.userAccount}</span>
                         </div>
                         <div class="list-content-reply">
-                            <span>조회수 ${r.freeBoardViewCount}</span>
-                            <span class="reply-count"></span>
+                            <span> 조회수 ${r.freeBoardViewCount} </span>
+                            <span class="reply-count"> (댓글 ${r.freeBoardCommentCount}) </span>
                         </div>
                         <div class="list-content-time">
-                            <span>${r.freeBoardRd}</span>
-                            <div class="list-content-time">${r.freeBoardMd}</div>
+                            ${r.freeBoardMd ? `<span>${modifiedTimeAgo}</span>` : `<span>${timeAgo}</span>`}
                         </div>
                     </div>
                 </div>
@@ -85,13 +143,10 @@ function createFreeBoardListItem(r) {
                     </div>
                 </div>
             </div>
-        </div>
-    </a>`;
+        </a>`;
 
     return listItem;
 }
-
-
 
 function pagination(result) {
     let paginations = $('.pagination-ul');
@@ -147,7 +202,6 @@ function pagination(result) {
 //         }
 //     });
 // });
-
 
 
 

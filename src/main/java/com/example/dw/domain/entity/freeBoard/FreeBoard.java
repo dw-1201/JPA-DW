@@ -8,9 +8,12 @@ import lombok.Builder;
 import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,20 +35,23 @@ public class FreeBoard {
     @Column(length = 100, nullable= false)
     private String freeBoardTitle;
 
-//    @Column(columnDefinition = "TEXT" , nullable = false)
     private String freeBoardContent;
 
-    @Default
-    private LocalDate freeBoardRd = LocalDate.now();
+    @CreatedDate
+    private String freeBoardRd;
 
-    @Default
-    private LocalDate freeBoardMd = LocalDate.now();
+    @LastModifiedDate
+    private String freeBoardMd;
 
     @Default
     private Long freeBoardViewCount = 0L;
 
+    @Default
+    private Long freeBoardCommentCount = 0L; // 댓글 수 추가
+
     @OneToMany(mappedBy = "freeBoard" ,fetch = FetchType.LAZY, orphanRemoval = true)
     private List<FreeBoardImg> freeBoardImg = new ArrayList<>();
+
     /**
      * orphanRemoval = true
      * 1.일대다 관계에서 사용
@@ -67,7 +73,8 @@ public class FreeBoard {
 
     @Builder
     public FreeBoard(Long id, String freeBoardTitle, String freeBoardContent,
-                     LocalDate freeBoardRd, LocalDate freeBoardMd, Long freeBoardViewCount,
+                     String freeBoardRd, String freeBoardMd,
+                     Long freeBoardViewCount, Long freeBoardCommentCount,
                      List<FreeBoardImg> freeBoardImg, List<FreeBoardComment> freeBoardComment,
                      FreeBoardLike freeBoardLike, Users users) {
         this.id = id;
@@ -76,6 +83,7 @@ public class FreeBoard {
         this.freeBoardRd = freeBoardRd;
         this.freeBoardMd = freeBoardMd;
         this.freeBoardViewCount = freeBoardViewCount;
+        this.freeBoardCommentCount = freeBoardCommentCount;
         this.freeBoardImg = freeBoardImg;
         this.freeBoardComment = freeBoardComment;
         this.freeBoardLike = freeBoardLike;
@@ -83,12 +91,25 @@ public class FreeBoard {
     }
 
     //자유게시판 수정
-    public FreeBoard update(FreeBoardModifyForm freeBoardModifyForm) {
+    public void update(FreeBoardModifyForm freeBoardModifyForm) {
         this.freeBoardTitle = freeBoardModifyForm.getFreeBoardTitle();
         this.freeBoardContent = freeBoardModifyForm.getFreeBoardContent();
-        this.freeBoardMd = freeBoardModifyForm.getFreeBoardMd();
+        this.freeBoardMd = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
 
-        return this;
+
+    }
+
+    //날짜포맷
+    @PrePersist
+    public void onPrePersist(){
+        this.freeBoardRd = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+        this.freeBoardMd=this.freeBoardRd;
+    }
+
+    @PreUpdate
+    public void onPreUpdate(){
+        this.freeBoardMd = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
     }
 }
+
 

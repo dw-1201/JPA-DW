@@ -22,7 +22,8 @@
         <div class="main-container">
             <div class="nav-container">
                 <ul>
-                    <li><a href="/qna/qmain">QnA</a></li>
+
+                    <li><a href="/qna/qnaLists">QnA</a></li>
                     <li  class="menu-title">
                         <a href="/community/freeBoardList">자유게시판</a>
                     </li>
@@ -30,18 +31,17 @@
                 </ul>
             </div>
             <div class="search-container">
-
                 <div class="searchbox"  > <!--id="searchForm" -->
                 <a href="" class="result-btn"><img src="/img/magnifier.png" alt=""></a>
                 <input type="text" name="keyword" id="freeBoard-search-keyword"  placeholder="찾으시는 인기글이 있으신가요?">
-                <button type="button" class="ddd" >버튼</button>
+<!--                <button type="button" class="ddd" >버튼</button>-->
 
             </div>
 
             </div>
             <div class="best-container">
                 <div class="best-container-title">인기글</div>
-                <div class="best-container-contents">
+                <div class="best-container-contents" >
 
                     <a href="" class="best-container-content">
 
@@ -106,46 +106,14 @@
                         <a class="write-btn" href="/community/freeBoardWriting">글쓰기</a>
                     </div>
                 </div>
-                <div class="list-contents-box">
-
-
-    <!-- 리스트 시작 -->
-<!--        <div class="content-text-box">-->
-<!--            <div class="list-content-title" th:text="${freeBoardDto.freeBoardTitle}"></div>-->
-<!--            <div class="list-content-content" th:text="${freeBoardDto.freeBoardContent}"></div>-->
-<!--            <div class="list-content-etc">-->
-<!--                <div class="list-content-id">-->
-<!--                    <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt=""></div>-->
-<!--                    <span th:text="${freeBoardDto.users.id}"></span>-->
-<!--                </div>-->
-<!--                <div class="list-content-reply">-->
-<!--                    <span>댓글</span>-->
-<!--                    <span class="reply-count" th:text="${freeBoardDto.freeBoardViewCount}"></span>-->
-<!--                </div>-->
-<!--                <div class="list-content-time">-->
-<!--                    <span th:text="${#temporals.format(freeBoardDto.freeBoardRd, 'yyyy-MM-dd HH:mm')}"></span>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="content-img-box" th:if="${not #lists.isEmpty(freeBoardDto.freeBoardImg)}">-->
-<!--            <div class="content-img">-->
-<!--                <img th:src="${freeBoardDto.freeBoardImg[0].imageUrl}" alt="">-->
-<!--            </div>-->
-<!--        </div>-->
-    <!-- 리스트 끝 -->
+                <div class="list-contents-box" >
 
             </div>
 
             <div class="list-page-container">
                 <div class="list-pages">
                     <ul class="pagination-ul">
-<!--                        <li><a href="">&lt;</a></li>-->
-<!--                        <li><a href="">1</a></li>-->
-<!--                        <li><a href="">2</a></li>-->
-<!--                        <li><a href="">3</a></li>-->
-<!--                        <li><a href="">4</a></li>-->
-<!--                        <li><a href="">5</a></li>-->
-<!--                        <li><a href="">&gt;</a></li>-->
+
                     </ul>
                 </div>
             </div>

@@ -4,8 +4,6 @@ import com.example.dw.domain.entity.freeBoard.FreeBoard;
 import com.example.dw.domain.entity.user.Users;
 import lombok.*;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
 @ToString
@@ -15,8 +13,7 @@ public class FreeBoardModifyForm {
     private Long id;
     private String freeBoardTitle;
     private String freeBoardContent;
-    private LocalDate freeBoardMd;
-    private Long userId;  // 추가: 사용자 ID
+    private Long userId;
 
 
     public FreeBoard toEntity(){
@@ -29,13 +26,11 @@ public class FreeBoardModifyForm {
     }
 
     @Builder
-    public FreeBoardModifyForm(Long id, String freeBoardTitle,
-                               String freeBoardContent, LocalDate freeBoardMd, Long userId) {
-        this.id=id;
+    public FreeBoardModifyForm(Long id, String freeBoardTitle, String freeBoardContent,
+                                Long userId) {
+        this.id = id;
         this.freeBoardTitle = freeBoardTitle;
         this.freeBoardContent = freeBoardContent;
-        this.freeBoardMd = freeBoardMd;
         this.userId = userId;
-
     }
 }

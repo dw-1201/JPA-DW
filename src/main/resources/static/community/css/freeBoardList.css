@@ -274,10 +274,12 @@ main{
 }
 .reply-count{
     margin: 0 3px;
+    font-size: 11px;
+    color: blue;
 }
 .content-img-box{
     width: 980px;
-    height: 10px;
+    height: 0px;
     display: flex;
     justify-content: end;
     align-items: end;

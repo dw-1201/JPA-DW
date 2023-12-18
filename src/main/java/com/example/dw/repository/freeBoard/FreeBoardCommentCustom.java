@@ -6,9 +6,6 @@ import java.util.List;
 
 public interface FreeBoardCommentCustom {
 
-
     //댓글 목록 불러오기
     List<FreeBoardCommentDto> findFreeBoardCommentsByFreeBoardId(Long freeBoardId);
-
-
 }

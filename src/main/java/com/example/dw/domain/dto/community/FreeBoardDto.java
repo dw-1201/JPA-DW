@@ -4,8 +4,6 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 //freeBoardList 게시판 조회를 위한 DTO
 @Data
 @NoArgsConstructor
@@ -14,9 +12,10 @@ public class FreeBoardDto {
     private Long id;
     private String freeBoardTitle;
     private String freeBoardContent;
-    private LocalDate freeBoardRd;
-    private LocalDate freeBoardMd;
+    private String freeBoardRd;
+    private String freeBoardMd;
     private Long freeBoardViewCount;
+    private Long freeBoardCommentCount; // 댓글 수 추가
 
     //자유게시판 이미지 추가
     private Long freeBoardImgId;
@@ -31,8 +30,8 @@ public class FreeBoardDto {
 
     @QueryProjection
     public FreeBoardDto(Long id, String freeBoardTitle, String freeBoardContent,
-                        LocalDate freeBoardRd, LocalDate freeBoardMd, Long freeBoardViewCount,
-                        Long freeBoardImgId, String freeBoardImgRoute, String freeBoardImgName,
+                        String freeBoardRd, String freeBoardMd, Long freeBoardViewCount,
+            Long freeBoardCommentCount, Long freeBoardImgId, String freeBoardImgRoute, String freeBoardImgName,
                         String freeBoardImgUuid, Long userId, String userAccount,
                         String userNickName) {
         this.id = id;
@@ -41,6 +40,8 @@ public class FreeBoardDto {
         this.freeBoardRd = freeBoardRd;
         this.freeBoardMd = freeBoardMd;
         this.freeBoardViewCount = freeBoardViewCount;
+
+        this.freeBoardCommentCount = freeBoardCommentCount;
 
         //자유게시판 이미지 추가
         this.freeBoardImgId = freeBoardImgId;
@@ -52,5 +53,9 @@ public class FreeBoardDto {
         this.userId = userId;
         this.userAccount = userAccount;
         this.userNickName = userNickName;
+    }
+
+    public void setFreeBoardCommentCount(Long freeBoardCommentCount) {
+        this.freeBoardCommentCount = freeBoardCommentCount;
     }
 }

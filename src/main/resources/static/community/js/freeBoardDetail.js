@@ -167,7 +167,7 @@ function freeBoardCommentList(result) {
             <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>
             <div class="reply-id">${r.userId}</div>
           </div>
-          <div class="reply-date">${timeForToday(r.freeBoardCommentRd)}</div>
+          <div class="reply-date">${r.freeBoardCommentMd ? timeForToday(r.freeBoardCommentMd) : timeForToday(r.freeBoardCommentRd)}</div>
         </div>
         <div class="reply-content-n-btns">
           <div class="reply-content">${r.freeBoardCommentContent}</div>`;

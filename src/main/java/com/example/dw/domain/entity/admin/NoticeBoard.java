@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,7 +15,6 @@ import java.time.format.DateTimeFormatter;
 @Entity
 @Getter
 @Builder
-@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "notice_board")
 public class NoticeBoard {
@@ -31,7 +29,7 @@ public class NoticeBoard {
     @Builder.Default
     private Long noticeBoardViewCount = 0L;
     @CreatedDate
-    private String noticeBoardRd = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+    private String noticeBoardRd;
     @LastModifiedDate
     private String noticeBoardMd ;
 
@@ -58,4 +56,18 @@ public class NoticeBoard {
 
         return this;
     }
+
+
+    @PrePersist
+    public void onPrePersist(){
+        this.noticeBoardRd = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+        this.noticeBoardMd=this.noticeBoardRd;
+    }
+
+    @PreUpdate
+    public void onPreUpdate(){
+        this.noticeBoardMd = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+    }
+
+
 }

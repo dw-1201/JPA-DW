@@ -1,13 +1,33 @@
 import  * as page from './module/pagination.js';
 
 
+//상세페이지 진입
+$('.user-list').on('click','.modify-btn', function(){
 
-$('.detail-btn').on('click', function(){
+    let userId = $('.modify-btn').data('userid')
 
-    window.location.href="/admin/html/adminUserDetail.html";
+    window.location.href="/admin/userDetail/"+userId;
 
 })
 
+//탈퇴 진입
+$('.user-list').on('click','.delete-btn',function (){
+    let userId = $('.delete-btn').data('userid')
+
+    if(confirm("회원 탈퇴 처리하시겠습니까?")){
+        window.location.href="/admin/userDelete/" +userId;
+
+    }
+})
+
+//회원 복구 진입
+$('.user-list').on('click','.recover-btn', function (){
+    let userId = $('.recover-btn').data('userid');
+
+    if(confirm("회원 복구 처리하시겠습니까?")){
+        window.location.href="/admin/userRecover/" + userId;
+    }
+})
 
 function searchUserForm(){
 
@@ -89,16 +109,25 @@ function showUserList(result){
                         <td>${r.userName}</td>
                         <td>${r.userEmail}</td>
                         <td>${r.userPhone}</td>
-                        <td>추후 조인</td>
+                        <td>${r.freeBoardCount + r.qnaBoardCount}</td>
                         <td>추후 조인</td>
                         <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                            <button type="button" class="delete-btn btn">탈퇴처리</button>
+                            <button type="button" class="modify-btn btn" data-userid="${r.id}">상세보기</button>
+                            `;
+
+            if(r.userState == 1){
+                text+=    `<button type="button" class="delete-btn btn" data-userid="${r.id}">탈퇴처리</button>`;
+
+            }else if(r.userState==0){
+                text+=    `<button type="button" class="recover-btn btn" data-userid="${r.id}">회원복구</button>`;
+
+            }
+                text+= `
                         </td>
                     </tr>
-        
+                    `
        
-        `;
+
 
 
     })

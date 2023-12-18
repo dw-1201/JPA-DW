@@ -11,28 +11,8 @@
 </head>
 <body>
     <!-- header 시작 -->
-    <div class="header">
-        <div class="header-section01">
-            <div class="header-section01-nav">
-                <ul>
-                    <li><a href="">로그인</a></li>
-                    <li><a href="">장바구니</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="header-section02">
-            <div class="header-section02-container">
-                <div class="header-logo"><a href=""><img src="/img/logo.png" alt=""></a></div>
-                <div class="header-section02-nav">
-                    <ul>
-                        <li><a href="/shopping/html/shop.html">쇼핑</a></li>
-                        <li><a href="/community/html/freeBoardList.html">커뮤니티</a></li>
-                        <li><a href="/walkingMate/html/walkingMateList.html">산책메이트</a></li>
-                        <li><a href="/map/html/map.html">병원찾기</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <div class="header" th:replace="fragment/header :: header">
+
     </div>
     <!-- header 끝 -->
 
@@ -41,14 +21,15 @@
         <div class="main-container">
             <div class="nav-container">
                 <ul>
-                    <li class="menu-title"><a href="">QnA</a></li>
+                    <li class="menu-title"><a href="/qna/qnaLists">QnA</a></li>
                     <li><a href="">자유게시판</a></li>
                     <li><a href="">공지사항</a></li>
                 </ul>
             </div>
             <div class="search-container">
                 <div class="searchbox">
-                    <img src="/img/magnifier.png" alt=""><input type="text" placeholder="찾으시는 질문이 있으신가요?">
+                    <img src="/img/magnifier.png" alt=""><input type="text" class="search-question" name="keyword" placeholder="찾으시는 질문이 있으신가요?">
+                    <button type="button" class="sbtn search-btn" >버튼</button>
                 </div>
             </div>
             <div class="best-container">
@@ -95,251 +76,57 @@
                 </div>
             </div>
             <div class="list-container">
-                <div class="list-order-box">
-                    <ul>
-                        <li>
-                            <label>
-                                <input type="radio" value="recent" name="radio-btn" class="radio-btn">
-                                <span>최신 순</span>
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <input type="radio" value="reply" name="radio-btn" class="radio-btn">
-                                <span>댓글 순</span>
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <input type="radio" value="best" name="radio-btn" class="radio-btn"> 
-                                <span>인기 순</span>
-                            </label>
-                        </li>
-                    </ul>
+                <div class="order-n-writebtn">
+                    <div class="list-order-box">
+                        <ul>
+                            <li>
+                                <label>
+                                    <input type="radio" value="recent" name="radio-btn" class="radio-btn">
+                                    <span>최신 순</span>
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input type="radio" value="reply" name="radio-btn" class="radio-btn">
+                                    <span>댓글 순</span>
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input type="radio" value="best" name="radio-btn" class="radio-btn">
+                                    <span>인기 순</span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="write-btn-box">
+                        <div class="write-btn"><a href="/qna/qnawrite">글쓰기</a></div>
+                    </div>
                 </div>
                 <div class="list-contents-box">
-                    <a href="">
-                        <div class="list-content">
-                            <div class="list-content-title">강아지 저알러지,가수분해 간식 추천</div>
-                            <div class="list-content-content">안녕하세요 알레르기가 심한 아이 주인 입니다!저희 아이는 진짜 조금만 잘못 먹여도 눈물이..</div>
-                            <div class="list-content-etc">
-                                <div class="list-content-id">
-                                    <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt=""></div>
-                                    <span>안참아말티쥬</span>
-                                </div>
-                                <div class="list-content-reply">
-                                    <span>댓글</span>
-                                    <span class="reply-count">5</span>
-                                </div>
-                                <div class="list-content-time">
-                                    <span>13분 전</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
 
-                    <div class="list-content">
-                        <div class="list-content-title">강아지 저알러지,가수분해 간식 추천</div>
-                        <div class="list-content-content">안녕하세요 알레르기가 심한 아이 주인 입니다!저희 아이는 진짜 조금만 잘못 먹여도 눈물이..</div>
-                        <div class="list-content-etc">
-                            <div class="list-content-id">
-                                <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt=""></div>
-                                <span>안참아말티쥬</span>
-                            </div>
-                            <div class="list-content-reply">
-                                <span>댓글</span>
-                                <span class="reply-count">5</span>
-                            </div>
-                            <div class="list-content-time">
-                                <span>13분 전</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-content">
-                        <div class="list-content-title">강아지 저알러지,가수분해 간식 추천</div>
-                        <div class="list-content-content">안녕하세요 알레르기가 심한 아이 주인 입니다!저희 아이는 진짜 조금만 잘못 먹여도 눈물이..</div>
-                        <div class="list-content-etc">
-                            <div class="list-content-id">
-                                <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt=""></div>
-                                <span>안참아말티쥬</span>
-                            </div>
-                            <div class="list-content-reply">
-                                <span>댓글</span>
-                                <span class="reply-count">5</span>
-                            </div>
-                            <div class="list-content-time">
-                                <span>13분 전</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-content">
-                        <div class="list-content-title">강아지 저알러지,가수분해 간식 추천</div>
-                        <div class="list-content-content">안녕하세요 알레르기가 심한 아이 주인 입니다!저희 아이는 진짜 조금만 잘못 먹여도 눈물이..</div>
-                        <div class="list-content-etc">
-                            <div class="list-content-id">
-                                <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt=""></div>
-                                <span>안참아말티쥬</span>
-                            </div>
-                            <div class="list-content-reply">
-                                <span>댓글</span>
-                                <span class="reply-count">5</span>
-                            </div>
-                            <div class="list-content-time">
-                                <span>13분 전</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-content">
-                        <div class="list-content-title">강아지 저알러지,가수분해 간식 추천</div>
-                        <div class="list-content-content">안녕하세요 알레르기가 심한 아이 주인 입니다!저희 아이는 진짜 조금만 잘못 먹여도 눈물이..</div>
-                        <div class="list-content-etc">
-                            <div class="list-content-id">
-                                <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt=""></div>
-                                <span>안참아말티쥬</span>
-                            </div>
-                            <div class="list-content-reply">
-                                <span>댓글</span>
-                                <span class="reply-count">5</span>
-                            </div>
-                            <div class="list-content-time">
-                                <span>13분 전</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-content">
-                        <div class="list-content-title">강아지 저알러지,가수분해 간식 추천</div>
-                        <div class="list-content-content">안녕하세요 알레르기가 심한 아이 주인 입니다!저희 아이는 진짜 조금만 잘못 먹여도 눈물이..</div>
-                        <div class="list-content-etc">
-                            <div class="list-content-id">
-                                <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt=""></div>
-                                <span>안참아말티쥬</span>
-                            </div>
-                            <div class="list-content-reply">
-                                <span>댓글</span>
-                                <span class="reply-count">5</span>
-                            </div>
-                            <div class="list-content-time">
-                                <span>13분 전</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-content">
-                        <div class="list-content-title">강아지 저알러지,가수분해 간식 추천</div>
-                        <div class="list-content-content">안녕하세요 알레르기가 심한 아이 주인 입니다!저희 아이는 진짜 조금만 잘못 먹여도 눈물이..</div>
-                        <div class="list-content-etc">
-                            <div class="list-content-id">
-                                <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt=""></div>
-                                <span>안참아말티쥬</span>
-                            </div>
-                            <div class="list-content-reply">
-                                <span>댓글</span>
-                                <span class="reply-count">5</span>
-                            </div>
-                            <div class="list-content-time">
-                                <span>13분 전</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-content">
-                        <div class="list-content-title">강아지 저알러지,가수분해 간식 추천</div>
-                        <div class="list-content-content">안녕하세요 알레르기가 심한 아이 주인 입니다!저희 아이는 진짜 조금만 잘못 먹여도 눈물이..</div>
-                        <div class="list-content-etc">
-                            <div class="list-content-id">
-                                <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt=""></div>
-                                <span>안참아말티쥬</span>
-                            </div>
-                            <div class="list-content-reply">
-                                <span>댓글</span>
-                                <span class="reply-count">5</span>
-                            </div>
-                            <div class="list-content-time">
-                                <span>13분 전</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-content">
-                        <div class="list-content-title">강아지 저알러지,가수분해 간식 추천</div>
-                        <div class="list-content-content">안녕하세요 알레르기가 심한 아이 주인 입니다!저희 아이는 진짜 조금만 잘못 먹여도 눈물이..</div>
-                        <div class="list-content-etc">
-                            <div class="list-content-id">
-                                <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt=""></div>
-                                <span>안참아말티쥬</span>
-                            </div>
-                            <div class="list-content-reply">
-                                <span>댓글</span>
-                                <span class="reply-count">5</span>
-                            </div>
-                            <div class="list-content-time">
-                                <span>13분 전</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-content">
-                        <div class="list-content-title">강아지 저알러지,가수분해 간식 추천</div>
-                        <div class="list-content-content">안녕하세요 알레르기가 심한 아이 주인 입니다!저희 아이는 진짜 조금만 잘못 먹여도 눈물이..</div>
-                        <div class="list-content-etc">
-                            <div class="list-content-id">
-                                <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt=""></div>
-                                <span>안참아말티쥬</span>
-                            </div>
-                            <div class="list-content-reply">
-                                <span>댓글</span>
-                                <span class="reply-count">5</span>
-                            </div>
-                            <div class="list-content-time">
-                                <span>13분 전</span>
-                            </div>
-                        </div>
+
+
+                </div>
+                <div class="list-page-container">
+                    <div class="list-pages">
+                        <ul class="list-pagestions">
+
+                        </ul>
                     </div>
                 </div>
             </div>
-            <div class="list-page-container">
-                <div class="list-pages">
-                    <ul>
-                        <li><a href="">&lt;</a></li>
-                        <li><a href="">1</a></li>
-                        <li><a href="">2</a></li>
-                        <li><a href="">3</a></li>
-                        <li><a href="">4</a></li>
-                        <li><a href="">5</a></li>
-                        <li><a href="">&gt;</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="ad-container"></div>
         </div>
     </main>
 
     <!-- footer 시작 -->
-    <div class="footer">
-        <div class="footer-container01">
-            <div class="footer-containerbox01">
-                <div class="footer-container01-nav">
-                    <ul>
-                        <li>(주)산책갈개</li>
-                        <li>복영헌 임형준 노의진 이지윤</li>
-                        <li>서울특별시 노원구 상계로1길 34 세일학원 5층</li>
-                        <li>02-933-5890</li>
-                    </ul>
-                </div>
-                <div class="footer-container01-img">
-                    <img src="/img/dog02.png" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="footer-container02">
-            <div class="footer-containerbox02">
-                <div>Copyright ©SCGG All Rights Reserved.</div>
-                <div class="footer-container02-nav">
-                    <ul>
-                        <li><a href="">이용약관</a></li>
-                        <li><a href="">개인정보처리방침</a></li>
-                        <li><a href="">사업자정보확인</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <div class="footer" th:replace="fragment/footer :: footer">
+
     </div>
     <!-- footer 끝 -->
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <script type="module" src="/community/js/qnaList.js"></script>
+
 </body>
+
 </html>

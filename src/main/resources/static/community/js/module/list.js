@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 //리스트 불러오기
 export function list(page,searchForm, name ,section, callback){
+=======
+// 리스트 불러오기
+export function list(page,searchForm,name,section,callback){
+>>>>>>> 634c56a2944fe2897abfa9566df126cdb7ff286b
 
     $.ajax({
 
@@ -7,6 +12,7 @@ export function list(page,searchForm, name ,section, callback){
         type:'get',
         data:searchForm,
         dataType:'json',
+<<<<<<< HEAD
         success :function (result){
             console.log(result.content)
             console.log(result.pageable)
@@ -34,3 +40,19 @@ export function sliding(a,b){
         });
 
 }
+=======
+        success: function (result){
+            console.log(result.content)
+            console.log(result.pageable)
+
+
+            if(callback){
+                callback(result)
+            }
+        },error : function (a,b,c){
+            console.error(c)
+        }
+    })
+
+}
+>>>>>>> 634c56a2944fe2897abfa9566df126cdb7ff286b

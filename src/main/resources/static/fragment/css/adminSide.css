@@ -24,7 +24,8 @@
 
 /* 스크롤 다운 시 관리자 페이지 타이틀 등장 설정 */
 .admin-hidden-title {
-    display: flex;
+    display: none;
+
     justify-content: center;
     align-items: center;
     font-size: 14px;
@@ -52,7 +53,7 @@
     display: block;
     margin: 0 auto;
     width: 1550px;
-    height: 100%;
+    height: 490px;
     position: relative;
 }
 
@@ -89,4 +90,25 @@
 /* 하위메뉴  */
 .sub-menu a {
     color: rgba(192, 192, 192, 0.833);
+}
+
+
+.admin-logout-section {
+    box-sizing: border-box;
+    padding: 0px 10px 8px 0px;
+    width: 100%;
+}
+
+.admin-logout-section form {
+
+    text-align: end;
+}
+
+.admin-logout-btn {
+    font-family: 'GmarketSansMedium';
+    text-align: end;
+    border: none;
+    background-color: white;
+    width: 100px;
+    cursor: pointer;
 }

@@ -51,8 +51,9 @@ public class FreeBoardComment {
         this.users = users;
     }
 
-    public FreeBoardComment update(FreeBoardCommentForm freeBoardCommentForm){
+    //
+    public void update(FreeBoardCommentForm freeBoardCommentForm){
         this.freeBoardCommentContent = freeBoardCommentForm.getFreeBoardCommentContent();
-        return this;
+        this.freeBoardCommentMd = LocalDateTime.now();
     }
 }

@@ -1,26 +1,50 @@
 package com.example.dw.service;
 
 
+import com.example.dw.domain.dto.admin.AdminDto;
+import com.example.dw.domain.entity.admin.Admin;
 import com.example.dw.domain.entity.admin.FaqBoard;
 import com.example.dw.domain.entity.admin.NoticeBoard;
 import com.example.dw.domain.form.FaqBoardForm;
 import com.example.dw.domain.form.NoticeBoardForm;
+import com.example.dw.repository.AdminRepository;
 import com.example.dw.repository.admin.FaqBoardRepository;
 import com.example.dw.repository.admin.NoticeBoardRepository;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class AdminService {
+public class AdminNoticeService {
 
+    private final AdminRepository adminRepository;
     private final NoticeBoardRepository noticeBoardRepository;
     private final FaqBoardRepository faqBoardRepository;
+
+
+
+    //관리자 로그인
+    @Transactional
+    public AdminDto adminLogin(String adminAccount, String adminPassword){
+
+       Admin admin= adminRepository.findByAdminAccountAndAdminPassword(adminAccount, adminPassword).get();
+
+       AdminDto adminDto = new AdminDto(admin.getId(), admin.getAdminAccount(), admin.getAdminPassword());
+
+        return adminDto;
+
+    }
+    //관리자 로그아웃
+    @Transactional
+    public void adminLogout(HttpSession session){
+        session.invalidate();
+    }
+
 
     //공지사항 작성
     @Transactional
@@ -42,13 +66,6 @@ public class AdminService {
 
     }
 
-
-    //Faq 조회
-    @Transactional
-    public List<FaqBoard> faqList(){
-        List<FaqBoard> list = faqBoardRepository.findAll();
-        return list;
-    }
 
 
     //Faq 상세 보기
@@ -117,5 +134,7 @@ public class AdminService {
 
         noticeBoardRepository.deleteById(id);
     }
+
+
 
 }

@@ -13,8 +13,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +21,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@SQLDelete(sql="UPDATE users set user_state = 0 where user_id = ?")
 @EntityListeners(AuditingEntityListener.class)
+@SQLDelete(sql="UPDATE users set user_state = 0 where user_id = ?")
 @Table(name = "users")
 public class Users {
     @Id @GeneratedValue
@@ -37,7 +36,12 @@ public class Users {
     private String userPhone;
 
     @CreatedDate
-    private String userJoinDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+    private LocalDate userJoinDate ;
+
+    @CreatedDate
+    private LocalDate userDeleteDate;
+
+
     private String userNickName;
     private String userIntroduction;
 
@@ -68,9 +72,11 @@ public class Users {
     @Builder.Default
     private int userState = 1;
 
+
     @Builder
+
     public Users(Long id, String userAccount, String userName, String userPassword, String userEmail, String userPhone,
-                 String userJoinDate, String userNickName,
+                 LocalDate userJoinDate, LocalDate userDeleteDate, String userNickName,
                  String userIntroduction, Address address,
                  UserFile userFile, List<Pet> pet,List<FreeBoard> freeBoard, List<Question> questions,
                  List<FreeBoardComment> freeBoardComments, int userState) {
@@ -81,21 +87,36 @@ public class Users {
         this.userEmail = userEmail;
         this.userPhone = userPhone;
         this.userJoinDate = userJoinDate;
+        this.userDeleteDate = userDeleteDate;
         this.userNickName = userNickName;
         this.userIntroduction = userIntroduction;
-        this.address=address;
+        this.address = address;
         this.userFile = userFile;
         this.pet = pet;
         this.freeBoard = freeBoard;
         this.questions= questions;
         this.freeBoardComments = freeBoardComments;
         this.userState=userState;
+        this.questions = questions;
+        this.userState = userState;
     }
-
 
     //임시비밀번호로 비밀번호 수정
     public Users updatePassword(String rePassword){
         this.userPassword=rePassword;
         return this;
     }
+
+    //회원복구
+    public Users recoverUsersState(){
+        this.userState=1;
+        return this;
+    }
+
+    //회원 탈퇴일자
+    public Users deleteDate(){
+        this.userDeleteDate=LocalDate.now();
+        return this;
+    }
+
 }

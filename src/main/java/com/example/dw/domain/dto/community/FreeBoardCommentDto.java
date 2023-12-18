@@ -19,10 +19,7 @@ public class FreeBoardCommentDto {
     private Long freeBoardId;
     private Long userId;
 
-
-
     @QueryProjection
-
     public FreeBoardCommentDto(Long id, String freeBoardCommentContent, LocalDateTime freeBoardCommentRd, LocalDateTime freeBoardCommentMd, Long freeBoardId, Long userId) {
         this.id = id;
         this.freeBoardCommentContent = freeBoardCommentContent;

@@ -4,6 +4,7 @@ import com.example.dw.domain.entity.freeBoard.FreeBoard;
 import com.example.dw.domain.entity.user.Users;
 import com.example.dw.domain.form.FreeBoardModifyForm;
 import com.example.dw.domain.form.FreeBoardWritingForm;
+import com.example.dw.repository.freeBoard.FreeBoardCommentRepository;
 import com.example.dw.repository.freeBoard.FreeBoardRepository;
 import com.example.dw.repository.user.UsersRepository;
 import jakarta.servlet.http.HttpSession;
@@ -23,6 +24,8 @@ public class FreeBoardService {
     private final UsersRepository usersRepository;
     private final HttpSession httpSession;
     private final FileService fileService;
+    private final FreeBoardCommentRepository freeBoardCommentRepository;
+
 
     //글쓰기
     @Transactional
@@ -41,13 +44,57 @@ public class FreeBoardService {
                 .build();
 
         FreeBoard savedFreeBoard = freeBoardRepository.save(freeBoard);
+
         return savedFreeBoard.getId();
     }
 
-    //상품 수정
+    //글 수정
     @Transactional
     public FreeBoard modify(FreeBoardModifyForm freeBoardModifyForm)
             throws IOException {
+        Long freeBoardId = freeBoardModifyForm.getId();
+        FreeBoard freeBoard = freeBoardRepository.findById(freeBoardModifyForm.getId()).get();
+
+        //자유게시판 기본 내용 업데이트
+        freeBoard.update(freeBoardModifyForm);
+
+        return Optional.ofNullable(freeBoard).orElseThrow(()->{
+            throw new IllegalArgumentException("조회 정보 없음");
+        });
+    }
+
+    //자유게시판 글삭제
+    @Transactional
+    public void delete(Long freeBoardId){
+
+        if (freeBoardId == null) {
+
+            throw new IllegalArgumentException("유효하지 않은 번호");
+        }
+
+//        fileService.removeMainImg(freeBoardId);
+//        fileService.removeDetailImgs(freeBoardId);
+
+        freeBoardRepository.deleteById(freeBoardId);
+    }
+
+    //자유게시판 조회수
+    @Transactional
+    public void increaseViewCount(Long freeBoarId){
+        freeBoardRepository.increaseViewCount(freeBoarId);
+    }
+
+    // 게시물의 댓글 수 조회
+    public Long countCommentsByFreeBoardId(Long freeBoardId) {
+        return freeBoardCommentRepository.countCommentsByFreeBoardId(freeBoardId);
+    }
+}
+
+// 잠시 대기
+    //상품 수정
+//    @Transactional
+//    public FreeBoard modify(FreeBoardModifyForm freeBoardModifyForm)
+//            throws IOException {
 
         //수정된 메인 사진이 있다면 기존 사진 삭제 후 수정된 사진으로 업데이트
 //        if(!file.isEmpty()) {
@@ -69,33 +116,11 @@ public class FreeBoardService {
 //            //새로 수정된 사진 로컬 서버 저장 및 DB저장
 //            fileService.registerDetailImg(files, goodsForm.getId());
 //        }
-
-
-        FreeBoard freeBoard = freeBoardRepository.findById(freeBoardModifyForm.getId()).get();
-
-        //자유게시판 기본 내용 업데이트
-        freeBoard.update(freeBoardModifyForm);
-        return Optional.ofNullable(freeBoard).orElseThrow(()->{
-            throw new IllegalArgumentException("조회 정보 없음");
-        });
-    }
-
-    //자유게시판 글삭제
-    @Transactional
-    public void delete(Long freeBoardId){
-
-        if (freeBoardId == null) {
-
-            throw new IllegalArgumentException("유효하지 않은 번호");
-        }
-
-
-//        fileService.removeMainImg(freeBoardId);
-//        fileService.removeDetailImgs(freeBoardId);
-
-        freeBoardRepository.deleteById(freeBoardId);
-
-
-    }
-
-}
+//        FreeBoard freeBoard = freeBoardRepository.findById(freeBoardModifyForm.getId()).get();
+//
+//        //자유게시판 기본 내용 업데이트
+//        freeBoard.update(freeBoardModifyForm);
+//        return Optional.ofNullable(freeBoard).orElseThrow(()->{
+//            throw new IllegalArgumentException("조회 정보 없음");
+//        });
+//    }

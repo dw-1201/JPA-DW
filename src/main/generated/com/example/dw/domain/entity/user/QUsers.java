@@ -36,13 +36,15 @@ public class QUsers extends EntityPathBase<Users> {
 
     public final StringPath userAccount = createString("userAccount");
 
+    public final DatePath<java.time.LocalDate> userDeleteDate = createDate("userDeleteDate", java.time.LocalDate.class);
+
     public final StringPath userEmail = createString("userEmail");
 
     public final QUserFile userFile;
 
     public final StringPath userIntroduction = createString("userIntroduction");
 
-    public final StringPath userJoinDate = createString("userJoinDate");
+    public final DatePath<java.time.LocalDate> userJoinDate = createDate("userJoinDate", java.time.LocalDate.class);
 
     public final StringPath userName = createString("userName");
 

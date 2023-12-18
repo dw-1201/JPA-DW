@@ -1,4 +1,5 @@
 package com.example.dw.repository.freeBoard;
+
 import com.example.dw.domain.dto.community.FreeBoardDetailDto;
 import com.example.dw.domain.dto.community.FreeBoardDto;
 import com.example.dw.domain.dto.community.QFreeBoardDetailDto;
@@ -44,7 +45,7 @@ public class FreeBoardRepositoryImpl implements FreeBoardRepositoryCustom{
                         freeBoardImg.freeBoardImgRoute,
                         freeBoardImg.freeBoardImgName,
                         freeBoardImg.freeBoardImgUuid,
-                        freeBoard.users.id,  //users.id로 직접 사용
+                        freeBoard.users.id,
                         freeBoard.users.userAccount,
                         freeBoard.users.userNickName
                 ))
@@ -55,40 +56,79 @@ public class FreeBoardRepositoryImpl implements FreeBoardRepositoryCustom{
                 .fetch();
     }
 
-
-
-
-    private List<FreeBoardDto> getFreeBoardList(Pageable pageable, String keyword){
-
-        System.out.println("[입력된 검색키워드] :" + keyword + "===");
-
-        System.out.println("---------------123123123");
-        List<FreeBoardDto> contents = jpaQueryFactory
-            .select(new QFreeBoardDto(
-                    freeBoard.id,
-                    freeBoard.freeBoardTitle,
-                    freeBoard.freeBoardContent,
-                    freeBoard.freeBoardRd,
-                    freeBoard.freeBoardMd,
-                    freeBoard.freeBoardViewCount,
-                    freeBoardImg.id,
-                    freeBoardImg.freeBoardImgRoute,
-                    freeBoardImg.freeBoardImgName,
-                    freeBoardImg.freeBoardImgUuid,
-                    users.id,
-                    users.userAccount,
-                    users.userNickName
-            ))
+    private List<FreeBoardDto> getFreeBoardList(Pageable pageable, String keyword) {
+        return jpaQueryFactory
+                .select(new QFreeBoardDto(
+                        freeBoard.id,
+                        freeBoard.freeBoardTitle,
+                        freeBoard.freeBoardContent,
+                        freeBoard.freeBoardRd,
+                        freeBoard.freeBoardMd,
+                        freeBoard.freeBoardViewCount,
+                        freeBoard.freeBoardCommentCount,
+                        freeBoardImg.id,
+                        freeBoardImg.freeBoardImgRoute,
+                        freeBoardImg.freeBoardImgName,
+                        freeBoardImg.freeBoardImgUuid,
+                        users.id,
+                        users.userAccount,
+                        users.userNickName
+                ))
                 .from(freeBoard)
                 .leftJoin(freeBoard.freeBoardImg, freeBoardImg)
-                .leftJoin(freeBoard.users,users) // 수정된 부분: Left Join으로 사용자 정보 가져오기
+                .leftJoin(freeBoard.users, users)
+                .where(freeBoard.freeBoardTitle.containsIgnoreCase(keyword)
+                        .or(freeBoard.freeBoardContent.containsIgnoreCase(keyword)))
                 .orderBy(freeBoard.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
-
-        return  contents;
     }
+
+//    @Override
+//    public Page<FreeBoardDto> findFreeBoardListBySearchAndSort(Pageable pageable, String keyword, String sort) {
+//        QueryResults<FreeBoardDto> queryResults = jpaQueryFactory
+//            .select(new QFreeBoardDto(
+//                    freeBoard.id,
+//                    freeBoard.freeBoardTitle,
+//                    freeBoard.freeBoardContent,
+//                    freeBoard.freeBoardRd,
+//                    freeBoard.freeBoardMd,
+//                    freeBoard.freeBoardViewCount,
+//                    freeBoard.freeBoardCommentCount,
+//                    freeBoardImg.id,
+//                    freeBoardImg.freeBoardImgRoute,
+//                    freeBoardImg.freeBoardImgName,
+//                    freeBoardImg.freeBoardImgUuid,
+//                    users.id,
+//                    users.userAccount,
+//                    users.userNickName
+//            ))
+//                .from(freeBoard)
+//                .leftJoin(freeBoard.freeBoardImg, freeBoardImg)
+//                .leftJoin(freeBoard.users, users)
+//                .where(freeBoard.freeBoardTitle.containsIgnoreCase(keyword)
+//                        .or(freeBoard.freeBoardContent.containsIgnoreCase(keyword)))
+//                .orderBy(getOrderSpecifier(sort))
+//                .offset(pageable.getOffset())
+//                .limit(pageable.getPageSize())
+//                .fetchResults();
+//
+//        List<FreeBoardDto> content = queryResults.getResults();
+//        long count = queryResults.getTotal();
+//
+//        return new PageImpl<>(content, pageable, count);
+//    }
+//
+//    private OrderSpecifier<?> getOrderSpecifier(String sort) {
+//        if ("recent".equals(sort)) {
+//            return freeBoard.freeBoardMd.desc(); // 최신순
+//        } else if ("reply".equals(sort)) {
+//            return freeBoard.freeBoardCommentCount.desc(); // 댓글순
+//        } else {
+//            return freeBoard.freeBoardViewCount.desc(); // 인기순 (기본값)
+//        }
+//    }
 
     private Long getCount(String keyword){
         Long count = jpaQueryFactory

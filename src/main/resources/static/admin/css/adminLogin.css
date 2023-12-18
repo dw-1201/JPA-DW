@@ -1,0 +1,44 @@
+
+
+.main {
+    width: 350px;
+    margin: 200px auto;
+    border: 1px solid gray;
+    box-shadow: 1px 1px 1px gray;
+    font-family: 'GmarketSansMedium';
+
+}
+
+#admin-login-form {
+
+    box-sizing: border-box;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.admin-login-title {
+
+    margin-bottom: 10px;
+}
+
+#admin-login-form input {
+    text-indent: 12px;
+    width: 100%;
+    height: 30px;
+    margin-bottom: 8px;
+}
+
+.login-btn {
+    width: 100%;
+    text-align: end;
+
+}
+
+.login-btn button {
+    font-family: 'GmarketSansMedium';
+
+    cursor: pointer;
+    padding:5px 10px 5px 10px;
+}

@@ -1,12 +1,16 @@
 package com.example.dw.service;
 
 
-import com.example.dw.domain.form.QnaBoardForm;
 import com.example.dw.domain.entity.question.Question;
-import com.example.dw.repository.QuestionRepository;
+import com.example.dw.domain.form.QuestionWritingForm;
+import com.example.dw.repository.community.QuestionRepository;
+import com.example.dw.repository.user.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.IOException;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -14,18 +18,27 @@ import org.springframework.transaction.annotation.Transactional;
 public class QnaService {
 
     private final QuestionRepository questionRepository;
-
-    // 글 작성
-
+    private final UsersRepository usersRepository;
+    // 글 작성, 사진 파일 저장
     @Transactional
-    public Long writer(QnaBoardForm qnaBoardForm){
+    public Long register(QuestionWritingForm questionWritingForm) throws IOException {
+        System.out.println(questionWritingForm.toString()+"WW");
+        Question question = questionRepository.save(questionWritingForm.toEntity());
 
-        Question question =qnaBoardForm.toEntity();
 
-        questionRepository.save(question);
 
+        System.out.println(question.getUsers().getId()+"유저 아이디");
+        System.out.println(question.getUsers().getUserName()+"유저 이름");
         return question.getId();
 
+    }
+
+    //질의 사항 전체 조회
+    @Transactional
+    public List<Question> qnaList(){
+        List<Question> questionList = questionRepository.findAll();
+
+        return questionList;
     }
 
 }
