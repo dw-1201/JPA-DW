@@ -67,26 +67,26 @@ public class QnaController {
         return new RedirectView("/qna/qnaLists");
     }
 
-//    @GetMapping("/qnaDetail/{questionId}")
-//    public String detailPage(@PathVariable("questionId") Long questionId , Model model){
-//        List<QuestionDetailResultDto> detailresult = questionRepositoryCuston.findQnaById(questionId);
-////       System.out.println(detailresult.toString()+"입니다.");
-//        model.addAttribute("detail", detailresult);
-//        return "/community/qnaDetail";
-//    }
+    @GetMapping("/qnaDetail/{questionId}")
+    public String detailPage(@PathVariable("questionId") Long questionId , Model model){
+        List<QuestionDetailResultDto> detailresult = questionRepositoryCuston.findQnaById(questionId);
+       System.out.println(detailresult.toString()+"입니다.");
+        model.addAttribute("detail", detailresult);
+        return "/community/qnaDetail";
+    }
 
     // 수정중
-//    @GetMapping("/modify/{questionId}")
-//    public String modifyPage(@PathVariable("questionId") Long questionId,Model model){
-//        System.out.println(questionId+ "입니다.");
-//        List<QuestionDetailResultDto> result = questionRepositoryCuston.findQnaById(questionId);
-//        System.out.println(result.toString()+"입니다.");
-//        model.addAttribute("question", result);
-//
-//        return "/community/writingModifyQna";
-//
-//
-//    }
+    @GetMapping("/modify/{questionId}")
+    public String modifyPage(@PathVariable("questionId") Long questionId,Model model){
+        System.out.println(questionId+ "입니다.");
+        List<QuestionDetailResultDto> result = questionRepositoryCuston.findQnaById(questionId);
+        System.out.println(result.toString()+"입니다.");
+        model.addAttribute("question", result);
+
+        return "/community/writingModifyQna";
+
+
+    }
 
 //    // 게시판 수정
 //    @PutMapping("/modify/{questionId}/edit")
