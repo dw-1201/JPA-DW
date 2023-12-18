@@ -2,6 +2,7 @@ package com.example.dw.domain.entity.user;
 
 import com.example.dw.domain.embedded.Address;
 import com.example.dw.domain.entity.freeBoard.FreeBoard;
+import com.example.dw.domain.entity.freeBoard.FreeBoardComment;
 import com.example.dw.domain.entity.question.Question;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -63,19 +64,22 @@ public class Users {
 
     @OneToMany(mappedBy = "users" ,fetch = FetchType.LAZY)
     private List<FreeBoard> freeBoard = new ArrayList<>();
-    @OneToMany(mappedBy = "users",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "users",fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Question> questions =new ArrayList<>();
+    @OneToMany(mappedBy = "users", orphanRemoval = true)
+    private List<FreeBoardComment> freeBoardComments = new ArrayList<>();
 
     @Builder.Default
     private int userState = 1;
 
 
     @Builder
-    public Users(Long id, String userAccount, String userName,
-                 String userPassword, String userEmail, String userPhone,
-                 LocalDate userJoinDate, LocalDate userDeleteDate,
-                 String userNickName, String userIntroduction, Address address,
-                 UserFile userFile, List<Pet> pet, List<FreeBoard> freeBoard, List<Question> questions, int userState) {
+
+    public Users(Long id, String userAccount, String userName, String userPassword, String userEmail, String userPhone,
+                 LocalDate userJoinDate, LocalDate userDeleteDate, String userNickName,
+                 String userIntroduction, Address address,
+                 UserFile userFile, List<Pet> pet,List<FreeBoard> freeBoard, List<Question> questions,
+                 List<FreeBoardComment> freeBoardComments, int userState) {
         this.id = id;
         this.userAccount = userAccount;
         this.userName = userName;
@@ -90,12 +94,12 @@ public class Users {
         this.userFile = userFile;
         this.pet = pet;
         this.freeBoard = freeBoard;
+        this.questions= questions;
+        this.freeBoardComments = freeBoardComments;
+        this.userState=userState;
         this.questions = questions;
         this.userState = userState;
     }
-
-
-
 
     //임시비밀번호로 비밀번호 수정
     public Users updatePassword(String rePassword){
@@ -108,7 +112,6 @@ public class Users {
         this.userState=1;
         return this;
     }
-
 
     //회원 탈퇴일자
     public Users deleteDate(){

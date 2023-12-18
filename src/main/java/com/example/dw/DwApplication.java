@@ -15,7 +15,6 @@ public class DwApplication {
         SpringApplication.run(DwApplication.class, args);
     }
 
-
     @Bean
     public HiddenHttpMethodFilter hiddenHttpMethodFilter(){
         return new HiddenHttpMethodFilter();

@@ -32,6 +32,8 @@ public class QFreeBoardComment extends EntityPathBase<FreeBoardComment> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final com.example.dw.domain.entity.user.QUsers users;
+
     public QFreeBoardComment(String variable) {
         this(FreeBoardComment.class, forVariable(variable), INITS);
     }
@@ -51,6 +53,7 @@ public class QFreeBoardComment extends EntityPathBase<FreeBoardComment> {
     public QFreeBoardComment(Class<? extends FreeBoardComment> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.freeBoard = inits.isInitialized("freeBoard") ? new QFreeBoard(forProperty("freeBoard"), inits.get("freeBoard")) : null;
+        this.users = inits.isInitialized("users") ? new com.example.dw.domain.entity.user.QUsers(forProperty("users"), inits.get("users")) : null;
     }
 
 }
