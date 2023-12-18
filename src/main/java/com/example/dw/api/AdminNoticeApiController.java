@@ -1,7 +1,7 @@
 package com.example.dw.api;
 
-import com.example.dw.domain.dto.admin.FaqBoardDto;
-import com.example.dw.domain.dto.admin.NoticeBoardDto;
+import com.example.dw.domain.dto.admin.AdminNoticeBoardDto;
+import com.example.dw.domain.dto.admin.AdminFaqBoardDto;
 import com.example.dw.domain.form.SearchForm;
 import com.example.dw.repository.admin.FaqBoardRepositoryCustom;
 import com.example.dw.repository.admin.NoticeBoardRepositoryCustom;
@@ -24,13 +24,13 @@ public class AdminNoticeApiController {
 
     //faq조회
     @GetMapping("/faqList/{page}")
-    public Page<FaqBoardDto> findFaqList(
+    public Page<AdminFaqBoardDto> findFaqList(
             @PathVariable("page") int page,
             SearchForm searchForm){
 
         Pageable pageable = PageRequest.of(page, 5);
 
-        Page<FaqBoardDto> result = faqBoardRepositoryCustom.findFaqListBySearch(pageable, searchForm);
+        Page<AdminFaqBoardDto> result = faqBoardRepositoryCustom.findFaqListBySearch(pageable, searchForm);
 
         System.out.println(result.toString());
 
@@ -39,13 +39,13 @@ public class AdminNoticeApiController {
 
     //공지사항 조회
     @GetMapping("/noticeList/{page}")
-    public Page<NoticeBoardDto> findNoticeList(
+    public Page<AdminNoticeBoardDto> findNoticeList(
             @PathVariable("page") int page,
             SearchForm searchForm
     ){
         Pageable pageable = PageRequest.of(page, 10);
 
-        Page<NoticeBoardDto> result = noticeBoardRepositoryCustom.findNoticeListBySearch(pageable,searchForm);
+        Page<AdminNoticeBoardDto> result = noticeBoardRepositoryCustom.findNoticeListBySearch(pageable,searchForm);
 
         return result;
     }

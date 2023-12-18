@@ -1,11 +1,6 @@
 package com.example.dw.repository.goods;
 
-import com.example.dw.domain.dto.admin.GoodsDto;
-import com.example.dw.domain.dto.admin.QGoodsDto;
-import com.example.dw.domain.dto.goods.GoodsDetailDto;
-import com.example.dw.domain.dto.goods.GoodsDetailImgDto;
-import com.example.dw.domain.dto.goods.GoodsDetailResultDto;
-import com.example.dw.domain.dto.goods.QGoodsDetailDto;
+import com.example.dw.domain.dto.admin.*;
 import com.example.dw.domain.form.SearchForm;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -31,8 +26,8 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
 
 
     @Override
-    public Page<GoodsDto> findGoodsAll(Pageable pageable, SearchForm searchForm) {
-        List<GoodsDto> contents = getGoodsList(pageable, searchForm);
+    public Page<AdminGoodsDto> findGoodsAll(Pageable pageable, SearchForm searchForm) {
+        List<AdminGoodsDto> contents = getGoodsList(pageable, searchForm);
         Long count = getCount(searchForm);
 
         System.out.println("[상품 개수] :"+ count +"개");
@@ -41,17 +36,17 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
     }
 
     @Override
-    public List<GoodsDetailResultDto> findGoodsById(Long id) {
+    public List<AdminGoodsDetailResultDto> findGoodsById(Long id) {
 
-            List<GoodsDetailDto> list = getGoodsDetail(id);
+            List<AdminGoodsDetailDto> list = getGoodsDetail(id);
 
         return
-                list.stream().collect(groupingBy(o->new GoodsDetailResultDto(
+                list.stream().collect(groupingBy(o->new AdminGoodsDetailResultDto(
                         o.getId(),o.getGoodsName(),o.getGoodsQuantity(), o.getGoodsPrice(), o.getGoodsMade(), o.getGoodsCertify(), o.getGoodsDetailContent(),
-                        o.getGoodsRegisterDate(), o.getGoodsModifyDate(), o.getGoodsCategory(), o.getGoodsMainImgName(), o.getGoodsMainImgPath(), o.getGoodsMainImgUuid()), mapping(o->new GoodsDetailImgDto(
+                        o.getGoodsRegisterDate(), o.getGoodsModifyDate(), o.getGoodsCategory(), o.getGoodsMainImgName(), o.getGoodsMainImgPath(), o.getGoodsMainImgUuid()), mapping(o->new AdminGoodsDetailImgDto(
                                 o.getId(), o.getGoodsDetailImgName(), o.getGoodsDetailImgPath(), o.getGoodsDetailImgUuid(), o.getGoodsDetailImgId()),toList())
                         )
-                ).entrySet().stream().map(e->new GoodsDetailResultDto(
+                ).entrySet().stream().map(e->new AdminGoodsDetailResultDto(
                         e.getKey().getId(), e.getKey().getGoodsName(), e.getKey().getGoodsQuantity(), e.getKey().getGoodsPrice(), e.getKey().getGoodsMade(), e.getKey().getGoodsCertify(),
                         e.getKey().getGoodsDetailContent(), e.getKey().getGoodsRegisterDate(), e.getKey().getGoodsModifyDate(), e.getKey().getGoodsCategory(),
                         e.getKey().getGoodsMainImgName(),e.getKey().getGoodsMainImgPath(), e.getKey().getGoodsMainImgUuid(), e.getValue())).collect(toList());
@@ -60,12 +55,12 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
 
 
 //                list.stream()
-//                .collect(groupingBy(o -> new GoodsDetailResultDto(o.getId(), o.getGoodsName(), o.getGoodsQuantity(), o.getGoodsPrice(), o.getGoodsMade(),
+//                .collect(groupingBy(o -> new AdminGoodsDetailResultDto(o.getId(), o.getGoodsName(), o.getGoodsQuantity(), o.getGoodsPrice(), o.getGoodsMade(),
 //                        o.getGoodsCertify(), o.getGoodsDetailContent(), o.getGoodsRegisterDate(), o.getGoodsModifyDate(), o.getGoodsCategory(),
-//                        o.getGoodsMainImgName(), o.getGoodsMainImgPath(), o.getGoodsMainImgUuid()), mapping(o-> new GoodsDetailImgDto(o.getId(), o.getGoodsDetailImgName(), o.getGoodsDetailImgPath(), o.getGoodsDetailImgUuid(), o.getGoodsDetailImgId()), toList())
+//                        o.getGoodsMainImgName(), o.getGoodsMainImgPath(), o.getGoodsMainImgUuid()), mapping(o-> new AdminGoodsDetailImgDto(o.getId(), o.getGoodsDetailImgName(), o.getGoodsDetailImgPath(), o.getGoodsDetailImgUuid(), o.getGoodsDetailImgId()), toList())
 //
 //                )).entrySet().stream()
-//                .map(e-> new GoodsDetailResultDto(e.getKey().getId(), e.getKey().getGoodsName(), e.getKey().getGoodsQuantity(), e.getKey().getGoodsPrice(), e.getKey().getGoodsMade(), e.getKey().getGoodsCertify(), e.getKey().getGoodsDetailContent(),
+//                .map(e-> new AdminGoodsDetailResultDto(e.getKey().getId(), e.getKey().getGoodsName(), e.getKey().getGoodsQuantity(), e.getKey().getGoodsPrice(), e.getKey().getGoodsMade(), e.getKey().getGoodsCertify(), e.getKey().getGoodsDetailContent(),
 //                        e.getKey().getGoodsRegisterDate(), e.getKey().getGoodsModifyDate(), e.getKey().getGoodsCategory(), e.getKey().getGoodsMainImgName(), e.getKey().getGoodsMainImgPath(), e.getKey().getGoodsMainImgUuid(), e.getValue()))
 //                .collect(toList());
 
@@ -85,10 +80,10 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
         return count;
     }
     //상품 리스트 조회
-    private List<GoodsDto> getGoodsList(Pageable pageable, SearchForm searchForm){
+    private List<AdminGoodsDto> getGoodsList(Pageable pageable, SearchForm searchForm){
 
-        List<GoodsDto> content = jpaQueryFactory
-                .select(new QGoodsDto(
+        List<AdminGoodsDto> content = jpaQueryFactory
+                .select(new QAdminGoodsDto(
                         goods.id,
                         goods.goodsName,
                         goods.goodsQuantity,
@@ -114,23 +109,23 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
 
 
     //상품상세 조회
-    private List<GoodsDetailDto> getGoodsDetail(Long id){
-        return jpaQueryFactory
-                .select(new QGoodsDetailDto(
-                        goods.id,
-                        goods.goodsName,
-                        goods.goodsQuantity,
-                        goods.goodsPrice,
-                        goods.goodsMade,
-                        goods.goodsCertify,
-                        goods.goodsDetailContent,
-                        goods.goodsRegisterDate,
-                        goods.goodsModifyDate,
-                        goods.goodsCategory.stringValue(),
+    private List<AdminGoodsDetailDto> getGoodsDetail(Long id){
+        List<AdminGoodsDetailDto> lists =  jpaQueryFactory
+                .select(new QAdminGoodsDetailDto(
+                            goods.id,
+                            goods.goodsName,
+                            goods.goodsQuantity,
+                            goods.goodsPrice,
+                            goods.goodsMade,
+                            goods.goodsCertify,
+                            goods.goodsDetailContent,
+                            goods.goodsRegisterDate,
+                            goods.goodsModifyDate,
+                            goods.goodsCategory.stringValue(),
                         goodsMainImg.id,
                         goodsMainImg.goodsMainImgName,
                         goodsMainImg.goodsMainImgPath,
-                goodsMainImg.goodsMainImgUuid,
+                        goodsMainImg.goodsMainImgUuid,
                 goodsDetailImg.id,
                 goodsDetailImg.goodsDetailImgName,
                 goodsDetailImg.goodsDetailImgPath,
@@ -141,6 +136,14 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
                 .leftJoin(goods.goodsDetailImg, goodsDetailImg)
                 .where(goods.id.eq(id))
                 .fetch();
+
+
+        lists.stream().forEach(r->{
+            System.out.println(r.getId()+"=====================");
+        });
+
+        return lists;
+
     }
 
 

@@ -1,7 +1,7 @@
 package com.example.dw.api;
 
-import com.example.dw.domain.dto.admin.UserChartDto;
-import com.example.dw.domain.dto.user.UserListDto;
+import com.example.dw.domain.dto.admin.AdminUserChartDto;
+import com.example.dw.domain.dto.admin.UserListDto;
 import com.example.dw.repository.user.UsersRepositoryCustom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -39,7 +39,7 @@ public class AdminUserApiController {
 
     //주단위 일별 회원가입자 수
     @GetMapping("/daily")
-    public List<UserChartDto> getDaily() {
+    public List<AdminUserChartDto> getDaily() {
 
         return usersRepositoryCustom.findJoinCountByAll();
     }

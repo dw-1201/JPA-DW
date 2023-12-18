@@ -8,13 +8,13 @@ import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
-public class UserChartDto {
+public class AdminUserChartDto {
 
     private LocalDate joinDate;
     private Long counts;
 
     @QueryProjection
-    public UserChartDto(LocalDate joinDate, Long counts) {
+    public AdminUserChartDto(LocalDate joinDate, Long counts) {
         this.joinDate = joinDate;
         this.counts = counts;
     }

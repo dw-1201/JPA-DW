@@ -5,9 +5,6 @@ import com.example.dw.domain.entity.admin.FaqBoard;
 import com.example.dw.domain.entity.admin.NoticeBoard;
 import com.example.dw.domain.form.FaqBoardForm;
 import com.example.dw.domain.form.NoticeBoardForm;
-import com.example.dw.repository.AdminRepository;
-import com.example.dw.repository.user.UsersRepository;
-import com.example.dw.repository.user.UsersRepositoryCustom;
 import com.example.dw.service.AdminNoticeService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -24,11 +21,8 @@ import org.springframework.web.servlet.view.RedirectView;
 public class AdminNoticeController {
 
     private final AdminNoticeService adminNoticeService;
-    private final UsersRepositoryCustom usersRepositoryCustom;
-    private final UsersRepository usersRepository;
-    private final AdminRepository adminRepository;
 
-    
+
     //관리자 로그인 페이지
     @GetMapping("/enterLogin")
     public String adminLoginPage(){
