@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/common/css/common.css">
     <link rel="stylesheet" href="/fragment/css/header.css">
     <link rel="stylesheet" href="/fragment/css/footer.css">
-    <link rel="stylesheet" href="/community/css/writingQna.css">
-    <title>QnA글작성페이지</title>
+    <link rel="stylesheet" href="/community/css/writingModifyQna.css">
+    <title>QnA수정페이지</title>
 </head>
 <body>
     <!-- header 시작 -->
@@ -18,29 +18,46 @@
 
     <!-- main 시작 -->
     <main>
-        <div class="main-container">
-            <form action="/qna/qnaregister" method="post" class="" enctype="multipart/form-data">
-                <input type="hidden" name="userId" th:value="${session.userId}">
+        <div class="main-container" th:each="modify :${question}">
+            <form th:action="@{/qna/modify/{id}/edit (id=${modify.id})}" th:method="put" class="" enctype="multipart/form-data" >
+
                 <div class="content-box">
                     <div class="content-title-box">
                         <div class="content-title">QnA 질문 작성</div>
                         <div class="content-title-input">
-                            <input type="text" placeholder="제목을 입력해주세요" name="questionTitle">
+                            <input type="text"  name="questionTitle" th:te="${modify.questionTitle}"/>
                         </div>
                     </div>
                     <div class="content-content-box">
-                        <textarea name="questionContent" id=""></textarea>
+                        <textarea name="questionContent" th:text="${modify.questionContent}"></textarea>
                     </div>
                 </div>
                 <div class="file-box">
-                    <div class="file-box-title">사진 업로드</div>
+                    <div class="file-box-title">사진</div>
                     <div class="file-box-imgs">
                         <ul class="file-wrap">
-                            <li class="img-list"></li>
-                            <li class="img-list"></li>
-                            <li class="img-list"></li>
-                            <li class="img-list"></li>
-                            <li class="img-list"></li>
+                            <th:block th:each="imgs:${modify.questionDetailDtoList}">
+                                <li class="img-list">
+                                    <img class="addimg" th:src="'/jpa_dw/question/'+${imgs.questionImgRoute}+'/'+${imgs.questionImgUuid}+'_'+${imgs.questionImgName}">
+                                </li>
+                            </th:block>
+                        </ul>
+                    </div>
+                </div>
+                <div class="update-img">
+                    <div class="file-title">사진 업로드</div>
+                    <div class="file-imgs">
+                        <ul class="file-wraps">
+                            <li class="imgs-list">
+                            </li>
+                            <li class="imgs-list">
+                            </li>
+                            <li class="imgs-list">
+                            </li>
+                            <li class="imgs-list">
+                            </li>
+                            <li class="imgs-list">
+                            </li>
 
                         </ul>
                     </div>
@@ -71,6 +88,6 @@
     </div>
     <!-- footer 끝 -->
     <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-    <script src="/community/js/writingQna.js"></script>
+    <script src="/community/js/writingModifyQna.js"></script>
 </body>
 </html>

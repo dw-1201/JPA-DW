@@ -9,7 +9,7 @@ $(document).ready(function (){
     console.log("들어왔다")
 
     list.list(0,searchQnaBoardForm(),'qnar','qnalist',showQnaBoardList);
-
+    console.log(showQnaBoardList.questionContent);
     page.enterKey('.search-question','.search-btn');
 })
 
@@ -29,14 +29,31 @@ function searchQnaBoardForm(){
     };
 }
 
-
 function showQnaBoardList(result) {
     let text = '';
     let textInput = $('.list-contents-box');
     console.log("list")
+
     result.content.forEach(r => {
+        let nowTime = new Date();
+        let rdTime = new Date(r.questionRd);
+        let time = nowTime-rdTime;
+        let timedi = Math.floor(time/(1000*60));
+        let timenow = "";
+        if(timedi <60){
+            timenow = timedi +"분 전"
+        }else{
+            let ttdi = Math.floor(timedi/ 60);
+            if(ttdi < 24){
+                timenow = ttdi +"시간 전"
+            }else {
+                let ddi = Math.floor(ttdi / 24);
+                timenow = ddi + "일 전";
+            }
+        }
+
         text += `
-                <a href="/qna/qnaDetail?qnaId=${r.id}" class="qnadetailbtn">
+                <a href="/qna/qnaDetail/${r.id}" class="qnadetailbtn">
                         <div class="list-content">
                             <div class="list-content-title">${r.questionTitle}
                             </div>
@@ -44,7 +61,8 @@ function showQnaBoardList(result) {
                             </div>
                             <div class="list-content-etc">
                                 <div class="list-content-id">
-                                    <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt="">
+                                    <div class="list-content-id-img">
+                                        <img src= "/img/dogImg.jpg" alt="">
                                     </div>
                                     <span class="userName">${r.userName}</span>
                                 </div>
@@ -53,15 +71,34 @@ function showQnaBoardList(result) {
                                     <span class="reply-count">5</span>
                                 </div>
                                 <div class="list-content-time">
-                                    <span>${r.questionRd}</span>
+                                    <span>${timenow}</span>
                                 </div>
                             </div>
                         </div>
+                `;
+
+                    r.questionImgDtoList.slice(0,1).forEach(e =>{
+
+                        text += `
+                              <div class="content-img-box">
+                                <div class="content-img">
+                                    <img src="/qnar/queImg?fileFullPath=${e.questionImgRoute + '/' + e.questionImgUuid + '_' + e.questionImgName}" alt="">
+                                </div>
+                            </div>
+                        
+                        
+                        `;
+                    })
+            text += `
+
                </a>
             `;
+    })
 
 
-    });
+
+
+
     console.log($('.userName').text());
     textInput.html(text);
 
