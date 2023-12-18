@@ -110,7 +110,7 @@ public class FreeBoardController {
         freeBoardModifyForm.setId(freeBoardId);
         System.out.println("받아오는 자유게시판 번호 : "+freeBoardModifyForm.getId());
 
-        freeBoardService.modify(freeBoardModifyForm);
+//        freeBoardService.modify(freeBoardModifyForm);
 
         return new RedirectView("/community/freeBoardDetail/{freeBoardId}");
     }

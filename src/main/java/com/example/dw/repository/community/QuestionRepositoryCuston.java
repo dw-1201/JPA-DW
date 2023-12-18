@@ -9,10 +9,10 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface QuestionRepositoryCuston {
-//    Page<QuestionListDto> findQnaListBySearch(Pageable pageable, String keyword);
+    Page<QuestionListDto> findQnaListBySearch(Pageable pageable, String keyword);
 
 //    // detail page 조회
-//    List<QuestionDetailResultDto> findQnaById(Long id);
+    List<QuestionDetailResultDto> findQnaById(Long id);
 //
-//    List<QuestionImgDto> findAllByQuestionId(Long questionId);
+    List<QuestionImgDto> findAllByQuestionId(Long questionId);
 }

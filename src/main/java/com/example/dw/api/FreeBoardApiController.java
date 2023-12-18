@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/communities/*")
-
 public class FreeBoardApiController {
 
     private final FreeBoardService freeBoardService;

@@ -121,7 +121,11 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
 
     }
 
+<<<<<<< HEAD
     // 검색 조건 코드
+=======
+        // 검색 조건 코드
+>>>>>>> main
     private BooleanExpression qnatitleEq(String keyword){
         return StringUtils.hasText(keyword) ? question.questionTitle.containsIgnoreCase(keyword) : null;
     }
@@ -130,6 +134,7 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
     public List<QuestionDetailResultDto> findQnaById(Long id) {
         List<QuestionDetailDto> list = getQueDetail(id);
 
+<<<<<<< HEAD
         List<QuestionDetailResultDto> result = list.stream().collect(groupingBy(r -> new QuestionDetailResultDto(
                 r.getId(),r.getQuestionTitle(),r.getQuestionContent(),r.getQuestionRd(),r.getUserId(),r.getUserName()),mapping(r->new QuestionImgDto(
                 r.getQuestionImgId(),r.getQuestionImgRoute(),r.getQuestionImgName(),r.getQuestionImgUuid(),r.getId()),toList())
@@ -137,6 +142,15 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
                 e.getKey().getId(), e.getKey().getQuestionTitle(),e.getKey().getQuestionContent(),e.getKey().getQuestionRd(),e.getKey().getUserId(), e.getKey().getUserName(),
                 e.getValue()))
                 .collect(Collectors.toList());
+=======
+            List<QuestionDetailResultDto> result = list.stream().collect(groupingBy(r -> new QuestionDetailResultDto(
+                    r.getId(),r.getQuestionTitle(),r.getQuestionContent(),r.getQuestionRd(),r.getUserId(),r.getUserName()),mapping(r->new QuestionImgDto(
+                            r.getQuestionImgId(),r.getQuestionImgRoute(),r.getQuestionImgName(),r.getQuestionImgUuid(),r.getId()),toList())
+            )).entrySet().stream().map(e -> new QuestionDetailResultDto(
+                    e.getKey().getId(), e.getKey().getQuestionTitle(),e.getKey().getQuestionContent(),e.getKey().getQuestionRd(),e.getKey().getUserId(), e.getKey().getUserName(),
+                    e.getValue()))
+                    .collect(Collectors.toList());
+>>>>>>> main
 
 
 
@@ -185,7 +199,11 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
                 .fetch();
 
         questionDetailDtos.forEach(r-> System.out.println(r.toString()+"좋았어"));
+<<<<<<< HEAD
         return questionDetailDtos;
+=======
+                return questionDetailDtos;
+>>>>>>> main
     }
 
 
