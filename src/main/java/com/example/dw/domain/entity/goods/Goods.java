@@ -33,18 +33,14 @@ public class Goods {
     @LastModifiedDate
     private String goodsModifyDate;
 
-
     @Enumerated(EnumType.STRING)
     private GoodsCategory goodsCategory;
-
 
     @OneToMany(mappedBy = "goods" ,fetch = FetchType.LAZY, orphanRemoval = true)
     private List<GoodsMainImg> goodsMainImg = new ArrayList<>();
 
     @OneToMany(mappedBy = "goods" ,fetch = FetchType.LAZY, orphanRemoval = true)
     private List<GoodsDetailImg> goodsDetailImg = new ArrayList<>();
-
-
 
     public Goods(Long id, String goodsName, int goodsQuantity, int goodsPrice, GoodsCategory goodsCategory){
         this.id=id;
@@ -85,7 +81,6 @@ public class Goods {
         return this;
     }
 
-    
     //날짜포맷
     @PrePersist
     public void onPrePersist(){

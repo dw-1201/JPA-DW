@@ -57,13 +57,6 @@ public class MailService {
         return number;
     }
 
-
-
-
-
-
-
-
 public static String tempPassword(int leng){
    	int index = 0;
    	char[] charSet = new char[] {

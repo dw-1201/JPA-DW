@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,31 +11,11 @@
 <link rel="icon" href="/img/favicon.ico" type="image/x-icosn" sizes="16x16">
 </head>
 <body>
-    <!-- header 시작 -->
-    <div class="header">
-        <div class="header-section01">
-            <div class="header-section01-nav">
-                <ul>
-                    <li><a href="/user/html/login.html">로그인</a></li>
-                    <li><a href="">장바구니</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="header-section02">
-            <div class="header-section02-container">
-                <div class="header-logo"><a href=""><img src="/img/logo.png" alt=""></a></div>
-                <div class="header-section02-nav">
-                    <ul>
-                        <li><a href="/shopping/html/shop.html">쇼핑</a></li>
-                        <li><a href="/community/html/freeBoardList.html">커뮤니티</a></li>
-                        <li><a href="/walkingMate/html/walkingMateList.html">산책메이트</a></li>
-                        <li><a href="/map/html/map.html">병원찾기</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- header 끝 -->
+<!-- header 시작 -->
+<div class="header" th:replace="fragment/header :: header">
+
+</div>
+<!-- header 끝 -->
 <!-- main 시작 -->
 
 <main class="main-content">
@@ -59,25 +39,25 @@
 
             <ul>
                 <li class="form2-li-1">
-                    <a href="/shopping/html/shop.html" >전체</a>
+                    <a href="/shopping/shop" >전체</a>
                 </li>
                 <li class="form2-li">
-                    <a href="/shopping/html/shop-a.html" >간식</a>
+                    <a href="/shopping/shop-a" >간식</a>
                 </li>
                 <li class="form2-li">
-                    <a href="/shopping/html/shop-b.html">영양제</a>
+                    <a href="/shopping/shop-b">영양제</a>
                 </li>
                 <li class="form2-li">
-                    <a href="/shopping/html/shop-c.html">위생용품</a>
+                    <a href="/shopping/shop-c">위생용품</a>
                 </li>
                 <li class="form2-li">
-                    <a href="/shopping/html/shop-d.html">이동장</a>
+                    <a href="/shopping/shop-d">이동장</a>
                 </li>
                 <li class="form2-li">
-                    <a href="/shopping/html/shop-e.html">장난감</a>
+                    <a href="/shopping/shop-e">장난감</a>
                 </li>
                 <li class="form2-li">
-                    <a href="/shopping/html/shop-f.html">하네스/줄</a>
+                    <a href="/shopping/shop-f">하네스/줄</a>
                 </li>
             </ul>
 
@@ -519,36 +499,11 @@
 
 
 <!-- footer 시작 -->
-<div class="footer">
-    <div class="footer-container01">
-        <div class="footer-containerbox01">
-            <div class="footer-container01-nav">
-                <ul>
-                    <li>(주)산책갈개</li>
-                    <li>복영헌 임형준 노의진 이지윤</li>
-                    <li>서울특별시 노원구 상계로1길 34 세일학원 5층</li>
-                    <li>02-933-5890</li>
-                </ul>
-            </div>
-            <div class="footer-container01-img">
-                <img src="/img/dog02.png" alt="">
-            </div>
-        </div>
-    </div>
-    <div class="footer-container02">
-        <div class="footer-containerbox02">
-            <div>Copyright ©SCGG All Rights Reserved.</div>
-            <div class="footer-container02-nav">
-                <ul>
-                    <li><a href="/fragment/html/terms.html">이용약관</a></li>
-                    <li><a href="/fragment/html/privacy.html">개인정보처리방침</a></li>
-                    <li><a href="">사업자정보확인</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+<div class="footer" th:replace="fragment/footer :: footer">
+
 </div>
 <!-- footer 끝 -->
-
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<script src="/static/shopping/js/shopList.js"></script>
 </body>
 </html>

@@ -26,6 +26,8 @@ public class QUsers extends EntityPathBase<Users> {
 
     public final ListPath<com.example.dw.domain.entity.freeBoard.FreeBoard, com.example.dw.domain.entity.freeBoard.QFreeBoard> freeBoard = this.<com.example.dw.domain.entity.freeBoard.FreeBoard, com.example.dw.domain.entity.freeBoard.QFreeBoard>createList("freeBoard", com.example.dw.domain.entity.freeBoard.FreeBoard.class, com.example.dw.domain.entity.freeBoard.QFreeBoard.class, PathInits.DIRECT2);
 
+    public final ListPath<com.example.dw.domain.entity.freeBoard.FreeBoardComment, com.example.dw.domain.entity.freeBoard.QFreeBoardComment> freeBoardComments = this.<com.example.dw.domain.entity.freeBoard.FreeBoardComment, com.example.dw.domain.entity.freeBoard.QFreeBoardComment>createList("freeBoardComments", com.example.dw.domain.entity.freeBoard.FreeBoardComment.class, com.example.dw.domain.entity.freeBoard.QFreeBoardComment.class, PathInits.DIRECT2);
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final ListPath<Pet, QPet> pet = this.<Pet, QPet>createList("pet", Pet.class, QPet.class, PathInits.DIRECT2);
