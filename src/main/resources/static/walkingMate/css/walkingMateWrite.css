@@ -1,27 +1,10 @@
-*{
-    font-family: 'Pretendard-Regular';
-}
-html,body{
-    height: 100%;
-}
-body{
-    display: flex;
-    flex-direction: column;
-}
-a{
-    color: black;
-}
-main{
-    width: 100%;
-    height: auto;
-    flex: 1;
-    display: flex;
-    justify-content: center;
-}
+
 .main-container{
+    font-family: 'GmarketSansMedium';
     width: 1024px;
     min-width: 1024px;
-    height: auto;
+    height: 1100px;
+    margin: 0 auto;
     /* background-color: pink; */
 }
 .cate-title-box{
@@ -35,6 +18,22 @@ main{
 
     /* background-color: pink; */
 }
+
+.how-to-write-section {
+    margin:3px 0px 30px 0px;
+}
+.write-ul-li img {
+    height: 305px;
+}
+
+.write-ul-li {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
 .mate-title-box{
     width: 100%;
     height: 60px;
@@ -68,311 +67,170 @@ main{
 }
 .mate-content-box{
     width: 100%;
-    height: 500px;
-
+    height: 450px;
     display: flex;
     justify-content: center;
     align-items: center;
 
     /* background-color: blueviolet; */
 }
-.mate-content-box textarea{
-    width: 1000px;
-    height: 480px;
+.content-input-section {
+    box-sizing: border-box;
+    padding:0px 10px 0px 10px;
+    display: flex;
+    justify-content: space-between;
+}
 
+.mate-content-box textarea{
+    border-radius: 10px;
+    width: 600px;
+    height: 432px;
     box-sizing: border-box;
     padding: 10px;
     resize: none;
+}
 
+
+
+
+
+
+
+
+
+
+.mate-select-box {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding:10px 0px 10px 10px;
+
+}
+
+
+.mate-select-box-table {
+    background-color:  #F8BE41;
+    border-collapse: collapse;
+
+
+}
+
+.mate-th {
     border-radius: 10px;
-}
-.mate-select-box{
-    width: 100%;
-    height: 80px;
 
-    display: flex;
-    align-items: center;
-
-    /* background-color: greenyellow; */
+    border: 1px solid gray;
+    font-size: 12px;
+    font-weight: 300;
 }
 
-/* 약속시간 선택 */
-.select-time{
-    width: 25%;
-    height: 100%;
+.mate-select-box-table td {
+    border: 1px solid gray;
 
-    box-sizing: border-box;
-    padding: 15px;
-
-    /* background-color: aquamarine; */
 }
-.select-time-title{
-    width: 100px;
-    height: 25px;
 
-    /* background-color: firebrick; */
+.mate-select-box-table tr td:first-child{
+    border-top-right-radius: 10px;
 }
-.selct-one-time{
-    width: 100px;
-    height: 25px;
 
-    /* background-color: yellow; */
-}
-.selct-one-time select{
-    width: 100%;
-    height: 100%;
-
+#datepicker {
     text-indent: 10px;
-
-    cursor: pointer;
-}
-/* 약속시간 선택 끝 */
-
-.select-member{
-    width: 25%;
-    height: 100%;
-
-    box-sizing: border-box;
-    padding: 15px;
-}
-.select-member-title{
-    width: 100px;
-    height: 25px;
-
-    /* background-color: firebrick; */
-}
-.select-one-member{
-    width: 100px;
-    height: 25px;
-
-    /* background-color: yellow; */
-}
-.select-one-member select{
-    width: 100%;
-    height: 100%;
-
-    text-indent: 10px;
-
-    cursor: pointer;
-}
-
-
-
-.select-pet{
-    width: 50%;
-    height: 100%;
-
-    box-sizing: border-box;
-    padding: 15px;
-
-    /* background-color: pink; */
-}
-.select-pet-title{
-    width: 100px;
-    height: 25px;
-
-    /* background-color: firebrick; */
-}
-.select-one-pet{
-    width: 100%;
     height: 30px;
-
-    display: flex;
-    align-items: center;
-
-    /* background-color: green; */
+    width: 300px;
+    border: none;
 }
-.select-pet-btn{
-    width: 100px;
-    height: 25px;
 
-    margin: 0 5px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    color: white;
-    background-color: #FCD11E;
-
+.ui-datepicker-trigger{
+    position: absolute;
     cursor: pointer;
+    height: 30px;
+    left: 4px;
+    top: 1px;
 }
-.mate-date-n-region-box{
-    width: 100%;
-    height: 300px;
-    display: flex;
 
-    /* background-color: hotpink; */
+#ui-datepicker-div {
+    width: 294px ;
 }
-.select-date{
-    width: 50%;
-    height: 300px;
 
-    /* background-color: pink; */
+
+#walkingMateTime, #walkingMatePerson {
+    text-indent: 5px;
+    width: 300px;
+    height: 33px;
+    border: none;
 }
-.title-n-date{
-    width: 100%;
-    height: 20%;
 
-    box-sizing: border-box;
-    padding: 0 15px;
-
-    /* display: flex; */
-    /* background-color: plum; */
-
-    margin: 35px auto;
+.search-box {
+    position: relative;
 }
-.select-date-title{
-    width: 50%;
-    height: 50%;
 
-    display: flex;
-    align-content: center;
-    /* box-sizing: border-box; */
-    /* padding: 0 15px; */
-
-    /* background-color: bisque; */
+#addr {
+    text-indent: 5px;
+    height: 30px;
+    border: none;
+    width: 300px;
 }
-.selected-date-wrap img{
+
+#search-btn {
     width: 20px;
     height: 20px;
-    margin: 0 10px;
-
+    right: 0;
+    position: absolute;
+    top: 6px;
     cursor: pointer;
 }
-.selected-date-wrap{
+
+#map{
+
+    border-top: 1px solid black;
+    width: 300px;
+    height: 300px;
+}
+
+
+
+.mate-btn-box {
+    margin-top: 20px;
     width: 100%;
-    height: 50%;
-
     display: flex;
-    align-items: center;
-    justify-content: center;
-
-    /* background-color: red; */
-}
-.selected-date{
-    width: 50%;
-    height: 90%;
-
-    border-radius: 5px;
-    border: 1px solid black;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    /* background-color: gold; */
-}
-.calender-wrap{
-    width: 100%;
-    height: 80%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* background-color: green; */
-}
-.calender{
-    width: 92%;
-    height: 95%;
-
-    border: 1px solid black;
-}
-.select-region{
-    width: 50%;
-    height: 100%;
-
-    /* background-color: tan; */
-}
-.select-region-title-n-search{
-    width: 100%;
-    height: 20%;
-
+    justify-content: end;
     box-sizing: border-box;
-    padding: 0 15px;
-
-    /* background-color: teal; */
-
-    margin: 35px auto;
+    padding: 10px;
 }
-.select-region-title{
-    width: 100%;
-    height: 50%;
 
-    display: flex;
-    align-content: center;
-    
-}
-.searchbox{
-    width: 100%;
-    height: 50%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    /* background-color: red; */
-}
-.searchbox input{
-    width: 50%;
-    height: 90%;
-
+.btns {
+    border: 1px solid gray;
     border-radius: 5px;
-    border: 1px solid black;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    /* background-color: gold; */
-}
-.searchbox img{
-    width: 20px;
-    height: 20px;
-    margin: 0 10px;
-
+    background-color: white;
     cursor: pointer;
-}
-.map-wrap{
-    width: 100%;
-    height: 80%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* background-color: navy; */
-}
-.map{
-    width: 92%;
-    height: 95%;
-
-    border: 1px solid black;
-}
-.mate-btn-box{
-    width: 100%;
-    height: 60px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    /* background-color: khaki; */
-
-    cursor: pointer;
-
-    margin: 80px auto;
-}
-.mate-btn{
     width: 100px;
-    height: 30px;
+    height: 29px;
+    position: relative;
+    z-index: 1;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+}
 
-    border-radius: 20px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    background-color: #FCD11E;
-
-    color: white;
+.btns:after{
+    content: "";
+    top: 0;
+    position: absolute;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+    background-color: #F8BE41;
+}
+.btns:hover:after {
+    width: 100%;
+    z-index: -1;
+}
+.list-btn {
+    margin-right: 10px;
 }

@@ -13,8 +13,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static lombok.Builder.Default;
-
 @Entity
 @Getter
 @Builder
@@ -32,10 +30,11 @@ public class WalkingMate {
     private String walkingMateRd;
     @LastModifiedDate
     private String walkingMateMd;
-    private Long walkingMateViewCount;
+    @Builder.Default
+    private Long walkingMateViewCount = 0L;
     private Long walkingMateState;
     private Long walkingMatePerson;
-    @Default
+    @Builder.Default
     private Long walkingMateToday = 1L;
 
     private String walkingMateDate;

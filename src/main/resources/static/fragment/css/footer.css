@@ -1,7 +1,6 @@
 /* 푸터 시작 */
 
 .footer{
-  /* width: 1535.5px; */
   width: 100%;
   min-width: 1024px;
   height: 170px;
@@ -9,6 +8,7 @@
   flex-direction: column;
   justify-content: center;
   background-color: #F5F5F5;
+  margin: 0 auto;
 
   font-family: 'Pretendard-Regular';
 }
@@ -53,14 +53,15 @@
 }
 .footer-container02{
   width: 100%;
+  min-width: 1024px;
   height: 20%;
   display: flex;
   justify-content: center;
   /* background-color: pink; */
 }
 .footer-containerbox02{
-  width: 70%;
   height: 100%;
+  min-width: 1024px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -72,8 +73,24 @@
 /* .footer-container02-nav{
    
 }*/
+
+.copyright {
+  width: 674px;
+}
+.footer-container02-nav {
+  width: 290px;
+}
+
+.footer-container02-nav ul {
+  display: flex;
+  justify-content: space-between;
+}
+
 .footer-container02-nav li{
   display: inline-block;
-  margin: 0 20px;
+}
+
+.footer-container02-nav li a {
+  color: black;
 }
 /* 푸터 끝 */

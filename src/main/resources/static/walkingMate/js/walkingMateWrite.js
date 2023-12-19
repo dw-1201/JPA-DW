@@ -42,13 +42,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //지도 함수 및 주소/마커생성
     initMap();
-    document.getElementById("addr").addEventListener("click", onClickAddr);
+    document.getElementById("search-btn").addEventListener("click", onClickAddr);
 
     //달력 값에 따른 시간대 동적으로 생성
     const selectElement = document.getElementById('walkingMateTime');
     $('#datepicker').datepicker({
-        showOn: 'both',
+        // showOn: 'both',
         showButtonPanel: true,
+        // buttonImage: "/img/calendarIcon.png",
+        // buttonImageOnly:true,
         currentText: '오늘 날짜',
         closeText: '닫기',
         dateFormat: 'yy/mm/dd',

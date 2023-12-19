@@ -2,6 +2,7 @@ package com.example.dw.controller;
 
 
 import com.example.dw.domain.form.WalkMateForm;
+import com.example.dw.service.WalkingMateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.view.RedirectView;
 public class WalkBoardController {
 
 
+    private final WalkingMateService walkingMateService;
 
     @GetMapping("/walkWrite")
     public String walkWrite(){
@@ -33,6 +35,9 @@ public class WalkBoardController {
         System.out.println(walkMateForm.getWalkingMateFullAddress());
         System.out.println(walkMateForm.getWalkCity());
         System.out.println(walkMateForm.getWalkCounty());
+
+
+        walkingMateService.registerWalkingMate(walkMateForm);
 
         return new RedirectView("/index/");
 

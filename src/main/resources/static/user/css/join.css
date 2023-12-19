@@ -1,6 +1,6 @@
 .join-page-wrap {
     width: 1024px;
-    margin: 150px auto;
+    margin: 0px auto;
     font-family: 'GmarketSansMedium';
 }
 .img-container {
@@ -8,7 +8,7 @@
     height: 200px;
     min-width: 900px;
     text-align: center;
-    margin: 120px 0px 70px 0px;
+    margin: 80px 0px 50px 0px;
     position: relative;
 }
 .title-logo {
