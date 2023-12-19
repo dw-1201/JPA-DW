@@ -2,7 +2,7 @@
 //헤더 픽스
 $(document).ready(function (){
 
-    let headerInnerHeight = $('.header').innerHeight();
+    let headerInnerHeight = $('.header-section01').innerHeight();
 
     $(window).scroll(function (){
 
