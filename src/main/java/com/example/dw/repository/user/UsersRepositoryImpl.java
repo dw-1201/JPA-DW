@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 import static com.example.dw.domain.entity.freeBoard.QFreeBoard.freeBoard;
 import static com.example.dw.domain.entity.question.QQuestion.question;
 import static com.example.dw.domain.entity.user.QUsers.users;
+import static com.example.dw.domain.entity.user.QUserFile.userFile;
 
 @Repository
 @RequiredArgsConstructor
@@ -37,9 +38,9 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
 
     @Override
     public Optional<UserDetailDto> findByUserId(Long userId) {
-
+        System.out.println(userId);
         UserDetailDto detail = getUserDetail(userId);
-
+        System.out.println(detail.getUserName()+"입니다.");
         return Optional.ofNullable(detail);
     }
 
@@ -63,6 +64,11 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
                 )
                 .fetchOne();
     }
+
+
+
+
+
 
     //회원리스트
     private List<UserListDto> getUserList(Pageable pageable, String cate, String keyword, String userState){
@@ -105,12 +111,19 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
                 users.address.zipCode,
                 users.address.address,
                 users.address.detail,
-                users.userIntroduction
+                users.userIntroduction,
+                users.userFile.id,
+                users.userFile.route,
+                users.userFile.name,
+                users.userFile.uuid
         ))
                 .from(users)
+                .leftJoin(users.userFile,userFile)
                 .where(users.id.eq(userId))
                 .fetchOne();
     }
+
+
 
     //주단위 일별 회원가입자 수
     public List<AdminUserChartDto> getDailyJoinCount() {

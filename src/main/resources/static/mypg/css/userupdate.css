@@ -60,11 +60,13 @@ position: relative;
     width: 150px;
     height: 150px;
     border-radius: 30%;
-    background: url('/mypg/img/b556fdf429d8de25c3acf62f8186ddb9.png')
-    no-repeat ;
-    background-size: 150px 150px;
 }
 
+.userImg{
+    width: 100%;
+    height: 100%;
+    border-radius:30% ;
+}
 .addbtn-area{
     /* border: 1px solid black; */
     margin-top: 15px;

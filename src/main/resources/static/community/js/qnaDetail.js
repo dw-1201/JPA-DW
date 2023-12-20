@@ -45,3 +45,12 @@ $('.modify-btn').on('click',function (){
 
 })
 
+$('.remove-btn').on('click',function (){
+    let questionId =$(this).data('questionid');
+
+    console.log(questionId);
+
+    window.location.href="/qna/delete/" + questionId;
+
+})
+

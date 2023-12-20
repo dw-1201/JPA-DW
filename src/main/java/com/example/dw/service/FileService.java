@@ -4,18 +4,24 @@ package com.example.dw.service;
 import com.example.dw.domain.dto.admin.AdminGoodsDetailImgDto;
 import com.example.dw.domain.dto.admin.AdminGoodsMainImgDto;
 
+import com.example.dw.domain.dto.admin.UserDetailDto;
+import com.example.dw.domain.dto.admin.UserFileDto;
 import com.example.dw.domain.dto.community.QuestionImgDto;
 import com.example.dw.domain.entity.goods.Goods;
 import com.example.dw.domain.entity.question.Question;
+import com.example.dw.domain.entity.user.Users;
 import com.example.dw.domain.form.GoodsDetailImgForm;
 import com.example.dw.domain.form.GoodsMainImgForm;
 import com.example.dw.domain.form.QuestionImgForm;
+import com.example.dw.domain.form.UserFileForm;
 import com.example.dw.repository.community.QuestionImgRepository;
 import com.example.dw.repository.community.QuestionRepository;
 import com.example.dw.repository.community.QuestionRepositoryCustom;
 import com.example.dw.repository.goods.GoodsDetailImgRepository;
 import com.example.dw.repository.goods.GoodsMainImgRepository;
 import com.example.dw.repository.goods.GoodsRepository;
+import com.example.dw.repository.user.UserFileRepository;
+import com.example.dw.repository.user.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -42,6 +48,8 @@ public class FileService {
     @Value("${file.que}")
     private String questionImg;
 
+    @Value("file.user")
+    private String userFileImg;
 
     private final GoodsMainImgRepository goodsMainImgRepository;
     private final GoodsDetailImgRepository goodsDetailImgRepository;
@@ -51,6 +59,8 @@ public class FileService {
     private final QuestionImgRepository questionImgRepository;
     private final QuestionRepositoryCustom questionRepositoryCustom;
 
+    private final UsersRepository usersRepository;
+    private final UserFileRepository userFileRepository;
 
     //상품 메인 사진 로컬서버 저장
     @Transactional
@@ -266,6 +276,72 @@ public class FileService {
             }
 
         }
+    }
+
+    //user 이미지 로컬 저장
+    @Transactional
+    public UserFileForm saveUserFile(MultipartFile file)throws IOException{
+        String originName = file.getOriginalFilename();
+        UUID uuid = UUID.randomUUID();
+        String sysName = uuid.toString() + "_" + originName;
+
+        File uploadPath = new File( userFileImg, getUploadPath());
+
+        if (!uploadPath.exists()) {
+            uploadPath.mkdirs();
+        }
+        File upLoadFile = new File(uploadPath, sysName);
+        file.transferTo(upLoadFile);
+
+        return
+                UserFileForm.builder()
+                        .name(originName)
+                        .route(getUploadPath())
+                        .uuid(uuid.toString())
+                        .build();
+
+
+    }
+
+    //user 이미지 DB 저장
+    @Transactional
+    public void registerUserImg(MultipartFile file, Long id) throws IOException {
+
+        //컨트롤러를 통해 받아온 id 값(상품테이블 기본키)을 가지고
+        //GoodsRepository에 만들어놓은 것을 활용
+        //id값을 넣어 해당 id값과 일치하는 상품을 불러오고 이것을 넣어준다.
+
+        UserFileForm userFileForm = saveUserFile(file);
+        Optional<Users> users = usersRepository.findById(id);
+
+        userFileForm.setUsers(users.get());
+
+
+        userFileRepository.save(userFileForm.toEntity());
+
+    }
+
+    //메인 사진 삭제
+    @Transactional
+    public void removeUserImg(Long userId) {
+        if (userId == null) {
+            throw new IllegalArgumentException("유효하지 않은 상품 번호");
+        }
+
+        UserFileDto fileimg =userFileRepository.findByUserFileId(userId).get();
+        AdminGoodsMainImgDto adminGoodsMainImgDto = new AdminGoodsMainImgDto(img.getId(), img.getGoodsMainImgPath(), img.getGoodsMainImgUuid(), img.getGoodsMainImgName(), img.getGoodsId());
+        UserFileDto userFileDto = new UserFileDto(fileimg.getId(),fileimg.)
+        File mainImgTarget = new File(mainImg, adminGoodsMainImgDto.getGoodsMainImgPath() + "/" + adminGoodsMainImgDto.getGoodsMainImgUuid() + "_" + adminGoodsMainImgDto.getGoodsMainImgName());
+
+
+        if (mainImgTarget.exists()) {
+            mainImgTarget.delete();
+
+            System.out.println("[ 삭제되는 상품 메인 사진 ]" + adminGoodsMainImgDto.getGoodsMainImgPath() + "/" + adminGoodsMainImgDto.getGoodsMainImgUuid() + "_" + adminGoodsMainImgDto.getGoodsMainImgName());
+            goodsMainImgRepository.deleteById(adminGoodsMainImgDto.getId());
+
+        }
+
     }
 
 

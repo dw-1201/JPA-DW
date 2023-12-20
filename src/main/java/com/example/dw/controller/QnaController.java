@@ -24,10 +24,8 @@ import java.util.List;
 public class QnaController {
 
     private final FileService fileService;
-    private final QuestionRepository questionRepository;
     private final QuestionRepositoryCustom questionRepositoryCustom;
     private final QnaService qnaService;
-    private final HttpSession httpSession;
 
     @GetMapping("/qnaLists")
     public String page(){
@@ -67,9 +65,12 @@ public class QnaController {
 
     @GetMapping("/qnaDetail/{questionId}")
     public String detailPage(@PathVariable("questionId") Long questionId , Model model){
+        qnaService.updateViewCount(questionId);
+
         List<QuestionDetailResultDto> detailresult = questionRepositoryCustom.findQnaById(questionId);
        System.out.println(detailresult.toString()+"입니다.");
         model.addAttribute("detail", detailresult);
+        System.out.println(questionId+"번 게시물 조회수 증가");
 
         return "/community/qnaDetail";
     }
@@ -98,6 +99,15 @@ public class QnaController {
 
         qnaService.modify(questionWritingForm,files);
         System.out.println("여기까지 완료!!");
+        return new RedirectView("/qna/qnaLists");
+    }
+
+    // 게시판 삭제
+    @GetMapping("/delete/{questionId}")
+    public RedirectView removeQuestion(@PathVariable("questionId") Long questionId){
+
+        qnaService.delete(questionId);
+
         return new RedirectView("/qna/qnaLists");
     }
 
