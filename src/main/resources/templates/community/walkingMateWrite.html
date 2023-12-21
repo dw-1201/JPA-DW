@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/common/css/common.css">
+    <link rel="stylesheet" href="/fragment/css/header.css">
+    <link rel="stylesheet" href="/fragment/css/footer.css">
+    <link rel="stylesheet" href="/community/css/walkingMateWrite.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+    <title>산책메이트 글 작성</title>
+</head>
+<body>
+<!-- header 시작 -->
+<div class="header" th:replace="fragment/header :: header">
+
+</div>
+<!-- header 끝 -->
+
+<!-- main 시작 -->
+<main>
+    <form action="/walk/registerWalkMate" method="post">
+
+        <div class="main-container">
+            <div class="how-to-write-section">
+                <ul class="write-ul">
+                    <li class="write-ul-li">
+                        <img src="/img/walkWriteImg.jpg" alt="산책글 메인 사진"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="cate-title-box">산책메이트</div>
+            <div class="mate-title-box">
+                <div class="title-input-wrap">
+                    <input type="text" name="walkingMateTitle" placeholder="제목을 입력해주새요">
+                </div>
+            </div>
+            <div class="content-input-section">
+            <div class="mate-content-box">
+                <textarea name="walkingMateContent" placeholder="내용을 입력해주세요"></textarea>
+            </div>
+            <div class="mate-select-box">
+
+                <div class="mate-select-box-container">
+                    <table class="mate-select-box-table" cellspacing="0" >
+                        <tr>
+                            <colgroup>
+                                <col width="110px"/>
+                                <col />
+                            </colgroup>
+                        </tr>
+                        <tr>
+                            <th class="mate-th">날짜 선택</th>
+                            <td>
+                                <input type="text" id="datepicker" name="walkingMateDate" placeholder="날짜를 선택해주세요"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="mate-th">시간 선택</th>
+                            <td>
+                                <select name="walkingMateTime" id="walkingMateTime"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="mate-th">인원 선택</th>
+                            <td>
+                                <select name="walkingMatePerson" id="walkingMatePerson" >
+                                    <option value="2">2 명</option>
+                                    <option value="3">3 명</option>
+                                    <option value="4">4 명</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="mate-th">장소 선택</th>
+                            <td>
+                                <div class="search-box">
+                                    <input type="text" id="addr" name="walkingMateFullAddress" value="" placeholder="검색버튼을 클릭하여 장소를 선택하세요." />
+                                    <input type="hidden" id="city" name="walkCity" value=""/>
+                                    <input type="hidden" id="county" name="walkCounty" value=""/>
+                                    <img src="/img/magnifier.png" alt="" id="search-btn">
+                                </div>
+                                <div id="map" class="map"></div>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+            </div>
+            <div class="mate-btn-box">
+                <div class="mate-btn"><button class="list-btn btns" type="button">목록</button></div>
+                <div class="mate-btn"><button class="submit-btn btns">글 등록</button></div>
+            </div>
+        </div>
+    </form>
+</main>
+
+<!-- footer 시작 -->
+<div class="footer" th:replace="fragment/footer :: footer">
+
+</div>
+<!-- footer 끝 -->
+
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2d8cddce5e1cf36a90728390b847c19c&autoload=false&libraries=services"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" ></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="/community/js/walkingMateWrite.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+</body>
+</html>
