@@ -50,7 +50,7 @@ public class QWalkingMateComment extends EntityPathBase<WalkingMateComment> {
 
     public QWalkingMateComment(Class<? extends WalkingMateComment> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.walkingMate = inits.isInitialized("walkingMate") ? new QWalkingMate(forProperty("walkingMate")) : null;
+        this.walkingMate = inits.isInitialized("walkingMate") ? new QWalkingMate(forProperty("walkingMate"), inits.get("walkingMate")) : null;
     }
 
 }

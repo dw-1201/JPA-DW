@@ -30,7 +30,12 @@ public class WalkBoardController {
     //글 작성 페이지 이동
     @GetMapping("/walkWrite")
     public String walkWrite(){
+
+
+
         return "/community/walkingMateWrite";
+
+
     }
 
 
@@ -50,8 +55,6 @@ public class WalkBoardController {
 
     @GetMapping("/detail/{id}")
     public String walkDetail(@PathVariable("id") Long id, Model model ){
-
-
 
 
 

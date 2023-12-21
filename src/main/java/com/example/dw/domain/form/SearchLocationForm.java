@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 public class SearchLocationForm {
 
-
+    private String area;
     private String city;
     private String county;
     private String state;

@@ -28,7 +28,7 @@ public class WalkingMateService {
     public Page<WalkMateListDto> walkMateList(int page , SearchLocationForm searchLocationForm){
 
 
-        Pageable pageable = PageRequest.of(page, 10);
+        Pageable pageable = PageRequest.of(page, 15);
         return walkingMateRepositoryCustom.findAllWalkMate(pageable, searchLocationForm);
     }
     

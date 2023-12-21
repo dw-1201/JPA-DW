@@ -44,6 +44,7 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
         )
                 .from(walkingMate)
                 .where(
+                        areaNameEq(searchLocationForm),
                         createRecruitmentStatusCondition(searchLocationForm),
                         cityNameEq(searchLocationForm),
                         countyNameEq(searchLocationForm)
@@ -70,6 +71,7 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
                 .from(walkingMate)
                 .leftJoin(walkingMate.users, users)
                 .where(
+                        areaNameEq(searchLocationForm),
                         createRecruitmentStatusCondition(searchLocationForm),
                         cityNameEq(searchLocationForm),
                         countyNameEq(searchLocationForm)
@@ -89,6 +91,28 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
         } else { // 전체보기 ('' 인 경우)
             return null; // 특정 조건 없이 모든 결과 반환
         }
+    }
+
+
+    private BooleanExpression areaNameEq(SearchLocationForm searchLocationForm){
+
+        if (searchLocationForm.getArea().equals("수도권")){
+            return walkingMate.walkCity.in("서울", "경기", "인천");
+        } else if(searchLocationForm.getArea().equals("강원권")){
+            return walkingMate.walkCity.eq("강원");
+        } else if(searchLocationForm.getArea().equals("충청권")){
+            return walkingMate.walkCity.in("충북", "충남", "대전", "세종");
+        }   else if(searchLocationForm.getArea().equals("전라권")){
+            return walkingMate.walkCity.in("전북", "전남", "광주");
+        }   else if(searchLocationForm.getArea().equals("경상권")){
+            return walkingMate.walkCity.in("경북", "경남", "부산", "대구", "울산");
+        } else if(searchLocationForm.getArea().equals("제주권")){
+            return walkingMate.walkCity.eq("제주");
+        } else {
+            return null;
+
+        }
+
     }
 
     private BooleanExpression cityNameEq(SearchLocationForm searchLocationForm){

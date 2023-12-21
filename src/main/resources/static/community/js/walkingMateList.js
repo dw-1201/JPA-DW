@@ -2,6 +2,37 @@ import * as page from "./module/page.js";
 import * as list from "./module/list.js";
 
 
+window.onload = function (){
+
+    const writeBtn = $('.write-btn a');
+    writeBtn.on('click', checkUserId);
+
+}
+
+// userId 체크 함수
+function checkUserId(e) {
+    e.preventDefault();
+
+    $.ajax({
+        url:'/walks/sessionOk',
+        type:'post',
+        success : function (result){
+            const userIdExists = result;
+
+            if (!userIdExists) {
+                // 세션에 userId가 없는 경우
+                alert('로그인이 필요합니다.'); // 알림창 띄우기
+                window.location.href = '/user/enterLogin'; // 로그인 페이지로 이동
+            } else {
+                // 세션에 userId가 있는 경우
+                window.location.href = '/walk/walkWrite'; // 글 작성 페이지로 이동
+            }
+        }
+    })
+
+
+}
+
 
 $(document).ready(function (){
 
@@ -32,6 +63,7 @@ function updateBasedOnStatus(state) {
 
 //셀렉트옵션 검색값 가져오기 및 모집현황 값 가져오기
 function searchLoca(){
+    let addressArea = $('#addressRegion1').val();
     let addressDo = $('#addressDo1').val();
     let addressSiGunGu = $('#addressSiGunGu1').val()
     let state = $("input[name='status']:checked").val()
@@ -40,7 +72,7 @@ function searchLoca(){
         addressSiGunGu = '';
     }
     return {
-
+        area : addressArea,
         city : addressDo,
         county : addressSiGunGu,
         state : state
@@ -57,24 +89,24 @@ function showList(result){
     let text = '';
     let textInputSection = $('.walk-mate-list');
 
-
-    result.content.forEach(r=>{
-    text += `
+    if(result.content.length !=0){
+        result.content.forEach(r=>{
+            text += `
         <tr class="body-columns">
             <td>${r.id}</td>
             `;
-    if(r.walkingMateToday != r.walkingMatePerson){
-        text +=`
-            <td><img src="/img/001.png" alt="모집중" class="mate-status"></td>
+            if(r.walkingMateToday != r.walkingMatePerson){
+                text +=`
+            <td><img src="/img/001.png" alt="모집중" class="mate-status"/></td>
             `;
-    }else {
-        text += `
-            <td><img src="/img/002.png" alt="모집완료" class="mate-status"></td>
+            }else {
+                text += `
+            <td><img src="/img/002.png" alt="모집완료" class="mate-status"/></td>
 
         `;
-    }
-    
-    text+= `
+            }
+
+            text+= `
             <td>${r.walkingMateToday} / ${r.walkingMatePerson}</td>
             <td>${r.walkCity + ' ' +r.walkCounty}</td>
             <td>
@@ -88,7 +120,19 @@ function showList(result){
         `;
 
 
-    })
+        })
+    }else {
+       text = `<tr class="no-search-result">
+                    <td colspan="8"><img src="/img/no-search-result.jpg"</td>
+               </tr>
+               <tr class="no-search-result">
+                    <td colspan="8">검색결과가 없습니다. <br>
+                        검색 조건을 다시 확인해주세요.</td>
+           
+           
+               </tr>`
+    }
+
 
     textInputSection.html(text);
     let paginations = $('.pagination-ul');
@@ -97,13 +141,11 @@ function showList(result){
         e.preventDefault();
         const page = parseInt($(this).data('page'));
         searchLoca.state =  $("input[name='status']:checked").val()
-
         list.list(page, searchLoca(),'walks','walkList', showList)
 
     });
 
 }
-
 
 
 
@@ -198,7 +240,7 @@ var areaSelectMaker = function(target){
             });
 
             $(a2).on("change", function(){
-                a3.empty().append("<option value=''>선택</option>");
+                a3.empty().append("<option value=''>전체</option>");
                 var Region = a1.val();
                 var Do = $(this).val();
                 var keys = Object.keys(area[Region][Do]);
@@ -209,9 +251,9 @@ var areaSelectMaker = function(target){
         })(i);
 
         function init(t, first){
-            first ? t.empty().append("<option value=''>선택</option>") : "";
-            t.next().empty().append("<option value=''>선택</option>");
-            t.next().next().empty().append("<option value=''>선택</option>");
+            first ? t.empty().append("<option value=''>전체</option>") : "";
+            t.next().empty().append("<option value=''>전체</option>");
+            t.next().next().empty().append("<option value=''>전체</option>");
         }
     }
 }

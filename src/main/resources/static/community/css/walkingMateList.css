@@ -6,89 +6,155 @@
     margin: 0 auto;
     font-family: 'GmarketSansMedium';
 
-    /* background-color: pink; */
 }
 
 .mate-main-img-box {
-    margin-top: 20px;
-}
-
-/* 검색 */
-.main-content-contaniner-form{
-    width: 100%;
-    height: 50px;
-    /* margin: 25px auto; */
-
-  }
-  .search-inputbox{
+    margin:20px 0px 30px 0px;
     position: relative;
-    width: 280px;
-    height: 50px;
-    margin: 0 auto;
-    /* padding: 24px 0; */
-    /* overflow: hidden; */
-    /* border: 2px solid #FCD11E; */
-  }
-  .input-img{
-    width: 25px;
-    height: 25px;
-  
-    position :absolute;
-    z-index: 2;
-    top: 50%;
-    left: 15px;
-    cursor: pointer;
-    transform: translateY(-50%);
-  }
-  .inputbox{
-    /* position :absolute; */
-    width: 100%;
-    height: 50px;
-    line-height: 50px;
-    border: 2px solid #FCD11E;
-    border-radius: 24px;
-    padding: 0 48px;
-    font-size: 16px;
-  }
-  /* 검색 */
-
-/* 리스트 */
-.list-container{
-    width: 100%;
-    height: auto;
-    /* background-color: orange; */
 }
-.list-title{
-    width: 100%;
-    height: 70px;
 
-    font-size: 20px;
+.write-btn {
+    border-radius: 10px;
+    position: absolute;
+    background: white;
+    left: 36px;
+    height: 35px;
+    width: 395px;
+    bottom: 20px;
+
+}
+.write-btn a {
+    color: black;
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+
+.write-btn a:after{
+    content: "";
+    top: 0;
+    position: absolute;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+    background-color: #F8BE41;
+    border-radius: 10px;
+}
+.write-btn a:hover:after {
+    width: 100%;
+    z-index: -1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.how-to-search-box {
+    color: gray;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+  /* 검색 */
+.main-content-container-form {
+    width: 100%;
+    height: 100%;
+}
+
+.search-inputbox {
     display: flex;
     align-items: center;
-    box-sizing: border-box;
-    padding: 0 10px;
+
 }
+
+.location-select-container {
+    justify-content: space-between;
+    display: flex;
+    width: 525px;}
+
+
+.location-select-container select {
+    width: 150px;
+    height: 30px;
+}
+.search-btn-box {
+}
+
+.search-btn {
+    width: 60px;
+    cursor: pointer;
+    height: 30px;
+}
+
+.status-container {
+    font-size: 13px;
+    text-align: end;
+    width: 500px;
+}
+
+.status-container label {
+    vertical-align: center;
+    cursor: pointer;
+}
+
+
+/* 리스트 */
+
 .list-contents{
+
     width: 100%;
     height: auto;
-    /* background-color: pink; */
-
+    min-height: 750px;
     margin: 10px auto;
 }
 .list-table{
     width: 1024px;
     height: 100%;
-
     border-collapse: collapse;
-    text-align: center;  
+    text-align: center;
 }
 .list-table thead{
-    font-size: 14px;
-    width: 1024px;
+
+    font-size: 13px;
     height: 60px;
     border-top: 1px solid #6d6c6c;
     border-bottom: 1px solid #6d6c6c;
 }
+
 
 .fixed-number {
     width: 60px;
@@ -110,9 +176,12 @@
 }
 
 
+.walk-mate-list {
+   min-height: 507px;
+}
 .walk-mate-list td {
-    font-size: 13px;
-    height: 50px;
+    font-size: 12px;
+    height: 45px;
     border-bottom: 1px solid rgba(128, 128, 128, 0.34);
 }
 
@@ -122,252 +191,33 @@
 }
 
 .mate-status {
+    width: 85%;
+    height: 70%;
     vertical-align: middle;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.list-page-container{
-    width: 100%;
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* background-color: violet; */
-}
-.list-pages{
-    width: 200px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* background-color: yellow; */
-}
-.list-pages ul li{
-    display: inline-block;
-    font-size: 15px;
-    margin: 0 5px;
-}
-/*  */
-.mate-main-img-box{
-    width: 100%;
-    height: 300px;
-
-    display: flex;
-    justify-content: center;
-    /* align-items: center; */
-
-    /* background-color: antiquewhite; */
-}
-.mate-main-img-box img{
-    width: 1024px;
-    height: 250px;
-}
-.mate-write-btn-box{
-    width: 100%;
-    height: 50px;
-
-    display: flex;
-    justify-content: end;
-    align-items: center;
-
-    box-sizing: border-box;
-    /* padding: 0 35px; */
-
-    /* background-color: yellow; */
-}
-.write-btn{
-    width: 90px;
-    height: 40px;
-    font-size: 18px;
-    font-weight: bold;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    border-radius: 5px;
-
-    background-color: #ffdb4b;
-    /* background-color: #FCD11E; */
-    cursor: pointer;
-}
-    .write-btn:hover{
-    /* background-color: #ffdb4b; */
-    background-color: #FCD11E;
-}
-.write-btn a{
-    color: #3b3b3b;
+.walk-mate-list tr:hover {
+    background-color: rgba(156, 156, 156, 0.34);
 }
 
-.mate-list-box{
-    width: 100%;
-    height: auto;
-
-    box-sizing: border-box;
-    padding: 0 15px;
-
-    /* background-color: blueviolet; */
+.no-search-result td{
+    border: none !important;
+    background-color: white !important;
 }
-.li-list{
-    float: left;
-    list-style: none;
-    margin: 15px;
+
+.no-search-result img {
+    width: 34%;
 }
-.mate-content-box{
-    width: 300px;
-    height: 400px;
 
-    box-sizing: border-box;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 3px 3px 3px rgb(234, 233, 233);
-    border: 0.5px solid rgb(234, 233, 233);
-    /* background-color: #fff7da; */
 
-    background-color: white;
 
-    /* display: flex; */
-}
-.mate-img{
-    width: 100%;
-    height: 200px;
-
-    border-radius: 5px;
-}
-.mate-img img{
-    width: 100%;
-    height: 100%;
-
-    border-radius: 5px;
-}
-.mate-content{
-    width: 100%;
-    height: 170px;
-
-    /* background-color: red; */
-}
-.mate-invite{
-    width: 100%;
-    height: 60px;
-
-    display: flex;
-    align-items: center;
-
-    /* background-color: palevioletred; */
-}
-.invite-img{
-    width: 100px;
-    height: 100%;
-
-    display: flex;
-    align-items: center;
-}
-.invite-status{
-    width: 91px;
-    height: 33px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* margin-left: 5px; */
-
-    border-radius: 20px;
-
-    background-color: rgb(185, 233, 252);
-}
-.invite-status span{
-    margin: 0 5px;
-    font-size: 15px;
-    /* color: white; */
-    font-weight: bold;
-}
-.mate-info{
-    width: 100%;
-    height: 130px;
-
-    /* background-color: forestgreen; */
-}
-.mate-title{
-    width: 100%;
-    height: 40px;
-
-    display: flex;
-    align-items: center;
-
-    font-size: 16px;
-    font-weight: bold;
-
-    /* background-color: goldenrod; */
-}
-.mate-content-text{
-    width: 100%;
-    height: 60px;
-
-    font-size: 14px;
-    color: #3b3b3b;
-
-    /* background-color: slateblue; */
-}
-.mate-region{
-    width: 100%;
-    height: 30px;
-    
-    font-size: 12px;
-    /* background-color: aquamarine; */
-}
-.mate-page-box{
-    width: 100%;
-    height: 60px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    /* background-color: green; */
-
-    margin: 20px auto;
-}
-.list-pages{
-    width: 200px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* background-color: yellow; */
-}
-.list-pages ul li{
-    display: inline-block;
-    font-size: 15px;
-    margin: 0 5px;
-}
-.room{
-    
-    margin: 10px auto;
-}
 
 
 
 
 
 .pagination-ul {
-    margin: 0 auto;
+    margin: 25px auto;
     width: 200px;
     display: flex;
     align-items: center;
@@ -378,5 +228,10 @@
     width: 100%;
 }
 .pagination-ul li a {
-    color: black;
+    font-size: 12px;
+    color: rgba(128, 128, 128, 0.4);
+}
+
+.active-btn {
+    color: black !important;
 }
