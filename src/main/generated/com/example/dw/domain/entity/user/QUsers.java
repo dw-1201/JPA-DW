@@ -56,6 +56,8 @@ public class QUsers extends EntityPathBase<Users> {
 
     public final NumberPath<Integer> userState = createNumber("userState", Integer.class);
 
+    public final ListPath<com.example.dw.domain.entity.walkingMate.WalkingMate, com.example.dw.domain.entity.walkingMate.QWalkingMate> walkingMates = this.<com.example.dw.domain.entity.walkingMate.WalkingMate, com.example.dw.domain.entity.walkingMate.QWalkingMate>createList("walkingMates", com.example.dw.domain.entity.walkingMate.WalkingMate.class, com.example.dw.domain.entity.walkingMate.QWalkingMate.class, PathInits.DIRECT2);
+
     public QUsers(String variable) {
         this(Users.class, forVariable(variable), INITS);
     }
