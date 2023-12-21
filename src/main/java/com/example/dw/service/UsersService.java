@@ -19,6 +19,7 @@ public class UsersService {
 
     private final UsersRepository usersRepository;
 
+
     //아이디 중복체크
     @Transactional(readOnly = true)
     public boolean existsByUserAccount(String userAccount){
@@ -70,5 +71,7 @@ public class UsersService {
          
          return Optional.ofNullable(findUser).orElseThrow(()-> new IllegalArgumentException("조회된 정보 없음")).get();
     }
+
+
 
 }

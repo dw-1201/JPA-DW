@@ -1,13 +1,5 @@
 package com.example.dw.repository.community;
 
-
-
-
-
-
-
-
-
 import com.example.dw.domain.dto.community.*;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -25,12 +17,11 @@ import static java.util.stream.Collectors.*;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
 @Repository
-public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
+public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
 
     private final JPAQueryFactory jpaQueryFactory;
 
@@ -66,7 +57,7 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
 
         List<QuestionListDto> contents =
                 content.stream().map(questionDto -> {
-                    QuestionImgDto questionImgDto = jpaQueryFactory
+                    List<QuestionImgDto> questionImgDto = jpaQueryFactory
                             .select(new QQuestionImgDto(
                                     questionImg.id,
                                     questionImg.questionImgRoute,
@@ -76,16 +67,19 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
                             ))
                             .from(questionImg)
                             .leftJoin(questionImg.question, question)
-                            .on(questionImg.question.id.eq(question.id))
-                            .fetchFirst();
+                            .where(question.id.eq(questionDto.getId()))
+                            .fetch();
 
-                    QuestionImgDto imgDto = new QuestionImgDto(
-                            questionImgDto.getId(),
-                            questionImgDto.getQuestionImgRoute(),
-                            questionImgDto.getQuestionImgName(),
-                            questionImgDto.getQuestionImgUuid(),
-                            questionImgDto.getQuestionId()
-                    );
+                    List<QuestionImgDto> imgDto = questionImgDto.stream()
+                            .map(imgDtos -> new QuestionImgDto(
+                                    imgDtos.getId(),
+                                    imgDtos.getQuestionImgRoute(),
+                                    imgDtos.getQuestionImgName(),
+                                    imgDtos.getQuestionImgUuid(),
+                                    imgDtos.getQuestionId()
+                            ))
+                            .collect(Collectors.toList());
+
 
                     return new QuestionListDto(
                             questionDto.getId(),
@@ -95,7 +89,7 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
                             questionDto.getQuestionMd(),
                             questionDto.getUserId(),
                             questionDto.getUserName(),
-                            Collections.singletonList(imgDto)
+                            imgDto
                     );
                 }).collect(Collectors.toList());
 
@@ -107,8 +101,8 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
         return new PageImpl<>(contents, pageable,count);
     }
 
-
-    // 전체 페이지 조회 및 검색어 확인
+//
+//    // 전체 페이지 조회 및 검색어 확인
     private Long getCount(String keyword){
 
         Long count = jpaQueryFactory
@@ -120,8 +114,8 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
         return count;
 
     }
-
-        // 검색 조건 코드
+//
+//
     private BooleanExpression qnatitleEq(String keyword){
         return StringUtils.hasText(keyword) ? question.questionTitle.containsIgnoreCase(keyword) : null;
     }
@@ -129,6 +123,7 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
     @Override
     public List<QuestionDetailResultDto> findQnaById(Long id) {
         List<QuestionDetailDto> list = getQueDetail(id);
+
 
             List<QuestionDetailResultDto> result = list.stream().collect(groupingBy(r -> new QuestionDetailResultDto(
                     r.getId(),r.getQuestionTitle(),r.getQuestionContent(),r.getQuestionRd(),r.getUserId(),r.getUserName()),mapping(r->new QuestionImgDto(
@@ -140,11 +135,12 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
 
 
 
+
         System.out.println(result.toString()+"나와라!!");
 
         return result;
     }
-
+//
     @Override
     public List<QuestionImgDto> findAllByQuestionId(Long questionId) {
         return jpaQueryFactory.select(new QQuestionImgDto(
@@ -185,7 +181,9 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCuston{
                 .fetch();
 
         questionDetailDtos.forEach(r-> System.out.println(r.toString()+"좋았어"));
-                return questionDetailDtos;
+
+        return questionDetailDtos;
+
     }
 
 

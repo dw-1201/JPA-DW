@@ -1,8 +1,11 @@
 package com.example.dw.domain.entity.user;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 import static lombok.Builder.*;
 
@@ -27,16 +30,26 @@ public class Pet {
     @Default
     private String neutering ="N";
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private Users users;
 
-    @OneToOne(mappedBy = "pet" ,fetch = FetchType.LAZY)
-    @JoinColumn(name = "pet_img_id")
-    private PetImg petImg;
+    @OneToMany(mappedBy = "pet" ,fetch = FetchType.LAZY)
+    private List<PetImg> petImg;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id")
-    private PetCategory petCategory;
 
+    private String petCategory;
+
+    @Builder
+    public Pet(Long id, String birthDate, String name, Long weight, String petGender, String neutering, Users users, List<PetImg> petImg, String petCategory) {
+        this.id = id;
+        this.birthDate = birthDate;
+        this.name = name;
+        this.weight = weight;
+        this.petGender = petGender;
+        this.neutering = neutering;
+        this.users = users;
+        this.petImg = petImg;
+        this.petCategory = petCategory;
+    }
 }

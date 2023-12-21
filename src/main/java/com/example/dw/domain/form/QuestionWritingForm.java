@@ -19,20 +19,17 @@ public class QuestionWritingForm {
 
     private String questionTitle;
     private String questionContent;
-
     private Long userId;
 
-
-
     @Builder
-    public QuestionWritingForm(Long id, String questionTitle, String questionContent, Long userId){
-        this.id=id;
-        this.questionTitle=questionTitle;
-        this.questionContent=questionContent;
+    public QuestionWritingForm(Long id, String questionTitle, String questionContent, Long questionViewCount, Long userId) {
+        this.id = id;
+        this.questionTitle = questionTitle;
+        this.questionContent = questionContent;
         this.userId = userId;
     }
 
-// wriitingQna에서 작성한 이후 Form에 담아서 question 테이블에 저장하려고 하는데
+    // wriitingQna에서 작성한 이후 Form에 담아서 question 테이블에 저장하려고 하는데
     // toEntity로 보내면 Users에 insert가 되버립니다 ㅠㅠ
     public Question toEntity(){
         return  Question.builder()
