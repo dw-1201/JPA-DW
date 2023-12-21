@@ -1,29 +1,18 @@
-*{
-    font-family: 'Pretendard-Regular';
-}
-html,body{
-    height: 100%;
-}
-body{
-    display: flex;
-    flex-direction: column;
-}
-a{
-    color: black;
-}
-main{
-    width: 100%;
-    height: auto;
-    flex: 1;
-    display: flex;
-    justify-content: center;
-}
+
 .main-container{
     width: 1024px;
     min-width: 1024px;
     height: 100%;
+    margin: 0 auto;
+    font-family: 'GmarketSansMedium';
+
     /* background-color: pink; */
 }
+
+.mate-main-img-box {
+    margin-top: 20px;
+}
+
 /* 검색 */
 .main-content-contaniner-form{
     width: 100%;
@@ -87,74 +76,73 @@ main{
     margin: 10px auto;
 }
 .list-table{
-    width: 100%;
+    width: 1024px;
     height: 100%;
-
-    table-layout: fixed;
 
     border-collapse: collapse;
     text-align: center;  
 }
 .list-table thead{
+    font-size: 14px;
+    width: 1024px;
     height: 60px;
     border-top: 1px solid #6d6c6c;
     border-bottom: 1px solid #6d6c6c;
 }
-.body-columns{
-    width: 100%;
-    height: 60px;
 
-    min-height: 60px;
-    max-height: 60px;
-    /* background-color: blue; */
+.fixed-number {
+    width: 60px;
+}
+.fixed-status {
+    width: 75px;
+}
 
-    border-bottom: 1px solid #E4E4E4;
+.fixed-member {
+    width: 75px;
 }
-.fixed-number{
-    width: 50px;
-    min-width: 50px;
-    max-width: 0px;
 
-    /* background-color: tan; */
-}
-.fixed-status{
-    width: 80px;
-    min-width: 80px;
-    max-width: 80px;
-}
 .fixed-city{
-    width: 150px;
-    min-width: 150px;
-    max-width: 150px;
+    width: 120px;
 }
-.fixed-title{
-    width: 500px;
-    min-width: 500px;
-    max-width: 500px;
 
-    /* background-color: palegreen; */
+.fixed-title {
+    width: 325px;
 }
-.fixed-writer{
-    width: 80px;
-    min-width: 80px;
-    max-width: 80px;
 
-    /* background-color: paleturquoise; */
-}
-.fixed-date{
-    width: 100px;
-    min-width: 100px;
-    max-width: 100px;
 
-    /* background-color: chocolate; */
+.walk-mate-list td {
+    font-size: 13px;
+    height: 50px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.34);
 }
-.fixed-view{
-    width: 80px;
-    min-width: 80px;
-    max-width: 80px;
 
-    /* background-color: green; */
+.walk-mate-list td a{
+    display: block;
+    color: black;
 }
+
+.mate-status {
+    vertical-align: middle;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .list-page-container{
     width: 100%;
     height: 100px;
@@ -372,4 +360,23 @@ main{
 .room{
     
     margin: 10px auto;
+}
+
+
+
+
+
+.pagination-ul {
+    margin: 0 auto;
+    width: 200px;
+    display: flex;
+    align-items: center;
+}
+
+.pagination-ul li {
+    text-align: center;
+    width: 100%;
+}
+.pagination-ul li a {
+    color: black;
 }

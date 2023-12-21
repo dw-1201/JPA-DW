@@ -4,6 +4,7 @@ import com.example.dw.domain.embedded.Address;
 import com.example.dw.domain.entity.freeBoard.FreeBoard;
 import com.example.dw.domain.entity.freeBoard.FreeBoardComment;
 import com.example.dw.domain.entity.question.Question;
+import com.example.dw.domain.entity.walkingMate.WalkingMate;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -69,17 +70,14 @@ public class Users {
     @OneToMany(mappedBy = "users", orphanRemoval = true)
     private List<FreeBoardComment> freeBoardComments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "users", orphanRemoval = true)
+    private List<WalkingMate> walkingMates = new ArrayList<>();
+
     @Builder.Default
     private int userState = 1;
 
-
     @Builder
-
-    public Users(Long id, String userAccount, String userName, String userPassword, String userEmail, String userPhone,
-                 LocalDate userJoinDate, LocalDate userDeleteDate, String userNickName,
-                 String userIntroduction, Address address,
-                 UserFile userFile, List<Pet> pet,List<FreeBoard> freeBoard, List<Question> questions,
-                 List<FreeBoardComment> freeBoardComments, int userState) {
+    public Users(Long id, String userAccount, String userName, String userPassword, String userEmail, String userPhone, LocalDate userJoinDate, LocalDate userDeleteDate, String userNickName, String userIntroduction, Address address, UserFile userFile, List<Pet> pet, List<FreeBoard> freeBoard, List<Question> questions, List<FreeBoardComment> freeBoardComments, List<WalkingMate> walkingMates, int userState) {
         this.id = id;
         this.userAccount = userAccount;
         this.userName = userName;
@@ -94,12 +92,13 @@ public class Users {
         this.userFile = userFile;
         this.pet = pet;
         this.freeBoard = freeBoard;
-        this.questions= questions;
-        this.freeBoardComments = freeBoardComments;
-        this.userState=userState;
         this.questions = questions;
+        this.freeBoardComments = freeBoardComments;
+        this.walkingMates = walkingMates;
         this.userState = userState;
     }
+
+
 
     //임시비밀번호로 비밀번호 수정
     public Users updatePassword(String rePassword){

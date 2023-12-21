@@ -1,5 +1,6 @@
 package com.example.dw.domain.entity.walkingMate;
 
+import com.example.dw.domain.entity.user.Users;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -43,14 +44,15 @@ public class WalkingMate {
     private String walkCity;
     private String walkCounty;
 
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private Users users;
 
     @OneToMany(mappedBy = "walkingMate" ,fetch = FetchType.LAZY)
     private List<WalkingMateComment> walkingMateComment = new ArrayList<>();
 
-
     @Builder
-    public WalkingMate(Long id, String walkingMateTitle, String walkingMateContent, String walkingMateRd, String walkingMateMd, Long walkingMateViewCount, Long walkingMateState, Long walkingMatePerson, Long walkingMateToday, String walkingMateDate, String walkingMateTime, String walkingMateFullAddress, String walkCity, String walkCounty, List<WalkingMateComment> walkingMateComment) {
+    public WalkingMate(Long id, String walkingMateTitle, String walkingMateContent, String walkingMateRd, String walkingMateMd, Long walkingMateViewCount, Long walkingMateState, Long walkingMatePerson, Long walkingMateToday, String walkingMateDate, String walkingMateTime, String walkingMateFullAddress, String walkCity, String walkCounty, Users users, List<WalkingMateComment> walkingMateComment) {
         this.id = id;
         this.walkingMateTitle = walkingMateTitle;
         this.walkingMateContent = walkingMateContent;
@@ -65,8 +67,10 @@ public class WalkingMate {
         this.walkingMateFullAddress = walkingMateFullAddress;
         this.walkCity = walkCity;
         this.walkCounty = walkCounty;
+        this.users = users;
         this.walkingMateComment = walkingMateComment;
     }
+
 
 
 

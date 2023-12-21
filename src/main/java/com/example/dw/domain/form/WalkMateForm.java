@@ -1,5 +1,6 @@
 package com.example.dw.domain.form;
 
+import com.example.dw.domain.entity.user.Users;
 import com.example.dw.domain.entity.walkingMate.WalkingMate;
 import lombok.Builder;
 import lombok.Data;
@@ -19,10 +20,12 @@ public class WalkMateForm {
     private String walkingMateFullAddress;
     private String walkCity;
     private String walkCounty;
+    private Long userId;
+
 
 
     @Builder
-    public WalkMateForm(Long id, String walkingMateTitle, String walkingMateContent, Long walkingMatePerson, String walkingMateDate, String walkingMateTime, String walkingMateFullAddress, String walkCity, String walkCounty) {
+    public WalkMateForm(Long id, String walkingMateTitle, String walkingMateContent, Long walkingMatePerson, String walkingMateDate, String walkingMateTime, String walkingMateFullAddress, String walkCity, String walkCounty, Long userId) {
         this.id = id;
         this.walkingMateTitle = walkingMateTitle;
         this.walkingMateContent = walkingMateContent;
@@ -32,11 +35,8 @@ public class WalkMateForm {
         this.walkingMateFullAddress = walkingMateFullAddress;
         this.walkCity = walkCity;
         this.walkCounty = walkCounty;
+        this.userId = userId;
     }
-
-
-
-
 
 
 
@@ -51,6 +51,7 @@ public class WalkMateForm {
                 .walkingMateFullAddress(walkingMateFullAddress)
                 .walkCity(walkCity)
                 .walkCounty(walkCounty)
+                .users(Users.builder().id(userId).build())
                 .build();
     }
 

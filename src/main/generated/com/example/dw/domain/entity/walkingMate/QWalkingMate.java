@@ -18,9 +18,13 @@ public class QWalkingMate extends EntityPathBase<WalkingMate> {
 
     private static final long serialVersionUID = 1216164675L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QWalkingMate walkingMate = new QWalkingMate("walkingMate");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
+
+    public final com.example.dw.domain.entity.user.QUsers users;
 
     public final StringPath walkCity = createString("walkCity");
 
@@ -51,15 +55,24 @@ public class QWalkingMate extends EntityPathBase<WalkingMate> {
     public final NumberPath<Long> walkingMateViewCount = createNumber("walkingMateViewCount", Long.class);
 
     public QWalkingMate(String variable) {
-        super(WalkingMate.class, forVariable(variable));
+        this(WalkingMate.class, forVariable(variable), INITS);
     }
 
     public QWalkingMate(Path<? extends WalkingMate> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QWalkingMate(PathMetadata metadata) {
-        super(WalkingMate.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QWalkingMate(PathMetadata metadata, PathInits inits) {
+        this(WalkingMate.class, metadata, inits);
+    }
+
+    public QWalkingMate(Class<? extends WalkingMate> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.users = inits.isInitialized("users") ? new com.example.dw.domain.entity.user.QUsers(forProperty("users"), inits.get("users")) : null;
     }
 
 }

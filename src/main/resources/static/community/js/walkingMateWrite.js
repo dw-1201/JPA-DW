@@ -30,7 +30,6 @@ function onClickAddr() {
                     marker.setMap(null);
                     marker.setPosition(currentPos);
                     marker.setMap(map);
-
                 }
             });
         },
