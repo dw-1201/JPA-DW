@@ -151,6 +151,7 @@ function getTextLength(text) {
 
 $('document').ready(function(){
     limitText();
+
 })
 
 // 닉네임 유효성 검사
@@ -239,15 +240,7 @@ $('#userPhone').keyup(function(){
 
 
 
-$('.join-submit-btn').on('click', function () {
-    let content = $('#interduce-content').val();
 
-
-    if(commonReply.getTextLength(content)>200){
-        alert("200자 이내로만 작성 가능합니다.");
-        return;
-    }
-});
 
 
 
@@ -270,3 +263,52 @@ $('.join-submit-btn').on('click', function () {
     
 
 });
+//휴대폰
+function checkPhone(){
+    $('#userPhone').change(function (){
+
+        let userPhone = $('#userPhone').val();
+        $.ajax({
+
+            url : '/mypgs/phone/check',
+            type : 'post',
+            data : {userPhone : userPhone},
+            success : function (result){
+                if(result){
+                    $('.userPhone-unavailable').css('display','none');
+                    $('.userPhone-available').css('display','block')
+                }else {
+                    $('.userPhone-unavailable').css('display','block');
+                    $('.userPhone-available').css('display','none')
+                }
+            },error : function (a,b,c){
+                console.error(c);
+            }
+        })
+    })
+}
+
+
+function checkUserNickName(){
+    $('#nickname').change(function (){
+
+        let nickname = $('#nickname').val();
+        $.ajax({
+
+            url : '/mypgs/nickname/check',
+            type : 'post',
+            data : {userNickName : userNickName},
+            success : function (result){
+                if(result){
+                    $('.userPhone-unavailable').css('display','none');
+                    $('.userPhone-available').css('display','block')
+                }else {
+                    $('.userPhone-unavailable').css('display','block');
+                    $('.userPhone-available').css('display','none')
+                }
+            },error : function (a,b,c){
+                console.error(c);
+            }
+        })
+    })
+}

@@ -1,6 +1,8 @@
 package com.example.dw.repository.user;
 
 import com.example.dw.domain.dto.admin.*;
+import com.example.dw.domain.dto.community.*;
+import com.example.dw.domain.entity.user.UserFile;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 
 import static com.example.dw.domain.entity.freeBoard.QFreeBoard.freeBoard;
 import static com.example.dw.domain.entity.question.QQuestion.question;
+import static com.example.dw.domain.entity.question.QQuestionImg.questionImg;
 import static com.example.dw.domain.entity.user.QUsers.users;
 import static com.example.dw.domain.entity.user.QUserFile.userFile;
 
@@ -66,10 +69,6 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
     }
 
 
-
-
-
-
     //회원리스트
     private List<UserListDto> getUserList(Pageable pageable, String cate, String keyword, String userState){
         return jpaQueryFactory.select(new QUserListDto(
@@ -111,14 +110,10 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
                 users.address.zipCode,
                 users.address.address,
                 users.address.detail,
-                users.userIntroduction,
-                users.userFile.id,
-                users.userFile.route,
-                users.userFile.name,
-                users.userFile.uuid
+                users.userIntroduction
+
         ))
                 .from(users)
-                .leftJoin(users.userFile,userFile)
                 .where(users.id.eq(userId))
                 .fetchOne();
     }
@@ -273,5 +268,96 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
         return users.id.isNotNull();
     }
 
+    //마이페이지 이동시 회원 정보 가져오기
+    @Override
+    public Optional<UserDetailListDto> findOneByUserId(Long userId) {
+    UserDto content = jpaQueryFactory
+            .select(new QUserDto(
+                    users.id,
+                    users.userAccount,
+                    users.userName,
+                    users.userNickName,
+                    users.userPhone,
+                    users.userEmail,
+                    users.userJoinDate,
+                    users.address.zipCode,
+                    users.address.address,
+                    users.address.detail,
+                    users.userIntroduction
+            ))
+            .from(users)
+            .where(users.id.eq(userId))
+            .fetchOne();
 
+
+
+
+    Optional<UserDetailListDto> contents =
+            Optional.ofNullable(content).map(userDto -> {
+                List<UserFileDto> userFileDto = jpaQueryFactory
+                        .select(new QUserFileDto(
+                                userFile.id,
+                                userFile.route,
+                                userFile.name,
+                                userFile.uuid,
+                                users.id
+                        ))
+                        .from(userFile)
+                        .leftJoin(userFile.users, users)
+                        .where(users.id.eq(userDto.getId()))
+                        .fetch();
+
+                List<UserFileDto> imgDto = userFileDto.stream()
+                        .map(imgDtos -> new UserFileDto(
+                                imgDtos.getId(),
+                                imgDtos.getRoute(),
+                                imgDtos.getName(),
+                                imgDtos.getUuid(),
+                                imgDtos.getUserId()
+                        ))
+                        .collect(Collectors.toList());
+
+
+                return new UserDetailListDto(
+                        userDto.getId(),
+                        userDto.getUserAccount(),
+                        userDto.getUserName(),
+                        userDto.getUserNickName(),
+                        userDto.getUserPhone(),
+                        userDto.getUserEmail(),
+                        userDto.getUserJoinDate(),
+                        userDto.getZipCode(),
+                        userDto.getAddress(),
+                        userDto.getDetail(),
+                        userDto.getIntro(),
+                        imgDto
+                );
+            });
+
+        System.out.println(contents.toString()+"리스트 ");
+
+
+
+
+        return   contents;
+}
+
+// 이미지만 따로 추출
+
+
+    @Override
+    public List<UserFileDto> findAllByUserId(Long userId) {
+        return jpaQueryFactory.select(
+                new QUserFileDto(
+                        userFile.id,
+                        userFile.route,
+                        userFile.name,
+                        userFile.uuid,
+                        users.id
+                )
+        ).from(userFile)
+        .leftJoin(userFile.users,users)
+        .where(userFile.users.id.eq(userId))
+        .fetch();
+    }
 }

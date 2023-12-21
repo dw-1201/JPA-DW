@@ -16,7 +16,7 @@ public class UserFile {
     private String name;
     private String uuid;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private Users users;
 
@@ -29,4 +29,6 @@ public class UserFile {
         this.uuid = uuid;
         this.users = users;
     }
+
+
 }

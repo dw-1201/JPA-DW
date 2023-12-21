@@ -4,6 +4,7 @@ import com.example.dw.domain.embedded.Address;
 import com.example.dw.domain.entity.freeBoard.FreeBoard;
 import com.example.dw.domain.entity.freeBoard.FreeBoardComment;
 import com.example.dw.domain.entity.question.Question;
+import com.example.dw.domain.form.UserUpdateForm;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -55,9 +56,8 @@ public class Users {
     private Address address;
 
 
-    @OneToOne(mappedBy = "users" ,fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_file_id")
-    private UserFile userFile;
+    @OneToMany(mappedBy = "users" ,fetch = FetchType.LAZY)
+    private List<UserFile> userFile = new ArrayList<>();
 
     @OneToMany(mappedBy = "users", orphanRemoval = true)
     private List<Pet> pet = new ArrayList<>();
@@ -78,7 +78,7 @@ public class Users {
     public Users(Long id, String userAccount, String userName, String userPassword, String userEmail, String userPhone,
                  LocalDate userJoinDate, LocalDate userDeleteDate, String userNickName,
                  String userIntroduction, Address address,
-                 UserFile userFile, List<Pet> pet,List<FreeBoard> freeBoard, List<Question> questions,
+                 List<UserFile> userFile, List<Pet> pet,List<FreeBoard> freeBoard, List<Question> questions,
                  List<FreeBoardComment> freeBoardComments, int userState) {
         this.id = id;
         this.userAccount = userAccount;
@@ -119,4 +119,18 @@ public class Users {
         return this;
     }
 
+    //회원 정보 수정
+    public Users update(UserUpdateForm userUpdateForm){
+        this.id=userUpdateForm.getId();
+        this.userAccount=userUpdateForm.getUserAccount();
+        this.userName=userUpdateForm.getUserName();
+        this.userNickName=userUpdateForm.getUserNickName();
+        this.userPhone=userUpdateForm.getUserPhone();
+        this.userEmail=userUpdateForm.getUserEmail();
+        this.userIntroduction=userUpdateForm.getUserIntroduction();
+        this.userPassword=userUpdateForm.getUserPassword();
+        this.address=new Address(userUpdateForm.getZipCode(),userUpdateForm.getAddress(),userUpdateForm.getDetail());
+
+        return this;
+    }
 }

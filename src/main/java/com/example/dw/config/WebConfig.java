@@ -15,6 +15,8 @@ public class WebConfig implements WebMvcConfigurer {
     // 사용자 프로필 저장 공간
     @Value("${file.user}")
     private String userFilePath;
+    @Value("${file.pet}")
+    private String petImgPath;
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         //addResourceHandlers() 리소스 경로와 연결된 URL경로를 작성한다.
@@ -22,7 +24,8 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/jpa_dw/**")
                 .addResourceLocations("file:" + goodsImgPath)
                 .addResourceLocations("file:" + questionPath)
-                .addResourceLocations("file:"+ userFilePath);
+                .addResourceLocations("file:"+ userFilePath)
+                .addResourceLocations("file:"+petImgPath);
 
         //로컬 디스크 경로는 file: 을 반드시 사용해야한다.
         registry.addResourceHandler("/common/**")

@@ -40,7 +40,7 @@ public class QUsers extends EntityPathBase<Users> {
 
     public final StringPath userEmail = createString("userEmail");
 
-    public final QUserFile userFile;
+    public final ListPath<UserFile, QUserFile> userFile = this.<UserFile, QUserFile>createList("userFile", UserFile.class, QUserFile.class, PathInits.DIRECT2);
 
     public final StringPath userIntroduction = createString("userIntroduction");
 
@@ -75,7 +75,6 @@ public class QUsers extends EntityPathBase<Users> {
     public QUsers(Class<? extends Users> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.address = inits.isInitialized("address") ? new com.example.dw.domain.embedded.QAddress(forProperty("address")) : null;
-        this.userFile = inits.isInitialized("userFile") ? new QUserFile(forProperty("userFile"), inits.get("userFile")) : null;
     }
 
 }

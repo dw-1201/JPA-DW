@@ -25,12 +25,9 @@ public class UserUpdateForm {
     private String zipCode;
     private String address;
     private String detail;
-    private String route;
-    private String name;
-    private String uuid;
 
     @Builder
-    public UserUpdateForm(Long id, String userAccount, String userName, String userNickName, String userPhone, String userEmail, LocalDate userJoinDate, String userIntroduction, String userPassword, String zipCode, String address, String detail, Long userFileId, String route, String name, String uuid) {
+    public UserUpdateForm(Long id, String userAccount, String userName, String userNickName, String userPhone, String userEmail, String userIntroduction, String userPassword, String zipCode, String address, String detail) {
         this.id = id;
         this.userAccount = userAccount;
         this.userName = userName;
@@ -42,9 +39,6 @@ public class UserUpdateForm {
         this.zipCode = zipCode;
         this.address = address;
         this.detail = detail;
-        this.route = route;
-        this.name = name;
-        this.uuid = uuid;
     }
 
     public Users toEntity(){
@@ -58,11 +52,6 @@ public class UserUpdateForm {
                 .userIntroduction(userIntroduction)
                 .userPassword(userPassword)
                 .address(new Address(zipCode,address,detail))
-                .userFile(UserFile.builder()
-                .route(route)
-                .name(name)
-                .uuid(uuid)
-                .build())
                 .build();
     }
 

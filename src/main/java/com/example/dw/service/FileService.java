@@ -1,27 +1,25 @@
 package com.example.dw.service;
 
 
-import com.example.dw.domain.dto.admin.AdminGoodsDetailImgDto;
-import com.example.dw.domain.dto.admin.AdminGoodsMainImgDto;
+import com.example.dw.domain.dto.admin.*;
 
-import com.example.dw.domain.dto.admin.UserDetailDto;
-import com.example.dw.domain.dto.admin.UserFileDto;
 import com.example.dw.domain.dto.community.QuestionImgDto;
 import com.example.dw.domain.entity.goods.Goods;
 import com.example.dw.domain.entity.question.Question;
+import com.example.dw.domain.entity.user.Pet;
 import com.example.dw.domain.entity.user.Users;
-import com.example.dw.domain.form.GoodsDetailImgForm;
-import com.example.dw.domain.form.GoodsMainImgForm;
-import com.example.dw.domain.form.QuestionImgForm;
-import com.example.dw.domain.form.UserFileForm;
+import com.example.dw.domain.form.*;
 import com.example.dw.repository.community.QuestionImgRepository;
 import com.example.dw.repository.community.QuestionRepository;
 import com.example.dw.repository.community.QuestionRepositoryCustom;
 import com.example.dw.repository.goods.GoodsDetailImgRepository;
 import com.example.dw.repository.goods.GoodsMainImgRepository;
 import com.example.dw.repository.goods.GoodsRepository;
+import com.example.dw.repository.pet.PetImgRepository;
+import com.example.dw.repository.pet.PetRepository;
 import com.example.dw.repository.user.UserFileRepository;
 import com.example.dw.repository.user.UsersRepository;
+import com.example.dw.repository.user.UsersRepositoryCustom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -48,8 +46,11 @@ public class FileService {
     @Value("${file.que}")
     private String questionImg;
 
-    @Value("file.user")
+    @Value("${file.user}")
     private String userFileImg;
+
+    @Value("${file.pet}")
+    private String petImg;
 
     private final GoodsMainImgRepository goodsMainImgRepository;
     private final GoodsDetailImgRepository goodsDetailImgRepository;
@@ -61,7 +62,10 @@ public class FileService {
 
     private final UsersRepository usersRepository;
     private final UserFileRepository userFileRepository;
+    private final UsersRepositoryCustom usersRepositoryCustom;
 
+    private final PetRepository petRepository;
+    private final PetImgRepository petImgRepository;
     //상품 메인 사진 로컬서버 저장
     @Transactional
     public GoodsMainImgForm saveImg(MultipartFile file) throws IOException {
@@ -208,10 +212,9 @@ public class FileService {
     }
 
 
-
     //qna 게시판 등록 파일 저장(로컬) 최대 5장
     @Transactional
-    public QuestionImgForm savequestionImg(MultipartFile file) throws IOException{
+    public QuestionImgForm savequestionImg(MultipartFile file) throws IOException {
 
 
         String originName = file.getOriginalFilename();
@@ -228,10 +231,10 @@ public class FileService {
 
         return
                 QuestionImgForm.builder()
-                .questionImgName(originName)
-                .questionImgRoute(getUploadPath())
-                .questionImgUuid(uuid.toString())
-                .build();
+                        .questionImgName(originName)
+                        .questionImgRoute(getUploadPath())
+                        .questionImgUuid(uuid.toString())
+                        .build();
 
 
     }
@@ -240,10 +243,10 @@ public class FileService {
     //que 이미지 DB 저장
     @Transactional
     public void registerquestionImg(List<MultipartFile> files, Long questionId) throws IOException {
-        System.out.println("파일 처리 질문 아이기 : "+questionId);
+        System.out.println("파일 처리 질문 아이기 : " + questionId);
 
         for (MultipartFile file : files) {
-            QuestionImgForm questionImgForm= savequestionImg(file);
+            QuestionImgForm questionImgForm = savequestionImg(file);
             Optional<Question> question = questionRepository.findById(questionId);
 
             questionImgForm.setQuestion(question.get());
@@ -254,6 +257,7 @@ public class FileService {
 
 
     //que 기존 사진 삭제
+    @Transactional
     public void removequeDetailImgs(Long questionId) {
         System.out.println("파일 삭제 아이디 : " + questionId);
         if (questionId == null) {
@@ -262,11 +266,11 @@ public class FileService {
         System.out.println(questionRepositoryCustom.findAllByQuestionId(questionId).toString() + "1-------1");
 
         List<QuestionImgDto> questionImgDtos = questionRepositoryCustom.findAllByQuestionId(questionId);
-        System.out.println(questionImgDtos.toString()+"나는 누구이인가");
+        System.out.println(questionImgDtos.toString() + "나는 누구이인가");
 
         for (QuestionImgDto questionImgDto : questionImgDtos) {
             File detailImgTarget = new File(questionImg, questionImgDto.getQuestionImgRoute() + "/" + questionImgDto.getQuestionImgUuid() + "_" + questionImgDto.getQuestionImgName());
-            System.out.println(questionImgDto.toString()+"삭제 파일 입니다.");
+            System.out.println(questionImgDto.toString() + "삭제 파일 입니다.");
             if (detailImgTarget.exists()) {
                 detailImgTarget.delete();
 
@@ -280,12 +284,12 @@ public class FileService {
 
     //user 이미지 로컬 저장
     @Transactional
-    public UserFileForm saveUserFile(MultipartFile file)throws IOException{
+    public UserFileForm saveUserFile(MultipartFile file) throws IOException {
         String originName = file.getOriginalFilename();
         UUID uuid = UUID.randomUUID();
         String sysName = uuid.toString() + "_" + originName;
 
-        File uploadPath = new File( userFileImg, getUploadPath());
+        File uploadPath = new File(userFileImg, getUploadPath());
 
         if (!uploadPath.exists()) {
             uploadPath.mkdirs();
@@ -295,14 +299,15 @@ public class FileService {
 
         return
                 UserFileForm.builder()
-                        .name(originName)
                         .route(getUploadPath())
+                        .name(originName)
                         .uuid(uuid.toString())
                         .build();
 
 
     }
 
+    //
     //user 이미지 DB 저장
     @Transactional
     public void registerUserImg(MultipartFile file, Long id) throws IOException {
@@ -310,7 +315,7 @@ public class FileService {
         //컨트롤러를 통해 받아온 id 값(상품테이블 기본키)을 가지고
         //GoodsRepository에 만들어놓은 것을 활용
         //id값을 넣어 해당 id값과 일치하는 상품을 불러오고 이것을 넣어준다.
-
+        System.out.println(id + "등록장으로 이동 !");
         UserFileForm userFileForm = saveUserFile(file);
         Optional<Users> users = usersRepository.findById(id);
 
@@ -321,25 +326,73 @@ public class FileService {
 
     }
 
-    //메인 사진 삭제
+    //
+    //user 사진 삭제
     @Transactional
     public void removeUserImg(Long userId) {
+        System.out.println("파일 삭제 아이디 : " + userId);
         if (userId == null) {
             throw new IllegalArgumentException("유효하지 않은 상품 번호");
         }
+        System.out.println(usersRepositoryCustom.findAllByUserId(userId).toString() + "1-------1");
 
-        UserFileDto fileimg =userFileRepository.findByUserFileId(userId).get();
-        AdminGoodsMainImgDto adminGoodsMainImgDto = new AdminGoodsMainImgDto(img.getId(), img.getGoodsMainImgPath(), img.getGoodsMainImgUuid(), img.getGoodsMainImgName(), img.getGoodsId());
-        UserFileDto userFileDto = new UserFileDto(fileimg.getId(),fileimg.)
-        File mainImgTarget = new File(mainImg, adminGoodsMainImgDto.getGoodsMainImgPath() + "/" + adminGoodsMainImgDto.getGoodsMainImgUuid() + "_" + adminGoodsMainImgDto.getGoodsMainImgName());
+        List<UserFileDto> userFileDtos = usersRepositoryCustom.findAllByUserId(userId);
+        System.out.println(userFileDtos.toString() + "나는 누구이인가");
+
+        for (UserFileDto userFileDto : userFileDtos) {
+            File detailImgTarget = new File(userFileImg, userFileDto.getRoute() + "/" + userFileDto.getUuid() + "_" + userFileDto.getName());
+            System.out.println(userFileDto.toString() + "삭제 파일 입니다.");
+            if (detailImgTarget.exists()) {
+                detailImgTarget.delete();
+
+                System.out.println("[ 삭제 상품사진 ]" + userFileDto.getRoute() + "/" + userFileDto.getUuid() + "_" + userFileDto.getName() + "\n");
+                userFileRepository.deleteById(userFileDto.getId());
+                System.out.println("완려");
+            }
+
+        }
 
 
-        if (mainImgTarget.exists()) {
-            mainImgTarget.delete();
+    }
 
-            System.out.println("[ 삭제되는 상품 메인 사진 ]" + adminGoodsMainImgDto.getGoodsMainImgPath() + "/" + adminGoodsMainImgDto.getGoodsMainImgUuid() + "_" + adminGoodsMainImgDto.getGoodsMainImgName());
-            goodsMainImgRepository.deleteById(adminGoodsMainImgDto.getId());
+    //pet이미지 로컬 저장
+    @Transactional
+    public PetImgForm savePetImg(MultipartFile file) throws IOException {
 
+        String originName = file.getOriginalFilename();
+        UUID uuid = UUID.randomUUID();
+        String sysName = uuid.toString() + "_" + originName;
+
+        File uploadPath = new File(petImg, getUploadPath());
+
+        if (!uploadPath.exists()) {
+            uploadPath.mkdirs();
+        }
+        File upLoadFile = new File(uploadPath, sysName);
+        file.transferTo(upLoadFile);
+
+        return
+                PetImgForm.builder()
+                        .petFileName(originName)
+                        .petPath(getUploadPath())
+                        .petUuid(uuid.toString())
+                        .build();
+
+
+    }
+
+
+    //pet 이미지 DB 저장
+    @Transactional
+    public void registerPetImg(List<MultipartFile> files, Long petId) throws IOException {
+        System.out.println("파일 처리 질문 아이기 : " + petId);
+
+        for (MultipartFile file : files) {
+            PetImgForm petImgForm = savePetImg(file);
+            Optional<Pet> pet = petRepository.findById(petId);
+
+            petImgForm.setPet(pet.get());
+            petImgRepository.save(petImgForm.toEntity());
         }
 
     }

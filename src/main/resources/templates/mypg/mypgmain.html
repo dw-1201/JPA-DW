@@ -17,7 +17,8 @@
     <!-- header 끝 -->
     <main>
         <div class="main-container">
-            <div class="contain" th:each="userDetail : ${userDetail}">
+            <div class="contain" th:each="userdetail : ${userDetail}" >
+                <input type="hidden" th:value="${userdetail.id}">
                 <div class="menu-area">
                     <nav class="menu-choice-area">
                         <ul class="menu-choice">
@@ -39,21 +40,21 @@
                             <a href="/mypg/main" class="my-pro-detail">내프로필</a>
                         </li>
                         <li class="my-pet">
-                            <a href="/mypg/petregister" class="my-pet-detail">반려동물 프로필</a>
+                            <a th:href="@{/mypg/mypet/{userid}(userid = ${userdetail.id})}"  class="my-pet-detail">반려동물 프로필</a>
                         </li>
                     </ul>
                 </div>
                 <div class="pro-main" >
-                    <div class="my-img-area" th:if="${userDetail.userFileId == null}">
+                    <div class="my-img-area" th:if="${#lists.size(userdetail.userFileDtoList) == 0}">
                         <div class="img-area">
                             <!--디폴트 이미지-->
                             <img src="https://bemypet.kr/image/image_not_found_new.png" class="myimg">
                         </div>
                     </div>
-                    <div class="my-img-area" th:if="${userDetail.userFileId != null}">
+                    <div class="my-img-area" th:if="${#lists.size(userdetail.userFileDtoList) > 0}">
                         <div class="img-area">
 
-                            <img th:src="'/jpa_dw/userfile/'+${userDetail.route}+'/'+ ${userDetail.uuid}+ '_'+ ${userDetail.name}" class="myimg">
+                            <img th:src="'/jpa_dw/userfile/'+${userdetail.userFileDtoList[0].route}+'/'+ ${userdetail.userFileDtoList[0].uuid}+ '_'+ ${userdetail.userFileDtoList[0].name}" class="myimg">
                         </div>
                     </div>
 
@@ -61,25 +62,25 @@
                         <ul class="info-area">
                             <li class="myname-info">
 
-                                <div class="myname-area" th:if="${userDetail.userNickName == null}">
+                                <div class="myname-area" th:if="${userdetail.userNickName == null}">
                                     <span class="nickname">이름</span>
-                                    <span class="myname" th:text="${userDetail.userName}"></span>
+                                    <span class="myname" th:text="${userdetail.userName}"></span>
                                 </div>
-                                <div class="myname-area" th:if="${userDetail.userNickName != null}">
+                                <div class="myname-area" th:if="${userdetail.userNickName != null}">
                                     <span class="nickname">닉네임</span>
-                                    <span class="myname" th:text="${userDetail.userNickName}"></span>
+                                    <span class="myname" th:text="${userdetail.userNickName}"></span>
                                 </div>
                             </li>
                             <li class="myemail">    
                                 <div class="my-email-area">
-                                    <span th:text="${userDetail.userEmail}"></span>
+                                    <span th:text="${userdetail.userEmail}"></span>
                                 </div>
                             </li>
                             <li class="updata">    
                                 <div class="update-button">
                                     <div class="ubtn">
 
-                                        <a th:href="@{/mypg/modify/{userid}(userid = ${userDetail.id})}" class="updata-move">회원 정보 수정</a>
+                                        <a th:href="@{/mypg/modify/{userid}(userid = ${userdetail.id})}" class="updata-move">회원 정보 수정</a>
                                     </div>
                                 </div>
                             </li>

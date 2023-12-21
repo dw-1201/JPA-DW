@@ -13,8 +13,8 @@ public class QUserFileDto extends ConstructorExpression<UserFileDto> {
 
     private static final long serialVersionUID = 925090762L;
 
-    public QUserFileDto(com.querydsl.core.types.Expression<Long> id, com.querydsl.core.types.Expression<String> route, com.querydsl.core.types.Expression<String> name, com.querydsl.core.types.Expression<String> uuid, com.querydsl.core.types.Expression<Long> userid) {
-        super(UserFileDto.class, new Class<?>[]{long.class, String.class, String.class, String.class, long.class}, id, route, name, uuid, userid);
+    public QUserFileDto(com.querydsl.core.types.Expression<Long> id, com.querydsl.core.types.Expression<String> route, com.querydsl.core.types.Expression<String> name, com.querydsl.core.types.Expression<String> uuid, com.querydsl.core.types.Expression<Long> userId) {
+        super(UserFileDto.class, new Class<?>[]{long.class, String.class, String.class, String.class, long.class}, id, route, name, uuid, userId);
     }
 
 }

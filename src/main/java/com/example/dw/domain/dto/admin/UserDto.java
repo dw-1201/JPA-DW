@@ -1,16 +1,16 @@
 package com.example.dw.domain.dto.admin;
 
 
-import com.example.dw.domain.entity.user.UserFile;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class UserDetailDto {
+public class UserDto {
 
     private Long id;
     private String userAccount;
@@ -25,8 +25,9 @@ public class UserDetailDto {
     private String intro;
 
 
+
     @QueryProjection
-    public UserDetailDto(Long id, String userAccount, String userName, String userNickName, String userPhone, String userEmail, LocalDate userJoinDate, String zipCode, String address, String detail, String intro) {
+    public UserDto(Long id, String userAccount, String userName, String userNickName, String userPhone, String userEmail, LocalDate userJoinDate, String zipCode, String address, String detail, String intro) {
         this.id = id;
         this.userAccount = userAccount;
         this.userName = userName;

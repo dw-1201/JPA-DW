@@ -1,8 +1,7 @@
 package com.example.dw.repository.user;
 
-import com.example.dw.domain.dto.admin.AdminUserChartDto;
-import com.example.dw.domain.dto.admin.UserDetailDto;
-import com.example.dw.domain.dto.admin.UserListDto;
+import com.example.dw.domain.dto.admin.*;
+import com.example.dw.domain.dto.community.QuestionListDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -21,7 +20,11 @@ public interface UsersRepositoryCustom {
 
     Map<String, List> newUserStatus();
 
+//    Optional<UserFileDto> findDtoByUserId(Long userId);
 
+    Optional<UserDetailListDto> findOneByUserId(Long userId);
+
+    List<UserFileDto> findAllByUserId(Long userId);
 
 
 
