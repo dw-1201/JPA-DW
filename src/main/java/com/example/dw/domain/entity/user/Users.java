@@ -76,12 +76,7 @@ public class Users {
     @Builder.Default
     private int userState = 1;
 
-    @Builder
-    public Users(Long id, String userAccount, String userName, String userPassword, String userEmail, String userPhone,
-                 LocalDate userJoinDate, LocalDate userDeleteDate, String userNickName,
-                 String userIntroduction, Address address,
-                 List<UserFile> userFile, List<Pet> pet,List<FreeBoard> freeBoard, List<Question> questions,
-                 List<FreeBoardComment> freeBoardComments, int userState) {
+    public Users(Long id, String userAccount, String userName, String userPassword, String userEmail, String userPhone, LocalDate userJoinDate, LocalDate userDeleteDate, String userNickName, String userIntroduction, Address address, List<UserFile> userFile, List<Pet> pet, List<FreeBoard> freeBoard, List<Question> questions, List<FreeBoardComment> freeBoardComments, List<WalkingMate> walkingMates, int userState) {
         this.id = id;
         this.userAccount = userAccount;
         this.userName = userName;
@@ -101,6 +96,9 @@ public class Users {
         this.walkingMates = walkingMates;
         this.userState = userState;
     }
+
+    @Builder
+
 
 
 
