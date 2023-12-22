@@ -27,7 +27,6 @@ public class GoodsQueReply {
     @JoinColumn(name="goods_que_id")
     private GoodsQue goodsQue;
 
-
     private String queReplyContent;
 
     @CreatedDate
