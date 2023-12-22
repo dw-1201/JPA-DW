@@ -26,6 +26,7 @@ public class QuestionImgDto {
     }
 
 
+    public QuestionImgDto(Long id, String questionImgRoute, String questionImgUuid, Long questionId) {
 
-
+    }
 }

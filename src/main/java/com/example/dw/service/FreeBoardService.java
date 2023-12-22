@@ -88,15 +88,15 @@ public class FreeBoardService {
     public Long countCommentsByFreeBoardId(Long freeBoardId) {
         return freeBoardCommentRepository.countCommentsByFreeBoardId(freeBoardId);
     }
-}
+
 
 // 잠시 대기
-    //상품 수정
+//    상품 수정
 //    @Transactional
 //    public FreeBoard modify(FreeBoardModifyForm freeBoardModifyForm)
 //            throws IOException {
-
-        //수정된 메인 사진이 있다면 기존 사진 삭제 후 수정된 사진으로 업데이트
+//
+////    수정된 메인 사진이 있다면 기존 사진 삭제 후 수정된 사진으로 업데이트
 //        if(!file.isEmpty()) {
 //
 //            //기존 사진 삭제
@@ -124,3 +124,4 @@ public class FreeBoardService {
 //            throw new IllegalArgumentException("조회 정보 없음");
 //        });
 //    }
+}

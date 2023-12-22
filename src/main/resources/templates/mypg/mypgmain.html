@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,8 @@
     <!-- header 끝 -->
     <main>
         <div class="main-container">
-            <div class="contain">
+            <div class="contain" th:each="userdetail : ${userDetail}" >
+                <input type="hidden" th:value="${userdetail.id}">
                 <div class="menu-area">
                     <nav class="menu-choice-area">
                         <ul class="menu-choice">
@@ -39,35 +40,47 @@
                             <a href="/mypg/main" class="my-pro-detail">내프로필</a>
                         </li>
                         <li class="my-pet">
-                            <a href="/mypg/petregister" class="my-pet-detail">반려동물 프로필</a>
+                            <a th:href="@{/mypg/mypet/{userid}(userid = ${userdetail.id})}"  class="my-pet-detail">반려동물 프로필</a>
                         </li>
                     </ul>
                 </div>
-                <div class="pro-main">
-                    <div class="my-img-area">
+                <div class="pro-main" >
+                    <div class="my-img-area" th:if="${#lists.size(userdetail.userFileDtoList) == 0}">
                         <div class="img-area">
                             <!--디폴트 이미지-->
                             <img src="https://bemypet.kr/image/image_not_found_new.png" class="myimg">
                         </div>
                     </div>
+                    <div class="my-img-area" th:if="${#lists.size(userdetail.userFileDtoList) > 0}">
+                        <div class="img-area">
+
+                            <img th:src="'/jpa_dw/userfile/'+${userdetail.userFileDtoList[0].route}+'/'+ ${userdetail.userFileDtoList[0].uuid}+ '_'+ ${userdetail.userFileDtoList[0].name}" class="myimg">
+                        </div>
+                    </div>
+
                     <div class="my-detail-info">
                         <ul class="info-area">
                             <li class="myname-info">
-                                <div class="myname-area">
+
+                                <div class="myname-area" th:if="${userdetail.userNickName == null}">
+                                    <span class="nickname">이름</span>
+                                    <span class="myname" th:text="${userdetail.userName}"></span>
+                                </div>
+                                <div class="myname-area" th:if="${userdetail.userNickName != null}">
                                     <span class="nickname">닉네임</span>
-                                    <span class="myname">노의진</span>
+                                    <span class="myname" th:text="${userdetail.userNickName}"></span>
                                 </div>
                             </li>
                             <li class="myemail">    
                                 <div class="my-email-area">
-                                    <span>000006064@naver.com</span>
+                                    <span th:text="${userdetail.userEmail}"></span>
                                 </div>
                             </li>
                             <li class="updata">    
                                 <div class="update-button">
                                     <div class="ubtn">
-                                        <!--회원정보 수정 페이지 이동-->
-                                        <a href="/mypg/html/userupdate.html" class="updata-move">회원 정보 수정</a>
+
+                                        <a th:href="@{/mypg/modify/{userid}(userid = ${userdetail.id})}" class="updata-move">회원 정보 수정</a>
                                     </div>
                                 </div>
                             </li>
@@ -76,44 +89,18 @@
                     </div>
                     <div class="pro-footer">
                         <div class="defultimg-footer">
-                            <img src="../img/b556fdf429d8de25c3acf62f8186ddb9.png" class="defultimg">
+                            <img src="/mypg/img/b556fdf429d8de25c3acf62f8186ddb9.png" class="defultimg">
                         </div>
                     </div>
                 </div>
 
             </div>
-
+        </div>
     </main>
     <!-- footer 시작 -->
-    <div class="footer">
-        <div class="footer-container01">
-            <div class="footer-containerbox01">
-                <div class="footer-container01-nav">
-                    <ul>
-                        <li>(주)산책갈개</li>
-                        <li>복영헌 임형준 노의진 이지윤</li>
-                        <li>서울특별시 노원구 상계로1길 34 세일학원 5층</li>
-                        <li>02-933-5890</li>
-                    </ul>
-                </div>
-                <div class="footer-container01-img">
-                    <img src="/img/dog02.png" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="footer-container02">
-            <div class="footer-containerbox02">
-                <div>Copyright ©SCGG All Rights Reserved.</div>
-                <div class="footer-container02-nav">
-                    <ul>
-                        <li><a href="">이용약관</a></li>
-                        <li><a href="">개인정보처리방침</a></li>
-                        <li><a href="">사업자정보확인</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+       <div class="footer" th:replace="fragment/footer :: footer">
+
+       </div>
     <!--footer 끝-->
 </body>
 </html>

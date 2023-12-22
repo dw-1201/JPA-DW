@@ -15,7 +15,7 @@ import static lombok.Builder.*;
 
 @Entity
 @Getter
-
+@Builder
 @Table(name = "question")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Question {
@@ -32,7 +32,8 @@ public class Question {
     @Default
     private LocalDateTime questionMd=LocalDateTime.now();
 
-    private Long questionViewCount;
+    @Builder.Default
+    private Long questionViewCount=0L;
 
     @OneToMany(mappedBy = "question" ,fetch = FetchType.LAZY, orphanRemoval = true)
     private List<QuestionImg> questionImg = new ArrayList<>();
@@ -48,29 +49,52 @@ public class Question {
     private Users users;
 
     @Builder
-    public Question(Long id,String questionTitle,String questionContent,List<QuestionImg>questionImg, Users users){
+    public Question(Long id, String questionTitle, String questionContent, String questionRd, LocalDateTime questionMd, Long questionViewCount, List<QuestionImg> questionImg, List<QuestionComment> questionComment, QuestionLike questionLike, Users users) {
+        this.id = id;
+        this.questionTitle = questionTitle;
+        this.questionContent = questionContent;
+        this.questionRd = questionRd;
+        this.questionMd = questionMd;
+        this.questionViewCount = questionViewCount;
+        this.questionImg = questionImg;
+        this.questionComment = questionComment;
+        this.questionLike = questionLike;
+        this.users = users;
+    }
+
+    public Question(Long id,String questionTitle,String questionContent,List<QuestionImg>questionImg, Users users ,Long questionViewCount){
         this.id = id;
         this.questionTitle=questionTitle;
-        this.questionContent=questionContent;
         this.questionImg=questionImg;
         this.users =users;
+        this.questionViewCount = questionViewCount;
+        this.questionContent=questionContent;
     }
+
 
     @PrePersist
     public void onPrePersist(){
         this.questionRd = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
     }
 
-    // questionViewCount 업데이트
 
 
-    //question 업데이트
+
+    //question수정
     public Question update(QuestionWritingForm questionWritingForm){
         this.questionTitle=questionWritingForm.getQuestionTitle();
         this.questionContent=questionWritingForm.getQuestionContent();
 
 
         return this;
+    }
+
+    // 조회수 증가
+    public void increaseViewCount(){
+
+        this.questionViewCount++;
+
+
     }
 
 }

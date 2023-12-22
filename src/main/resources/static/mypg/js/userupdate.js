@@ -1,5 +1,5 @@
 let $input = $('#post-image');
-let $img = $('.img');
+let $img = $('.userImg');
 // console.log($input);
 
 // file change이벤트로 미리보기 갱신하기
@@ -57,22 +57,16 @@ function updateImg(files) {
             console.log(files.length);
             let src = URL.createObjectURL(files[i]);
             console.log(src);
-            $('.img').eq(i).css('background-image', `url(${src})`).css('background-size', 'cover').data('name', `${files[i].name}`);
-
-            $('.img').addClass('x-box');
+            $('.userImg').eq(i).attr('src', src).data('name', `${files[i].name}`);
             console.log("성공!");
         } else {
-            $('.img')
+            $('.userImg')
                 .eq(i)
-                .css(
-                    'background',
-                    'url(/mypg/img/b556fdf429d8de25c3acf62f8186ddb9.png) no-repeat'
-                ).css(
-                    'backgroundSize',
-                    '150px 150px'
+                .attr(
+                    'src',
+                    "https://bemypet.kr/image/image_not_found_new.png"
                 )
                 .data('name', null);
-                $('.img').eq(i).removeClass('x-box');
             
         }
     }
@@ -157,19 +151,96 @@ function getTextLength(text) {
 
 $('document').ready(function(){
     limitText();
+
+})
+
+// 닉네임 유효성 검사
+function checkNick() {
+
+    let nick = $("#nickname").val();
+    console.log(nick);
+    let reg =/^[가-힣a-zA-Z0-9]{1,10}$/;
+
+    let nickCheck = reg.test(nick);
+    console.log(nickCheck);
+    $('#nickname').on('keyup',function () {
+
+        if(nickCheck) {
+            $('.nicknameck').css("display", "none");
+            console.log("실행!");
+        } else {
+            $('.nicknameck').css("display", "block");
+            console.log("미실행!")
+        }
+
+    });
+}
+function checkPw() {
+
+    let pw = $("#userPassword").val();
+    let reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^&*()_=+])(?=.*[0-9]).{8,15}$/;
+
+    let pwCheck = reg.test(pw);
+
+    $('#userPassword').on('keyup', function() {
+
+        if (pwCheck) {
+            $('.userPw-unavailable').css("display", "none");
+            $('.userPw-available').css('display', 'block');
+        } else {
+            $('.userPw-unavailable').css("display", "block");
+            $('.userPw-available').css('display', 'none');
+        }
+    });
+}
+
+// 비밀번호 확인 체크
+$('#userPasswordCh').keyup(function() {
+
+    let pw = $("#userPassword").val();
+    let pwCh = $("#userPasswordCh").val();
+
+    if (pw != pwCh) {
+        $('.userPwCh').css('display', 'block');
+        $('.userPwChOk').css('display', 'none');
+
+
+        return;
+    } else {
+        $('.userPwCh').css('display', 'none');
+        $('.userPwChOk').css('display', 'block');
+
+    }
+
+});
+
+//휴대폰번호 양식 체크
+$('#userPhone').keyup(function(){
+    let userPhone = $(this).val();
+    const pattern = /^(010)[0-9]{3,4}[0-9]{4}$/;
+
+    let phoneCheck = pattern.test(userPhone);
+
+    if(userPhone.length>5){
+        if(!phoneCheck) {
+            $('.userPhoneCh').css('display', 'block');
+
+            return;
+        }else {
+            $('.userPhoneCh').css('display', 'none');
+
+        }
+    }
+
+
 })
 
 
 
-$('.join-submit-btn').on('click', function () {
-    let content = $('#interduce-content').val();
 
 
-    if(commonReply.getTextLength(content)>200){
-        alert("200자 이내로만 작성 가능합니다.");
-        return;
-    }
-});
+
+
 
 
 
@@ -177,7 +248,7 @@ $('.join-submit-btn').on('click', function () {
 //회원탈퇴 클리시 확인 이벤트 
 $('.user-delete-btn').on('click',function(){
 
-    if(confirm("정말로 탈뢰하시겠습니까?")){
+    if(confirm("정말로 탈퇴하시겠습니까?")){
 
     }else{
 
@@ -192,3 +263,52 @@ $('.join-submit-btn').on('click', function () {
     
 
 });
+//휴대폰
+function checkPhone(){
+    $('#userPhone').change(function (){
+
+        let userPhone = $('#userPhone').val();
+        $.ajax({
+
+            url : '/mypgs/phone/check',
+            type : 'post',
+            data : {userPhone : userPhone},
+            success : function (result){
+                if(result){
+                    $('.userPhone-unavailable').css('display','none');
+                    $('.userPhone-available').css('display','block')
+                }else {
+                    $('.userPhone-unavailable').css('display','block');
+                    $('.userPhone-available').css('display','none')
+                }
+            },error : function (a,b,c){
+                console.error(c);
+            }
+        })
+    })
+}
+
+
+function checkUserNickName(){
+    $('#nickname').change(function (){
+
+        let nickname = $('#nickname').val();
+        $.ajax({
+
+            url : '/mypgs/nickname/check',
+            type : 'post',
+            data : {userNickName : userNickName},
+            success : function (result){
+                if(result){
+                    $('.userPhone-unavailable').css('display','none');
+                    $('.userPhone-available').css('display','block')
+                }else {
+                    $('.userPhone-unavailable').css('display','block');
+                    $('.userPhone-available').css('display','none')
+                }
+            },error : function (a,b,c){
+                console.error(c);
+            }
+        })
+    })
+}

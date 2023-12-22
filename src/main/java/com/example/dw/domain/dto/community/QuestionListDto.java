@@ -17,7 +17,6 @@ public class QuestionListDto {
     private String questionRd;
     private LocalDateTime questionMd;
     //조회수
-//    private Long questionViewCount;
 
     //유저정보 추가
     private Long userId;
@@ -25,10 +24,7 @@ public class QuestionListDto {
 
     //사용자 이미지
     List<QuestionImgDto> questionImgDtoList;
-//    private Long questionImgId;
-//    private String questionImgRoute;
-//    private String questionImgName;
-//    private String questionImgUuid;
+
 
     @QueryProjection
     public QuestionListDto(Long id, String questionTitle, String questionContent, String questionRd, LocalDateTime questionMd, Long userId, String userName, List<QuestionImgDto> questionImgDtoList) {
