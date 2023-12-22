@@ -15,6 +15,7 @@ public class WalkMateForm {
     private String walkingMateTitle;
     private String walkingMateContent;
     private Long walkingMatePerson;
+    private String petName;
     private String walkingMateDate;
     private String walkingMateTime;
     private String walkingMateFullAddress;
@@ -23,13 +24,13 @@ public class WalkMateForm {
     private Long userId;
 
 
-
     @Builder
-    public WalkMateForm(Long id, String walkingMateTitle, String walkingMateContent, Long walkingMatePerson, String walkingMateDate, String walkingMateTime, String walkingMateFullAddress, String walkCity, String walkCounty, Long userId) {
+    public WalkMateForm(Long id, String walkingMateTitle, String walkingMateContent, Long walkingMatePerson, String petName, String walkingMateDate, String walkingMateTime, String walkingMateFullAddress, String walkCity, String walkCounty, Long userId) {
         this.id = id;
         this.walkingMateTitle = walkingMateTitle;
         this.walkingMateContent = walkingMateContent;
         this.walkingMatePerson = walkingMatePerson;
+        this.petName = petName;
         this.walkingMateDate = walkingMateDate;
         this.walkingMateTime = walkingMateTime;
         this.walkingMateFullAddress = walkingMateFullAddress;
@@ -40,12 +41,14 @@ public class WalkMateForm {
 
 
 
+
     public WalkingMate toEntity(){
         return WalkingMate.builder()
                 .id(id)
                 .walkingMateTitle(walkingMateTitle)
                 .walkingMateContent(walkingMateContent)
                 .walkingMatePerson(walkingMatePerson)
+                .petName(petName)
                 .walkingMateDate(walkingMateDate)
                 .walkingMateTime(walkingMateTime)
                 .walkingMateFullAddress(walkingMateFullAddress)

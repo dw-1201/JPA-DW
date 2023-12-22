@@ -52,6 +52,10 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
                 .fetchOne();
     }
 
+    //등록된 강아지 정보 넘기기
+    
+
+
     private List<WalkMateListDto> getWalkMateList(Pageable pageable, SearchLocationForm searchLocationForm){
         return jpaQueryFactory.select(new QWalkMateListDto(
                 walkingMate.id,
@@ -96,7 +100,7 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
 
     private BooleanExpression areaNameEq(SearchLocationForm searchLocationForm){
 
-        if (searchLocationForm.getArea().equals("수도권")){
+        if(searchLocationForm.getArea().equals("수도권")){
             return walkingMate.walkCity.in("서울", "경기", "인천");
         } else if(searchLocationForm.getArea().equals("강원권")){
             return walkingMate.walkCity.eq("강원");
@@ -112,7 +116,6 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
             return null;
 
         }
-
     }
 
     private BooleanExpression cityNameEq(SearchLocationForm searchLocationForm){

@@ -74,6 +74,16 @@
                             </td>
                         </tr>
                         <tr>
+                            <th>펫 선택</th>
+                            <td>
+                                <select name="petName" id="petName">
+                                <th:block th:each="pets : ${pets}">
+                                    <option th:value="${pets.petName}" th:text="${pets.petName}"></option>
+                                </th:block>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
                             <th class="mate-th">장소 선택</th>
                             <td>
                                 <div class="search-box">

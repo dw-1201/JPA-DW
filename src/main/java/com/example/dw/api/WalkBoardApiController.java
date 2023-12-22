@@ -30,6 +30,7 @@ public class WalkBoardApiController {
     public Page<WalkMateListDto> getWalkList(@PathVariable("page") int page,
                                              SearchLocationForm searchLocationForm){
 
+        System.out.println(searchLocationForm.toString());
         return walkingMateService.walkMateList(page, searchLocationForm);
     }
 

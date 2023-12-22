@@ -1,6 +1,7 @@
 package com.example.dw.controller;
 
 
+import com.example.dw.domain.dto.user.UserPetDto;
 import com.example.dw.domain.form.WalkMateForm;
 import com.example.dw.service.WalkingMateService;
 import jakarta.servlet.http.HttpSession;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -29,9 +32,11 @@ public class WalkBoardController {
 
     //글 작성 페이지 이동
     @GetMapping("/walkWrite")
-    public String walkWrite(){
+    public String walkWrite(Model model, HttpSession session){
 
-
+        List<UserPetDto> userPets = walkingMateService.getUserPets((Long)session.getAttribute("userId"));
+        System.out.println(userPets.toString());
+        model.addAttribute("pets", userPets);
 
         return "/community/walkingMateWrite";
 

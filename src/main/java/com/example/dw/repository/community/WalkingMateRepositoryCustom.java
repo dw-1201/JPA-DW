@@ -9,4 +9,5 @@ public interface WalkingMateRepositoryCustom {
 
     Page<WalkMateListDto> findAllWalkMate(Pageable pageable, SearchLocationForm searchLocationForm);
 
+
 }

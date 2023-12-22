@@ -1,17 +1,21 @@
 package com.example.dw.service;
 
 import com.example.dw.domain.dto.community.WalkMateListDto;
+import com.example.dw.domain.dto.user.UserPetDto;
 import com.example.dw.domain.entity.walkingMate.WalkingMate;
 import com.example.dw.domain.form.SearchLocationForm;
 import com.example.dw.domain.form.WalkMateForm;
 import com.example.dw.repository.community.WalkingMateRepository;
 import com.example.dw.repository.community.WalkingMateRepositoryCustom;
+import com.example.dw.repository.user.UsersRepositoryCustom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +25,7 @@ public class WalkingMateService {
 
     private final WalkingMateRepository walkingMateRepository;
     private final WalkingMateRepositoryCustom walkingMateRepositoryCustom;
-
+    private final UsersRepositoryCustom usersRepositoryCustom;
 
     //산책모집글 리스트
     @Transactional
@@ -40,7 +44,13 @@ public class WalkingMateService {
        return walkingMate.getId();
     }
 
-   
+
+    //등록 펫 정보
+    @Transactional
+    public List<UserPetDto> getUserPets(Long userId){
+
+       return usersRepositoryCustom.findAllPetByUserId(userId);
+    }
 
 
 

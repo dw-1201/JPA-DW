@@ -24,6 +24,8 @@ public class QWalkingMate extends EntityPathBase<WalkingMate> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final StringPath petName = createString("petName");
+
     public final com.example.dw.domain.entity.user.QUsers users;
 
     public final StringPath walkCity = createString("walkCity");
