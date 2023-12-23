@@ -1,6 +1,8 @@
 package com.example.dw.repository.community;
 
+import com.example.dw.domain.dto.community.QWalkMateDetailDto;
 import com.example.dw.domain.dto.community.QWalkMateListDto;
+import com.example.dw.domain.dto.community.WalkMateDetailDto;
 import com.example.dw.domain.dto.community.WalkMateListDto;
 import com.example.dw.domain.form.SearchLocationForm;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -13,7 +15,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Optional;
 
+import static com.example.dw.domain.entity.user.QPetImg.petImg;
+import static com.example.dw.domain.entity.user.QPet.pet;
 import static com.example.dw.domain.entity.user.QUsers.users;
 import static com.example.dw.domain.entity.walkingMate.QWalkingMate.walkingMate;
 
@@ -36,8 +41,45 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
 
     }
 
+    //산책글 상세보기
+    @Override
+    public Optional<WalkMateDetailDto> walkMateDetail(Long walkBoardId) {
+        return Optional.ofNullable(jpaQueryFactory.select(new QWalkMateDetailDto(
+                walkingMate.id,
+                users.userNickName,
+                users.userAccount,
+                walkingMate.walkingMateRd,
+                walkingMate.walkingMateRd,
+                walkingMate.walkingMateTitle,
+                walkingMate.walkingMateContent,
+                walkingMate.walkingMateToday,
+                walkingMate.walkingMatePerson,
+                walkingMate.walkingMateDate,
+                walkingMate.walkingMateTime,
+                walkingMate.walkingMateFullAddress,
+                pet.id,
+                pet.name,
+                pet.petCategory,
+                pet.weight,
+                pet.neutering,
+                pet.petGender,
+                petImg.id,
+                petImg.petPath,
+                petImg.petUuid,
+                petImg.petFileName
 
 
+        ))
+                .from(walkingMate)
+                .leftJoin(walkingMate.users, users)
+                .leftJoin(walkingMate.pet, pet)
+                .leftJoin(pet.petImg, petImg)
+                .where(walkingMate.id.eq(walkBoardId))
+                .fetchOne());
+    }
+
+
+    //산책메이트 글 총 개수
     private Long getCount(SearchLocationForm searchLocationForm){
         return jpaQueryFactory.select(
                 walkingMate.count()
@@ -52,10 +94,9 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
                 .fetchOne();
     }
 
-    //등록된 강아지 정보 넘기기
     
 
-
+    //산책메이트 글 리스트
     private List<WalkMateListDto> getWalkMateList(Pageable pageable, SearchLocationForm searchLocationForm){
         return jpaQueryFactory.select(new QWalkMateListDto(
                 walkingMate.id,
@@ -87,6 +128,7 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
 
     }
 
+    //산책메이트 리스트 전체-모집중-모집완료
     private BooleanExpression createRecruitmentStatusCondition(SearchLocationForm searchLocationForm) {
         if (searchLocationForm.getState().equals("0")) { // 모집중
             return walkingMate.walkingMateToday.ne(walkingMate.walkingMatePerson);
@@ -97,7 +139,7 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
         }
     }
 
-
+    //산책메이트 리스트 권역 검색
     private BooleanExpression areaNameEq(SearchLocationForm searchLocationForm){
 
         if(searchLocationForm.getArea().equals("수도권")){

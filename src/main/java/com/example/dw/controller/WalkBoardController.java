@@ -1,6 +1,7 @@
 package com.example.dw.controller;
 
 
+import com.example.dw.domain.dto.community.WalkMateDetailDto;
 import com.example.dw.domain.dto.user.UserPetDto;
 import com.example.dw.domain.form.WalkMateForm;
 import com.example.dw.service.WalkingMateService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -29,6 +31,8 @@ public class WalkBoardController {
     public String walkList(){
         return "/community/walkingMateList";
     }
+
+
 
     //글 작성 페이지 이동
     @GetMapping("/walkWrite")
@@ -58,10 +62,14 @@ public class WalkBoardController {
     }
 
 
-    @GetMapping("/detail/{id}")
+    @GetMapping("/detail/{id}/{userId}")
     public String walkDetail(@PathVariable("id") Long id, Model model ){
 
+        Optional<WalkMateDetailDto> detail =  walkingMateService.walkDetailPage(id);
 
+        System.out.println("[ 산책글 상세 ] : " + detail.toString());
+
+        detail.ifPresent( details -> model.addAttribute("detail", details));
 
         return "/community/walkingMateDetail";
     }

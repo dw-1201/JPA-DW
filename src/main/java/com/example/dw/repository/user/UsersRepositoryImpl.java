@@ -56,8 +56,8 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
                 pet.name
         ))
                 .from(pet)
-                .leftJoin(pet.users, users)
-                .on(pet.users.id.eq(users.id))
+                .where(pet.users.id
+                .eq(userId))
                 .fetch();
     }
 

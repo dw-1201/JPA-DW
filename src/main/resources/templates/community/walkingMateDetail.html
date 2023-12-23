@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,114 +11,45 @@
 </head>
 <body>
     <!-- header 시작 -->
-    <div class="header">
-        <div class="header-section01">
-            <div class="header-section01-nav">
-                <ul>
-                    <li><a href="">로그인</a></li>
-                    <li><a href="">장바구니</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="header-section02">
-            <div class="header-section02-container">
-                <div class="header-logo"><a href=""><img src="/img/logo.png" alt=""></a></div>
-                <div class="header-section02-nav">
-                    <ul>
-                        <li><a href="/shopping/html/shop.html">쇼핑</a></li>
-                        <li><a href="/community/html/freeBoardList.html">커뮤니티</a></li>
-                        <li><a href="/walkingMate/html/walkingMateList.html">산책메이트</a></li>
-                        <li><a href="/map/html/map.html">병원찾기</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <div class="header" th:replace="fragment/header :: header">
+
     </div>
     <!-- header 끝 -->
 
     <!-- main 시작 -->
-    <main>
+    <main class="main">
         <div class="main-container">
-            <div class="cate-title">
-                <div class="cate-title-text">산책메이트</div>
-            </div>
-            <div class="title-box">
-                <div class="text-title-box">
-                    <div class="text-title">강아지와 고양이, 함께 키우는 것이 가능할까? 정답은 가능합니다</div>    
+           <div class="walk-mate-detail-container" th:each="detail : ${detail}">
+                <div class="walk-mate-title-section">
+                    <h4 th:text="${detail.title}"></h4>
+                    <input type="text" th:value="${detail.fullAddress}" readonly id="fullsAddress">
                 </div>
-                <div class="info">
-                    <div class="info-id">
-                        <div class="info-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                        <div>쌀강냉이</div>
-                    </div>
-                    <div class="text-date">2023-11-25</div>
+               <div class="walk-mate-etc-info-section">
+                <div class="walk-mate-content-section">
+                    <textarea th:text="${detail.content}"></textarea>
                 </div>
-            </div>
-            <!-- 글 시작 -->
-            <div class="content-container">
-                <div class="content-box">
-                    <div class="img-box">
-                        <div class="imgs">
-                            <img src="/img/test01.png" alt="">
-                        </div>
+               </div>
 
-                    </div>
+           </div>
+            <div id="map" style="height: 300px; width: 300px">
 
-                    <div class="img-box">
-
-                        <div class="imgs">
-                            <img src="/img/test02.png" alt="">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-box">
-                    <p>중량천 산책 같이 하실분 구해요 너무 대왕견은 좀 힘들어요 ㅠㅠ</p>
-                </div>
-
-                <div class="btn-box">
-
-                    <div class="btns-box">
-                        <div class="update-btn">수정</div>
-                        <div class="remove-btn">삭제</div>
-                        <div class="list-btn">목록</div>
-                    </div>
-                </div>
             </div>
             <!-- 글 끝 -->
 
-            <hr>
-            <div class="middle-title">같이 산책할 대표 동물</div>
-            <div class="middle-box">
-                <div class="middle-img-box">
-                    <div class="middle-imgs">
-                        <img src="/img/test01.png" alt="">
-                    </div>
 
-                </div>
-                <div class="middle-img-box">
-                    <div class="middle-imgs">
-                        <img src="/img/test01.png" alt="">
-                    </div>
 
-                </div>
-            </div>
-            <div class="middle-box">
-                <div class="middle-img-box">
-                    <div class="middle-imgs">
-                        <img src="/img/test01.png" alt="">
-                    </div>
 
-                </div>
-                <div class="middle-img-box">
-                    <div class="middle-imgs">
-                        <img src="/img/test01.png" alt="">
-                    </div>
-
-                </div>
-            </div>
             
             
+
+
+
+
+
+
+
+
+
 
             <!-- 댓글 시작 -->
             <div class="reply-container">
@@ -146,168 +77,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="reply">
-                        <div class="id-and-date">
-                            <div class="reply-info">
-                                <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                                <div class="reply-id">콩콩콩이</div>
-                            </div>
-                            <div class="reply-date">2023-11-24</div>
-                        </div>
-                        <div class="reply-content-n-btns">
-                            <div class="reply-content">
-                                역시 합사에는 시간이 필요하군요 ㅎㅎㅎ 근데 애들 저렇게 있으니까 너무 보기 좋아요 
-                            </div>
-                            <div class="reply-btns">
-                                <div class="update-reply"><a href="">수정</a></div>
-                                <div class="delete-reply"><a href="">삭제</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reply">
-                        <div class="id-and-date">
-                            <div class="reply-info">
-                                <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                                <div class="reply-id">콩콩콩이</div>
-                            </div>
-                            <div class="reply-date">2023-11-24</div>
-                        </div>
-                        <div class="reply-content-n-btns">
-                            <div class="reply-content">
-                                역시 합사에는 시간이 필요하군요 ㅎㅎㅎ 근데 애들 저렇게 있으니까 너무 보기 좋아요 
-                            </div>
-                            <div class="reply-btns">
-                                <div class="update-reply"><a href="">수정</a></div>
-                                <div class="delete-reply"><a href="">삭제</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reply">
-                        <div class="id-and-date">
-                            <div class="reply-info">
-                                <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                                <div class="reply-id">콩콩콩이</div>
-                            </div>
-                            <div class="reply-date">2023-11-24</div>
-                        </div>
-                        <div class="reply-content-n-btns">
-                            <div class="reply-content">
-                                역시 합사에는 시간이 필요하군요 ㅎㅎㅎ 근데 애들 저렇게 있으니까 너무 보기 좋아요 
-                            </div>
-                            <div class="reply-btns">
-                                <div class="update-reply"><a href="">수정</a></div>
-                                <div class="delete-reply"><a href="">삭제</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reply">
-                        <div class="id-and-date">
-                            <div class="reply-info">
-                                <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                                <div class="reply-id">콩콩콩이</div>
-                            </div>
-                            <div class="reply-date">2023-11-24</div>
-                        </div>
-                        <div class="reply-content-n-btns">
-                            <div class="reply-content">
-                                역시 합사에는 시간이 필요하군요 ㅎㅎㅎ 근데 애들 저렇게 있으니까 너무 보기 좋아요 
-                            </div>
-                            <div class="reply-btns">
-                                <div class="update-reply"><a href="">수정</a></div>
-                                <div class="delete-reply"><a href="">삭제</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reply">
-                        <div class="id-and-date">
-                            <div class="reply-info">
-                                <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                                <div class="reply-id">콩콩콩이</div>
-                            </div>
-                            <div class="reply-date">2023-11-24</div>
-                        </div>
-                        <div class="reply-content-n-btns">
-                            <div class="reply-content">
-                                역시 합사에는 시간이 필요하군요 ㅎㅎㅎ 근데 애들 저렇게 있으니까 너무 보기 좋아요 
-                            </div>
-                            <div class="reply-btns">
-                                <div class="update-reply"><a href="">수정</a></div>
-                                <div class="delete-reply"><a href="">삭제</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reply">
-                        <div class="id-and-date">
-                            <div class="reply-info">
-                                <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                                <div class="reply-id">콩콩콩이</div>
-                            </div>
-                            <div class="reply-date">2023-11-24</div>
-                        </div>
-                        <div class="reply-content-n-btns">
-                            <div class="reply-content">
-                                역시 합사에는 시간이 필요하군요 ㅎㅎㅎ 근데 애들 저렇게 있으니까 너무 보기 좋아요 
-                            </div>
-                            <div class="reply-btns">
-                                <div class="update-reply"><a href="">수정</a></div>
-                                <div class="delete-reply"><a href="">삭제</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reply">
-                        <div class="id-and-date">
-                            <div class="reply-info">
-                                <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                                <div class="reply-id">콩콩콩이</div>
-                            </div>
-                            <div class="reply-date">2023-11-24</div>
-                        </div>
-                        <div class="reply-content-n-btns">
-                            <div class="reply-content">
-                                역시 합사에는 시간이 필요하군요 ㅎㅎㅎ 근데 애들 저렇게 있으니까 너무 보기 좋아요 
-                            </div>
-                            <div class="reply-btns">
-                                <div class="update-reply"><a href="">수정</a></div>
-                                <div class="delete-reply"><a href="">삭제</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reply">
-                        <div class="id-and-date">
-                            <div class="reply-info">
-                                <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                                <div class="reply-id">콩콩콩이</div>
-                            </div>
-                            <div class="reply-date">2023-11-24</div>
-                        </div>
-                        <div class="reply-content-n-btns">
-                            <div class="reply-content">
-                                역시 합사에는 시간이 필요하군요 ㅎㅎㅎ 근데 애들 저렇게 있으니까 너무 보기 좋아요 
-                            </div>
-                            <div class="reply-btns">
-                                <div class="update-reply"><a href="">수정</a></div>
-                                <div class="delete-reply"><a href="">삭제</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reply">
-                        <div class="id-and-date">
-                            <div class="reply-info">
-                                <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                                <div class="reply-id">콩콩콩이</div>
-                            </div>
-                            <div class="reply-date">2023-11-24</div>
-                        </div>
-                        <div class="reply-content-n-btns">
-                            <div class="reply-content">
-                                역시 합사에는 시간이 필요하군요 ㅎㅎㅎ 근데 애들 저렇게 있으니까 너무 보기 좋아요 
-                            </div>
-                            <div class="reply-btns">
-                                <div class="update-reply"><a href="">수정</a></div>
-                                <div class="delete-reply"><a href="">삭제</a></div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="ad-contaniner"></div>
@@ -316,36 +85,15 @@
     <!-- main 끝 -->
 
     <!-- footer 시작 -->
-    <div class="footer">
-        <div class="footer-container01">
-            <div class="footer-containerbox01">
-                <div class="footer-container01-nav">
-                    <ul>
-                        <li>(주)산책갈개</li>
-                        <li>복영헌 임형준 노의진 이지윤</li>
-                        <li>서울특별시 노원구 상계로1길 34 세일학원 5층</li>
-                        <li>02-933-5890</li>
-                    </ul>
-                </div>
-                <div class="footer-container01-img">
-                    <img src="/img/dog02.png" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="footer-container02">
-            <div class="footer-containerbox02">
-                <div>Copyright ©SCGG All Rights Reserved.</div>
-                <div class="footer-container02-nav">
-                    <ul>
-                        <li><a href="">이용약관</a></li>
-                        <li><a href="">개인정보처리방침</a></li>
-                        <li><a href="">사업자정보확인</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <div class="footer" th:replace="fragment/footer :: footer">
+
     </div>
     <!-- footer 끝 -->
-<script src="/community/js/freeBoardDetail.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2d8cddce5e1cf36a90728390b847c19c&autoload=false&libraries=services"></script>
+    <script src="/community/js/walkingMateDetail.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" ></script>
+
 </body>
 </html>

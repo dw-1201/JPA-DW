@@ -1,9 +1,10 @@
 
+
 .main-container{
     width: 1024px;
     min-width: 1024px;
     height: 100%;
-    margin: 0 auto;
+    margin: 50px auto;
     font-family: 'GmarketSansMedium';
 
 }

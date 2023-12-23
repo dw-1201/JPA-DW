@@ -114,7 +114,7 @@ function showList(result){
             <td>${r.walkingMateToday} / ${r.walkingMatePerson}</td>
             <td>${r.walkCity + ' ' +r.walkCounty}</td>
             <td>
-                <a href="/walk/detail/${r.id}">${r.walkingMateTitle}</a>
+                <a href="/walk/detail/${r.id}/${r.userId}">${r.walkingMateTitle}</a>
             </td>
             <td>${r.userNickName}</td>
             <td>${r.walkingMateDate}</td>

@@ -1,5 +1,6 @@
 package com.example.dw.service;
 
+import com.example.dw.domain.dto.community.WalkMateDetailDto;
 import com.example.dw.domain.dto.community.WalkMateListDto;
 import com.example.dw.domain.dto.user.UserPetDto;
 import com.example.dw.domain.entity.walkingMate.WalkingMate;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -45,6 +47,7 @@ public class WalkingMateService {
     }
 
 
+
     //등록 펫 정보
     @Transactional
     public List<UserPetDto> getUserPets(Long userId){
@@ -52,6 +55,12 @@ public class WalkingMateService {
        return usersRepositoryCustom.findAllPetByUserId(userId);
     }
 
+    //산책글 상세보기
+    @Transactional
+    public Optional<WalkMateDetailDto> walkDetailPage(Long walkBoardId){
+
+        return walkingMateRepositoryCustom.walkMateDetail(walkBoardId);
+    }
 
 
 }

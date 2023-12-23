@@ -3,6 +3,7 @@ package com.example.dw.domain.entity.user;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import static lombok.Builder.*;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @Table(name = "pet")
 public class Pet {
     @Id @GeneratedValue
@@ -29,6 +31,7 @@ public class Pet {
 //    @ColumnDefault("y")
     @Default
     private String neutering ="N";
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")

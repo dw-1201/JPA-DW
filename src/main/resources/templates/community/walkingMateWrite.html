@@ -20,26 +20,19 @@
 <!-- header 끝 -->
 
 <!-- main 시작 -->
-<main>
-    <form action="/walk/registerWalkMate" method="post">
+<main class="main">
+    <form action="/walk/registerWalkMate" method="post" id="walk-write-form">
 
         <div class="main-container">
-            <div class="how-to-write-section">
-                <ul class="write-ul">
-                    <li class="write-ul-li">
-                        <img src="/img/walkWriteImg.jpg" alt="산책글 메인 사진"/>
-                    </li>
-                </ul>
-            </div>
             <div class="cate-title-box">산책메이트</div>
             <div class="mate-title-box">
                 <div class="title-input-wrap">
-                    <input type="text" name="walkingMateTitle" placeholder="제목을 입력해주새요">
+                    <input type="text" name="walkingMateTitle" id="walkingMateTitle" placeholder="제목을 입력해주세요">
                 </div>
             </div>
             <div class="content-input-section">
             <div class="mate-content-box">
-                <textarea name="walkingMateContent" placeholder="내용을 입력해주세요"></textarea>
+                <textarea name="walkingMateContent" id="walkingMateContent" placeholder="내용을 입력해주세요"></textarea>
             </div>
             <div class="mate-select-box">
 
@@ -53,8 +46,8 @@
                         </tr>
                         <tr>
                             <th class="mate-th">날짜 선택</th>
-                            <td>
-                                <input type="text" id="datepicker" name="walkingMateDate" placeholder="날짜를 선택해주세요"/>
+                            <td class="mate-date-td">
+                                <input type="text" id="datepicker" name="walkingMateDate" readonly placeholder="날짜를 선택해주세요"/>
                             </td>
                         </tr>
                         <tr>
@@ -73,21 +66,29 @@
                                 </select>
                             </td>
                         </tr>
-                        <tr>
-                            <th>펫 선택</th>
+                        <th:block th:if="${#lists.isEmpty(pets)}">
+                            <tr class="non-registered-pet pet-select" >
+                                <th class="mate-th">펫 선택</th>
+                                <td>
+                                    <p>등록된 펫이 없습니다. <a th:href="@{/mypg/mypet/{id} (id=${session.userId})}">등록하러 가기</a> </p>
+                                </td>
+                            </tr>
+                        </th:block>
+                        <th:block th:unless="${#lists.isEmpty(pets)}">
+                        <tr   class="registered-pet pet-select">
+                            <th class="mate-th">펫 선택</th>
                             <td>
-                                <select name="petName" id="petName">
-                                <th:block th:each="pets : ${pets}">
-                                    <option th:value="${pets.petName}" th:text="${pets.petName}"></option>
-                                </th:block>
+                                <select name="petId" id="petName" >
+                                    <option th:each="pet : ${pets}" th:value="${pet.id}" th:text="${pet.petName}"></option>
                                 </select>
                             </td>
                         </tr>
-                        <tr>
+                        </th:block>
+                        <tr style="border-bottom: none">
                             <th class="mate-th">장소 선택</th>
-                            <td>
-                                <div class="search-box">
-                                    <input type="text" id="addr" name="walkingMateFullAddress" value="" placeholder="검색버튼을 클릭하여 장소를 선택하세요." />
+                            <td style="border-bottom: none">
+                                <div class="search-box" >
+                                    <input type="text" id="addr" name="walkingMateFullAddress" value="" readonly placeholder="검색버튼을 클릭하여 장소를 선택하세요." />
                                     <input type="hidden" id="city" name="walkCity" value=""/>
                                     <input type="hidden" id="county" name="walkCounty" value=""/>
                                     <img src="/img/magnifier.png" alt="" id="search-btn">
@@ -102,12 +103,17 @@
             </div>
             <div class="mate-btn-box">
                 <div class="mate-btn"><button class="list-btn btns" type="button">목록</button></div>
-                <div class="mate-btn"><button class="submit-btn btns">글 등록</button></div>
+                <div class="mate-btn"><button class="submit-btn btns" type="button">글 등록</button></div>
             </div>
         </div>
     </form>
-</main>
+<!--    <div class="banner-section">-->
 
+<!--        <img src="/img/walkwriteImg.jpg" alt="산책글 작성 광고배너"/>-->
+
+<!--    </div>-->
+</main>
+<input type="hidden" th:value="${session.userId}" id="userId"/>
 <!-- footer 시작 -->
 <div class="footer" th:replace="fragment/footer :: footer">
 

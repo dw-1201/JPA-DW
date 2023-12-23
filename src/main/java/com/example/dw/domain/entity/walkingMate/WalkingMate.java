@@ -1,5 +1,6 @@
 package com.example.dw.domain.entity.walkingMate;
 
+import com.example.dw.domain.entity.user.Pet;
 import com.example.dw.domain.entity.user.Users;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -38,7 +39,7 @@ public class WalkingMate {
     @Builder.Default
     private Long walkingMateToday = 1L;
 
-    private String petName;
+
 
     private String walkingMateDate;
     private String walkingMateTime;
@@ -50,12 +51,16 @@ public class WalkingMate {
     @JoinColumn(name = "user_id")
     private Users users;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pet_id")
+    private Pet pet;
+
+
     @OneToMany(mappedBy = "walkingMate" ,fetch = FetchType.LAZY)
     private List<WalkingMateComment> walkingMateComment = new ArrayList<>();
 
-
     @Builder
-    public WalkingMate(Long id, String walkingMateTitle, String walkingMateContent, String walkingMateRd, String walkingMateMd, Long walkingMateViewCount, Long walkingMateState, Long walkingMatePerson, Long walkingMateToday, String petName, String walkingMateDate, String walkingMateTime, String walkingMateFullAddress, String walkCity, String walkCounty, Users users, List<WalkingMateComment> walkingMateComment) {
+    public WalkingMate(Long id, String walkingMateTitle, String walkingMateContent, String walkingMateRd, String walkingMateMd, Long walkingMateViewCount, Long walkingMateState, Long walkingMatePerson, Long walkingMateToday, String walkingMateDate, String walkingMateTime, String walkingMateFullAddress, String walkCity, String walkCounty, Users users, Pet pet, List<WalkingMateComment> walkingMateComment) {
         this.id = id;
         this.walkingMateTitle = walkingMateTitle;
         this.walkingMateContent = walkingMateContent;
@@ -65,15 +70,17 @@ public class WalkingMate {
         this.walkingMateState = walkingMateState;
         this.walkingMatePerson = walkingMatePerson;
         this.walkingMateToday = walkingMateToday;
-        this.petName = petName;
         this.walkingMateDate = walkingMateDate;
         this.walkingMateTime = walkingMateTime;
         this.walkingMateFullAddress = walkingMateFullAddress;
         this.walkCity = walkCity;
         this.walkCounty = walkCounty;
         this.users = users;
+        this.pet = pet;
         this.walkingMateComment = walkingMateComment;
     }
+
+
 
 
 

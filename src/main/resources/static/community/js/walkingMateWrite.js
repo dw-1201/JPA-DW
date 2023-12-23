@@ -46,10 +46,10 @@ document.addEventListener('DOMContentLoaded', function () {
     //달력 값에 따른 시간대 동적으로 생성
     const selectElement = document.getElementById('walkingMateTime');
     $('#datepicker').datepicker({
-        // showOn: 'both',
+        showOn: 'both',
         showButtonPanel: true,
-        // buttonImage: "/img/calendarIcon.png",
-        // buttonImageOnly:true,
+        buttonImage: "/img/calendarIcon.png",
+        buttonImageOnly:true,
         currentText: '오늘 날짜',
         closeText: '닫기',
         dateFormat: 'yy/mm/dd',
@@ -75,5 +75,43 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+
+//입력 유효성 검사
+
+$('.submit-btn').on('click', function (){
+
+    let title = $('#walkingMateTitle').val();
+    let content = $('#walkingMateContent').val();
+    let date = $('#datepicker').val();
+    let time = $('#walkingMateTime').val();
+    let person = $('#walkingMatePerson').val();
+    let petName = $('#petName').val();
+    let place =$('#addr').val();
+
+
+    if($('.non-registered-pet').is(':visible')){
+
+        let userId = $('#userId').val();
+
+        if(confirm("펫 등록이 필요합니다. 펫 등록 페이지로 이동하시겠습니까?")){
+            window.location.href="/mypg/main/" + userId;
+        }
+
+        return false;
+    }
+
+    if(!(title && content && date && time && person && petName && place)){
+        alert("정보 입력!!!")
+        return false;
+    }
+
+
+
+
+    $('#walk-write-form').submit();
+    return true;
+
+
+})
 
 
