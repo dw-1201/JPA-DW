@@ -1,19 +1,19 @@
 package com.example.dw.domain.entity.user;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.List;
 
-import static lombok.Builder.*;
+import static lombok.Builder.Default;
 
 @Entity
 @Getter
-@Setter
-@NoArgsConstructor
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "pet")
 public class Pet {
     @Id @GeneratedValue

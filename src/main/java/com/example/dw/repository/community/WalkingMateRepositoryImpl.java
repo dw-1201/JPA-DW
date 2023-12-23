@@ -57,6 +57,8 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
                 walkingMate.walkingMateDate,
                 walkingMate.walkingMateTime,
                 walkingMate.walkingMateFullAddress,
+                walkingMate.walkCity,
+                walkingMate.walkCounty,
                 pet.id,
                 pet.name,
                 pet.petCategory,

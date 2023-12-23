@@ -18,11 +18,10 @@
 
     <!-- main 시작 -->
     <main class="main">
-        <div class="main-container">
-           <div class="walk-mate-detail-container" th:each="detail : ${detail}">
+        <div class="main-container" >
+           <div class="walk-mate-detail-container" >
                 <div class="walk-mate-title-section">
                     <h4 th:text="${detail.title}"></h4>
-                    <input type="text" th:value="${detail.fullAddress}" readonly id="fullsAddress">
                 </div>
                <div class="walk-mate-etc-info-section">
                 <div class="walk-mate-content-section">
@@ -30,20 +29,52 @@
                 </div>
                </div>
 
+                <div class="map-container">
+                    <div class="address">
+                        <input type="text" th:value="${detail.fullAddress}" readonly id="fullsAddress">
+                    </div>
+                    <div id="map" style="height: 300px; width: 300px"></div>
+                </div>
            </div>
-            <div id="map" style="height: 300px; width: 300px">
 
-            </div>
             <!-- 글 끝 -->
 
 
 
 
+            <div class="writer-pet-section">
+                <div class="writer-pet-title">
+                    <th:block th:if="${detail.userNickName == null}">
+                    <h4><span th:text="${detail.userAccount}"></span>님의 펫에 관한 정보입니다.</h4>
+                    </th:block>
+                    <th:block th:if="${detail.userNickName != null}">
+                        <h4><span th:text="${detail.userNickName}"></span>님의 펫에 관한 정보입니다.</h4>
+                    </th:block>
+                </div>
+                <div class="writer-pet-info">
+                    <ul class="writer-pet-info-ul">
+                        <li class="writer-pet-info-ul-li">
+                            <img th:src="'/jpa_dw/petimg/' + ${detail.petImgPath} +'/' + ${detail.petImgUuid} +'_' + ${detail.petImgName} " alt="작성자 펫 정보">
+                        </li>
+                        <li class="writer-pet-info-ul-li">
+                            <div class="writer-pet-detail">
+                                <ul>
+                                    <li>견종 : <span th:text="${detail.petCate}"></span></li>
+                                    <li>이름 : <span th:text="${detail.petName}"></span></li>
+                                    <li>무게 : <span th:text="${detail.petWeight}"></span></li>
+                                    <li>중성화 : <span th:text="${detail.neutering}"></span></li>
+                                    <li>성별 : <span th:text="${detail.petGender}"></span></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
             
-            
 
 
-
+            <a th:href="@{/walk/modify/{id} (id=${detail.id})}">dddd</a>
 
 
 

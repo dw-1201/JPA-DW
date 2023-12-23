@@ -63,4 +63,14 @@ public class WalkingMateService {
     }
 
 
+    //산책글 수정
+    @Transactional
+    public void walkModify(WalkMateForm walkMateForm){
+
+        WalkingMate walkingMate = walkingMateRepository.findById(walkMateForm.getId()).get();
+
+        walkingMate.update(walkMateForm);
+
+    }
+
 }

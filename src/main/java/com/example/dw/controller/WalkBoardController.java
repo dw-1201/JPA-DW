@@ -34,7 +34,7 @@ public class WalkBoardController {
 
 
 
-    //글 작성 페이지 이동
+    //산책글 작성 페이지 이동
     @GetMapping("/walkWrite")
     public String walkWrite(Model model, HttpSession session){
 
@@ -48,7 +48,7 @@ public class WalkBoardController {
     }
 
 
-    //글작성 완료
+    //산책글작성 완료
     @PostMapping("/registerWalkMate")
     public RedirectView registerWalk(WalkMateForm walkMateForm, HttpSession session){
 
@@ -61,7 +61,7 @@ public class WalkBoardController {
         return new RedirectView("/walk/walkList");
     }
 
-
+    //산책글 상세보기
     @GetMapping("/detail/{id}/{userId}")
     public String walkDetail(@PathVariable("id") Long id, Model model ){
 
@@ -72,6 +72,37 @@ public class WalkBoardController {
         detail.ifPresent( details -> model.addAttribute("detail", details));
 
         return "/community/walkingMateDetail";
+    }
+
+    //산책글 수정페이지 이동
+    @GetMapping("/modify/{id}")
+    public String walkModify(@PathVariable("id") Long id,
+                        Model model, HttpSession session){
+
+        Long userId = (Long)session.getAttribute("userId");
+        List<UserPetDto> userPets = walkingMateService.getUserPets(userId);
+        System.out.println(userPets.toString());
+        model.addAttribute("pets", userPets);
+
+
+
+        Optional<WalkMateDetailDto> detail =  walkingMateService.walkDetailPage(id);
+        detail.ifPresent( details -> model.addAttribute("detail", details));
+        System.out.println(detail.toString());
+
+        return "/community/walkingMateModify";
+
+    }
+
+
+    @PostMapping("/modifyOk/{id}")
+    public RedirectView walkModifyOk(WalkMateForm walkMateForm){
+
+        System.out.println("[ 산책글 수정 사항 ] : "+walkMateForm.toString());
+        walkingMateService.walkModify(walkMateForm);
+
+        return new RedirectView("/walk/walkList");
+
     }
 
 }

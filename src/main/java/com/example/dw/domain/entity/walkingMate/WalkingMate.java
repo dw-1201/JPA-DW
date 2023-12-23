@@ -2,6 +2,7 @@ package com.example.dw.domain.entity.walkingMate;
 
 import com.example.dw.domain.entity.user.Pet;
 import com.example.dw.domain.entity.user.Users;
+import com.example.dw.domain.form.WalkMateForm;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -80,7 +81,19 @@ public class WalkingMate {
         this.walkingMateComment = walkingMateComment;
     }
 
-
+    //산책글 수정
+    public WalkingMate update(WalkMateForm walkMateForm){
+        this.walkingMateTitle=walkMateForm.getWalkingMateTitle();
+        this.walkingMateContent=walkMateForm.getWalkingMateContent();
+        this.walkingMateRd = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+        this.walkingMateDate=walkMateForm.getWalkingMateDate();
+        this.walkingMateTime=walkMateForm.getWalkingMateTime();
+        this.walkingMateFullAddress=getWalkingMateFullAddress();
+        this.walkCity = walkMateForm.getWalkCity();
+        this.walkCounty = walkMateForm.getWalkCounty();
+        this.pet=walkMateForm.toEntity().getPet();
+        return this;
+    }
 
 
 
