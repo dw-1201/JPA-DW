@@ -329,7 +329,7 @@ input:focus {
     height: 100%;
     box-sizing: border-box;
     padding: 10px;
-    font-size: 15px;
+    font-size: 12px;
     /* background-color: salmon; */
 }
 .reply-btns{
@@ -360,7 +360,34 @@ input:focus {
 .update-reply a, .delete-reply a{
     color: #898787;
 }
-.ad-contaniner{
+
+.modify-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
-    height: 200px;
 }
+
+.modify-reply-content {
+    box-sizing: border-box;
+    padding:10px;
+    resize: none;
+    width: 941px;
+    height: 69px;
+}
+
+.modify-reply-btn {
+    cursor: pointer;
+    width: 55px;
+    height: 70px;
+}
+.modify-limit {
+    display: flex;
+}
+
+.textLengthCheck, .overWrite {
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+}
+

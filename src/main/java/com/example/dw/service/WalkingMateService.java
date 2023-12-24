@@ -5,6 +5,7 @@ import com.example.dw.domain.dto.community.WalkMateDetailReplyDto;
 import com.example.dw.domain.dto.community.WalkMateListDto;
 import com.example.dw.domain.dto.user.UserPetDto;
 import com.example.dw.domain.entity.walkingMate.WalkingMate;
+import com.example.dw.domain.entity.walkingMate.WalkingMateComment;
 import com.example.dw.domain.form.SearchLocationForm;
 import com.example.dw.domain.form.WalkMateForm;
 import com.example.dw.domain.form.WalkingMateCommentForm;
@@ -91,6 +92,16 @@ public class WalkingMateService {
     public List<WalkMateDetailReplyDto> getReplyList(Long walkBoardId){
         System.out.println((walkingMateCommentCustom.findReplyByWalkBoardId(walkBoardId)).toString());
         return walkingMateCommentCustom.findReplyByWalkBoardId(walkBoardId);
+
+    }
+
+    //댓글 수정
+    @Transactional
+    public void modifyReply(WalkingMateCommentForm walkingMateCommentForm){
+
+        WalkingMateComment walkingMateComment = walkingMateCommentRepository.findById(walkingMateCommentForm.getId()).get();
+
+        walkingMateComment.update(walkingMateCommentForm);
 
     }
 

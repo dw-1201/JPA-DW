@@ -59,7 +59,7 @@ public class WalkingMateComment {
     public WalkingMateComment update(WalkingMateCommentForm walkingMateCommentForm){
 
         this.walkingMateCommentContent=walkingMateCommentForm.getWalkBoardComment();
-        this.walkingMateCommentRd=LocalDateTime.now();
+        this.walkingMateCommentMd=LocalDateTime.now();
 
         return this;
     }

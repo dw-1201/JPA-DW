@@ -1,3 +1,5 @@
+import * as reply from './module/reply.js';
+
 let map = null;
 let marker = null;
 
@@ -171,9 +173,7 @@ function replyList(result){
                             <div class="reply-date">2023-11-24</div>
                         </div>
                         <div class="reply-content-n-btns">
-                            <div class="reply-content">
-                                ${r.walkDetailReplyComment}
-                            </div>
+                            <div class="reply-content">${r.walkDetailReplyComment}</div>
                             `;
         if(r.userId == userId ){
             text += `
@@ -199,6 +199,10 @@ function replyList(result){
     inputTextSection.html(text);
 }
 
+
+
+
+//삭제버튼
 $('.reply-list').on('click', '.delete-reply a', function (e){
 
     e.preventDefault();
@@ -215,9 +219,80 @@ $('.reply-list').on('click', '.delete-reply a', function (e){
             }
         })
     }
+})
+
+
+//수정 버튼 클릭
+$('.reply-list').on('click', '.update-reply a', function (e) {
+
+    e.preventDefault();
+    
+
+
+    let letterLimit = $(this).closest('.reply').find('.reply-date');
+    let modifyContentPopUp = $(this).closest('.reply-content-n-btns').find('.reply-content');
+    let btnBox = $(this).closest('.reply-content-n-btns').find('.reply-btns');
+
+
+    letterLimit.replaceWith(
+        `
+          <div class=modify-limit>
+                <span class="textLengthCheck">
+                ${reply.getTextLength(modifyContentPopUp.text()) + ' / 200 '}
+                </span>
+          </div>
+          
+        `
+    );
+
+    modifyContentPopUp.replaceWith(
+        ` <div class="modify-box">
+            <textarea class="modify-reply-content">${modifyContentPopUp.text()}</textarea>
+            <button type="button" class="modify-reply-btn">수정</button>
+          </div>
+        `
+    );
+
+    //수정, 삭제버튼 감추기
+    btnBox.css('display', 'none')
+
+    //수정창 글자 수 실시간 카운팅
+    reply.limitModifyText('.reply-list', '.modify-reply-content', '.textLengthCheck' ,'.modify-limit');
+    
+})
+
+// 수정 완료 처리
+$('.reply-list').on('click', '.modify-reply-btn', function (){
+
+    let commentId = $(this).closest('.reply-content-n-btns').find('.update-reply a').data('commentid');
+    let modifyContentVal = $(this).closest('.modify-box').find('.modify-reply-content').val();
+
+    if(!modifyContentVal){
+        alert("댓글 내용을 입력해주세요")
+        return;
+    }
+
+    if(reply.getTextLength(modifyContentVal)>200){
+        alert("200자 이내로 작성해주세요")
+        return;
+    }
+
+    $.ajax({
+
+        url:'/walks/walkReplyModify',
+        type:'patch',
+        data : {
+            id : commentId,
+            walkBoardComment : modifyContentVal,
+
+        },
+        success : function (result){
+            showReplyList(walkBoardId, replyList)
+        }
+
+    })
 
 })
 
 
-
-
+reply.limitText();

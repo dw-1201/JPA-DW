@@ -69,6 +69,17 @@ public class WalkBoardApiController {
     }
 
 
+    //산책메이트 상세보기 댓글 수정
+    @PatchMapping("/walkReplyModify")
+    public void modifyReply(WalkingMateCommentForm walkingMateCommentForm){
+
+        System.out.println(walkingMateCommentForm.toString());
+
+        walkingMateService.modifyReply(walkingMateCommentForm);
+
+    }
+
+
     //산책메이트 상세보기 댓글 삭제
     @DeleteMapping("/walkReplyDelete/{walkCommentId}")
     public void deleteReply(@PathVariable("walkCommentId") Long walkCommentId){
