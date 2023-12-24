@@ -60,9 +60,18 @@ showReplyList(walkBoardId, replyList)
 });
 
 $('.reply-submit').on('click', function (){
+
+    let commentSection =     $('#walkBoardComment').val();
+
+    if(!commentSection){
+        alert("댓글 내용을 입력해주세요");
+        return false;
+    }
+
+
     addReply()
 
-
+    $('#walkBoardComment').val('')
 })
 
 
@@ -170,8 +179,8 @@ function replyList(result){
             text += `
             
                             <div class="reply-btns">
-                                <div class="update-reply"><a href="">수정</a></div>
-                                <div class="delete-reply"><a href="">삭제</a></div>
+                                <div class="update-reply"><a href="" data-commentid="${r.id}">수정</a></div>
+                                <div class="delete-reply"><a href="" data-commentid="${r.id}">삭제</a></div>
                             </div>
             `;
         }
@@ -190,7 +199,24 @@ function replyList(result){
     inputTextSection.html(text);
 }
 
+$('.reply-list').on('click', '.delete-reply a', function (e){
 
+    e.preventDefault();
+
+    let commentId = $(this).closest('.reply-btns').find('.delete-reply a').data('commentid');
+
+    if(confirm("삭제하시겠습니까?")){
+
+        $.ajax({
+            url : '/walks/walkReplyDelete/'+commentId,
+            type:'delete',
+            success : function (){
+                showReplyList(walkBoardId, replyList)
+            }
+        })
+    }
+
+})
 
 
 

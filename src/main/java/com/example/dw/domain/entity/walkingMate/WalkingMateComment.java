@@ -56,7 +56,6 @@ public class WalkingMateComment {
 
 
 
-
     public WalkingMateComment update(WalkingMateCommentForm walkingMateCommentForm){
 
         this.walkingMateCommentContent=walkingMateCommentForm.getWalkBoardComment();
