@@ -116,8 +116,24 @@ function showList(result){
             <td>
                 <a href="/walk/detail/${r.id}/${r.userId}">${r.walkingMateTitle}</a>
             </td>
-            <td>${r.userNickName}</td>
-            <td>${r.walkingMateDate}</td>
+           `;
+
+
+            if(r.userNickName == null){
+                text += `
+                
+                     <td>${r.userAccount}</td>
+                `;
+            }else {
+                text += `
+                
+                     <td>${r.userNickName}</td>
+
+                `;
+            }
+
+           text += `
+                <td>${r.walkingMateDate}</td>
             <td>${r.walkingMateViewCount}</td>
         </tr>
 

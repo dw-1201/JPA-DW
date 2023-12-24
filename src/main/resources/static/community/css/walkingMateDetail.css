@@ -1,355 +1,222 @@
-
-.main-container{
+.main {
     width: 1024px;
-    min-width: 1024px;
     height: 100%;
     margin: 50px auto;
-    /* background-color: pink; */
+    font-family: 'GmarketSansMedium';
+
 }
-.cate-title{
-    width: 100%;
-    height: 80px;
 
-    font-size: 16px;
-    
-    display: flex;
-    align-items: end;
-    justify-content: end;
 
+
+.walk-mate-top-info-section {
+    width: 1024px;
+    height: 100%;
     box-sizing: border-box;
-    padding: 0px 20px;
-    /* background-color: red; */
+    padding: 10px 0px 10px 0px;
 }
-.cate-title-text{
-    width: 100px;
+
+
+
+.walk-mate-top-info-ul {
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 3px 15px 3px;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+}
+
+.walk-mate-writer {
+    width: 550px;
+}
+.detail-info {
+
+}
+
+.detail-info span {
+    margin-left: 10px;
+}
+
+.walk-mate-etc-info-section {
+    width: 1024px;
+    height: 350px;
+    display: flex;
+    border-bottom: 1px solid gray;
+}
+
+.walk-mate-title-section {
+    width: 670px;
+    box-sizing: border-box;
+    padding: 15px 0px 20px 3px;
+}
+
+.walk-mate-textarea {
+
+    width: 670px;
+    min-height: 250px;
+    resize: none;
+    padding:10px;
+    box-sizing: border-box;
+    border: none;
+}
+
+.walk-mate-state {
+    width: 130px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding-left: 3px;
     height: 30px;
-
-    /* font-weight: bold; */
-    color: white;
-
+    align-items: center;
     display: flex;
     justify-content: center;
-    align-items: center;
-
-    border-radius: 20px;
-    background-color: #FCD11E;
+    font-size: 12px;
 }
-.content-container{
-    width: 100%;
-    height: auto;
-
-    box-sizing: border-box;
-    padding: 10px;
-
-    /* background-color: pink; */
+.walk-mate-state p {
+    width: 60px;
 }
-.content-box{
-    width: 100%;
+.current-person {
+    font-size: 12px;
+}
+
+#map {
+    width: 350px;
     height: 280px;
-
-    display: flex;
-    
-    /* background-color: paleturquoise; */
-    border: 1px solid #e8e8e8;
-    border-radius: 10px;
 }
-.img-box{
-    width: 50%;
-    height: 100%;
 
-    display: flex;
-    justify-content: center;
-    position: relative;
-    align-items: center;
-    text-align: center;
-
+.mate-date-time {
     box-sizing: border-box;
-    /* padding: 100px 0 0 0; */
-
-    /* background-color: green; */
-    border-right: 1px solid #e8e8e8;
-}
-.imgs{
-    width: 300px;
-    height: 200px;
-
-    /* border-radius: 5px; */
-    filter: drop-shadow(5px 5px 6px rgba(0,0,0,.15));
-    overflow: hidden;
-}
-.imgs img{
-    width: 300px;
-    height: 200px;
-
-}
-.slider{
+    padding: 10px 0px 5px 10px;
+    font-size: 12px;
     display: flex;
-    position: relative;
-    transition: 0.5s linear;
-    width: 1500px;
-}
-.slider li{
-    float: left;
-    list-style: none;
-}
-.slider li img{
-    width: 300px;
-    height: 300px;
-
-    /* border-radius: 5px; */
-
-    /* vertical-align: top; */
-}
-.prev{
-    width: 40px;
-    height: 40px;
-
-    border-radius: 70%;
-    font-size: 30px;
-    color: white;
-
-    display: flex;
-    justify-content: center;
     align-items: center;
-    position: absolute;
+}
 
+.mate-date {
+    width: 80px;
+}
+
+#fullsAddress {
+    margin-top: 5px;
+    width: 350px;
     box-sizing: border-box;
-    padding: 3px 5px 10px 0;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,.15));
-
-    background-color: #f0eeee;
-    left: 20px;
-    top: 200px;
-
-    cursor: pointer;
+    padding: 0px 0px 5px 10px;
+    border: none;
 }
-.next{
-    width: 40px;
-    height: 40px;
 
-    border-radius: 70%;
-    font-size: 30px;
-    color: white;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-
-    box-sizing: border-box;
-    padding: 3px 0px 10px 5px;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,.15));
-
-    background-color: #f0eeee;
-    right: 20px;
-    top: 200px;
-
-    cursor: pointer;
+textarea:focus {
+    outline: none;
 }
-.text-box{
-    width: 100%;
-    height: 100%;
 
-    /* box-sizing: border-box; */
-    /* padding: 5px; */
-
-    margin: 20px auto;
+input:focus {
+    outline: none;
 }
-.title-box{
-    width: 100%;
-    height: 100px;
 
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-}
-.text-title-box{
-    width: 100%;
-    height: 50px;
-    /* background-color: blueviolet; */
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid #E4E4E4;
-}
-.text-title{
-    display: flex;
-    align-items: end;
-
-    box-sizing: border-box;
-    padding: 15px 5px;
-
-    font-size: 22px;
-    font-family: 'TAEBAEKmilkyway';
-    font-weight: bolder;
-}
-.info{
-    width: 100%;
-    height: 40px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    font-size: 13px;
-}
-.info-id{
-    width: 100px;
-    height: 100%;
-
-    /* background-color: red; */
-    display: flex;
-    align-items: center;
-}
-.info-img{
-    width: 25px;
-    height: 25px;
-
-    border-radius: 70%;
-    margin: 0 5px;
-}
-.info-img img{
-    width: 100%;
-    height: 100%;
-
-    border-radius: 70%;
-}
-.text-date{
-    width: 100px;
-    height: 100%;
-
-    font-size: 13px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    /* background-color: greenyellow; */
-}
-.content-text p{
-    white-space: pre-wrap;
-}
-.like-box{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.like-btns{
-    width: 60px;
-    height: 60px;
-
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-
-    margin: 0 5px;
-    border-radius: 70px;
-    border: 1px solid #E4E4E4;
-
-    cursor: pointer;
-}
-.like-btn-imgs{
-    width: 30px;
-    height: 30px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    /* background-color: rebeccapurple; */
-}
-.like-btn-imgs img{
-    width: 20px;
-    height: 20px;
-}
-.likes{
-    width: 15px;
-    height: 15px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    /* background-color: pink; */
-}
-.btn-box{
-    width: 100%;
-    height: 100px;
-    /* background-color: yellow; */
-}
-.btns-box{
+.btns-container {
     display: flex;
     justify-content: end;
-    align-items: center;
-
-    cursor: pointer;
-
-    color: white;
-
-    margin: 30px auto;
-}
-.update-btn, .remove-btn, .list-btn{
-    width: 60px;
-    height: 30px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    font-size: 13px;
-    margin: 0 3px;
-
-    border-radius: 10px;
-    background-color: #FCD11E;
-}
-/* 같이 산책 동물 */
-.middle-title{
-    font-size: 20px;
-    margin: 20px auto;
-}
-.middle-box{
-    width: 100%;
-    height: 210px;
-
-    display: flex;
-    
-    /* background-color: paleturquoise; */
-    /* border: 1px solid #e8e8e8; */
-    border-radius: 10px;
-
-    margin: 30px auto;
-}
-.middle-img-box{
-    width: 50%;
+    width: 1024px;
     height: 100%;
+}
 
-    display: flex;
-    justify-content: center;
-    position: relative;
-    align-items: center;
-    text-align: center;
-
-
-
+.writer-btns {
+    width: 210px;
+    height: 50px;
     box-sizing: border-box;
-    /* padding: 100px 0 0 0; */
-
-    /* background-color: green; */
-    /* border-right: 1px solid #e8e8e8; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-.middle-imgs{
-    width: 300px;
-    height: 200px;
 
-    /* border-radius: 5px; */
-    filter: drop-shadow(5px 5px 6px rgba(0,0,0,.15));
-    overflow: hidden;
+.apply {
+    width: 130px;
+    height: 50px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-.middle-imgs img{
-    width: 300px;
-    height: 200px;
 
+.btn {
+    border-radius: 5px;
+    border: 1px solid gray;
+    cursor: pointer;
+    padding: 5px 10px 5px 10px;
+    background-color: white;
+    position: relative;
+    z-index: 1;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
 }
+
+.btn:after{
+    content: "";
+    top: 0;
+    position: absolute;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+    background-color: #F8BE41;
+}
+.btn:hover:after {
+    width: 100%;
+    z-index: -1;
+}
+
+
+/*작성자 펫 정보*/
+
+.writer-pet-section {
+    font-size: 12px;
+}
+
+.writer-pet-title {
+    padding:10px 0 10px 0px;
+}
+.writer-pet-title span {
+    color: black;
+}
+
+.writer-pet-title h4 {
+    color: gray;
+}
+
+.writer-pet-info-ul {
+    border: 1px solid gray;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 350px;
+    height: 130px;
+    box-sizing: border-box;
+    padding:10px
+}
+
+.writer-pet-img{
+    width: 140px;
+    height: 120px;
+}
+.writer-pet-img img {
+    width: 100%;
+    height: 100%;
+}
+
+.writer-pet-detail {
+    width: 120px;
+    line-height: 1.9;
+}
+
 /* 끝 */
 .reply-container{
     width: 100%;

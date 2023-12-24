@@ -85,7 +85,7 @@ public class WalkingMate {
     public WalkingMate update(WalkMateForm walkMateForm){
         this.walkingMateTitle=walkMateForm.getWalkingMateTitle();
         this.walkingMateContent=walkMateForm.getWalkingMateContent();
-        this.walkingMateRd = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+        this.walkingMateMd = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
         this.walkingMateDate=walkMateForm.getWalkingMateDate();
         this.walkingMateTime=walkMateForm.getWalkingMateTime();
         this.walkingMateFullAddress=getWalkingMateFullAddress();

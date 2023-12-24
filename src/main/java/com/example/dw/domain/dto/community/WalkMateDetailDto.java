@@ -10,6 +10,7 @@ public class WalkMateDetailDto {
 
 
     private Long id;
+    private Long userId;
     private String userNickName;
     private String userAccount;
     private String registeredDate;
@@ -33,12 +34,12 @@ public class WalkMateDetailDto {
     private String petImgPath;
     private String petImgUuid;
     private String petImgName;
-
-
+    private Long viewCount;
 
     @QueryProjection
-    public WalkMateDetailDto(Long id, String userNickName, String userAccount, String registeredDate, String modifiedDate, String title, String content, Long currentPerson, Long matePerson, String mateDate, String mateTime, String fullAddress, String walkCity, String walkCounty, Long petId, String petName, String petCate, Long petWeight, String neutering, String petGender, Long petImgId, String petImgPath, String petImgUuid, String petImgName) {
+    public WalkMateDetailDto(Long id, Long userId, String userNickName, String userAccount, String registeredDate, String modifiedDate, String title, String content, Long currentPerson, Long matePerson, String mateDate, String mateTime, String fullAddress, String walkCity, String walkCounty, Long petId, String petName, String petCate, Long petWeight, String neutering, String petGender, Long petImgId, String petImgPath, String petImgUuid, String petImgName, Long viewCount) {
         this.id = id;
+        this.userId = userId;
         this.userNickName = userNickName;
         this.userAccount = userAccount;
         this.registeredDate = registeredDate;
@@ -62,5 +63,8 @@ public class WalkMateDetailDto {
         this.petImgPath = petImgPath;
         this.petImgUuid = petImgUuid;
         this.petImgName = petImgName;
+        this.viewCount = viewCount;
     }
+
+
 }

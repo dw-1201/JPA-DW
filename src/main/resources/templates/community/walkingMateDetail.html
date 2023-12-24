@@ -20,27 +20,70 @@
     <main class="main">
         <div class="main-container" >
            <div class="walk-mate-detail-container" >
-                <div class="walk-mate-title-section">
-                    <h4 th:text="${detail.title}"></h4>
+                <div class="walk-mate-top-info-section">
+                    <ul class="walk-mate-top-info-ul">
+                        <li class="walk-mate-writer detail-info">
+                            <p th:if="${detail.userNickName==null}">작성자<span th:text="${detail.userAccount}"></span></p>
+                            <p th:unless="${detail.userNickName==null}" >작성자<span th:text="${detail.userNickName}"></span></p>
+                        </li>
+                        <th:block th:if="${detail.registeredDate != detail.modifiedDate}">
+                        <li class="walk-mate-modified-date detail-info">
+                            <p>수정일<span th:text="${detail.modifiedDate}"></span></p>
+                        </li>
+                        </th:block>
+                        <th:block th:if="${detail.registeredDate == detail.modifiedDate}">
+                            <li class="walk-mate-modified-date detail-info">
+                                <p></p>
+                            </li>
+                        </th:block>
+                        <li class="walk-mate-registered-date detail-info">
+                            <p>등록일 <span th:text="${detail.registeredDate}"></span></p>
+                        </li>
+                        <li class="walk-mate-view-count detail-info">
+                            <p>조회수<span th:text="${detail.viewCount}"></span></p>
+                        </li>
+                    </ul>
                 </div>
-               <div class="walk-mate-etc-info-section">
-                <div class="walk-mate-content-section">
-                    <textarea th:text="${detail.content}"></textarea>
-                </div>
-               </div>
 
-                <div class="map-container">
-                    <div class="address">
-                        <input type="text" th:value="${detail.fullAddress}" readonly id="fullsAddress">
+               <div class="walk-mate-etc-info-section">
+
+                   <div class="title-content-wrap">
+                       <div class="walk-mate-state">
+                           <p>모집 현황</p>
+                           <div th:text="${detail.currentPerson} +' / ' + ${detail.matePerson}" class="current-person"></div>
+                       </div>
+                        <div class="walk-mate-title-section">
+                            <h4 th:text="${detail.title}"></h4>
+                       </div>
+                    <div class="walk-mate-content-section">
+                        <textarea th:text="${detail.content}" class="walk-mate-textarea" readonly></textarea>
                     </div>
-                    <div id="map" style="height: 300px; width: 300px"></div>
-                </div>
+                   </div>
+                   <div class="map-container">
+                       <div id="map" ></div>
+                       <div class="mate-date-time-address">
+                           <div class="mate-date-time">
+                               <div class="mate-date" th:text="${detail.mateDate}"></div>
+                               <div class="mate-time" th:text="${detail.mateTime}"></div>
+                           </div>
+                           <input type="text" th:value="${detail.fullAddress}" readonly id="fullsAddress">
+                       </div>
+                   </div>
+               </div>
+               <div class="btns-container">
+                    <div class="writer-btns btns" th:if="${detail.userId == session.userId}">
+                        <button class="list-btn btn">목록</button>
+                        <button class="modify-btn btn">수정하기</button>
+                        <button class="delete-btn btn">삭제하기</button>
+                    </div>
+                   <div class="apply btns" th:if="${detail.userId != session.userId}">
+                       <button class="list-btn btn">목록</button>
+                       <button class="apply-btn btn">신청하기</button>
+                   </div>
+               </div>
            </div>
 
             <!-- 글 끝 -->
-
-
-
 
             <div class="writer-pet-section">
                 <div class="writer-pet-title">
@@ -53,15 +96,15 @@
                 </div>
                 <div class="writer-pet-info">
                     <ul class="writer-pet-info-ul">
-                        <li class="writer-pet-info-ul-li">
+                        <li class="writer-pet-info-ul-li writer-pet-img">
                             <img th:src="'/jpa_dw/petimg/' + ${detail.petImgPath} +'/' + ${detail.petImgUuid} +'_' + ${detail.petImgName} " alt="작성자 펫 정보">
                         </li>
-                        <li class="writer-pet-info-ul-li">
+                        <li class="writer-pet-info-ul-li writer-pet-detail">
                             <div class="writer-pet-detail">
                                 <ul>
                                     <li>견종 : <span th:text="${detail.petCate}"></span></li>
                                     <li>이름 : <span th:text="${detail.petName}"></span></li>
-                                    <li>무게 : <span th:text="${detail.petWeight}"></span></li>
+                                    <li>무게 : <span th:text="${detail.petWeight} + kg"></span></li>
                                     <li>중성화 : <span th:text="${detail.neutering}"></span></li>
                                     <li>성별 : <span th:text="${detail.petGender}"></span></li>
                                 </ul>
@@ -71,10 +114,11 @@
                     </ul>
                 </div>
             </div>
-            
+
+            <!--            <div class="party">참가자 펫정보 영역</div>-->
 
 
-            <a th:href="@{/walk/modify/{id} (id=${detail.id})}">dddd</a>
+<!--            <a th:href="@{/walk/modify/{id} (id=${detail.id})}">dddd</a>-->
 
 
 
@@ -86,33 +130,17 @@
             <div class="reply-container">
                 <div class="reply-title">댓글</div>
                 <div class="reply-input">
-                    <textarea name="" id="" placeholder="댓글을 입력해주세요"></textarea>
-                    <button>등록</button>
+                    <textarea name="walkBoardComment" id="walkBoardComment" placeholder="댓글을 입력해주세요"></textarea>
+                    <button class="reply-submit">등록</button>
                 </div>
                 <div class="reply-list">
-                    <div class="reply">
-                        <div class="id-and-date">
-                            <div class="reply-info">
-                                <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                                <div class="reply-id">콩콩콩이</div>
-                            </div>
-                            <div class="reply-date">2023-11-24</div>
-                        </div>
-                        <div class="reply-content-n-btns">
-                            <div class="reply-content">
-                                역시 합사에는 시간이 필요하군요 ㅎㅎㅎ 근데 애들 저렇게 있으니까 너무 보기 좋아요 
-                            </div>
-                            <div class="reply-btns">
-                                <div class="update-reply"><a href="">수정</a></div>
-                                <div class="delete-reply"><a href="">삭제</a></div>
-                            </div>
-                        </div>
-                    </div>
+<!--                    댓글 영역-->
                 </div>
             </div>
-            <div class="ad-contaniner"></div>
         </div>
     </main>
+    <input type="hidden" th:value="${detail.id}" id="walkBoardId" />
+    <input type="hidden" th:value="${session.userId}" id="userId" />
     <!-- main 끝 -->
 
     <!-- footer 시작 -->

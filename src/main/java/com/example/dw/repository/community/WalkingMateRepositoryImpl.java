@@ -46,10 +46,11 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
     public Optional<WalkMateDetailDto> walkMateDetail(Long walkBoardId) {
         return Optional.ofNullable(jpaQueryFactory.select(new QWalkMateDetailDto(
                 walkingMate.id,
+                walkingMate.users.id,
                 users.userNickName,
                 users.userAccount,
                 walkingMate.walkingMateRd,
-                walkingMate.walkingMateRd,
+                walkingMate.walkingMateMd,
                 walkingMate.walkingMateTitle,
                 walkingMate.walkingMateContent,
                 walkingMate.walkingMateToday,
@@ -68,8 +69,8 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
                 petImg.id,
                 petImg.petPath,
                 petImg.petUuid,
-                petImg.petFileName
-
+                petImg.petFileName,
+                walkingMate.walkingMateViewCount
 
         ))
                 .from(walkingMate)
@@ -113,7 +114,8 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
                 walkingMate.walkCity,
                 walkingMate.walkCounty,
                 users.id,
-                users.userNickName
+                users.userNickName,
+                users.userAccount
         ))
                 .from(walkingMate)
                 .leftJoin(walkingMate.users, users)

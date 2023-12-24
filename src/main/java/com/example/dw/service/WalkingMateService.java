@@ -1,11 +1,15 @@
 package com.example.dw.service;
 
 import com.example.dw.domain.dto.community.WalkMateDetailDto;
+import com.example.dw.domain.dto.community.WalkMateDetailReplyDto;
 import com.example.dw.domain.dto.community.WalkMateListDto;
 import com.example.dw.domain.dto.user.UserPetDto;
 import com.example.dw.domain.entity.walkingMate.WalkingMate;
 import com.example.dw.domain.form.SearchLocationForm;
 import com.example.dw.domain.form.WalkMateForm;
+import com.example.dw.domain.form.WalkingMateCommentForm;
+import com.example.dw.repository.community.WalkingMateCommentCustom;
+import com.example.dw.repository.community.WalkingMateCommentRepository;
 import com.example.dw.repository.community.WalkingMateRepository;
 import com.example.dw.repository.community.WalkingMateRepositoryCustom;
 import com.example.dw.repository.user.UsersRepositoryCustom;
@@ -28,6 +32,8 @@ public class WalkingMateService {
     private final WalkingMateRepository walkingMateRepository;
     private final WalkingMateRepositoryCustom walkingMateRepositoryCustom;
     private final UsersRepositoryCustom usersRepositoryCustom;
+    private final WalkingMateCommentRepository walkingMateCommentRepository;
+    private final WalkingMateCommentCustom walkingMateCommentCustom;
 
     //산책모집글 리스트
     @Transactional
@@ -73,4 +79,24 @@ public class WalkingMateService {
 
     }
 
+    //산책글 댓글 등록
+    @Transactional
+    public void walkDetailReply(WalkingMateCommentForm walkingMateCommentForm){
+
+        walkingMateCommentRepository.save(walkingMateCommentForm. toEntity());
+    }
+
+    //산책글 댓글 목록
+    @Transactional
+    public List<WalkMateDetailReplyDto> getReplyList(Long walkBoardId){
+        System.out.println((walkingMateCommentCustom.findReplyByWalkBoardId(walkBoardId)).toString());
+        return walkingMateCommentCustom.findReplyByWalkBoardId(walkBoardId);
+
+    }
+
+    //댓글 삭제
+    @Transactional
+    public void deleteReply(Long walkdCommentId){
+        walkingMateCommentRepository.deleteById(walkdCommentId);
+    }
 }
