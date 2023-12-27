@@ -40,25 +40,30 @@
 
 .walk-mate-etc-info-section {
     width: 1024px;
-    height: 350px;
+    height: 475px;
     display: flex;
-    border-bottom: 1px solid gray;
 }
 
 .walk-mate-title-section {
-    width: 670px;
+    width: 650px;
     box-sizing: border-box;
-    padding: 15px 0px 20px 3px;
+    padding: 35px 0px 20px 3px;
 }
 
 .walk-mate-textarea {
 
-    width: 670px;
-    min-height: 250px;
+    width: 650px;
+    min-height: 365px;
     resize: none;
-    padding:10px;
+    padding: 10px;
     box-sizing: border-box;
     border: none;
+}
+
+
+.title-content-wrap {
+    border-right: 1px solid gray;
+    width: 655px;
 }
 
 .walk-mate-state {
@@ -81,8 +86,13 @@
 }
 
 #map {
+    border-radius: 10px;
     width: 350px;
-    height: 280px;
+    height: 250px;
+}
+
+.map-container {
+    padding-left: 15px;
 }
 
 .mate-date-time {
@@ -119,6 +129,8 @@ input:focus {
     justify-content: end;
     width: 1024px;
     height: 100%;
+    margin-top: 8px;
+    border-top: 1px solid gray;
 }
 
 .writer-btns {
@@ -176,6 +188,9 @@ input:focus {
 
 /*작성자 펫 정보*/
 
+.writer-pet-info {
+    margin-bottom: 10px;
+}
 .writer-pet-section {
     font-size: 12px;
 }
@@ -200,11 +215,11 @@ input:focus {
     width: 350px;
     height: 130px;
     box-sizing: border-box;
-    padding:10px
+    padding: 10px;
 }
 
 .writer-pet-img{
-    width: 140px;
+    width: 165px;
     height: 120px;
 }
 .writer-pet-img img {
@@ -236,7 +251,7 @@ input:focus {
 }
 .reply-input{
     width: 100%;
-    height: 130px;
+    height: 110px;
     display: flex;
     justify-content: center;
     align-items: center;

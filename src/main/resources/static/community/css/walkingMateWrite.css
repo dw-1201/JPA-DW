@@ -1,8 +1,9 @@
 .main {
+    font-family: 'GmarketSansMedium';
+
     margin-top: 90px ;
 }
 .main-container{
-    font-family: 'GmarketSansMedium';
     width: 1024px;
     min-width: 1024px;
     height: 760px;

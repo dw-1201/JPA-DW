@@ -66,6 +66,35 @@
                     </div>
                    </div>
                    <div class="map-container">
+                       <div class="writer-pet-section">
+<!--                           <div class="writer-pet-title">-->
+<!--                               <th:block th:if="${detail.userNickName == null}">-->
+<!--                                   <h4><span th:text="${detail.userAccount}"></span>님의 펫에 관한 정보입니다.</h4>-->
+<!--                               </th:block>-->
+<!--                               <th:block th:if="${detail.userNickName != null}">-->
+<!--                                   <h4><span th:text="${detail.userNickName}"></span>님의 펫에 관한 정보입니다.</h4>-->
+<!--                               </th:block>-->
+<!--                           </div>-->
+                           <div class="writer-pet-info">
+                               <ul class="writer-pet-info-ul">
+                                   <li class="writer-pet-info-ul-li writer-pet-img">
+                                       <img th:src="'/jpa_dw/petimg/' + ${detail.petImgPath} +'/' + ${detail.petImgUuid} +'_' + ${detail.petImgName} " alt="작성자 펫 정보">
+                                   </li>
+                                   <li class="writer-pet-info-ul-li writer-pet-detail">
+                                       <div class="writer-pet-detail">
+                                           <ul>
+                                               <li>견종 : <span th:text="${detail.petCate}"></span></li>
+                                               <li>이름 : <span th:text="${detail.petName}"></span></li>
+                                               <li>무게 : <span th:text="${detail.petWeight} + kg"></span></li>
+                                               <li>중성화 : <span th:text="${detail.neutering}"></span></li>
+                                               <li>성별 : <span th:text="${detail.petGender}"></span></li>
+                                           </ul>
+                                       </div>
+                                   </li>
+
+                               </ul>
+                           </div>
+                       </div>
                        <div id="map" ></div>
                        <div class="mate-date-time-address">
                            <div class="mate-date-time">
@@ -91,35 +120,35 @@
 
             <!-- 글 끝 -->
 
-            <div class="writer-pet-section">
-                <div class="writer-pet-title">
-                    <th:block th:if="${detail.userNickName == null}">
-                    <h4><span th:text="${detail.userAccount}"></span>님의 펫에 관한 정보입니다.</h4>
-                    </th:block>
-                    <th:block th:if="${detail.userNickName != null}">
-                        <h4><span th:text="${detail.userNickName}"></span>님의 펫에 관한 정보입니다.</h4>
-                    </th:block>
-                </div>
-                <div class="writer-pet-info">
-                    <ul class="writer-pet-info-ul">
-                        <li class="writer-pet-info-ul-li writer-pet-img">
-                            <img th:src="'/jpa_dw/petimg/' + ${detail.petImgPath} +'/' + ${detail.petImgUuid} +'_' + ${detail.petImgName} " alt="작성자 펫 정보">
-                        </li>
-                        <li class="writer-pet-info-ul-li writer-pet-detail">
-                            <div class="writer-pet-detail">
-                                <ul>
-                                    <li>견종 : <span th:text="${detail.petCate}"></span></li>
-                                    <li>이름 : <span th:text="${detail.petName}"></span></li>
-                                    <li>무게 : <span th:text="${detail.petWeight} + kg"></span></li>
-                                    <li>중성화 : <span th:text="${detail.neutering}"></span></li>
-                                    <li>성별 : <span th:text="${detail.petGender}"></span></li>
-                                </ul>
-                            </div>
-                        </li>
+<!--            <div class="writer-pet-section">-->
+<!--                <div class="writer-pet-title">-->
+<!--                    <th:block th:if="${detail.userNickName == null}">-->
+<!--                    <h4><span th:text="${detail.userAccount}"></span>님의 펫에 관한 정보입니다.</h4>-->
+<!--                    </th:block>-->
+<!--                    <th:block th:if="${detail.userNickName != null}">-->
+<!--                        <h4><span th:text="${detail.userNickName}"></span>님의 펫에 관한 정보입니다.</h4>-->
+<!--                    </th:block>-->
+<!--                </div>-->
+<!--                <div class="writer-pet-info">-->
+<!--                    <ul class="writer-pet-info-ul">-->
+<!--                        <li class="writer-pet-info-ul-li writer-pet-img">-->
+<!--                            <img th:src="'/jpa_dw/petimg/' + ${detail.petImgPath} +'/' + ${detail.petImgUuid} +'_' + ${detail.petImgName} " alt="작성자 펫 정보">-->
+<!--                        </li>-->
+<!--                        <li class="writer-pet-info-ul-li writer-pet-detail">-->
+<!--                            <div class="writer-pet-detail">-->
+<!--                                <ul>-->
+<!--                                    <li>견종 : <span th:text="${detail.petCate}"></span></li>-->
+<!--                                    <li>이름 : <span th:text="${detail.petName}"></span></li>-->
+<!--                                    <li>무게 : <span th:text="${detail.petWeight} + kg"></span></li>-->
+<!--                                    <li>중성화 : <span th:text="${detail.neutering}"></span></li>-->
+<!--                                    <li>성별 : <span th:text="${detail.petGender}"></span></li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+<!--                        </li>-->
 
-                    </ul>
-                </div>
-            </div>
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
 
             <!--            <div class="party">참가자 펫정보 영역</div>-->
 
