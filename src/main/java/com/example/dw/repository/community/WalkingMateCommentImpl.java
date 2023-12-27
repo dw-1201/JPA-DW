@@ -25,6 +25,8 @@ public class WalkingMateCommentImpl implements WalkingMateCommentCustom {
         return jpaQueryFactory.select(new QWalkMateDetailReplyDto(
                 walkingMateComment.id,
                 walkingMateComment.walkingMateCommentContent,
+                walkingMateComment.walkingMateCommentRd,
+                walkingMateComment.walkingMateCommentMd,
                 users.id,
                 users.userAccount,
                 users.userNickName,

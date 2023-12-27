@@ -199,10 +199,11 @@ export function getTextLength(text) {
 
 //댓글 입력창 글자 수 제한
 export function limitText(contents, section){
-    $("#reply-content").keyup(function(e) {
+    $(contents).keyup(function(e) {
 
-        $(section).html(`<span class="overWrite">  ${getTextLength(contents) + ' / 200'}  </span>`); //실시간 글자수 카운팅
-        if (getTextLength(contents) > 200) {
+        let cont = $(this).val();
+        $(section).html(`<span class="overWrite">${getTextLength(cont) + ' / 200'}  </span>`); //실시간 글자수 카운팅
+        if (getTextLength(cont) > 200) {
             $('.overWrite').css('color', 'red')
         }
     });

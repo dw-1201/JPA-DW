@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/common/css/common.css">
     <link rel="stylesheet" href="/fragment/css/header.css">
+    <link rel="stylesheet" href="/fragment/css/sideBanner.css">
     <link rel="stylesheet" href="/fragment/css/footer.css">
     <link rel="stylesheet" href="/community/css/walkingMateList.css">
     <title>산책메이트</title>
@@ -19,12 +20,17 @@
     <!-- main 시작 -->
 <main class="main">
 <div class="main-container">
-        <div class="mate-main-img-box">
-            <img src="/img/walkingMate.png" alt="산책메이트 배너">
-                <div class="write-btn">
-                    <a href="/walk/walkWrite">산책메이트 글 작성하기</a>
-                </div>
+    <div class="side-banner" style="position: sticky; width: 100%">
+        <div class="side-banner-fragment" th:replace="fragment/sideBanner :: side-banner-fragment">
+
         </div>
+    </div>
+    <div class="mate-main-img-box">
+        <img src="/img/walkingMate.png" alt="산책메이트 배너">
+            <div class="write-btn">
+                <a href="/walk/walkWrite">산책메이트 글 작성하기</a>
+            </div>
+    </div>
 <!-- 검색 -->
     <div class="main-content-container-form">
         <div class="how-to-search-box">

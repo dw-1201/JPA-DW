@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/common/css/common.css">
     <link rel="stylesheet" href="/fragment/css/header.css">
+    <link rel="stylesheet" href="/fragment/css/sideBanner.css">
     <link rel="stylesheet" href="/fragment/css/footer.css">
     <link rel="stylesheet" href="/community/css/walkingMateDetail.css">
     <title>산책메이트-상세페이지</title>
@@ -19,6 +20,11 @@
     <!-- main 시작 -->
     <main class="main">
         <div class="main-container" >
+            <div class="side-banner" style="position: sticky; width: 100%">
+                <div class="side-banner-fragment" th:replace="fragment/sideBanner :: side-banner-fragment">
+
+                </div>
+            </div>
            <div class="walk-mate-detail-container" >
                 <div class="walk-mate-top-info-section">
                     <ul class="walk-mate-top-info-ul">
@@ -72,13 +78,13 @@
                </div>
                <div class="btns-container">
                     <div class="writer-btns btns" th:if="${detail.userId == session.userId}">
-                        <button class="list-btn btn">목록</button>
-                        <button class="modify-btn btn">수정하기</button>
-                        <button class="delete-btn btn">삭제하기</button>
+                        <button class="list-btn btn" type="button" >목록</button>
+                        <button class="modify-btn btn" type="button" th:data-walkboardid="${detail.id}">수정하기</button>
+                        <button class="delete-btn btn" type="button" th:data-walkboardid="${detail.id}">삭제하기</button>
                     </div>
                    <div class="apply btns" th:if="${detail.userId != session.userId}">
                        <button class="list-btn btn">목록</button>
-                       <button class="apply-btn btn">신청하기</button>
+                       <button class="apply-btn btn" th:data-walkboardid="${detail.id}">신청하기</button>
                    </div>
                </div>
            </div>
@@ -127,16 +133,25 @@
 
 
             <!-- 댓글 시작 -->
-            <div class="reply-container">
+            <th:block th:if="${session.userId != null}" >
+            <div class="reply-container" >
                 <div class="reply-title">댓글</div>
                 <div class="reply-input">
                     <textarea name="walkBoardComment" id="walkBoardComment" placeholder="댓글을 입력해주세요"></textarea>
+                    <div class="comment-length-Check"></div>
                     <button class="reply-submit">등록</button>
                 </div>
                 <div class="reply-list">
 <!--                    댓글 영역-->
                 </div>
             </div>
+            </th:block>
+            <th:block th:unless="${session.userId != null}">
+                <div class="required-login-section">
+                    <h5>댓글 기능을 이용하실려면 로그인과 산책메이트 작성자의 승인이 필요합니다.</h5>
+                    <a href="/user/enterLogin"> 로그인 이동하기 </a>
+                </div>
+            </th:block>
         </div>
     </main>
     <input type="hidden" th:value="${detail.id}" id="walkBoardId" />

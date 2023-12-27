@@ -51,29 +51,59 @@ function showMarkerOnMap(address) {
 $(document).ready(function () {
     //지도 로드
     initMap();
-
-
-    // $('.writer-pet-section').on('click', function (){
-    //
-    //     $(this).slideToggle(400);
-    //
-    // })
-showReplyList(walkBoardId, replyList)
+    reply.limitText( $('#walkBoardComment'),'.comment-length-Check' )
+    showReplyList(walkBoardId, replyList)
 });
 
 $('.reply-submit').on('click', function (){
 
-    let commentSection =     $('#walkBoardComment').val();
+    let commentSection = $('#walkBoardComment').val();
 
     if(!commentSection){
         alert("댓글 내용을 입력해주세요");
         return false;
     }
 
+    if(reply.getTextLength(commentSection)>200){
+        alert("200자 이내로 작성해주세요")
+        return;
+    }
+
 
     addReply()
 
     $('#walkBoardComment').val('')
+    $('.comment-length-Check').text('');
+
+})
+
+//산책글 리스트 이동
+$('.list-btn').on('click', function (){
+
+    window.location.href="/walk/walkList";
+
+})
+
+//산책글 수정 페이지 이동
+$('.modify-btn').on('click', function (){
+
+    let walkBoardId = $(this).data('walkboardid');
+
+    if(confirm("수정 페이지로 이동하시겠습니까?")){
+
+        window.location.href="/walk/modify/" + walkBoardId;
+    }
+
+})
+
+//산책글 삭제
+$('.delete-btn').on('click', function (){
+
+    let walkBoardId = $(this).data('walkboardid');
+
+    if(confirm("해당 글을 삭제하시겠습니까?")){
+
+    }
 })
 
 
@@ -81,6 +111,9 @@ $('.reply-submit').on('click', function (){
 
 
 
+
+//산책 댓글 영역////
+//댓글 등록
 function addReply(){
 
     let walkBoardComment = $('#walkBoardComment').val();
@@ -96,7 +129,8 @@ function addReply(){
             walkBoardId : walkBoardId,
             userId : userId
         },
-        success : function (result){
+        success : function (){
+
 
             showReplyList(walkBoardId, replyList)
 
@@ -107,7 +141,6 @@ function addReply(){
     })
 
 }
-let walkBoardComment = $('#walkBoardComment').val();
 let walkBoardId = $('#walkBoardId').val();
 let userId = $('#userId').val();
 
@@ -170,15 +203,18 @@ function replyList(result){
         }
             text+=`
                             </div>
-                            <div class="reply-date">2023-11-24</div>
+                            <div class="reply-date">
+                                ${reply.timeForToday(r.walkCommentMd) + (r.walkCommendRd == r.walkCommentMd ? ' 작성' : ' 수정')}
+
+                            </div>
                         </div>
                         <div class="reply-content-n-btns">
                             <div class="reply-content">${r.walkDetailReplyComment}</div>
                             `;
         if(r.userId == userId ){
             text += `
-            
-                            <div class="reply-btns">
+                            <span class="reply-section-btns "></span>
+                            <div class="reply-btns none">
                                 <div class="update-reply"><a href="" data-commentid="${r.id}">수정</a></div>
                                 <div class="delete-reply"><a href="" data-commentid="${r.id}">삭제</a></div>
                             </div>
@@ -192,15 +228,31 @@ function replyList(result){
   
         `;
 
-
-
     })
 
     inputTextSection.html(text);
 }
 
 
+//댓글 수정 삭제버튼 팝업
+$('.reply-list').on('click', '.reply-section-btns', function () {
+    let replyBtnBox = $(this).closest('.reply-content-n-btns').find('.reply-btns');
+    $('.reply-btns').addClass('none');
+    replyBtnBox.toggleClass('none');
 
+
+
+});
+
+$('body').click(function (e) {
+    if ($(e.target).hasClass('reply-section-btns')) {
+        //console.log('aa');
+        return;
+    }
+    if (!$('.reply-btns').has(e.target).length) {
+        $('.reply-btns').addClass('none');
+    }
+});
 
 //삭제버튼
 $('.reply-list').on('click', '.delete-reply a', function (e){
@@ -226,7 +278,7 @@ $('.reply-list').on('click', '.delete-reply a', function (e){
 $('.reply-list').on('click', '.update-reply a', function (e) {
 
     e.preventDefault();
-    
+
 
 
     let letterLimit = $(this).closest('.reply').find('.reply-date');
@@ -258,7 +310,7 @@ $('.reply-list').on('click', '.update-reply a', function (e) {
 
     //수정창 글자 수 실시간 카운팅
     reply.limitModifyText('.reply-list', '.modify-reply-content', '.textLengthCheck' ,'.modify-limit');
-    
+
 })
 
 // 수정 완료 처리
@@ -286,8 +338,10 @@ $('.reply-list').on('click', '.modify-reply-btn', function (){
             walkBoardComment : modifyContentVal,
 
         },
-        success : function (result){
+        success : function (){
             showReplyList(walkBoardId, replyList)
+        },error : function (a,b,c){
+            console.error(c);
         }
 
     })
@@ -295,4 +349,3 @@ $('.reply-list').on('click', '.modify-reply-btn', function (){
 })
 
 
-reply.limitText();
