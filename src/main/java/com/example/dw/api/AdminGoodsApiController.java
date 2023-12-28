@@ -14,8 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admins/*")
@@ -61,19 +59,25 @@ public class AdminGoodsApiController {
 
     //관리자 상품문의 답변 가져오기
     @GetMapping("/replyList/{qnaId}")
-    public Optional<AdminGoodsQueReplyDto> replyList(@PathVariable("qnaId") Long qnaId){
+    public AdminGoodsQueReplyDto replyList(@PathVariable("qnaId") Long qnaId){
 
         return adminGoodsService.replyList(qnaId);
 
     }
 
+    //관리자 상품문의 답변 수정
+    @PatchMapping("/replyModify")
+    public void replyModify(GoodsQueReplyForm goodsQueReplyForm){
+
+        adminGoodsService.replyModify(goodsQueReplyForm);
+
+
+    }
 
     //관리자 상품문의 답변 삭제
     @DeleteMapping("/replyDelete/{replyId}")
     public void replyDelete(@PathVariable("replyId") Long replyId){
 
-
-
-
+        adminGoodsService.replyDelete(replyId);
     }
 }

@@ -25,7 +25,7 @@ public interface GoodsRepositoryCustom {
     Optional<AdminGoodsQueDetailDto> getQnaDetail(Long qnaId);
 
     //관리자 상품 문의 답변 가져오기
-    Optional<AdminGoodsQueReplyDto> getReplyList(Long qnaId);
+    AdminGoodsQueReplyDto getReplyList(Long qnaId);
 
 
 

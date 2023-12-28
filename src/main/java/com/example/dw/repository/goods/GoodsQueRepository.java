@@ -10,6 +10,8 @@ public interface GoodsQueRepository extends JpaRepository<GoodsQue, Long> {
         //goods(상품) 기본키로 상품 검색
         Optional<GoodsQue> findById(Long id);
 
+        //
+        Optional<GoodsQue> findByGoodsQueReplyId(Long goodsQueReplyId);
 
 
 }

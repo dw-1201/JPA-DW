@@ -116,15 +116,15 @@
                                        <div class="qna-writer-info">
                                             <ul class="qna-writer-info-ul">
                                                 <li><h5>문의 내용</h5></li>
-                                                <li th:if="${details.userNickName == null}">작성자<span th:text="${details.userAccount}"></span> </li>
-                                                <li th:unless="${details.userNickName == null}">작성자<span th:text="${details.userNickName}"></span> </li>
+                                                <li class="qna-content-li" th:if="${details.userNickName == null}">작성자 <a style="color: black" th:href="@{/admin/userDetail/{id} (id=${details.userId})}"><span th:text="${details.userAccount}"></span></a> </li>
+                                                <li class="qna-content-li" th:unless="${details.userNickName == null}">작성자 <a style="color: black"  th:href="@{/admin/userDetail/{id} (id=${details.userId})}"><span th:text="${details.userNickName}"></span></a> </li>
                                                 <th:block th:if="${details.qndRd == details.qnaMd}">
-                                                    <li ><span></span></li>
-                                                    <li >작성일 <span th:text="${details.qndRd}"></span></li>
+                                                    <li class="qna-content-li"><span></span></li>
+                                                    <li class="qna-content-li">작성일 <span th:text="${details.qndRd}"></span></li>
                                                 </th:block>
                                                 <th:block th:if="${details.qndRd != details.qnaMd}">
-                                                    <li >수정일 <span th:text="${details.qnaMd}"></span></li>
-                                                    <li >작성일 <span th:text="${details.qndRd}"></span></li>
+                                                    <li class="qna-content-li">수정일 <span th:text="${details.qnaMd}"></span></li>
+                                                    <li class="qna-content-li">작성일 <span th:text="${details.qndRd}"></span></li>
                                                 </th:block>
                                             </ul>
 
@@ -133,18 +133,10 @@
                                             <p th:text="${details.qnaContent}"></p>
                                         </div>
                                     </div>
-                                   
                                     <div class="goods-q-reply-container">
-                                        <h5>답변 내용</h5>
-                                        <!-- 답변이 없으면 '등록된 답변이 없습니다.'라는 문구가 나옴 -->
-                                            <div class="if-reply">
-                                                <div class="q-reply"></div>
-                                                <div class="btns btn-none">
-                                                    <button class="modify-reply-btn">수정</button>
-                                                    <button class="delete-reply-btn">삭제</button>
-                                                </div>
-                                            </div>
+
                                     </div>
+
                                 </li>
                             </ul>
                         </div>
@@ -153,19 +145,11 @@
            </div>
         </div>
 
-        <th:block th:if="${details.state==0}">
         <!-- 답변이 없을 때만 나타남 -->
         <div class="admin-main-wrap admin-reply-section" style="margin-top: 10px;">
-            <div class="reply-section">
-                <form action="" method="" id="reply-form">
-                    <textarea name="reply-content" id="reply-content" ></textarea>
-                    <div class="reply-btn">
-                        <button type="button" class="reply-section-btn">답변제출</button>
-                    </div>
-                </form>
-            </div>
+
         </div>
-        </th:block>
+
     </div>
 </main>
 </div>

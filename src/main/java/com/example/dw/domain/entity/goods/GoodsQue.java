@@ -60,8 +60,6 @@ public class GoodsQue {
     }
 
 
-
-
     //날짜포맷
     @PrePersist
     public void onPrePersist(){

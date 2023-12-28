@@ -154,6 +154,8 @@ public class AdminGoodsController {
 
         Optional<AdminGoodsQueDetailDto> detail = adminGoodsService.getGoodsQnaDetail(qnaId);
 
+        System.out.println(detail.get().toString());
+
         detail.ifPresent(details -> model.addAttribute("details", details));
 
 

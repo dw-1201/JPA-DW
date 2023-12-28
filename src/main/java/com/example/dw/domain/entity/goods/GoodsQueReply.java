@@ -1,6 +1,7 @@
 package com.example.dw.domain.entity.goods;
 
 import com.example.dw.domain.entity.user.Users;
+import com.example.dw.domain.form.GoodsQueReplyForm;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -66,7 +67,10 @@ public class GoodsQueReply {
 
 
 
-    public GoodsQueReply update(){
+    public GoodsQueReply update(GoodsQueReplyForm goodsQueReplyForm){
+        this.queReplyContent=goodsQueReplyForm.getQnaReplyContent();
+        this.queReplyModifyDate=LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+
 
         return this;
     }

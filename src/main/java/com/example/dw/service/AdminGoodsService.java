@@ -5,6 +5,7 @@ import com.example.dw.domain.dto.admin.AdminGoodsQueDetailDto;
 import com.example.dw.domain.dto.admin.AdminGoodsQueReplyDto;
 import com.example.dw.domain.entity.goods.Goods;
 import com.example.dw.domain.entity.goods.GoodsQue;
+import com.example.dw.domain.entity.goods.GoodsQueReply;
 import com.example.dw.domain.form.GoodsForm;
 import com.example.dw.domain.form.GoodsQueReplyForm;
 import com.example.dw.repository.goods.GoodsQueReplyRepository;
@@ -148,9 +149,19 @@ public class AdminGoodsService {
 
     //상품문의 답변 불러오기
     @Transactional
-    public Optional<AdminGoodsQueReplyDto> replyList(Long goodsQueId){
+    public AdminGoodsQueReplyDto replyList(Long goodsQueId){
 
         return goodsRepositoryCustom.getReplyList(goodsQueId);
+
+    }
+
+
+    //상품문의 답변 수정
+    @Transactional
+    public void replyModify(GoodsQueReplyForm goodsQueReplyForm){
+
+        GoodsQueReply goodsQueReply = goodsQueReplyRepository.findById(goodsQueReplyForm.getId()).get();
+        goodsQueReply.update(goodsQueReplyForm);
 
     }
 
@@ -158,6 +169,9 @@ public class AdminGoodsService {
     @Transactional
     public void replyDelete(Long replyId){
 
+
+        GoodsQue goodsQue = goodsQueRepository.findByGoodsQueReplyId(replyId).get();
+        goodsQue.deleteState();
 
         goodsQueReplyRepository.deleteById(replyId);
 

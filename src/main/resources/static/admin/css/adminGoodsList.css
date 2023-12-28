@@ -52,7 +52,7 @@
     border-bottom: 2px solid black;
     margin-bottom: 20px;
     display: flex;
-    align-items: center;
+    align-items: baseline;
 }
 #search-form {
     display: flex;

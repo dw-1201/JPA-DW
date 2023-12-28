@@ -1,7 +1,6 @@
 package com.example.dw.repository.goods;
 
 import com.example.dw.domain.dto.admin.*;
-import com.example.dw.domain.entity.goods.GoodsQue;
 import com.example.dw.domain.form.SearchForm;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -15,12 +14,12 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.dw.domain.entity.goods.QGoodsQueReply.goodsQueReply;
-import static com.example.dw.domain.entity.user.QUsers.users;
 import static com.example.dw.domain.entity.goods.QGoods.goods;
 import static com.example.dw.domain.entity.goods.QGoodsDetailImg.goodsDetailImg;
 import static com.example.dw.domain.entity.goods.QGoodsMainImg.goodsMainImg;
 import static com.example.dw.domain.entity.goods.QGoodsQue.goodsQue;
+import static com.example.dw.domain.entity.goods.QGoodsQueReply.goodsQueReply;
+import static com.example.dw.domain.entity.user.QUsers.users;
 import static java.util.stream.Collectors.*;
 
 @Repository
@@ -30,21 +29,75 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
 
 
+    //관리자 페이지 상품 리스트
     @Override
     public Page<AdminGoodsDto> findGoodsAll(Pageable pageable, SearchForm searchForm) {
-        List<AdminGoodsDto> contents = getGoodsList(pageable, searchForm);
-        Long count = getCount(searchForm);
+        List<AdminGoodsDto> contents = jpaQueryFactory
+                .select(new QAdminGoodsDto(
+                        goods.id,
+                        goods.goodsName,
+                        goods.goodsQuantity,
+                        goods.goodsPrice,
+                        goods.goodsCategory.stringValue(),
+                        goods.goodsRegisterDate,
+                        goods.goodsModifyDate
+                ))
+                .from(goods)
+                .where(
+                        cateGoryNameEq(searchForm),
+                        goodsNameEq(searchForm)
+                )
+                .orderBy(goods.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+
+        Long count = jpaQueryFactory
+                .select(goods.count())
+                .from(goods)
+                .where(
+                        cateGoryNameEq(searchForm),
+                        goodsNameEq(searchForm)
+                )
+                .fetchOne();
+
 
         System.out.println("[상품 개수] :"+ count +"개");
 
         return new PageImpl<>(contents, pageable,count);
     }
 
+    //관리자 페이지 상품 상세 페이지
     @Override
     public List<AdminGoodsDetailResultDto> findGoodsById(Long id) {
 
-            List<AdminGoodsDetailDto> list = getGoodsDetail(id);
-
+        List<AdminGoodsDetailDto> list =  jpaQueryFactory
+                .select(new QAdminGoodsDetailDto(
+                        goods.id,
+                        goods.goodsName,
+                        goods.goodsQuantity,
+                        goods.goodsPrice,
+                        goods.goodsMade,
+                        goods.goodsCertify,
+                        goods.goodsDetailContent,
+                        goods.goodsRegisterDate,
+                        goods.goodsModifyDate,
+                        goods.goodsCategory.stringValue(),
+                        goodsMainImg.id,
+                        goodsMainImg.goodsMainImgName,
+                        goodsMainImg.goodsMainImgPath,
+                        goodsMainImg.goodsMainImgUuid,
+                        goodsDetailImg.id,
+                        goodsDetailImg.goodsDetailImgName,
+                        goodsDetailImg.goodsDetailImgPath,
+                        goodsDetailImg.goodsDetailImgUuid
+                ))
+                .from(goods)
+                .leftJoin(goods.goodsMainImg, goodsMainImg)
+                .leftJoin(goods.goodsDetailImg, goodsDetailImg)
+                .where(goods.id.eq(id))
+                .fetch();
         return
                 list.stream().collect(groupingBy(o->new AdminGoodsDetailResultDto(
                         o.getId(),o.getGoodsName(),o.getGoodsQuantity(), o.getGoodsPrice(), o.getGoodsMade(), o.getGoodsCertify(), o.getGoodsDetailContent(),
@@ -58,16 +111,6 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
 
 
 
-
-//                list.stream()
-//                .collect(groupingBy(o -> new AdminGoodsDetailResultDto(o.getId(), o.getGoodsName(), o.getGoodsQuantity(), o.getGoodsPrice(), o.getGoodsMade(),
-//                        o.getGoodsCertify(), o.getGoodsDetailContent(), o.getGoodsRegisterDate(), o.getGoodsModifyDate(), o.getGoodsCategory(),
-//                        o.getGoodsMainImgName(), o.getGoodsMainImgPath(), o.getGoodsMainImgUuid()), mapping(o-> new AdminGoodsDetailImgDto(o.getId(), o.getGoodsDetailImgName(), o.getGoodsDetailImgPath(), o.getGoodsDetailImgUuid(), o.getGoodsDetailImgId()), toList())
-//
-//                )).entrySet().stream()
-//                .map(e-> new AdminGoodsDetailResultDto(e.getKey().getId(), e.getKey().getGoodsName(), e.getKey().getGoodsQuantity(), e.getKey().getGoodsPrice(), e.getKey().getGoodsMade(), e.getKey().getGoodsCertify(), e.getKey().getGoodsDetailContent(),
-//                        e.getKey().getGoodsRegisterDate(), e.getKey().getGoodsModifyDate(), e.getKey().getGoodsCategory(), e.getKey().getGoodsMainImgName(), e.getKey().getGoodsMainImgPath(), e.getKey().getGoodsMainImgUuid(), e.getValue()))
-//                .collect(toList());
 
 
     }
@@ -111,7 +154,7 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
         return new PageImpl<>(lists, pageable, qnaListCount);
     }
 
-    //상품 상세 - 문의 정보 / 상품 기본 정보 / 상품 메인 사진
+    //상품 문의 상세 - 문의 정보 / 상품 기본 정보 / 상품 메인 사진
     @Override
     public Optional<AdminGoodsQueDetailDto> getQnaDetail(Long qnaId) {
         return Optional.ofNullable(jpaQueryFactory.select(new QAdminGoodsQueDetailDto(
@@ -146,10 +189,10 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
                 .fetchOne());
     }
 
-    //답변 내역 가져오기
+    //상품 문의 답변 내역 가져오기
     @Override
-    public Optional<AdminGoodsQueReplyDto> getReplyList(Long qnaId) {
-        return Optional.ofNullable(jpaQueryFactory.select(new QAdminGoodsQueReplyDto(
+    public AdminGoodsQueReplyDto getReplyList(Long qnaId) {
+        return jpaQueryFactory.select(new QAdminGoodsQueReplyDto(
                 goodsQueReply.id,
                 goodsQueReply.queReplyContent,
                 goodsQueReply.queReplyRegisterDate,
@@ -157,89 +200,11 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
         ))
                 .from(goodsQueReply)
                 .where(goodsQueReply.goodsQue.id.eq(qnaId))
-                .fetchOne());
-    }
-
-
-
-
-    private Long getCount(SearchForm searchForm){
-        Long count = jpaQueryFactory
-                .select(goods.count())
-                .from(goods)
-                .where(
-                        cateGoryNameEq(searchForm),
-                        goodsNameEq(searchForm)
-                )
                 .fetchOne();
-        return count;
-    }
-    //상품 리스트 조회
-    private List<AdminGoodsDto> getGoodsList(Pageable pageable, SearchForm searchForm){
-
-        List<AdminGoodsDto> content = jpaQueryFactory
-                .select(new QAdminGoodsDto(
-                        goods.id,
-                        goods.goodsName,
-                        goods.goodsQuantity,
-                        goods.goodsPrice,
-                        goods.goodsCategory.stringValue(),
-                        goods.goodsRegisterDate,
-                        goods.goodsModifyDate
-                ))
-                .from(goods)
-                .where(
-                        cateGoryNameEq(searchForm),
-                        goodsNameEq(searchForm)
-                )
-                .orderBy(goods.id.desc())
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetch();
-
-        return content;
-
     }
 
 
 
-    //상품상세 조회
-    private List<AdminGoodsDetailDto> getGoodsDetail(Long id){
-        List<AdminGoodsDetailDto> lists =  jpaQueryFactory
-                .select(new QAdminGoodsDetailDto(
-                            goods.id,
-                            goods.goodsName,
-                            goods.goodsQuantity,
-                            goods.goodsPrice,
-                            goods.goodsMade,
-                            goods.goodsCertify,
-                            goods.goodsDetailContent,
-                            goods.goodsRegisterDate,
-                            goods.goodsModifyDate,
-                            goods.goodsCategory.stringValue(),
-                        goodsMainImg.id,
-                        goodsMainImg.goodsMainImgName,
-                        goodsMainImg.goodsMainImgPath,
-                        goodsMainImg.goodsMainImgUuid,
-                goodsDetailImg.id,
-                goodsDetailImg.goodsDetailImgName,
-                goodsDetailImg.goodsDetailImgPath,
-                goodsDetailImg.goodsDetailImgUuid
-                ))
-                .from(goods)
-                .leftJoin(goods.goodsMainImg, goodsMainImg)
-                .leftJoin(goods.goodsDetailImg, goodsDetailImg)
-                .where(goods.id.eq(id))
-                .fetch();
-
-
-        lists.stream().forEach(r->{
-            System.out.println(r.getId()+"=====================");
-        });
-
-        return lists;
-
-    }
 
     //상품 리스트 동적 검색
     private BooleanExpression cateGoryNameEq(SearchForm searchForm){
