@@ -1,7 +1,7 @@
 /* 헤더 시작 */
 .header{
   width: 100%;
-  min-width: 1138px;
+  min-width: 1024px;
   height: 85px;
   flex-direction: column;
   justify-content: center;
@@ -22,14 +22,20 @@
 .header-section01-nav{
   box-sizing: border-box;
   height: 100%;
-  min-width: 1138px;
+  min-width: 1024px;
   display: flex;
   justify-content: end;
   align-items: end;
-  padding-right: 29px;
 
 }
-.header-section01-nav li{
+.header-section01-nav ul {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+
+.header-section01-nav li:not(.header-section01-nav li:last-child){
   display: inline-block;
   margin-right: 20px;
 
@@ -48,7 +54,7 @@
   z-index: 999;
   background-color: white;
   width: 100%;
-  min-width: 1138px;
+  min-width: 1024px;
   height: 55px;
   display: flex;
   justify-content: center;
@@ -57,8 +63,8 @@
 }
 .header-section02-container{
   box-sizing: border-box;
-  padding: 0px 30px 0px 41px;
-  min-width: 1138px;
+  padding: 0px 0px 0px 0px;
+  min-width: 1024px;
   height: 55px;
   display: flex;
   align-items: center;
@@ -88,9 +94,18 @@
   height: 55px;
   /* background-color: palevioletred; */
 }
+
+
+.header-section02-nav li:not(.header-section02-nav li:last-child){
+  margin: 0 20px 0 0px;
+
+}
+
+
+
 .header-section02-nav li{
+  /*margin: 0px 0px 0px 30px;*/
   display: inline-block;
-  margin: 0 20px 0 30px;
 }
 
 .header-section02-nav li a {
