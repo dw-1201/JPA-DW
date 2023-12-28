@@ -24,19 +24,29 @@ public class QWalkingMate extends EntityPathBase<WalkingMate> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final QWalkingMateAddress walkingMateAddress;
+    public final com.example.dw.domain.entity.user.QUsers users;
+
+    public final StringPath walkCity = createString("walkCity");
+
+    public final StringPath walkCounty = createString("walkCounty");
 
     public final ListPath<WalkingMateComment, QWalkingMateComment> walkingMateComment = this.<WalkingMateComment, QWalkingMateComment>createList("walkingMateComment", WalkingMateComment.class, QWalkingMateComment.class, PathInits.DIRECT2);
 
     public final StringPath walkingMateContent = createString("walkingMateContent");
 
-    public final DateTimePath<java.time.LocalDateTime> walkingMateMd = createDateTime("walkingMateMd", java.time.LocalDateTime.class);
+    public final StringPath walkingMateDate = createString("walkingMateDate");
+
+    public final StringPath walkingMateFullAddress = createString("walkingMateFullAddress");
+
+    public final StringPath walkingMateMd = createString("walkingMateMd");
 
     public final NumberPath<Long> walkingMatePerson = createNumber("walkingMatePerson", Long.class);
 
-    public final DateTimePath<java.time.LocalDateTime> walkingMateRd = createDateTime("walkingMateRd", java.time.LocalDateTime.class);
+    public final StringPath walkingMateRd = createString("walkingMateRd");
 
     public final NumberPath<Long> walkingMateState = createNumber("walkingMateState", Long.class);
+
+    public final StringPath walkingMateTime = createString("walkingMateTime");
 
     public final StringPath walkingMateTitle = createString("walkingMateTitle");
 
@@ -62,7 +72,7 @@ public class QWalkingMate extends EntityPathBase<WalkingMate> {
 
     public QWalkingMate(Class<? extends WalkingMate> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.walkingMateAddress = inits.isInitialized("walkingMateAddress") ? new QWalkingMateAddress(forProperty("walkingMateAddress"), inits.get("walkingMateAddress")) : null;
+        this.users = inits.isInitialized("users") ? new com.example.dw.domain.entity.user.QUsers(forProperty("users"), inits.get("users")) : null;
     }
 
 }

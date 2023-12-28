@@ -48,9 +48,7 @@ public class GoodsQue {
     private Integer state = 0;
 
     @Builder
-    public GoodsQue(Long id, Users users, Goods goods, List<GoodsQueReply> goodsQueReply,
-                    String queContent, String queRegisterDate, String queModifyDate,
-                    Integer state) {
+    public GoodsQue(Long id, Users users, Goods goods, List<GoodsQueReply> goodsQueReply, String queContent, String queRegisterDate, String queModifyDate, Integer state) {
         this.id = id;
         this.users = users;
         this.goods = goods;
@@ -60,6 +58,9 @@ public class GoodsQue {
         this.queModifyDate = queModifyDate;
         this.state = state;
     }
+
+
+
 
     //날짜포맷
     @PrePersist

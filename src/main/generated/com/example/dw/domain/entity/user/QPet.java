@@ -30,11 +30,11 @@ public class QPet extends EntityPathBase<Pet> {
 
     public final StringPath neutering = createString("neutering");
 
-    public final QPetCategory petCategory;
+    public final StringPath petCategory = createString("petCategory");
 
     public final StringPath petGender = createString("petGender");
 
-    public final QPetImg petImg;
+    public final ListPath<PetImg, QPetImg> petImg = this.<PetImg, QPetImg>createList("petImg", PetImg.class, QPetImg.class, PathInits.DIRECT2);
 
     public final QUsers users;
 
@@ -58,8 +58,6 @@ public class QPet extends EntityPathBase<Pet> {
 
     public QPet(Class<? extends Pet> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.petCategory = inits.isInitialized("petCategory") ? new QPetCategory(forProperty("petCategory")) : null;
-        this.petImg = inits.isInitialized("petImg") ? new QPetImg(forProperty("petImg"), inits.get("petImg")) : null;
         this.users = inits.isInitialized("users") ? new QUsers(forProperty("users"), inits.get("users")) : null;
     }
 

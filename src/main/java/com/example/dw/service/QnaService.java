@@ -5,6 +5,7 @@ import com.example.dw.domain.entity.question.Question;
 import com.example.dw.domain.form.QuestionWritingForm;
 import com.example.dw.repository.community.QuestionRepository;
 import com.example.dw.repository.user.UsersRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,23 +47,51 @@ public class QnaService {
     }
 
     //작성 글 수정
-//    @Transactional
-//    public Question modify(QuestionWritingForm questionWritingForm, List<MultipartFile> files)
-//    throws IOException{
-//
-//        if(!files.get(0).isEmpty()){
-//            fileService.removequeDetailImgs(questionWritingForm.getId());
-//
-//            fileService.registerquestionImg(files,questionWritingForm.getId());
-//        }
-//
-//        Question question = questionRepository.findById(questionWritingForm.getId()).get();
-//
-//        //qna 기본내용 업데이트
-//        question.update(questionWritingForm);
-//        System.out.println("서비스단 완료");
-//        return Optional.ofNullable(question).orElseThrow(()->{
-//            throw new IllegalArgumentException("조회 정보 없음");});
-//    }
+    @Transactional
+    public Question modify(QuestionWritingForm questionWritingForm, List<MultipartFile> files)
+    throws IOException{
+
+        if(!files.get(0).isEmpty()){
+            fileService.removequeDetailImgs(questionWritingForm.getId());
+
+            fileService.registerquestionImg(files,questionWritingForm.getId());
+        }
+
+        Question question = questionRepository.findById(questionWritingForm.getId()).get();
+
+        //qna 기본내용 업데이트
+        question.update(questionWritingForm);
+        System.out.println("서비스단 완료");
+        return Optional.ofNullable(question).orElseThrow(()->{
+            throw new IllegalArgumentException("조회 정보 없음");});
+    }
+
+    //클릭시 해당 게시물 viewCount 변경
+    @Transactional
+    public Question updateViewCount(Long questionId){
+
+        System.out.println(questionId+"번 게시물 조회수 증가");
+
+        Question question = questionRepository.findById(questionId).get();
+        System.out.println(question.getQuestionViewCount()+"++");
+        question.increaseViewCount();
+        System.out.println(question.getQuestionViewCount()+"변경된건 증가일뿐");
+
+
+        System.out.println(question.getQuestionViewCount()+"저장후 ");
+        return  questionRepository.save(question);
+    }
+
+    //게시판 삭제
+    @Transactional
+    public void delete(Long questionId){
+
+        if(questionId == null){
+            throw new IllegalArgumentException("없는 게시판 입니다");
+        }
+        fileService.removequeDetailImgs(questionId);
+        questionRepository.deleteById(questionId);
+    }
+
 
 }

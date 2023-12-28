@@ -23,7 +23,6 @@ public class GoodsDetailDto {
     private String goodsMainImgUuid;
 
     @QueryProjection
-
     public GoodsDetailDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade,
                           String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate,
                           String goodsCategory, Long goodsMainImgId, String goodsMainImgName, String goodsMainImgPath,

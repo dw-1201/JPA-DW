@@ -1,9 +1,6 @@
 package com.example.dw.repository.goods;
 
-import com.example.dw.domain.dto.goods.GoodsDetailDto;
-import com.example.dw.domain.dto.goods.GoodsListDto;
-import com.example.dw.domain.dto.goods.QGoodsDetailDto;
-import com.example.dw.domain.dto.goods.QGoodsListDto;
+import com.example.dw.domain.dto.goods.*;
 import com.example.dw.domain.form.SearchForm;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +13,9 @@ import java.util.List;
 
 import static com.example.dw.domain.entity.goods.QGoods.goods;
 import static com.example.dw.domain.entity.goods.QGoodsMainImg.goodsMainImg;
+import static com.example.dw.domain.entity.goods.QGoodsQue.goodsQue;
+import static com.example.dw.domain.entity.goods.QGoodsQueReply.goodsQueReply;
+import static com.example.dw.domain.entity.user.QUsers.users;
 
 @Repository
 @RequiredArgsConstructor
@@ -89,6 +89,50 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
                 .where(goods.id.eq(id))
                 .fetch();
     }
+
+    @Override
+    public List<GoodsQueDto> findGoodsQueId(Long id) {
+        List<GoodsQueDto> contents = jpaQueryFactory
+                .select(new QGoodsQueDto(
+                        goods.id,
+                        goods.goodsName,
+                        goods.goodsQuantity,
+                        goods.goodsPrice,
+                        goods.goodsMade,
+                        goods.goodsDetailContent,
+                        goods.goodsRegisterDate,
+                        goods.goodsModifyDate,
+                        goods.goodsCategory.stringValue(),
+                        goodsMainImg.id,
+                        goodsMainImg.goodsMainImgName,
+                        goodsMainImg.goodsMainImgPath,
+                        goodsMainImg.goodsMainImgUuid,
+                        goodsQue.id,
+                        goodsQue.queContent,
+                        goodsQue.queRegisterDate,
+                        goodsQue.queModifyDate,
+                        goodsQueReply.id,
+                        goodsQueReply.queReplyContent,
+                        goodsQueReply.queReplyRegisterDate,
+                        goodsQueReply.queReplyModifyDate,
+                        users.id,
+                        users.userAccount,
+                        users.userNickName
+                ))
+                .from(goods)
+                .leftJoin(goods.goodsMainImg, goodsMainImg)
+                .leftJoin(goods.goodsQues, goodsQue)
+                .leftJoin(goodsQue.goodsQueReply, goodsQueReply)
+                .leftJoin(goodsQue.users, users)
+                .where(goods.id.eq(id))
+                .orderBy(goods.id.desc())
+                .fetch();
+
+        contents.forEach(r -> System.out.println(r.getId() + "====================="));
+
+        return contents;
+    }
+
 
     private Long getCount(SearchForm searchForm){
         Long count = jpaQueryFactory

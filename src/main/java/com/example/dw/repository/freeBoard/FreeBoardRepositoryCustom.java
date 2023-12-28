@@ -13,5 +13,4 @@ public interface FreeBoardRepositoryCustom {
 
     List<FreeBoardDetailDto> findFreeBoardById(Long id);
 
-//    Page<FreeBoardDto> findFreeBoardListBySearchAndSort(Pageable pageable, String keyword, String sort);
 }

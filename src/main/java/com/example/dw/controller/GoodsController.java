@@ -1,6 +1,9 @@
 package com.example.dw.controller;
 
+import com.example.dw.repository.goods.GoodsRepository;
 import com.example.dw.repository.goods.ShopRepositoryCustom;
+import com.example.dw.service.GoodsService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class GoodsController {
 
     private final ShopRepositoryCustom shopRepositoryCustom;
+    private final HttpSession httpSession;
+    private final GoodsService goodsService;
+    private final GoodsRepository goodsRepository;
+
 
     /**
      * 쇼핑 리스트 페이지
@@ -46,29 +53,43 @@ public class GoodsController {
     public String shopListf(){
         return "/shopping/shop-f";
     }
-
     /**
      * 쇼핑 상세 페이지
      */
     @GetMapping("/shopDetail/{id}")
     public String shopDetail(@PathVariable("id") Long id, Model model){
-
         model.addAttribute("id", id);
-
         return "/shopping/shopDetail";
     }
+    /**
+     * 쇼핑 추가정보 페이지
+     */
+    @GetMapping("/shopAddInfo/{id}")
+    public String shopAddInfo(@PathVariable("id") Long id, Model model){
+        model.addAttribute("id", id);
+        return "/shopping/shopAddInfo";
+    }
+    /**
+     * 쇼핑 리뷰 페이지
+     */
+    @GetMapping("/shopReview/{id}")
+    public String shopReview(@PathVariable("id") Long id, Model model){
+        model.addAttribute("id", id);
+        return "/shopping/shopReview";
+    }
+    /**
+     * 쇼핑 Q and A 페이지
+     */
+    @GetMapping("/shopQandA/{id}")
+    public String shopQandA(@PathVariable("id") Long id, Model model){
+        model.addAttribute("id", id);
+        return "/shopping/shopQandA";
+    }
 
-//    @GetMapping("/shopDetail/{goodsId}")
-//    public String shopDetail(@PathVariable("goodsId") Long goodsId, Model model){
-//
-//        List<GoodsDetailDto> result =
-//                shopRepositoryCustom.findGoodsById(goodsId);
-//
-//        System.out.println("[상품 상세 정보] : "+result.toString());
-//        model.addAttribute("goods", result.get(0));
-//
-//        return "/shopping/shopDetail";
-//    }
+    /**
+     * 쇼핑 Q and A 문의 글 작성 페이지
+     */
+
 
     /**
      * 쇼핑 카트 페이지
@@ -77,13 +98,7 @@ public class GoodsController {
     public String shopCart(){
         return "/shopping/shopCart";
     }
-    /**
-     * 쇼핑 추가정보 페이지
-     */
-    @GetMapping("/shopAddInfo")
-    public String shopAddInfo(){
-        return "/shopping/shopAddInfo";
-    }
+
     /**
      * 쇼핑 결제 페이지
      */
@@ -91,18 +106,7 @@ public class GoodsController {
     public String shopPay(){
         return "/shopping/shopPay";
     }
-    /**
-     * 쇼핑 Q and A 페이지
-     */
-    @GetMapping("/shopQandA")
-    public String shopQandA(){
-        return "/shopping/shopQandA";
-    }
-    /**
-     * 쇼핑 리뷰 페이지
-     */
-    @GetMapping("/shopReview")
-    public String shopReview(){
-        return "/shopping/shopReview";
-    }
+
+
+
 }

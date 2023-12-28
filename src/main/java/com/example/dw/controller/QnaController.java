@@ -1,14 +1,12 @@
 package com.example.dw.controller;
 
 
-import com.example.dw.domain.dto.community.QuestionDetailDto;
 import com.example.dw.domain.dto.community.QuestionDetailResultDto;
 import com.example.dw.domain.form.QuestionWritingForm;
 import com.example.dw.repository.community.QuestionRepository;
-import com.example.dw.repository.community.QuestionRepositoryCuston;
+import com.example.dw.repository.community.QuestionRepositoryCustom;
 import com.example.dw.service.FileService;
 import com.example.dw.service.QnaService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -26,10 +24,8 @@ import java.util.List;
 public class QnaController {
 
     private final FileService fileService;
-    private final QuestionRepository questionRepository;
-    private final QuestionRepositoryCuston questionRepositoryCuston;
+    private final QuestionRepositoryCustom questionRepositoryCustom;
     private final QnaService qnaService;
-    private final HttpSession httpSession;
 
     @GetMapping("/qnaLists")
     public String page(){
@@ -67,39 +63,52 @@ public class QnaController {
         return new RedirectView("/qna/qnaLists");
     }
 
-//    @GetMapping("/qnaDetail/{questionId}")
-//    public String detailPage(@PathVariable("questionId") Long questionId , Model model){
-//        List<QuestionDetailResultDto> detailresult = questionRepositoryCuston.findQnaById(questionId);
-////       System.out.println(detailresult.toString()+"입니다.");
-//        model.addAttribute("detail", detailresult);
-//        return "/community/qnaDetail";
-//    }
+    @GetMapping("/qnaDetail/{questionId}")
+    public String detailPage(@PathVariable("questionId") Long questionId , Model model){
+        qnaService.updateViewCount(questionId);
 
-    // 수정중
-//    @GetMapping("/modify/{questionId}")
-//    public String modifyPage(@PathVariable("questionId") Long questionId,Model model){
-//        System.out.println(questionId+ "입니다.");
-//        List<QuestionDetailResultDto> result = questionRepositoryCuston.findQnaById(questionId);
-//        System.out.println(result.toString()+"입니다.");
-//        model.addAttribute("question", result);
+        List<QuestionDetailResultDto> detailresult = questionRepositoryCustom.findQnaById(questionId);
+       System.out.println(detailresult.toString()+"입니다.");
+        model.addAttribute("detail", detailresult);
+        System.out.println(questionId+"번 게시물 조회수 증가");
+
+        return "/community/qnaDetail";
+    }
 //
-//        return "/community/writingModifyQna";
-//
-//
-//    }
+//    // 수정중
+    @GetMapping("/modify/{questionId}")
+    public String modifyPage(@PathVariable("questionId") Long questionId,Model model){
+        System.out.println(questionId+ "입니다.");
+        List<QuestionDetailResultDto> result = questionRepositoryCustom.findQnaById(questionId);
+        System.out.println(result.toString()+"입니다.");
+        model.addAttribute("question", result);
+
+        return "/community/writingModifyQna";
+
+
+    }
 
 //    // 게시판 수정
-//    @PutMapping("/modify/{questionId}/edit")
-//    public RedirectView questionModify(@PathVariable("questionId") Long questionId,
-//                                       QuestionWritingForm questionWritingForm,
-//                                       @RequestParam("questionImg") List<MultipartFile> files) throws IOException{
-//
-//        questionWritingForm.setId(questionId);
-//        System.out.println("qna 번호 : "+ questionWritingForm.getId());
-//
-//        qnaService.modify(questionWritingForm,files);
-//        System.out.println("여기까지 완료!!");
-//        return new RedirectView("/qna/qnaLists");
-//    }
+    @PutMapping("/modify/{questionId}/edit")
+    public RedirectView questionModify(@PathVariable("questionId") Long questionId,
+                                       QuestionWritingForm questionWritingForm,
+                                       @RequestParam("questionImg") List<MultipartFile> files) throws IOException{
+
+        questionWritingForm.setId(questionId);
+        System.out.println("qna 번호 : "+ questionWritingForm.getId());
+
+        qnaService.modify(questionWritingForm,files);
+        System.out.println("여기까지 완료!!");
+        return new RedirectView("/qna/qnaLists");
+    }
+
+    // 게시판 삭제
+    @GetMapping("/delete/{questionId}")
+    public RedirectView removeQuestion(@PathVariable("questionId") Long questionId){
+
+        qnaService.delete(questionId);
+
+        return new RedirectView("/qna/qnaLists");
+    }
 
 }

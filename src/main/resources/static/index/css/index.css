@@ -92,9 +92,10 @@
     height: 220px;
     border-radius: 10px;
     overflow: hidden;
+    z-index: 1;
+
 }
 .contents01-content:hover .contents01-content-img img{
-
     transform: scale(1.2);
 }
 .contents01-content-img img{

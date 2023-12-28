@@ -25,11 +25,11 @@
                     <div class="content-title-box">
                         <div class="content-title">QnA 질문 작성</div>
                         <div class="content-title-input">
-                            <input type="text"  name="questionTitle" th:te="${modify.questionTitle}"/>
+                            <input type="text"  name="questionTitle" th:value="${modify.questionTitle}"/>
                         </div>
                     </div>
                     <div class="content-content-box">
-                        <textarea name="questionContent" th:text="${modify.questionContent}"></textarea>
+                        <textarea name="questionContent" th:value="${modify.questionContent}"></textarea>
                     </div>
                 </div>
                 <div class="file-box">

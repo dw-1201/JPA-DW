@@ -30,7 +30,7 @@ public class GoodsQueReply {
     private String queReplyContent;
 
     @CreatedDate
-    private String queReplyRegisterDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    private String queReplyRegisterDate;
     @LastModifiedDate
     private String queReplyModifyDate;
 
@@ -42,5 +42,17 @@ public class GoodsQueReply {
         this.queReplyContent = queReplyContent;
         this.queReplyRegisterDate = queReplyRegisterDate;
         this.queReplyModifyDate = queReplyModifyDate;
+    }
+
+    //날짜포맷
+    @PrePersist
+    public void onPrePersist(){
+        this.queReplyRegisterDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+        this.queReplyModifyDate=this.queReplyRegisterDate;
+    }
+
+    @PreUpdate
+    public void onPreUpdate(){
+        this.queReplyModifyDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
     }
 }

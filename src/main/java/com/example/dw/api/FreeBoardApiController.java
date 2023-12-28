@@ -17,13 +17,11 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/communities/*")
-
 public class FreeBoardApiController {
 
     private final FreeBoardService freeBoardService;
     private final FreeBoardRepositoryCustom freeBoardRepositoryCustom;
 
-//    @GetMapping("/freeBoardList/{page}?sort=${sort}")
     @GetMapping("/freeBoardList/{page}")
     public Page<FreeBoardDto> freeBoardDtoList(
             @PathVariable("page") int page,

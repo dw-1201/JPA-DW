@@ -23,11 +23,9 @@
 <main class="main-content">
     <div class="main-content-contaniner" >
         <div class="title-info">
-            <!-- <div class="main-content-title-text01">
-                세이오앙 강아지 간식 훈련용
-            </div> -->
+
         </div>
-    <input type="hidden" th:value="${id}" id="goodsId"><!-- <div class="main-content-contaniner-form-hr"></div> -->
+    <input type="hidden" th:value="${id}" id="goodsId">
 
     <div class="main-content-contaniner-form2">
     <div>
@@ -46,129 +44,17 @@
             <span>세이오앙 강아지 간식 훈련용</span>
         </div>
     </div>
-        
-    <div class="main-content-contaniner-form3">
-        <!-- 상품 상세 시작 -->
-<!--        <div class="form3-left">-->
-<!--            <div class="form3-left-box1">-->
-<!--                <img th:src="'/jpa_dw/goods/'+${goods.goodsMainImgPath}+'/'+${goods.goodsMainImgUuid}+'_'+${goods.goodsMainImgName}" width="350px" height="350px">-->
-<!--                <div class="form3-left-box1-1">-->
-<!--                    &lt;!&ndash; <img src="" alt="" width="350px" height="60px"> &ndash;&gt;-->
-<!--                     광고-->
-<!--                </div>-->
+
+        <div>
 
 
-<!--            </div>-->
-<!--            -->
+            <div class="shop-form">
+            <!--비동기 시작-->
 
-<!--        </div>-->
-
-<!--        <div class="form3-right" >-->
-
-<!--            <div class="form3-right-box1">-->
-<!--                <div class="right-box1-box1">-->
-<!--&lt;!&ndash;                    <span th:text="${goods.goodsMade}">[세이오앙]</span>&ndash;&gt;-->
-<!--                </div>-->
-<!--                <div class="right-box1-box1">-->
-<!--                    <span id="goods-name" th:text="${goods.goodsName}"></span>-->
-<!--                </div>-->
-<!--                <div class="right-box1-box1-1">-->
-<!--                    <span th:text="${goods.goodsPrice}"></span>-->
-<!--                </div>-->
-<!--                <div class="right-box1-box2">-->
-<!--                    <span>-->
-<!--                    ★★★★★ 4.9점-->
-<!--                    </span>&nbsp;&nbsp;-->
-<!--                    <span class="evaluation">(10개의 고객 상품 평가)</span>-->
-<!--                </div>-->
-
-<!--                <div class="right-box1-box3">-->
-<!--                    <span>-->
-<!--                        제품 요약 설명-->
-<!--                    </span>-->
-<!--                </div>-->
-
-<!--                <div class="right-box1-box4">-->
-<!--                    <span th:text="${goods.goodsDetailContent}"></span>-->
-<!--                </div>-->
-
-<!--    -->
-<!--                    <div class="pay-amount">-->
-<!--                        <div class="pay-name" name="goodsName" th:text="${goods.goodsName}"></div>-->
-<!--                        <div class="pay-count">-->
-<!--                            <button id="increase"><strong>+</strong></button>-->
-<!--                            <div><span id="number">1</span></div>-->
-<!--                            <button id="decrease"><strong>-</strong></button>-->
-<!--                        </div>-->
-<!--                        <div class="pay-sum"><p>총 상품금액  : <strong id="price" th:text="${goods.goodsPrice}"></strong> 원</p></div>-->
-<!--                    </div>-->
-
-<!--                    <div class="right-box1-box9">-->
-<!--                        <div class="basket1">-->
-<!--                            <a href="/shop/shopCart" class="basket-button1">장바구니</a>-->
-<!--                        </div>-->
-<!--                        <div class="basket2">-->
-<!--                            <a href="/shop/shopPay" class="basket-button2">바로구매</a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--    -->
-<!--                    &lt;!&ndash; <div class="right-box1-box10">-->
-<!--                        <span>-->
-<!--                            🚚 배송비 3,000원-->
-<!--                        </span>-->
-<!--                    </div>-->
-<!--                    <div class="right-box1-box10">-->
-<!--                        <span>-->
-<!--                            30,000원 이상 구매 시 무료배송-->
-<!--                        </span>-->
-<!--                    </div> &ndash;&gt;-->
-<!--    -->
-<!--                </div>-->
-
-    
-<!--            </div>-->
-        <!-- 상품 상세 리스트 끝 -->
-        </div>
-    
-            <div class="middle-content">
-                <ul>
-                    <span>|</span>                
-                    <li>
-                        <a href="/shop/shopDetail" id="descriptionLink">
-                            <span class="middle-span1" >설명</span>
-                        </a>
-                    </li>
-                    <span>|</span>   
-                    <li>
-                        <a href="/shop/shopAddInfo">
-                            <span class="middle-span">추가정보</span>
-                        </a>
-                    </li>
-                    <span>|</span>   
-                    <li>
-                        <a href="/shop/shopReview">
-                            <span class="middle-span">리뷰</span>
-                        </a>
-                    </li>
-                    <span>|</span>   
-                    <li>
-                        <a href="/shop/shopQandA">
-                            <span class="middle-span">문의</span>
-                        </a>
-                    </li>
-                    <span>|</span>   
-                </ul>
-    
+            <!--비동기 끝-->
             </div>
 
-        <div class="row-content">
-            <img src="/img/1.jpg" alt="">
-            <img src="/img/2.jpg" alt="">
-            <img src="/img/3.jpg" alt="">
-            <img src="/img/4.jpg" alt="">
-            <img src="/img/5.jpg" alt="">
 
-        </div>
     </div>
 
 </main>
@@ -181,5 +67,6 @@
 <!-- footer 끝 -->
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script type="module" defer src="/shopping/js/shopDetail.js"></script>
+
 </body>
 </html>

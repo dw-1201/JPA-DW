@@ -88,39 +88,5 @@ public class FreeBoardService {
     public Long countCommentsByFreeBoardId(Long freeBoardId) {
         return freeBoardCommentRepository.countCommentsByFreeBoardId(freeBoardId);
     }
+
 }
-
-// 잠시 대기
-    //상품 수정
-//    @Transactional
-//    public FreeBoard modify(FreeBoardModifyForm freeBoardModifyForm)
-//            throws IOException {
-
-        //수정된 메인 사진이 있다면 기존 사진 삭제 후 수정된 사진으로 업데이트
-//        if(!file.isEmpty()) {
-//
-//            //기존 사진 삭제
-//            fileService.removeMainImg(goodsForm.getId());
-//
-//            //새로 수정된 사진 로컬 서버 저장 및 DB저장
-//            fileService.registerMainImg(file, goodsForm.getId());
-//        }else{
-//            System.out.println("입력된 메인 사진 없음");
-//        }
-//
-//        //상세 사진
-//        if(!files.get(0).isEmpty()){
-//            //기존 사진 삭제
-//            fileService.removeDetailImgs(goodsForm.getId());
-//
-//            //새로 수정된 사진 로컬 서버 저장 및 DB저장
-//            fileService.registerDetailImg(files, goodsForm.getId());
-//        }
-//        FreeBoard freeBoard = freeBoardRepository.findById(freeBoardModifyForm.getId()).get();
-//
-//        //자유게시판 기본 내용 업데이트
-//        freeBoard.update(freeBoardModifyForm);
-//        return Optional.ofNullable(freeBoard).orElseThrow(()->{
-//            throw new IllegalArgumentException("조회 정보 없음");
-//        });
-//    }
