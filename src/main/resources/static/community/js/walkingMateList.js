@@ -1,5 +1,6 @@
 import * as page from "./module/page.js";
 import * as list from "./module/list.js";
+import {listSearchDto} from "./module/list.js";
 
 
 window.onload = function (){
@@ -37,7 +38,7 @@ function checkUserId(e) {
 $(document).ready(function (){
 
     //초기화면
-    list.list(0, searchLoca(),'walks','walkList', showList)
+    list.listSearchDto(0, searchLoca(),'walks','walkList', showList)
 
     //라디오버튼 값이 달라질때마다 동적으로 변경
     $("input[name='status']").on('change', function (){
@@ -57,7 +58,7 @@ $(document).ready(function (){
 //동적으로 가져오기 위해 따로 함수를 만듦
 function updateBasedOnStatus(state) {
     searchLoca().state = state;
-    list.list(0, searchLoca(),'walks','walkList', showList)
+    list.listSearchDto(0, searchLoca(),'walks','walkList', showList)
 }
 
 
@@ -68,7 +69,10 @@ function searchLoca(){
     let addressSiGunGu = $('#addressSiGunGu1').val()
     let state = $("input[name='status']:checked").val()
 
-    if(addressSiGunGu ==='선택'){
+
+
+
+    if(addressSiGunGu ==='전체'){
         addressSiGunGu = '';
     }
     return {
@@ -110,10 +114,26 @@ function showList(result){
             <td>${r.walkingMateToday} / ${r.walkingMatePerson}</td>
             <td>${r.walkCity + ' ' +r.walkCounty}</td>
             <td>
-                <a href="/walk/detail/${r.id}">${r.walkingMateTitle}</a>
+                <a href="/walk/detail/${r.id}/${r.userId}">${r.walkingMateTitle}</a>
             </td>
-            <td>${r.userNickName}</td>
-            <td>${r.walkingMateDate}</td>
+           `;
+
+
+            if(r.userNickName == null){
+                text += `
+                
+                     <td>${r.userAccount}</td>
+                `;
+            }else {
+                text += `
+                
+                     <td>${r.userNickName}</td>
+
+                `;
+            }
+
+           text += `
+                <td>${r.walkingMateDate}</td>
             <td>${r.walkingMateViewCount}</td>
         </tr>
 

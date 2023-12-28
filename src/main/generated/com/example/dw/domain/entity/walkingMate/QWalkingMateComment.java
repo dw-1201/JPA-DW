@@ -24,6 +24,8 @@ public class QWalkingMateComment extends EntityPathBase<WalkingMateComment> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final com.example.dw.domain.entity.user.QUsers users;
+
     public final QWalkingMate walkingMate;
 
     public final StringPath walkingMateCommentContent = createString("walkingMateCommentContent");
@@ -50,6 +52,7 @@ public class QWalkingMateComment extends EntityPathBase<WalkingMateComment> {
 
     public QWalkingMateComment(Class<? extends WalkingMateComment> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.users = inits.isInitialized("users") ? new com.example.dw.domain.entity.user.QUsers(forProperty("users"), inits.get("users")) : null;
         this.walkingMate = inits.isInitialized("walkingMate") ? new QWalkingMate(forProperty("walkingMate"), inits.get("walkingMate")) : null;
     }
 

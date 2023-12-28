@@ -12,6 +12,15 @@ function initMap() {
 
         map = new window.kakao.maps.Map(container, options);
         marker = new window.kakao.maps.Marker();
+
+
+        const retrievedAddress = $('#addr').val();
+
+        if (retrievedAddress) {
+            showMarkerOnMap(retrievedAddress);
+        } else {
+            console.error('가져온 주소가 비어 있습니다.');
+        }
     });
 }
 
@@ -38,10 +47,12 @@ function onClickAddr() {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-
+    //산책글 시간 초기값 설정
+    modifyMateTime()
     //지도 함수 및 주소/마커생성
     initMap();
     document.getElementById("search-btn").addEventListener("click", onClickAddr);
+
 
     //달력 값에 따른 시간대 동적으로 생성
     const selectElement = document.getElementById('walkingMateTime');
@@ -62,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!isNaN(selectedDate)) {
                 const selectOptions = [];
                 for (let i = 10; i <= 20; i += 2) {
-                    if (selectedDate > new Date() || (selectedDate.getDate() !== new Date().getDate()) || (currentHour < i && i < 20)) {
+                    if (selectedDate > new Date() || (selectedDate.getDate() !== new Date().getDate()) || (currentHour < i && i <= 20)) {
                         const optionValue = `${i < 10 ? '0' : ''}${i}:00`;
                         selectOptions.push(`<option value="${optionValue}">${optionValue}</option>`);
                     }
@@ -74,6 +85,63 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+// 산책글 시간 초기값 설정
+function modifyMateTime() {
+    const selectElement = document.getElementById('walkingMateTime');
+    const currentDate = new Date();
+    const mateDate = new Date($('#mateDate').val());
+    const mateTime = $('#mateTime').val(); // mateTime 값
+
+    const selectOptions = [];
+
+    // mateDate가 오늘과 같은 경우
+    if (
+        mateDate.getFullYear() === currentDate.getFullYear() &&
+        mateDate.getMonth() === currentDate.getMonth() &&
+        mateDate.getDate() === currentDate.getDate()
+    ) {
+        const currentHour = currentDate.getHours();
+        for (let i = currentHour; i <= 20; i += 2) {
+            const optionValue = `${i < 10 ? '0' : ''}${i}:00`;
+            if (i > currentHour || optionValue === mateTime) {
+                selectOptions.push(
+                    `<option value="${optionValue}" ${
+                        mateTime === optionValue ? 'selected' : ''
+                    }>${optionValue}</option>`
+                );
+            }
+        }
+    } else {
+        // mateDate가 오늘과 다른 경우
+        for (let i = 10; i <= 20; i += 2) {
+            const optionValue = `${i < 10 ? '0' : ''}${i}:00`;
+            if (mateTime === optionValue) {
+                selectOptions.push(
+                    `<option value="${optionValue}" selected>${optionValue}</option>`
+                );
+            } else {
+                selectOptions.push(`<option value="${optionValue}">${optionValue}</option>`);
+            }
+        }
+    }
+
+    // 생성된 옵션을 select 요소에 삽입
+    selectElement.innerHTML = selectOptions.join('');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //입력 유효성 검사
@@ -113,5 +181,6 @@ $('.submit-btn').on('click', function (){
 
 
 })
+
 
 

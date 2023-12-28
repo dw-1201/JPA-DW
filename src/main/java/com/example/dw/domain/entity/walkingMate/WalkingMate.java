@@ -1,6 +1,8 @@
 package com.example.dw.domain.entity.walkingMate;
 
+import com.example.dw.domain.entity.user.Pet;
 import com.example.dw.domain.entity.user.Users;
+import com.example.dw.domain.form.WalkMateForm;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -38,6 +40,8 @@ public class WalkingMate {
     @Builder.Default
     private Long walkingMateToday = 1L;
 
+
+
     private String walkingMateDate;
     private String walkingMateTime;
     private String walkingMateFullAddress;
@@ -48,11 +52,16 @@ public class WalkingMate {
     @JoinColumn(name = "user_id")
     private Users users;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pet_id")
+    private Pet pet;
+
+
     @OneToMany(mappedBy = "walkingMate" ,fetch = FetchType.LAZY)
     private List<WalkingMateComment> walkingMateComment = new ArrayList<>();
 
     @Builder
-    public WalkingMate(Long id, String walkingMateTitle, String walkingMateContent, String walkingMateRd, String walkingMateMd, Long walkingMateViewCount, Long walkingMateState, Long walkingMatePerson, Long walkingMateToday, String walkingMateDate, String walkingMateTime, String walkingMateFullAddress, String walkCity, String walkCounty, Users users, List<WalkingMateComment> walkingMateComment) {
+    public WalkingMate(Long id, String walkingMateTitle, String walkingMateContent, String walkingMateRd, String walkingMateMd, Long walkingMateViewCount, Long walkingMateState, Long walkingMatePerson, Long walkingMateToday, String walkingMateDate, String walkingMateTime, String walkingMateFullAddress, String walkCity, String walkCounty, Users users, Pet pet, List<WalkingMateComment> walkingMateComment) {
         this.id = id;
         this.walkingMateTitle = walkingMateTitle;
         this.walkingMateContent = walkingMateContent;
@@ -68,8 +77,24 @@ public class WalkingMate {
         this.walkCity = walkCity;
         this.walkCounty = walkCounty;
         this.users = users;
+        this.pet = pet;
         this.walkingMateComment = walkingMateComment;
     }
+
+    //산책글 수정
+    public WalkingMate update(WalkMateForm walkMateForm){
+        this.walkingMateTitle=walkMateForm.getWalkingMateTitle();
+        this.walkingMateContent=walkMateForm.getWalkingMateContent();
+        this.walkingMateMd = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+        this.walkingMateDate=walkMateForm.getWalkingMateDate();
+        this.walkingMateTime=walkMateForm.getWalkingMateTime();
+        this.walkingMateFullAddress=getWalkingMateFullAddress();
+        this.walkCity = walkMateForm.getWalkCity();
+        this.walkCounty = walkMateForm.getWalkCounty();
+        this.pet=walkMateForm.toEntity().getPet();
+        return this;
+    }
+
 
 
 

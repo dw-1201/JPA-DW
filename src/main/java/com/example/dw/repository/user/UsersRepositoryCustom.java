@@ -1,7 +1,7 @@
 package com.example.dw.repository.user;
 
 import com.example.dw.domain.dto.admin.*;
-import com.example.dw.domain.dto.community.QuestionListDto;
+import com.example.dw.domain.dto.user.UserPetDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -26,6 +26,7 @@ public interface UsersRepositoryCustom {
 
     List<UserFileDto> findAllByUserId(Long userId);
 
-
+    //등록된 펫 이름 가져오기
+    List<UserPetDto> findAllPetByUserId(Long userId);
 
 }

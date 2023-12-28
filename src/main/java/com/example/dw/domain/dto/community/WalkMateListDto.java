@@ -20,23 +20,25 @@ public class WalkMateListDto {
     private String walkCity;
     private String walkCounty;
     private Long userId;
-    private String userNickname;
+    private String userNickName;
+    private String userAccount;
 
 
     @QueryProjection
-    public WalkMateListDto(Long id, String walkingMateTitle, String walkingMateRd, Long walkingMateViewCount, Long walkingMateState, Long walkingMatePerson, Long walkingMateToday, String walkingMateDate, String walkingMateTime, String walkCity, String walkCounty, Long userId, String userNickname) {
-            this.id = id;
-            this.walkingMateTitle = walkingMateTitle;
-            this.walkingMateRd = walkingMateRd;
-            this.walkingMateViewCount = walkingMateViewCount;
-            this.walkingMateState = walkingMateState;
-            this.walkingMatePerson = walkingMatePerson;
-            this.walkingMateToday = walkingMateToday;
-            this.walkingMateDate = walkingMateDate;
-            this.walkingMateTime = walkingMateTime;
+    public WalkMateListDto(Long id, String walkingMateTitle, String walkingMateRd, Long walkingMateViewCount, Long walkingMateState, Long walkingMatePerson, Long walkingMateToday, String walkingMateDate, String walkingMateTime, String walkCity, String walkCounty, Long userId, String userNickName, String userAccount) {
+        this.id = id;
+        this.walkingMateTitle = walkingMateTitle;
+        this.walkingMateRd = walkingMateRd;
+        this.walkingMateViewCount = walkingMateViewCount;
+        this.walkingMateState = walkingMateState;
+        this.walkingMatePerson = walkingMatePerson;
+        this.walkingMateToday = walkingMateToday;
+        this.walkingMateDate = walkingMateDate;
+        this.walkingMateTime = walkingMateTime;
         this.walkCity = walkCity;
         this.walkCounty = walkCounty;
         this.userId = userId;
-        this.userNickname = userNickname;
+        this.userNickName = userNickName;
+        this.userAccount = userAccount;
     }
 }
