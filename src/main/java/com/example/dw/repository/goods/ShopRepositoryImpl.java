@@ -10,9 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.example.dw.domain.entity.goods.QGoods.goods;
 import static com.example.dw.domain.entity.goods.QGoodsMainImg.goodsMainImg;
+import static com.example.dw.domain.entity.goods.QGoodsDetailImg.goodsDetailImg;
 import static com.example.dw.domain.entity.goods.QGoodsQue.goodsQue;
 import static com.example.dw.domain.entity.goods.QGoodsQueReply.goodsQueReply;
 import static com.example.dw.domain.entity.user.QUsers.users;
@@ -23,6 +25,19 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
 
     private final JPAQueryFactory jpaQueryFactory;
 
+
+    @Override
+    public List<GoodsDetailImgDto> findGoodsDetailImg(Long goodsId) {
+        return jpaQueryFactory.select(new QGoodsDetailImgDto(
+                goodsDetailImg.id,
+                goodsDetailImg.goodsDetailImgName,
+                goodsDetailImg.goodsDetailImgPath,
+                goodsDetailImg.goodsDetailImgUuid
+        ))
+                .from(goodsDetailImg)
+                .where(goodsDetailImg.goods.id.eq(goodsId))
+                .fetch();
+    }
 
     @Override
     public Page<GoodsListDto> findGoodsListAll(Pageable pageable, SearchForm searchForm) {
@@ -67,8 +82,8 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
 
     //쇼핑 상품 상세 조회
     @Override
-    public List<GoodsDetailDto> findGoodsById(Long id){
-        return jpaQueryFactory
+    public Optional<GoodsDetailDto> findGoodsById(Long id){
+        return Optional.ofNullable(jpaQueryFactory
                 .select(new QGoodsDetailDto(
                         goods.id,
                         goods.goodsName,
@@ -87,26 +102,13 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
                 .from(goods)
                 .leftJoin(goods.goodsMainImg, goodsMainImg)
                 .where(goods.id.eq(id))
-                .fetch();
+                .fetchOne());
     }
 
     @Override
     public List<GoodsQueDto> findGoodsQueId(Long id) {
         List<GoodsQueDto> contents = jpaQueryFactory
                 .select(new QGoodsQueDto(
-                        goods.id,
-                        goods.goodsName,
-                        goods.goodsQuantity,
-                        goods.goodsPrice,
-                        goods.goodsMade,
-                        goods.goodsDetailContent,
-                        goods.goodsRegisterDate,
-                        goods.goodsModifyDate,
-                        goods.goodsCategory.stringValue(),
-                        goodsMainImg.id,
-                        goodsMainImg.goodsMainImgName,
-                        goodsMainImg.goodsMainImgPath,
-                        goodsMainImg.goodsMainImgUuid,
                         goodsQue.id,
                         goodsQue.queContent,
                         goodsQue.queRegisterDate,
@@ -120,12 +122,11 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
                         users.userNickName
                 ))
                 .from(goods)
-                .leftJoin(goods.goodsMainImg, goodsMainImg)
                 .leftJoin(goods.goodsQues, goodsQue)
                 .leftJoin(goodsQue.goodsQueReply, goodsQueReply)
                 .leftJoin(goodsQue.users, users)
                 .where(goods.id.eq(id))
-                .orderBy(goods.id.desc())
+                .orderBy(goodsQue.id.desc())
                 .fetch();
 
         contents.forEach(r -> System.out.println(r.getId() + "====================="));

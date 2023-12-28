@@ -8,8 +8,10 @@
   <link rel="stylesheet" href="/fragment/css/header.css">
   <link rel="stylesheet" href="/fragment/css/footer.css">
   <link rel="stylesheet" href="/shopping/css/shopDetail.css">
+    <link rel="stylesheet" href="/shopping/css/shopQandA.css">
 
-  <!-- <script defer src ="/map/js/map.js"></script> -->
+
+    <!-- <script defer src ="/map/js/map.js"></script> -->
 <link rel="icon" href="/img/favicon.ico" type="image/x-icosn" sizes="16x16">
 </head>
 <body>
@@ -25,7 +27,7 @@
         <div class="title-info">
 
         </div>
-    <input type="hidden" th:value="${id}" id="goodsId">
+<!--    <input type="hidden" th:value="${id}" id="goodsId">-->
 
     <div class="main-content-contaniner-form2">
     <div>
@@ -46,16 +48,111 @@
     </div>
 
         <div>
-
-
             <div class="shop-form">
-            <!--비동기 시작-->
+                <div class="main-content-contaniner-form3">
+                    <div class="form3-left">
+                        <div class="form3-left-box1">
+                            <img th:src="'/jpa_dw/goods/' + ${detail.goodsMainImgPath} +'/' + ${detail.goodsMainImgUuid} + '_' + ${detail.goodsMainImgName}" alt="상품 메인사진" class="li-img" >
+                        </div>
+                    </div>
+                    <div class="form3-right" >
+                        <div class="form3-right-box1">
+                            <div class="right-box1-box1">
+                            </div>
+                            <div class="right-box1-box1">
+                                <span id="goods-name"></span>
+                            </div>
+                            <div class="right-box1-box1-1">
+                                <span th:text="${detail.goodsPrice}">상품가격</span>
+                            </div>
+                            <div class="right-box1-box2">
+                    <span>
+                    ★★★★★ 4.9점
+                    </span>&nbsp;&nbsp;
+                                <span class="evaluation">(10개의 고객 상품 평가)</span>
+                            </div>
 
-            <!--비동기 끝-->
+                            <div class="right-box1-box3">
+                    <span>
+                        제품 요약 설명
+                    </span>
+                            </div>
+
+                            <div class="right-box1-box4">
+                                <span th:text="${detail.goodsDetailContent}">상품설명</span>
+                            </div>
+
+                            <div class="pay-amount">
+                                <div class="pay-name" th:text="${detail.goodsName}">상품명</div>
+                                <div class="pay-count">
+                                    <button id="increase"><strong>+</strong></button>
+                                    <div><span id="number">1</span></div>
+                                    <button id="decrease"><strong>-</strong></button>
+                                </div>
+                                <div class="pay-sum"><p>총 상품금액  : <strong id="price">총금액</strong> 원</p></div>
+                            </div>
+
+                            <div class="right-box1-box9">
+                                <div class="basket1">
+                                    <a href="/shop/shopCart" class="basket-button1">장바구니</a>
+                                </div>
+                                <div class="basket2">
+                                    <a href="/shop/shopPay" class="basket-button2">바로구매</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="middle-content">
+                    <ul>
+                        <span>|</span>
+                        <li>
+                            <a href="" id="descriptionLink">
+                                <span class="middle-span1" >설명</span>
+                            </a>
+                        </li>
+                        <span>|</span>
+                        <li>
+                            <a href="}">
+                                <span class="middle-span">추가정보</span>
+                            </a>
+                        </li>
+                        <span>|</span>
+                        <li>
+                            <a href="">
+                                <span class="middle-span">리뷰</span>
+                            </a>
+                        </li>
+                        <span>|</span>
+                        <li>
+                            <a href="" class="qna-btn">
+                                <span class="middle-span">문의</span>
+                            </a>
+                        </li>
+                        <span>|</span>
+                    </ul>
+
+                </div>
+
+                <div class="row-content">
+
+                </div>
             </div>
 
 
+
+
+
+
+
+
+
+
+
+
     </div>
+        <input type="hidden" th:value="${detail.id}" id="goodsId">
 
 </main>
 <!-- main 끝 -->
@@ -66,7 +163,7 @@
 </div>
 <!-- footer 끝 -->
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-<script type="module" defer src="/shopping/js/shopDetail.js"></script>
-
+<script type="module" src="/shopping/js/shopDetail.js"></script>
+<script type="module" src="/shopping/js/shopQandA.js"></script>
 </body>
 </html>

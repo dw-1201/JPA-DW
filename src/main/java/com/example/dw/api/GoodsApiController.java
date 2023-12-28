@@ -1,6 +1,6 @@
 package com.example.dw.api;
 
-import com.example.dw.domain.dto.goods.GoodsDetailDto;
+import com.example.dw.domain.dto.goods.GoodsDetailImgDto;
 import com.example.dw.domain.dto.goods.GoodsListDto;
 import com.example.dw.domain.dto.goods.GoodsQueDto;
 import com.example.dw.domain.form.GoodsQandaWritingForm;
@@ -42,64 +42,85 @@ public class GoodsApiController {
         System.out.println(result.toString()+"############");
         return result;
     }
+
+
+    @GetMapping("/shopDetilImgs/{goodsId}")
+    public List<GoodsDetailImgDto> findDetailImgs(@PathVariable("goodsId") Long goodsId){
+
+        System.out.println(goodsId+"#############");
+        return goodsService.goodsDetailImgs(goodsId);
+
+    }
+
+
+    @GetMapping("/shopQnaList/{goodsId}")
+    public List<GoodsQueDto> findQnaList(@PathVariable("goodsId") Long goodsId){
+        List<GoodsQueDto> qnaList = goodsService.goodsQnaList(goodsId);
+
+
+        System.out.println(qnaList.toString());
+        return qnaList;
+    }
+
+
     /**
      * 쇼핑 상세 페이지
      * @return
      */
-    @GetMapping("/shopDetail/{goodsId}")
-    public List<GoodsDetailDto> shopDetail(@PathVariable("goodsId") Long goodsId, Model model){
-
-        if (goodsId == null) {
-            throw new IllegalArgumentException("존재하지 않는 게시물 번호");
-        }
-
-        List<GoodsDetailDto> result =
-                shopRepositoryCustom.findGoodsById(goodsId);
-
-        System.out.println("[상품 상세 정보] : "+result.toString());
-        model.addAttribute("goods", result.get(0));
-
-        return result;
-    }
+//    @GetMapping("/shopDetail/{goodsId}")
+//    public List<GoodsDetailDto> shopDetail(@PathVariable("goodsId") Long goodsId, Model model){
+//
+//        if (goodsId == null) {
+//            throw new IllegalArgumentException("존재하지 않는 게시물 번호");
+//        }
+//
+//        List<GoodsDetailDto> result =
+//                shopRepositoryCustom.findGoodsById(goodsId);
+//
+//        System.out.println("[상품 상세 정보] : "+result.toString());
+//        model.addAttribute("goods", result.get(0));
+//
+//        return result;
+//    }
 
     /**
      * 쇼핑 추가정보 페이지
      * @return
      */
-    @GetMapping("/shopAddInfo/{goodsId}")
-    public List<GoodsDetailDto> shopAddInfo(@PathVariable("goodsId") Long goodsId, Model model){
-
-        if (goodsId == null) {
-            throw new IllegalArgumentException("존재하지 않는 게시물 번호");
-        }
-
-        List<GoodsDetailDto> result =
-                shopRepositoryCustom.findGoodsById(goodsId);
-
-        System.out.println("[상품 상세 정보] : "+result.toString());
-        model.addAttribute("goods", result.get(0));
-
-        return result;
-    }
+//    @GetMapping("/shopAddInfo/{goodsId}")
+//    public List<GoodsDetailDto> shopAddInfo(@PathVariable("goodsId") Long goodsId, Model model){
+//
+//        if (goodsId == null) {
+//            throw new IllegalArgumentException("존재하지 않는 게시물 번호");
+//        }
+//
+//        List<GoodsDetailDto> result =
+//                shopRepositoryCustom.findGoodsById(goodsId);
+//
+//        System.out.println("[상품 상세 정보] : "+result.toString());
+//        model.addAttribute("goods", result.get(0));
+//
+//        return result;
+//    }
 
     /**
      * 쇼핑 리뷰 페이지
      */
-    @GetMapping("/shopReview/{goodsId}")
-    public List<GoodsDetailDto> shopReview(@PathVariable("goodsId") Long goodsId, Model model){
-
-        if (goodsId == null) {
-            throw new IllegalArgumentException("존재하지 않는 게시물 번호");
-        }
-
-        List<GoodsDetailDto> result =
-                shopRepositoryCustom.findGoodsById(goodsId);
-
-        System.out.println("[상품 상세 정보] : "+result.toString());
-        model.addAttribute("goods", result.get(0));
-
-        return result;
-    }
+//    @GetMapping("/shopReview/{goodsId}")
+//    public List<GoodsDetailDto> shopReview(@PathVariable("goodsId") Long goodsId, Model model){
+//
+//        if (goodsId == null) {
+//            throw new IllegalArgumentException("존재하지 않는 게시물 번호");
+//        }
+//
+//        List<GoodsDetailDto> result =
+//                shopRepositoryCustom.findGoodsById(goodsId);
+//
+//        System.out.println("[상품 상세 정보] : "+result.toString());
+//        model.addAttribute("goods", result.get(0));
+//
+//        return result;
+//    }
 
     /**
      * 쇼핑 Q and A 페이지
