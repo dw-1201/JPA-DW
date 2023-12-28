@@ -42,6 +42,9 @@ public class Goods {
     @OneToMany(mappedBy = "goods" ,fetch = FetchType.LAZY, orphanRemoval = true)
     private List<GoodsDetailImg> goodsDetailImg = new ArrayList<>();
 
+    @OneToMany(mappedBy = "goods" ,fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<GoodsQue> goodsQues = new ArrayList<>();
+
     public Goods(Long id, String goodsName, int goodsQuantity, int goodsPrice, GoodsCategory goodsCategory){
         this.id=id;
         this.goodsName=goodsName;
@@ -51,8 +54,7 @@ public class Goods {
     }
 
     @Builder
-    public Goods(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate,
-                 String goodsModifyDate, GoodsCategory goodsCategory, List<GoodsMainImg> goodsMainImg, List<GoodsDetailImg> goodsDetailImg) {
+    public Goods(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate, GoodsCategory goodsCategory, List<GoodsMainImg> goodsMainImg, List<GoodsDetailImg> goodsDetailImg, List<GoodsQue> goodsQues) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;
@@ -65,6 +67,7 @@ public class Goods {
         this.goodsCategory = goodsCategory;
         this.goodsMainImg = goodsMainImg;
         this.goodsDetailImg = goodsDetailImg;
+        this.goodsQues = goodsQues;
     }
 
     //상품 수정

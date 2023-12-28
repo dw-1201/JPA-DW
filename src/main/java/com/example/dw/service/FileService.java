@@ -39,7 +39,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class FileService {
 
-
     @Value("${file.dir}")
     private String mainImg;
 
@@ -66,6 +65,7 @@ public class FileService {
 
     private final PetRepository petRepository;
     private final PetImgRepository petImgRepository;
+
     //상품 메인 사진 로컬서버 저장
     @Transactional
     public GoodsMainImgForm saveImg(MultipartFile file) throws IOException {

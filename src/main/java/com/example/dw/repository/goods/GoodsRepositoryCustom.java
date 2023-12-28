@@ -15,9 +15,4 @@ public interface GoodsRepositoryCustom {
 
     List<AdminGoodsDetailResultDto> findGoodsById(Long id);
 
-
-
-
-
-
 }
