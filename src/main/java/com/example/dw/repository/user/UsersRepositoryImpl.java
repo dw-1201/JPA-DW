@@ -1,8 +1,8 @@
 package com.example.dw.repository.user;
 
 import com.example.dw.domain.dto.admin.*;
-import com.example.dw.domain.dto.community.*;
-import com.example.dw.domain.entity.user.UserFile;
+import com.example.dw.domain.dto.user.QUserPetDto;
+import com.example.dw.domain.dto.user.UserPetDto;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +16,11 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.example.dw.domain.entity.user.QPet.pet;
 import static com.example.dw.domain.entity.freeBoard.QFreeBoard.freeBoard;
 import static com.example.dw.domain.entity.question.QQuestion.question;
-import static com.example.dw.domain.entity.question.QQuestionImg.questionImg;
-import static com.example.dw.domain.entity.user.QUsers.users;
 import static com.example.dw.domain.entity.user.QUserFile.userFile;
+import static com.example.dw.domain.entity.user.QUsers.users;
 
 @Repository
 @RequiredArgsConstructor
@@ -45,6 +45,20 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
         UserDetailDto detail = getUserDetail(userId);
         System.out.println(detail.getUserName()+"입니다.");
         return Optional.ofNullable(detail);
+    }
+
+
+    //등록된 펫 정보
+    @Override
+    public List<UserPetDto> findAllPetByUserId(Long userId) {
+        return jpaQueryFactory.select(new QUserPetDto(
+                pet.id,
+                pet.name
+        ))
+                .from(pet)
+                .where(pet.users.id
+                .eq(userId))
+                .fetch();
     }
 
     @Override
@@ -232,9 +246,6 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
 
         return userStats;
     }
-
-
-
 
 
 

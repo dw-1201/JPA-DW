@@ -24,6 +24,8 @@ public class QWalkingMate extends EntityPathBase<WalkingMate> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final com.example.dw.domain.entity.user.QPet pet;
+
     public final com.example.dw.domain.entity.user.QUsers users;
 
     public final StringPath walkCity = createString("walkCity");
@@ -72,6 +74,7 @@ public class QWalkingMate extends EntityPathBase<WalkingMate> {
 
     public QWalkingMate(Class<? extends WalkingMate> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.pet = inits.isInitialized("pet") ? new com.example.dw.domain.entity.user.QPet(forProperty("pet"), inits.get("pet")) : null;
         this.users = inits.isInitialized("users") ? new com.example.dw.domain.entity.user.QUsers(forProperty("users"), inits.get("users")) : null;
     }
 
