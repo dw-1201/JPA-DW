@@ -40,6 +40,8 @@ public class QGoods extends EntityPathBase<Goods> {
 
     public final NumberPath<Integer> goodsQuantity = createNumber("goodsQuantity", Integer.class);
 
+    public final ListPath<GoodsQue, QGoodsQue> goodsQues = this.<GoodsQue, QGoodsQue>createList("goodsQues", GoodsQue.class, QGoodsQue.class, PathInits.DIRECT2);
+
     public final StringPath goodsRegisterDate = createString("goodsRegisterDate");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);

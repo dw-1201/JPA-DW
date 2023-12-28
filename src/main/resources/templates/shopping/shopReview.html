@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,28 +12,8 @@
 </head>
 <body>
 <!-- header 시작 -->
-<div class="header">
-    <div class="header-section01">
-        <div class="header-section01-nav">
-            <ul>
-                <li><a href="">로그인</a></li>
-                <li><a href="">장바구니</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="header-section02">
-        <div class="header-section02-container">
-            <div class="header-logo"><a href=""><img src="/img/logo.png" alt=""></a></div>
-            <div class="header-section02-nav">
-                <ul>
-                    <li><a href="/shopping/html/shop.html">쇼핑</a></li>
-                    <li><a href="">커뮤니티</a></li>
-                    <li><a href="">산책메이트</a></li>
-                    <li><a href="/map/html/map.html">병원찾기</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+<div class="header" th:replace="fragment/header :: header">
+
 </div>
 <!-- header 끝 -->
 <!-- main 시작 -->
@@ -41,11 +21,10 @@
 <main class="main-content">
     <div class="main-content-contaniner">   
         <div class="title-info">
-            <!-- <div class="main-content-title-text01">
-                세이오앙 강아지 간식 훈련용
-            </div> -->
+
         </div>
-    <!-- <div class="main-content-contaniner-form-hr"></div> -->
+
+        <input type="hidden" th:value="${id}" id="goodsId">
 
     <div class="main-content-contaniner-form2">
     <div>
@@ -64,349 +43,75 @@
             <span>세이오앙 강아지 간식 훈련용</span>
         </div>
     </div>
-        
-    <div class="main-content-contaniner-form3">
-        <div class="form3-left">
-            <div class="form3-left-box1">
-                <img src="https://image.store.bemypet.kr/content/uploads/2023/05/31141732/lid%EC%8D%B8%EB%84%A4%EC%9D%BC_1.jpg" alt="" width="350px" height="350px">
 
-                <div class="form3-left-box1-1">
-                    <!-- <img src="" alt="" width="350px" height="60px"> -->
-                     광고
-                </div>
-
-
-            </div>
-            
-
-        </div>
-
-        <div class="form3-right">
-            <div class="form3-right-box1">
-                <div class="right-box1-box1">
-                    <span>[세이오앙]</span>
-                </div>
-                <div class="right-box1-box1">
-                    <span>강아지 간식 훈련용</span>
-                </div>
-                <div class="right-box1-box1-1">
-                    <span>
-                        13,900 원
-                    </span>
-                </div>
-                <div class="right-box1-box2">
-                    <span>
-                    ★★★★★ 4.9점
-                    </span>&nbsp;&nbsp;
-                    <span class="evaluation">(10개의 고객 상품 평가)</span>
-                </div>
-
-                <div class="right-box1-box3">
-                    <span>
-                        제품 요약 설명
-                    </span>
-                </div>
-
-                <div class="right-box1-box4">
-                    <span>
-                        알러지 걱정 없는 건강한 강아지 간식!
-                    </span>
-                </div>
-
-                <div class="right-box1-box5">
-                    <span>
-                        부담 없이 먹을 수 있는 세이오앙 강아지 LID 데일리 트릿
-                    </span>
-                </div>
-                <div class="right-box1-box5">
-                    <span>
-                        ✔️원물을 그대로 담아낸 프리미엄 퀄리티
-                    </span>
-                </div>
-                <div class="right-box1-box5">
-                    <span>
-                        ✔️인공 향미제, 인공 색소 무첨가
-                    </span>
-                </div>
-                <div class="right-box1-box5">
-                    <span>
-                        ✔️수분 함량 34%, 강아지 잇몸에 부담 없는 부드러운 식감
-                    </span>
-                </div>
-                <div class="right-box1-box5">
-                    <span>
-                        ✔️부스러기가 없어 노즈워크 훈련용 간식으로 안성맞춤
-                    </span>
-                </div>
-                <div class="right-box1-box5">
-                    <span>
-                        ✔️HACCP 인증을 받은 제조사에서 안전하게 만든 간식
-                    </span>
-                  </div>
-      
-                  <div class="pay-amount">
-                      <div class="pay-name">세이오앙 강아지 간식 훈련용</div>
-                      <div class="pay-count">
-                          <button id="increase"><strong>+</strong></button>
-                          <div><span id="number">1</span></div>
-                          <button id="decrease"><strong>-</strong></button>
-                      </div>
-                      <div class="pay-sum"><p>총 상품금액  : <strong id="price">50,000</strong> 원</p></div>
-                  </div>
-  
-                  <div class="right-box1-box9">
-                          <div class="basket1">
-                              <a href="" class="basket-button1">장바구니</a>
-                          </div>
-                          <div class="basket2">
-                              <a href="" class="basket-button2">바로구매</a>
-                          </div>
-                      </div>
-      
-                      <!-- <div class="right-box1-box10">
-                          <span>
-                              🚚 배송비 3,000원
-                          </span>
-                      </div>
-                      <div class="right-box1-box10">
-                          <span>
-                              30,000원 이상 구매 시 무료배송
-                          </span>
-                      </div> -->
-      
-                  </div>
-      
-      
-              </div>
-              
-          </div>
-      
-              <div class="middle-content">
-                  <ul>
-                      <span>|</span>                
-                      <li>
-                          <a href="/shopping/html/shopDitail.html">
-                              <span class="middle-span">설명</span>
-                          </a>
-                      </li>
-                      <span>|</span>   
-                      <li>
-                          <a href="/shopping/html/shopAddInfo.html">
-                              <span class="middle-span">추가정보</span>
-                          </a>
-                      </li>
-                      <span>|</span>   
-                      <li>
-                          <a href="/shopping/html/shopReview.html">
-                              <span class="middle-span1">리뷰</span>
-                          </a>
-                      </li>
-                      <span>|</span>   
-                      <li>
-                          <a href="/shopping/html/shopQandA.html">
-                              <span class="middle-span">문의</span>
-                          </a>
-                      </li>
-                      <span>|</span>   
-                  </ul>
-      
-              </div>
+        <div class="shop-form">
+            <!--비동기 시작-->
 
         <div class="row-content">
 
           <!-- 리뷰 li -->
-          <div class="comments">
-            <div class="commentlist">
-                <div class="comment-text">
-                  <div class="star-div">
-                    <span>★★★★★</span>
-                  </div>
-                  
-                  <p class="reviewWriter">
-                    <strong>두부**</strong>
-                    <span>-</span>
-                    <time>2023년 11월 22일</time>
-                  </p>
+<!--          <div class="comments">-->
+<!--            <div class="commentlist">-->
+<!--                <div class="comment-text">-->
+<!--                  <div class="star-div">-->
+<!--                    <span>★★★★★</span>-->
+<!--                  </div>-->
+<!--                  -->
+<!--                  <p class="reviewWriter">-->
+<!--                    <strong>두부**</strong>-->
+<!--                    <span>-</span>-->
+<!--                    <time>2023년 11월 22일</time>-->
+<!--                  </p>-->
 
-                  <div class="description">
-                  <p>평소 식탐이 많아서, 간식을 안줄수가 없는</p>
-                  <p>노즈워크 훈련용이라 그런지 크기도 알맞고
-                  </p>
-                  <p>아주 잘 먹어줍니다! 아주 찹찹찹 거리면서 야무지게 씹어먹어요</p>
-                  <p>노즈워크놀이할 때에도 별도로 잘라줄 필요없어서</p>
-                  <p>너무 편안하고, 부스러기 안나와서 깔끔하게 놀수 있어요</p>
-                  <p>비마이펫으로부터 제품을 무상으로 받아 작성된 후기입니다.</p>
-                  </div>
+<!--                  <div class="description">-->
+<!--                  <p>평소 식탐이 많아서, 간식을 안줄수가 없는</p>-->
+<!--                  <p>노즈워크 훈련용이라 그런지 크기도 알맞고-->
+<!--                  </p>-->
+<!--                  <p>아주 잘 먹어줍니다! 아주 찹찹찹 거리면서 야무지게 씹어먹어요</p>-->
+<!--                  <p>노즈워크놀이할 때에도 별도로 잘라줄 필요없어서</p>-->
+<!--                  <p>너무 편안하고, 부스러기 안나와서 깔끔하게 놀수 있어요</p>-->
+<!--                  <p>비마이펫으로부터 제품을 무상으로 받아 작성된 후기입니다.</p>-->
+<!--                  </div>-->
 
-                <div class="reviewImg">
-                  <div class="imgbox">
-                    <a href="/img/reviewImg01.jpg">
-                      <img src="/img/reviewImg01.jpg" alt="" class="imgs">
-                    </a>
-                  </div>
-                  <div class="imgbox">
-                    <a href="/img/reviewImg02.jpg">
-                      <img src="/img/reviewImg02.jpg" alt="" class="imgs">
-                    </a>
-                  </div>
-                  <div class="imgbox">
-                    <a href="/img/reviewImg03.jpg">
-                      <img src="/img/reviewImg03.jpg" alt="" class="imgs">
-                    </a>
-                  </div>
-                </div>
-              </div>
-            <!-- 관리자 리뷰 -->
-            <div class="admin-review-box">
-            <div class="admin-review">
-              <div>
-                <span>관리자</span>
-                <span>- 2023년 11월 22일</span>
-                <p>소중한 후기 감사합니다~ 견주님과 멍이 맘에 쏙! 들도록 더더욱 연구해서 좋은 제품으로 찾아뵐게요 😀</p>
-              </div>
+<!--                <div class="reviewImg">-->
+<!--                  <div class="imgbox">-->
+<!--                    <a href="/img/reviewImg01.jpg">-->
+<!--                      <img src="/img/reviewImg01.jpg" alt="" class="imgs">-->
+<!--                    </a>-->
+<!--                  </div>-->
+<!--                  <div class="imgbox">-->
+<!--                    <a href="/img/reviewImg02.jpg">-->
+<!--                      <img src="/img/reviewImg02.jpg" alt="" class="imgs">-->
+<!--                    </a>-->
+<!--                  </div>-->
+<!--                  <div class="imgbox">-->
+<!--                    <a href="/img/reviewImg03.jpg">-->
+<!--                      <img src="/img/reviewImg03.jpg" alt="" class="imgs">-->
+<!--                    </a>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            &lt;!&ndash; 관리자 리뷰 &ndash;&gt;-->
+<!--            <div class="admin-review-box">-->
+<!--            <div class="admin-review">-->
+<!--              <div>-->
+<!--                <span>관리자</span>-->
+<!--                <span>- 2023년 11월 22일</span>-->
+<!--                <p>소중한 후기 감사합니다~ 견주님과 멍이 맘에 쏙! 들도록 더더욱 연구해서 좋은 제품으로 찾아뵐게요 😀</p>-->
+<!--              </div>-->
 
-            </div>
-          </div>
-            <!-- 관리자 리뷰 끝 -->
-            </div>
-          </div>
+<!--            </div>-->
+<!--          </div>-->
+<!--            &lt;!&ndash; 관리자 리뷰 끝 &ndash;&gt;-->
+<!--            </div>-->
+<!--          </div>-->
           <!-- 리뷰 li 끝 -->
-          <!-- 리뷰 li -->
-          <div class="comments">
-            <div class="commentlist">
-                <div class="comment-text">
-                  <div class="star-div">
-                    <span>★★★★★</span>
-                  </div>
-                  
-                  <p class="reviewWriter">
-                    <strong>두부**</strong>
-                    <span>-</span>
-                    <time>2023년 11월 22일</time>
-                  </p>
 
-                  <div class="description">
-                  <p>평소 식탐이 많아서, 간식을 안줄수가 없는</p>
-                  <p>노즈워크 훈련용이라 그런지 크기도 알맞고
-                  </p>
-                  <p>아주 잘 먹어줍니다! 아주 찹찹찹 거리면서 야무지게 씹어먹어요</p>
-                  <p>노즈워크놀이할 때에도 별도로 잘라줄 필요없어서</p>
-                  <p>너무 편안하고, 부스러기 안나와서 깔끔하게 놀수 있어요</p>
-                  <p>비마이펫으로부터 제품을 무상으로 받아 작성된 후기입니다.</p>
-                  </div>
 
-                <div class="reviewImg">
-                  <div class="imgbox">
-                    <a href="/img/reviewImg01.jpg">
-                      <img src="/img/reviewImg01.jpg" alt="" class="imgs">
-                    </a>
-                  </div>
-                  <div class="imgbox">
-                    <a href="/img/reviewImg02.jpg">
-                      <img src="/img/reviewImg02.jpg" alt="" class="imgs">
-                    </a>
-                  </div>
-                  <div class="imgbox">
-                    <a href="/img/reviewImg03.jpg">
-                      <img src="/img/reviewImg03.jpg" alt="" class="imgs">
-                    </a>
-                    
-                  </div>
-                </div>
-              </div>
-            </div>                         
-          </div>
-          <!-- 리뷰 li 끝 -->
-        <!-- 리뷰 li -->
-        <div class="comments">
-          <div class="commentlist">
-              <div class="comment-text">
-                <div class="star-div">
-                  <span>★★★★★</span>
-                </div>
-                
-                <p class="reviewWriter">
-                  <strong>두부**</strong>
-                  <span>-</span>
-                  <time>2023년 11월 22일</time>
-                </p>
 
-                <div class="description">
-                <p>평소 식탐이 많아서, 간식을 안줄수가 없는</p>
-                <p>노즈워크 훈련용이라 그런지 크기도 알맞고
-                </p>
-                <p>아주 잘 먹어줍니다! 아주 찹찹찹 거리면서 야무지게 씹어먹어요</p>
-                <p>노즈워크놀이할 때에도 별도로 잘라줄 필요없어서</p>
-                <p>너무 편안하고, 부스러기 안나와서 깔끔하게 놀수 있어요</p>
-                <p>비마이펫으로부터 제품을 무상으로 받아 작성된 후기입니다.</p>
-                </div>
-
-              <div class="reviewImg">
-                <div class="imgbox">
-                  <a href="/img/reviewImg01.jpg">
-                    <img src="/img/reviewImg01.jpg" alt="" class="imgs">
-                  </a>
-                </div>
-                <div class="imgbox">
-                  <a href="/img/reviewImg02.jpg">
-                    <img src="/img/reviewImg02.jpg" alt="" class="imgs">
-                  </a>
-                </div>
-                <div class="imgbox">
-                  <a href="/img/reviewImg03.jpg">
-                    <img src="/img/reviewImg03.jpg" alt="" class="imgs">
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+            <!--비동기 끝-->
         </div>
-        <!-- 리뷰 li 끝 -->
-        <!-- 리뷰 li -->
-        <div class="comments">
-          <div class="commentlist">
-              <div class="comment-text">
-                <div class="star-div">
-                  <span>★★★★★</span>
-                </div>
-                
-                <p class="reviewWriter">
-                  <strong>두부**</strong>
-                  <span>-</span>
-                  <time>2023년 11월 22일</time>
-                </p>
 
-                <div class="description">
-                <p>평소 식탐이 많아서, 간식을 안줄수가 없는</p>
-                <p>노즈워크 훈련용이라 그런지 크기도 알맞고
-                </p>
-                <p>아주 잘 먹어줍니다! 아주 찹찹찹 거리면서 야무지게 씹어먹어요</p>
-                <p>노즈워크놀이할 때에도 별도로 잘라줄 필요없어서</p>
-                <p>너무 편안하고, 부스러기 안나와서 깔끔하게 놀수 있어요</p>
-                <p>비마이펫으로부터 제품을 무상으로 받아 작성된 후기입니다.</p>
-                </div>
-
-              <div class="reviewImg">
-                <div class="imgbox">
-                  <a href="/img/reviewImg01.jpg">
-                    <img src="/img/reviewImg01.jpg" alt="" class="imgs">
-                  </a>
-                </div>
-                <div class="imgbox">
-                  <a href="/img/reviewImg02.jpg">
-                    <img src="/img/reviewImg02.jpg" alt="" class="imgs">
-                  </a>
-                </div>
-                <div class="imgbox">
-                  <a href="/img/reviewImg03.jpg">
-                    <img src="/img/reviewImg03.jpg" alt="" class="imgs">
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- 리뷰 li 끝 -->
       </div>
 
         <nav class="nav-class">
@@ -436,36 +141,11 @@
 
 
 <!-- footer 시작 -->
-<div class="footer">
-    <div class="footer-container01">
-        <div class="footer-containerbox01">
-            <div class="footer-container01-nav">
-                <ul>
-                    <li>(주)산책갈개</li>
-                    <li>복영헌 임형준 노의진 이지윤</li>
-                    <li>서울특별시 노원구 상계로1길 34 세일학원 5층</li>
-                    <li>02-933-5890</li>
-                </ul>
-            </div>
-            <div class="footer-container01-img">
-                <img src="/img/dog02.png" alt="">
-            </div>
-        </div>
-    </div>
-    <div class="footer-container02">
-        <div class="footer-containerbox02">
-            <div>Copyright ©SCGG All Rights Reserved.</div>
-            <div class="footer-container02-nav">
-                <ul>
-                    <li><a href="/fragment/html/terms.html">이용약관</a></li>
-                    <li><a href="/fragment/html/privacy.html">개인정보처리방침</a></li>
-                    <li><a href="">사업자정보확인</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+<div class="footer" th:replace="fragment/footer :: footer">
+
 </div>
 <!-- footer 끝 -->
-
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<script type="module" defer src="/shopping/js/shopReview.js"></script>
 </body>
 </html>

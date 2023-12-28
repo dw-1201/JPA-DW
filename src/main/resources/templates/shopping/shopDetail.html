@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>쇼핑-추가정보</title>
+  <title>쇼핑-상세페이지</title>
   <link rel="stylesheet" href="/common/css/common.css">
   <link rel="stylesheet" href="/fragment/css/header.css">
   <link rel="stylesheet" href="/fragment/css/footer.css">
-  <link rel="stylesheet" href="/shopping/css/shopAddInfo.css">
+  <link rel="stylesheet" href="/shopping/css/shopDetail.css">
+
   <!-- <script defer src ="/map/js/map.js"></script> -->
 <link rel="icon" href="/img/favicon.ico" type="image/x-icosn" sizes="16x16">
 </head>
@@ -20,23 +21,23 @@
 <!-- main 시작 -->
 
 <main class="main-content">
-    <div class="main-content-contaniner">   
+    <div class="main-content-contaniner" >
         <div class="title-info">
 
         </div>
-        <input type="hidden" th:value="${id}" id="goodsId">
+    <input type="hidden" th:value="${id}" id="goodsId">
 
     <div class="main-content-contaniner-form2">
     <div>
-            <a href="">홈</a>
+            <a href="/shop/shopList">홈</a>
         </div>
         <span>/</span>
         <div>
-            <a href="/shopping/html/shop.html">상품전체</a>
+            <a href="/shop/shopList">상품전체</a>
         </div>
         <span>/</span>
         <div>
-            <a href="">간식</a>
+            <a href="/shop/shopList">간식</a>
         </div>
         <span>/</span>
         <div>
@@ -44,18 +45,15 @@
         </div>
     </div>
 
-        <!--            여기서부터-->
-        <div class="shop-form">
+        <div>
 
-        <!-- 상품 상세 리스트 끝 -->
-<!--    <div class="main-content-contaniner-form3">-->
 
-<!--    </div>-->
-    <!-- 상품 상세 리스트 끝 -->
+            <div class="shop-form">
+            <!--비동기 시작-->
 
-        <!--            여기까지-->
+            <!--비동기 끝-->
+            </div>
 
-        </div>
 
     </div>
 
@@ -68,6 +66,7 @@
 </div>
 <!-- footer 끝 -->
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-<script type="module" defer src="/shopping/js/shopAddInfo.js"></script>
+<script type="module" defer src="/shopping/js/shopDetail.js"></script>
+
 </body>
 </html>
