@@ -1,5 +1,6 @@
 package com.example.dw.controller;
 
+import com.example.dw.domain.dto.goods.GoodsDetailDto;
 import com.example.dw.repository.goods.GoodsRepository;
 import com.example.dw.repository.goods.ShopRepositoryCustom;
 import com.example.dw.service.GoodsService;
@@ -10,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -58,8 +61,14 @@ public class GoodsController {
      */
     @GetMapping("/shopDetail/{id}")
     public String shopDetail(@PathVariable("id") Long id, Model model){
-        model.addAttribute("id", id);
-        return "/shopping/shopDetail";
+
+     Optional<GoodsDetailDto> detail =  goodsService.goodsDetail(id);
+
+     detail.ifPresent(details -> model.addAttribute("detail", details));
+
+        System.out.println(detail.toString());
+
+     return "/shopping/shopDetail";
     }
     /**
      * 쇼핑 추가정보 페이지

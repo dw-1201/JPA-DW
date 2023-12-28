@@ -49,3 +49,10 @@
     color: black;
     cursor: pointer;
 }
+
+@media (max-width: 1160px) {
+    .side-banner-fragment {
+        display: none;
+    }
+
+}

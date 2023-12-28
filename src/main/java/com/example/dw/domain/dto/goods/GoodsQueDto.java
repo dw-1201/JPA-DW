@@ -7,25 +7,9 @@ import lombok.Data;
 @Data
 public class GoodsQueDto {
 
-    //상품
-    private Long id;
-    private String goodsName;
-    private int goodsQuantity; //수량
-    private int goodsPrice;
-    private String goodsMade;
-    private String goodsDetailContent;
-    private String goodsRegisterDate;
-    private String goodsModifyDate;
-    private String goodsCategory;
-
-    //상품 이미지
-    private Long goodsMainImgId;
-    private String goodsMainImgName;
-    private String goodsMainImgPath;
-    private String goodsMainImgUuid;
 
     //상품 문의
-    private Long goodsQueId;
+    private Long id;
     private String queContent;
     private String queRegisterDate;
     private String queModifyDate;
@@ -42,21 +26,8 @@ public class GoodsQueDto {
     private String userNickName;
 
     @QueryProjection
-    public GoodsQueDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate, String goodsCategory, Long goodsMainImgId, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid, Long goodsQueId, String queContent, String queRegisterDate, String queModifyDate, Long goodsQueReplyId, String queReplyContent, String queReplyRegisterDate, String queReplyModifyDate, Long userId, String userAccount, String userNickName) {
+    public GoodsQueDto(Long id, String queContent, String queRegisterDate, String queModifyDate, Long goodsQueReplyId, String queReplyContent, String queReplyRegisterDate, String queReplyModifyDate, Long userId, String userAccount, String userNickName) {
         this.id = id;
-        this.goodsName = goodsName;
-        this.goodsQuantity = goodsQuantity;
-        this.goodsPrice = goodsPrice;
-        this.goodsMade = goodsMade;
-        this.goodsDetailContent = goodsDetailContent;
-        this.goodsRegisterDate = goodsRegisterDate;
-        this.goodsModifyDate = goodsModifyDate;
-        this.goodsCategory = goodsCategory;
-        this.goodsMainImgId = goodsMainImgId;
-        this.goodsMainImgName = goodsMainImgName;
-        this.goodsMainImgPath = goodsMainImgPath;
-        this.goodsMainImgUuid = goodsMainImgUuid;
-        this.goodsQueId = goodsQueId;
         this.queContent = queContent;
         this.queRegisterDate = queRegisterDate;
         this.queModifyDate = queModifyDate;
@@ -68,9 +39,6 @@ public class GoodsQueDto {
         this.userAccount = userAccount;
         this.userNickName = userNickName;
     }
-
-
-
 }
 
 

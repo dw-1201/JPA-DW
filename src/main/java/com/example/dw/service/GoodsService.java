@@ -1,16 +1,24 @@
 package com.example.dw.service;
 
 
+import com.example.dw.domain.dto.goods.GoodsDetailDto;
+import com.example.dw.domain.dto.goods.GoodsDetailImgDto;
+import com.example.dw.domain.dto.goods.GoodsQueDto;
 import com.example.dw.domain.entity.goods.GoodsQue;
 import com.example.dw.domain.entity.user.Users;
 import com.example.dw.domain.form.GoodsQandaWritingForm;
+import com.example.dw.repository.goods.GoodsMainImgRepository;
 import com.example.dw.repository.goods.GoodsQueRepository;
 import com.example.dw.repository.goods.GoodsRepository;
+import com.example.dw.repository.goods.ShopRepositoryCustom;
 import com.example.dw.repository.user.UsersRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -21,6 +29,8 @@ public class GoodsService {
     private final UsersRepository usersRepository;
     private final GoodsQueRepository goodsQueRepository;
     private final GoodsRepository goodsRepository;
+    private final ShopRepositoryCustom shopRepositoryCustom;
+    private final GoodsMainImgRepository goodsMainImgRepository;
 
 
     //모달 글쓰기
@@ -42,6 +52,31 @@ public class GoodsService {
                         .build());
 
         return savedGoodsQue.getId();
+    }
+
+    //상품 상세 정보
+    @Transactional
+    public Optional<GoodsDetailDto> goodsDetail(Long goodsId){
+
+        return shopRepositoryCustom.findGoodsById(goodsId);
+    }
+
+
+    //상품 상세 상세사진
+    @Transactional
+    public List<GoodsDetailImgDto> goodsDetailImgs(Long goodsId){
+
+        return shopRepositoryCustom.findGoodsDetailImg(goodsId);
+
+    }
+
+
+    //상품 문의 리스트
+    @Transactional
+    public List<GoodsQueDto> goodsQnaList(Long goodsId){
+
+        return shopRepositoryCustom.findGoodsQueId(goodsId);
+
     }
 
 }
