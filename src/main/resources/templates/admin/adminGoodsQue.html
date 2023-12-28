@@ -35,30 +35,32 @@
             <div class="goods-q-search-container">
                 <form action="" method="" id="search-form">
                     <div class="select-form">
-                        <select id="search-cate" name="search-cate">
-                            <option value="1">상품명</option>
-                            <option value="2">아이디</option>
-                            <option value="3">닉네임</option>
-            
+                        <select id="search-cate" name="cate">
+                            <option value="전체보기">전체보기</option>
+                            <option value="간식">간식</option>
+                            <option value="영양제">영양제</option>
+                            <option value="장난감">영양제</option>
+                            <option value="4">영양제</option>
+                            <option value="5">영양제</option>
                         </select>
                     </div>
                     <div class="input-form">
-                        <input type="text" name="search-keword" id="search-keword" />
+                        <input type="text" name="keyword" id="search-keyword" />
                     </div>
                     <div class="result-btn">
                         <button type="button" class="result-submit-btn">검색</button>
                     </div>
                     <div class="radio-box-form">
                         <label for="reply">
-                            <input type="radio" name="reply" id="reply" checked/> 
+                            <input type="radio" name="reply" id="reply" value="" checked/>
                         전체 문의
                         </label>
                         <label for="reply-y">
-                            <input type="radio" name="reply" id="reply-y"/>
+                            <input type="radio" name="reply" value="1" id="reply-y"/>
                          답변 완료
                         </label>
                         <label for="reply-n">
-                            <input type="radio" name="reply" id="reply-n"/> 
+                            <input type="radio" name="reply" value="0" id="reply-n"/>
                         답변 대기 
                         </label>
                     </div>
@@ -71,176 +73,15 @@
                         <th width="70">카테고리</th>
                         <th width="230">상품명</th>
                         <th width="500">문의내용</th>
-                        <th width="100">문의 등록일</th>
-                        <th width="100">답변 여부</th>
+                        <th width="150">문의 등록일</th>
+                        <th width="60">답변 여부</th>
                         <th>비고</th>
                     </tr>
-                    <tr>
-                        <td>15</td>
-                        <td>간식</td>
-                        <td >냠냠 간식</td>
-                        <td class="q-content">냠냠이가 냠냠간식을 먹어도 될까요? 되지않을까요? 정답을 알려줘 아버지 ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㄹㄴㅇㄹ</td>
-                        <td>2023-11-23</td>
-                        <td> O </td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>14</td>
-                        <td>간식</td>
-                        <td >냠냠 간식</td>
-                        <td class="q-content">냠냠이가 냠냠간식을 먹어도 될까요? 되지않을까요? 정답을 알려줘 아버지 ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㄹㄴㅇㄹ</td>
-                        <td>2023-11-23</td>
-                        <td> O </td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>13</td>
-                        <td>간식</td>
-                        <td >냠냠 간식</td>
-                        <td class="q-content">냠냠이가 냠냠간식을 먹어도 될까요? 되지않을까요? 정답을 알려줘 아버지 ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㄹㄴㅇㄹ</td>
-                        <td>2023-11-23</td>
-                        <td> O </td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>12</td>
-                        <td>간식</td>
-                        <td >냠냠 간식</td>
-                        <td class="q-content">냠냠이가 냠냠간식을 먹어도 될까요? 되지않을까요? 정답을 알려줘 아버지 ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㄹㄴㅇㄹ</td>
-                        <td>2023-11-23</td>
-                        <td> O </td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11</td>
-                        <td>간식</td>
-                        <td >냠냠 간식</td>
-                        <td class="q-content">냠냠이가 냠냠간식을 먹어도 될까요? 되지않을까요? 정답을 알려줘 아버지 ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㄹㄴㅇㄹ</td>
-                        <td>2023-11-23</td>
-                        <td> O </td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td>간식</td>
-                        <td >냠냠 간식</td>
-                        <td class="q-content">냠냠이가 냠냠간식을 먹어도 될까요? 되지않을까요? 정답을 알려줘 아버지 ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㄹㄴㅇㄹ</td>
-                        <td>2023-11-23</td>
-                        <td> O </td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>간식</td>
-                        <td >냠냠 간식</td>
-                        <td class="q-content">냠냠이가 냠냠간식을 먹어도 될까요? 되지않을까요? 정답을 알려줘 아버지 ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㄹㄴㅇㄹ</td>
-                        <td>2023-11-23</td>
-                        <td> O </td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>간식</td>
-                        <td >냠냠 간식</td>
-                        <td class="q-content">냠냠이가 냠냠간식을 먹어도 될까요? 되지않을까요? 정답을 알려줘 아버지 ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㄹㄴㅇㄹ</td>
-                        <td>2023-11-23</td>
-                        <td> O </td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>간식</td>
-                        <td >냠냠 간식</td>
-                        <td class="q-content">냠냠이가 냠냠간식을 먹어도 될까요? 되지않을까요? 정답을 알려줘 아버지 ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㄹㄴㅇㄹ</td>
-                        <td>2023-11-23</td>
-                        <td> O </td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>간식</td>
-                        <td >냠냠 간식</td>
-                        <td class="q-content">냠냠이가 냠냠간식을 먹어도 될까요? 되지않을까요? 정답을 알려줘 아버지 ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㄹㄴㅇㄹ</td>
-                        <td>2023-11-23</td>
-                        <td> O </td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>간식</td>
-                        <td >냠냠 간식</td>
-                        <td class="q-content">냠냠이가 냠냠간식을 먹어도 될까요? 되지않을까요? 정답을 알려줘 아버지 ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㄹㄴㅇㄹ</td>
-                        <td>2023-11-23</td>
-                        <td> O </td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>간식</td>
-                        <td >냠냠 간식</td>
-                        <td class="q-content">냠냠이가 냠냠간식을 먹어도 될까요? 되지않을까요? 정답을 알려줘 아버지 ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㄹㄴㅇㄹ</td>
-                        <td>2023-11-23</td>
-                        <td> O </td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>간식</td>
-                        <td >냠냠 간식</td>
-                        <td class="q-content">냠냠이가 냠냠간식을 먹어도 될까요? 되지않을까요? 정답을 알려줘 아버지 ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㄹㄴㅇㄹ</td>
-                        <td>2023-11-23</td>
-                        <td> O </td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>간식</td>
-                        <td >냠냠 간식</td>
-                        <td class="q-content">냠냠이가 냠냠간식을 먹어도 될까요? 되지않을까요? 정답을 알려줘 아버지 ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㄹㄴㅇㄹ</td>
-                        <td>2023-11-23</td>
-                        <td> O </td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>간식</td>
-                        <td >냠냠 간식</td>
-                        <td class="q-content">냠냠이가 냠냠간식을 먹어도 될까요? 되지않을까요? 정답을 알려줘 아버지 ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㄹㄴㅇㄹ</td>
-                        <td>2023-11-23</td>
-                        <td> O </td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
- 
+                    <tbody class="qna-list">
+
+
+                    </tbody>
+
                     
                   
                    
@@ -250,13 +91,7 @@
         <div class="admin-main-wrap pagination-wrap" style="margin-top: 10px;">
             <div class="pagination-container">
                 <ul class="pagination-ul">
-                    <li><a href="#">&lt;</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">&gt;</a></li>
+
                 </ul>
             </div>
         </div>
@@ -265,7 +100,7 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-<script src="/admin/js/adminGoodsQue.js"></script>
+<script type="module" src="/admin/js/adminGoodsQue.js"></script>
 <script src="/fragment/js/adminSide.js"></script>
 </body>
 </html>

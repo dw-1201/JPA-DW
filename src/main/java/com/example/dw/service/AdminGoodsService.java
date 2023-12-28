@@ -1,9 +1,19 @@
 package com.example.dw.service;
 
+import com.example.dw.domain.dto.admin.AdminGoodsQnaListDto;
+import com.example.dw.domain.dto.admin.AdminGoodsQueDetailDto;
+import com.example.dw.domain.dto.admin.AdminGoodsQueReplyDto;
 import com.example.dw.domain.entity.goods.Goods;
+import com.example.dw.domain.entity.goods.GoodsQue;
 import com.example.dw.domain.form.GoodsForm;
+import com.example.dw.domain.form.GoodsQueReplyForm;
+import com.example.dw.repository.goods.GoodsQueReplyRepository;
+import com.example.dw.repository.goods.GoodsQueRepository;
 import com.example.dw.repository.goods.GoodsRepository;
+import com.example.dw.repository.goods.GoodsRepositoryCustom;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
@@ -21,7 +31,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AdminGoodsService {
 
-
+    private final GoodsQueRepository goodsQueRepository;
+    private final GoodsQueReplyRepository goodsQueReplyRepository;
+    private final GoodsRepositoryCustom goodsRepositoryCustom;
     private final GoodsRepository goodsRepository;
     private final FileService fileService;
 
@@ -105,4 +117,50 @@ public class AdminGoodsService {
 
     }
 
+
+    //상품문의 리스트
+    @Transactional
+    public Page<AdminGoodsQnaListDto> getGoodsQnaList(Pageable pageable,String qnaState, String cate, String keyword){
+
+        Page<AdminGoodsQnaListDto> qnaList = goodsRepositoryCustom.getQnaList(pageable, qnaState, cate, keyword);
+
+        return qnaList;
+    }
+
+
+    //상품문의 상세
+    @Transactional
+    public Optional<AdminGoodsQueDetailDto> getGoodsQnaDetail(Long qnaId){
+
+        return goodsRepositoryCustom.getQnaDetail(qnaId);
+    }
+
+    //상품문의 답변 등록
+    @Transactional
+    public void addQnaReply(GoodsQueReplyForm goodsQueReplyForm){
+
+        Optional<GoodsQue> goodsQue = goodsQueRepository.findById(goodsQueReplyForm.getGoodsQueId());
+
+        goodsQueReplyRepository.save(goodsQueReplyForm.toEntity());
+        goodsQue.get().updateStateOn();
+
+    }
+
+    //상품문의 답변 불러오기
+    @Transactional
+    public Optional<AdminGoodsQueReplyDto> replyList(Long goodsQueId){
+
+        return goodsRepositoryCustom.getReplyList(goodsQueId);
+
+    }
+
+    //상품문의 답변 삭제
+    @Transactional
+    public void replyDelete(Long replyId){
+
+
+        goodsQueReplyRepository.deleteById(replyId);
+
+
+    }
 }

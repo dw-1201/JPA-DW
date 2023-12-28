@@ -12,5 +12,4 @@ public interface GoodsQueRepository extends JpaRepository<GoodsQue, Long> {
 
 
 
-
 }

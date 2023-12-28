@@ -26,11 +26,11 @@ public class GoodsQue {
     @Column(name="goods_que_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private Users users;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="goods_id")
     private Goods goods;
 
@@ -72,5 +72,15 @@ public class GoodsQue {
     @PreUpdate
     public void onPreUpdate(){
         this.queModifyDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+    }
+
+    //문의 답변
+    public void updateStateOn(){
+        this.state = 1;
+    }
+
+    //문의 답변 삭제
+    public void deleteState(){
+        this.state = 0;
     }
 }

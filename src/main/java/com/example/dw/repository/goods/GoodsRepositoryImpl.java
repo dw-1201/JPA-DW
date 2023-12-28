@@ -1,6 +1,7 @@
 package com.example.dw.repository.goods;
 
 import com.example.dw.domain.dto.admin.*;
+import com.example.dw.domain.entity.goods.GoodsQue;
 import com.example.dw.domain.form.SearchForm;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -12,10 +13,14 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Optional;
 
+import static com.example.dw.domain.entity.goods.QGoodsQueReply.goodsQueReply;
+import static com.example.dw.domain.entity.user.QUsers.users;
 import static com.example.dw.domain.entity.goods.QGoods.goods;
 import static com.example.dw.domain.entity.goods.QGoodsDetailImg.goodsDetailImg;
 import static com.example.dw.domain.entity.goods.QGoodsMainImg.goodsMainImg;
+import static com.example.dw.domain.entity.goods.QGoodsQue.goodsQue;
 import static java.util.stream.Collectors.*;
 
 @Repository
@@ -66,6 +71,96 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
 
 
     }
+
+    //관리자 Qna리스트
+    @Override
+    public Page<AdminGoodsQnaListDto> getQnaList(Pageable pageable, String qnaState, String cate, String keyword) {
+        List<AdminGoodsQnaListDto> lists = jpaQueryFactory.select(new QAdminGoodsQnaListDto(
+                goodsQue.id,
+                goods.goodsCategory.stringValue(),
+                goods.id,
+                goods.goodsName,
+                goodsQue.queContent,
+                goodsQue.queRegisterDate,
+                goodsQue.state
+        ))
+                .from(goodsQue)
+                .leftJoin(goodsQue.goods, goods)
+                .where(
+                        qnaStateEq(qnaState),
+                        cateGoryNameEq(cate),
+                        goodsNameEq(keyword)
+                )
+                .orderBy(goodsQue.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        Long qnaListCount = jpaQueryFactory.select(
+                goodsQue.count()
+        )
+                .from(goodsQue)
+                .where(
+                        qnaStateEq(qnaState),
+                        cateGoryNameEq(cate),
+                        goodsNameEq(keyword)
+                )
+                .fetchOne();
+
+
+        return new PageImpl<>(lists, pageable, qnaListCount);
+    }
+
+    //상품 상세 - 문의 정보 / 상품 기본 정보 / 상품 메인 사진
+    @Override
+    public Optional<AdminGoodsQueDetailDto> getQnaDetail(Long qnaId) {
+        return Optional.ofNullable(jpaQueryFactory.select(new QAdminGoodsQueDetailDto(
+                goodsQue.id,
+                goodsQue.queContent,
+                goodsQue.queRegisterDate,
+                goodsQue.queModifyDate,
+                goodsQue.state,
+                users.id,
+                users.userAccount,
+                users.userNickName,
+                goods.id,
+                goods.goodsName,
+                goods.goodsQuantity,
+                goods.goodsPrice,
+                goods.goodsMade,
+                goods.goodsCertify,
+                goods.goodsDetailContent,
+                goods.goodsRegisterDate,
+                goods.goodsModifyDate,
+                goods.goodsCategory.stringValue(),
+                goodsMainImg.goodsMainImgName,
+                goodsMainImg.goodsMainImgPath,
+                goodsMainImg.goodsMainImgUuid
+
+        ))
+                .from(goodsQue)
+                .leftJoin(goodsQue.users, users)
+                .leftJoin(goodsQue.goods, goods)
+                .leftJoin(goods.goodsMainImg, goodsMainImg)
+                .where(goodsQue.id.eq(qnaId))
+                .fetchOne());
+    }
+
+    //답변 내역 가져오기
+    @Override
+    public Optional<AdminGoodsQueReplyDto> getReplyList(Long qnaId) {
+        return Optional.ofNullable(jpaQueryFactory.select(new QAdminGoodsQueReplyDto(
+                goodsQueReply.id,
+                goodsQueReply.queReplyContent,
+                goodsQueReply.queReplyRegisterDate,
+                goodsQueReply.queReplyModifyDate
+        ))
+                .from(goodsQueReply)
+                .where(goodsQueReply.goodsQue.id.eq(qnaId))
+                .fetchOne());
+    }
+
+
 
 
     private Long getCount(SearchForm searchForm){
@@ -146,7 +241,7 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
 
     }
 
-
+    //상품 리스트 동적 검색
     private BooleanExpression cateGoryNameEq(SearchForm searchForm){
         return StringUtils.hasText(searchForm.getCate()) ? goods.goodsCategory.stringValue().eq(searchForm.getCate()) : null;
     }
@@ -154,4 +249,22 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
     private BooleanExpression goodsNameEq(SearchForm searchForm){
         return StringUtils.hasText(searchForm.getKeyword()) ? goods.goodsName.containsIgnoreCase(searchForm.getKeyword()) : null;
     }
+
+
+    //상품 문의 동적 검색
+    private BooleanExpression cateGoryNameEq(String cate){
+        return StringUtils.hasText(cate) ? goods.goodsCategory.stringValue().eq(cate) : null;
+    }
+
+    private BooleanExpression goodsNameEq(String keyword){
+        return StringUtils.hasText(keyword) ? goods.goodsName.containsIgnoreCase(keyword) : null;
+    }
+
+    //문의상태
+    private BooleanExpression qnaStateEq(String qnaState){
+
+        return StringUtils.hasText(qnaState) ? goodsQue.state.eq(Integer.valueOf(qnaState)) : null;
+    }
+
+
 }

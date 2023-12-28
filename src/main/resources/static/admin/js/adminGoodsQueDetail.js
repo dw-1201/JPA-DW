@@ -18,3 +18,64 @@ $('.goods-q-content-container').on('click', '.modify-reply-btn', function () {
      $('.btns').addClass('none');
 
 });
+
+
+
+
+
+$('.reply-section-btn').on('click',function (){
+    let qnaId = $('#qnaId').val();
+
+    console.log(qnaId+"@@@@@@@@@@@@@@@@")
+    addReply()
+})
+//상품 문의 답변 등록
+function addReply(){
+    let qnaReplyContent = $('#reply-content').val();
+    let goodsQueId = $('#qnaId').val();
+    let userId = $('#userId').val();
+
+    $.ajax({
+
+        url : '/admins/addQnaReply',
+        type:'post',
+        data: {
+            qnaReplyContent : qnaReplyContent,
+            goodsQueId : goodsQueId,
+            userId : userId
+        },
+        success:function (){
+            $('.admin-reply-section').css('display', 'none')
+        }
+    })
+}
+$(document).ready(function (){
+    let qnaId = $('#qnaId').val();
+    replyList(qnaId);
+})
+
+
+
+//상품 문의 답변 불러오기
+function replyList(qnaId){
+    $.ajax({
+
+        url : `/admins/replyList/${qnaId}`,
+        type: 'get',
+        dataType : 'json',
+        success : function (result){
+            console.log(result);
+        }
+
+    })
+
+
+}
+
+//상품 문의 답변 삭제
+function replyDelete(replyId){
+
+
+
+
+}
