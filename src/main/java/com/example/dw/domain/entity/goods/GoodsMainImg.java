@@ -22,19 +22,17 @@ public class GoodsMainImg {
     @JoinColumn(name = "goods_id")
     private Goods goods;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
 
     @Builder
-    public GoodsMainImg(Long id, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid, Goods goods, Cart cart) {
+    public GoodsMainImg(Long id, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid, Goods goods) {
         this.id = id;
         this.goodsMainImgName = goodsMainImgName;
         this.goodsMainImgPath = goodsMainImgPath;
         this.goodsMainImgUuid = goodsMainImgUuid;
         this.goods = goods;
-        this.cart = cart;
     }
+
+
 
     public GoodsMainImg(String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid) {
         this.goodsMainImgName = goodsMainImgName;

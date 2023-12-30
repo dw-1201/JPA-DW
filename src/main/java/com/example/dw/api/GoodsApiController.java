@@ -105,6 +105,8 @@ public class GoodsApiController {
     public void findCartList(@PathVariable("userId") Long userId,
                                            CartItemForm cartItemForm){
 
+        System.out.println("api goodsid" + cartItemForm.getGoodsId());
+        System.out.println("api cartid" + cartItemForm.getCartId());
         goodsService.cartItemRegister(userId, cartItemForm);
 
     }
