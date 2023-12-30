@@ -56,7 +56,7 @@ public class QGoodsQue extends EntityPathBase<GoodsQue> {
 
     public QGoodsQue(Class<? extends GoodsQue> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.goods = inits.isInitialized("goods") ? new QGoods(forProperty("goods")) : null;
+        this.goods = inits.isInitialized("goods") ? new QGoods(forProperty("goods"), inits.get("goods")) : null;
         this.users = inits.isInitialized("users") ? new com.example.dw.domain.entity.user.QUsers(forProperty("users"), inits.get("users")) : null;
     }
 

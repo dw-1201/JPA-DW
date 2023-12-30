@@ -1,9 +1,6 @@
 package com.example.dw.repository.goods;
 
-import com.example.dw.domain.dto.goods.GoodsDetailDto;
-import com.example.dw.domain.dto.goods.GoodsDetailImgDto;
-import com.example.dw.domain.dto.goods.GoodsListDto;
-import com.example.dw.domain.dto.goods.GoodsQueDto;
+import com.example.dw.domain.dto.goods.*;
 import com.example.dw.domain.form.SearchForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,12 +14,16 @@ public interface ShopRepositoryCustom {
 
     Optional<GoodsDetailDto> findGoodsById(Long id);
 
-
-
+    Optional<GoodsAddInfoDto> findGoodsAddInfoById(Long id);
 
     List<GoodsQueDto> findGoodsQueId(Long id);
 
     List<GoodsDetailImgDto> findGoodsDetailImg(Long goodsId);
 
+    CartDto findCartIdByUserId(Long userId);
+
+    boolean checkGoodsId(Long goodsId, Long userId, Long cartId);
+
+    List<GoodsCartItemDto> findGoodsCartItemById(Long cartId, Long userId);
 
 }

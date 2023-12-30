@@ -1,6 +1,7 @@
 package com.example.dw.controller;
 
 import com.example.dw.domain.dto.goods.GoodsDetailDto;
+import com.example.dw.domain.form.CartForm;
 import com.example.dw.repository.goods.GoodsRepository;
 import com.example.dw.repository.goods.ShopRepositoryCustom;
 import com.example.dw.service.GoodsService;
@@ -23,7 +24,6 @@ public class GoodsController {
     private final HttpSession httpSession;
     private final GoodsService goodsService;
     private final GoodsRepository goodsRepository;
-
 
     /**
      * 쇼핑 리스트 페이지
@@ -73,11 +73,10 @@ public class GoodsController {
     /**
      * 쇼핑 추가정보 페이지
      */
-    @GetMapping("/shopAddInfo/{id}")
-    public String shopAddInfo(@PathVariable("id") Long id, Model model){
-        model.addAttribute("id", id);
-        return "/shopping/shopAddInfo";
-    }
+//    @GetMapping("/shopAddInfo")
+//    public String shopAddInfo(){
+//        return "/shopping/shopAddInfo";
+//    }
     /**
      * 쇼핑 리뷰 페이지
      */
@@ -85,14 +84,6 @@ public class GoodsController {
     public String shopReview(@PathVariable("id") Long id, Model model){
         model.addAttribute("id", id);
         return "/shopping/shopReview";
-    }
-    /**
-     * 쇼핑 Q and A 페이지
-     */
-    @GetMapping("/shopQandA/{id}")
-    public String shopQandA(@PathVariable("id") Long id, Model model){
-        model.addAttribute("id", id);
-        return "/shopping/shopQandA";
     }
 
     /**
@@ -103,9 +94,23 @@ public class GoodsController {
     /**
      * 쇼핑 카트 페이지
      */
-    @GetMapping("/shopCart")
-    public String shopCart(){
-        return "/shopping/shopCart";
+    @GetMapping("/shopCart/{userId}")
+    public String shopCart(@PathVariable("userId") Long userId, Model model) {
+
+        CartForm cartForm = new CartForm();
+        cartForm.setUserId(userId);
+
+        try {
+            Long cartId = shopRepositoryCustom.findCartIdByUserId(userId).getId();
+            return "/shopping/shopCart";
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            goodsService.cartRegister(cartForm);
+            return "/shopping/shopCart";
+        }
     }
 
     /**
