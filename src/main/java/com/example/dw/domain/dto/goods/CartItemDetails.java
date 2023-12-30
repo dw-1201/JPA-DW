@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 public class CartItemDetails {
 
     private Long id; //cartitem id
+    private Integer cartItemQuantity;
 
     //상품
     private Long goodsId;
     private String goodsName;
-    private int goodsQuantity;
     private int goodsPrice;
     //이미지
     private Long goodsMainImgId;
@@ -21,11 +21,11 @@ public class CartItemDetails {
     private String goodsMainImgUuid;
 
 
-    public CartItemDetails(Long id, Long goodsId, String goodsName, int goodsQuantity, int goodsPrice, Long goodsMainImgId, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid) {
+    public CartItemDetails(Long id, Integer cartItemQuantity, Long goodsId, String goodsName, int goodsPrice, Long goodsMainImgId, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid) {
         this.id = id;
+        this.cartItemQuantity = cartItemQuantity;
         this.goodsId = goodsId;
         this.goodsName = goodsName;
-        this.goodsQuantity = goodsQuantity;
         this.goodsPrice = goodsPrice;
         this.goodsMainImgId = goodsMainImgId;
         this.goodsMainImgName = goodsMainImgName;

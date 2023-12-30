@@ -15,7 +15,7 @@ public interface GoodsRepositoryCustom {
 
     
     //관리자 상품 상세
-    List<AdminGoodsDetailResultDto> findGoodsById(Long id);
+    List<AdminGoodsDetailDto> findGoodsById(Long id);
 
     //관리자 상품 상세 - 상품 관련 문의사항 리스트
     Page<AdminGoodsQnaListDto> getQnaList(Long goodsId, Pageable pageable, String state);

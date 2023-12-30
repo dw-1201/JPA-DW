@@ -8,9 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Getter
 @EntityListeners(AuditingEntityListener.class)
@@ -26,13 +23,9 @@ public class Cart {
     @JoinColumn(name="user_id")
     private Users users;
 
-    @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<CartItem> cartItems = new ArrayList<>();
-
     @Builder
-    public Cart(Long id, Users users, List<CartItem> cartItems) {
+    public Cart(Long id, Users users) {
         this.id = id;
         this.users = users;
-        this.cartItems = cartItems;
     }
 }

@@ -50,8 +50,7 @@ public class QGoodsDetailImg extends EntityPathBase<GoodsDetailImg> {
 
     public QGoodsDetailImg(Class<? extends GoodsDetailImg> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.goods = inits.isInitialized("goods") ? new QGoods(forProperty("goods"), inits.get("goods")) : null;
+        this.goods = inits.isInitialized("goods") ? new QGoods(forProperty("goods")) : null;
     }
 
 }
-

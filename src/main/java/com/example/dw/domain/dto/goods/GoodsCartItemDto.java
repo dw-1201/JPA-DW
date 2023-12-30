@@ -7,8 +7,10 @@ import lombok.Data;
 @Data
 public class GoodsCartItemDto {
 
-
+    //카트 아이템
     private Long id;
+    private Integer cartItemQuantity;
+
     private Long cartId;
     private Long userId;
     //상품
@@ -23,8 +25,9 @@ public class GoodsCartItemDto {
     private String goodsMainImgUuid;
 
     @QueryProjection
-    public GoodsCartItemDto(Long id, Long cartId, Long userId, Long goodsId, String goodsName, int goodsQuantity, int goodsPrice, Long goodsMainImgId, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid) {
+    public GoodsCartItemDto(Long id, Integer cartItemQuantity, Long cartId, Long userId, Long goodsId, String goodsName, int goodsQuantity, int goodsPrice, Long goodsMainImgId, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid) {
         this.id = id;
+        this.cartItemQuantity = cartItemQuantity;
         this.cartId = cartId;
         this.userId = userId;
         this.goodsId = goodsId;
