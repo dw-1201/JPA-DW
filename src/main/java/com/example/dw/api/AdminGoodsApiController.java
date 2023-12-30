@@ -48,6 +48,24 @@ public class AdminGoodsApiController {
 
     }
 
+    //관리자 상품 상세 - 상품 관련 문의사항 리스트
+    @GetMapping("/goodsRelatedQna/{goodsId}/{page}")
+    public Page<AdminGoodsQnaListDto> findGoodsDetailQnaList(
+            @PathVariable("goodsId") Long goodsId,
+            @PathVariable("page") int page,
+            String state){
+
+        Pageable pageable = PageRequest.of(page, 10);
+
+        return adminGoodsService.findGoodsDetailQnaList(goodsId, pageable, state);
+
+    }
+
+    //관리자 상품 상세 - 상품 관련 리뷰 리스트
+
+
+
+
     //관리자 상품문의 답변 등록
     @PostMapping("/addQnaReply")
     public void addQnaReply(GoodsQueReplyForm goodsQueReplyForm){

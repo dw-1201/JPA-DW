@@ -119,7 +119,7 @@ public class AdminGoodsController {
 
         adminGoodsService.modify(goodsForm,file,files);
 
-        return new RedirectView("/admin/goodsList");
+        return new RedirectView("/admin/detail/" + goodsId);
     }
 
 

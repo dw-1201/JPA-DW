@@ -89,8 +89,8 @@ function qnaList(result){
         
                      <tr>
                         <td>${r.id}</td>
+                        <td>${r.goodsId}</td>
                         <td>${r.goodsCategory}</td>
-                        <td >${r.goodsName}</td>
                         <td class="q-content">${r.qnaContent}</td>
                         <td>${r.qnaRd}</td>
                         `;

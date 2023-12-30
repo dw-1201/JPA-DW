@@ -114,6 +114,41 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
 
 
     }
+    //상품 상세 - 상품 관련 문의사항
+    @Override
+    public Page<AdminGoodsQnaListDto> getQnaList(Long goodsId, Pageable pageable, String state){
+        List<AdminGoodsQnaListDto> lists = jpaQueryFactory.select(new QAdminGoodsQnaListDto(
+                goodsQue.id,
+                goods.goodsCategory.stringValue(),
+                goods.id,
+                goods.goodsName,
+                goodsQue.queContent,
+                goodsQue.queRegisterDate,
+                goodsQue.state
+        ))
+                .from(goodsQue)
+                .leftJoin(goodsQue.goods, goods)
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+                .where(goodsQue.goods.id.eq(goodsId).and(
+                        qnaStateEq(state)
+                ))
+                .orderBy(goodsQue.id.desc())
+                .fetch();
+
+        Long qnaListCount = jpaQueryFactory.select(
+                goodsQue.count()
+        )
+                .from(goodsQue)
+                .where(goodsQue.goods.id.eq(goodsId).and(
+                        qnaStateEq(state)))
+
+                .fetchOne();
+
+        return new PageImpl<>(lists, pageable, qnaListCount);
+
+    }
+
 
     //관리자 Qna리스트
     @Override
@@ -154,7 +189,7 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
         return new PageImpl<>(lists, pageable, qnaListCount);
     }
 
-    //상품 문의 상세 - 문의 정보 / 상품 기본 정보 / 상품 메인 사진
+    //관리자 상품 문의 상세 - 문의 정보 / 상품 기본 정보 / 상품 메인 사진
     @Override
     public Optional<AdminGoodsQueDetailDto> getQnaDetail(Long qnaId) {
         return Optional.ofNullable(jpaQueryFactory.select(new QAdminGoodsQueDetailDto(
@@ -189,7 +224,7 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
                 .fetchOne());
     }
 
-    //상품 문의 답변 내역 가져오기
+    //관리자 상품 문의 답변 내역 가져오기
     @Override
     public AdminGoodsQueReplyDto getReplyList(Long qnaId) {
         return jpaQueryFactory.select(new QAdminGoodsQueReplyDto(

@@ -136,6 +136,18 @@ public class AdminGoodsService {
         return goodsRepositoryCustom.getQnaDetail(qnaId);
     }
 
+
+    //관리자 상품 상세 - 상품 관련 문의사항
+    @Transactional
+    public Page<AdminGoodsQnaListDto> findGoodsDetailQnaList(Long goodsId, Pageable pageable, String state){
+
+       return goodsRepositoryCustom.getQnaList(goodsId, pageable, state);
+
+    }
+
+
+
+
     //상품문의 답변 등록
     @Transactional
     public void addQnaReply(GoodsQueReplyForm goodsQueReplyForm){

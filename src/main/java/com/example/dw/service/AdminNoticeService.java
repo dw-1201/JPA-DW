@@ -7,7 +7,7 @@ import com.example.dw.domain.entity.admin.FaqBoard;
 import com.example.dw.domain.entity.admin.NoticeBoard;
 import com.example.dw.domain.form.FaqBoardForm;
 import com.example.dw.domain.form.NoticeBoardForm;
-import com.example.dw.repository.AdminRepository;
+import com.example.dw.repository.admin.AdminRepository;
 import com.example.dw.repository.admin.FaqBoardRepository;
 import com.example.dw.repository.admin.NoticeBoardRepository;
 import jakarta.servlet.http.HttpSession;
