@@ -30,7 +30,7 @@ function shopAddInfoView(result){
 
     text += `
 
-        <p>추가정보</p>
+        <p class="addInfoTitle">추가정보</p>
             <table class="infoTable">
                 <colgroup>
                   <col width="150px">

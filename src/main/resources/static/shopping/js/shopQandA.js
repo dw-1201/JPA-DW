@@ -85,7 +85,7 @@ function shopDetailView(result) {
                   </p>
 
                   <div class="description">
-                  <p>${r.queContent}</p>
+                  <p class="userContent">${r.queContent}</p>
                   </div>
 
               </div>

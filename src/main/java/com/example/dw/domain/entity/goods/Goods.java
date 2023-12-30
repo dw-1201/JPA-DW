@@ -45,10 +45,8 @@ public class Goods {
     @OneToMany(mappedBy = "goods" ,fetch = FetchType.LAZY, orphanRemoval = true)
     private List<GoodsQue> goodsQues = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "goods", orphanRemoval = true)
+    @OneToMany(mappedBy = "goods", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<CartItem> cartItem = new ArrayList<>();
-
-
 
 
     public Goods(Long id, String goodsName, int goodsQuantity, int goodsPrice, GoodsCategory goodsCategory){

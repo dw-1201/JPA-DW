@@ -1,9 +1,6 @@
 let userId = $('#userId').val();
 console.log(userId)
 
-
-
-
 function getCart(userId, callback){
 
     $.ajax({
@@ -26,28 +23,30 @@ function getCartList(result){
     let text = '';
     let inputSection = $('.cart_list');
 
-    result.forEach(r => {
+    result.cartItemDetails.forEach(r=>{
+
 
         text += `
         <div class="cart_table">
+<!--        <input type="hidden" th:value="${r.id}" id="cartItemId">-->
           <div class="cart_form">
             <div class="remove-button">
-              <a href="">X</a>
+              <button type="button"  class="remove-btn" data-cartitemid="${r.id}">X</button>
             </div>
             <div class="thumbnail">
-              <img src="/img/thumbnail.png" alt="">
+            <img src="/shops/shopImg?fileFullPath=${r.goodsMainImgPath +'/'+ r.goodsMainImgUuid +'_'+ r.goodsMainImgName}" alt="">
               <div class="thumbnail-dox">
                 <div class="thumbnail-dox-div">
-                  <a href="">
+                  <a href="/shop/shopDetail/${r.goodsId}">
                     <p>${r.goodsName}</p>
-                    <p id="price" class="item-price" data-price="33000">${r.goodsPrice} 원 </p>
+                    <p id="price" class="item-price">${addCommas(r.goodsPrice)} 원 </p>
                   </a>
                 </div>
                 <div class="quantity-button">
                   <div class="quantity-box">
-                      <button id="increase" onclick="changeQuantity(1)"><strong>+</strong></button>
-                      <div><span id="number">${r.goodsQuantity}</span></div>
-                      <button id="decrease" onclick="changeQuantity(-1)"><strong>-</strong></button>
+                      <button id="increase"><strong>+</strong></button>
+                      <div><span id="number">${r.cartItemQuantity}</span></div>
+                      <button id="decrease"><strong>-</strong></button>
                   </div>
                 </div>
               </div>
@@ -55,58 +54,42 @@ function getCartList(result){
           </div>
         </div>
         `
+
     })
-
     inputSection.html(text);
+}
 
+// 콤마 찍기 함수
+function addCommas(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 
 
+function removeCartItem(cartItemId, callback){
+
+    $.ajax({
+        url : `/shops/delete/${cartItemId}`,
+        type : "get",
+        success : function (result){
+            console.log(result);
+
+            if (callback){
+                callback(result);
+            }
+        }
+    })
+}
 
 
+$('.cart_list').on('click', '.remove-btn',function(){
+    let cartItemId = $(this).data('cartitemid');
+    console.log(cartItemId)
+    if(confirm("상품을 삭제 하시겠습니까?")){
+        removeCartItem(cartItemId, function (){
+            getCart(userId, getCartList)
 
+        })
 
-
-//수량과 금액에 대한 js 수정예정
-// let quantity = 1;
-// let price = 33000;
-//
-// function changeQuantity(amount) {
-//     quantity += amount;
-//
-//     if (quantity < 1) {
-//         quantity = 1;
-//     }
-//
-//     document.getElementById('number').innerText = quantity;
-//
-//     updatePrice();
-// }
-//
-// function updatePrice() {
-//     price = quantity * 33000;
-//
-//     const formattedPrice = price.toLocaleString();
-//
-//     document.getElementById('price').innerText = formattedPrice  + ' 원';
-// }
-//
-// //
-// function updateTotalPrice() {
-//     const priceElements = document.querySelectorAll('.item-price');
-//
-//     let totalPrice = 0;
-//     priceElements.forEach(element => {
-//         const price = parseInt(element.getAttribute('data-price'));
-//
-//         totalPrice += price;
-//     });
-//
-//     const formattedTotalPrice = totalPrice.toLocaleString();
-//
-//     document.getElementById('total').innerText = formattedTotalPrice + ' 원';
-// }
-//
-// updateTotalPrice();
-
+    }
+})

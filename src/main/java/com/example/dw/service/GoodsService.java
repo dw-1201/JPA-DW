@@ -75,7 +75,6 @@ public class GoodsService {
 
     }
 
-
     //상품 문의 리스트
     @Transactional
     public List<GoodsQueDto> goodsQnaList(Long goodsId){
@@ -103,6 +102,7 @@ public class GoodsService {
         return cart.getId();
     }
 
+    //카트 번호, 카트 아이템 조회 후 분기처리
     @Transactional
     public void cartItemRegister(Long userId, CartItemForm cartItemForm){
 
@@ -132,6 +132,13 @@ public class GoodsService {
     }
 
 
+    @Transactional//카트 아이템 제거
+    public void deleteCartItem(Long cartItemId){
+
+        cartItemRepository.deleteById(cartItemId);
+    };
+
+
     /**
      * flatMap() : 리스트의 리스트가 있을 때 이를 평탄화하여 단일 리스트로 만들 수 있다.
      * @param userId
@@ -146,7 +153,7 @@ public class GoodsService {
         Map<ShopCartListDto, List<CartItemDetails>> groupedItems = cartItems.stream()
                 .collect(groupingBy(o -> new ShopCartListDto(o.getCartId(), o.getUserId()),
                         mapping(o -> new CartItemDetails(
-                                        o.getId(), o.getGoodsId(), o.getGoodsName(), o.getGoodsQuantity(), o.getGoodsPrice(),
+                                        o.getId(), o.getCartItemQuantity(), o.getGoodsId(), o.getGoodsName(), o.getGoodsPrice(),
                                         o.getGoodsMainImgId(), o.getGoodsMainImgName(), o.getGoodsMainImgPath(), o.getGoodsMainImgUuid()),
                                 toList())));
 
@@ -154,13 +161,7 @@ public class GoodsService {
                 .flatMap(cartItemDetails -> cartItemDetails.stream())
                 .collect(Collectors.toList());
         return new ShopCartListDto(cartDto.getId(), userId, mergedItems);
-
-
     }
 
-    //카트 동일 물건 수량 증가
-    @Transactional
-    public void increaseCartItemQuantity(Long goodsId){
-        cartItemRepository.increaseCartItemQuantity(goodsId);
-    }
+
 }

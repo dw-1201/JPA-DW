@@ -107,8 +107,8 @@ public class GoodsApiController {
 
         System.out.println("api goodsid" + cartItemForm.getGoodsId());
         System.out.println("api cartid" + cartItemForm.getCartId());
-        goodsService.cartItemRegister(userId, cartItemForm);
 
+        goodsService.cartItemRegister(userId, cartItemForm);
     }
 
     //카트에 물건 담기
@@ -116,6 +116,13 @@ public class GoodsApiController {
     public ShopCartListDto findCartList(@PathVariable("userId") Long userId){
 
        return goodsService.findCartItems(userId);
+    }
+
+    //카트 물건 삭제
+    @GetMapping("/delete/{cartItemId}")
+    public void deleteCartItem(@PathVariable("cartItemId")Long cartItemId){
+        goodsService.deleteCartItem(cartItemId);
+
     }
 
 

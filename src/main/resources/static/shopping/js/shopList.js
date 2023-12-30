@@ -105,7 +105,7 @@ function createShopListItem(r) {
                 </div>
             </div>
             <div class="won">
-                <span>${r.goodsPrice}</span>
+                <span id="price">${addCommas(r.goodsPrice)}</span>
                 <span>&nbsp;원</span>
             </div>
         </div>
@@ -156,4 +156,9 @@ function pagination(result) {
         const page = parseInt($(this).data('page'));
         shopList(page, searchGoodsForm());
     });
+}
+
+// 콤마 찍기 함수
+function addCommas(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

@@ -23,8 +23,6 @@ public class Cart {
     @JoinColumn(name="user_id")
     private Users users;
 
-
-
     @Builder
     public Cart(Long id, Users users) {
         this.id = id;
