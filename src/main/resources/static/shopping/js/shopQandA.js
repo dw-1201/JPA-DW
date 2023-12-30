@@ -143,9 +143,7 @@ $(document).ready(function() {
         let modal = $('.modal');
         let id =$('#goodsId').val()
         let modalTextarea = $(".modal_textarea").val();
-
         console.log(modalTextarea)
-
             e.preventDefault();
             modal.removeClass("show");
 

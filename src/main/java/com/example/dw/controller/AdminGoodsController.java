@@ -1,6 +1,7 @@
 package com.example.dw.controller;
 
 import com.example.dw.domain.dto.admin.AdminGoodsDetailResultDto;
+import com.example.dw.domain.dto.admin.AdminGoodsQueDetailDto;
 import com.example.dw.domain.form.GoodsForm;
 import com.example.dw.repository.goods.GoodsRepositoryCustom;
 import com.example.dw.service.AdminGoodsService;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -117,7 +119,7 @@ public class AdminGoodsController {
 
         adminGoodsService.modify(goodsForm,file,files);
 
-        return new RedirectView("/admin/goodsList");
+        return new RedirectView("/admin/detail/" + goodsId);
     }
 
 
@@ -140,6 +142,25 @@ public class AdminGoodsController {
     @GetMapping("/goodsReview")
     public String goodsReview(){
         return "admin/adminGoodsReview";
+    }
+
+
+
+
+    //상품 문의 상세보기
+    @GetMapping("/qnaDetail/{qnaId}")
+    public String qnaDetail(@PathVariable("qnaId") Long qnaId,
+                            Model model){
+
+        Optional<AdminGoodsQueDetailDto> detail = adminGoodsService.getGoodsQnaDetail(qnaId);
+
+        System.out.println(detail.get().toString());
+
+        detail.ifPresent(details -> model.addAttribute("details", details));
+
+
+        return "/admin/adminGoodsQueDetail";
+
     }
 
 }
