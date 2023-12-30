@@ -2,6 +2,8 @@ let userId = $('#userId').val();
 console.log(userId)
 
 
+
+
 function getCart(userId, callback){
 
     $.ajax({

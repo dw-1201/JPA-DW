@@ -69,7 +69,8 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
                 .leftJoin(cartItem.goods, goods)
                 .leftJoin(cartItem.cart, cart)
                 .leftJoin(cart.users, users)
-                .where(cartItem.goods.id.eq(goodsId))
+                .where(cartItem.goods.id.eq(goodsId),
+                        cart.users.id.eq(userId))
                 .fetchOne();
 
         if(check==null){

@@ -20,7 +20,6 @@ import static com.example.dw.domain.entity.goods.QGoodsMainImg.goodsMainImg;
 import static com.example.dw.domain.entity.goods.QGoodsQue.goodsQue;
 import static com.example.dw.domain.entity.goods.QGoodsQueReply.goodsQueReply;
 import static com.example.dw.domain.entity.user.QUsers.users;
-import static java.util.stream.Collectors.*;
 
 @Repository
 @RequiredArgsConstructor
@@ -70,9 +69,9 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
 
     //관리자 페이지 상품 상세 페이지
     @Override
-    public List<AdminGoodsDetailResultDto> findGoodsById(Long id) {
+    public List<AdminGoodsDetailDto> findGoodsById(Long id) {
 
-        List<AdminGoodsDetailDto> list =  jpaQueryFactory
+        return jpaQueryFactory
                 .select(new QAdminGoodsDetailDto(
                         goods.id,
                         goods.goodsName,
@@ -98,19 +97,16 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
                 .leftJoin(goods.goodsDetailImg, goodsDetailImg)
                 .where(goods.id.eq(id))
                 .fetch();
-        return
-                list.stream().collect(groupingBy(o->new AdminGoodsDetailResultDto(
-                        o.getId(),o.getGoodsName(),o.getGoodsQuantity(), o.getGoodsPrice(), o.getGoodsMade(), o.getGoodsCertify(), o.getGoodsDetailContent(),
-                        o.getGoodsRegisterDate(), o.getGoodsModifyDate(), o.getGoodsCategory(), o.getGoodsMainImgName(), o.getGoodsMainImgPath(), o.getGoodsMainImgUuid()), mapping(o->new AdminGoodsDetailImgDto(
-                                o.getId(), o.getGoodsDetailImgName(), o.getGoodsDetailImgPath(), o.getGoodsDetailImgUuid(), o.getGoodsDetailImgId()),toList())
-                        )
-                ).entrySet().stream().map(e->new AdminGoodsDetailResultDto(
-                        e.getKey().getId(), e.getKey().getGoodsName(), e.getKey().getGoodsQuantity(), e.getKey().getGoodsPrice(), e.getKey().getGoodsMade(), e.getKey().getGoodsCertify(),
-                        e.getKey().getGoodsDetailContent(), e.getKey().getGoodsRegisterDate(), e.getKey().getGoodsModifyDate(), e.getKey().getGoodsCategory(),
-                        e.getKey().getGoodsMainImgName(),e.getKey().getGoodsMainImgPath(), e.getKey().getGoodsMainImgUuid(), e.getValue())).collect(toList());
-
-
-
+//        return
+//                list.stream().collect(groupingBy(o->new AdminGoodsDetailResultDto(
+//                        o.getId(),o.getGoodsName(),o.getGoodsQuantity(), o.getGoodsPrice(), o.getGoodsMade(), o.getGoodsCertify(), o.getGoodsDetailContent(),
+//                        o.getGoodsRegisterDate(), o.getGoodsModifyDate(), o.getGoodsCategory(), o.getGoodsMainImgName(), o.getGoodsMainImgPath(), o.getGoodsMainImgUuid()), mapping(o->new AdminGoodsDetailImgDto(
+//                                o.getId(), o.getGoodsDetailImgName(), o.getGoodsDetailImgPath(), o.getGoodsDetailImgUuid(), o.getGoodsDetailImgId()),toList())
+//                        )
+//                ).entrySet().stream().map(e->new AdminGoodsDetailResultDto(
+//                        e.getKey().getId(), e.getKey().getGoodsName(), e.getKey().getGoodsQuantity(), e.getKey().getGoodsPrice(), e.getKey().getGoodsMade(), e.getKey().getGoodsCertify(),
+//                        e.getKey().getGoodsDetailContent(), e.getKey().getGoodsRegisterDate(), e.getKey().getGoodsModifyDate(), e.getKey().getGoodsCategory(),
+//                        e.getKey().getGoodsMainImgName(),e.getKey().getGoodsMainImgPath(), e.getKey().getGoodsMainImgUuid(), e.getValue())).collect(toList());
 
 
     }

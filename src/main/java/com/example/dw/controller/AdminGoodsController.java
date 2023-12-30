@@ -81,27 +81,26 @@ public class AdminGoodsController {
     @GetMapping("/detail/{goodsId}")
     public String goodsDetail(@PathVariable("goodsId") Long goodsId, Model model){
 
-        List<AdminGoodsDetailResultDto> result =
-                goodsRepositoryCustom.findGoodsById(goodsId);
+
+        AdminGoodsDetailResultDto detail = adminGoodsService.goodsDetail(goodsId);
 
 
-
-        System.out.println("[상품 상세 정보] : "+result.toString());
-        model.addAttribute("detail", result);
+        System.out.println("[상품 상세 정보] : "+detail.toString());
+        model.addAttribute("detail", detail);
 
 
         return "/admin/adminGoodsDetail";
 
     }
 
-    //상품 수정 페이지 이동
+
+//    //상품 수정 페이지 이동
     @GetMapping("/modify/{goodsId}")
     public String goodsModifyPage(@PathVariable("goodsId") Long goodsId, Model model){
 
-        List<AdminGoodsDetailResultDto> result =
-                goodsRepositoryCustom.findGoodsById(goodsId);
+        AdminGoodsDetailResultDto detail = adminGoodsService.goodsDetail(goodsId);
 
-        model.addAttribute("detail", result);
+        model.addAttribute("detail", detail);
 
         return "/admin/adminGoodsModify";
     }

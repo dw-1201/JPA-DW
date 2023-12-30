@@ -1,6 +1,7 @@
 package com.example.dw.api;
 
 
+import com.example.dw.domain.dto.admin.AdminGoodsDetailResultDto;
 import com.example.dw.domain.dto.admin.AdminGoodsDto;
 import com.example.dw.domain.dto.admin.AdminGoodsQnaListDto;
 import com.example.dw.domain.dto.admin.AdminGoodsQueReplyDto;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,6 +32,26 @@ public class AdminGoodsApiController {
         Pageable pageable = PageRequest.of(page, 15);
         Page<AdminGoodsDto> result = goodsRepositoryCustom.findGoodsAll(pageable, searchForm);
         return result;
+
+    }
+
+    //post맨 실험용
+    //상품 상세 페이지 이동
+    @GetMapping("/detail/{goodsId}")
+    public AdminGoodsDetailResultDto goodsDetail(@PathVariable("goodsId") Long goodsId, Model model){
+
+//        List<AdminGoodsDetailResultDto> result =
+//                goodsRepositoryCustom.findGoodsById(goodsId);
+
+//        adminGoodsService.goodsDetail(goodsId);
+
+
+//        System.out.println("[상품 상세 정보] : "+result.toString());
+//        model.addAttribute("detail", result);
+
+
+        return adminGoodsService.goodsDetail(goodsId);
+
 
     }
 
@@ -98,4 +120,7 @@ public class AdminGoodsApiController {
 
         adminGoodsService.replyDelete(replyId);
     }
+
+
+
 }

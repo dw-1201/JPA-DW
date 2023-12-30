@@ -22,8 +22,6 @@ public class QGoodsMainImg extends EntityPathBase<GoodsMainImg> {
 
     public static final QGoodsMainImg goodsMainImg = new QGoodsMainImg("goodsMainImg");
 
-    public final QCart cart;
-
     public final QGoods goods;
 
     public final StringPath goodsMainImgName = createString("goodsMainImgName");
@@ -52,7 +50,6 @@ public class QGoodsMainImg extends EntityPathBase<GoodsMainImg> {
 
     public QGoodsMainImg(Class<? extends GoodsMainImg> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.cart = inits.isInitialized("cart") ? new QCart(forProperty("cart"), inits.get("cart")) : null;
         this.goods = inits.isInitialized("goods") ? new QGoods(forProperty("goods"), inits.get("goods")) : null;
     }
 

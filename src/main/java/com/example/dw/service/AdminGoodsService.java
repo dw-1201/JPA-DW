@@ -1,8 +1,6 @@
 package com.example.dw.service;
 
-import com.example.dw.domain.dto.admin.AdminGoodsQnaListDto;
-import com.example.dw.domain.dto.admin.AdminGoodsQueDetailDto;
-import com.example.dw.domain.dto.admin.AdminGoodsQueReplyDto;
+import com.example.dw.domain.dto.admin.*;
 import com.example.dw.domain.entity.goods.Goods;
 import com.example.dw.domain.entity.goods.GoodsQue;
 import com.example.dw.domain.entity.goods.GoodsQueReply;
@@ -27,6 +25,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static java.util.stream.Collectors.*;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -47,6 +47,70 @@ public class AdminGoodsService {
         Goods goods = goodsRepository.save(goodsForm.toEntity());
 
         return goods.getId();
+    }
+
+    @Transactional
+    //상품 상세 보기
+    public AdminGoodsDetailResultDto goodsDetail(Long goodsId){
+
+       List<AdminGoodsDetailDto> lists = goodsRepositoryCustom.findGoodsById(goodsId);
+//
+//        lists.stream().collect(groupingBy(r->new AdminGoodsDetailResultDto(r.getId(),r.getGoodsName(), r.getGoodsQuantity(), r.getGoodsPrice(), r.getGoodsMade(), r.getGoodsCertify(), r.getGoodsDetailContent()
+//        r.getGoodsRegisterDate(),r.getGoodsModifyDate(), r.getGoodsCategory(), r.getGoodsMainImgName(), r.getGoodsMainImgPath(), r.getGoodsMainImgUuid()), Collectors.mapping(r->new AdminGoodsDetailImgDto(
+//                r.getId(), r.getGoodsDetailImgName(), r.getGoodsDetailImgPath(), r.getGoodsDetailImgUuid(), r.getGoodsDetailImgId()),toList()
+//        ))).entrySet().stream().map(e->new AdminGoodsDetailResultDto(e.getKey().getId(), e.getKey().getGoodsName(), e.getKey().getGoodsQuantity(), e.getKey().getGoodsPrice(), e.getKey().getGoodsMade(), e.getKey().getGoodsCertify(),
+//                e.getKey().getGoodsDetailContent(), e.getKey().getGoodsRegisterDate(), e.getKey().getGoodsModifyDate(), e.getKey().getGoodsCategory(), e.getKey().getGoodsMainImgName(),
+//                e.getKey().getGoodsMainImgPath(), e.getKey().getGoodsMainImgUuid(), e.getValue())).collect(Collectors.toList());
+
+        Map<AdminGoodsDetailResultDto, List<AdminGoodsDetailImgDto>> groupedItems =
+                lists.stream()
+                        .collect(groupingBy(
+                                r -> new AdminGoodsDetailResultDto(
+                                        r.getId(),
+                                        r.getGoodsName(),
+                                        r.getGoodsQuantity(),
+                                        r.getGoodsPrice(),
+                                        r.getGoodsMade(),
+                                        r.getGoodsCertify(),
+                                        r.getGoodsDetailContent(),
+                                        r.getGoodsRegisterDate(),
+                                        r.getGoodsModifyDate(),
+                                        r.getGoodsCategory(),
+                                        r.getGoodsMainImgName(),
+                                        r.getGoodsMainImgPath(),
+                                        r.getGoodsMainImgUuid()
+                                ),
+                                mapping(
+                                        r -> new AdminGoodsDetailImgDto(
+                                                r.getGoodsDetailImgId(),
+                                                r.getGoodsDetailImgName(),
+                                                r.getGoodsDetailImgPath(),
+                                                r.getGoodsDetailImgUuid(),
+                                                r.getId()
+
+                                                ),
+                                        toList()
+                                )
+                        ));
+
+        // 합쳐진 결과를 단일 AdminGoodsDetailResultDto로 변환
+        AdminGoodsDetailResultDto mergedResult = groupedItems.entrySet().stream()
+                .map(e -> {
+                    AdminGoodsDetailResultDto resultDto = e.getKey();
+                    resultDto.setGoodsDetailImgs(e.getValue());
+                    return resultDto;
+                })
+                .findFirst().get();
+//                .orElse(null); //null이 없을거니
+
+
+        System.out.println(mergedResult.toString());
+
+
+        return Optional.ofNullable(mergedResult).orElseThrow(()->{
+            throw new IllegalArgumentException("조회결과 없음");
+        });
+
     }
 
     //상품 등록 유효성 검사

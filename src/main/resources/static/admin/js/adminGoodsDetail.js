@@ -120,5 +120,20 @@ function getGoodsRelatedQna(page, state, goodsId){
         }
     })
 }
+goodsDetail()
+
+function goodsDetail(){
+    let goodsId = $('#goodsId').val();
 
 
+    $.ajax({
+
+        url : `/admins/detail/${goodsId}`,
+        type:'get',
+        dataType:'json',
+        success : function (result){
+            console.log(result)
+        }
+    })
+
+}
