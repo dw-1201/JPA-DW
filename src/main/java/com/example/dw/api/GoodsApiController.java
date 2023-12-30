@@ -121,7 +121,6 @@ public class GoodsApiController {
     //카트 물건 삭제
     @GetMapping("/delete/{cartItemId}")
     public void deleteCartItem(@PathVariable("cartItemId")Long cartItemId){
-
         goodsService.deleteCartItem(cartItemId);
 
     }

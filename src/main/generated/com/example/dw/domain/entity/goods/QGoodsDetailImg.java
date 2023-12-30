@@ -54,3 +54,4 @@ public class QGoodsDetailImg extends EntityPathBase<GoodsDetailImg> {
     }
 
 }
+

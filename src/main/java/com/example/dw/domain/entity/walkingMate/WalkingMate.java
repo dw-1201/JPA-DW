@@ -110,12 +110,4 @@ public class WalkingMate {
     }
 
 
-    //조회수 증가
-    public WalkingMate updateViewCount(){
-        this.walkingMateViewCount++;
-
-        return this;
-
-    }
-
 }

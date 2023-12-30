@@ -86,7 +86,10 @@ $('.cart_list').on('click', '.remove-btn',function(){
     let cartItemId = $(this).data('cartitemid');
     console.log(cartItemId)
     if(confirm("상품을 삭제 하시겠습니까?")){
-        removeCartItem(cartItemId)
-        // window.location.href = "/shop/delete/" + cartItemId;
+        removeCartItem(cartItemId, function (){
+            getCart(userId, getCartList)
+
+        })
+
     }
 })

@@ -131,7 +131,8 @@ public class GoodsService {
         }
     }
 
-    //카트 아이템 제거
+
+    @Transactional//카트 아이템 제거
     public void deleteCartItem(Long cartItemId){
 
         cartItemRepository.deleteById(cartItemId);
