@@ -150,13 +150,6 @@ public class GoodsService {
                 .flatMap(cartItemDetails -> cartItemDetails.stream())
                 .collect(Collectors.toList());
         return new ShopCartListDto(cartDto.getId(), userId, mergedItems);
-
-
     }
 
-    //카트 동일 물건 수량 증가
-    @Transactional
-    public void increaseCartItemQuantity(Long goodsId){
-        cartItemRepository.increaseCartItemQuantity(goodsId);
-    }
 }

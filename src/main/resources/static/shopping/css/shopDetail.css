@@ -1,3 +1,5 @@
+/* shop상세 공통 css 시작 */
+
 /* 개인css */
 button{
   cursor: pointer;
@@ -178,6 +180,10 @@ body,html,input {
 
   /* border: 2px solid rgb(252, 30, 237); */
 }
+.right-box1-box4 span{
+  white-space: break-spaces;
+}
+
 .right-box1-box5{
   margin: 15px auto;
   font-size: 13px;
@@ -472,17 +478,15 @@ body,html,input {
 }
 
 .row-content{
-/* display: flex; */
+  /* display: flex; */
   margin: 15px auto;
   width: 100%;
-   height: auto;
+  height: auto;
   /* border: 1px solid rgb(190, 16, 16); */
 }
-.row-content p{
-  font-size: 20px;
-  font-weight: 700;
-  margin: 35px;
-  text-align: start;
-}
+
+/* shop상세 공통 css 끝 */
+
+
 
 /* 메인 끝 */

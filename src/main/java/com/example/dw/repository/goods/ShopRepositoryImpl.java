@@ -56,6 +56,7 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
         return cartDto;
     }
 
+    //장바구니 아이템으로 들어가기 위해 id체크
     @Override
     public boolean checkGoodsId(Long goodsId, Long userId, Long cartId) {
         CartItemCheckDto check =
@@ -82,6 +83,7 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
 
     }
 
+    //카트 아이템 조회
     @Override
     public List<GoodsCartItemDto> findGoodsCartItemById(Long cartId, Long userId) {
         List<GoodsCartItemDto> contents = jpaQueryFactory
@@ -110,31 +112,7 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
 
         return contents;
     }
-//
-//    @Override
-//    public List<GoodsCartDto> findGoodsCartById(Long userId) {
-//        List<GoodsCartDto> contents = jpaQueryFactory
-//                .select(new QGoodsCartDto(
-//                        cart.id,
-//                        users.id,
-//                        goods.id,
-//                        goods.goodsName,
-//                        goods.goodsQuantity,
-//                        goods.goodsPrice,
-//                        goodsMainImg.id,
-//                        goodsMainImg.goodsMainImgName,
-//                        goodsMainImg.goodsMainImgPath,
-//                        goodsMainImg.goodsMainImgUuid
-//                ))
-//                .from(cart)
-//                .leftJoin(cart.users, users)
-//                .leftJoin(cart.goods, goods)
-//                .leftJoin(cart.goodsMainImgs, goodsMainImg)
-//                .where(cart.id.eq(userId))
-//                .fetch();
-//
-//        return contents;
-//    }
+
 
     @Override
     public Page<GoodsListDto> findGoodsListAll(Pageable pageable, SearchForm searchForm) {
@@ -245,7 +223,6 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
 
         return contents;
     }
-
 
     private Long getCount(SearchForm searchForm){
         Long count = jpaQueryFactory

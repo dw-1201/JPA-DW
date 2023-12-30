@@ -1,7 +1,6 @@
 package com.example.dw.controller;
 
 import com.example.dw.domain.dto.goods.GoodsDetailDto;
-import com.example.dw.domain.form.CartForm;
 import com.example.dw.repository.goods.GoodsRepository;
 import com.example.dw.repository.goods.ShopRepositoryCustom;
 import com.example.dw.service.GoodsService;
@@ -94,25 +93,8 @@ public class GoodsController {
     /**
      * 쇼핑 카트 페이지
      */
-    @GetMapping("/shopCart/{userId}")
-    public String shopCart(@PathVariable("userId") Long userId, Model model) {
 
-        CartForm cartForm = new CartForm();
-        cartForm.setUserId(userId);
-
-        try {
-            Long cartId = shopRepositoryCustom.findCartIdByUserId(userId).getId();
-            return "/shopping/shopCart";
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            goodsService.cartRegister(cartForm);
-            return "/shopping/shopCart";
-        }
-    }
-
+    
     /**
      * 쇼핑 결제 페이지
      */

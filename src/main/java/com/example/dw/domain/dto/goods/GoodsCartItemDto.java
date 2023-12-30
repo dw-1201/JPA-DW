@@ -4,7 +4,6 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 
 // 카트 리스트 조회를 위한 DTO
-
 @Data
 public class GoodsCartItemDto {
 
@@ -37,7 +36,4 @@ public class GoodsCartItemDto {
         this.goodsMainImgPath = goodsMainImgPath;
         this.goodsMainImgUuid = goodsMainImgUuid;
     }
-
-
-
 }
