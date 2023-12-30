@@ -59,7 +59,9 @@ public class WalkBoardApiController {
     public List<WalkMateDetailReplyDto> showReplyList(
             @PathVariable("walkBoardId") Long walkBoardId
     ){
+
         return walkingMateService.getReplyList(walkBoardId);
+
     }
 
     //산책메이트 상세보기 댓글 유저 사진

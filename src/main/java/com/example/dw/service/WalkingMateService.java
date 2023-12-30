@@ -5,7 +5,6 @@ import com.example.dw.domain.dto.community.WalkMateDetailReplyDto;
 import com.example.dw.domain.dto.community.WalkMateListDto;
 import com.example.dw.domain.dto.user.UserPetDto;
 import com.example.dw.domain.entity.walkingMate.WalkingMate;
-import com.example.dw.domain.entity.walkingMate.WalkingMateComment;
 import com.example.dw.domain.form.SearchLocationForm;
 import com.example.dw.domain.form.WalkMateForm;
 import com.example.dw.domain.form.WalkingMateCommentForm;
@@ -68,8 +67,9 @@ public class WalkingMateService {
     @Transactional
     public Optional<WalkMateDetailDto> walkDetailPage(Long walkBoardId){
 
-        WalkingMate walkingMate = walkingMateRepository.findById(walkBoardId).get();
-        walkingMate.updateViewCount();
+
+        //조회수 증가
+        walkingMateRepository.updateViewCount(walkBoardId);
 
         return walkingMateRepositoryCustom.walkMateDetail(walkBoardId);
     }
@@ -80,7 +80,6 @@ public class WalkingMateService {
     public void walkModify(WalkMateForm walkMateForm){
 
         WalkingMate walkingMate = walkingMateRepository.findById(walkMateForm.getId()).get();
-
         walkingMate.update(walkMateForm);
 
     }
@@ -95,24 +94,23 @@ public class WalkingMateService {
     //산책글 댓글 목록
     @Transactional
     public List<WalkMateDetailReplyDto> getReplyList(Long walkBoardId){
-        System.out.println((walkingMateCommentCustom.findReplyByWalkBoardId(walkBoardId)).toString());
+
         return walkingMateCommentCustom.findReplyByWalkBoardId(walkBoardId);
 
     }
 
-    //댓글 수정
+    //산책글 댓글 수정
     @Transactional
     public void modifyReply(WalkingMateCommentForm walkingMateCommentForm){
 
-        WalkingMateComment walkingMateComment = walkingMateCommentRepository.findById(walkingMateCommentForm.getId()).get();
-
-        walkingMateComment.update(walkingMateCommentForm);
+        walkingMateCommentRepository.updateComment(walkingMateCommentForm.getWalkBoardComment(), walkingMateCommentForm.getId());
 
     }
 
-    //댓글 삭제
+    //산책글 댓글 삭제
     @Transactional
-    public void deleteReply(Long walkdCommentId){
-        walkingMateCommentRepository.deleteById(walkdCommentId);
+    public void deleteReply(Long walkCommentId){
+
+        walkingMateCommentRepository.deleteById(walkCommentId);
     }
 }
