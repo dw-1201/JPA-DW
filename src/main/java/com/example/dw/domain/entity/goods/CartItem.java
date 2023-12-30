@@ -28,6 +28,8 @@ public class CartItem {
     @JoinColumn(name = "goods_id")
     private Goods goods;
 
+
+
     @Builder
     public CartItem(Long id, Integer cartItemQuantity, Cart cart, Goods goods) {
         this.id = id;
@@ -36,14 +38,20 @@ public class CartItem {
         this.goods = goods;
     }
 
+
+
+
+
+
+
     public CartItem itemCount(CartItemForm cartItemForm){
         this.cartItemQuantity = this.cartItemQuantity+cartItemForm.getCartItemQuantity();
         return this;
     }
 
-    public CartItem(Long id, Cart cart, Goods goods) {
-        this.id = id;
-        this.cart = cart;
-        this.goods = goods;
-    }
+//    public CartItem(Long id, Cart cart, Goods goods) {
+//        this.id = id;
+//        this.cart = cart;
+//        this.goods = goods;
+//    }
 }

@@ -237,6 +237,7 @@
     box-sizing: border-box;
     border: 1px solid gray;
     width: 100%;
+    border-collapse: collapse;
 }
 
 .goods-related-q tr th,

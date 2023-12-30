@@ -45,9 +45,11 @@ public class Goods {
     @OneToMany(mappedBy = "goods" ,fetch = FetchType.LAZY, orphanRemoval = true)
     private List<GoodsQue> goodsQues = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "goods", orphanRemoval = true)
+    private List<CartItem> cartItem = new ArrayList<>();
+
+
+
 
     public Goods(Long id, String goodsName, int goodsQuantity, int goodsPrice, GoodsCategory goodsCategory){
         this.id=id;
@@ -57,8 +59,9 @@ public class Goods {
         this.goodsCategory=goodsCategory;
     }
 
+
     @Builder
-    public Goods(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate, GoodsCategory goodsCategory, List<GoodsMainImg> goodsMainImg, List<GoodsDetailImg> goodsDetailImg, List<GoodsQue> goodsQues, Cart cart) {
+    public Goods(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate, GoodsCategory goodsCategory, List<GoodsMainImg> goodsMainImg, List<GoodsDetailImg> goodsDetailImg, List<GoodsQue> goodsQues, List<CartItem> cartItem) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;
@@ -72,8 +75,13 @@ public class Goods {
         this.goodsMainImg = goodsMainImg;
         this.goodsDetailImg = goodsDetailImg;
         this.goodsQues = goodsQues;
-        this.cart = cart;
+        this.cartItem = cartItem;
     }
+
+
+
+
+
 
     //상품 수정
     public Goods update(GoodsForm goodsForm){

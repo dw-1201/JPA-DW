@@ -1,7 +1,6 @@
 package com.example.dw.domain.entity.walkingMate;
 
 import com.example.dw.domain.entity.user.Users;
-import com.example.dw.domain.form.WalkingMateCommentForm;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -54,14 +53,5 @@ public class WalkingMateComment {
         this.walkingMate = walkingMate;
     }
 
-
-
-    public WalkingMateComment update(WalkingMateCommentForm walkingMateCommentForm){
-
-        this.walkingMateCommentContent=walkingMateCommentForm.getWalkBoardComment();
-        this.walkingMateCommentMd=LocalDateTime.now();
-
-        return this;
-    }
 
 }
