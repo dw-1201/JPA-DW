@@ -97,9 +97,6 @@ public class WalkingMate {
 
 
 
-
-
-
     //날짜포맷
     @PrePersist
     public void onPrePersist(){
@@ -112,5 +109,13 @@ public class WalkingMate {
         this.walkingMateMd = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
     }
 
+
+    //조회수 증가
+    public WalkingMate updateViewCount(){
+        this.walkingMateViewCount++;
+
+        return this;
+
+    }
 
 }

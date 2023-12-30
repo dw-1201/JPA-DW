@@ -32,9 +32,9 @@ public class WalkingMateService {
 
     private final WalkingMateRepository walkingMateRepository;
     private final WalkingMateRepositoryCustom walkingMateRepositoryCustom;
-    private final UsersRepositoryCustom usersRepositoryCustom;
     private final WalkingMateCommentRepository walkingMateCommentRepository;
     private final WalkingMateCommentCustom walkingMateCommentCustom;
+    private final UsersRepositoryCustom usersRepositoryCustom;
 
     //산책모집글 리스트
     @Transactional
@@ -44,7 +44,9 @@ public class WalkingMateService {
         Pageable pageable = PageRequest.of(page, 15);
         return walkingMateRepositoryCustom.findAllWalkMate(pageable, searchLocationForm);
     }
-    
+
+
+
     //산책 모집글 작성
     @Transactional
     public Long registerWalkingMate(WalkMateForm walkMateForm){
@@ -65,6 +67,9 @@ public class WalkingMateService {
     //산책글 상세보기
     @Transactional
     public Optional<WalkMateDetailDto> walkDetailPage(Long walkBoardId){
+
+        WalkingMate walkingMate = walkingMateRepository.findById(walkBoardId).get();
+        walkingMate.updateViewCount();
 
         return walkingMateRepositoryCustom.walkMateDetail(walkBoardId);
     }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,42 +53,47 @@
                             <tr>
                                 <th class="goods-table-column" scope="row">카테고리</th>
                                 <td>
-                                    <select name="goods-cate" id="goods-cate" disabled >
-                                        <option value="1">간식</option>
-                                        <option value="2">영양제</option>
-                                        <option value="3">장난감</option>
+                                    <select name="goodsCategory" id="goods-cate" disabled>
+                                        <option th:selected="${details.goodsCategory=='간식'}">간식</option>
+                                        <option th:selected="${details.goodsCategory=='영양제'}">영양제</option>
+                                        <option th:selected="${details.goodsCategory=='장난감'}">장난감</option>
                                         <option value="4">간식</option>
                                         <option value="5">간식</option>
                                     </select>
                                 </td>
                                 <th scope="row" rowspan="6">상품 설명</th>
-                                <td rowspan="6" class="goods-detail-textarea"><textarea id="goods-detail" name="goods-detail" rows="4" disabled></textarea></td>
+                                <td rowspan="6" class="goods-detail-textarea"><textarea id="goods-detail" name="goods-detail" rows="4" readonly th:text="${details.qnaContent}"></textarea></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">상품명</th>
-                                <td><input type="text" name="goods-name" id="goods-name" maxlength="30" disabled/></td>
+                                <td><input type="text" name="goods-name" id="goods-name" maxlength="30" th:value="${details.goodsName}" readonly/></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">상품 수량</th>
-                                <td><input type="number" name="goods-quantity" id="goods-quantity" min="0" disabled/></td>
+                                <td><input type="number" name="goods-quantity" id="goods-quantity" min="0" th:value="${details.goodsQuantity}" readonly/></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">상품 가격</th>
-                                <td><input type="number" name="goods-price" id="goods-price" min="0" disabled/></td>
+                                <td><input type="number" name="goods-price" id="goods-price" min="0" th:value="${details.goodsPrice}" readonly/></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">제조국(원산지)</th>
-                                <td><input type="text" name="goods-made-in" id="goods-made-in" disabled/></td>
+                                <td><input type="text" name="goods-made-in" id="goods-made-in" th:value="${details.goodsMade}" readonly/></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">인증허가</th>
-                                <td><input type="text" name="goods-certify" id="goods-certify" disabled/></td>
+                                <td><input type="text" name="goods-certify" id="goods-certify" th:value="${details.goodsCertify}" readonly/></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">최초 등록일</th>
-                                <td><input type="text" name="goods-reg-date" id="goods-reg-date" disabled/></td>
+                                <td><input type="text" name="goodsRegisterDate" id="goods-reg-date" th:value="${details.goodsRegisterDate}" readonly/></td>
                                 <th class="goods-table-column" scope="row">마지막 수정일</th>
-                                <td><input type="text" name="goods-last-modify-date" id="goods-last-modify-date" disabled/></td>
+                                <th:block th:if="${details.goodsRegisterDate==details.goodsModifyDate}">
+                                    <td><input type="text" name="goodsModifyDate" id="goods-last-modify-date"  value="" readonly/></td>
+                                </th:block>
+                                <th:block th:unless="${details.goodsRegisterDate==details.goodsModifyDate}" >
+                                    <td><input type="text" name="goodsModifyDate" id="goods-last-modify-date"  th:value="${details.goodsModifyDate}" readonly/></td>
+                                </th:block>
                             </tr>
                            
 
@@ -102,29 +107,36 @@
                             <ul class="image-lists-ul">
                                 <li class="goods-main-img-p">
                                     <div class="img-title">
-                                        <img src="" alt="goods-main-img">
+                                        <img th:src="'/jpa_dw/goods/' + ${details.goodsMainImgPath} + '/' + ${details.goodsMainImgUuid} +'_' + ${details.goodsMainImgName}" alt="goods-main-img">
                                         <span>상품 메인 사진</span>
                                     </div>
                                 </li>
                                 <li class="goods-q-content-container">
                                    <div class="goods-q-content">
-                                        <h5>문의 내용</h5>
+                                       <div class="qna-writer-info">
+                                            <ul class="qna-writer-info-ul">
+                                                <li><h5>문의 내용</h5></li>
+                                                <li class="qna-content-li" th:if="${details.userNickName == null}">작성자 <a style="color: black" th:href="@{/admin/userDetail/{id} (id=${details.userId})}"><span th:text="${details.userAccount}"></span></a> </li>
+                                                <li class="qna-content-li" th:unless="${details.userNickName == null}">작성자 <a style="color: black"  th:href="@{/admin/userDetail/{id} (id=${details.userId})}"><span th:text="${details.userNickName}"></span></a> </li>
+                                                <th:block th:if="${details.qndRd == details.qnaMd}">
+                                                    <li class="qna-content-li"><span></span></li>
+                                                    <li class="qna-content-li">작성일 <span th:text="${details.qndRd}"></span></li>
+                                                </th:block>
+                                                <th:block th:if="${details.qndRd != details.qnaMd}">
+                                                    <li class="qna-content-li">수정일 <span th:text="${details.qnaMd}"></span></li>
+                                                    <li class="qna-content-li">작성일 <span th:text="${details.qndRd}"></span></li>
+                                                </th:block>
+                                            </ul>
+
+                                       </div>
                                         <div class="content">
-                                            <p>sdfsdfsdfsdfsdfsdfsdfㄴ아리ㅓㄴ이라ㅓㄴㅇ리ㅏㄴ어리낭러니아런이ㅏ런ㅇ리ㅏㄴ어리ㅏㄴㅇ러ㅣㅏㄴ아러ㅣㄴㅇ런이ㅏ런ㅇ리ㅏㄴ어리ㅏㄴㅇ러ㅣ나러니아러닝ㄹ</p>
+                                            <p th:text="${details.qnaContent}"></p>
                                         </div>
                                     </div>
-                                   
                                     <div class="goods-q-reply-container">
-                                        <h5>답변 내용</h5>
-                                        <!-- 답변이 없으면 '등록된 답변이 없습니다.'라는 문구가 나옴 -->
-                                            <div class="if-reply">
-                                                <div class="q-reply">sdfsdfsdf</div>
-                                                <div class="btns btn-none">
-                                                    <button class="modify-reply-btn">수정</button>
-                                                    <button class="delete-reply-btn">삭제</button>
-                                                </div>
-                                            </div>
+<!--                                    관리자 답변 영역-->
                                     </div>
+
                                 </li>
                             </ul>
                         </div>
@@ -134,19 +146,15 @@
         </div>
 
         <!-- 답변이 없을 때만 나타남 -->
-        <div class="admin-main-wrap" style="margin-top: 10px;">
-            <div class="reply-section">
-                <form action="" method="" id="reply-form">
-                    <textarea name="reply-content" id="reply-content" ></textarea>
-                    <div class="reply-btn">
-                        <button class="reply-section-btn">답변제출</button>
-                    </div>
-                </form>
-            </div>
+        <div class="admin-main-wrap admin-reply-section" style="margin-top: 10px;">
+
         </div>
+
     </div>
 </main>
 </div>
+<input type="hidden" th:value="${details.id}" id="qnaId">
+<input type="hidden" th:value="${details.userId}" id="userId">
 
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script type="module" src="/admin/js/adminGoodsQueDetail.js"></script>

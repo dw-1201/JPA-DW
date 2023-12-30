@@ -130,11 +130,13 @@
     font-size: 13px;
     text-align: end;
     width: 500px;
+    display: flex;
+    justify-content: end;
 }
 
 .status-container label {
-    vertical-align: center;
     cursor: pointer;
+
 }
 
 

@@ -32,6 +32,8 @@ public class QGoodsQueReply extends EntityPathBase<GoodsQueReply> {
 
     public final StringPath queReplyRegisterDate = createString("queReplyRegisterDate");
 
+    public final com.example.dw.domain.entity.user.QUsers users;
+
     public QGoodsQueReply(String variable) {
         this(GoodsQueReply.class, forVariable(variable), INITS);
     }
@@ -51,6 +53,7 @@ public class QGoodsQueReply extends EntityPathBase<GoodsQueReply> {
     public QGoodsQueReply(Class<? extends GoodsQueReply> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.goodsQue = inits.isInitialized("goodsQue") ? new QGoodsQue(forProperty("goodsQue"), inits.get("goodsQue")) : null;
+        this.users = inits.isInitialized("users") ? new com.example.dw.domain.entity.user.QUsers(forProperty("users"), inits.get("users")) : null;
     }
 
 }

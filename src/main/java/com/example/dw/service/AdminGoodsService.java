@@ -1,9 +1,20 @@
 package com.example.dw.service;
 
+import com.example.dw.domain.dto.admin.AdminGoodsQnaListDto;
+import com.example.dw.domain.dto.admin.AdminGoodsQueDetailDto;
+import com.example.dw.domain.dto.admin.AdminGoodsQueReplyDto;
 import com.example.dw.domain.entity.goods.Goods;
+import com.example.dw.domain.entity.goods.GoodsQue;
+import com.example.dw.domain.entity.goods.GoodsQueReply;
 import com.example.dw.domain.form.GoodsForm;
+import com.example.dw.domain.form.GoodsQueReplyForm;
+import com.example.dw.repository.goods.GoodsQueReplyRepository;
+import com.example.dw.repository.goods.GoodsQueRepository;
 import com.example.dw.repository.goods.GoodsRepository;
+import com.example.dw.repository.goods.GoodsRepositoryCustom;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
@@ -21,7 +32,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AdminGoodsService {
 
-
+    private final GoodsQueRepository goodsQueRepository;
+    private final GoodsQueReplyRepository goodsQueReplyRepository;
+    private final GoodsRepositoryCustom goodsRepositoryCustom;
     private final GoodsRepository goodsRepository;
     private final FileService fileService;
 
@@ -105,4 +118,75 @@ public class AdminGoodsService {
 
     }
 
+
+    //상품문의 리스트
+    @Transactional
+    public Page<AdminGoodsQnaListDto> getGoodsQnaList(Pageable pageable,String qnaState, String cate, String keyword){
+
+        Page<AdminGoodsQnaListDto> qnaList = goodsRepositoryCustom.getQnaList(pageable, qnaState, cate, keyword);
+
+        return qnaList;
+    }
+
+
+    //상품문의 상세
+    @Transactional
+    public Optional<AdminGoodsQueDetailDto> getGoodsQnaDetail(Long qnaId){
+
+        return goodsRepositoryCustom.getQnaDetail(qnaId);
+    }
+
+
+    //관리자 상품 상세 - 상품 관련 문의사항
+    @Transactional
+    public Page<AdminGoodsQnaListDto> findGoodsDetailQnaList(Long goodsId, Pageable pageable, String state){
+
+       return goodsRepositoryCustom.getQnaList(goodsId, pageable, state);
+
+    }
+
+
+
+
+    //상품문의 답변 등록
+    @Transactional
+    public void addQnaReply(GoodsQueReplyForm goodsQueReplyForm){
+
+        Optional<GoodsQue> goodsQue = goodsQueRepository.findById(goodsQueReplyForm.getGoodsQueId());
+
+        goodsQueReplyRepository.save(goodsQueReplyForm.toEntity());
+        goodsQue.get().updateStateOn();
+
+    }
+
+    //상품문의 답변 불러오기
+    @Transactional
+    public AdminGoodsQueReplyDto replyList(Long goodsQueId){
+
+        return goodsRepositoryCustom.getReplyList(goodsQueId);
+
+    }
+
+
+    //상품문의 답변 수정
+    @Transactional
+    public void replyModify(GoodsQueReplyForm goodsQueReplyForm){
+
+        GoodsQueReply goodsQueReply = goodsQueReplyRepository.findById(goodsQueReplyForm.getId()).get();
+        goodsQueReply.update(goodsQueReplyForm);
+
+    }
+
+    //상품문의 답변 삭제
+    @Transactional
+    public void replyDelete(Long replyId){
+
+
+        GoodsQue goodsQue = goodsQueRepository.findByGoodsQueReplyId(replyId).get();
+        goodsQue.deleteState();
+
+        goodsQueReplyRepository.deleteById(replyId);
+
+
+    }
 }
