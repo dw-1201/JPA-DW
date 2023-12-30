@@ -2,11 +2,9 @@ package com.example.dw.domain.dto.goods;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 //상품 리스트 조회 DTO
 @Data
-@NoArgsConstructor
 public class GoodsListDto {
 
     private Long id;

@@ -1,7 +1,9 @@
 package com.example.dw.domain.entity.goods;
 
+import com.example.dw.domain.form.CartItemForm;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -26,20 +28,22 @@ public class CartItem {
     @JoinColumn(name = "goods_id")
     private Goods goods;
 
+    @Builder
+    public CartItem(Long id, Integer cartItemQuantity, Cart cart, Goods goods) {
+        this.id = id;
+        this.cartItemQuantity = cartItemQuantity;
+        this.cart = cart;
+        this.goods = goods;
+    }
 
+    public CartItem itemCount(CartItemForm cartItemForm){
+        this.cartItemQuantity = this.cartItemQuantity+cartItemForm.getCartItemQuantity();
+        return this;
+    }
 
-//   //장바구니 아이템 생성//
-//
-//    public static CartItem createCartItem(Goods goods,int cartItemQuantity){
-//        CartItem cartItem = new CartItem();
-//        cartItem.setGoods(goods);
-//        cartItem.setCartItemQuantity(cartItemQuantity);
-//
-//        return cartItem;
-//    }
-
-
-
-
-
+    public CartItem(Long id, Cart cart, Goods goods) {
+        this.id = id;
+        this.cart = cart;
+        this.goods = goods;
+    }
 }

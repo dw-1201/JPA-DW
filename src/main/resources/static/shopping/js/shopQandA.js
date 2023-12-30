@@ -1,4 +1,4 @@
-//상품 설명
+
 let goodsId = $('#goodsId').val();
 console.log(goodsId)
 //문의리스트 가져오기

@@ -18,7 +18,11 @@ public class QGoods extends EntityPathBase<Goods> {
 
     private static final long serialVersionUID = 1739350835L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QGoods goods = new QGoods("goods");
+
+    public final QCart cart;
 
     public final EnumPath<GoodsCategory> goodsCategory = createEnum("goodsCategory", GoodsCategory.class);
 
@@ -47,15 +51,24 @@ public class QGoods extends EntityPathBase<Goods> {
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public QGoods(String variable) {
-        super(Goods.class, forVariable(variable));
+        this(Goods.class, forVariable(variable), INITS);
     }
 
     public QGoods(Path<? extends Goods> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QGoods(PathMetadata metadata) {
-        super(Goods.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QGoods(PathMetadata metadata, PathInits inits) {
+        this(Goods.class, metadata, inits);
+    }
+
+    public QGoods(Class<? extends Goods> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.cart = inits.isInitialized("cart") ? new QCart(forProperty("cart"), inits.get("cart")) : null;
     }
 
 }

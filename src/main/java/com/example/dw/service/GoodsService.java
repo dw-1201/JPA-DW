@@ -1,16 +1,15 @@
 package com.example.dw.service;
 
 
-import com.example.dw.domain.dto.goods.GoodsDetailDto;
-import com.example.dw.domain.dto.goods.GoodsDetailImgDto;
-import com.example.dw.domain.dto.goods.GoodsQueDto;
+import com.example.dw.domain.dto.goods.*;
+import com.example.dw.domain.entity.goods.Cart;
+import com.example.dw.domain.entity.goods.CartItem;
 import com.example.dw.domain.entity.goods.GoodsQue;
 import com.example.dw.domain.entity.user.Users;
+import com.example.dw.domain.form.CartForm;
+import com.example.dw.domain.form.CartItemForm;
 import com.example.dw.domain.form.GoodsQandaWritingForm;
-import com.example.dw.repository.goods.GoodsMainImgRepository;
-import com.example.dw.repository.goods.GoodsQueRepository;
-import com.example.dw.repository.goods.GoodsRepository;
-import com.example.dw.repository.goods.ShopRepositoryCustom;
+import com.example.dw.repository.goods.*;
 import com.example.dw.repository.user.UsersRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +17,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -31,6 +34,8 @@ public class GoodsService {
     private final GoodsRepository goodsRepository;
     private final ShopRepositoryCustom shopRepositoryCustom;
     private final GoodsMainImgRepository goodsMainImgRepository;
+    private final CartRepository cartRepository;
+    private final CartItemRepository cartItemRepository;
 
 
     //모달 글쓰기
@@ -79,4 +84,79 @@ public class GoodsService {
 
     }
 
+    //추가 정보
+    @Transactional
+    public Optional<GoodsAddInfoDto> goodsAddInfo(Long goodsId){
+        return shopRepositoryCustom.findGoodsAddInfoById(goodsId);
+    }
+
+    //카트 리스트
+//    @Transactional
+//    public List<GoodsCartDto> cartList(Long userId){
+//        return shopRepositoryCustom.findGoodsCartById(userId);
+//    }
+
+    //카트 번호 생성
+    @Transactional
+    public Long cartRegister(CartForm cartForm){
+
+        Cart cart = cartRepository.save(cartForm.toEntity());
+
+        return cart.getId();
+    }
+
+    //카트에 물건 저장
+    @Transactional
+    public void cartItemRegister(Long userId, CartItemForm cartItemForm){
+
+        CartDto cartDto = shopRepositoryCustom.findCartIdByUserId(userId);
+        Long cartId = cartDto.getId();
+        cartItemForm.setCartId(cartId);
+
+        boolean check = shopRepositoryCustom.checkGoodsId(cartItemForm.getGoodsId(), userId, cartItemForm.getCartId());
+
+        if(check){
+
+
+            CartItem cartItem = cartItemRepository.findByCartIdAndGoodsId(cartId, cartItemForm.getGoodsId());
+            cartItem.itemCount(cartItemForm);
+
+        }else{
+
+        CartItem cartItem = cartItemRepository.save(cartItemForm.toEntity());
+        }
+
+    }
+
+    /**
+     * flatMap() : 리스트의 리스트가 있을 때 이를 평탄화하여 단일 리스트로 만들 수 있다.
+     * @param userId
+     * @return
+     */
+    @Transactional
+    public ShopCartListDto findCartItems(Long userId){
+        CartDto cartDto = shopRepositoryCustom.findCartIdByUserId(userId);
+
+        List<GoodsCartItemDto> cartItems = shopRepositoryCustom.findGoodsCartItemById(cartDto.getId(), userId);
+
+        Map<ShopCartListDto, List<CartItemDetails>> groupedItems = cartItems.stream()
+                .collect(groupingBy(o -> new ShopCartListDto(o.getCartId(), o.getUserId()),
+                        mapping(o -> new CartItemDetails(
+                                        o.getId(), o.getGoodsId(), o.getGoodsName(), o.getGoodsQuantity(), o.getGoodsPrice(),
+                                        o.getGoodsMainImgId(), o.getGoodsMainImgName(), o.getGoodsMainImgPath(), o.getGoodsMainImgUuid()),
+                                toList())));
+
+        List<CartItemDetails> mergedItems = groupedItems.values().stream()
+                .flatMap(cartItemDetails -> cartItemDetails.stream())
+                .collect(Collectors.toList());
+        return new ShopCartListDto(cartDto.getId(), userId, mergedItems);
+
+
+    }
+
+    //카트 동일 물건 수량 증가
+    @Transactional
+    public void increaseCartItemQuantity(Long goodsId){
+        cartItemRepository.increaseCartItemQuantity(goodsId);
+    }
 }

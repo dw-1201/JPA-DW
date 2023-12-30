@@ -7,7 +7,6 @@ import lombok.Data;
 @Data
 public class GoodsQueDto {
 
-
     //상품 문의
     private Long id;
     private String queContent;

@@ -1,8 +1,7 @@
 package com.example.dw.api;
 
-import com.example.dw.domain.dto.goods.GoodsDetailImgDto;
-import com.example.dw.domain.dto.goods.GoodsListDto;
-import com.example.dw.domain.dto.goods.GoodsQueDto;
+import com.example.dw.domain.dto.goods.*;
+import com.example.dw.domain.form.CartItemForm;
 import com.example.dw.domain.form.GoodsQandaWritingForm;
 import com.example.dw.domain.form.SearchForm;
 import com.example.dw.repository.goods.ShopRepositoryCustom;
@@ -14,13 +13,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -43,16 +42,38 @@ public class GoodsApiController {
         return result;
     }
 
-
+    /**
+     * 쇼핑 설명 페이지(이미지)
+     * @return
+     */
     @GetMapping("/shopDetilImgs/{goodsId}")
     public List<GoodsDetailImgDto> findDetailImgs(@PathVariable("goodsId") Long goodsId){
 
         System.out.println(goodsId+"#############");
         return goodsService.goodsDetailImgs(goodsId);
-
     }
 
+    /**
+     * 쇼핑 추가정보 페이지
+     * @return
+     */
+    @GetMapping("/shopAddInfo/{goodsId}")
+    public Optional<GoodsAddInfoDto> findAddInfo(@PathVariable("goodsId") Long goodsId) {
+        Optional<GoodsAddInfoDto> detail = goodsService.goodsAddInfo(goodsId);
 
+        System.out.println(detail.toString());
+        return detail;
+    }
+
+    /**
+     * 쇼핑 리뷰 페이지
+     */
+
+
+    /**
+     * 쇼핑 Q and A 페이지
+     * @return
+     */
     @GetMapping("/shopQnaList/{goodsId}")
     public List<GoodsQueDto> findQnaList(@PathVariable("goodsId") Long goodsId){
         List<GoodsQueDto> qnaList = goodsService.goodsQnaList(goodsId);
@@ -60,86 +81,6 @@ public class GoodsApiController {
 
         System.out.println(qnaList.toString());
         return qnaList;
-    }
-
-
-    /**
-     * 쇼핑 상세 페이지
-     * @return
-     */
-//    @GetMapping("/shopDetail/{goodsId}")
-//    public List<GoodsDetailDto> shopDetail(@PathVariable("goodsId") Long goodsId, Model model){
-//
-//        if (goodsId == null) {
-//            throw new IllegalArgumentException("존재하지 않는 게시물 번호");
-//        }
-//
-//        List<GoodsDetailDto> result =
-//                shopRepositoryCustom.findGoodsById(goodsId);
-//
-//        System.out.println("[상품 상세 정보] : "+result.toString());
-//        model.addAttribute("goods", result.get(0));
-//
-//        return result;
-//    }
-
-    /**
-     * 쇼핑 추가정보 페이지
-     * @return
-     */
-//    @GetMapping("/shopAddInfo/{goodsId}")
-//    public List<GoodsDetailDto> shopAddInfo(@PathVariable("goodsId") Long goodsId, Model model){
-//
-//        if (goodsId == null) {
-//            throw new IllegalArgumentException("존재하지 않는 게시물 번호");
-//        }
-//
-//        List<GoodsDetailDto> result =
-//                shopRepositoryCustom.findGoodsById(goodsId);
-//
-//        System.out.println("[상품 상세 정보] : "+result.toString());
-//        model.addAttribute("goods", result.get(0));
-//
-//        return result;
-//    }
-
-    /**
-     * 쇼핑 리뷰 페이지
-     */
-//    @GetMapping("/shopReview/{goodsId}")
-//    public List<GoodsDetailDto> shopReview(@PathVariable("goodsId") Long goodsId, Model model){
-//
-//        if (goodsId == null) {
-//            throw new IllegalArgumentException("존재하지 않는 게시물 번호");
-//        }
-//
-//        List<GoodsDetailDto> result =
-//                shopRepositoryCustom.findGoodsById(goodsId);
-//
-//        System.out.println("[상품 상세 정보] : "+result.toString());
-//        model.addAttribute("goods", result.get(0));
-//
-//        return result;
-//    }
-
-    /**
-     * 쇼핑 Q and A 페이지
-     * @return
-     */
-    @GetMapping("/shopQandA/{goodsId}")
-    public List<GoodsQueDto> shopQandA(@PathVariable("goodsId") Long goodsId, Model model){
-
-        if (goodsId == null) {
-            throw new IllegalArgumentException("존재하지 않는 게시물 번호");
-        }
-
-        List<GoodsQueDto> result =
-                shopRepositoryCustom.findGoodsQueId(goodsId);
-
-        System.out.println("[상품 상세 정보] : "+result.toString());
-        model.addAttribute("goods", result.get(0));
-
-        return result;
     }
 
     // 쇼핑 Q and A 페이지 모달 창으로 문의 글 작성하기
@@ -156,6 +97,25 @@ public class GoodsApiController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    /**
+     * 쇼핑 카트 페이지
+     */
+    @GetMapping("/shopCart/{userId}")
+    public void findCartList(@PathVariable("userId") Long userId,
+                                           CartItemForm cartItemForm){
+
+        goodsService.cartItemRegister(userId, cartItemForm);
+
+    }
+
+    //카트에 물건 담기
+    @GetMapping("/shopCartList/{userId}")
+    public ShopCartListDto findCartList(@PathVariable("userId") Long userId){
+
+       return goodsService.findCartItems(userId);
+    }
+
 
     /**
      * 쇼핑 이미지 처리

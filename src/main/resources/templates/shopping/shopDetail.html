@@ -7,11 +7,11 @@
   <link rel="stylesheet" href="/common/css/common.css">
   <link rel="stylesheet" href="/fragment/css/header.css">
   <link rel="stylesheet" href="/fragment/css/footer.css">
-  <link rel="stylesheet" href="/shopping/css/shopDetail.css">
+
+    <link rel="stylesheet" href="/shopping/css/shopDetail.css">
     <link rel="stylesheet" href="/shopping/css/shopQandA.css">
+    <link rel="stylesheet" href="/shopping/css/shopAddInfo.css">
 
-
-    <!-- <script defer src ="/map/js/map.js"></script> -->
 <link rel="icon" href="/img/favicon.ico" type="image/x-icosn" sizes="16x16">
 </head>
 <body>
@@ -48,6 +48,7 @@
     </div>
 
         <div>
+
             <div class="shop-form">
                 <div class="main-content-contaniner-form3">
                     <div class="form3-left">
@@ -63,7 +64,7 @@
                                 <span id="goods-name"></span>
                             </div>
                             <div class="right-box1-box1-1">
-                                <span th:text="${detail.goodsPrice}">상품가격</span>
+                                <span th:text="${detail.goodsName}">상품명</span>
                             </div>
                             <div class="right-box1-box2">
                     <span>
@@ -89,12 +90,12 @@
                                     <div><span id="number">1</span></div>
                                     <button id="decrease"><strong>-</strong></button>
                                 </div>
-                                <div class="pay-sum"><p>총 상품금액  : <strong id="price">총금액</strong> 원</p></div>
+                                <div class="pay-sum"><p>총 상품금액  : <strong th:text="${detail.goodsPrice}" id="price">총금액</strong> 원</p></div>
                             </div>
 
                             <div class="right-box1-box9">
                                 <div class="basket1">
-                                    <a href="/shop/shopCart" class="basket-button1">장바구니</a>
+                                    <button type="button" href="" class="basket-button1">장바구니</button>
                                 </div>
                                 <div class="basket2">
                                     <a href="/shop/shopPay" class="basket-button2">바로구매</a>
@@ -108,19 +109,19 @@
                     <ul>
                         <span>|</span>
                         <li>
-                            <a href="" id="descriptionLink">
-                                <span class="middle-span1" >설명</span>
+                            <a href="" class="img-btn">
+                                <span class="middle-span" >설명</span>
                             </a>
                         </li>
                         <span>|</span>
                         <li>
-                            <a href="}">
+                            <a href="" class="info-btn">
                                 <span class="middle-span">추가정보</span>
                             </a>
                         </li>
                         <span>|</span>
                         <li>
-                            <a href="">
+                            <a href="" class="review-btn">
                                 <span class="middle-span">리뷰</span>
                             </a>
                         </li>
@@ -141,18 +142,10 @@
             </div>
 
 
-
-
-
-
-
-
-
-
-
-
+        </div>
     </div>
         <input type="hidden" th:value="${detail.id}" id="goodsId">
+        <input type="hidden" th:value="${session.userId}" id="userId" />
 
 </main>
 <!-- main 끝 -->
@@ -165,5 +158,6 @@
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script type="module" src="/shopping/js/shopDetail.js"></script>
 <script type="module" src="/shopping/js/shopQandA.js"></script>
+<script type="module" src="/shopping/js/shopAddInfo.js"></script>
 </body>
 </html>
