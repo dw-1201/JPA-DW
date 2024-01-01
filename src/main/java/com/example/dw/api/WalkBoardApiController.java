@@ -5,6 +5,7 @@ import com.example.dw.domain.dto.community.WalkMateDetailReplyDto;
 import com.example.dw.domain.dto.community.WalkMateListDto;
 import com.example.dw.domain.form.SearchLocationForm;
 import com.example.dw.domain.form.WalkingMateCommentForm;
+import com.example.dw.domain.form.WalkingMateStateForm;
 import com.example.dw.service.WalkingMateService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -87,6 +88,16 @@ public class WalkBoardApiController {
     public void deleteReply(@PathVariable("walkCommentId") Long walkCommentId){
 
         walkingMateService.deleteReply(walkCommentId);
+    }
+
+
+//    산책메이트 신청
+    @GetMapping("/applyWalkMate")
+    public void applyWalkMate(WalkingMateStateForm walkingMateStateForm){
+
+
+        walkingMateService.applyWalkMate(walkingMateStateForm);
+
     }
 
 }

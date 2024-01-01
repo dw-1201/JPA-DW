@@ -48,6 +48,8 @@ public class QWalkingMate extends EntityPathBase<WalkingMate> {
 
     public final NumberPath<Long> walkingMateState = createNumber("walkingMateState", Long.class);
 
+    public final ListPath<WalkingMateState, QWalkingMateState> walkingMateStateList = this.<WalkingMateState, QWalkingMateState>createList("walkingMateStateList", WalkingMateState.class, QWalkingMateState.class, PathInits.DIRECT2);
+
     public final StringPath walkingMateTime = createString("walkingMateTime");
 
     public final StringPath walkingMateTitle = createString("walkingMateTitle");
