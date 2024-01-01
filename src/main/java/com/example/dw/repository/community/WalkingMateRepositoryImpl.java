@@ -23,7 +23,6 @@ import static com.example.dw.domain.entity.user.QPetImg.petImg;
 import static com.example.dw.domain.entity.user.QUsers.users;
 import static com.example.dw.domain.entity.walkingMate.QWalkingMate.walkingMate;
 
-
 @Repository
 @RequiredArgsConstructor
 public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
@@ -130,6 +129,8 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
                 .where(walkingMate.id.eq(walkBoardId))
                 .fetchOne());
     }
+
+
 
 
     //관리자 페이지 산책글 리스트

@@ -80,6 +80,8 @@ public class Users {
     private List<GoodsQueReply> goodsQueReplyList=new ArrayList<>();
 
 
+
+
     @Builder.Default
     private int userState = 1;
 

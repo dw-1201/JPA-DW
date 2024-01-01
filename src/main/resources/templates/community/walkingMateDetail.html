@@ -113,7 +113,8 @@
                     </div>
                    <div class="apply btns" th:if="${detail.userId != session.userId}">
                        <button class="list-btn btn">목록</button>
-                       <button class="apply-btn btn" th:data-walkboardid="${detail.id}">신청하기</button>
+                       <button class="apply-btn btn">신청하기</button>
+                       <button class="apply-cancel-btn btn">신청취소 하기</button>
                    </div>
                </div>
            </div>

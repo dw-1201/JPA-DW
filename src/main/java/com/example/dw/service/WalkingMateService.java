@@ -83,7 +83,30 @@ public class WalkingMateService {
 
     }
 
+    //산책글 신청 중복검사
+    @Transactional
+    public Long applyCheck(Long walkMateId, Long userId){
 
+        Long id = walkingMateStateRepository.applyCheck(walkMateId, userId);
+
+
+        if(id==null){
+            return 0L;
+        }else {
+            return id;
+        }
+
+    }
+
+    //산책글 신청 취소
+    @Transactional
+    public void applyCanCel(Long walkMateId, Long userId){
+
+        Long id = walkingMateStateRepository.applyCheck(walkMateId, userId);
+
+        walkingMateStateRepository.deleteById(id);
+
+    }
 
 
 
