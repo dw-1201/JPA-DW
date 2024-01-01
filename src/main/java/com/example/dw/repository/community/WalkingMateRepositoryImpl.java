@@ -115,15 +115,22 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
                 petImg.petUuid,
                 petImg.petFileName,
                 walkingMate.walkingMateViewCount
+//                ,
+//                walkingMateState.id,
+//                walkingMateState.state
+
 
         ))
                 .from(walkingMate)
                 .leftJoin(walkingMate.users, users)
                 .leftJoin(walkingMate.pet, pet)
                 .leftJoin(pet.petImg, petImg)
+//                .leftJoin(walkingMate.walkingMateStateList, walkingMateState)
                 .where(walkingMate.id.eq(walkBoardId))
                 .fetchOne());
     }
+
+
 
 
     //관리자 페이지 산책글 리스트

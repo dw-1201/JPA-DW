@@ -113,11 +113,22 @@
                     </div>
                    <div class="apply btns" th:if="${detail.userId != session.userId}">
                        <button class="list-btn btn">목록</button>
-                       <button class="apply-btn btn" th:data-walkboardid="${detail.id}">신청하기</button>
+                       <button class="apply-btn btn">신청하기</button>
+                       <button class="apply-cancel-btn btn">신청취소 하기</button>
                    </div>
                </div>
            </div>
 
+
+            <div class="apply-modal-section">
+
+
+
+                <select name="sessionUserPet" id="sessionUserPet">
+                    <option th:each="sessionUser : ${sessionUserPet}" th:value="${sessionUser.id}" th:text="${sessionUser.petName}"></option>
+                </select>
+                <button type="button" class="apply-submit-btn">신청 제출</button>
+            </div>
             <!-- 글 끝 -->
 
 <!--            <div class="writer-pet-section">-->
@@ -196,6 +207,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2d8cddce5e1cf36a90728390b847c19c&autoload=false&libraries=services"></script>
     <script type="module" src="/community/js/walkingMateDetail.js"></script>
+    <script src="/community/js/walkingMateApply.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" ></script>
 
 </body>

@@ -5,13 +5,8 @@ import com.example.dw.domain.dto.community.WalkMateDetailReplyDto;
 import com.example.dw.domain.dto.community.WalkMateListDto;
 import com.example.dw.domain.dto.user.UserPetDto;
 import com.example.dw.domain.entity.walkingMate.WalkingMate;
-import com.example.dw.domain.form.SearchLocationForm;
-import com.example.dw.domain.form.WalkMateForm;
-import com.example.dw.domain.form.WalkingMateCommentForm;
-import com.example.dw.repository.community.WalkingMateCommentCustom;
-import com.example.dw.repository.community.WalkingMateCommentRepository;
-import com.example.dw.repository.community.WalkingMateRepository;
-import com.example.dw.repository.community.WalkingMateRepositoryCustom;
+import com.example.dw.domain.form.*;
+import com.example.dw.repository.community.*;
 import com.example.dw.repository.user.UsersRepositoryCustom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -34,6 +29,7 @@ public class WalkingMateService {
     private final WalkingMateCommentRepository walkingMateCommentRepository;
     private final WalkingMateCommentCustom walkingMateCommentCustom;
     private final UsersRepositoryCustom usersRepositoryCustom;
+    private final WalkingMateStateRepository walkingMateStateRepository;
 
     //산책모집글 리스트
     @Transactional
@@ -50,8 +46,66 @@ public class WalkingMateService {
     @Transactional
     public Long registerWalkingMate(WalkMateForm walkMateForm){
 
+        //산책글 작성
        WalkingMate walkingMate = walkingMateRepository.save(walkMateForm.toEntity());
-       return walkingMate.getId();
+
+       //작성 성공 시 walkingMateState 생성하고 작성자 정보 입력
+       registerWalkingMateState(walkingMate.getId(), walkingMate.getUsers().getId(), walkingMate.getPet().getId());
+
+
+
+        return walkingMate.getId();
+    }
+
+
+    //산책 모집글 작성시 walkingMateState 동시 생성
+    @Transactional
+    public Long registerWalkingMateState(Long walkingMateId, Long userId, Long petId){
+
+        WalkingMateStateForm walkingMateStateForm = new WalkingMateStateForm();
+        walkingMateStateForm.setPetId(petId);
+        walkingMateStateForm.setWalkingMateId(walkingMateId);
+        walkingMateStateForm.setUserId(userId);
+        walkingMateStateForm.setState(1);
+
+
+        Long id = walkingMateStateRepository.save(walkingMateStateForm.toEntity()).getId();
+
+        return id;
+    }
+
+
+    //산책글 신청
+    @Transactional
+    public void applyWalkMate(WalkingMateStateForm walkingMateStateForm){
+
+        walkingMateStateRepository.save(walkingMateStateForm.toEntity());
+
+    }
+
+    //산책글 신청 중복검사
+    @Transactional
+    public Long applyCheck(Long walkMateId, Long userId){
+
+        Long id = walkingMateStateRepository.applyCheck(walkMateId, userId);
+
+
+        if(id==null){
+            return 0L;
+        }else {
+            return id;
+        }
+
+    }
+
+    //산책글 신청 취소
+    @Transactional
+    public void applyCanCel(Long walkMateId, Long userId){
+
+        Long id = walkingMateStateRepository.applyCheck(walkMateId, userId);
+
+        walkingMateStateRepository.deleteById(id);
+
     }
 
 

@@ -349,3 +349,13 @@ $('.reply-list').on('click', '.modify-reply-btn', function (){
 })
 
 
+//임시 post용
+function temp(){
+
+    $.ajax({
+
+
+
+    })
+
+}

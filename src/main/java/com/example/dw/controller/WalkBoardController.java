@@ -58,18 +58,25 @@ public class WalkBoardController {
         System.out.println(walkMateForm.toString());
 
         walkingMateService.registerWalkingMate(walkMateForm);
+
         return new RedirectView("/walk/walkList");
     }
 
     //산책글 상세보기
     @GetMapping("/detail/{id}/{userId}")
-    public String walkDetail(@PathVariable("id") Long id, Model model ){
-
+    public String walkDetail(@PathVariable("id") Long id, Model model, HttpSession session){
+        
         Optional<WalkMateDetailDto> detail =  walkingMateService.walkDetailPage(id);
 
         System.out.println("[ 산책글 상세 ] : " + detail.toString());
 
         detail.ifPresent( details -> model.addAttribute("detail", details));
+
+        
+        //신청자 pet 목록
+       Long sessionUserId = (Long)session.getAttribute("userId");
+       List<UserPetDto> petList = walkingMateService.getUserPets(sessionUserId);
+       model.addAttribute("sessionUserPet", petList);
 
         return "/community/walkingMateDetail";
     }

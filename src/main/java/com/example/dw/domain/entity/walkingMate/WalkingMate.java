@@ -60,8 +60,13 @@ public class WalkingMate {
     @OneToMany(mappedBy = "walkingMate" ,fetch = FetchType.LAZY)
     private List<WalkingMateComment> walkingMateComment = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "walkingMate")
+    private List<WalkingMateState> walkingMateStateList = new ArrayList<>();
+
+
+
     @Builder
-    public WalkingMate(Long id, String walkingMateTitle, String walkingMateContent, String walkingMateRd, String walkingMateMd, Long walkingMateViewCount, Long walkingMateState, Long walkingMatePerson, Long walkingMateToday, String walkingMateDate, String walkingMateTime, String walkingMateFullAddress, String walkCity, String walkCounty, Users users, Pet pet, List<WalkingMateComment> walkingMateComment) {
+    public WalkingMate(Long id, String walkingMateTitle, String walkingMateContent, String walkingMateRd, String walkingMateMd, Long walkingMateViewCount, Long walkingMateState, Long walkingMatePerson, Long walkingMateToday, String walkingMateDate, String walkingMateTime, String walkingMateFullAddress, String walkCity, String walkCounty, Users users, Pet pet, List<WalkingMateComment> walkingMateComment, List<WalkingMateState> walkingMateStateList) {
         this.id = id;
         this.walkingMateTitle = walkingMateTitle;
         this.walkingMateContent = walkingMateContent;
@@ -79,7 +84,10 @@ public class WalkingMate {
         this.users = users;
         this.pet = pet;
         this.walkingMateComment = walkingMateComment;
+        this.walkingMateStateList = walkingMateStateList;
     }
+
+
 
     //산책글 수정
     public WalkingMate update(WalkMateForm walkMateForm){

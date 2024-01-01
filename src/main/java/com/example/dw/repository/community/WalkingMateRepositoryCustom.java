@@ -18,4 +18,6 @@ public interface WalkingMateRepositoryCustom {
 
     Optional<WalkMateDetailDto> walkMateDetail(Long walkBoardId);
 
+
+
 }
