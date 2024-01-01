@@ -22,6 +22,7 @@ import static com.example.dw.domain.entity.user.QPet.pet;
 import static com.example.dw.domain.entity.user.QPetImg.petImg;
 import static com.example.dw.domain.entity.user.QUsers.users;
 import static com.example.dw.domain.entity.walkingMate.QWalkingMate.walkingMate;
+import static com.example.dw.domain.entity.walkingMate.QWalkingMateState.walkingMateState;
 
 @Repository
 @RequiredArgsConstructor
@@ -42,22 +43,41 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
                 walkingMate.walkingMateViewCount,
                 walkingMate.walkingMateState,
                 walkingMate.walkingMatePerson,
-                walkingMate.walkingMateToday,
+                walkingMateState.count(),
                 walkingMate.walkingMateDate,
                 walkingMate.walkingMateTime,
                 walkingMate.walkCity,
                 walkingMate.walkCounty,
                 users.id,
                 users.userNickName,
-                users.userAccount
+                users.userAccount,
+                walkingMate.walkingMateState
         ))
                 .from(walkingMate)
                 .leftJoin(walkingMate.users, users)
+                .leftJoin(walkingMate.walkingMateStateList, walkingMateState)
                 .where(
                         areaNameEq(searchLocationForm),
                         createRecruitmentStatusCondition(searchLocationForm),
                         cityNameEq(searchLocationForm),
                         countyNameEq(searchLocationForm)
+                )
+                .where(walkingMateState.state.eq(1))
+                .groupBy(
+                        walkingMate.id,
+                        walkingMate.walkingMateTitle,
+                        walkingMate.walkingMateRd,
+                        walkingMate.walkingMateViewCount,
+                        walkingMate.walkingMateState,
+                        walkingMate.walkingMatePerson,
+                        walkingMate.walkingMateDate,
+                        walkingMate.walkingMateTime,
+                        walkingMate.walkCity,
+                        walkingMate.walkCounty,
+                        users.id,
+                        users.userNickName,
+                        users.userAccount,
+                        walkingMate.walkingMateState
                 )
                 .orderBy(walkingMate.id.desc())
                 .offset(pageable.getOffset())
@@ -97,7 +117,7 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
                 walkingMate.walkingMateMd,
                 walkingMate.walkingMateTitle,
                 walkingMate.walkingMateContent,
-                walkingMate.walkingMateToday,
+                walkingMateState.count(),
                 walkingMate.walkingMatePerson,
                 walkingMate.walkingMateDate,
                 walkingMate.walkingMateTime,
@@ -114,10 +134,8 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
                 petImg.petPath,
                 petImg.petUuid,
                 petImg.petFileName,
-                walkingMate.walkingMateViewCount
-//                ,
-//                walkingMateState.id,
-//                walkingMateState.state
+                walkingMate.walkingMateViewCount,
+                walkingMate.walkingMateState
 
 
         ))
@@ -125,8 +143,35 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
                 .leftJoin(walkingMate.users, users)
                 .leftJoin(walkingMate.pet, pet)
                 .leftJoin(pet.petImg, petImg)
-//                .leftJoin(walkingMate.walkingMateStateList, walkingMateState)
-                .where(walkingMate.id.eq(walkBoardId))
+                .leftJoin(walkingMate.walkingMateStateList, walkingMateState)
+                .where(walkingMate.id.eq(walkBoardId).and(walkingMateState.state.eq(1)))
+                .groupBy( walkingMate.id,
+                        walkingMate.users.id,
+                        users.userNickName,
+                        users.userAccount,
+                        walkingMate.walkingMateRd,
+                        walkingMate.walkingMateMd,
+                        walkingMate.walkingMateTitle,
+                        walkingMate.walkingMateContent,
+                        walkingMate.walkingMatePerson,
+                        walkingMate.walkingMateDate,
+                        walkingMate.walkingMateTime,
+                        walkingMate.walkingMateFullAddress,
+                        walkingMate.walkCity,
+                        walkingMate.walkCounty,
+                        pet.id,
+                        pet.name,
+                        pet.petCategory,
+                        pet.weight,
+                        pet.neutering,
+                        pet.petGender,
+                        petImg.id,
+                        petImg.petPath,
+                        petImg.petUuid,
+                        petImg.petFileName,
+                        walkingMate.walkingMateViewCount,
+                        walkingMate.walkingMateState
+                )
                 .fetchOne());
     }
 
@@ -142,20 +187,39 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
                 walkingMate.walkingMateRd,
                 walkingMate.walkingMateViewCount,
                 walkingMate.walkingMateState,
+                walkingMateState.count(),
                 walkingMate.walkingMatePerson,
-                walkingMate.walkingMateToday,
                 walkingMate.walkingMateDate,
                 walkingMate.walkingMateTime,
                 walkingMate.walkCity,
                 walkingMate.walkCounty,
                 users.id,
                 users.userNickName,
-                users.userAccount
+                users.userAccount,
+                walkingMate.walkingMateState
 
         ))      .from(walkingMate)
                 .leftJoin(walkingMate.users, users)
                 .where(
                         cateKeywordEq(searchForm)
+                )
+                .where(walkingMateState.state.eq(1))
+                .groupBy(
+                        walkingMate.id,
+                        walkingMate.walkingMateTitle,
+                        walkingMate.walkingMateRd,
+                        walkingMate.walkingMateViewCount,
+                        walkingMate.walkingMateState,
+                        walkingMate.walkingMatePerson,
+                        walkingMate.walkingMateDate,
+                        walkingMate.walkingMateTime,
+                        walkingMate.walkCity,
+                        walkingMate.walkCounty,
+                        users.id,
+                        users.userNickName,
+                        users.userAccount,
+                        walkingMate.walkingMateState
+
                 )
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -176,9 +240,9 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
     //산책메이트 리스트 전체-모집중-모집완료
     private BooleanExpression createRecruitmentStatusCondition(SearchLocationForm searchLocationForm) {
         if (searchLocationForm.getState().equals("0")) { // 모집중
-            return walkingMate.walkingMateToday.ne(walkingMate.walkingMatePerson);
+            return walkingMate.walkingMateState.eq(0L);
         } else if (searchLocationForm.getState().equals("1")) { // 모집완료
-            return walkingMate.walkingMateToday.eq(walkingMate.walkingMatePerson);
+            return walkingMate.walkingMateState.eq(1L);
         } else { // 전체보기 ('' 인 경우)
             return null; // 특정 조건 없이 모든 결과 반환
         }

@@ -1,14 +1,9 @@
 $(document).ready(function (e){
 
-    let userId = $('#userId').val();
     let walkMateId = $('#walkBoardId').val();
 
-    if(e.target === $('.apply-modal-section')[0]){
-        $('.apply-modal-section').removeClass('showModal');
 
-    }
-
-    applyCheck(walkMateId, userId);
+    applyCheck(walkMateId);
 
 })
 
@@ -19,14 +14,27 @@ $('.apply-btn').on('click', function (){
     let userId = $('#userId').val();
     let walkMateId = $('#walkBoardId').val();
 
-    applyCheck(walkMateId, userId);
+    if(userId == '' || userId==null){
+
+        alert("로그인이 필요합니다. ");
+
+        if(confirm("로그인 페이지로 이동하시겠습니까?")){
+            window.location.href="/user/enterLogin";
+
+        }
+        return false;
+    }else {
+
+    }
+    $('.apply-modal-section').addClass('showModal');
+    applyCheck(walkMateId)
+
 })
 
 //신청서 제출
 $('.apply-submit-btn').on('click', function (e){
 
 
-    $('.apply-modal-section').removeClass('showModal');
 
 
     let userId = $('#userId').val();
@@ -34,9 +42,12 @@ $('.apply-submit-btn').on('click', function (e){
     let petId = $('#sessionUserPet').val();
 
 
+
+
     if(confirm("신청하시겠습니까?")){
         walkingMateApply(walkMateId, userId, petId);
 
+        $('.apply-modal-section').removeClass('showModal');
 
 
         alert("신청이 완료되었습니다.");
@@ -54,7 +65,6 @@ $('.apply-cancel-btn').on('click', function (){
     if(confirm("신청을 취소하겠습니까?")){
 
         applyCancel(walkMateId, userId, function (){
-
 
 
             alert("정상적으로 신청이 취소되었습니다.");
@@ -96,23 +106,26 @@ function walkingMateApply(walkMateId, userId, petId){
 }
 
 //산책메이트 중복신청 검사
-function applyCheck(walkMateId, userId){
+function applyCheck(walkMateId){
+
 
     $.ajax({
 
-        url : `/walks/applyCheck/${walkMateId}/${userId}`,
+        url : `/walks/applyCheck/${walkMateId}`,
         type:  'get',
         success : function (result){
 
-            console.log(result)
+            if(result=='' || result == null){
 
-            if(result==0){
-                $('.apply-modal-section').addClass('showModal')
+                $('.apply-cancel-btn').css('display','none');
+                $('.apply-btn').css('display', 'block');
 
             }else {
+
                 $('.apply-cancel-btn').css('display','block');
                 $('.apply-btn').css('display', 'none');
             }
+
 
         }
     })

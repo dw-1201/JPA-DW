@@ -461,11 +461,14 @@ input:focus {
     display: none;
 }
 
+
+
+
+
 .showModal {
-    display: block;
+    display: block !important;
 }
 
-/*신청하기-모달창*/
 .apply-modal-section {
-
+    display: none;
 }

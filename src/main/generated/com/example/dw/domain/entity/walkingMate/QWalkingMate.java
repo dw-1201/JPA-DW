@@ -54,8 +54,6 @@ public class QWalkingMate extends EntityPathBase<WalkingMate> {
 
     public final StringPath walkingMateTitle = createString("walkingMateTitle");
 
-    public final NumberPath<Long> walkingMateToday = createNumber("walkingMateToday", Long.class);
-
     public final NumberPath<Long> walkingMateViewCount = createNumber("walkingMateViewCount", Long.class);
 
     public QWalkingMate(String variable) {

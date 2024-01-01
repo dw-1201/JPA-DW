@@ -74,9 +74,22 @@ public class WalkBoardController {
 
         
         //신청자 pet 목록
-       Long sessionUserId = (Long)session.getAttribute("userId");
-       List<UserPetDto> petList = walkingMateService.getUserPets(sessionUserId);
-       model.addAttribute("sessionUserPet", petList);
+        
+        try{
+            //로그인 상태일 시
+            Long sessionUserId = (Long)session.getAttribute("userId");
+
+            if(sessionUserId != null){
+                List<UserPetDto> petList = walkingMateService.getUserPets(sessionUserId);
+                model.addAttribute("sessionUserPet", petList);
+            }
+
+        }catch (Exception e){
+            
+            //비로그인 상태면 예외처리
+            e.printStackTrace();
+        }
+
 
         return "/community/walkingMateDetail";
     }
@@ -102,6 +115,7 @@ public class WalkBoardController {
     }
 
 
+    //산책글 수정 완료
     @PostMapping("/modifyOk/{id}")
     public RedirectView walkModifyOk(WalkMateForm walkMateForm){
 

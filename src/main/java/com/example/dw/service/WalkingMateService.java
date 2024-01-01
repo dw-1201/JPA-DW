@@ -87,14 +87,17 @@ public class WalkingMateService {
     @Transactional
     public Long applyCheck(Long walkMateId, Long userId){
 
-        Long id = walkingMateStateRepository.applyCheck(walkMateId, userId);
+        try{
 
-
-        if(id==null){
-            return 0L;
-        }else {
+            Long id = walkingMateStateRepository.applyCheck(walkMateId, userId);
             return id;
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
+        return 0L;
+
 
     }
 
