@@ -99,11 +99,11 @@ function showList(result){
         <tr class="body-columns">
             <td>${r.id}</td>
             `;
-            if(r.currentState==1 || (r.walkingMateToday == r.walkingMatePerson)){
+            if(r.currentState==1 || (r.walkingMateToday != r.walkingMatePerson)){
                 text +=`
             <td><img src="/img/001.png" alt="모집중" class="mate-status"/></td>
             `;
-            }else if(r.currentState==0 || (r.walkingMateToday != r.walkingMatePerson)){
+            }else if(r.currentState==0 || (r.walkingMateToday == r.walkingMatePerson)){
                 text += `
             <td><img src="/img/002.png" alt="모집완료" class="mate-status"/></td>
 

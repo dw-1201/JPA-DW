@@ -32,6 +32,8 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
 
 
+    //산책글 모집현황
+
     //산책글 리스트
     @Override
     public Page<WalkMateListDto> findAllWalkMate(Pageable pageable, SearchLocationForm searchLocationForm) {
