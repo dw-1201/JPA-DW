@@ -35,12 +35,13 @@ public class WalkMateDetailDto {
     private String petImgUuid;
     private String petImgName;
     private Long viewCount;
-//    private Long walkMateStateId;
-//    private Integer walkMateState;
+    private Long currentState;
+
+    //state
 
 
     @QueryProjection
-    public WalkMateDetailDto(Long id, Long userId, String userNickName, String userAccount, String registeredDate, String modifiedDate, String title, String content, Long currentPerson, Long matePerson, String mateDate, String mateTime, String fullAddress, String walkCity, String walkCounty, Long petId, String petName, String petCate, Long petWeight, String neutering, String petGender, Long petImgId, String petImgPath, String petImgUuid, String petImgName, Long viewCount) {
+    public WalkMateDetailDto(Long id, Long userId, String userNickName, String userAccount, String registeredDate, String modifiedDate, String title, String content, Long currentPerson, Long matePerson, String mateDate, String mateTime, String fullAddress, String walkCity, String walkCounty, Long petId, String petName, String petCate, Long petWeight, String neutering, String petGender, Long petImgId, String petImgPath, String petImgUuid, String petImgName, Long viewCount, Long currentState) {
         this.id = id;
         this.userId = userId;
         this.userNickName = userNickName;
@@ -67,6 +68,6 @@ public class WalkMateDetailDto {
         this.petImgUuid = petImgUuid;
         this.petImgName = petImgName;
         this.viewCount = viewCount;
-
+        this.currentState = currentState;
     }
 }

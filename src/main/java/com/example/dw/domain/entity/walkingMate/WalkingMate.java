@@ -35,10 +35,10 @@ public class WalkingMate {
     private String walkingMateMd;
     @Builder.Default
     private Long walkingMateViewCount = 0L;
-    private Long walkingMateState;
-    private Long walkingMatePerson;
     @Builder.Default
-    private Long walkingMateToday = 1L;
+    private Long walkingMateState = 0L;
+    private Long walkingMatePerson;
+
 
 
 
@@ -64,9 +64,8 @@ public class WalkingMate {
     private List<WalkingMateState> walkingMateStateList = new ArrayList<>();
 
 
-
     @Builder
-    public WalkingMate(Long id, String walkingMateTitle, String walkingMateContent, String walkingMateRd, String walkingMateMd, Long walkingMateViewCount, Long walkingMateState, Long walkingMatePerson, Long walkingMateToday, String walkingMateDate, String walkingMateTime, String walkingMateFullAddress, String walkCity, String walkCounty, Users users, Pet pet, List<WalkingMateComment> walkingMateComment, List<WalkingMateState> walkingMateStateList) {
+    public WalkingMate(Long id, String walkingMateTitle, String walkingMateContent, String walkingMateRd, String walkingMateMd, Long walkingMateViewCount, Long walkingMateState, Long walkingMatePerson, String walkingMateDate, String walkingMateTime, String walkingMateFullAddress, String walkCity, String walkCounty, Users users, Pet pet, List<WalkingMateComment> walkingMateComment, List<WalkingMateState> walkingMateStateList) {
         this.id = id;
         this.walkingMateTitle = walkingMateTitle;
         this.walkingMateContent = walkingMateContent;
@@ -75,7 +74,6 @@ public class WalkingMate {
         this.walkingMateViewCount = walkingMateViewCount;
         this.walkingMateState = walkingMateState;
         this.walkingMatePerson = walkingMatePerson;
-        this.walkingMateToday = walkingMateToday;
         this.walkingMateDate = walkingMateDate;
         this.walkingMateTime = walkingMateTime;
         this.walkingMateFullAddress = walkingMateFullAddress;

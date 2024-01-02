@@ -93,14 +93,14 @@ public class WalkBoardApiController {
 
 
 // 산책메이트 신청 중복검사
-    @GetMapping("/applyCheck/{walkMateId}/{userId}")
-    public Long applyCheck(
-                           @PathVariable("walkMateId") Long walkMateId,
-                           @PathVariable("userId") Long userId){
+    @GetMapping("/applyCheck/{walkMateId}")
+    public Long applyCheck(@PathVariable("walkMateId") Long walkMateId, HttpSession session){
 
-        return walkingMateService.applyCheck(walkMateId, userId);
+            Long sessionUserId = (Long)session.getAttribute("userId");
 
+            return walkingMateService.applyCheck(walkMateId, sessionUserId);
     }
+
 
 //    산책메이트 신청
     @GetMapping("/applyWalkMate")
