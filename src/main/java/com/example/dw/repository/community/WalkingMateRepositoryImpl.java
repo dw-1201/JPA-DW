@@ -1,9 +1,6 @@
 package com.example.dw.repository.community;
 
-import com.example.dw.domain.dto.community.QWalkMateDetailDto;
-import com.example.dw.domain.dto.community.QWalkMateListDto;
-import com.example.dw.domain.dto.community.WalkMateDetailDto;
-import com.example.dw.domain.dto.community.WalkMateListDto;
+import com.example.dw.domain.dto.community.*;
 import com.example.dw.domain.form.SearchForm;
 import com.example.dw.domain.form.SearchLocationForm;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -177,7 +174,36 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
                 .fetchOne());
     }
 
+    //산책 신청자 펫 정보
+    @Override
+    public List<WalkDetailStateDto> applierPetsInfo(Long walkMateId) {
 
+        return jpaQueryFactory.select(new QWalkDetailStateDto(
+
+                walkingMateState.walkingMate.id,
+                walkingMateState.id,
+                walkingMateState.users.id,
+                walkingMateState.pet.id,
+                walkingMateState.pet.name,
+                walkingMateState.pet.weight,
+                walkingMateState.pet.petGender,
+                walkingMateState.pet.birthDate,
+                walkingMateState.pet.petCategory,
+                walkingMateState.pet.neutering,
+                pet.petImg.get(0).petFileName,
+                pet.petImg.get(0).petPath,
+                pet.petImg.get(0).petUuid,
+                walkingMateState.state
+
+        ))
+                .from(walkingMateState)
+                .leftJoin(walkingMateState.walkingMate, walkingMate)
+                .leftJoin(walkingMateState.users, users)
+                .leftJoin(walkingMateState.pet, pet)
+                .leftJoin(pet.petImg, petImg)
+                .where(walkingMateState.walkingMate.id.eq(walkMateId))
+                .fetch();
+    }
 
 
     //관리자 페이지 산책글 리스트

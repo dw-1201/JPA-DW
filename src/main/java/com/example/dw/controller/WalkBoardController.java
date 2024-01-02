@@ -82,6 +82,10 @@ public class WalkBoardController {
             if(sessionUserId != null){
                 List<UserPetDto> petList = walkingMateService.getUserPets(sessionUserId);
                 model.addAttribute("sessionUserPet", petList);
+
+                Long applyUserId = walkingMateService.applyState(sessionUserId, detail.get().getId());
+                System.out.println(applyUserId + "@@@@@@@@@@@@@@" + applyUserId.toString());
+                model.addAttribute("replyAuthorized", applyUserId);
             }
 
         }catch (Exception e){
@@ -125,5 +129,19 @@ public class WalkBoardController {
         return new RedirectView("/walk/walkList");
 
     }
+
+
+    //산책메이트 신청 철회
+    @GetMapping("/applyCancel/{walkMateId}/{userId}")
+    public RedirectView applyCancel(
+            @PathVariable("walkMateId") Long walkMateId,
+            @PathVariable("userId") Long userId
+    ){
+        walkingMateService.applyCanCel(walkMateId, userId);
+
+        return new RedirectView("/walk/detail/"+walkMateId +"/"+userId);
+
+    }
+
 
 }

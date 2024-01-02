@@ -111,15 +111,5 @@ public class WalkBoardApiController {
 
     }
 
-    //산책메이트 신청 취소
-    @DeleteMapping("/applyCancel/{walkMateId}/{userId}")
-    public void applyCancel(
-            @PathVariable("walkMateId") Long walkMateId,
-            @PathVariable("userId") Long userId
-    ){
-
-        walkingMateService.applyCanCel(walkMateId, userId);
-
-    }
 
 }

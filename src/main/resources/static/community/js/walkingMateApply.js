@@ -1,11 +1,24 @@
-$(document).ready(function (e){
+let applyBtn = $('.apply-btn');
+let applyCancelBtn = $('.apply-cancel-btn');
+let applyComplete = $('.apply-complete-btn');
 
+
+$(document).ready(function () {
     let walkMateId = $('#walkBoardId').val();
 
+    $(document).on('click', function (e) {
+        let modal = $('.modal-open');
+        // 클릭한 요소가 모달 외부에 있고, 모달이 열려 있는 경우에만 모달을 닫습니다.
+        if (modal.is(e.target) && modal.has(e.target).length === 0) {
+
+            if(confirm("작성을 취소하시겠습니까?")){
+                modal.removeClass('showModal');
+            }
+        }
+    });
 
     applyCheck(walkMateId);
-
-})
+});
 
 
 //모달창 팝업
@@ -23,18 +36,16 @@ $('.apply-btn').on('click', function (){
 
         }
         return false;
-    }else {
-
     }
-    $('.apply-modal-section').addClass('showModal');
+
+
+    $('.modal-open').addClass('showModal');
     applyCheck(walkMateId)
 
 })
 
 //신청서 제출
-$('.apply-submit-btn').on('click', function (e){
-
-
+$('.apply-submit-btn').on('click', function (){
 
 
     let userId = $('#userId').val();
@@ -47,7 +58,7 @@ $('.apply-submit-btn').on('click', function (e){
     if(confirm("신청하시겠습니까?")){
         walkingMateApply(walkMateId, userId, petId);
 
-        $('.apply-modal-section').removeClass('showModal');
+        $('.modal-open').removeClass('showModal');
 
 
         alert("신청이 완료되었습니다.");
@@ -64,13 +75,12 @@ $('.apply-cancel-btn').on('click', function (){
 
     if(confirm("신청을 취소하겠습니까?")){
 
-        applyCancel(walkMateId, userId, function (){
+        window.location.href="/walk/applyCancel/" +walkMateId +"/"+userId;
 
 
             alert("정상적으로 신청이 취소되었습니다.");
 
 
-        })
     }
 
 })
@@ -97,7 +107,7 @@ function walkingMateApply(walkMateId, userId, petId){
         success : function (){
 
             $('.apply-cancel-btn').css('display','block');
-            $('.apply-btn').css('display', 'none');
+            applyBtn.css('display', 'none');
 
         },error : function (a,b,c){
             console.error(c)
@@ -108,6 +118,9 @@ function walkingMateApply(walkMateId, userId, petId){
 //산책메이트 중복신청 검사
 function applyCheck(walkMateId){
 
+    let currentPerson = $('#currentPerson').val();
+    let matePerson = $('#matePerson').val();
+    let currentState = $('#currentState').val();
 
     $.ajax({
 
@@ -117,35 +130,29 @@ function applyCheck(walkMateId){
 
             if(result=='' || result == null){
 
-                $('.apply-cancel-btn').css('display','none');
-                $('.apply-btn').css('display', 'block');
+                applyCancelBtn.css('display','none');
+                applyBtn.css('display', 'block');
+
+                if((currentPerson==matePerson) || currentState==1 ){
+                    applyComplete.css('display', 'block');
+                }else {
+                    applyComplete.css('display', 'none');
+
+                }
 
             }else {
 
-                $('.apply-cancel-btn').css('display','block');
-                $('.apply-btn').css('display', 'none');
-            }
+                applyCancelBtn.css('display','block');
+                applyBtn.css('display', 'none');
 
+                if((currentPerson==matePerson) || currentState==1 ){
+                    applyComplete.css('display', 'block');
+                }else {
+                    applyComplete.css('display', 'none');
 
-        }
-    })
-}
-
-//산책메이트 신청 취소
-function applyCancel(walkMateId, userId, callback){
-
-    $.ajax({
-
-        url:`/walks/applyCancel/${walkMateId}/${userId}`,
-        type:'delete',
-        success : function (){
-
-            $('.apply-cancel-btn').css('display','none');
-            $('.apply-btn').css('display', 'block');
-
-            if(callback){
-                callback()
+                }
             }
         }
     })
 }
+
