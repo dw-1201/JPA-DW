@@ -64,16 +64,28 @@ $('.pet-detail-area').on('click',function(){
 })
 
 //x버튼 클릭시 데이터 삭제 
-$('.x-box span').on('click',function(){
+$('.x-box').on('click',function(){
 
-    if(confirm("정말로 삭제 하시겠습니까?")){
+        let petId =$(this).data();
 
-        // window
-    }
+        $.ajax({
+
+            url: '/mypgs/petList/{petId}',
+            type:'post',
+            data:JSON.stringify({
+                petId : petId
+            }),
+            contentType: 'application/json; charset=utf-8',
+
+            success : function (){
+                console.log()
+            }
+        })
 
 
 })
 
+function deletedate(){}
 
 
 

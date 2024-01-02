@@ -74,7 +74,6 @@ public class Users {
 
 
     @Builder
-
     public Users(Long id, String userAccount, String userName, String userPassword, String userEmail, String userPhone,
                  LocalDate userJoinDate, LocalDate userDeleteDate, String userNickName,
                  String userIntroduction, Address address,
