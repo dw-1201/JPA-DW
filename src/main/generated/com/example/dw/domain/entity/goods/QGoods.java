@@ -20,6 +20,8 @@ public class QGoods extends EntityPathBase<Goods> {
 
     public static final QGoods goods = new QGoods("goods");
 
+    public final ListPath<CartItem, QCartItem> cartItem = this.<CartItem, QCartItem>createList("cartItem", CartItem.class, QCartItem.class, PathInits.DIRECT2);
+
     public final EnumPath<GoodsCategory> goodsCategory = createEnum("goodsCategory", GoodsCategory.class);
 
     public final StringPath goodsCertify = createString("goodsCertify");
@@ -39,6 +41,8 @@ public class QGoods extends EntityPathBase<Goods> {
     public final NumberPath<Integer> goodsPrice = createNumber("goodsPrice", Integer.class);
 
     public final NumberPath<Integer> goodsQuantity = createNumber("goodsQuantity", Integer.class);
+
+    public final ListPath<GoodsQue, QGoodsQue> goodsQues = this.<GoodsQue, QGoodsQue>createList("goodsQues", GoodsQue.class, QGoodsQue.class, PathInits.DIRECT2);
 
     public final StringPath goodsRegisterDate = createString("goodsRegisterDate");
 

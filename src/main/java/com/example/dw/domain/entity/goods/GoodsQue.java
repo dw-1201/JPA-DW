@@ -26,11 +26,11 @@ public class GoodsQue {
     @Column(name="goods_que_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private Users users;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="goods_id")
     private Goods goods;
 
@@ -40,15 +40,15 @@ public class GoodsQue {
     private String queContent;
 
     @CreatedDate
-    private String queRegisterDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    private String queRegisterDate;
     @LastModifiedDate
-    private LocalDateTime queModifyDate;
+    private String queModifyDate;
 
     @Builder.Default
     private Integer state = 0;
 
     @Builder
-    public GoodsQue(Long id, Users users, Goods goods, List<GoodsQueReply> goodsQueReply, String queContent, String queRegisterDate, LocalDateTime queModifyDate, Integer state) {
+    public GoodsQue(Long id, Users users, Goods goods, List<GoodsQueReply> goodsQueReply, String queContent, String queRegisterDate, String queModifyDate, Integer state) {
         this.id = id;
         this.users = users;
         this.goods = goods;
@@ -57,5 +57,28 @@ public class GoodsQue {
         this.queRegisterDate = queRegisterDate;
         this.queModifyDate = queModifyDate;
         this.state = state;
+    }
+
+
+    //날짜포맷
+    @PrePersist
+    public void onPrePersist(){
+        this.queRegisterDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+        this.queModifyDate=this.queRegisterDate;
+    }
+
+    @PreUpdate
+    public void onPreUpdate(){
+        this.queModifyDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+    }
+
+    //문의 답변
+    public void updateStateOn(){
+        this.state = 1;
+    }
+
+    //문의 답변 삭제
+    public void deleteState(){
+        this.state = 0;
     }
 }

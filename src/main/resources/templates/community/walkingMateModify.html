@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/common/css/common.css">
+    <link rel="stylesheet" href="/fragment/css/header.css">
+    <link rel="stylesheet" href="/fragment/css/footer.css">
+    <link rel="stylesheet" href="/fragment/css/sideBanner.css">
+    <link rel="stylesheet" href="/community/css/walkingMateWrite.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+    <title>산책메이트 글 작성</title>
+</head>
+<body>
+<!-- header 시작 -->
+<div class="header" th:replace="fragment/header :: header">
+
+</div>
+<!-- header 끝 -->
+
+<!-- main 시작 -->
+<main class="main">
+    <div class="side-banner" style="position: sticky; width: 100%">
+        <div class="side-banner-fragment" th:replace="fragment/sideBanner :: side-banner-fragment">
+
+        </div>
+    </div>
+    <form th:action="@{/walk/modifyOk/{id} (id=${detail.id})}" method="post" id="walk-write-form">
+
+        <div class="main-container">
+            <div class="cate-title-box">산책메이트</div>
+            <div class="mate-title-box">
+                <div class="title-input-wrap">
+                    <input type="text" name="walkingMateTitle" th:value="${detail.title}" id="walkingMateTitle" placeholder="제목을 입력해주세요">
+                </div>
+            </div>
+            <div class="content-input-section">
+            <div class="mate-content-box">
+                <textarea name="walkingMateContent" id="walkingMateContent" placeholder="내용을 입력해주세요" th:text="${detail.content}"></textarea>
+            </div>
+            <div class="mate-select-box">
+
+                <div class="mate-select-box-container">
+                    <table class="mate-select-box-table" cellspacing="0" >
+                        <tr>
+                            <colgroup>
+                                <col width="110px"/>
+                                <col />
+                            </colgroup>
+                        </tr>
+                        <tr>
+                            <th class="mate-th">날짜 선택</th>
+                            <td class="mate-date-td">
+                                <input type="text" id="datepicker" name="walkingMateDate" th:value="${detail.mateDate}" readonly placeholder="날짜를 선택해주세요"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="mate-th">시간 선택</th>
+                            <td>
+                                <select name="walkingMateTime" id="walkingMateTime">
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="mate-th">인원 선택</th>
+                            <td>
+                                <select name="walkingMatePerson" id="walkingMatePerson" >
+                                    <option th:selected="${detail.matePerson == 2}" value="2">2 명</option>
+                                    <option th:selected="${detail.matePerson == 3}" value="3">3 명</option>
+                                    <option th:selected="${detail.matePerson == 4}" value="4">4 명</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                        <th:block th:unless="${#lists.isEmpty(pets)}">
+                        <tr   class="registered-pet pet-select">
+                            <th class="mate-th">펫 선택</th>
+                            <td>
+                                <select name="petId" id="petName" >
+                                    <option th:each="pet : ${pets}" th:selected="${detail.petName == pet.petName}" th:value="${pet.id}" th:text="${pet.petName}"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        </th:block>
+                        <tr style="border-bottom: none">
+                            <th class="mate-th">장소 선택</th>
+                            <td style="border-bottom: none">
+                                <div class="search-box" >
+                                    <input type="text" id="addr" name="walkingMateFullAddress"  th:value="${detail.fullAddress}" readonly placeholder="검색버튼을 클릭하여 장소를 선택하세요." />
+                                    <input type="hidden" id="city" name="walkCity" th:value="${detail.walkCity}"/>
+                                    <input type="hidden" id="county" name="walkCounty" th:value="${detail.walkCounty}"/>
+                                    <img src="/img/magnifier.png" alt="" id="search-btn">
+                                </div>
+                                <div id="map" class="map"></div>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+            </div>
+            <div class="mate-btn-box">
+                <div class="mate-btn"><button class="list-btn btns" type="button">목록</button></div>
+                <div class="mate-btn"><button class="submit-btn btns" type="button">글 등록</button></div>
+            </div>
+        </div>
+    </form>
+<!--    <div class="banner-section">-->
+
+<!--        <img src="/img/walkwriteImg.jpg" alt="산책글 작성 광고배너"/>-->
+
+<!--    </div>-->
+</main>
+<input type="hidden" th:value="${session.userId}" id="userId"/>
+<input type="hidden" th:value="${detail.mateDate}" id="mateDate"/>
+<input type="hidden" th:value="${detail.mateTime}" id="mateTime"/>
+<!-- footer 시작 -->
+<div class="footer" th:replace="fragment/footer :: footer">
+
+</div>
+<!-- footer 끝 -->
+
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2d8cddce5e1cf36a90728390b847c19c&autoload=false&libraries=services"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" ></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="/community/js/walkingMateModify.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+</body>
+</html>

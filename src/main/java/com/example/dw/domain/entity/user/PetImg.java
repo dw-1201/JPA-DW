@@ -3,11 +3,13 @@ package com.example.dw.domain.entity.user;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @Table(name = "pet_img")
 public class PetImg {
     @Id @GeneratedValue

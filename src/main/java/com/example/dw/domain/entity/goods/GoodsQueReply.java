@@ -1,5 +1,7 @@
 package com.example.dw.domain.entity.goods;
 
+import com.example.dw.domain.entity.user.Users;
+import com.example.dw.domain.form.GoodsQueReplyForm;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -23,25 +25,55 @@ public class GoodsQueReply {
     @GeneratedValue @Column(name="goods_que_reply_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="goods_que_id")
     private GoodsQue goodsQue;
-
 
     private String queReplyContent;
 
     @CreatedDate
-    private String queReplyRegisterDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    private String queReplyRegisterDate;
     @LastModifiedDate
     private String queReplyModifyDate;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private Users users;
+
 
     @Builder
-    public GoodsQueReply(Long id, GoodsQue goodsQue, String queReplyContent, String queReplyRegisterDate, String queReplyModifyDate) {
+    public GoodsQueReply(Long id, GoodsQue goodsQue, String queReplyContent, String queReplyRegisterDate, String queReplyModifyDate, Users users) {
         this.id = id;
         this.goodsQue = goodsQue;
         this.queReplyContent = queReplyContent;
         this.queReplyRegisterDate = queReplyRegisterDate;
         this.queReplyModifyDate = queReplyModifyDate;
+        this.users = users;
     }
+
+
+
+    //날짜포맷
+    @PrePersist
+    public void onPrePersist(){
+        this.queReplyRegisterDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+        this.queReplyModifyDate=this.queReplyRegisterDate;
+    }
+
+    @PreUpdate
+    public void onPreUpdate(){
+        this.queReplyModifyDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+    }
+
+
+
+    public GoodsQueReply update(GoodsQueReplyForm goodsQueReplyForm){
+        this.queReplyContent=goodsQueReplyForm.getQnaReplyContent();
+        this.queReplyModifyDate=LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+
+
+        return this;
+    }
+
+
 }

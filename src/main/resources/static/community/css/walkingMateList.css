@@ -1,0 +1,245 @@
+
+
+.main-container{
+    width: 1024px;
+    min-width: 1024px;
+    height: 100%;
+    margin: 50px auto;
+    font-family: 'GmarketSansMedium';
+
+}
+
+.mate-main-img-box {
+
+    margin:20px 0px 30px 0px;
+    position: relative;
+}
+.mate-main-img-box img {
+    padding-top: 5px;
+}
+
+
+.write-btn {
+    border-radius: 10px;
+    position: absolute;
+    background: white;
+    left: 36px;
+    height: 35px;
+    width: 395px;
+    bottom: 20px;
+
+}
+.write-btn a {
+    color: black;
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+
+.write-btn a:after{
+    content: "";
+    top: 0;
+    position: absolute;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+    background-color: #F8BE41;
+    border-radius: 10px;
+}
+.write-btn a:hover:after {
+    width: 100%;
+    z-index: -1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.how-to-search-box {
+    color: gray;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+  /* 검색 */
+.main-content-container-form {
+    width: 100%;
+    height: 100%;
+}
+
+.search-inputbox {
+    display: flex;
+    align-items: center;
+
+}
+
+.location-select-container {
+    justify-content: space-between;
+    display: flex;
+    width: 525px;}
+
+
+.location-select-container select {
+    width: 150px;
+    height: 30px;
+}
+.search-btn-box {
+}
+
+.search-btn {
+    width: 60px;
+    cursor: pointer;
+    height: 30px;
+}
+
+.status-container {
+    font-size: 13px;
+    text-align: end;
+    width: 500px;
+    display: flex;
+    justify-content: end;
+}
+
+.status-container label {
+    cursor: pointer;
+
+}
+
+
+/* 리스트 */
+
+.list-contents{
+
+    width: 100%;
+    height: auto;
+    min-height: 750px;
+    margin: 10px auto;
+}
+.list-table{
+    width: 1024px;
+    height: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+.list-table thead{
+
+    font-size: 13px;
+    height: 60px;
+    border-top: 1px solid #6d6c6c;
+    border-bottom: 1px solid #6d6c6c;
+}
+
+
+.fixed-number {
+    width: 60px;
+}
+.fixed-status {
+    width: 75px;
+}
+
+.fixed-member {
+    width: 75px;
+}
+
+.fixed-city{
+    width: 120px;
+}
+
+.fixed-title {
+    width: 325px;
+}
+
+
+.walk-mate-list {
+   min-height: 507px;
+}
+.walk-mate-list td {
+    font-size: 12px;
+    height: 45px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.34);
+}
+
+.walk-mate-list td a{
+    display: block;
+    color: black;
+}
+
+.mate-status {
+    width: 85%;
+    height: 70%;
+    vertical-align: middle;
+}
+
+.walk-mate-list tr:hover {
+    background-color: rgba(156, 156, 156, 0.34);
+}
+
+.no-search-result td{
+    border: none !important;
+    background-color: white !important;
+}
+
+.no-search-result img {
+    width: 34%;
+}
+
+
+
+
+
+
+
+
+.pagination-ul {
+    margin: 25px auto;
+    width: 200px;
+    display: flex;
+    align-items: center;
+}
+
+.pagination-ul li {
+    text-align: center;
+    width: 100%;
+}
+.pagination-ul li a {
+    font-size: 12px;
+    color: rgba(128, 128, 128, 0.4);
+}
+
+.active-btn {
+    color: black !important;
+}

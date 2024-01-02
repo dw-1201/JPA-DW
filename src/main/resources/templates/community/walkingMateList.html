@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/common/css/common.css">
+    <link rel="stylesheet" href="/fragment/css/header.css">
+    <link rel="stylesheet" href="/fragment/css/sideBanner.css">
+    <link rel="stylesheet" href="/fragment/css/footer.css">
+    <link rel="stylesheet" href="/community/css/walkingMateList.css">
+    <title>산책메이트</title>
+</head>
+<body>
+    <!-- header 시작 -->
+    <div class="header" th:replace="fragment/header :: header">
+
+    </div>
+    <!-- header 끝 -->
+
+    <!-- main 시작 -->
+<main class="main">
+<div class="main-container">
+    <div class="side-banner" style="position: sticky; width: 100%">
+        <div class="side-banner-fragment" th:replace="fragment/sideBanner :: side-banner-fragment">
+
+        </div>
+    </div>
+    <div class="mate-main-img-box">
+        <img src="/img/walkingMate.png" alt="산책메이트 배너">
+            <div class="write-btn">
+                <a href="/walk/walkWrite">산책메이트 글 작성하기</a>
+            </div>
+    </div>
+<!-- 검색 -->
+    <div class="main-content-container-form">
+        <div class="how-to-search-box">
+            <p>*권역 선택 후 도시를 선택해주세요.</p>
+        </div>
+        <div class="search-inputbox">
+            <div class="location-select-container">
+                <select name="addressRegion" id="addressRegion1"></select>
+                <select name="addressDo" id="addressDo1"></select>
+                <select name="addressSiGunGu" id="addressSiGunGu1"></select>
+                <div class="search-btn-box">
+                    <button type="button" class="search-btn">검색</button>
+                </div>
+            </div>
+            <div class="status-container">
+                    <input type="radio" name="status" id="status" value="" checked>
+                <label for="status">
+                전체글
+                </label>
+                    <input type="radio" name="status" id="status-ing" value="0">                 <label for="status-ing">
+                모집중
+                </label>
+                    <input type="radio" name="status" id="status-complete" value="1">                <label for="status-complete">
+            모집완료
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="list-contents">
+        <table class="list-table">
+            <thead>
+                <tr>
+                    <th class="fixed-number">번호</th>
+                    <th class="fixed-status">모집상태</th>
+                    <th class="fixed-member">모집현황</th>
+                    <th class="fixed-city">지역</th>
+                    <th class="fixed-title">제목</th>
+                    <th class="fixed-writer">작성자</th>
+                    <th class="fixed-date">날짜</th>
+                    <th class="fixed-view">조회수</th>
+                </tr>
+            </thead>
+
+            <tbody class="walk-mate-list" >
+            <!--       산책글 리스트-->
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination-container">
+        <ul class="pagination-ul">
+    <!--페이징 처리 영역-->
+        </ul>
+     </div>
+</div>
+
+</main>
+<div class="room"></div>
+<!-- footer 시작 -->
+<div class="footer" th:replace="fragment/footer :: footer">
+
+</div>
+    <!-- footer 끝 -->
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <script type="module" src="/community/js/walkingMateList.js"></script>
+</body>
+</html>

@@ -220,6 +220,16 @@
     width: 1232px;
 }
 
+.reply-state-search-section {
+    display: flex;
+    font-size: 13px;
+    padding: 0px 0px 10px 3px;
+}
+.reply-state-search-section label {
+    cursor: pointer;
+    margin-right: 10px;
+}
+
 .goods-related-q, .goods-related-review {
     text-align: center;
     font-size: 13px;
@@ -227,6 +237,7 @@
     box-sizing: border-box;
     border: 1px solid gray;
     width: 100%;
+    border-collapse: collapse;
 }
 
 .goods-related-q tr th,
@@ -244,7 +255,9 @@
     border : 1px solid gray
 }
 
-
+.goods-related-qna-column {
+    height: 36px;
+}
 
 .q-content {
     width: 957px;
@@ -273,8 +286,15 @@
 }
 
 
+.goods-related-qna-list tr {
+    height: 36px;
+}
 
-.goods-related-q tr:not(.goods-related-q tr:first-child):hover{
+.goods-related-qna-list a {
+    color: black;
+}
+
+.goods-related-qna-list tr:hover{
     background-color: rgba(6, 141, 141, 0.3);
 }
 .goods-related-review tr:not(.goods-related-review tr:first-child):hover{

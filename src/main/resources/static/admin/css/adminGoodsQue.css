@@ -66,7 +66,7 @@
 .input-form {
     padding-left: 10px;
 }
-#search-keword {
+#search-keyword {
     height: 21px;
     width: 200px;
 }
@@ -107,8 +107,6 @@
 
 .goods-q-table {
     font-size: 13px;
-    box-sizing: border-box;
-    padding: 10px;
     width: 100%;
     line-height: 2;
 }
@@ -130,17 +128,16 @@
     padding: 0;
 }
 
-.q-content{
-    height: 100%;
+.q-content {
+    height: 27px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;
     -webkit-line-clamp: 1;
-    -webkit-box-orient:vertical;
+    -webkit-box-orient: vertical;
     display: -webkit-box;
     line-height: 2.1;
 }
-
 
 .btn {
     font-family: 'GmarketSansMedium';

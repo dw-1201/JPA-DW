@@ -7,7 +7,7 @@ import com.example.dw.repository.freeBoard.FreeBoardRepositoryCustom;
 import com.example.dw.service.FreeBoardCommentService;
 import com.example.dw.service.FreeBoardService;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,20 +18,13 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/community/*")
+@RequiredArgsConstructor
 public class FreeBoardController {
 
-    private FreeBoardService freeBoardService;
-    private FreeBoardRepositoryCustom freeBoardRepositoryCustom;
-    private FreeBoardCommentService freeBoardCommentService;  // 새로 추가
+    private final FreeBoardService freeBoardService;
+    private final FreeBoardRepositoryCustom freeBoardRepositoryCustom;
+    private final FreeBoardCommentService freeBoardCommentService;  // 새로 추가
     private final HttpSession httpSession;
-
-    @Autowired
-    public FreeBoardController(FreeBoardService freeBoardService, HttpSession httpSession, FreeBoardRepositoryCustom freeBoardRepositoryCustom, FreeBoardCommentService freeBoardCommentService) {
-        this.freeBoardService = freeBoardService;
-        this.httpSession = httpSession;
-        this.freeBoardRepositoryCustom = freeBoardRepositoryCustom;
-        this.freeBoardCommentService = freeBoardCommentService;  // 새로 추가
-    }
 
     /**
      * 자유게시판 리스트 페이지

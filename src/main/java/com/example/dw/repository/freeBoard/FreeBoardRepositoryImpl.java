@@ -130,11 +130,15 @@ public class FreeBoardRepositoryImpl implements FreeBoardRepositoryCustom{
 //        }
 //    }
 
-    private Long getCount(String keyword){
+    private Long getCount(String keyword) {
         Long count = jpaQueryFactory
                 .select(freeBoard.count())
                 .from(freeBoard)
+                .where(
+                        freeBoard.freeBoardTitle.containsIgnoreCase(keyword)
+                                .or(freeBoard.freeBoardContent.containsIgnoreCase(keyword))
+                )
                 .fetchOne();
-        return  count;
+        return count;
     }
 }

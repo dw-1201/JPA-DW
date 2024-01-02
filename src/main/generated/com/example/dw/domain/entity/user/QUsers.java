@@ -28,6 +28,10 @@ public class QUsers extends EntityPathBase<Users> {
 
     public final ListPath<com.example.dw.domain.entity.freeBoard.FreeBoardComment, com.example.dw.domain.entity.freeBoard.QFreeBoardComment> freeBoardComments = this.<com.example.dw.domain.entity.freeBoard.FreeBoardComment, com.example.dw.domain.entity.freeBoard.QFreeBoardComment>createList("freeBoardComments", com.example.dw.domain.entity.freeBoard.FreeBoardComment.class, com.example.dw.domain.entity.freeBoard.QFreeBoardComment.class, PathInits.DIRECT2);
 
+    public final ListPath<com.example.dw.domain.entity.goods.GoodsQueReply, com.example.dw.domain.entity.goods.QGoodsQueReply> goodsQueReplyList = this.<com.example.dw.domain.entity.goods.GoodsQueReply, com.example.dw.domain.entity.goods.QGoodsQueReply>createList("goodsQueReplyList", com.example.dw.domain.entity.goods.GoodsQueReply.class, com.example.dw.domain.entity.goods.QGoodsQueReply.class, PathInits.DIRECT2);
+
+    public final ListPath<com.example.dw.domain.entity.goods.GoodsQue, com.example.dw.domain.entity.goods.QGoodsQue> goodsQues = this.<com.example.dw.domain.entity.goods.GoodsQue, com.example.dw.domain.entity.goods.QGoodsQue>createList("goodsQues", com.example.dw.domain.entity.goods.GoodsQue.class, com.example.dw.domain.entity.goods.QGoodsQue.class, PathInits.DIRECT2);
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final ListPath<Pet, QPet> pet = this.<Pet, QPet>createList("pet", Pet.class, QPet.class, PathInits.DIRECT2);
@@ -55,6 +59,8 @@ public class QUsers extends EntityPathBase<Users> {
     public final StringPath userPhone = createString("userPhone");
 
     public final NumberPath<Integer> userState = createNumber("userState", Integer.class);
+
+    public final ListPath<com.example.dw.domain.entity.walkingMate.WalkingMate, com.example.dw.domain.entity.walkingMate.QWalkingMate> walkingMates = this.<com.example.dw.domain.entity.walkingMate.WalkingMate, com.example.dw.domain.entity.walkingMate.QWalkingMate>createList("walkingMates", com.example.dw.domain.entity.walkingMate.WalkingMate.class, com.example.dw.domain.entity.walkingMate.QWalkingMate.class, PathInits.DIRECT2);
 
     public QUsers(String variable) {
         this(Users.class, forVariable(variable), INITS);

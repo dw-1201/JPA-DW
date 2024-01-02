@@ -33,7 +33,7 @@ $('.update-btn').on('click', function () {
 // 자유게시판 글 삭제
 $('.remove-btn').on('click', function () {
   let freeBoardId = $(this).data('freeboardid');
-  if (confirm("상품을 삭제하시겠습니까?")) {
+  if (confirm("글을 삭제하시겠습니까?")) {
     window.location.href = "/community/delete/" + freeBoardId;
   }
 });

@@ -14,27 +14,18 @@
                 <ul  th:if="${session.userId == null}">
                     <li><a href="/user/enterLogin">
                         <div class="top-section">
-<!--                            <span class="material-symbols-outlined">-->
-<!--                            lock-->
-<!--                            </span>-->
                             <p>로그인</p>
                         </div>
                         </a>
                     </li>
-                    <li><a href="">
+                    <li><a href="/user/join">
                         <div class="top-section">
-<!--                          <span class="material-symbols-outlined">-->
-<!--                        person_add-->
-<!--                        </span>-->
                             <p>회원가입</p>
                         </div>
                     </a>
                     </li>
                     <li><a href="">
                         <div class="top-section">
-<!--                         <span class="material-symbols-outlined">-->
-<!--                        shopping_cart-->
-<!--                        </span>-->
                             <p>장바구니</p>
                         </div>
                     </a>
@@ -43,27 +34,18 @@
                 <ul  th:if="${session.userId != null}">
                     <li><a href="/user/logout">
                         <div class="top-section">
-<!--                            <span class="material-symbols-outlined">-->
-<!--                            lock_open-->
-<!--                            </span>-->
                             <p>로그아웃</p>
                         </div>
                     </a>
                     </li>
                     <li><a th:href="@{'/mypg/main/' + ${session.userId}}">
                         <div class="top-section">
-<!--                          <span class="material-symbols-outlined">-->
-<!--                            person-->
-<!--                          </span>-->
                             <p>마이페이지</p>
                         </div>
                     </a>
                     </li>
                     <li><a href="">
                         <div class="top-section">
-<!--                         <span class="material-symbols-outlined">-->
-<!--                        shopping_cart-->
-<!--                        </span>-->
                             <p>장바구니</p>
                         </div>
                     </a>
@@ -79,14 +61,21 @@
                 <div class="header-section02-nav">
                     <ul>
                         <li><a href="/community/freeBoardList">커뮤니티</a></li>
-                        <li><a href="">산책메이트</a></li>
-                        <li><a href="/shopping/html/shop.html">쇼핑</a></li>
+                        <li><a href="/shop/shopList">쇼핑</a></li>
+                        <li><a href="/walk/walkList">산책메이트</a></li>
                         <li><a href="/map/html/map.html">병원찾기</a></li>
                     </ul>
                 </div>
             </div>
         </div>
-    </div>
+
+
+          <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+          <script src="/fragment/js/header.js"></script>
+
+      </div>
     <!-- header 끝 -->
+
+
 </body>
 </html>

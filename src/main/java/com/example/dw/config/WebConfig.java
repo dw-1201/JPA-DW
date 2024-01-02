@@ -12,11 +12,13 @@ public class WebConfig implements WebMvcConfigurer {
     private String goodsImgPath;
     @Value("${file.que}")
     private String questionPath;
+
     // 사용자 프로필 저장 공간
     @Value("${file.user}")
     private String userFilePath;
     @Value("${file.pet}")
     private String petImgPath;
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         //addResourceHandlers() 리소스 경로와 연결된 URL경로를 작성한다.

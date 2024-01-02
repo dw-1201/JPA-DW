@@ -3,7 +3,10 @@ package com.example.dw.domain.entity.user;
 import com.example.dw.domain.embedded.Address;
 import com.example.dw.domain.entity.freeBoard.FreeBoard;
 import com.example.dw.domain.entity.freeBoard.FreeBoardComment;
+import com.example.dw.domain.entity.goods.GoodsQue;
+import com.example.dw.domain.entity.goods.GoodsQueReply;
 import com.example.dw.domain.entity.question.Question;
+import com.example.dw.domain.entity.walkingMate.WalkingMate;
 import com.example.dw.domain.form.UserUpdateForm;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -42,7 +45,6 @@ public class Users {
     @CreatedDate
     private LocalDate userDeleteDate;
 
-
     private String userNickName;
     private String userIntroduction;
 
@@ -69,16 +71,24 @@ public class Users {
     @OneToMany(mappedBy = "users", orphanRemoval = true)
     private List<FreeBoardComment> freeBoardComments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "users", orphanRemoval = true)
+    private List<WalkingMate> walkingMates = new ArrayList<>();
+
+    @OneToMany(mappedBy = "users" ,fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<GoodsQue> goodsQues = new ArrayList<>();
+
+    @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<GoodsQueReply> goodsQueReplyList=new ArrayList<>();
+
+
+
+
     @Builder.Default
     private int userState = 1;
 
 
     @Builder
-    public Users(Long id, String userAccount, String userName, String userPassword, String userEmail, String userPhone,
-                 LocalDate userJoinDate, LocalDate userDeleteDate, String userNickName,
-                 String userIntroduction, Address address,
-                 List<UserFile> userFile, List<Pet> pet,List<FreeBoard> freeBoard, List<Question> questions,
-                 List<FreeBoardComment> freeBoardComments, int userState) {
+    public Users(Long id, String userAccount, String userName, String userPassword, String userEmail, String userPhone, LocalDate userJoinDate, LocalDate userDeleteDate, String userNickName, String userIntroduction, Address address, List<UserFile> userFile, List<Pet> pet, List<FreeBoard> freeBoard, List<Question> questions, List<FreeBoardComment> freeBoardComments, List<WalkingMate> walkingMates, List<GoodsQue> goodsQues, List<GoodsQueReply> goodsQueReplyList, int userState) {
         this.id = id;
         this.userAccount = userAccount;
         this.userName = userName;
@@ -93,12 +103,16 @@ public class Users {
         this.userFile = userFile;
         this.pet = pet;
         this.freeBoard = freeBoard;
-        this.questions= questions;
-        this.freeBoardComments = freeBoardComments;
-        this.userState=userState;
         this.questions = questions;
+        this.freeBoardComments = freeBoardComments;
+        this.walkingMates = walkingMates;
+        this.goodsQues = goodsQues;
+        this.goodsQueReplyList = goodsQueReplyList;
         this.userState = userState;
     }
+
+
+
 
     //임시비밀번호로 비밀번호 수정
     public Users updatePassword(String rePassword){

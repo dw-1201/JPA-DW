@@ -95,8 +95,6 @@ public class FreeBoard {
         this.freeBoardTitle = freeBoardModifyForm.getFreeBoardTitle();
         this.freeBoardContent = freeBoardModifyForm.getFreeBoardContent();
         this.freeBoardMd = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
-
-
     }
 
     //날짜포맷

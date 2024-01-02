@@ -180,3 +180,47 @@ export function timeForToday(value){
 
     return `${Math.floor(betweenTimeDay / 365)}년 전`;
 }
+
+
+
+
+
+//입력된 글자 바이트 계산
+export function getTextLength(text) {
+    let len = 0;
+    for (let i = 0; i < text.length; i++) {
+        if (escape(text.charAt(i)).length == 6) {
+            len++;
+        }
+        len++;
+    }
+    return len;
+}
+
+//댓글 입력창 글자 수 제한
+export function limitText(contents, section){
+    $(contents).keyup(function(e) {
+
+        let cont = $(this).val();
+        $(section).html(`<span class="overWrite">${getTextLength(cont) + ' / 200'}  </span>`); //실시간 글자수 카운팅
+        if (getTextLength(cont) > 200) {
+            $('.overWrite').css('color', 'red')
+        }
+    });
+}
+
+
+//댓글 수정 입력창 글자 수 제한
+export function limitModifyText(section, binding, lengthCheck, replace) {
+    $(section).on('keyup', binding, function () {
+        const modifyContent = $(this).val(); //this는 바인딩기준
+        console.log(getTextLength(modifyContent));
+        $(lengthCheck).css('display', 'none')
+        $(replace).html(`<span class="overWrite">${getTextLength(modifyContent) + ' / 200'}</span>`);
+        if (getTextLength(modifyContent) > 200) {
+            $('.overWrite').css('color', 'red');
+        } else {
+            $('.overWrite').css('color', '');
+        }
+    });
+}

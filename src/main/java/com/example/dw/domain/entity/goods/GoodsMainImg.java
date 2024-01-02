@@ -18,11 +18,10 @@ public class GoodsMainImg {
     private String goodsMainImgPath;
     private String goodsMainImgUuid;
 
-
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "goods_id")
     private Goods goods;
+
 
     @Builder
     public GoodsMainImg(Long id, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid, Goods goods) {
@@ -30,9 +29,10 @@ public class GoodsMainImg {
         this.goodsMainImgName = goodsMainImgName;
         this.goodsMainImgPath = goodsMainImgPath;
         this.goodsMainImgUuid = goodsMainImgUuid;
-        this.goods=goods;
-
+        this.goods = goods;
     }
+
+
 
     public GoodsMainImg(String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid) {
         this.goodsMainImgName = goodsMainImgName;

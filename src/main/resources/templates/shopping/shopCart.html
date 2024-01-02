@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,28 +13,8 @@
 </head>
 <body>
 <!-- header 시작 -->
-<div class="header">
-    <div class="header-section01">
-        <div class="header-section01-nav">
-            <ul>
-                <li><a href="">로그인</a></li>
-                <li><a href="">장바구니</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="header-section02">
-        <div class="header-section02-container">
-            <div class="header-logo"><a href=""><img src="/img/logo.png" alt=""></a></div>
-            <div class="header-section02-nav">
-                <ul>
-                    <li><a href="/shopping/html/shop.html">쇼핑</a></li>
-                    <li><a href="">커뮤니티</a></li>
-                    <li><a href="">산책메이트</a></li>
-                    <li><a href="/map/html/map.html">병원찾기</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+<div class="header" th:replace="fragment/header :: header">
+
 </div>
 <!-- header 끝 -->
 <!-- main 시작 -->
@@ -52,34 +32,35 @@
           <a href="">전체 삭제</a>
         </div>
 
+        <div class="cart_list">
   <!-- 리스트 -->
-        <div class="cart_table">
-          <div class="cart_form">
-            <div class="remove-button">
-              <a href="">X</a>
-            </div>
-            <div class="thumbnail">
-              <img src="/img/thumbnail.png" alt="">
-              <div class="thumbnail-dox">
-                <div class="thumbnail-dox-div">
-                  <a href="">
-                    <p>삼색이 필로우 고양이 인형</p>
-                    <p id="price" class="item-price" data-price="33000">33,000원 </p>
-                  </a>
-                </div>
-                <div class="quantity-button">
-                  <div class="quantity-box">
-                      <button id="increase" onclick="changeQuantity(1)"><strong>+</strong></button>
-                      <div><span id="number">1</span></div>
-                      <button id="decrease" onclick="changeQuantity(-1)"><strong>-</strong></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+<!--        <div class="cart_table">-->
+<!--          <div class="cart_form">-->
+<!--            <div class="remove-button">-->
+<!--              <a href="">X</a>-->
+<!--            </div>-->
+<!--            <div class="thumbnail">-->
+<!--              <img src="/img/thumbnail.png" alt="">-->
+<!--              <div class="thumbnail-dox">-->
+<!--                <div class="thumbnail-dox-div">-->
+<!--                  <a href="">-->
+<!--                    <p>삼색이 필로우 고양이 인형</p>-->
+<!--                    <p id="price" class="item-price" data-price="33000">33,000원 </p>-->
+<!--                  </a>-->
+<!--                </div>-->
+<!--                <div class="quantity-button">-->
+<!--                  <div class="quantity-box">-->
+<!--                      <button id="increase" onclick="changeQuantity(1)"><strong>+</strong></button>-->
+<!--                      <div><span id="number">1</span></div>-->
+<!--                      <button id="decrease" onclick="changeQuantity(-1)"><strong>-</strong></button>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
  <!-- 리스트 -->
- 
+        </div>
 
 
 <div class="content-price3">
@@ -98,42 +79,18 @@
 
 </div>
     </div>
+
+    <input type="hidden" th:value="${session.userId}" id="userId">
 </main>
 <!-- main 끝 -->
 
-
 <!-- footer 시작 -->
-<div class="footer">
-    <div class="footer-container01">
-        <div class="footer-containerbox01">
-            <div class="footer-container01-nav">
-                <ul>
-                    <li>(주)산책갈개</li>
-                    <li>복영헌 임형준 노의진 이지윤</li>
-                    <li>서울특별시 노원구 상계로1길 34 세일학원 5층</li>
-                    <li>02-933-5890</li>
-                </ul>
-            </div>
-            <div class="footer-container01-img">
-                <img src="/img/dog02.png" alt="">
-            </div>
-        </div>
-    </div>
-    <div class="footer-container02">
-        <div class="footer-containerbox02">
-            <div>Copyright ©SCGG All Rights Reserved.</div>
-            <div class="footer-container02-nav">
-                <ul>
-                    <li><a href="/fragment/html/terms.html">이용약관</a></li>
-                    <li><a href="/fragment/html/privacy.html">개인정보처리방침</a></li>
-                    <li><a href="">사업자정보확인</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+<div class="footer" th:replace="fragment/footer :: footer">
+
 </div>
 <!-- footer 끝 -->
 
 </body>
-<script defer src="/shopping/js/shopCart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<script src="/shopping/js/shopCart.js"></script>
 </html>

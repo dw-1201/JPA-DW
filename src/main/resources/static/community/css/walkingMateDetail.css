@@ -1,0 +1,474 @@
+.main {
+    width: 1024px;
+    height: 100%;
+    margin: 50px auto;
+    font-family: 'GmarketSansMedium';
+
+}
+
+
+
+.walk-mate-top-info-section {
+    width: 1024px;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 10px 0px 10px 0px;
+}
+
+
+
+.walk-mate-top-info-ul {
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 3px 15px 3px;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+}
+
+.walk-mate-writer {
+    width: 550px;
+}
+.detail-info {
+
+}
+
+.detail-info span {
+    margin-left: 10px;
+}
+
+.walk-mate-etc-info-section {
+    width: 1024px;
+    height: 475px;
+    display: flex;
+}
+
+.walk-mate-title-section {
+    width: 650px;
+    box-sizing: border-box;
+    padding: 35px 0px 20px 3px;
+}
+
+.walk-mate-textarea {
+
+    width: 650px;
+    min-height: 365px;
+    resize: none;
+    padding: 10px;
+    box-sizing: border-box;
+    border: none;
+}
+
+
+.title-content-wrap {
+    border-right: 1px solid gray;
+    width: 655px;
+}
+
+.walk-mate-state {
+    width: 130px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding-left: 3px;
+    height: 30px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+}
+.walk-mate-state p {
+    width: 60px;
+}
+.current-person {
+    font-size: 12px;
+}
+
+#map {
+    border-radius: 10px;
+    width: 350px;
+    height: 250px;
+}
+
+.map-container {
+    padding-left: 15px;
+}
+
+.mate-date-time {
+    box-sizing: border-box;
+    padding: 10px 0px 5px 10px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.mate-date {
+    width: 80px;
+}
+
+#fullsAddress {
+    margin-top: 5px;
+    width: 350px;
+    box-sizing: border-box;
+    padding: 0px 0px 5px 10px;
+    border: none;
+}
+
+
+textarea:focus {
+    outline: none;
+}
+
+input:focus {
+    outline: none;
+}
+
+.btns-container {
+    display: flex;
+    justify-content: end;
+    width: 1024px;
+    height: 100%;
+    margin-top: 8px;
+    border-top: 1px solid gray;
+}
+
+.writer-btns {
+    width: 210px;
+    height: 50px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.apply {
+    width: 160px;
+    height: 50px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.apply-cancel-btn {
+    display: none;
+}
+
+
+
+.btn {
+    border-radius: 5px;
+    border: 1px solid gray;
+    cursor: pointer;
+    padding: 5px 10px 5px 10px;
+    background-color: white;
+    position: relative;
+    z-index: 1;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.btn:after{
+    content: "";
+    top: 0;
+    position: absolute;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+    background-color: #F8BE41;
+}
+.btn:hover:after {
+    width: 100%;
+    z-index: -1;
+}
+
+
+/*작성자 펫 정보*/
+
+.writer-pet-info {
+    margin-bottom: 10px;
+}
+.writer-pet-section {
+    font-size: 12px;
+}
+
+.writer-pet-title {
+    padding:10px 0 10px 0px;
+}
+.writer-pet-title span {
+    color: black;
+}
+
+.writer-pet-title h4 {
+    color: gray;
+}
+
+.writer-pet-info-ul {
+    border: 1px solid gray;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 350px;
+    height: 130px;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.writer-pet-img{
+    width: 165px;
+    height: 120px;
+}
+.writer-pet-img img {
+    width: 100%;
+    height: 100%;
+}
+
+.writer-pet-detail {
+    width: 120px;
+    line-height: 1.9;
+}
+
+/* 끝 */
+.reply-container{
+    width: 100%;
+    height: auto;
+}
+.reply-title{
+    width: 100%;
+    height: 60px;
+    font-size: 18px;
+    font-weight: bold;
+    box-sizing: border-box;
+    padding: 10px;
+    margin: 30px 0 0px 0;
+    display: flex;
+    align-items: end;
+    /* background-color: yellow; */
+}
+.reply-input{
+    width: 100%;
+    height: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.comment-length-Check {
+    position: absolute;
+    width: 120px;
+    bottom: 26px;
+    right: 26px;}
+
+.reply-input textarea{
+    width: 1024px;
+    height: 100px;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid #E4E4E4;
+    resize: none;
+}
+.reply-input button{
+    width: 70px;
+    height: 25px;
+    position: absolute;
+    right: 9px;
+    bottom: 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #FCD11E;
+    color: white;
+    cursor: pointer;
+}
+.reply-list{
+    width: 100%;
+    height: 100%;
+    margin: 30px 0;
+    /* background-color: antiquewhite; */
+}
+.reply{
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #E4E4E4;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    /* background-color: #FCD11E; */
+}
+.id-and-date{
+    width: 1024px;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    /* background-color: green; */
+}
+.reply-info{
+    width: 150px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    /* background-color: red; */
+}
+.reply-img{
+    width: 20px;
+    height: 20px;
+    border-radius: 70%;
+}
+.reply-img img{
+    width: 100%;
+    height: 100%;
+    border-radius: 70%;
+}
+.reply-id{
+    margin: 0 5px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.reply-date{
+    width: 80px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+    /* background-color: palevioletred; */
+     color: gray;
+}
+.reply-content-n-btns{
+    width: 100%;
+    height: auto;
+    position: relative;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    /* background-color: pink; */
+}
+.reply-content{
+    width: 90%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 12px;
+    /* background-color: salmon; */
+}
+.reply-btns{
+    font-size: 12px;
+    z-index: 99999999;
+    /*border: 1px solid #888;*/
+    border-radius: 5px;
+    width: 60px;
+    height: 33px;
+    position: absolute;
+    top: 0px;
+    right: 17px;
+    background-color: #f7f7f7;
+
+
+    /* background-color: yellow; */
+}
+.update-reply, .delete-reply{
+    width: 100%;
+    height: 100%;
+
+    background-color: #f1efef;
+    cursor: pointer;
+}
+.update-reply a, .delete-reply a{
+    color: #898787;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modify-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.modify-reply-content {
+    box-sizing: border-box;
+    padding:10px;
+    resize: none;
+    width: 950px;
+    height: 55px;
+}
+
+.modify-reply-btn {
+    cursor: pointer;
+    width: 55px;
+    height: 55px;
+}
+.modify-limit {
+    display: flex;
+}
+
+.textLengthCheck, .overWrite {
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+}
+
+.reply-section-btns {
+    background-image: linear-gradient(transparent, transparent), url(https://ssl.pstatic.net/static/comic/comment_new/sp_comment.svg);
+    display: inline-block;
+    overflow: hidden;
+    font-size: 0;
+    line-height: 0;
+    vertical-align: top;
+    background-position: -320px -96px;
+    background-repeat: no-repeat;
+    width: 10px;
+    height: 15px;
+    margin: 7px 0 0 13px;
+    cursor: pointer;
+}
+
+.none {
+    display: none;
+}
+
+.required-login-section {
+    width: 1024px;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.required-login-section a {
+    color: black;
+    font-size: 12px;
+}
+
+.apply-modal-section {
+    width: 300px;
+    height: 300px;
+    background-color: #00c7ae;
+    display: none;
+}
+
+
+
+
+
+.showModal {
+    display: block !important;
+}
+
+.apply-modal-section {
+    display: none;
+}
