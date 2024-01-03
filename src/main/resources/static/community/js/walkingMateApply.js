@@ -16,7 +16,7 @@ $(document).ready(function () {
             }
         }
     });
-
+    check(walkMateId)
     applyCheck(walkMateId);
 });
 
@@ -156,3 +156,19 @@ function applyCheck(walkMateId){
     })
 }
 
+
+//통신확인용
+function check(walkMateId){
+
+    $.ajax({
+
+
+        url : `/walks/applierPetInfo/${walkMateId}`,
+        type:'get',
+        dataType:'json',
+        success :function (result){
+            console.log(result)
+        }
+    })
+
+}

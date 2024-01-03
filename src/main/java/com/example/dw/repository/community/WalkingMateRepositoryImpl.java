@@ -177,33 +177,35 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
     //산책 신청자 펫 정보
     @Override
     public List<WalkDetailStateDto> applierPetsInfo(Long walkMateId) {
-
         return jpaQueryFactory.select(new QWalkDetailStateDto(
-
                 walkingMateState.walkingMate.id,
                 walkingMateState.id,
                 walkingMateState.users.id,
-                walkingMateState.pet.id,
-                walkingMateState.pet.name,
-                walkingMateState.pet.weight,
-                walkingMateState.pet.petGender,
-                walkingMateState.pet.birthDate,
-                walkingMateState.pet.petCategory,
-                walkingMateState.pet.neutering,
-                pet.petImg.get(0).petFileName,
-                pet.petImg.get(0).petPath,
-                pet.petImg.get(0).petUuid,
+                pet.id,
+                pet.name,
+                pet.weight,
+                pet.petGender,
+                pet.birthDate,
+                pet.petCategory,
+                pet.neutering,
+                petImg.petFileName,
+                petImg.petPath,
+                petImg.petUuid,
                 walkingMateState.state
-
         ))
                 .from(walkingMateState)
                 .leftJoin(walkingMateState.walkingMate, walkingMate)
-                .leftJoin(walkingMateState.users, users)
-                .leftJoin(walkingMateState.pet, pet)
+                .leftJoin(walkingMate.users, users)
+                .leftJoin(walkingMate.pet, pet)
                 .leftJoin(pet.petImg, petImg)
-                .where(walkingMateState.walkingMate.id.eq(walkMateId))
+                .where(
+                        walkingMateState.walkingMate.id.eq(walkMateId).and(
+                                walkingMateState.state.eq(1)
+                        )
+                )
                 .fetch();
     }
+
 
 
     //관리자 페이지 산책글 리스트
@@ -260,7 +262,6 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
 
                 )
                 .fetchOne();
-        System.out.println(content.toString()+"#########################");
         return new PageImpl<>(content, pageable, count);
 
     }
