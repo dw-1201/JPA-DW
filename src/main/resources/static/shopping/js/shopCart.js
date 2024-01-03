@@ -50,7 +50,8 @@ function getCartList(result){
                   <a href="/shop/shopDetail/${r.goodsId}">
                   <input type="hidden" class="goodsId" value="${r.goodsId}">
                     <p class="goodsName">${r.goodsName}</p>
-                    <p id="price" class="item-price" data-price="${r.goodsPrice}">${addCommas(r.goodsPrice)} 원 </p>
+                    <p id="price" class="item-price" data-price="${r.goodsPrice}">${addCommas(r.goodsPrice)}</p>
+                    <input type="hidden" value="${r.goodsPrice}" id="goodsPrice">
                   </a>
                 </div>
                 <div class="quantity-button">
@@ -129,33 +130,51 @@ function updateTotalPrice() {
         });
         return data;
     }
+
+    function collectDataName(selector, dataName) {
+        let data = [];
+        $(selector).each(function () {
+            data.push($(this).data(dataName));
+        });
+        return data;
+    }
+
     /**
      * 결제 버튼 클릭 시 데이터를 수집
      */
+
     $('.cart-button').on('click', function () {
         let order = [];
-        let currentPrices = collectData('.item-price');
+        let currentPrices = collectDataName('.item-price', 'price');
         let goodsName = collectData('.thumbnail-dox-div .goodsName');
         let goodsId = collectInputData('.thumbnail-dox-div .goodsId');
         let cartItemQuantity = collectData('.quantity-box .quantity');
+        let userId = $('#userId').val();
 
-        for (let i = 0; i < currentPrices.length; i++) {
+        for (let i = 0; i < goodsId.length; i++) {
             let product = {
                 goodsId: goodsId[i],
                 goodsName: goodsName[i],
                 goodsQuantity: cartItemQuantity[i],
-                goodsTotalPrice: currentPrices[i]
+                goodsPrice: currentPrices[i],
             };
             order.push(product);
         }
         console.log(order);
+
 
         $.ajax({
             url : '/shops/cartGoods',
             type : 'post',
             data: JSON.stringify(order),
             contentType:'application/json; charset=utf-8',
-            success : function (){
+            success : function (result){
+
+                console.log(result)
+
+                if(confirm("결제페이지로 이동하시겠습니까?")){
+                    window.location.href="/shop/shopPay/" + userId;
+                }
 
             },error : function (a,b,c){
                 console.error(c)

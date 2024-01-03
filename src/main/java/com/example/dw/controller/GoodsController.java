@@ -102,10 +102,10 @@ public class GoodsController {
     /**
      * 쇼핑 결제 페이지
      */
-//    @GetMapping("/shopPay")
-//    public String shopPay(){
-//        return "/shopping/shopPay";
-//    }
+    @GetMapping("/shopPay/{userId}")
+    public String shopPay(){
+        return "/shopping/shopPay";
+    }
 
 
 
