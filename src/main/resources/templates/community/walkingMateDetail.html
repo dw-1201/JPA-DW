@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/community/css/walkingMateDetail.css">
     <title>산책메이트-상세페이지</title>
 </head>
-<body>
+<body >
     <!-- header 시작 -->
     <div class="header" th:replace="fragment/header :: header">
 
@@ -25,7 +25,7 @@
 
                 </div>
             </div>
-           <div class="walk-mate-detail-container" >
+           <div class="walk-mate-detail-container"  >
                 <div class="walk-mate-top-info-section">
                     <ul class="walk-mate-top-info-ul">
                         <li class="walk-mate-writer detail-info">
@@ -67,14 +67,6 @@
                    </div>
                    <div class="map-container">
                        <div class="writer-pet-section">
-<!--                           <div class="writer-pet-title">-->
-<!--                               <th:block th:if="${detail.userNickName == null}">-->
-<!--                                   <h4><span th:text="${detail.userAccount}"></span>님의 펫에 관한 정보입니다.</h4>-->
-<!--                               </th:block>-->
-<!--                               <th:block th:if="${detail.userNickName != null}">-->
-<!--                                   <h4><span th:text="${detail.userNickName}"></span>님의 펫에 관한 정보입니다.</h4>-->
-<!--                               </th:block>-->
-<!--                           </div>-->
                            <div class="writer-pet-info">
                                <ul class="writer-pet-info-ul">
                                    <li class="writer-pet-info-ul-li writer-pet-img">
@@ -113,22 +105,15 @@
                     </div>
                    <div class="apply btns" th:if="${detail.userId != session.userId}">
                        <button class="list-btn btn">목록</button>
-                       <button class="apply-btn btn">신청하기</button>
-                       <button class="apply-cancel-btn btn">신청취소 하기</button>
+                       <button class="apply-btn btn" th:if="${detail.currentState==0}">신청하기</button>
+                       <button class="apply-cancel-btn btn" >신청취소 하기</button>
+                       <button class="apply-complete-btn btn" th:if="${detail.currentState==1}">신청마감</button>
                    </div>
+
                </div>
            </div>
 
 
-            <div class="apply-modal-section">
-
-
-
-                <select name="sessionUserPet" id="sessionUserPet">
-                    <option th:each="sessionUser : ${sessionUserPet}" th:value="${sessionUser.id}" th:text="${sessionUser.petName}"></option>
-                </select>
-                <button type="button" class="apply-submit-btn">신청 제출</button>
-            </div>
             <!-- 글 끝 -->
 
 <!--            <div class="writer-pet-section">-->
@@ -174,7 +159,8 @@
 
             <!-- 댓글 시작 -->
             <th:block th:if="${session.userId != null}" >
-            <div class="reply-container" >
+                <th:block th:if="${replyAuthorized == session.userId}">
+                <div class="reply-container" >
                 <div class="reply-title">댓글</div>
                 <div class="reply-input">
                     <textarea name="walkBoardComment" id="walkBoardComment" placeholder="댓글을 입력해주세요"></textarea>
@@ -185,17 +171,32 @@
 <!--                    댓글 영역-->
                 </div>
             </div>
+                </th:block>
             </th:block>
-            <th:block th:unless="${session.userId != null}">
+            <th:block th:if="${session.userId == null}">
+                <th:block th:if="${replyAuthorized == null}">
                 <div class="required-login-section">
                     <h5>댓글 기능을 이용하실려면 로그인과 산책메이트 작성자의 승인이 필요합니다.</h5>
                     <a href="/user/enterLogin"> 로그인 이동하기 </a>
                 </div>
+                </th:block>
+            </th:block>
+            <th:block th:if="${session.userId != null}">
+            <th:block th:if="${replyAuthorized == null}">
+                <div class="required-login-section">
+                    <h5>댓글 기능을 이용하실려면 해당 산책글 모집에 신청을 하시고 작성자의 승인을 기다려야합니다.</h5>
+                </div>
+            </th:block>
             </th:block>
         </div>
     </main>
+
     <input type="hidden" th:value="${detail.id}" id="walkBoardId" />
+    <input type="hidden" th:value="${detail.currentPerson}" id="currentPerson"/>
+    <input type="hidden" th:value="${detail.matePerson}" id="matePerson"/>
+    <input type="hidden" th:value="${detail.currentState}" id="currentState"/>
     <input type="hidden" th:value="${session.userId}" id="userId" />
+
     <!-- main 끝 -->
 
     <!-- footer 시작 -->
@@ -203,6 +204,38 @@
 
     </div>
     <!-- footer 끝 -->
+
+    <section class="modal-open">
+        <div class="apply-modal-section">
+
+        <div class="term-section">
+            <h4>안녕하세요. 산책갈개 산책메이트 공간입니다.</h4>
+            <div class="guide-section">
+                <h5>이용 안내 사항</h5>
+                <ul class="guide-section-ul">
+                    <li><p>*이용을 위해선 마이페이지에서 펫등록이 우선되어야합니다.</p></li>
+                    <li><p>*신청서 제출 후 산책글 작성자의 승인을 받아야 댓글 기능을 이용하실 수 있습니다.</p></li>
+                    <li><p>*등록된 펫들 중에 한 마리만 동행 신청 가능합니다.<br>
+                        <span>-두 마리 이상의 동행을 위해선 산책글 작성자의 승인을 받아 해당 게시글에 있는 댓글을 통해
+                        서로 소통하시길 바랍니다.</span></p></li>
+                    <li><p>*저희는 이용자들의 개인정보(휴대폰 번호, 이메일 등)를 노출하지 않습니다.</p></li>
+                </ul>
+            </div>
+        </div>
+            <div th:if="${#lists.isEmpty(sessionUserPet)}">
+                <h5>등록된 펫이 없습니다.</h5><br>
+                <span class="no-pet-span"><a th:href="@{/mypg/mypet/{id} (id=${session.userId})}">마이페이지로 가서 펫 등록하기</a></span>
+            </div>
+            <div th:unless="${#lists.isEmpty(sessionUserPet)}">
+            <h5>같이 산책할 아이를 선택해주세요.</h5>
+            <select name="sessionUserPet" id="sessionUserPet">
+                <option th:each="sessionUser : ${sessionUserPet}" th:value="${sessionUser.id}" th:text="${sessionUser.petName}"></option>
+            </select>
+            <button type="button" class="apply-submit-btn">신청 제출</button>
+            </div>
+        </div>
+    </section>
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2d8cddce5e1cf36a90728390b847c19c&autoload=false&libraries=services"></script>

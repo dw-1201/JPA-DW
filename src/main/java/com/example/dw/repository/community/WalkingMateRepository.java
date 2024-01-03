@@ -14,5 +14,14 @@ public interface WalkingMateRepository extends JpaRepository<WalkingMate, Long> 
     @Query("update WalkingMate wm set wm.walkingMateViewCount = wm.walkingMateViewCount+1 where wm.id=:id")
     void updateViewCount(@Param("id") Long id);
 
+    //walkMate-state 상태값 변경
+    @Modifying
+    @Query("update WalkingMate wm set wm.walkingMateState=1 where wm.id=:id")
+    void updateWalkMateState(@Param("id") Long id);
+
+    //walkMate-state 상태값 변경
+    @Modifying
+    @Query("update WalkingMate wm set wm.walkingMateState=0 where wm.id=:id")
+    void downDateWalkMateState(@Param("id") Long id);
 
 }

@@ -6,6 +6,7 @@ import com.example.dw.domain.form.GoodsQandaWritingForm;
 import com.example.dw.domain.form.SearchForm;
 import com.example.dw.repository.goods.ShopRepositoryCustom;
 import com.example.dw.service.GoodsService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -137,13 +138,23 @@ public class GoodsApiController {
         return FileCopyUtils.copyToByteArray(new File(fileShopImg, fileFullPath));
     }
 
-    //장바구니 정보 가져오기
+
+
+    //장바구니 정보 넣기
     @PostMapping("/cartGoods")
-    public List<GoodsPayDto> cartGoods(@RequestBody List<GoodsPayDto> goodsPayDto){
-        System.out.println(goodsPayDto.toString());
+    public void cartGoods(@RequestBody List<GoodsPayListForm> goodsPayListForm, HttpSession session){
 
-        List<GoodsPayDto> payDtoList = goodsPayDto;
+        System.out.println(goodsPayListForm.toString()+"@@@@@@@@@@@@@@@@");
 
-        return payDtoList;
+            goodsService.goodsPayList(goodsPayListForm, session);
     }
+
+    //가져오기
+    @GetMapping("/payGoodsList")
+    public void payGoodsList(Long userId){
+
+
+//        return;
+    }
+
 }

@@ -201,18 +201,20 @@ $('#userEmail').keyup(function() {
 
 //특수문자(이메일용)
 function characterCheck(obj){
-    var regExp = /[ \{\}\[\]\/?,;:|\)*~`!^\-_+┼<>\#$%&\'\"\\\(\=]/gi; 
+    var regExp = /[ \{\}\[\]\/?,;:|\)*~`!^\-_+┼<>\#$%&\'\"\\\(\=]/gi;
     if( regExp.test(obj.value) ){
         alert("@제외한 특수문자는 입력하실 수 없습니다.");
         obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움
-        }
     }
-    
+}
+
 //모든특수문자용
 function AllCharacterCheck(obj){
-    var regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>\#$%&\'\"\\@\(\=]/gi; 
+    var regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>\#$%&\'\"\\@\(\=]/gi;
     if( regExp.test(obj.value) ){
         alert("특수문자는 입력하실수 없습니다.");
         obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움
     }
 }
+
+

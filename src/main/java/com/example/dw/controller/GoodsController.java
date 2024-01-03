@@ -102,7 +102,7 @@ public class GoodsController {
     /**
      * 쇼핑 결제 페이지
      */
-    @GetMapping("/cartGoods/{userId}")
+    @GetMapping("/shopPay/{userId}")
     public String shopPay(){
         return "/shopping/shopPay";
     }
