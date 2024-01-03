@@ -36,6 +36,7 @@ public class GoodsService {
     private final GoodsMainImgRepository goodsMainImgRepository;
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
+    private final GoodsPayListRepository goodsPayListRepository;
 
 
     //모달 글쓰기
@@ -163,5 +164,40 @@ public class GoodsService {
         return new ShopCartListDto(cartDto.getId(), userId, mergedItems);
     }
 
+    //결제페이지에 담길 물건 리스트
+    @Transactional
+    public void goodsPayList(List<GoodsPayListForm> goodsPayListForm,HttpSession session){
+
+        Long userId = (Long) session.getAttribute("userId");
+
+        try{
+            List<GoodsPayDto> beforeList = goodsPayListRepository.findGoodsPayList(userId);
+            System.out.println(beforeList.toString());
+
+            //이미 상품 결제정보가 존재한다면
+            if (beforeList.size() > 0) {
+
+                for(GoodsPayDto goodsPayDtos : beforeList){
+
+                    //개수만큼 삭제
+                    goodsPayListRepository.deleteById(goodsPayDtos.getId());
+                }
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        GoodsPayResultForm goodsPayResultForm = new GoodsPayResultForm();
+        //상품 결제정보 등록
+       for(GoodsPayListForm goodsPlay : goodsPayListForm){
+           goodsPayResultForm.setGoodsId(goodsPlay.getGoodsId());
+           goodsPayResultForm.setGoodsPrice(goodsPlay.getGoodsPrice());
+           goodsPayResultForm.setGoodsQuantity(goodsPlay.getGoodsQuantity());
+           goodsPayResultForm.setUserId(userId);
+
+           goodsPayListRepository.save(goodsPayResultForm.toEntity());
+       }
+    }
 
 }
