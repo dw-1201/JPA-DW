@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface  PetImgRepository extends JpaRepository<PetImg,Long> {
 
-    void deleteById(Long id);
+    void deletePetImgById(Long id);
 }

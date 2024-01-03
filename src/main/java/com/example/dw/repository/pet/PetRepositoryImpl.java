@@ -127,7 +127,7 @@ public class PetRepositoryImpl implements PetRepositoryCustom{
     }
 
     @Override
-    public List<PetImgDto> findAllByPetId(Long petId) {
+    public List<PetImgDto> findAllPetById(Long petId) {
         return jpaQueryFactory
                 .select(new QPetImgDto(
                         petImg.id,
@@ -137,7 +137,6 @@ public class PetRepositoryImpl implements PetRepositoryCustom{
                         pet.id
                 ))
                 .from(petImg)
-                .leftJoin(petImg.pet, pet)
                 .where(petImg.pet.id.eq(petId))
                 .fetch();
     }

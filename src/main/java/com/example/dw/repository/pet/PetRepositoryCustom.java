@@ -13,6 +13,6 @@ public interface PetRepositoryCustom {
 
     Optional<PetDetailResultDto> findByPetIdAndUserId(Long petId, Long userId);
 
-    List<PetImgDto> findAllByPetId(Long petId);
+    List<PetImgDto> findAllPetById(Long petId);
 
 }

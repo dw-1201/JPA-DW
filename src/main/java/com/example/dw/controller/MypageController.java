@@ -109,7 +109,7 @@ public class MypageController {
      */
     @PostMapping("/petregister")
     public String register(PetForm petForm,
-                                 @RequestParam("petImg")MultipartFile file,
+                                 @RequestParam("petImg")List<MultipartFile> files,
                                  @RequestParam("userId") Long userId
     )throws IOException{
 
@@ -117,7 +117,7 @@ public class MypageController {
         Long id = mypageService.register(petForm);
         System.out.println(id+"====");
 
-        fileService.registerPetImg(file, id);
+        fileService.registerPetImg(files, id);
         System.out.println("pet 등록 페이지 유저 "+userId);
         return "redirect:/mypg/mypet/" + userId;
 
@@ -147,13 +147,13 @@ public class MypageController {
     @PutMapping("/petmodify/{petId}")
     public RedirectView modifyUser(@PathVariable("petId") Long petId,
                                     PetUpdateForm petUpdateForm,
-                                   @RequestParam("petImg")MultipartFile file)throws IOException {
-        System.out.println(file+"파일이름");
+                                   @RequestParam("petImg")List<MultipartFile> files)throws IOException {
+        System.out.println(files+"파일이름");
         petUpdateForm.setId(petId);
         Long userId = petUpdateForm.getUserId();
         System.out.println("pet 번호 : "+ petUpdateForm.getId());
 
-        mypageService.modifyPet(petUpdateForm,file);
+        mypageService.modifyPet(petUpdateForm,files);
         System.out.println("여기까지 완료!!");
 
         return new RedirectView("/mypg/mypet/"+userId);
