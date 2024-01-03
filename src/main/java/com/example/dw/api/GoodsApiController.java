@@ -137,12 +137,13 @@ public class GoodsApiController {
         return FileCopyUtils.copyToByteArray(new File(fileShopImg, fileFullPath));
     }
 
-
     //장바구니 정보 가져오기
     @PostMapping("/cartGoods")
     public List<GoodsPayDto> cartGoods(@RequestBody List<GoodsPayDto> goodsPayDto){
         System.out.println(goodsPayDto.toString());
 
-        return goodsPayDto;
+        List<GoodsPayDto> payDtoList = goodsPayDto;
+
+        return payDtoList;
     }
 }

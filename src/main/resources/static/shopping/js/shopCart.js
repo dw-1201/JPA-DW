@@ -155,8 +155,10 @@ function updateTotalPrice() {
             type : 'post',
             data: JSON.stringify(order),
             contentType:'application/json; charset=utf-8',
-            success : function (){
+            success : function (result){
 
+                window.location.href="/shop/cartGoods/" +userId;
+                console.log(result)
             },error : function (a,b,c){
                 console.error(c)
             }

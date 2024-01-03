@@ -1,3 +1,50 @@
+let userId = $('#userId').val();
+console.log(userId)
+
+$(document).ready(function () {
+    // getPay()
+});
+
+// function getPay(callback){
+//
+//     $.ajax({
+//         url : '/shops/cartGoods',
+//         type : "post",
+//         dataType : "json",
+//         success : function(result){
+//             console.log(result);
+//
+//             if (callback){
+//                 callback(result)
+//             }
+//         }
+//
+//     })
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //다음 주소API
 function addressFind() {
     new daum.Postcode({

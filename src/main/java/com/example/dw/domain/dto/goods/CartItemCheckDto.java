@@ -8,16 +8,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CartItemCheckDto {
 
-
         private Long id;
         private Long goodsId;
         private Long cartId;
         private Long userId;
 
-
         @QueryProjection
-
-    public CartItemCheckDto(Long id, Long goodsId, Long cartId, Long userId) {
+        public CartItemCheckDto(Long id, Long goodsId, Long cartId, Long userId) {
         this.id = id;
         this.goodsId = goodsId;
         this.cartId = cartId;
