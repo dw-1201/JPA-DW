@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Optional;
 
@@ -103,17 +102,11 @@ public class GoodsController {
     /**
      * 쇼핑 결제 페이지
      */
-    @GetMapping("/shopPay")
-    public String shopPay(){
-        return "/shopping/shopPay";
-    }
-
-
-//    @GetMapping("/delete/{cartItemId}")
-//    public RedirectView deleteCartItem(Long cateItemId){
-//        goodsService.deleteCartItem(cateItemId);
-//
-//        return  new RedirectView("shop/shopCart/{cateItemId}");
+//    @GetMapping("/shopPay")
+//    public String shopPay(){
+//        return "/shopping/shopPay";
 //    }
+
+
 
 }
