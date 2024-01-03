@@ -89,7 +89,7 @@ body,html,input,button {
   justify-content: end;
 
 }
-.remove-button a{
+.remove-button button{
   background-color: white;
   /* border: 1px solid white; */
   border: none;
