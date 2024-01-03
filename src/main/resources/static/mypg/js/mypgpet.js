@@ -8,6 +8,14 @@ $('document').ready(function(){
     }else{
         $('.addbtn').css('display','block');
     }
+
+    let petId =$('.x-box').data('petid');
+    console.log(petId);
+
+    let userId = $('.petmain').data('userid');
+    console.log(userId);
+
+
 })
 
 /* 날짜 및 나이 계산 코드*/
@@ -56,36 +64,55 @@ if (petDateMatch) {
 }
 })
 // 수정하기 위해서 칸을 클릭시 쿼리스크링으로 같이 이동하는 스크립트
-$('.pet-detail-area').on('click',function(){
-
-    window.location.href='/mypg/html/registerpetupdate.html';
+$('.pet-detail-info').on('click',function(){
+    let petId = $(this).data('petnum');
+    console.log(petId);
+    let userId = $('.petmain').data('userid');
+    console.log(userId);
+    window.location.href=`/mypg/petupdate/${petId}?userId=${userId}`;
 
 
 })
 
+
+
 //x버튼 클릭시 데이터 삭제 
-$('.x-box').on('click',function(){
+$('.x-box span').on('click',function(){
+    let userId = $('.petmain').data('userid');
+    console.log(userId);
+    let petId = $(this).data('petid');
+    console.log(petId);
 
-        let petId =$(this).data();
-
+    if(confirm("삭제 하시겠습니까?")) {
         $.ajax({
 
-            url: '/mypgs/petList/{petId}',
-            type:'post',
-            data:JSON.stringify({
-                petId : petId
+            url: '/mypgs/remove/' + petId,
+            type: 'post',
+            data: JSON.stringify({
+                petId: petId
             }),
             contentType: 'application/json; charset=utf-8',
 
-            success : function (){
-                console.log()
+            success: function () {
+                console.log(userId + "@@@@@@@@@@")
+
+                console.log(petId);
+                alert("삭제가 완료되었습니다.");
+                window.location.href = `/mypg/mypet/${userId}`;
+            }, error: function (a, b, c) {
+                console.error(c);
+                alert("삭제중 오류가 발생하였습니다.")
             }
         })
+    }else{
+        alert("삭제가 취소 되었습니다.");
+        window.location.href = `/mypg/mypet/${userId}`;
+
+    }
 
 
 })
 
-function deletedate(){}
 
 
 

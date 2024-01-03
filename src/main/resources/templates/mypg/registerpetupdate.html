@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/fragment/css/footer.css">
     <link rel="stylesheet" href="/fragment/css/header.css">
     <link rel="stylesheet" href="../css/registerpetupdate.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <title>반려동물 수정하기 프로필</title>
 </head>
 <body>
@@ -17,116 +18,124 @@
     <!-- header 끝 -->
     <main>
         <div class="main-container">
-            <form action="" method="" class="registerupdate-form" enctype="multipart/form-data">
-                <div class="register-main">
-                    <div class="title">
-                        <h1>달이 정보 수정</h1>
-                    </div>
-                    <div class="form-group">
-                        <div class="img-group">
-                            <div class="img-area">
-                                <img src="../img/b556fdf429d8de25c3acf62f8186ddb9.png" class="img">
-                            </div>    
+            <th:block th:each="petdetail :${detail}">
+                <form th:action="@{/mypg/petmodify/{petId} (petId=${petdetail.id})}" th:method="put" class="registerupdate-form" enctype="multipart/form-data">
+                    <input type="hidden" class="userid" th:value="${session.userId}" name="userId">
+                    <div class="register-main">
+                        <div class="title">
+                            <h1 th:text="${petdetail.name}+'정보 수정'"></h1>
                         </div>
-                        <div class="addbtn-area">
-                            <label for="post-image" class="imgbtn">
-                               사진수정
-                            </label>
-                            <input type="file" id="post-image" name="petImg" accept="image/*" multiple required />
-                        </div>
-                    </div>
-                    <div class="petname-area">
-                        <span>*</span>
-                        <div class="petname">
-                            <input type="text" placeholder="이름" class="inp-name" name=""  oninput="checkNick()"  required/>
-                            
-                        </div>
-                    </div>
-                    <div class="nonename">
-                        닉네임은 문자와 숫자를 사용해 1~10자로 입력해주세요
-                    </div>
-                    <div class="pet-birth-area">
-                        <span>*</span>
-                        <div class="birth">
-                            <input type="text" placeholder="ex) 0000-00-00"  maxlength="10" class="inp-birth" name=""   required>
-                        </div>
-                    </div>
-                    <div class="noneday">
-                        반려동물 생일은 연도 네자리, 월과 일은 두자리로 기입해주세요
-                    </div>
-                    <!--영무자와 특수문자 , 숫자 포함여부 유효성 검사필요-->
-                    <div class="pet-type-area">
-                        <span>*</span>
-                        <div class="pettype">
-                            <select name="breed" id="">
-                                <option value="golden" style="background-image: url(/img/qna_golden.png);">골든리트리버</option>
-                                <option value="dachshund">닥스훈트</option>
-                                <option value="labrador">라브라도리트리버</option>
-                                <option value="maltese">말티즈</option>
-                                <option value="collie">보더콜리</option>
-                                <option value="bulldog">불독</option>
-                                <option value="bichon">비숑프리제</option>
-                                <option value="schnauzer">슈나우저</option>
-                                <option value="spitz">스피츠</option>
-                                <option value="shiba">시바견</option>
-                                <option value="shihtzu">시츄</option>
-                                <option value="yorkshire">요크셔테리어</option>
-                                <option value="corgi">웰시코기</option>
-                                <option value="greyhound">이탈리안그레이하운드</option>
-                                <option value="chowchow">차우차우</option>
-                                <option value="chihuahua">치와와</option>
-                                <option value="cockerspaniel">코카스파니엘</option>
-                                <option value="jindo ">진돗개</option>
-                                <option value="pug">퍼그</option>
-                                <option value="pomeranian">포메라니안</option>
-                                <option value="poodle">푸들</option>
-                                <option value="husky">시베리안허스키</option>
-                                <option value="etc">기타</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="gender-area">
-                        <div class="gender-text">
-                            <p>*</p>
-                            <p>성별</p>
-                        </div>
-                        <div class="gender-choice">
-                            <div>
-                               <label for="gendertype-m"> 
-                                    <input type="radio" class="genderchck-M" id="gendertype-m" name="gender" value="M" required> 
-                                    남아
+                        <div class="form-group">
+                            <div class="img-group">
+                                <div class="img-area">
+                                    <img th:src="'/jpa_dw/petimg/'+${petdetail.petImgDetailDtoList[0].petPath}+'/'+${petdetail.petImgDetailDtoList[0].petUuid}+'_'+${petdetail.petImgDetailDtoList[0].petFileName}" class="img">
+                                </div>
+                            </div>
+                            <div class="addbtn-area">
+                                <label for="post-image" class="imgbtn">
+                                   사진수정
                                 </label>
-                            </div>    
-                            <div>
-                                <label for="gendertype-f">
-                                    <input type="radio" class="genderchck-F" id="gendertype-f" name="gender" value="F" required>
-                                    여아
-                                </label>     
-                            </div> 
+                                <input type="file" id="post-image" name="petImg" accept="image/*" required />
+                            </div>
                         </div>
-                        <div class="neutering-ckeck">
-                            <div class="check-box">
-                                <input type="checkbox" class="neutering" name="" required> 
-                                <span>중성화 여부</span>
-                            </div>    
+                        <div class="petname-area">
+                            <span class="star">*</span>
+                            <div class="petname">
+                                <input type="text" th:value="${petdetail.name}" placeholder="이름" class="inp-name" name="name" id="petName" required/>
+                                <label for="petName" class="petName-unavailable check"><span class="check-petname">이미 등록된 이름입니다.</span></label>
+                                <label for="petName" class="petName-available check"><span class="material-symbols-outlined check-icon">
+                                done
+                                </span></label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="weight">
-                        <input type="number" min="0" pattern="[0-9]*" inputmode="decimal" placeholder="몸무게(kg)" class="kg"/> 
-                    </div>
-                </div>
+                        <div class="nonename">
+                            닉네임은 문자와 숫자를 사용해 1~10자로 입력해주세요
+                        </div>
+                        <div class="pet-birth-area">
+                            <span>*</span>
+                            <div class="birth">
+                                <input type="text" th:value="${petdetail.birthDate}"  placeholder="ex) 0000-00-00"  maxlength="10" class="inp-birth" name="birthDate"   required>
+                            </div>
+                        </div>
+                        <div class="noneday">
+                            반려동물 생일은 연도 네자리, 월과 일은 두자리로 기입해주세요
+                        </div>
+                        <!--영무자와 특수문자 , 숫자 포함여부 유효성 검사필요-->
+                        <div class="pet-type-area">
+                            <span>*</span>
+                            <div class="pettype">
+                                <select name="breed" id="" th:value="${petdetail.petCategory}">
+                                    <option value="golden" style="background-image: url(/img/qna_golden.png);">골든리트리버</option>
+                                    <option value="dachshund">닥스훈트</option>
+                                    <option value="labrador">라브라도리트리버</option>
+                                    <option value="maltese">말티즈</option>
+                                    <option value="collie">보더콜리</option>
+                                    <option value="bulldog">불독</option>
+                                    <option value="bichon">비숑프리제</option>
+                                    <option value="schnauzer">슈나우저</option>
+                                    <option value="spitz">스피츠</option>
+                                    <option value="shiba">시바견</option>
+                                    <option value="shihtzu">시츄</option>
+                                    <option value="yorkshire">요크셔테리어</option>
+                                    <option value="corgi">웰시코기</option>
+                                    <option value="greyhound">이탈리안그레이하운드</option>
+                                    <option value="chowchow">차우차우</option>
+                                    <option value="chihuahua">치와와</option>
+                                    <option value="cockerspaniel">코카스파니엘</option>
+                                    <option value="jindo ">진돗개</option>
+                                    <option value="pug">퍼그</option>
+                                    <option value="pomeranian">포메라니안</option>
+                                    <option value="poodle">푸들</option>
+                                    <option value="husky">시베리안허스키</option>
+                                    <option value="etc">기타</option>
+                                </select>
+                            </div>
+                        </div>
 
-                <div class="btn-area">
-                    <div class="register-btn-area">
-                        <button type="button" class="registerupbtn">수정하기</button>
+                        <div class="gender-area">
+                            <div class="gender-text">
+                                <p>*</p>
+                                <p>성별</p>
+                            </div>
+                            <div class="gender-choice">
+                                <div>
+                                   <label for="gendertype-m" class="gender-box">
+                                        <input type="radio" class="genderchck-M" id="gendertype-m" name="petGender" value="M" th:checked="${petdetail.petGender == 'M'}" required>
+                                        남아
+                                    </label>
+                                </div>
+                                <div>
+                                    <label for="gendertype-f" class="gender-box">
+                                        <input type="radio" class="genderchck-F" id="gendertype-f" name="petGender" value="F" th:checked="${petdetail.petGender == 'F'}" required>
+                                        여아
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="neutering-ckeck">
+                                <div class="check-box">
+                                    <label for="neuter" class="neuter-box">
+                                    <input type="checkbox" id="neuter" class="neutering" name="neutering" th:checked="${petdetail.neutering == 'Y'}" value="Y" required>
+                                    <span>중성화 여부</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="weight">
+                            <input type="number" th:value="${petdetail.weight}" min="0" pattern="[0-9]*" inputmode="decimal" placeholder="몸무게(kg)" class="kg"  name="weight"/>
+                        </div>
                     </div>
-                    
-                </div>
-            </form> 
+
+                    <div class="btn-area">
+                        <div class="register-btn-area">
+                            <button type="submit" class="registerupbtn">수정하기</button>
+                        </div>
+
+                    </div>
+                </form>
+            </th:block>
             <div class="mainmove">
                 <div class="move">
-                    <a href="/mypg/html/mypgpet.html" class="movebtn">취소</a>
+                    <a th:href="@{/mypg/mypet/{userid}(userid = ${session.userId})}"  class="movebtn">취소</a>
                 </div>
             </div>   
         </div>

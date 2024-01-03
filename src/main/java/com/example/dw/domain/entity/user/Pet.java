@@ -1,5 +1,7 @@
 package com.example.dw.domain.entity.user;
 
+import com.example.dw.domain.form.PetForm;
+import com.example.dw.domain.form.PetUpdateForm;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -37,7 +39,7 @@ public class Pet {
     @JoinColumn(name="user_id")
     private Users users;
 
-    @OneToMany(mappedBy = "pet" ,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "pet" ,fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<PetImg> petImg;
 
 
@@ -54,5 +56,32 @@ public class Pet {
         this.users = users;
         this.petImg = petImg;
         this.petCategory = petCategory;
+    }
+
+    public Pet update(PetUpdateForm petUpdateForm) {
+        this.id = petUpdateForm.getId();
+        this.birthDate = petUpdateForm.getBirthDate();
+        this.name = petUpdateForm.getName();
+        this.weight = petUpdateForm.getWeight();
+        this.petGender = petUpdateForm.getPetGender();
+        this.neutering = petUpdateForm.getNeutering();
+        this.petCategory = petUpdateForm.getPetCategory();
+
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "id=" + id +
+                ", birthDate='" + birthDate + '\'' +
+                ", name='" + name + '\'' +
+                ", weight=" + weight +
+                ", petGender='" + petGender + '\'' +
+                ", neutering='" + neutering + '\'' +
+                ", users=" + users +
+                ", petImg=" + petImg +
+                ", petCategory='" + petCategory + '\'' +
+                '}';
     }
 }

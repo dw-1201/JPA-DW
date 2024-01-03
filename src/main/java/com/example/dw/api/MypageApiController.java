@@ -1,13 +1,11 @@
 package com.example.dw.api;
 
 
+import com.example.dw.repository.pet.PetRepository;
 import com.example.dw.service.MypageService;
 import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,17 +28,32 @@ public class MypageApiController {
         }
     }
 
-    @PostMapping("/mypgs/nickname/check")
-    public boolean checkNickNameDuplication(@RequestParam("userNickName") String userNickName){
-        if (userNickName == null) {
-            throw new IllegalArgumentException("별칭 누락");
+    @PostMapping("/mypgs/name/check")
+    public boolean checkPetNameDuplication(@RequestParam("name") String name,
+                                            @RequestParam("userId")Long userId){
+        if (name == null || userId == null) {
+            throw new IllegalArgumentException("누락");
 
         }
-        System.out.println("기입된 닉네임 : " + userNickName);
-        if(mypageService.existsByUserNicName(userNickName)== true ){
+        System.out.println("기입된 닉네임 : " + name);
+        System.out.println("조회 아이디 : "+ userId);
+        if(mypageService.existsByPetName(name,userId)== true ){
             return false;
         }else {
             return true;
         }
     }
+
+
+    @PostMapping("/mypgs/remove/{petId}")
+    public void petInfoDelete(@PathVariable("petId") Long petId){
+        System.out.println("[삭제 펫 정보 ] :" + petId);
+            mypageService.removePet(petId);
+
+        System.out.println(petId+"정보사 삭제되었습니다.");
+
+
+    }
+
+
 }

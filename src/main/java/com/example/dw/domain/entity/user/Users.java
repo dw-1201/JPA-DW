@@ -146,4 +146,12 @@ public class Users {
 
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id=" + id +
+
+                '}';
+    }
 }

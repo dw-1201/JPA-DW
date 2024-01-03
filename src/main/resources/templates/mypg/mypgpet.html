@@ -43,7 +43,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="petmain" >
+            <div class="petmain" th:data-userid="${session.userId}" >
                 <div class="text-area">
                     <h2>나의 반려동물</h2>
                 </div>
@@ -53,8 +53,8 @@
                     <ul class="pet-inter-info" >
                         <!--클릭시 쿼리스트링으로 순번을 같이 넘겨준다-->
                        <th:block  th:each="pet : ${pet}">
-                        <li class="pet-detail-area" th:data-petnum="${pet.id}" >
-                            <div class="pet-detail-info">
+                        <li class="pet-detail-area" >
+                            <div class="pet-detail-info" th:data-petnum="${pet.id}">
                                 <div class="pet-img-area">
                                     <th:block th:each="petlist : ${pet.petImgDetailDtoList}">
                                     <img th:src="'/jpa_dw/petimg/'+${petlist.petPath}+'/'+ ${petlist.petUuid}+ '_'+ ${petlist.petFileName}" class="pet-img">
@@ -68,8 +68,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="x-box" th:date-petnum="${pet.id}">
-                                <span>x</span>
+                            <div class="x-box">
+                                <span th:data-petid="${pet.id}">x</span>
                             </div>
                         </li>
                        </th:block>

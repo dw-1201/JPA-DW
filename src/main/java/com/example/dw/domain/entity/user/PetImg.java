@@ -8,7 +8,6 @@ import lombok.Setter;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 @Table(name = "pet_img")
 public class PetImg {
@@ -20,7 +19,7 @@ public class PetImg {
     private String petPath;
     private String petUuid;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "pet_id")
     private Pet pet;
 

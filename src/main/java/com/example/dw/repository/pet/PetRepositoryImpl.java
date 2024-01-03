@@ -11,6 +11,7 @@ import static java.util.stream.Collectors.*;
 import static java.util.stream.Collectors.toList;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -36,7 +37,7 @@ public class PetRepositoryImpl implements PetRepositoryCustom{
         return contests;
     }
 
-    // pet 조회
+    //해당 유저의 펫 전체 조회
     public List<PetDetailDto> getPetList(Long userId){
         System.out.println(userId+"조회 메소드");
         List<PetDetailDto> content= jpaQueryFactory.select(
@@ -62,6 +63,82 @@ public class PetRepositoryImpl implements PetRepositoryCustom{
         System.out.println("왜 안나와?");
         return content;
     }
-    //이미지 조회
 
+    // 수정을 위한 하나의 펫의 기본 정보 조회
+    @Override
+    public Optional<PetDetailResultDto> findByPetIdAndUserId(Long petId, Long userId) {
+        PetDto petDtos = jpaQueryFactory
+                .select(new QPetDto(
+                        pet.id,
+                        pet.birthDate,
+                        pet.name,
+                        pet.weight,
+                        pet.petGender,
+                        pet.neutering,
+                        pet.users.id,
+                        pet.petCategory
+                ))
+                .from(pet)
+                .where(pet.id.eq(petId),pet.users.id.eq(userId))
+                .fetchOne();
+
+
+        Optional<PetDetailResultDto> contents =
+                Optional.ofNullable(petDtos).map(petDto ->{
+                    List<PetImgDetailDto> petImgDetailDtos =jpaQueryFactory
+                        .select(new QPetImgDetailDto(
+                                petImg.id,
+                                petImg.petFileName,
+                                petImg.petPath,
+                                petImg.petUuid,
+                                pet.id
+                        ))
+                            .from(petImg)
+                            .leftJoin(petImg.pet, pet)
+                            .where(pet.id.eq(petDto.getId()))
+                            .fetch();
+
+                    List<PetImgDetailDto> petimg = petImgDetailDtos.stream()
+                            .map(petimgs -> new PetImgDetailDto(
+                                    petimgs.getId(),
+                                    petimgs.getPetFileName(),
+                                    petimgs.getPetPath(),
+                                    petimgs.getPetUuid(),
+                                    petimgs.getPetId()
+                            ))
+                            .collect(Collectors.toList());
+
+                    return  new PetDetailResultDto(
+                            petDto.getId(),
+                            petDto.getBirthDate(),
+                            petDto.getName(),
+                            petDto.getWeight(),
+                            petDto.getPetGender(),
+                            petDto.getNeutering(),
+                            petDto.getUserId(),
+                            petDto.getPetCategory(),
+                            petimg
+                    );
+                });
+
+        System.out.println(contents.toString()+" 조회");
+
+        return contents;
+    }
+
+    @Override
+    public List<PetImgDto> findAllByPetId(Long petId) {
+        return jpaQueryFactory
+                .select(new QPetImgDto(
+                        petImg.id,
+                        petImg.petFileName,
+                        petImg.petPath,
+                        petImg.petUuid,
+                        pet.id
+                ))
+                .from(petImg)
+                .leftJoin(petImg.pet, pet)
+                .where(petImg.pet.id.eq(petId))
+                .fetch();
+    }
 }
