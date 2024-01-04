@@ -68,7 +68,7 @@ function showQnaBoardList(result) {
                                 </div>
                                 <div class="list-content-reply">
                                     <span>댓글</span>
-                                    <span class="reply-count">5</span>
+                                    <span class="reply-count">${r.commentCount}</span>
                                 </div>
                                 <div class="list-content-time">
                                     <span>${timenow}</span>

@@ -69,18 +69,15 @@ function updateImg(files) {
     }
 }
 
-/**************************************************/ 
 
-/* 닉네임 유효성검사 스크립트 */
-function checkNick() {
+/* 이름 유효성검사 스크립트 */
+function checkPetNameinput() {
+    $('.inp-name').keyup(function () {
+        let nick = $('.inp-name').val();
+        console.log(nick);
+        let reg =/^[가-힣a-zA-Z0-9]{1,10}$/;
 
-    let nick = $(".inp-name").val();
-    console.log(nick);
-    let reg =/^[가-힣a-zA-Z0-9]{1,10}$/;
-
-    let nickCheck = reg.test(nick);
-    console.log(nickCheck);
-    $('.inp-name').on('keyup',function () {
+        let nickCheck = reg.test(nick);
 
         if(nickCheck) {
             $('.nonename').css("display", "none");
@@ -108,16 +105,16 @@ $('.inp-birth').on('input',function(){
     $(this).val(inputDay);
 })
 
-/*날짜 기입 유효성 검사 */ 
+/*날짜 기입 유효성 검사 */
 $('.inp-birth').on('keyup',function () {
     let day = $(".inp-birth").val();
     console.log(day);
     let reg =/^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
 
     let dayCheck = reg.test(day);
-    
+
     console.log(dayCheck);
-    
+
     if(dayCheck) {
         $('.noneday').css("display", "none");
         console.log("성공!");
@@ -128,38 +125,49 @@ $('.inp-birth').on('keyup',function () {
 
 });
 
-/*품종 한글로 작성 유효성검사 */ 
-    // $('.inp-type').on('keyup',function () {
-    //     let type = $(".inp-type").val();
-    //     console.log(type);
-    //     let reg =/^[가-힣]{2,10}$/;
-    
-    //     let typeCheck = reg.test(type);
-    //     console.log(typeCheck);
-
-    //     if(typeCheck) {
-    //         $('.nonetype').css("display", "none");
-    //         console.log("실행!");
-    //     } else {
-    //         $('.nonetype').css("display", "block");
-    //         console.log("미실행!")
-    //     }
-
-    // });
-
-
-/*등록 버튼 클릭시 확인 버튼 이벤트*/
-$('.registerbtn').on('click',function(){
-    
-    if(confirm("등록하시겠습니까?")){
-        alert("등록되었습니다.");
-        window.location.href="/mypg/html/mypgpet.html";
-         
-    }else{
-        alert("취소하였습니다.");
-    }
-
-});
 
 
 
+// 반려동물 이름 중복검사
+function checkPetName() {
+    $('#petName').change(function () {
+        let petName = $('#petName').val();
+        let userId = $('.userid').val();
+        $.ajax({
+
+            url: '/mypgs/name/check',
+            type: 'post',
+            data: {
+               name: petName,
+               userId : userId
+            },
+            success: function(result) {
+                console.log(petName);
+                console.log(userId);
+                if (result) {
+                    $('.petName-unavailable').css('display','none');
+                    $('.petName-available').css('display','block')
+                } else {
+                    $('.petName-unavailable').css('display','block');
+                    $('.petName-available').css('display','none')
+                }
+            }, error: function (a, b, c) {
+                console.error(c);
+            }
+        })
+    })
+}
+
+//수정 페이지 이동
+$('.pet-detail-info').on('click',function (){
+    let petId = $(this).data();
+
+    window.location.href='/mypg/petupdate/'+petId;
+
+})
+
+$('document').ready(function(){
+    checkPetNameinput();
+    checkPetName();
+    console.log("*****")
+})

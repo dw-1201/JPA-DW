@@ -48,6 +48,7 @@ public class Users {
     private String userNickName;
     private String userIntroduction;
 
+
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name="zipCode", column = @Column(name="zip_code")),
@@ -141,5 +142,13 @@ public class Users {
         this.address=new Address(userUpdateForm.getZipCode(),userUpdateForm.getAddress(),userUpdateForm.getDetail());
 
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id=" + id +
+
+                '}';
     }
 }

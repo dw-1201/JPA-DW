@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/fragment/css/footer.css">
     <link rel="stylesheet" href="/fragment/css/header.css">
     <link rel="stylesheet" href="/mypg/css/registerpet.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <title>반려동물 프로필</title>
 </head>
 <body>
@@ -18,7 +19,7 @@
     <main>
         <div class="main-container">
             <form action="/mypg/petregister" method="post" class="register-form" enctype="multipart/form-data">
-                <input type="hidden" th:value="${session.userId}" name="userId">
+                <input type="hidden" th:value="${session.userId}" name="userId" class="userid">
                 <div class="register-main">
                     <div class="title">
                         <h1>반려동물 등록</h1>
@@ -37,10 +38,17 @@
                         </div>
                     </div>
                     <div class="petname-area">
-                        <span>*</span>
+                        <span class="star">*</span>
                         <div class="petname">
-                            <input type="text" placeholder="이름" class="inp-name" name="name"  oninput="checkNick()"  required/>
-                            
+                            <input type="text" placeholder="이름" class="inp-name" id="petName" name="name"    required/>
+
+
+                            <!--추후 비동기로 중복여부 확인-->
+
+                            <label for="petName" class="petName-unavailable check"><span class="check-petname">이미 등록된 이름입니다.</span></label>
+                            <label for="petName" class="petName-available check"><span class="material-symbols-outlined check-icon">
+                            done
+                            </span></label>
                         </div>
                     </div>
                     <div class="nonename">
@@ -123,7 +131,7 @@
             </form> 
             <div class="mainmove">
                 <div class="move">
-                    <a href="/mypg/html/mypgpet.html" class="movebtn">취소</a>
+                    <a th:href="@{/mypg/mypet/{userid}(userid = ${session.userId})}" class="movebtn">취소</a>
                 </div>
             </div>   
         </div>

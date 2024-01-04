@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/common/css/common.css">
     <link rel="stylesheet" href="/fragment/css/footer.css">
     <link rel="stylesheet" href="/fragment/css/header.css">
-    <link rel="stylesheet" href="../css/mywrite.css">
+    <link rel="stylesheet" href="/mypg/css/mywrite.css">
     <title>QnA</title>
 </head>
 <body>
@@ -38,7 +38,7 @@
                         <a href="/mypg/html/mywrite.html" class="my-QnA-detail">QnA</a>
                     </li>
                     <li class="my-freeboard">
-                        <a href="/mypg/html/myfreeboard.html" class="my-freeboard-detail">자유게시판</a>
+                        <a th:href="@{/mypg/myfreeboard/{userid}(userid =${session.userId})}" class="my-freeboard-detail">자유게시판</a>
                     </li>
                     <li class="my-walk">
                         <a href="/mypg/html/walkmate.html" class="my-walk-detail">나의 산책 메이트 글</a>
@@ -51,147 +51,32 @@
                     </li>
                 </ul>
             </div>
-            <div class="qnamain">
+            <div class="qnamain" th:data-userid = "${session.userId}">
                 <div class="list-contents-box">
-                    <div class="list-content">
-                        <div class="list-content-title">강아지 저알러지,가수분해 간식 추천</div>
-                        <div class="list-content-content">
-                            <div  class="list-content-content-detail">
-                                안녕하세요 알레르기가 심한 아이 주인 입니다!저희 아이는 진짜 조금만 잘못 먹여도 눈물이 납니다..
-                                도와주세요.
-                            </div>
-                        </div>    
-                        <div class="list-content-etc">
-                            <div class="list-content-id">
-                                <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt=""></div>
-                                <span>안참아말티쥬</span>
-                            </div>
-                            <div class="list-content-reply">
-                                <span>댓글</span>
-                                <span class="reply-count">5</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-content">
-                        <div class="list-content-title">강아지 저알러지,가수분해 간식 추천</div>
-                        <div class="list-content-content">
-                            <div  class="list-content-content-detail">
-                                안녕하세요 알레르기가 심한 아이 주인 입니다!저희 아이는 진짜 조금만 잘못 먹여도 눈물이 납니다..
-                                도와주세요.
-                            </div>
-                        </div>    
-                        <div class="list-content-etc">
-                            <div class="list-content-id">
-                                <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt=""></div>
-                                <span>안참아말티쥬</span>
-                            </div>
-                            <div class="list-content-reply">
-                                <span>댓글</span>
-                                <span class="reply-count">5</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-content">
-                        <div class="list-content-title">강아지 저알러지,가수분해 간식 추천</div>
-                        <div class="list-content-content">
-                            <div  class="list-content-content-detail">
-                                안녕하세요 알레르기가 심한 아이 주인 입니다!저희 아이는 진짜 조금만 잘못 먹여도 눈물이 납니다..
-                                도와주세요.
-                            </div>
-                        </div>   
-                        <div class="list-content-etc">
-                            <div class="list-content-id">
-                                <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt=""></div>
-                                <span>안참아말티쥬</span>
-                            </div>
-                            <div class="list-content-reply">
-                                <span>댓글</span>
-                                <span class="reply-count">5</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-content">
-                        <div class="list-content-title">강아지 저알러지,가수분해 간식 추천</div>
-                        <div class="list-content-content">
-                            <div  class="list-content-content-detail">
-                                안녕하세요 알레르기가 심한 아이 주인 입니다!저희 아이는 진짜 조금만 잘못 먹여도 눈물이 납니다..
-                                도와주세요.
-                            </div>
-                        </div>
-                        <div class="list-content-etc">
-                            <div class="list-content-id">
-                                <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt=""></div>
-                                <span>안참아말티쥬</span>
-                            </div>
-                            <div class="list-content-reply">
-                                <span>댓글</span>
-                                <span class="reply-count">5</span>
-                            </div>
-                        </div>
-                    </div>
-               
+
+
+
                     <!--페이징 처리-->   
-                    <div class="list-page-container">
-                        <div class="list-pages">
-                            <ul>
-                                <li><a href="">&lt;</a></li>
-                                <li><a href="">1</a></li>
-                                <li><a href="">2</a></li>
-                                <li><a href="">3</a></li>
-                                <li><a href="">4</a></li>
-                                <li><a href="">5</a></li>
-                                <li><a href="">&gt;</a></li>
-                            </ul>
-                        </div>
+
+                </div>
+                <div class="list-page-container">
+                    <div class="list-pages">
+                        <ul class="list-pagestion">
+
+                        </ul>
+                    </div>
                 </div>
             </div>  
-            <div class="nonepage">
-                <div class="none-img-area">
-                    <div class="none-img">
-                        <img src="../img/b556fdf429d8de25c3acf62f8186ddb9.png"/>
-                    </div>
-                </div>
-                <div class="nonetext-area">
-                    <p>등록된 내용이 없습니다.</p>
-                </div>
-            </div>
-            
-        </div>    
+        </div>
 
     </main>
     <!-- footer 시작 -->
-    <div class="footer">
-        <div class="footer-container01">
-            <div class="footer-containerbox01">
-                <div class="footer-container01-nav">
-                    <ul>
-                        <li>(주)산책갈개</li>
-                        <li>복영헌 임형준 노의진 이지윤</li>
-                        <li>서울특별시 노원구 상계로1길 34 세일학원 5층</li>
-                        <li>02-933-5890</li>
-                    </ul>
-                </div>
-                <div class="footer-container01-img">
-                    <img src="/img/dog02.png" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="footer-container02">
-            <div class="footer-containerbox02">
-                <div>Copyright ©SCGG All Rights Reserved.</div>
-                <div class="footer-container02-nav">
-                    <ul>
-                        <li><a href="">이용약관</a></li>
-                        <li><a href="">개인정보처리방침</a></li>
-                        <li><a href="">사업자정보확인</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+       <div class="footer" th:replace="fragment/footer :: footer">
+
+       </div>
     <!--footer 끝-->
     <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="../js/mywrite.js"></script>
+    <script type="module" src="../js/mywrite.js"></script>
 </body>
 </html>            
