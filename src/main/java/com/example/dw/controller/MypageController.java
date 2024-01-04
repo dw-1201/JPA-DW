@@ -5,6 +5,7 @@ import com.example.dw.domain.dto.admin.PetDetailResultDto;
 import com.example.dw.domain.dto.admin.UserDetailDto;
 import com.example.dw.domain.dto.admin.UserDetailListDto;
 import com.example.dw.domain.form.PetForm;
+import com.example.dw.domain.form.PetUpdateForm;
 import com.example.dw.domain.form.UserUpdateForm;
 import com.example.dw.repository.pet.PetRepositoryCustom;
 import com.example.dw.repository.user.UsersRepository;
@@ -72,10 +73,15 @@ public class MypageController {
         return new RedirectView("/mypg/main/{userId}");
     }
 
+    /**
+     * mypage petList 나의 펫 등록 페이지
+     * @param userId
+     * @param model
+     * @return
+     */
     @GetMapping("/mypet/{userId}")
-    public String petregister(@PathVariable("userId")Long userId,Model model){
-        // 펫을 리스트로 뿌려준다
-        // userid =1 , petList={{petid=1, ... petImgList={petim}} .. ,}
+    public String petList(@PathVariable("userId")Long userId,Model model){
+
         System.out.println(userId+"입니다.");
         List<PetDetailResultDto> petDetailResultDtoList = petRepositoryCustom.findAllById(userId);
 
@@ -85,20 +91,28 @@ public class MypageController {
         return "/mypg/mypgpet";
     }
 
+    /**
+     * 펫 등록 페이지 이동
+     * @return
+     */
     @GetMapping("/mypetregister")
     public String petRegister(){
-
-        
         return "/mypg/registerpet";
     }
 
+    /**
+     * 페이지 등록
+     * @param petForm
+     * @param userId
+     * @return
+     * @throws IOException
+     */
     @PostMapping("/petregister")
     public String register(PetForm petForm,
                                  @RequestParam("petImg")List<MultipartFile> files,
                                  @RequestParam("userId") Long userId
     )throws IOException{
 
-        files.forEach(r-> System.out.println("펫 파일"+r.getOriginalFilename()));
 
         Long id = mypageService.register(petForm);
         System.out.println(id+"====");
@@ -109,7 +123,53 @@ public class MypageController {
 
     }
 
+    /**
+     * 등록 펫 기본정보를 가지고 수정 페이지 이동
+     * @param petId
+     * @param model
+     * @return
+     */
+    @GetMapping("/petupdate/{petId}")
+    public String petupdatePage(@PathVariable("petId") Long petId,
+            @RequestParam("userId") Long userId, Model model){
+
+       Optional<PetDetailResultDto> petDetail = petRepositoryCustom.findByPetIdAndUserId(petId,userId);
+
+        System.out.println(petDetail.get().toString());
+
+        petDetail.ifPresent(details -> model.addAttribute("detail",details));
 
 
 
+        return "/mypg/registerpetupdate";
+    }
+
+    @PutMapping("/petmodify/{petId}")
+    public RedirectView modifyUser(@PathVariable("petId") Long petId,
+                                    PetUpdateForm petUpdateForm,
+                                   @RequestParam("petImg")List<MultipartFile> files)throws IOException {
+        System.out.println(files+"파일이름");
+        petUpdateForm.setId(petId);
+        Long userId = petUpdateForm.getUserId();
+        System.out.println("pet 번호 : "+ petUpdateForm.getId());
+
+        mypageService.modifyPet(petUpdateForm,files);
+        System.out.println("여기까지 완료!!");
+
+        return new RedirectView("/mypg/mypet/"+userId);
+    }
+
+
+    @GetMapping("/writepage/{userId}")
+    public String writePage(){
+
+
+        return "/mypg/mywrite";
+    }
+
+    @GetMapping("/myfreeboard/{userId}")
+    public String myfreeboard(){
+
+        return "/mypg/myfreeboard";
+    }
 }

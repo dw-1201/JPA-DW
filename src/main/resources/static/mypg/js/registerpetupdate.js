@@ -56,11 +56,11 @@ function updateImg(files) {
             console.log(files.length);
             let src = URL.createObjectURL(files[i]);
             console.log(src);
-            $('.img-area img').eq(i).attr('src', src).data('name', `${files[i].name}`);
+            $('.img').eq(i).attr('src', src).data('name', `${files[i].name}`);
 
             
         } else {
-            $('.img-area img')
+            $('.img')
                 .eq(i)
                 .attr('src',"../img/b556fdf429d8de25c3acf62f8186ddb9.png")
                 .data('name', null);
@@ -72,15 +72,17 @@ function updateImg(files) {
 /**************************************************/ 
 
 /* 닉네임 유효성검사 스크립트 */
-function checkNick() {
+function checkPetNameFormat() {
 
-    let nick = $(".inp-name").val();
-    console.log(nick);
-    let reg =/^[가-힣a-zA-Z0-9]{1,10}$/;
 
-    let nickCheck = reg.test(nick);
-    console.log(nickCheck);
-    $('.inp-name').on('keyup',function () {
+    $('.inp-name').keyup(function () {
+        let nick = $(".inp-name").val();
+        console.log(nick);
+        let reg =/^[가-힣a-zA-Z0-9]{1,10}$/;
+
+        let nickCheck = reg.test(nick);
+        console.log(nickCheck);
+
 
         if(nickCheck) {
             $('.nonename').css("display", "none");
@@ -128,35 +130,81 @@ $('.inp-birth').on('keyup',function () {
 
 });
 
-/*품종 한글로 작성 유효성검사 */ 
-    // $('.inp-type').on('keyup',function () {
-    //     let type = $(".inp-type").val();
-    //     console.log(type);
-    //     let reg =/^[가-힣]{2,10}$/;
-    
-    //     let typeCheck = reg.test(type);
-    //     console.log(typeCheck);
+// 반려동물 이름 중복 검사
+function checkPetName() {
+    $('#petName').change(function () {
+        let petName = $('#petName').val();
+        let userId = $('.userid').val();
+        $.ajax({
 
-    //     if(typeCheck) {
-    //         $('.nonetype').css("display", "none");
-    //         console.log("실행!");
-    //     } else {
-    //         $('.nonetype').css("display", "block");
-    //         console.log("미실행!")
-    //     }
-
-    // });
-
+            url: '/mypgs/name/check',
+            type: 'post',
+            data: {
+                name: petName,
+                userId : userId
+            },
+            success: function(result) {
+                console.log(petName);
+                console.log(userId);
+                if (result) {
+                    $('.petName-unavailable').css('display','none');
+                    $('.petName-available').css('display','block')
+                } else {
+                    $('.petName-unavailable').css('display','block');
+                    $('.petName-available').css('display','none')
+                }
+            }, error: function (a, b, c) {
+                console.error(c);
+            }
+        })
+    })
+}
 
 /*등록 버튼 클릭시 확인 버튼 이벤트*/
-$('.registerbtn').on('click',function(){
-    
-    if(confirm("등록하시겠습니까?")){
-        alert("등록되었습니다.");
-        window.location.href="/mypg/html/mypgpet.html";
-         
-    }else{
-        alert("취소하였습니다.");
+/* 기존에 등록되어 있던 체크 값 표시 */
+
+// function checkPoint(){
+//
+//     let genderMen =$('#gendertype-m');
+//     let genderWomen =$('#gendertype-f');
+//     let gendercheck = $('.gender-box');
+//     let neuterings=$('#neuter');
+//     let neuterBox = $('.neuter-box');
+//     if(genderMen.is(':checked')){
+//         console.log("남성 선택");
+//         gendercheck.eq(0).addClass('checked');
+//     }else if(genderWomen.is(':checked')){
+//         console.log("여성 선택");
+//         gendercheck.eq(1).addClass('checked');
+//     }
+//
+//     if(neuterings.is(':checked')){
+//         console.log("중성화 여부 체크");
+//         neuterBox.eq(0).addClass('checked');
+//     }
+// }
+
+$('document').ready(function(){
+    checkPetNameFormat();
+    checkPetName();
+    // checkPoint();
+    console.log("*****")
+
+    let genderMen =$('#gendertype-m');
+    let genderWomen =$('#gendertype-f');
+    let gendercheck = $('.gender-box');
+    let neuterings=$('#neuter');
+    let neuterBox = $('.neuter-box');
+    if(genderMen.is(':checked')){
+        console.log("남성 선택");
+        gendercheck.eq(0).addClass('checked');
+    }else if(genderWomen.is(':checked')){
+        console.log("여성 선택");
+        gendercheck.eq(1).addClass('checked');
     }
 
-});
+    if(neuterings.is(':checked')){
+        console.log("중성화 여부 체크");
+        neuterBox.eq(0).addClass('checked');
+    }
+})

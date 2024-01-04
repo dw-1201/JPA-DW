@@ -252,6 +252,8 @@ a{color: black;}
     /* border: 1px solid black; */
     height: 800px;
     display: none;
+    text-align: center;
+    padding-top: 300px;
 
 }
 
