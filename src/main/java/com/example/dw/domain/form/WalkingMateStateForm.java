@@ -17,16 +17,19 @@ public class WalkingMateStateForm {
     private Long userId;
     private Long petId;
     private Integer state;
+    private Integer writerCheck;
 
 
     @Builder
-    public WalkingMateStateForm(Long id, Long walkingMateId, Long userId, Long petId, Integer state) {
+    public WalkingMateStateForm(Long id, Long walkingMateId, Long userId, Long petId, Integer state, Integer writerCheck) {
         this.id = id;
         this.walkingMateId = walkingMateId;
         this.userId = userId;
         this.petId = petId;
         this.state = state;
+        this.writerCheck = writerCheck;
     }
+
 
 
 
@@ -38,6 +41,7 @@ public class WalkingMateStateForm {
                 .users(Users.builder().id(userId).build())
                 .pet(Pet.builder().id(petId).build())
                 .state(state)
+                .writerCheck(writerCheck)
                 .build();
     }
 

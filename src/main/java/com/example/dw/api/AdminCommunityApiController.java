@@ -1,7 +1,7 @@
 package com.example.dw.api;
 
 import com.example.dw.domain.dto.community.WalkMateListDto;
-import com.example.dw.domain.form.SearchForm;
+import com.example.dw.domain.form.SearchCateLocationForm;
 import com.example.dw.service.AdminCommunityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,11 +21,17 @@ public class AdminCommunityApiController {
 
 
     @GetMapping("/walkList/{page}")
-    public Page<WalkMateListDto> showWalkList(@PathVariable("page") int page, SearchForm searchForm){
+    public Page<WalkMateListDto> showWalkList(@PathVariable("page") int page,
+                                              SearchCateLocationForm searchCateLocationForm){
 
-        System.out.println(searchForm.toString());
-        System.out.println(adminCommunityService.walkMateList(page, searchForm).toString());
-       return adminCommunityService.walkMateList(page, searchForm);
+        System.out.println("[관리자 산책글 리스트] :  "+searchCateLocationForm.toString());
+
+
+        Page<WalkMateListDto> result = adminCommunityService.walkMateList(page, searchCateLocationForm);
+
+        System.out.println(result.toString());
+
+       return result;
 
     }
 

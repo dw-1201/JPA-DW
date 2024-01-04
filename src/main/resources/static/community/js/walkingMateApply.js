@@ -16,7 +16,7 @@ $(document).ready(function () {
             }
         }
     });
-    check(walkMateId)
+    // check(walkMateId)
     applyCheck(walkMateId);
 });
 
@@ -102,7 +102,8 @@ function walkingMateApply(walkMateId, userId, petId){
             walkingMateId : walkMateId,
             userId : userId,
             petId : petId,
-            state : 0
+            state : 0,
+            writerCheck :0
         },
         success : function (){
 
@@ -157,18 +158,18 @@ function applyCheck(walkMateId){
 }
 
 
-//통신확인용
-function check(walkMateId){
-
-    $.ajax({
-
-
-        url : `/walks/applierPetInfo/${walkMateId}`,
-        type:'get',
-        dataType:'json',
-        success :function (result){
-            console.log(result)
-        }
-    })
-
-}
+// //통신확인용
+// function check(walkMateId){
+//
+//     $.ajax({
+//
+//
+//         url : `/walks/applierPetInfo/${walkMateId}`,
+//         type:'get',
+//         dataType:'json',
+//         success :function (result){
+//             console.log(result)
+//         }
+//     })
+//
+// }

@@ -155,6 +155,8 @@ $('.submit-btn').on('click', function (){
     let person = $('#walkingMatePerson').val();
     let petName = $('#petName').val();
     let place =$('#addr').val();
+    let currentPerson = $('#currentPerson').val();
+
 
 
     if($('.non-registered-pet').is(':visible')){
@@ -167,6 +169,15 @@ $('.submit-btn').on('click', function (){
 
         return false;
     }
+
+    if(currentPerson > person){
+        alert("현재 신청 완료된 인원수보다 높은 수를 선택해주세요.")
+        return false;
+    }
+
+
+
+
 
     if(!(title && content && date && time && person && petName && place)){
         alert("정보 입력!!!")

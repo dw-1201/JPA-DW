@@ -35,15 +35,18 @@ public class WalkingMateState {
     @Builder.Default
     private Integer state = 0;
 
+    @Builder.Default
+    private Integer writerCheck = 0;
 
 
 
     @Builder
-    public WalkingMateState(Long id, WalkingMate walkingMate, Users users, Pet pet, Integer state) {
+    public WalkingMateState(Long id, WalkingMate walkingMate, Users users, Pet pet, Integer state, Integer writerCheck) {
         this.id = id;
         this.walkingMate = walkingMate;
         this.users = users;
         this.pet = pet;
         this.state = state;
+        this.writerCheck = writerCheck;
     }
 }

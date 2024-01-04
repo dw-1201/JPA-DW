@@ -68,7 +68,7 @@ public class WalkingMateService {
         walkingMateStateForm.setWalkingMateId(walkingMateId);
         walkingMateStateForm.setUserId(userId);
         walkingMateStateForm.setState(1);
-
+        walkingMateStateForm.setWriterCheck(1);
 
         Long id = walkingMateStateRepository.save(walkingMateStateForm.toEntity()).getId();
 
@@ -79,6 +79,7 @@ public class WalkingMateService {
     //산책글 신청
     @Transactional
     public void applyWalkMate(WalkingMateStateForm walkingMateStateForm){
+
 
         walkingMateStateRepository.save(walkingMateStateForm.toEntity());
 
@@ -140,7 +141,7 @@ public class WalkingMateService {
     @Transactional
     public List<WalkDetailStateDto> findApplierPetInfo(Long walkMateId){
 
-        List<WalkDetailStateDto> petInfos = walkingMateRepositoryCustom.applierPetsInfo(walkMateId);
+        List<WalkDetailStateDto> petInfos = walkingMateRepository.applierPetsInfo(walkMateId);
 
         System.out.println(petInfos.toString());
 
