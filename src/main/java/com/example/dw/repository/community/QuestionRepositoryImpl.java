@@ -2,6 +2,7 @@ package com.example.dw.repository.community;
 
 import com.example.dw.domain.dto.community.*;
 
+import com.example.dw.domain.entity.question.QQuestion;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 import static com.example.dw.domain.entity.question.QQuestion.question;
 import static com.example.dw.domain.entity.question.QQuestionImg.questionImg;
+import static com.example.dw.domain.entity.user.QUsers.users;
+import static com.example.dw.domain.entity.question.QQuestionComment.questionComment;
 import static java.util.stream.Collectors.*;
 
 import java.util.Collections;
@@ -57,6 +60,13 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
 
         List<QuestionListDto> contents =
                 content.stream().map(questionDto -> {
+
+                    Long commentCount = jpaQueryFactory
+                            .select(questionComment.id.count())
+                            .from(questionComment)
+                            .where(questionComment.question.id.eq(questionDto.getId()))
+                            .fetchOne();
+
                     List<QuestionImgDto> questionImgDto = jpaQueryFactory
                             .select(new QQuestionImgDto(
                                     questionImg.id,
@@ -78,7 +88,7 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
                                     imgDtos.getQuestionImgUuid(),
                                     imgDtos.getQuestionId()
                             ))
-                            .collect(Collectors.toList());
+                            .collect(toList());
 
 
                     return new QuestionListDto(
@@ -89,7 +99,9 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
                             questionDto.getQuestionMd(),
                             questionDto.getUserId(),
                             questionDto.getUserName(),
+                            commentCount,
                             imgDto
+
                     );
                 }).collect(Collectors.toList());
 
@@ -186,6 +198,108 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
 
     }
 
+
+    // 특정 유저 작성글 마이 페이지에 조회
+    @Override
+    public Page<QuestionListDto> findQnaListById(Pageable pageable,Long userId) {
+        System.out.println(userId + "마이페이지 글 조회를 위한 유저아이디 번호입니다");
+        List<QuestionDto> content = jpaQueryFactory
+                .select(new QQuestionDto(
+                        question.id,
+                        question.questionTitle,
+                        question.questionContent,
+                        question.questionRd,
+                        question.questionMd,
+                        question.users.id,
+                        question.users.userName
+                ))
+                .from(question)
+                .where(question.users.id.eq(userId))
+                .orderBy(question.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        // 페이징을 위한 전체 데이터 수 조회
+        Long count = getMypageCount(userId);
+
+
+        List<QuestionListDto> contents =
+                content.stream().map(questionDto -> {
+                    Long commentCount = jpaQueryFactory
+                            .select(questionComment.id.count())
+                            .from(questionComment)
+                            .where(questionComment.question.id.eq(questionDto.getId()))
+                            .fetchOne();
+
+                    List<QuestionImgDto> questionImgDto = jpaQueryFactory
+                            .select(new QQuestionImgDto(
+                                    questionImg.id,
+                                    questionImg.questionImgRoute,
+                                    questionImg.questionImgName,
+                                    questionImg.questionImgUuid,
+                                    question.id
+                            ))
+                            .from(questionImg)
+                            .leftJoin(questionImg.question, question)
+                            .where(question.id.eq(questionDto.getId()))
+                            .fetch();
+
+                    List<QuestionImgDto> imgDto = questionImgDto.stream()
+                            .map(imgDtos -> new QuestionImgDto(
+                                    imgDtos.getId(),
+                                    imgDtos.getQuestionImgRoute(),
+                                    imgDtos.getQuestionImgName(),
+                                    imgDtos.getQuestionImgUuid(),
+                                    imgDtos.getQuestionId()
+                            ))
+                            .collect(Collectors.toList());
+
+
+                    return new QuestionListDto(
+                            questionDto.getId(),
+                            questionDto.getQuestionTitle(),
+                            questionDto.getQuestionContent(),
+                            questionDto.getQuestionRd(),
+                            questionDto.getQuestionMd(),
+                            questionDto.getUserId(),
+                            questionDto.getUserName(),
+                            commentCount,
+                            imgDto
+                    );
+                }).collect(Collectors.toList());
+
+        contents.forEach(r-> System.out.println(r.getId()+"항목"));
+
+
+
+
+        return new PageImpl<>(contents, pageable,count);
+
+
+
+    }
+
+
+
+    // 마이 페이지 조회
+    private Long getMypageCount(Long userId){
+
+        Long count = jpaQueryFactory
+                .select(question.count())
+                .from(question)
+                .where(question.users.id.eq(userId))
+                .fetchOne();
+        System.out.println(count);
+
+        return count;
+
+    }
+
+    // 댓글수 조회
+//    private Long getComment(Long questionId){
+//
+//    }
 
 }
 

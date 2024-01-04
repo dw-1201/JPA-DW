@@ -17,6 +17,7 @@ import com.example.dw.repository.goods.GoodsMainImgRepository;
 import com.example.dw.repository.goods.GoodsRepository;
 import com.example.dw.repository.pet.PetImgRepository;
 import com.example.dw.repository.pet.PetRepository;
+import com.example.dw.repository.pet.PetRepositoryCustom;
 import com.example.dw.repository.user.UserFileRepository;
 import com.example.dw.repository.user.UsersRepository;
 import com.example.dw.repository.user.UsersRepositoryCustom;
@@ -38,6 +39,7 @@ import java.util.UUID;
 @Transactional
 @RequiredArgsConstructor
 public class FileService {
+
 
     @Value("${file.dir}")
     private String mainImg;
@@ -65,7 +67,7 @@ public class FileService {
 
     private final PetRepository petRepository;
     private final PetImgRepository petImgRepository;
-
+    private final PetRepositoryCustom petRepositoryCustom;
     //상품 메인 사진 로컬서버 저장
     @Transactional
     public GoodsMainImgForm saveImg(MultipartFile file) throws IOException {
@@ -389,6 +391,8 @@ public class FileService {
 
         for (MultipartFile file : files) {
             PetImgForm petImgForm = savePetImg(file);
+            System.out.println(petImgForm+"유관순");
+            System.out.println(petImgForm.getPet()+"이게모야모야");
             Optional<Pet> pet = petRepository.findById(petId);
 
             petImgForm.setPet(pet.get());
@@ -397,5 +401,30 @@ public class FileService {
 
     }
 
+    //pet 기존 사진 삭제
+    @Transactional
+    public void removePetImgs(Long petId) {
+        System.out.println("파일 삭제 아이디 : " + petId);
+        if (petId == null) {
+            throw new IllegalArgumentException("유효하지 않은 펫 번호");
+        }
+
+
+        List<PetImgDto> petImgDtos = petRepositoryCustom.findAllPetById(petId);
+        System.out.println(petImgDtos.toString() + "나는 누구이인가");
+
+        for (PetImgDto petImgDto : petImgDtos) {
+            File detailImgTarget = new File(petImg, petImgDto.getPetPath() + "/" + petImgDto.getPetUuid() + "_" + petImgDto.getPetFileName());
+            System.out.println(petImgDto.toString() + "삭제 파일 입니다.");
+            if (detailImgTarget.exists()) {
+                detailImgTarget.delete();
+
+                System.out.println("[ 삭제 펫사진 ]" + petImgDto.getPetPath() + "/" + petImgDto.getPetUuid() + "_" + petImgDto.getPetFileName()+ "\n");
+                petImgRepository.deletePetImgById(petImgDto.getId());
+                System.out.println("제발");
+            }
+
+        }
+    }
 
 }

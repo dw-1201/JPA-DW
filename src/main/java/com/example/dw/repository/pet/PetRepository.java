@@ -8,6 +8,12 @@ import java.util.Optional;
 
 public interface PetRepository extends JpaRepository<Pet,Long> {
 
-    Optional<Pet> findById(Long id);
+    Optional<Pet> findById(Long petId);
+    
+    void deleteById(Long petId);
+
+    boolean existsByNameAndUsersId(String name, Long userId);
+
+
 
 }
