@@ -79,9 +79,6 @@ public class Users {
     @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<GoodsQueReply> goodsQueReplyList=new ArrayList<>();
 
-
-
-
     @Builder.Default
     private int userState = 1;
 

@@ -69,13 +69,7 @@ public class GoodsController {
 
      return "/shopping/shopDetail";
     }
-    /**
-     * 쇼핑 추가정보 페이지
-     */
-//    @GetMapping("/shopAddInfo")
-//    public String shopAddInfo(){
-//        return "/shopping/shopAddInfo";
-//    }
+
     /**
      * 쇼핑 리뷰 페이지
      */
@@ -84,11 +78,6 @@ public class GoodsController {
         model.addAttribute("id", id);
         return "/shopping/shopReview";
     }
-
-    /**
-     * 쇼핑 Q and A 문의 글 작성 페이지
-     */
-
 
     /**
      * 쇼핑 카트 페이지
@@ -104,6 +93,7 @@ public class GoodsController {
      */
     @GetMapping("/shopPay/{userId}")
     public String shopPay(){
+
         return "/shopping/shopPay";
     }
 

@@ -2,6 +2,7 @@ package com.example.dw.api;
 
 import com.example.dw.domain.dto.goods.*;
 import com.example.dw.domain.form.CartItemForm;
+import com.example.dw.domain.dto.goods.GoodsPayListDto;
 import com.example.dw.domain.form.GoodsQandaWritingForm;
 import com.example.dw.domain.form.SearchForm;
 import com.example.dw.repository.goods.ShopRepositoryCustom;
@@ -114,7 +115,7 @@ public class GoodsApiController {
 
     //카트에 물건 담기
     @GetMapping("/shopCartList/{userId}")
-    public ShopCartListDto findCartList(@PathVariable("userId") Long userId){
+    public GoodsCartListDto findCartList(@PathVariable("userId") Long userId){
 
        return goodsService.findCartItems(userId);
     }
@@ -125,7 +126,6 @@ public class GoodsApiController {
         goodsService.deleteCartItem(cartItemId);
 
     }
-
 
     /**
      * 쇼핑 이미지 처리
@@ -139,22 +139,25 @@ public class GoodsApiController {
     }
 
 
-
     //장바구니 정보 넣기
     @PostMapping("/cartGoods")
-    public void cartGoods(@RequestBody List<GoodsPayListForm> goodsPayListForm, HttpSession session){
+    public void cartGoods(@RequestBody List<GoodsPayListDto> goodsPayListDto, HttpSession session){
 
-        System.out.println(goodsPayListForm.toString()+"@@@@@@@@@@@@@@@@");
+        System.out.println(goodsPayListDto.toString()+"@@@@@@@@@@@@@@@@");
 
-            goodsService.goodsPayList(goodsPayListForm, session);
+            goodsService.goodsPayList(goodsPayListDto, session);
     }
 
     //가져오기
-    @GetMapping("/payGoodsList")
-    public void payGoodsList(Long userId){
+    @GetMapping("/goodsPickList")
+    public List<GoodsPickListDto> payGoodsList(HttpSession session){
 
+        System.out.println("컨트롤러");
+        List<GoodsPickListDto> list = goodsService.goodsPickList(session);
 
-//        return;
+        System.out.println(list+"!!!!!!!!!!!!!!");
+
+        return list;
     }
 
 }

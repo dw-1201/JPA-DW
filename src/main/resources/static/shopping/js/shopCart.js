@@ -149,7 +149,7 @@ function updateTotalPrice() {
         let goodsName = collectData('.thumbnail-dox-div .goodsName');
         let goodsId = collectInputData('.thumbnail-dox-div .goodsId');
         let cartItemQuantity = collectData('.quantity-box .quantity');
-        let userId = $('#userId').val();
+        userId = $('#userId').val();
 
         for (let i = 0; i < goodsId.length; i++) {
             let product = {

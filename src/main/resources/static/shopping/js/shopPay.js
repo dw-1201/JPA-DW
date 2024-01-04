@@ -2,43 +2,104 @@ let userId = $('#userId').val();
 console.log(userId)
 
 $(document).ready(function () {
-    // getPay()
+    getGoodsPickList(getPickList);
+    getGoodsPickList(updateTotalPrice);
 });
 
-// function getPay(callback){
-//
-//     $.ajax({
-//         url : '/shops/cartGoods',
-//         type : "post",
-//         dataType : "json",
-//         success : function(result){
-//             console.log(result);
-//
-//             if (callback){
-//                 callback(result)
-//             }
-//         }
-//
-//     })
-// }
+function getGoodsPickList(callback){
+
+    $.ajax({
+        url : `/shops/goodsPickList`,
+        type : "get",
+        dataType : "json",
+        success : function(result){
+            console.log(result);
+
+            if (callback){
+                callback(result)
+            }
+        },
+        error: function(a, b, c) {
+            console.error(c);
+        }
+    })
+}
+
+function getPickList(result){
+    let text = '';
+    let inputSection = $('.cart_list')
+
+    result.forEach(r=>{
+        text += `
+
+        <div className="product-total">
+            <span> ${r.goodsName} </span>
+            <span class="goodsPrice">${addCommas(r.goodsPrice)}</span> x
+            <span class="goodsQuantity">${r.goodsQuantity}</span> =
+            <span id="price" class="goodsTotal" data-price="${r.goodsPrice}">${addCommas(r.goodsPrice * r.goodsQuantity)}</span>
+        </div>
+
+        `
+    })
+    inputSection.html(text);
+}
+
+// 콤마 찍기 함수
+function addCommas(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 
+// 총 결제 금액 업데이트 함수
+function updateTotalPrice() {
+    let dynamicPricesArray = [];
+
+    $('.goodsTotal').each(function () {
+        dynamicPricesArray.push(parseInt($(this).text().replace(/[^\d]+/g, ''), 10));
+        // 숫자만 추출하여 배열에 추가
+    });
+
+    let totalPrice = dynamicPricesArray.reduce((sum, price) => sum + price, 0);
+    $('#total').text(addCommas(totalPrice) + ' 원');
+}
+
+// 카카오 페이 API
+$(".cart-button").click(function () {
+
+    const payAmount = parseInt($('#total').text().replace(',',''))
+    const buyName = ($('#userName')).text()
+    const addressPost = ($('addressPost')).text();
 
 
+    let IMP = window.IMP; // 생략가능
+    IMP.init('imp24106650');
+    // i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+    // ''안에 띄어쓰기 없이 가맹점 식별코드를 붙여넣어주세요. 안그러면 결제창이 안뜹니다.
+    IMP.request_pay({
+        pg: 'kakaopay.TC0ONETIME',
+        pay_method: 'card',
+        merchant_uid: 'merchant_' + new Date().getTime(),
 
+        name: '주문명 : 아메리카노',
+        amount: payAmount,
 
-
-
-
-
-
-
-
-
-
-
-
-
+        buyer_name: buyName,
+        buyer_postcode: addressPost,
+    }, function (rsp) {
+        console.log(rsp);
+        if (rsp.success) {
+            let msg = '결제가 완료되었습니다.';
+            msg += '결제 금액 : ' + rsp.paid_amount;
+            // success.submit();
+            // 결제 성공 시 정보를 넘겨줘야한다면 body에 form을 만든 뒤 위의 코드를 사용하는 방법이 있습니다.
+            // 자세한 설명은 구글링으로 보시는게 좋습니다.
+        } else {
+            let msg = '결제에 실패하였습니다.';
+            msg += '에러내용 : ' + rsp.error_msg;
+        }
+        alert(msg);
+    });
+});
 
 
 

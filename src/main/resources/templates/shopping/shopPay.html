@@ -76,25 +76,33 @@
 
 
 <!-- 미들 -->
-
 <div class="product">
   고객님의 주문내역
 </div>
-<div class="content-price">
-  <div class="name">
-    삼색이 필로우 고양이 인형
-  </div>
-  <div class="product-total">
-    <span>33,000</span>
-    <span>x</span>
-    <span>1</span>
-    <span>=</span>
-    <span>33,000</span>
-  </div>
+
+<div class="cart_list">
+<!--주문 내역 리스트 시작-->
+  <!--<div class="content-price">-->
+  <!--  <div class="name">-->
+  <!--    삼색이 필로우 고양이 인형-->
+  <!--  </div>-->
+  <!--  <div class="product-total">-->
+  <!--    <span>33,000</span>-->
+  <!--    <span>x</span>-->
+  <!--    <span>1</span>-->
+  <!--    <span>=</span>-->
+  <!--    <span>33,000</span>-->
+  <!--  </div>-->
+  <!--</div>-->
+<!--주문 내역 리스트 끝-->
 </div>
 <div class="content-price3">
-  <span>총 결제 금액 :&nbsp;</span><span>33,000</span><span>&nbsp;원</span>
+  <span>총 결제 금액 :&nbsp;</span>
+  <span id="total"></span>
+  <span>&nbsp;</span>
 </div>
+
+
 
 <div class="cartButton-Box">
   <button class="cart-button">결제 진행하기</button>
@@ -117,4 +125,5 @@
 <script defer src="/shopping/js/shopPay.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" ></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </html>

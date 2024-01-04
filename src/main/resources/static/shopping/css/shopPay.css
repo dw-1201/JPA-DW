@@ -11,6 +11,9 @@ body,html,input,button {
 }
 
 /* 메인 시작 */
+.cart_list{
+  text-align: end;
+}
 .main-content{
   /* width: 1024px; */
   width: 100%;

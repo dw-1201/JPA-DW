@@ -8,6 +8,7 @@ import com.example.dw.domain.entity.goods.GoodsQue;
 import com.example.dw.domain.entity.user.Users;
 import com.example.dw.domain.form.CartForm;
 import com.example.dw.domain.form.CartItemForm;
+import com.example.dw.domain.form.GoodsPayResultForm;
 import com.example.dw.domain.form.GoodsQandaWritingForm;
 import com.example.dw.repository.goods.*;
 import com.example.dw.repository.user.UsersRepository;
@@ -37,6 +38,8 @@ public class GoodsService {
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
     private final GoodsPayListRepository goodsPayListRepository;
+    private final GoodsPayListRepositoryCustom goodsPayListRepositoryCustom;
+    private final GoodsPayListRepositoryImpl goodsPayListRepositoryImpl;
 
 
     //모달 글쓰기
@@ -84,17 +87,13 @@ public class GoodsService {
 
     }
 
+
     //추가 정보
     @Transactional
     public Optional<GoodsAddInfoDto> goodsAddInfo(Long goodsId){
         return shopRepositoryCustom.findGoodsAddInfoById(goodsId);
     }
 
-    //카트 리스트
-//    @Transactional
-//    public List<GoodsCartDto> cartList(Long userId){
-//        return shopRepositoryCustom.findGoodsCartById(userId);
-//    }
 
     //카트 번호 생성
     @Transactional
@@ -146,13 +145,13 @@ public class GoodsService {
      * @return
      */
     @Transactional
-    public ShopCartListDto findCartItems(Long userId){
+    public GoodsCartListDto findCartItems(Long userId){
         CartDto cartDto = shopRepositoryCustom.findCartIdByUserId(userId);
 
         List<GoodsCartItemDto> cartItems = shopRepositoryCustom.findGoodsCartItemById(cartDto.getId(), userId);
 
-        Map<ShopCartListDto, List<CartItemDetails>> groupedItems = cartItems.stream()
-                .collect(groupingBy(o -> new ShopCartListDto(o.getCartId(), o.getUserId()),
+        Map<GoodsCartListDto, List<CartItemDetails>> groupedItems = cartItems.stream()
+                .collect(groupingBy(o -> new GoodsCartListDto(o.getCartId(), o.getUserId()),
                         mapping(o -> new CartItemDetails(
                                         o.getId(), o.getCartItemQuantity(), o.getGoodsId(), o.getGoodsName(), o.getGoodsPrice(),
                                         o.getGoodsMainImgId(), o.getGoodsMainImgName(), o.getGoodsMainImgPath(), o.getGoodsMainImgUuid()),
@@ -161,12 +160,12 @@ public class GoodsService {
         List<CartItemDetails> mergedItems = groupedItems.values().stream()
                 .flatMap(cartItemDetails -> cartItemDetails.stream())
                 .collect(Collectors.toList());
-        return new ShopCartListDto(cartDto.getId(), userId, mergedItems);
+        return new GoodsCartListDto(cartDto.getId(), userId, mergedItems);
     }
 
     //결제페이지에 담길 물건 리스트
     @Transactional
-    public void goodsPayList(List<GoodsPayListForm> goodsPayListForm,HttpSession session){
+    public void goodsPayList(List<GoodsPayListDto> goodsPayListDto, HttpSession session){
 
         Long userId = (Long) session.getAttribute("userId");
 
@@ -190,7 +189,7 @@ public class GoodsService {
 
         GoodsPayResultForm goodsPayResultForm = new GoodsPayResultForm();
         //상품 결제정보 등록
-       for(GoodsPayListForm goodsPlay : goodsPayListForm){
+       for(GoodsPayListDto goodsPlay : goodsPayListDto){
            goodsPayResultForm.setGoodsId(goodsPlay.getGoodsId());
            goodsPayResultForm.setGoodsPrice(goodsPlay.getGoodsPrice());
            goodsPayResultForm.setGoodsQuantity(goodsPlay.getGoodsQuantity());
@@ -198,6 +197,22 @@ public class GoodsService {
 
            goodsPayListRepository.save(goodsPayResultForm.toEntity());
        }
+    }
+
+
+    //결제 페이지 주문내역 리스트
+    @Transactional
+    public List<GoodsPickListDto> goodsPickList(HttpSession session){
+
+        Long userId = (Long) session.getAttribute("userId");
+
+        if (userId == null) {
+            throw new IllegalArgumentException("유저 정보가 없습니다.");
+        }
+
+        System.out.println("서비스");
+
+        return goodsPayListRepositoryCustom.findGoodPayListIdByUserId(userId);
     }
 
 }

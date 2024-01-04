@@ -26,4 +26,5 @@ public interface ShopRepositoryCustom {
 
     List<GoodsCartItemDto> findGoodsCartItemById(Long cartId, Long userId);
 
+
 }
