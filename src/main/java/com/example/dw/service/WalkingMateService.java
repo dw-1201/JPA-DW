@@ -1,5 +1,6 @@
 package com.example.dw.service;
 
+import com.example.dw.domain.dto.community.WalkDetailStateDto;
 import com.example.dw.domain.dto.community.WalkMateDetailDto;
 import com.example.dw.domain.dto.community.WalkMateDetailReplyDto;
 import com.example.dw.domain.dto.community.WalkMateListDto;
@@ -87,6 +88,8 @@ public class WalkingMateService {
     @Transactional
     public Long applyCheck(Long walkMateId, Long userId){
 
+        stateCount(walkMateId);
+
         try{
 
             Long id = walkingMateStateRepository.applyCheck(walkMateId, userId);
@@ -107,7 +110,41 @@ public class WalkingMateService {
 
         Long id = walkingMateStateRepository.applyCheck(walkMateId, userId);
 
+        walkingMateRepository.downDateWalkMateState(walkMateId);
         walkingMateStateRepository.deleteById(id);
+
+    }
+
+    //산책글 모집현황
+    @Transactional
+    public Long stateCount(Long walkMateId){
+
+        Long count = walkingMateStateRepository.stateCount(walkMateId);
+
+        System.out.println("모집상태 1 개수 : " + count);
+
+        return count;
+    }
+
+    //산책글 state값 확인
+    @Transactional
+    public Long applyState(Long userId, Long walkMateId){
+
+        Long applyUserId = walkingMateStateRepository.applyState(userId, walkMateId);
+
+        return applyUserId;
+
+    }
+
+    //산책 신청자 펫 정보
+    @Transactional
+    public List<WalkDetailStateDto> findApplierPetInfo(Long walkMateId){
+
+        List<WalkDetailStateDto> petInfos = walkingMateRepositoryCustom.applierPetsInfo(walkMateId);
+
+        System.out.println(petInfos.toString());
+
+        return petInfos;
 
     }
 
@@ -119,6 +156,7 @@ public class WalkingMateService {
 
        return usersRepositoryCustom.findAllPetByUserId(userId);
     }
+
 
     //산책글 상세보기
     @Transactional
@@ -140,6 +178,10 @@ public class WalkingMateService {
         walkingMate.update(walkMateForm);
 
     }
+    
+    
+    
+    //댓글
 
     //산책글 댓글 등록
     @Transactional
