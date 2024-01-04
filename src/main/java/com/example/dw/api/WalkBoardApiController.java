@@ -1,7 +1,6 @@
 package com.example.dw.api;
 
 
-import com.example.dw.domain.dto.community.WalkDetailStateDto;
 import com.example.dw.domain.dto.community.WalkMateDetailReplyDto;
 import com.example.dw.domain.dto.community.WalkMateListDto;
 import com.example.dw.domain.form.SearchLocationForm;
@@ -112,14 +111,14 @@ public class WalkBoardApiController {
 
     }
 
-    //신청자 펫 정보
-    @GetMapping("/applierPetInfo/{walkMateId}")
-    public List<WalkDetailStateDto> applierPetInfo(
-            @PathVariable("walkMateId") Long walkMateId){
-
-        return walkingMateService.findApplierPetInfo(walkMateId);
-
-    }
+//    //신청자 펫 정보 //post맨 확인용
+//    @GetMapping("/applierPetInfo/{walkMateId}")
+//    public List<WalkDetailStateDto> applierPetInfo(
+//            @PathVariable("walkMateId") Long walkMateId){
+//
+//        return walkingMateService.findApplierPetInfo(walkMateId);
+//
+//    }
 
 
 }

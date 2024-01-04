@@ -116,41 +116,40 @@
 
             <!-- 글 끝 -->
 
-<!--            <div class="writer-pet-section">-->
-<!--                <div class="writer-pet-title">-->
-<!--                    <th:block th:if="${detail.userNickName == null}">-->
-<!--                    <h4><span th:text="${detail.userAccount}"></span>님의 펫에 관한 정보입니다.</h4>-->
-<!--                    </th:block>-->
-<!--                    <th:block th:if="${detail.userNickName != null}">-->
-<!--                        <h4><span th:text="${detail.userNickName}"></span>님의 펫에 관한 정보입니다.</h4>-->
-<!--                    </th:block>-->
-<!--                </div>-->
-<!--                <div class="writer-pet-info">-->
-<!--                    <ul class="writer-pet-info-ul">-->
-<!--                        <li class="writer-pet-info-ul-li writer-pet-img">-->
-<!--                            <img th:src="'/jpa_dw/petimg/' + ${detail.petImgPath} +'/' + ${detail.petImgUuid} +'_' + ${detail.petImgName} " alt="작성자 펫 정보">-->
-<!--                        </li>-->
-<!--                        <li class="writer-pet-info-ul-li writer-pet-detail">-->
-<!--                            <div class="writer-pet-detail">-->
-<!--                                <ul>-->
-<!--                                    <li>견종 : <span th:text="${detail.petCate}"></span></li>-->
-<!--                                    <li>이름 : <span th:text="${detail.petName}"></span></li>-->
-<!--                                    <li>무게 : <span th:text="${detail.petWeight} + kg"></span></li>-->
-<!--                                    <li>중성화 : <span th:text="${detail.neutering}"></span></li>-->
-<!--                                    <li>성별 : <span th:text="${detail.petGender}"></span></li>-->
-<!--                                </ul>-->
-<!--                            </div>-->
-<!--                        </li>-->
-
-<!--                    </ul>-->
-<!--                </div>-->
-<!--            </div>-->
-
-            <!--            <div class="party">참가자 펫정보 영역</div>-->
 
 
-<!--            <a th:href="@{/walk/modify/{id} (id=${detail.id})}">dddd</a>-->
 
+
+
+            <th:block th:if="${session.userId != null}" >
+                <th:block th:if="${replyAuthorized == session.userId}">
+
+                    <div class="applier-pet-info-section">
+                        <ul class="applier-pet-info-ul">
+                            <li class="applier-pet-info-ul-li" th:each="applierPetInfo : ${applierPetInfo}">
+                                <div class="applier-info">
+                                    <h5 th:if="${applierPetInfo.applierUserNickName == null}" th:text="${applierPetInfo.applierUserAccount + '님의 펫 정보입니다.'}"></h5>
+                                    <h5 th:if="${applierPetInfo.applierUserNickName != null}" th:text="${applierPetInfo.applierUserNickName + '님의 펫 정보입니다.'}"></h5>
+                                </div>
+                                <div class="applier-pet-detail">
+                                    <div class="applier-pet-img">
+                                        <img th:src="'/jpa_dw/petimg/' + ${applierPetInfo.applierPetImgPath} +'/' + ${applierPetInfo.applierPetImgUuid} +'_' + ${applierPetInfo.applierPetImgName} " alt="작성자 펫 정보">
+                                    </div>
+                                    <ul class="applier-pet-info-detail">
+                                        <li>견종 : <span th:text="${applierPetInfo.applierPetCate}"></span></li>
+                                        <li>이름 : <span th:text="${applierPetInfo.applierPetName}"></span></li>
+                                        <li>생일 : <span th:text="${applierPetInfo.applierPetAge}"></span></li>
+                                        <li>무게 : <span th:text="${applierPetInfo.applierPetWeight + 'kg'}"></span></li>
+                                        <li>성별 : <span th:text="${applierPetInfo.applierPetGender}"></span></li>
+                                        <li>중성화 : <span th:text="${applierPetInfo.applierPetNeutering}"></span></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                </th:block>
+            </th:block>
 
 
 

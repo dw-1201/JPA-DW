@@ -134,7 +134,7 @@ input:focus {
 }
 
 .writer-btns {
-    width: 223px;
+    width: 225px;
     height: 50px;
     box-sizing: border-box;
     display: flex;
@@ -462,13 +462,54 @@ input:focus {
 
 
 
+/*신청자 펫정보*/
+.applier-pet-info-ul{
+    font-size: 12px;
+    width: 100%;
+    height: 100%;
+    display: grid;
+
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.applier-pet-info-ul-li {
+    width: 290px;
+    height: 100%;
+}
+
+.applier-info {
+    padding: 5px 0px 5px 10px;
+}
+
+.applier-pet-detail {
+    display: flex;
+    justify-content: space-between;
+    line-height: 1.7;
+    align-items: center;
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+
+
+.applier-pet-img {
+    box-sizing: border-box;
+    padding: 10px;
+    width: 150px;
+    height: 150px;
+}
+.applier-pet-img img {
+    width: 100%;
+    height: 100%;
+}
+
+.applier-pet-info-detail {
+    padding:10px
+
+}
 
 
 
-
-
-
-
+    /*모달창*/
 .apply-modal-section {
     font-family: 'GmarketSansMedium';
 

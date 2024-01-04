@@ -40,11 +40,11 @@ public class QWalkingMate extends EntityPathBase<WalkingMate> {
 
     public final StringPath walkingMateFullAddress = createString("walkingMateFullAddress");
 
-    public final StringPath walkingMateMd = createString("walkingMateMd");
+    public final DateTimePath<java.time.LocalDateTime> walkingMateMd = createDateTime("walkingMateMd", java.time.LocalDateTime.class);
 
     public final NumberPath<Long> walkingMatePerson = createNumber("walkingMatePerson", Long.class);
 
-    public final StringPath walkingMateRd = createString("walkingMateRd");
+    public final DateTimePath<java.time.LocalDateTime> walkingMateRd = createDateTime("walkingMateRd", java.time.LocalDateTime.class);
 
     public final NumberPath<Long> walkingMateState = createNumber("walkingMateState", Long.class);
 

@@ -4,6 +4,8 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 public class WalkMateDetailDto {
@@ -13,8 +15,8 @@ public class WalkMateDetailDto {
     private Long userId;
     private String userNickName;
     private String userAccount;
-    private String registeredDate;
-    private String modifiedDate;
+    private LocalDateTime registeredDate;
+    private LocalDateTime modifiedDate;
     private String title;
     private String content;
     private Long currentPerson;
@@ -41,7 +43,7 @@ public class WalkMateDetailDto {
 
 
     @QueryProjection
-    public WalkMateDetailDto(Long id, Long userId, String userNickName, String userAccount, String registeredDate, String modifiedDate, String title, String content, Long currentPerson, Long matePerson, String mateDate, String mateTime, String fullAddress, String walkCity, String walkCounty, Long petId, String petName, String petCate, Long petWeight, String neutering, String petGender, Long petImgId, String petImgPath, String petImgUuid, String petImgName, Long viewCount, Long currentState) {
+    public WalkMateDetailDto(Long id, Long userId, String userNickName, String userAccount, LocalDateTime registeredDate, LocalDateTime modifiedDate, String title, String content, Long currentPerson, Long matePerson, String mateDate, String mateTime, String fullAddress, String walkCity, String walkCounty, Long petId, String petName, String petCate, Long petWeight, String neutering, String petGender, Long petImgId, String petImgPath, String petImgUuid, String petImgName, Long viewCount, Long currentState) {
         this.id = id;
         this.userId = userId;
         this.userNickName = userNickName;
