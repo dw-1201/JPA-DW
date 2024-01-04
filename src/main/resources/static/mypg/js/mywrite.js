@@ -15,8 +15,9 @@ function showUserQnAList(result) {
     let textInput = $('.list-contents-box');
 
 
-
-    if (result == null) {
+    console.log(result.length);
+    if (result.content.length === 0) {
+        console.log("값이 없다")
         text = `<div className="nonepage">
             <div className="none-img-area">
                 <div className="none-img">
@@ -28,7 +29,10 @@ function showUserQnAList(result) {
             </div>
         </div>
         `;
+
+        $('.nonepage').css('display','block');
     }else{
+        console.log("값이 있다.")
         result.content.forEach(r => {
 
             text += `<div class="list-content" th:value="${r.id}">

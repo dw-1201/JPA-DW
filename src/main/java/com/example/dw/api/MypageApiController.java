@@ -108,7 +108,7 @@ public class MypageApiController {
                 .collect(Collectors.toList());
 
         System.out.println("자유게시판 글 개수 : " + result.stream().count());
-
+        System.out.println(updatedList + " 게시판 보여지는 곳");
         return new PageImpl<>(updatedList, pageable, result.getTotalElements());
     }
 
