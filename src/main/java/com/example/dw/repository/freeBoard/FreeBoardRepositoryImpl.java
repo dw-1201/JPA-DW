@@ -141,4 +141,57 @@ public class FreeBoardRepositoryImpl implements FreeBoardRepositoryCustom{
                 .fetchOne();
         return count;
     }
+
+
+
+
+    // 마이페이지 해당 유저 작성글 조회
+
+    private Long getMyFerrboardCount(Long userId) {
+        Long count = jpaQueryFactory
+                .select(freeBoard.count())
+                .from(freeBoard)
+                .where(freeBoard.users.id.eq(userId))
+                .fetchOne();
+        return count;
+    }
+
+
+
+    private List<FreeBoardDto> getMyFreeBoardList(Pageable pageable, Long userId) {
+        return jpaQueryFactory
+                .select(new QFreeBoardDto(
+                        freeBoard.id,
+                        freeBoard.freeBoardTitle,
+                        freeBoard.freeBoardContent,
+                        freeBoard.freeBoardRd,
+                        freeBoard.freeBoardMd,
+                        freeBoard.freeBoardViewCount,
+                        freeBoard.freeBoardCommentCount,
+                        freeBoardImg.id,
+                        freeBoardImg.freeBoardImgRoute,
+                        freeBoardImg.freeBoardImgName,
+                        freeBoardImg.freeBoardImgUuid,
+                        users.id,
+                        users.userAccount,
+                        users.userNickName
+                ))
+                .from(freeBoard)
+                .leftJoin(freeBoard.freeBoardImg, freeBoardImg)
+                .where(freeBoard.users.id.eq(userId))
+                .orderBy(freeBoard.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+    }
+
+    @Override
+    public Page<FreeBoardDto> findFreeBoardListById(Pageable pageable, Long userId) {
+
+
+        List<FreeBoardDto> content = getMyFreeBoardList(pageable, userId);
+        Long counts = getMyFerrboardCount(userId);
+        return new PageImpl<>(content, pageable, counts);
+
+    }
 }

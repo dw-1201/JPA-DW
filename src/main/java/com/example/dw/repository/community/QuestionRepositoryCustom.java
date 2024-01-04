@@ -15,4 +15,9 @@ public interface QuestionRepositoryCustom {
     List<QuestionDetailResultDto> findQnaById(Long id);
 
     List<QuestionImgDto> findAllByQuestionId(Long questionId);
+
+    // 마이페이지 특정유거 작성한 질문 받아오기
+    Page<QuestionListDto> findQnaListById(Pageable pageable,Long userId);
+
+
 }

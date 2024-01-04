@@ -13,4 +13,8 @@ public interface FreeBoardRepositoryCustom {
 
     List<FreeBoardDetailDto> findFreeBoardById(Long id);
 
+    Page<FreeBoardDto> findFreeBoardListById(Pageable pageable, Long userId);
+
+
+
 }

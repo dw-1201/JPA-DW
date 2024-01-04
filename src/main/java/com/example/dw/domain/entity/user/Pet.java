@@ -39,7 +39,7 @@ public class Pet {
     @JoinColumn(name="user_id")
     private Users users;
 
-    @OneToMany(mappedBy = "pet" ,fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pet" ,fetch = FetchType.LAZY,orphanRemoval = true)
     private List<PetImg> petImg;
 
 

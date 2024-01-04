@@ -99,7 +99,7 @@ public class MypageService {
         if(petId ==null){
             throw new IllegalArgumentException("펫 정보가 없습니다.");
         }
-        petRepository.deletePetById(petId);
+        petRepository.deleteById(petId);
 
     }
 

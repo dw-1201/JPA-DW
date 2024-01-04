@@ -23,13 +23,13 @@
                     <nav class="menu-choice-area">
                         <ul class="menu-choice">
                             <li class="choice-p">
-                                <a href="/mypg/html/mypgmain.html" class="pro"> 프로필</a>
+                                <a th:href="@{/mypg/main/{userid}(userid = ${session.userId})}" class="pro"> 프로필</a>
                             </li>
                             <li class="choice-w">
-                                <a href="/mypg/html/mywrite.html" class="mywrite">내가 작성한 글</a>
+                                <a th:href="@{/mypg/writepage/{userid}(userid = ${session.userId})}" class="mywrite">내가 작성한 글</a>
                             </li>
                             <li>
-                                <a href="/mypg/html/buylist.html" class="mybuy">주문내역</a>
+                                <a th:href="@{/mypg/orderpage/{userid}(userid = ${session.userId})}" class="mybuy">주문내역</a>
                             </li>
                         </ul>
                     </nav>
@@ -37,7 +37,7 @@
                 <div class="detail-pro-choice">
                     <ul class="detail-choice">
                         <li class="my-pro">
-                            <a href="/mypg/main" class="my-pro-detail">내프로필</a>
+                            <a th:href="@{/mypg/main/{userid}(userid = ${userdetail.id})}" class="my-pro-detail">내프로필</a>
                         </li>
                         <li class="my-pet">
                             <a th:href="@{/mypg/mypet/{userid}(userid = ${userdetail.id})}"  class="my-pet-detail">반려동물 프로필</a>

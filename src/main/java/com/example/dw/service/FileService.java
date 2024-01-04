@@ -391,6 +391,8 @@ public class FileService {
 
         for (MultipartFile file : files) {
             PetImgForm petImgForm = savePetImg(file);
+            System.out.println(petImgForm+"유관순");
+            System.out.println(petImgForm.getPet()+"이게모야모야");
             Optional<Pet> pet = petRepository.findById(petId);
 
             petImgForm.setPet(pet.get());
@@ -399,7 +401,7 @@ public class FileService {
 
     }
 
-    //que 기존 사진 삭제
+    //pet 기존 사진 삭제
     @Transactional
     public void removePetImgs(Long petId) {
         System.out.println("파일 삭제 아이디 : " + petId);

@@ -13,8 +13,8 @@ public class QQuestionListDto extends ConstructorExpression<QuestionListDto> {
 
     private static final long serialVersionUID = -943335417L;
 
-    public QQuestionListDto(com.querydsl.core.types.Expression<Long> id, com.querydsl.core.types.Expression<String> questionTitle, com.querydsl.core.types.Expression<String> questionContent, com.querydsl.core.types.Expression<String> questionRd, com.querydsl.core.types.Expression<java.time.LocalDateTime> questionMd, com.querydsl.core.types.Expression<Long> userId, com.querydsl.core.types.Expression<String> userName, com.querydsl.core.types.Expression<? extends java.util.List<QuestionImgDto>> questionImgDtoList) {
-        super(QuestionListDto.class, new Class<?>[]{long.class, String.class, String.class, String.class, java.time.LocalDateTime.class, long.class, String.class, java.util.List.class}, id, questionTitle, questionContent, questionRd, questionMd, userId, userName, questionImgDtoList);
+    public QQuestionListDto(com.querydsl.core.types.Expression<Long> id, com.querydsl.core.types.Expression<String> questionTitle, com.querydsl.core.types.Expression<String> questionContent, com.querydsl.core.types.Expression<String> questionRd, com.querydsl.core.types.Expression<java.time.LocalDateTime> questionMd, com.querydsl.core.types.Expression<Long> userId, com.querydsl.core.types.Expression<String> userName, com.querydsl.core.types.Expression<Long> commentCount, com.querydsl.core.types.Expression<? extends java.util.List<QuestionImgDto>> questionImgDtoList) {
+        super(QuestionListDto.class, new Class<?>[]{long.class, String.class, String.class, String.class, java.time.LocalDateTime.class, long.class, String.class, long.class, java.util.List.class}, id, questionTitle, questionContent, questionRd, questionMd, userId, userName, commentCount, questionImgDtoList);
     }
 
 }

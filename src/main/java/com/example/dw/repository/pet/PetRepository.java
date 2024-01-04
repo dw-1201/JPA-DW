@@ -10,7 +10,7 @@ public interface PetRepository extends JpaRepository<Pet,Long> {
 
     Optional<Pet> findById(Long petId);
     
-    void deletePetById(Long petid);
+    void deleteById(Long petId);
 
     boolean existsByNameAndUsersId(String name, Long userId);
 

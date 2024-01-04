@@ -160,5 +160,16 @@ public class MypageController {
     }
 
 
+    @GetMapping("/writepage/{userId}")
+    public String writePage(){
 
+
+        return "/mypg/mywrite";
+    }
+
+    @GetMapping("/myfreeboard/{userId}")
+    public String myfreeboard(){
+
+        return "/mypg/myfreeboard";
+    }
 }
