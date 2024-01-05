@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,11 +46,11 @@
                     </tr>
                     <tr class="qna-info-column">
                         <th>작성자</th>
-                        <td>bokbok1234</td>
+                        <td th:text="${detail.userAccount}"></td>
                         <th>작성일자</th>
-                        <td>2011-11-11</td>
+                        <td class="walk-date-register"></td>
                         <th>조회수</th>
-                        <td>20</td>
+                        <td th:text="${detail.viewCount}"></td>
                         
                         <td class="delete-td">
                             <button class="delete-qna-btn">삭제
@@ -59,7 +59,7 @@
                     </tr>
                     <tr class="qna-info-title">
                         <th>제목</th>
-                        <td colspan="6">dd</td>
+                        <td colspan="6" th:text="${detail.title}">dd</td>
                     </tr>
                     <tr class="qna-info-img">
                         <th>사진</th>
@@ -71,30 +71,40 @@
                     </tr>
                     <tr class="qna-info-content">
                         <th>내용</th>
-                        <td colspan="6"><textarea class="content-textarea" readonly>얄랴리랴라어야러일</textarea></td>
+                        <td colspan="6"><textarea class="content-textarea" readonly th:text="${detail.content}"></textarea></td>
                     </tr>
                 </table>
+                <input type="hidden" th:value="${detail.regDate}" id="regDate"/>
+                <input type="hidden" th:value="${detail.modDate}" id="modDate"/>
             </div>
         </div>
         <div class="admin-main-wrap" style="margin-top: 10px;">
-            <div class="qna-reply-title">
+            <div class="walk-reply-title">
                 <h4>신청 회원</h4>
-                <span class="material-symbols-outlined showBtn rotated">
+                <span class="material-symbols-outlined showBtn apply-show rotated">
                     keyboard_arrow_down
                     </span>
             </div>
         </div>
+        <div class="walk-apply-section">
+
+        </div>
+
+
+
+
+
         <div class="admin-main-wrap" style="margin-top: 10px;">
-            <div class="qna-reply-title">
+            <div class="walk-reply-title">
                 <h4>댓글</h4>
-                <span class="material-symbols-outlined showBtn rotated">
+                <span class="material-symbols-outlined showBtn reply-show rotated">
                     keyboard_arrow_down
                     </span>
             </div>
-            <div class="qna-reply-section">
-                <ul class="qna-reply-ul">
-                    <li class="reply-writer">bokbok1234</li>
-                    <li class="reply-content">제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!</li>
+            <div class="walk-reply-section">
+                <ul class="walk-reply-ul" th:each="reply : ${detail.walkMateDetailReplyDtos}">
+                    <li class="reply-writer" th:text="${reply.userAccount}"></li>
+                    <li class="reply-content" th:text="${reply.walkDetailReplyComment}">제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!</li>
                     <li class="reply-reg-date">2011-11-11</li>
                     <li class="reply-btn">
                         <div class="delete-btn">
@@ -102,26 +112,7 @@
                         </div>
                     </li>
                 </ul>
-                <ul class="qna-reply-ul">
-                    <li class="reply-writer">bokbok1234</li>
-                    <li class="reply-content">제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!</li>
-                    <li class="reply-reg-date">2011-11-11</li>
-                    <li class="reply-btn">
-                        <div class="delete-btn">
-                            <button class="delete-submit-btn">삭제</button>
-                        </div>
-                    </li>
-                </ul>
-                <ul class="qna-reply-ul">
-                    <li class="reply-writer">bokbok1234</li>
-                    <li class="reply-content">제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!</li>
-                    <li class="reply-reg-date">2011-11-11</li>
-                    <li class="reply-btn">
-                        <div class="delete-btn">
-                            <button class="delete-submit-btn">삭제</button>
-                        </div>
-                    </li>
-                </ul>
+
             </div>
         </div>
     </div>
@@ -129,7 +120,7 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-<script src="/admin/js/adminWalkDetail.js"></script>
+<script type="module" src="/admin/js/adminWalkDetail.js"></script>
 <script src="/fragment/js/adminSide.js"></script>
 </body>
 </html>

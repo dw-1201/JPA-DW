@@ -37,4 +37,7 @@ public class WalkMateDetailReplyDto {
         this.userImgUuid = userImgUuid;
         this.userImgName = userImgName;
     }
+
+
+
 }

@@ -34,7 +34,7 @@
                         </li>
                         <th:block th:if="${detail.registeredDate != detail.modifiedDate}">
                         <li class="walk-mate-modified-date detail-info">
-                            <p>수정일<span th:text="${detail.modifiedDate}"></span></p>
+                            <p>수정일<span ></span></p>
                         </li>
                         </th:block>
                         <th:block th:if="${detail.registeredDate == detail.modifiedDate}">
@@ -43,12 +43,14 @@
                             </li>
                         </th:block>
                         <li class="walk-mate-registered-date detail-info">
-                            <p>등록일 <span th:text="${detail.registeredDate}"></span></p>
+                            <p>등록일 <span ></span></p>
                         </li>
                         <li class="walk-mate-view-count detail-info">
                             <p>조회수<span th:text="${detail.viewCount}"></span></p>
                         </li>
                     </ul>
+                    <input type="hidden" th:value="${detail.registeredDate}" id="registeredDate"/>
+                    <input type="hidden" th:value="${detail.modifiedDate}" id="modifiedDate"/>
                 </div>
 
                <div class="walk-mate-etc-info-section">
