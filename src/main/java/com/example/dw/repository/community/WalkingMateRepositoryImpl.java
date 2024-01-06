@@ -287,20 +287,18 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
                         walkingMate.walkingMateDate,
                         walkingMate.walkingMateTime,
                         pet.id,
-                        petImg.petPath,
-                        petImg.petUuid,
-                        petImg.petFileName,
+                        pet.name,
                         walkingMate.walkingMateState
                 )).from(walkingMate)
                 .leftJoin(walkingMate.users, users)
                 .leftJoin(users.pet, pet)
-                .leftJoin(pet.petImg, petImg)
                  .where(walkingMate.id.eq(walkMateId))
                  .fetchOne();
 
         List<ApplierUserList> applierUserListList = jpaQueryFactory.select(new QApplierUserList(
                                 walkingMateState.id,
                                walkingMateState.users.id,
+                                walkingMateState.users.userAccount,
                                 pet.id,
                                 pet.petCategory,
                                 pet.name,

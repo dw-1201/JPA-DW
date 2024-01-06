@@ -25,9 +25,7 @@ public class AdminWalkMateDetailDto {
     private String mateDate; //산책 약속 일자
     private String mateTime; //산책 약속 시간
     private Long writerPetId; //산책글 펫(작성자)
-    private String writerPetImgPath;
-    private String writerPetImgUuid;
-    private String writerPetImgName;
+    private String writerPetName;
     private Long walkMateState; //산책글 모집상태
     
     
@@ -39,7 +37,7 @@ public class AdminWalkMateDetailDto {
 
 
     @QueryProjection
-    public AdminWalkMateDetailDto(Long id, Long userId, String userAccount, LocalDateTime regDate, LocalDateTime modDate, Long viewCount, String title, String content, String fullAddress, String mateDate, String mateTime, Long writerPetId, String writerPetImgPath, String writerPetImgUuid, String writerPetImgName, Long walkMateState) {
+    public AdminWalkMateDetailDto(Long id, Long userId, String userAccount, LocalDateTime regDate, LocalDateTime modDate, Long viewCount, String title, String content, String fullAddress, String mateDate, String mateTime, Long writerPetId, String writerPetName, Long walkMateState) {
         this.id = id;
         this.userId = userId;
         this.userAccount = userAccount;
@@ -52,17 +50,18 @@ public class AdminWalkMateDetailDto {
         this.mateDate = mateDate;
         this.mateTime = mateTime;
         this.writerPetId = writerPetId;
-        this.writerPetImgPath = writerPetImgPath;
-        this.writerPetImgUuid = writerPetImgUuid;
-        this.writerPetImgName = writerPetImgName;
+        this.writerPetName = writerPetName;
         this.walkMateState = walkMateState;
     }
 
 
 
 
+
+
+
     @QueryProjection
-    public AdminWalkMateDetailDto(Long id, Long userId, String userAccount, LocalDateTime regDate, LocalDateTime modDate, Long viewCount, String title, String content, String fullAddress, String mateDate, String mateTime, Long writerPetId, String writerPetImgPath, String writerPetImgUuid, String writerPetImgName, Long walkMateState, List<ApplierUserList> applierUserListList, List<WalkMateDetailReplyDto> walkMateDetailReplyDtos) {
+    public AdminWalkMateDetailDto(Long id, Long userId, String userAccount, LocalDateTime regDate, LocalDateTime modDate, Long viewCount, String title, String content, String fullAddress, String mateDate, String mateTime, Long writerPetId, String writerPetName, Long walkMateState, List<ApplierUserList> applierUserListList, List<WalkMateDetailReplyDto> walkMateDetailReplyDtos) {
         this.id = id;
         this.userId = userId;
         this.userAccount = userAccount;
@@ -75,9 +74,7 @@ public class AdminWalkMateDetailDto {
         this.mateDate = mateDate;
         this.mateTime = mateTime;
         this.writerPetId = writerPetId;
-        this.writerPetImgPath = writerPetImgPath;
-        this.writerPetImgUuid = writerPetImgUuid;
-        this.writerPetImgName = writerPetImgName;
+        this.writerPetName = writerPetName;
         this.walkMateState = walkMateState;
         this.applierUserListList = applierUserListList;
         this.walkMateDetailReplyDtos = walkMateDetailReplyDtos;

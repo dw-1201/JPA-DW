@@ -42,36 +42,60 @@
                             <col />
                             <col />
                             <col />
+                            <col />
+                            <col />
+                            <col />
+                            <col />
                         </colgroup>
                     </tr>
                     <tr class="qna-info-column">
                         <th>작성자</th>
-                        <td th:text="${detail.userAccount}"></td>
+                        <td ><a th:href="@{/admin/userDetail/{id} (id=${detail.userId})}" th:text="${detail.userAccount}"></a></td>
+                        <th>산책 파트너</th>
+                        <td class="partner-name" th:text="${detail.writerPetName}"></td>
+                        <th:block th:if="${detail.regDate != detail.modDate}">
+                        <th>수정일자</th>
+                        <td  class="walk-date-modify insert-modDate"></td>
                         <th>작성일자</th>
                         <td class="walk-date-register"></td>
+                        </th:block>
+                        <th:block th:if="${detail.regDate == detail.modDate}">
+                        <th>수정일자</th>
+                        <td class="walk-date-modify">-</td>
+                        <th>작성일자</th>
+                        <td class="walk-date-register"></td>
+                        </th:block>
                         <th>조회수</th>
-                        <td th:text="${detail.viewCount}"></td>
+                        <td class="viewcount" th:text="${detail.viewCount}"></td>
                         
-                        <td class="delete-td">
-                            <button class="delete-qna-btn">삭제
-                            </button>
-                    </td>
+
                     </tr>
                     <tr class="qna-info-title">
                         <th>제목</th>
-                        <td colspan="6" th:text="${detail.title}">dd</td>
+                        <td colspan="7" th:text="${detail.title}">dd</td>
+                        <th>모집 현황</th>
+                        <th:block th:if="${detail.walkMateState==0}" >
+                        <td class="state" colspan="3" >모집중</td>
+                        </th:block>
+                        <th:block th:if="${detail.walkMateState==1}" >
+                            <td class="state" colspan="3" >모집완료</td>
+                        </th:block>
                     </tr>
                     <tr class="qna-info-img">
-                        <th>사진</th>
-                        <td colspan="6">
-                            <div class="qna-registerd-imgs">
-                                <img src="/admin/img/리뷰1.jpg" alt="qna-img">
+                        <th>정보</th>
+                        <td colspan="10">
+                            <div class="walkmate-info-section">
+                                <div id="map"></div>
+                                <div class="date-loca">
+                                    <div class="date" th:text="${detail.mateDate + ' ' + detail.mateTime}"></div>
+                                    <div th:text="${detail.fullAddress}" id="fullAddress"></div>
+                                </div>
                             </div>
                         </td>
                     </tr>
                     <tr class="qna-info-content">
                         <th>내용</th>
-                        <td colspan="6"><textarea class="content-textarea" readonly th:text="${detail.content}"></textarea></td>
+                        <td colspan="10"><textarea class="content-textarea" readonly th:text="${detail.content}"></textarea></td>
                     </tr>
                 </table>
                 <input type="hidden" th:value="${detail.regDate}" id="regDate"/>
@@ -85,10 +109,27 @@
                     keyboard_arrow_down
                     </span>
             </div>
-        </div>
-        <div class="walk-apply-section">
 
+            <div class="walk-apply-section">
+                <div class="applier-info" th:each="applierList : ${detail.applierUserListList}">
+                    <div class="applier-info-detail">
+                        <h5 ><a th:href="@{/admin/userDetail/{id} (id=${applierList.applierUserId})}" th:text="${applierList.applierUserAccount}"></a></h5>
+                        <div class="wrap">
+                        <img th:src="'/jpa_dw/petimg/' + ${applierList.applierPetImgPath} +'/'+ ${applierList.applierPetImgUuid}+'_'+ ${applierList.applierPetImgName}" alt="신청자 펫 사진"/>
+                        <ul class="applier-info-detail-ul">
+                            <li>견종 : <span th:text="${applierList.applierPetCate}"></span></li>
+                            <li>이름 : <span th:text="${applierList.applierPetName}"></span></li>
+                            <li>체중 : <span th:text="${applierList.applierPetWeight +'kg'}"></span></li>
+                            <li>성별 : <span th:text="${applierList.applierPetGender}"></span></li>
+                            <li>생일 : <span th:text="${applierList.applierPetBirth}"></span></li>
+                            <li>중성화 : <span th:text="${applierList.applierPetNeutering}"></span></li>
+                        </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
 
 
 
@@ -105,14 +146,9 @@
                 <ul class="walk-reply-ul" th:each="reply : ${detail.walkMateDetailReplyDtos}">
                     <li class="reply-writer" th:text="${reply.userAccount}"></li>
                     <li class="reply-content" th:text="${reply.walkDetailReplyComment}">제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!</li>
-                    <li class="reply-reg-date">2011-11-11</li>
-                    <li class="reply-btn">
-                        <div class="delete-btn">
-                            <button class="delete-submit-btn">삭제</button>
-                        </div>
-                    </li>
+                    <li class="reply-reg-date"></li>
+                    <input type="hidden" th:value="${reply.walkCommendRd}" id="walkCommendRd" />
                 </ul>
-
             </div>
         </div>
     </div>
@@ -122,5 +158,8 @@
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script type="module" src="/admin/js/adminWalkDetail.js"></script>
 <script src="/fragment/js/adminSide.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2d8cddce5e1cf36a90728390b847c19c&autoload=false&libraries=services"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" ></script>
+
 </body>
 </html>

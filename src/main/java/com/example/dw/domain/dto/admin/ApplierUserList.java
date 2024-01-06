@@ -10,6 +10,7 @@ public class ApplierUserList {
 
     private Long stateId; //WalkingMateState Id
     private Long applierUserId; //신청회원 id
+    private String applierUserAccount;
     private Long applierPetId; //신청회원 펫id
     private String applierPetCate;
     private String applierPetName;
@@ -26,9 +27,10 @@ public class ApplierUserList {
 
     @QueryProjection
 
-    public ApplierUserList(Long stateId, Long applierUserId, Long applierPetId, String applierPetCate, String applierPetName, Long applierPetWeight, String applierPetGender, String applierPetNeutering, String applierPetBirth, String applierPetImgPath, String applierPetImgUuid, String applierPetImgName, Integer state) {
+    public ApplierUserList(Long stateId, Long applierUserId, String applierUserAccount, Long applierPetId, String applierPetCate, String applierPetName, Long applierPetWeight, String applierPetGender, String applierPetNeutering, String applierPetBirth, String applierPetImgPath, String applierPetImgUuid, String applierPetImgName, Integer state) {
         this.stateId = stateId;
         this.applierUserId = applierUserId;
+        this.applierUserAccount = applierUserAccount;
         this.applierPetId = applierPetId;
         this.applierPetCate = applierPetCate;
         this.applierPetName = applierPetName;

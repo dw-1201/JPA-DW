@@ -58,9 +58,12 @@
                                     <select name="goodsCategory" id="goods-cate" disabled>
                                         <option th:selected="${goods.goodsCategory=='간식'}">간식</option>
                                         <option th:selected="${goods.goodsCategory=='영양제'}">영양제</option>
-                                        <option th:selected="${goods.goodsCategory=='장난감'}">장난감</option>
-                                        <option value="4">간식</option>
-                                        <option value="5">간식</option>
+                                        <option th:selected="${goods.goodsCategory=='위생용품'}">위생용품</option>
+                                        <option th:selected="${goods.goodsCategory=='이동장'}" >이동장</option>
+                                        <option th:selected="${goods.goodsCategory=='장난감'}" >장난감</option>
+                                        <option th:selected="${goods.goodsCategory=='하네스/줄'}" >하네스/줄</option>
+
+
                                     </select>
                                 </td>
                                 <th scope="row" rowspan="6">상품 설명</th>
