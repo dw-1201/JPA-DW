@@ -21,13 +21,13 @@
                 <nav class="menu-choice-area">
                     <ul class="menu-choice">
                         <li class="choice-p">
-                            <a href="/mypg/html/mypgmain.html" class="pro"> 프로필</a>
+                            <a th:href="@{/mypg/main/{userid}(userid = ${session.userId})}" class="pro"> 프로필</a>
                         </li>
                         <li class="choice-w">
-                            <a href="/mypg/html/mywrite.html" class="mywrite">내가 작성한 글</a>
+                            <a th:href="@{/mypg/writepage/{userid}(userid = ${session.userId})}" class="mywrite">내가 작성한 글</a>
                         </li>
                         <li>
-                            <a href="/mypg/html/buylist.html" class="mybuy">주문내역</a>
+                            <a th:href="@{/mypg/orderpage/{userid}(userid = ${session.userId})}" class="mybuy">주문내역</a>
                         </li>
                     </ul>
                 </nav>
@@ -35,19 +35,19 @@
             <div class="detail-mywrite-choice">
                 <ul class="detail-choice">
                     <li class="my-QnA">
-                        <a href="/mypg/html/mywrite.html" class="my-QnA-detail">QnA</a>
+                        <a th:href="@{/mypg/writepage/{userid}(userid = ${session.userId})}" class="my-QnA-detail">QnA</a>
                     </li>
                     <li class="my-freeboard">
                         <a th:href="@{/mypg/myfreeboard/{userid}(userid =${session.userId})}" class="my-freeboard-detail">자유게시판</a>
                     </li>
                     <li class="my-walk">
-                        <a href="/mypg/html/walkmate.html" class="my-walk-detail">나의 산책 메이트 글</a>
+                        <a th:href="@{/mypg/mywalking/{userid}(userid =${session.userId})}"  class="my-walk-detail">나의 산책 메이트 글</a>
                     </li>
                     <li class="my-walkapplication">
-                        <a href="/mypg/html/mateapplication.html" class="my-walkapplication-detail">나의 산책 메이트 신청</a>
+                        <a th:href="@{/mypg/myapplicationwalk/{userid}(userid =${session.userId})}"  class="my-walkapplication-detail">나의 산책 메이트 신청</a>
                     </li>
                     <li class="my-review">
-                        <a href="/mypg/html/productreviewlist.html" class="my-review-detail">리뷰 내역</a>
+                        <a th:href="@{/mypg/myreview/{userid}(userid =${session.userId})}"  class="my-review-detail">리뷰 내역</a>
                     </li>
                 </ul>
             </div>

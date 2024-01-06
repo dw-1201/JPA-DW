@@ -172,4 +172,19 @@ public class MypageController {
 
         return "/mypg/myfreeboard";
     }
+
+    @GetMapping("/mywalking/{userId}")
+    public String myregisterwalking(){
+
+        return "/mypg/walkmate";
+    }
+
+
+    @GetMapping("/myapplicationwalk/{userId}")
+    public String mmyapplicationwalking(){
+
+        return "/mypg/myapplication";
+    }
+
+
 }

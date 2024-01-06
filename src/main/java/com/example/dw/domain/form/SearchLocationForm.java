@@ -25,4 +25,8 @@ public class SearchLocationForm {
         this.county = county;
         this.state = state;
     }
+
+
+
+
 }

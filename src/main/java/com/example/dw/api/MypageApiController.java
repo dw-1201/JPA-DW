@@ -3,20 +3,29 @@ package com.example.dw.api;
 
 import com.example.dw.domain.dto.community.FreeBoardDto;
 import com.example.dw.domain.dto.community.QuestionListDto;
+import com.example.dw.domain.dto.community.WalkMateMyListDto;
+import com.example.dw.domain.form.SearchLocationForm;
+import com.example.dw.domain.form.SearchRecruitmentForm;
 import com.example.dw.repository.admin.FaqBoardRepositoryCustom;
 import com.example.dw.repository.community.QuestionRepositoryCustom;
+import com.example.dw.repository.community.WalkingMateCommentCustom;
+import com.example.dw.repository.community.WalkingMateRepositoryCustom;
 import com.example.dw.repository.freeBoard.FreeBoardRepositoryCustom;
 import com.example.dw.repository.pet.PetRepository;
 import com.example.dw.service.FreeBoardService;
 import com.example.dw.service.MypageService;
 import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,71 +38,80 @@ public class MypageApiController {
     private final QuestionRepositoryCustom questionRepositoryCustom;
     private final FreeBoardRepositoryCustom freeBoardRepositoryCustom;
     private final FreeBoardService freeBoardService;
+    private final WalkingMateRepositoryCustom walkingMateRepositoryCustom;
+
+    @Value("${file.pet}")
+    private String filepetImg;
+
+    @GetMapping("/mypgs/petImg")
+    public byte[] getEmpImg(String fileFullPath) throws IOException {
+        return FileCopyUtils.copyToByteArray(new File(filepetImg, fileFullPath));
+    }
+
 
     @PostMapping("/mypgs/phone/check")
-    public boolean checkPhoneDuplication(@RequestParam("userPhone") String userPhone){
+    public boolean checkPhoneDuplication(@RequestParam("userPhone") String userPhone) {
         if (userPhone == null) {
             throw new IllegalArgumentException("폰 번혼 누락");
 
         }
         System.out.println("기입된 전화번호 : " + userPhone);
-        if(mypageService.existsByUserPhone(userPhone) == true ){
+        if (mypageService.existsByUserPhone(userPhone) == true) {
             return false;
-        }else {
+        } else {
             return true;
         }
     }
 
     @PostMapping("/mypgs/name/check")
     public boolean checkPetNameDuplication(@RequestParam("name") String name,
-                                            @RequestParam("userId")Long userId){
+                                           @RequestParam("userId") Long userId) {
         if (name == null || userId == null) {
             throw new IllegalArgumentException("누락");
 
         }
         System.out.println("기입된 닉네임 : " + name);
-        System.out.println("조회 아이디 : "+ userId);
-        if(mypageService.existsByPetName(name,userId)== true ){
+        System.out.println("조회 아이디 : " + userId);
+        if (mypageService.existsByPetName(name, userId) == true) {
             return false;
-        }else {
+        } else {
             return true;
         }
     }
 
 
     @PostMapping("/mypgs/remove/{petId}")
-    public void petInfoDelete(@PathVariable("petId") Long petId){
+    public void petInfoDelete(@PathVariable("petId") Long petId) {
         System.out.println("[삭제 펫 정보 ] :" + petId);
-            mypageService.removePet(petId);
+        mypageService.removePet(petId);
 
-        System.out.println(petId+"정보사 삭제되었습니다.");
+        System.out.println(petId + "정보사 삭제되었습니다.");
 
 
     }
 
     @GetMapping("/mypgs/myWriteList/{page}/{userId}")
     public Page<QuestionListDto> findQnAList(
-            @PathVariable("page") int page, @PathVariable("userId") Long userId){
-        Pageable pageable = PageRequest.of(page,5);
-        System.out.println(page+"페이지 번호");
-        Page<QuestionListDto> result = questionRepositoryCustom.findQnaListById(pageable,userId);
-        System.out.println(result.toString()+"안뇽");
-
+            @PathVariable("page") int page, @PathVariable("userId") Long userId) {
+        Pageable pageable = PageRequest.of(page, 5);
+        System.out.println(page + "페이지 번호");
+        Page<QuestionListDto> result = questionRepositoryCustom.findQnaListById(pageable, userId);
+        System.out.println(result.toString() + "안뇽");
 
 
         return result;
 
     }
 
-    @GetMapping("/myfreeBoardList/{page}/{userId}")
+    @GetMapping("/mypgs/myfreeBoardList/{page}/{userId}")
     public Page<FreeBoardDto> freeBoardDtoList(
-            @PathVariable("page") int page,@PathVariable("userId")Long userId) {
+            @PathVariable("page") int page, @PathVariable("userId") Long userId) {
 
         Pageable pageable = PageRequest.of(page, 5);
 
         System.out.println("userId: " + userId);
 
-        Page<FreeBoardDto> result = freeBoardRepositoryCustom.findFreeBoardListById(pageable,userId);
+        Page<FreeBoardDto> result = freeBoardRepositoryCustom.findFreeBoardListById(pageable, userId);
 
         // 댓글 수를 추가
         List<FreeBoardDto> updatedList = result.getContent().stream()
@@ -111,5 +129,19 @@ public class MypageApiController {
         System.out.println(updatedList + " 게시판 보여지는 곳");
         return new PageImpl<>(updatedList, pageable, result.getTotalElements());
     }
+
+    @GetMapping("/mypgs/myregisterwalkmatewrite/{page}/{userId}")
+    public Page<WalkMateMyListDto> findmyregisterwalkmatewriteList(
+            @PathVariable("page") int page, @PathVariable("userId") Long userId, SearchRecruitmentForm searchRecruitmentForm
+    ) {
+
+        Pageable pageable = PageRequest.of(page, 5);
+        Page<WalkMateMyListDto> result = walkingMateRepositoryCustom.findAllWalkMateAndUserId(pageable, searchRecruitmentForm, userId);
+        System.out.println(result);
+        return result;
+    }
+
+
+
 
 }

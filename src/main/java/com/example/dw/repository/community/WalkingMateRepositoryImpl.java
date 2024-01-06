@@ -1,12 +1,10 @@
 package com.example.dw.repository.community;
 
-import com.example.dw.domain.dto.community.QWalkMateDetailDto;
-import com.example.dw.domain.dto.community.QWalkMateListDto;
-import com.example.dw.domain.dto.community.WalkMateDetailDto;
-import com.example.dw.domain.dto.community.WalkMateListDto;
+import com.example.dw.domain.dto.community.*;
 import com.example.dw.domain.form.SearchCateLocationForm;
 import com.example.dw.domain.form.SearchForm;
 import com.example.dw.domain.form.SearchLocationForm;
+import com.example.dw.domain.form.SearchRecruitmentForm;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -370,4 +368,115 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
 
     }
 
+
+    //마이페이지 내가작성한 메이트글 조회
+
+
+    @Override
+    public Page<WalkMateMyListDto> findAllWalkMateAndUserId(Pageable pageable, SearchRecruitmentForm searchRecruitmentForm, Long userId) {
+        System.out.println(searchRecruitmentForm.getState());
+
+            List<WalkMateMyListDto> contents = jpaQueryFactory.select(new QWalkMateMyListDto(
+                    walkingMate.id,
+                    walkingMate.walkingMateTitle,
+                    walkingMate.walkingMateContent,
+                    walkingMate.walkingMateRd,
+                    walkingMate.walkingMateViewCount,
+                    walkingMate.walkingMateState,
+                    walkingMate.walkingMatePerson,
+                    walkingMateState.count(),
+                    walkingMate.walkingMateDate,
+                    walkingMate.walkingMateTime,
+                    walkingMate.walkCity,
+                    walkingMate.walkCounty,
+                    users.id,
+                    users.userNickName,
+                    users.userAccount,
+                    pet.id,
+                    petImg.id,
+                    petImg.petFileName,
+                    petImg.petPath,
+                    petImg.petUuid
+            ))
+                    .from(walkingMate)
+                    .leftJoin(walkingMate.users, users)
+                    .leftJoin(walkingMate.walkingMateStateList, walkingMateState)
+                    .leftJoin(walkingMate.pet, pet)
+                    .leftJoin(walkingMate.pet.petImg,petImg)
+                    .where(
+                            createStatusCondition(searchRecruitmentForm)
+
+                    )
+                    .groupBy(
+                            walkingMate.id,
+                            walkingMate.walkingMateTitle,
+                            walkingMate.walkingMateContent,
+                            walkingMate.walkingMateRd,
+                            walkingMate.walkingMateViewCount,
+                            walkingMate.walkingMateState,
+                            walkingMate.walkingMatePerson,
+                            walkingMate.walkingMateDate,
+                            walkingMate.walkingMateTime,
+                            walkingMate.walkCity,
+                            walkingMate.walkCounty,
+                            users.id,
+                            users.userNickName,
+                            users.userAccount,
+                            pet.id,
+                            petImg.id,
+                            petImg.petFileName,
+                            petImg.petPath,
+                            petImg.petUuid
+
+                    )
+                    .having(
+                            walkingMate.users.id.eq(userId)
+                    )
+                    .orderBy(walkingMate.id.desc())
+                    .offset(pageable.getOffset())
+                    .limit(pageable.getPageSize())
+                    .fetch();
+
+
+            Long counts =  jpaQueryFactory.select(
+                    walkingMate.count()
+            )
+                    .from(walkingMate)
+                    .where(
+                            createStatusCondition(searchRecruitmentForm),
+                            walkingMate.users.id.eq(userId)
+
+                    )
+                    .fetchOne();
+
+        System.out.println(contents+"항목");
+        System.out.println(counts +"수량");
+
+
+
+
+        return new PageImpl<>(contents, pageable, counts);
+
+    }
+
+    //마이페이지 산책 리스트 확인
+    private BooleanExpression createStatusCondition(SearchRecruitmentForm searchRecruitmentForm) {
+        System.out.println(searchRecruitmentForm.getState()+"비교");
+        try{
+            if (searchRecruitmentForm.getState().equals("0")) { // 모집중
+                System.out.println("if절 실행");
+                return walkingMate.walkingMateState.eq(0L);
+            } else if (searchRecruitmentForm.getState().equals("1")) { // 모집완료
+                System.out.println("else if절 실행");
+                return walkingMate.walkingMateState.eq(1L);
+            } else { // 전체보기 ('' 인 경우)
+                System.out.println("else 절 실행");
+                return null; // 특정 조건 없이 모든 결과 반환
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 }
