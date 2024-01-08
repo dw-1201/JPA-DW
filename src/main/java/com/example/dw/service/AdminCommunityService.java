@@ -2,7 +2,7 @@ package com.example.dw.service;
 
 
 import com.example.dw.domain.dto.community.WalkMateListDto;
-import com.example.dw.domain.form.SearchForm;
+import com.example.dw.domain.form.SearchCateLocationForm;
 import com.example.dw.repository.community.WalkingMateRepositoryCustom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,10 +22,10 @@ public class AdminCommunityService {
 
     //관리자 산책모집글 리스트
     @Transactional
-    public Page<WalkMateListDto> walkMateList(int page , SearchForm searchForm){
+    public Page<WalkMateListDto> walkMateList(int page, SearchCateLocationForm searchCateLocationForm){
 
         Pageable pageable = PageRequest.of(page, 15);
-        return walkingMateRepositoryCustom.findAllWalkMate(pageable, searchForm);
+        return walkingMateRepositoryCustom.findAllWalkMate(pageable, searchCateLocationForm);
     }
 
 

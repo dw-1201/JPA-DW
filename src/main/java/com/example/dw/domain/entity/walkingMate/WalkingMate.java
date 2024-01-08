@@ -10,15 +10,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "walking_mate")
 public class WalkingMate {
@@ -30,9 +31,9 @@ public class WalkingMate {
     private String walkingMateTitle;
     private String walkingMateContent;
     @CreatedDate
-    private String walkingMateRd;
+    private LocalDateTime walkingMateRd;
     @LastModifiedDate
-    private String walkingMateMd;
+    private LocalDateTime walkingMateMd;
     @Builder.Default
     private Long walkingMateViewCount = 0L;
     @Builder.Default
@@ -64,8 +65,9 @@ public class WalkingMate {
     private List<WalkingMateState> walkingMateStateList = new ArrayList<>();
 
 
+
     @Builder
-    public WalkingMate(Long id, String walkingMateTitle, String walkingMateContent, String walkingMateRd, String walkingMateMd, Long walkingMateViewCount, Long walkingMateState, Long walkingMatePerson, String walkingMateDate, String walkingMateTime, String walkingMateFullAddress, String walkCity, String walkCounty, Users users, Pet pet, List<WalkingMateComment> walkingMateComment, List<WalkingMateState> walkingMateStateList) {
+    public WalkingMate(Long id, String walkingMateTitle, String walkingMateContent, LocalDateTime walkingMateRd, LocalDateTime walkingMateMd, Long walkingMateViewCount, Long walkingMateState, Long walkingMatePerson, String walkingMateDate, String walkingMateTime, String walkingMateFullAddress, String walkCity, String walkCounty, Users users, Pet pet, List<WalkingMateComment> walkingMateComment, List<WalkingMateState> walkingMateStateList) {
         this.id = id;
         this.walkingMateTitle = walkingMateTitle;
         this.walkingMateContent = walkingMateContent;
@@ -87,11 +89,14 @@ public class WalkingMate {
 
 
 
+
+
     //산책글 수정
     public WalkingMate update(WalkMateForm walkMateForm){
         this.walkingMateTitle=walkMateForm.getWalkingMateTitle();
         this.walkingMateContent=walkMateForm.getWalkingMateContent();
-        this.walkingMateMd = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+        this.walkingMateMd = LocalDateTime.now();
+        this.walkingMatePerson=walkMateForm.getWalkingMatePerson();
         this.walkingMateDate=walkMateForm.getWalkingMateDate();
         this.walkingMateTime=walkMateForm.getWalkingMateTime();
         this.walkingMateFullAddress=getWalkingMateFullAddress();
@@ -104,16 +109,16 @@ public class WalkingMate {
 
 
     //날짜포맷
-    @PrePersist
-    public void onPrePersist(){
-        this.walkingMateRd = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
-        this.walkingMateMd=this.walkingMateRd;
-    }
-
-    @PreUpdate
-    public void onPreUpdate(){
-        this.walkingMateMd = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
-    }
+//    @PrePersist
+//    public void onPrePersist(){
+//        this.walkingMateRd = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+//        this.walkingMateMd=this.walkingMateRd;
+//    }
+//
+//    @PreUpdate
+//    public void onPreUpdate(){
+//        this.walkingMateMd = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+//    }
 
 
 }

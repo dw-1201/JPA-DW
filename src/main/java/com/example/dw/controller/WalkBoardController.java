@@ -1,6 +1,7 @@
 package com.example.dw.controller;
 
 
+import com.example.dw.domain.dto.community.WalkDetailStateDto;
 import com.example.dw.domain.dto.community.WalkMateDetailDto;
 import com.example.dw.domain.dto.user.UserPetDto;
 import com.example.dw.domain.form.WalkMateForm;
@@ -72,6 +73,9 @@ public class WalkBoardController {
 
         detail.ifPresent( details -> model.addAttribute("detail", details));
 
+        List<WalkDetailStateDto> applierPetInfo = walkingMateService.findApplierPetInfo(id);
+        System.out.println("[ 산책글 승인받은 신청자 펫정보 ] : " + applierPetInfo);
+        model.addAttribute("applierPetInfo", applierPetInfo);
         
         //신청자 pet 목록
         
@@ -80,11 +84,12 @@ public class WalkBoardController {
             Long sessionUserId = (Long)session.getAttribute("userId");
 
             if(sessionUserId != null){
+                //신청자 펫리스트
                 List<UserPetDto> petList = walkingMateService.getUserPets(sessionUserId);
                 model.addAttribute("sessionUserPet", petList);
 
+                //신청상태 확인
                 Long applyUserId = walkingMateService.applyState(sessionUserId, detail.get().getId());
-                System.out.println(applyUserId + "@@@@@@@@@@@@@@" + applyUserId.toString());
                 model.addAttribute("replyAuthorized", applyUserId);
             }
 

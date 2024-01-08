@@ -71,6 +71,7 @@
                                     <option th:selected="${detail.matePerson == 3}" value="3">3 명</option>
                                     <option th:selected="${detail.matePerson == 4}" value="4">4 명</option>
                                 </select>
+                                <input type="hidden" th:value="${detail.currentPerson}" id="currentPerson">
                             </td>
                         </tr>
 

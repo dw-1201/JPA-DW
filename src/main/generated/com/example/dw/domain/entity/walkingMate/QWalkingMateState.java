@@ -32,6 +32,8 @@ public class QWalkingMateState extends EntityPathBase<WalkingMateState> {
 
     public final QWalkingMate walkingMate;
 
+    public final NumberPath<Integer> writerCheck = createNumber("writerCheck", Integer.class);
+
     public QWalkingMateState(String variable) {
         this(WalkingMateState.class, forVariable(variable), INITS);
     }

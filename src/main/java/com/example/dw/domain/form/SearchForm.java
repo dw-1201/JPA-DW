@@ -13,6 +13,11 @@ public class SearchForm {
     private String keyword;
 
 
+    public SearchForm(String cate, String keyword) {
+        this.cate = cate;
+        this.keyword = keyword;
+    }
+
     public SearchForm(String keyword) {
         this.keyword = keyword;
     }

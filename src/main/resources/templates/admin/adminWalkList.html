@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="/common/css/common.css">
     <link rel="stylesheet" href="/fragment/css/adminSide.css">
     <link rel="stylesheet" href="/admin/css/adminWalkList.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
     <title>관리자 페이지</title>
 </head>
 <body class="body">
@@ -36,33 +38,83 @@
            
             <div class="admin-walk-search-container">
                 <form action="" method="" id="search-form">
-                    <div class="select-form">
-                        <select id="walk-search-cate" name="cate">
-                            <option value="walkListTitle">제목</option>
-                            <option value="walkListWriter">작성자</option>
-                        </select>
-                    </div>
-                    <div class="input-form">
-                        <input type="text" name="keyword" id="walk-search-keyword" />
-                    </div>
-                    
+                    <table cellspacing="0" border="1" class="form-table">
+                            <colgroup>
+                                <col width="120"/>
+                                <col width="496"/>
+                                <col width="120"/>
+                                <col width="496"/>
+                            </colgroup>
+                        <tr>
+                            <th>키워드</th>
+                            <td>
+                                <div class="cate-keyword">
+                                    <div class="select-form">
+                                        <select id="walk-search-cate" name="cate">
+                                            <option value="walkListTitle">제목</option>
+                                            <option value="walkListWriter">작성자</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-form">
+                                        <input type="text" name="keyword" id="walk-search-keyword" />
+                                    </div>
+                                </div>
+                            </td>
+                            <th>지역</th>
+                            <td>
+                                <div class="location-select-container">
+                                    <select name="addressRegion" id="addressRegion1"></select>
+                                    <select name="addressDo" id="addressDo1"></select>
+                                    <select name="addressSiGunGu" id="addressSiGunGu1"></select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>작성일</th>
+                            <td style="text-indent: 5px">
+                                <div class="date-select">
+                                    <div class="date-select-container">
+                                        <input type="text" id="startDatepicker" name="walkingMateDate" readonly/>
+
+                                    </div>
+                                    <div class="blank">
+                                        -
+                                    </div>
+                                    <div class="date-select-container">
+                                        <input type="text" id="endDatepicker" name="walkingMateDateEnd" readonly/>
+
+                                    </div>
+                                </div>
+                            </td>
+                            <th>
+                                현황
+                            </th>
+                            <td>
+                                <div class="radio-box-form">
+                                        <input type="radio" name="status" id="status" value="" checked/>
+                                    <label for="status">
+
+                                    전체내역
+                                    </label>
+                                        <input type="radio" name="status" id="status-y" value="1"/>
+                                    <label for="status-y">
+
+                                    모집완료
+
+                                    </label>
+                                        <input type="radio" name="status" id="status-n" value="0"/>
+                                    <label for="status-n">
+
+                                    모집대기
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                     <div class="result-btn">
                         <button type="button" class="result-walk-submit-btn">검색</button>
                     </div>
-                    <div class="radio-box-form">
-                        <label for="status">
-                            <input type="radio" name="status" id="status" checked/> 
-                        최신순
-                        </label>
-                        <label for="status-y">
-                            <input type="radio" name="status" id="status-y"/>
-                         모집완료
-                        </label>
-                        <label for="status-n">
-                            <input type="radio" name="status" id="status-n"/> 
-                        모집대기 
-                        </label>
-                    </div>
+
                 </form>
             </div>
             <div class="admin-walk-list-container">
@@ -75,36 +127,21 @@
                         <div class="walk-date-column column"> 희망시간</div>
                         <div class="walk-gether-state-column column">모집상태</div>
                         <div class="walk-gether-status-column column">모집현황</div>
+                        <div class="walk-date-register-column column">작성일</div>
                         <div class="walk-etc-column column">비고</div>
                     </div>
                     
                 </div>
                 <div class="admin-walk-lists">
-                    <div class="admin-walk-list-table rr">
-                        <div class="walk-number row">10</div>
-                        <div class="walk-id row">bokbok1234</div>
-                        <div class="walk-title row">산책하실분!</div>
-                        <div class="walk-locate row">서울특별시 노원구</div>
-                        <div class="walk-date row">2023-11-11 14:00</div>
-                        <div class="walk-gether-state row">모집중</div>
-                        <div class="walk-gether-status row"> 3 / 4</div>
-                        <div class="walk-etc btns row">
-                            <a href="/admin/html/adminWalkDetail.html" class="detail-btn">상세</a>
-                        </div>
-                    </div>
+
                  </div>
             </div>
         </div>
         <div class="admin-main-wrap pagination-wrap" style="margin-top: 5px;">
             <div class="pagination-container">
                 <ul class="pagination-ul">
-                    <li><a href="#">&lt;</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">&gt;</a></li>
+
+
                 </ul>
             </div>
         </div>
@@ -112,8 +149,10 @@
 </main>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-<script src="/admin/js/adminWalkList.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script type="module" src="/admin/js/adminWalkList.js"></script>
 <script src="/fragment/js/adminSide.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
 </body>
 </html>
