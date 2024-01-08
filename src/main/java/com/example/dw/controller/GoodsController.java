@@ -1,5 +1,6 @@
 package com.example.dw.controller;
 
+import com.example.dw.domain.dto.RecentViewGoods;
 import com.example.dw.domain.dto.goods.GoodsDetailDto;
 import com.example.dw.repository.goods.GoodsRepository;
 import com.example.dw.repository.goods.ShopRepositoryCustom;
@@ -66,25 +67,10 @@ public class GoodsController {
      detail.ifPresent(details -> model.addAttribute("detail", details));
 
 
-//    //최근 본 상품
-//        List<RecentViewGoodsDto> recentViewGoodsDtoList = (List<RecentViewGoodsDto>)session.setAttribute("recentView");
-//
-//        if(recentViewGoodsDtoList ==null){
-//            recentViewGoodsDtoList = new ArrayList<>();
-//        }
-//
-//        boolean duplicateCheck = false;
-//        for(RecentViewGoodsDto recentViewGoodsDto : recentViewGoodsDtoList){
-//
-//            if(recentViewGoodsDto.getGoodsId()!= detail.get().getId()){
-//
-//                recentViewGoodsDtoList.add(recentViewGoodsDto);
-//                System.out.println(recentViewGoodsDtoList.toString()+"@@@@@@@@@@@@@@@@@@@@@22");
-//            }
-//
-//        }
 
-
+     //최근 본 상품
+        RecentViewGoods recentViewGoods = new RecentViewGoods();
+        recentViewGoods.productClicked(detail.get().getId(),session);
 
 
 

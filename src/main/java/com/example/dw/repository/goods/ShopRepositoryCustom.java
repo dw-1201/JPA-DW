@@ -2,6 +2,7 @@ package com.example.dw.repository.goods;
 
 import com.example.dw.domain.dto.goods.*;
 import com.example.dw.domain.form.SearchForm;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -26,5 +27,18 @@ public interface ShopRepositoryCustom {
 
     List<GoodsCartItemDto> findGoodsCartItemById(Long cartId, Long userId);
 
+
+
+
+
+
+
+
+
+
+
+
+    //최근본 상품 조회
+    List<RecentViewGoodsDto> recentViewGoods(HttpSession session);
 
 }

@@ -24,14 +24,14 @@ public class IndexApiController {
     private final IndexService indexService;
 
 
+
+
     @GetMapping("/goodsByCate")
     public List<IndexGoodsByCateDto> goodsByCategory(String cate){
 
         return indexService.indexGoodsByCategory(cate);
 
     }
-
-
 
     @GetMapping("/goodsImg")
     public byte[] getEmpImg(String fileFullPath) throws IOException {
