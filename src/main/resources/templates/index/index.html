@@ -281,28 +281,61 @@
                     <div class="shop-lists">
 
 
+
+
+                        </div>
+                    <div class="container">
+                        <div class="shop-item-list-wrap">
+
+
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="recent-view-goods">
+                <div class="recent-view-goods-title">
+                    <h4>최근 본 상품</h4>
+                </div>
+                <div class="recent-view-goods-list">
+                    <ul class="recent-view-goods-list-ul">
+                        <li th:if="${recentGoods != null && recentGoods.size() > 0}" th:each="recent : ${recentGoods}">
+                            <div class="recent-view-goods">
+                                <dl class="recent-view-goods-dl">
+                                    <dt>
+                                        <a th:href="@{/shop/shopDetail/{id} (id=${recent.goodsId})}">
 
-
-
-
-
-
-
-
-
-
-
-<!--
-
-             하단광고 -->
-            <div class="main-container04">
-                <div class="ad-bottom-container">
-                    <a href=""><img src="/img/ad_bottom.png" alt=""></a>
+                                        <img th:src="'/jpa_dw/goods/' + ${recent.goodsImgPath} +'/' + ${recent.goodsImgUuid} + '_' + ${recent.goodsImgName}" alt="최근 본 상품"/>
+                                        </a>
+                                    </dt>
+                                    <dd class="recent-goods-name" th:text="${recent.goodsName}"></dd>
+                                    <dd class="recent-goods-price" th:text="${recent.goodsPrice}"></dd>
+                                </dl>
+                            </div>
+                        </li>
+                        <li class="non-recent-goods" th:if="${recentGoods == null || recentGoods.size() == 0}">최근 본 상품이 없습니다.</li>
+                    </ul>
                 </div>
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+            <!--
+
+                         하단광고 -->
+<!--            <div class="main-container04">-->
+<!--                <div class="ad-bottom-container">-->
+<!--                    <a href=""><img src="/img/ad_bottom.png" alt=""></a>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </main>
     <!-- main 끝 -->
