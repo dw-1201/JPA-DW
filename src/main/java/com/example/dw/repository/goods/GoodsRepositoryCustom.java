@@ -1,6 +1,7 @@
 package com.example.dw.repository.goods;
 
 import com.example.dw.domain.dto.admin.*;
+import com.example.dw.domain.dto.goods.IndexGoodsByCateDto;
 import com.example.dw.domain.form.SearchForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,6 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface GoodsRepositoryCustom {
+
+    //메인페이지 카테고리별 상품 리스트
+    List<IndexGoodsByCateDto> indexGoodsListByCategory(String cate);
+
 
     //관리자 상품 리스트
     Page<AdminGoodsDto> findGoodsAll(Pageable pageable, SearchForm searchForm);

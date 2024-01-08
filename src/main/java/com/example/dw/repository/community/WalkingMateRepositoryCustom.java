@@ -1,5 +1,6 @@
 package com.example.dw.repository.community;
 
+import com.example.dw.domain.dto.admin.AdminWalkMateDetailDto;
 import com.example.dw.domain.dto.community.WalkMateDetailDto;
 import com.example.dw.domain.dto.community.WalkMateListDto;
 import com.example.dw.domain.dto.community.WalkMateMyApplicationListDto;
@@ -25,6 +26,9 @@ public interface WalkingMateRepositoryCustom {
     Optional<WalkMateDetailDto> walkMateDetail(Long walkBoardId);
 
 //    List<WalkDetailStateDto> applierPetsInfo(Long walkMateId);
+
+    //관리자 페이지 산책글 상세
+    AdminWalkMateDetailDto adminWalkMateDetail(Long walkMateId);
 
 
 

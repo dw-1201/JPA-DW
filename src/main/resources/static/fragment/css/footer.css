@@ -3,7 +3,7 @@
 .footer{
   width: 100%;
   min-width: 1024px;
-  height: 170px;
+  height: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -54,7 +54,7 @@
 .footer-container02{
   width: 100%;
   min-width: 1024px;
-  height: 20%;
+  height: 100%;
   display: flex;
   justify-content: center;
   /* background-color: pink; */

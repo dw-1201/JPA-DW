@@ -1,6 +1,8 @@
 package com.example.dw.repository.goods;
 
 import com.example.dw.domain.dto.admin.*;
+import com.example.dw.domain.dto.goods.IndexGoodsByCateDto;
+import com.example.dw.domain.dto.goods.QIndexGoodsByCateDto;
 import com.example.dw.domain.form.SearchForm;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -27,6 +29,28 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
 
     private final JPAQueryFactory jpaQueryFactory;
 
+
+    //메인페이지 카테고리별 상품리스트
+    @Override
+    public List<IndexGoodsByCateDto> indexGoodsListByCategory(String cate) {
+        return jpaQueryFactory.select(new QIndexGoodsByCateDto(
+                goods.id,
+                goods.goodsName,
+                goods.goodsPrice,
+                goods.goodsCategory.stringValue(),
+                goodsMainImg.id,
+                goodsMainImg.goodsMainImgPath,
+                goodsMainImg.goodsMainImgUuid,
+                goodsMainImg.goodsMainImgName
+        ))
+
+                .from(goods)
+                .leftJoin(goods.goodsMainImg, goodsMainImg)
+                .limit(6)
+                .where(goods.goodsCategory.stringValue().eq(cate))
+                .orderBy(goods.id.desc())
+                .fetch();
+    }
 
     //관리자 페이지 상품 리스트
     @Override

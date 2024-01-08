@@ -37,4 +37,16 @@ public class WalkMateDetailReplyDto {
         this.userImgUuid = userImgUuid;
         this.userImgName = userImgName;
     }
+
+
+
+    @QueryProjection
+    public WalkMateDetailReplyDto(Long id, String walkDetailReplyComment, LocalDateTime walkCommendRd, LocalDateTime walkCommentMd, Long userId, String userAccount, String userNickName) {
+        this.id = id;
+        this.walkDetailReplyComment = walkDetailReplyComment;
+        this.walkCommendRd = walkCommendRd;
+        this.walkCommentMd = walkCommentMd;
+        this.userId = userId;
+        this.userAccount = userAccount;
+    }
 }

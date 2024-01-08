@@ -1,5 +1,12 @@
 package com.example.dw.repository.community;
 
+<<<<<<< HEAD
+=======
+import com.example.dw.domain.dto.admin.AdminWalkMateDetailDto;
+import com.example.dw.domain.dto.admin.ApplierUserList;
+import com.example.dw.domain.dto.admin.QAdminWalkMateDetailDto;
+import com.example.dw.domain.dto.admin.QApplierUserList;
+>>>>>>> main
 import com.example.dw.domain.dto.community.*;
 import com.example.dw.domain.form.SearchCateLocationForm;
 import com.example.dw.domain.form.SearchForm;
@@ -25,8 +32,10 @@ import java.util.Optional;
 
 import static com.example.dw.domain.entity.user.QPet.pet;
 import static com.example.dw.domain.entity.user.QPetImg.petImg;
+import static com.example.dw.domain.entity.user.QUserFile.userFile;
 import static com.example.dw.domain.entity.user.QUsers.users;
 import static com.example.dw.domain.entity.walkingMate.QWalkingMate.walkingMate;
+import static com.example.dw.domain.entity.walkingMate.QWalkingMateComment.walkingMateComment;
 import static com.example.dw.domain.entity.walkingMate.QWalkingMateState.walkingMateState;
 
 @Repository
@@ -68,7 +77,7 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
                         cityNameEq(searchLocationForm),
                         countyNameEq(searchLocationForm)
                 )
-//                .where(walkingMateState.state.eq(1))
+                .where(walkingMateState.state.eq(1))
                 .groupBy(
                         walkingMate.id,
                         walkingMate.walkingMateTitle,
@@ -185,6 +194,17 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
     //관리자 페이지 산책글 리스트
     @Override
     public Page<WalkMateListDto> findAllWalkMate(Pageable pageable, SearchCateLocationForm searchCateLocationForm) {
+
+
+
+        SearchLocationForm searchLocationForm = new SearchLocationForm(
+                searchCateLocationForm.getArea(),
+                searchCateLocationForm.getCity(),
+                searchCateLocationForm.getCounty(),
+                searchCateLocationForm.getState()
+        );
+
+
         List<WalkMateListDto> content = jpaQueryFactory.select(new QWalkMateListDto(
                 walkingMate.id,
                 walkingMate.walkingMateTitle,
@@ -206,13 +226,13 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
                 .leftJoin(walkingMate.walkingMateStateList, walkingMateState)
                 .where(
                         cateKeywordEq(new SearchForm(searchCateLocationForm.getCate(), searchCateLocationForm.getKeyword())),
-                        createRecruitmentStatusCondition(new SearchLocationForm(searchCateLocationForm.getCounty(),searchCateLocationForm.getState())),
-                        areaNameEq(new SearchLocationForm(searchCateLocationForm.getArea())),
-                        cityNameEq(new SearchLocationForm(searchCateLocationForm.getCity())),
-                        countyNameEq(new SearchLocationForm(searchCateLocationForm.getCounty())),
+                        createRecruitmentStatusCondition(searchLocationForm),
+                        areaNameEq(searchLocationForm),
+                        cityNameEq(searchLocationForm),
+                        countyNameEq(searchLocationForm),
                         dateEq(searchCateLocationForm.getStartDate(), searchCateLocationForm.getEndDate())
                 )
-//                .where(walkingMateState.state.eq(1))
+                .where(walkingMateState.state.eq(1))
                 .groupBy(
                         walkingMate.id,
                         walkingMate.walkingMateTitle,
@@ -239,10 +259,10 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
                 .from(walkingMate)
                 .where(
                         cateKeywordEq(new SearchForm(searchCateLocationForm.getCate(), searchCateLocationForm.getKeyword())),
-                        createRecruitmentStatusCondition(new SearchLocationForm(searchCateLocationForm.getCounty(),searchCateLocationForm.getState())),
-                        areaNameEq(new SearchLocationForm(searchCateLocationForm.getArea())),
-                        cityNameEq(new SearchLocationForm(searchCateLocationForm.getCity())),
-                        countyNameEq(new SearchLocationForm(searchCateLocationForm.getCounty())),
+                        createRecruitmentStatusCondition(searchLocationForm),
+                        areaNameEq(searchLocationForm),
+                        cityNameEq(searchLocationForm),
+                        countyNameEq(searchLocationForm),
                         dateEq(searchCateLocationForm.getStartDate(), searchCateLocationForm.getEndDate())
 
 
@@ -250,6 +270,83 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
                 .fetchOne();
         return new PageImpl<>(content, pageable, count);
 
+    }
+
+
+    //관리자페이지 산책글 상세보기
+    @Override
+    public AdminWalkMateDetailDto adminWalkMateDetail(Long walkMateId) {
+
+        AdminWalkMateDetailDto adminWalkMateDetailDto = jpaQueryFactory.select(
+                new QAdminWalkMateDetailDto(
+                        walkingMate.id,
+                        walkingMate.users.id,
+                        walkingMate.users.userAccount,
+                        walkingMate.walkingMateRd,
+                        walkingMate.walkingMateMd,
+                        walkingMate.walkingMateViewCount,
+                        walkingMate.walkingMateTitle,
+                        walkingMate.walkingMateContent,
+                        walkingMate.walkingMateFullAddress,
+                        walkingMate.walkingMateDate,
+                        walkingMate.walkingMateTime,
+                        pet.id,
+                        pet.name,
+                        walkingMate.walkingMateState
+                )).from(walkingMate)
+                .leftJoin(walkingMate.users, users)
+                .leftJoin(users.pet, pet)
+                 .where(walkingMate.id.eq(walkMateId))
+                 .fetchOne();
+
+        List<ApplierUserList> applierUserListList = jpaQueryFactory.select(new QApplierUserList(
+                                walkingMateState.id,
+                               walkingMateState.users.id,
+                                walkingMateState.users.userAccount,
+                                pet.id,
+                                pet.petCategory,
+                                pet.name,
+                                pet.weight,
+                                pet.petGender,
+                                pet.neutering,
+                                pet.birthDate,
+                                petImg.petPath,
+                                petImg.petUuid,
+                                petImg.petFileName,
+                                walkingMateState.state
+                ))
+                .from(walkingMateState)
+                .leftJoin(walkingMateState.users, users)
+                .leftJoin(walkingMateState.pet, pet)
+                .leftJoin(pet.petImg, petImg)
+                .where(walkingMate.id.eq(walkMateId).and(walkingMateState.writerCheck.eq(0)))
+                .fetch();
+
+        List<WalkMateDetailReplyDto> replyDtos =
+                       jpaQueryFactory.select(new QWalkMateDetailReplyDto(
+                                walkingMateComment.id,
+                                walkingMateComment.walkingMateCommentContent,
+                                walkingMateComment.walkingMateCommentRd,
+                                walkingMateComment.walkingMateCommentMd,
+                                walkingMateComment.users.id,
+                                walkingMateComment.users.userAccount,
+                                walkingMateComment.users.userNickName,
+                                userFile.id,
+                                userFile.route,
+                                userFile.uuid,
+                                userFile.name
+                        ))
+                               .from(walkingMateComment)
+                               .leftJoin(walkingMateComment.walkingMate, walkingMate)
+                               .leftJoin(walkingMateComment.users, users)
+                               .leftJoin(users.userFile, userFile)
+                               .where(walkingMateComment.walkingMate.id.eq(walkMateId))
+                               .fetch();
+
+        adminWalkMateDetailDto.setApplierUserListList(applierUserListList);
+        adminWalkMateDetailDto.setWalkMateDetailReplyDtos(replyDtos);
+
+        return adminWalkMateDetailDto;
     }
 
     //산책메이트 리스트 전체-모집중-모집완료
@@ -321,51 +418,50 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
     //날짜 검색
     private BooleanExpression dateEq(String startDate, String endDate) {
 
-        if ((startDate == "" || startDate == null) && (endDate == "" || endDate == null)) {
-
-            System.out.println("둘다 null이야");
+        if ((startDate == null || startDate.isEmpty()) && (endDate == null || endDate.isEmpty())) {
+            System.out.println("둘 다 null이야");
             return null;
         }
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDateTime start = null;
+        LocalDateTime end = null;
 
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-            LocalDate localStartDate = LocalDate.parse(startDate, formatter);
-            LocalDate localEndDate = LocalDate.parse(endDate, formatter);
+            if (!startDate.isEmpty()) {
+                LocalDate localStartDate = LocalDate.parse(startDate, formatter);
+                start = localStartDate.atStartOfDay();
+            }
 
+            if (!endDate.isEmpty()) {
+                LocalDate localEndDate = LocalDate.parse(endDate, formatter);
+                end = localEndDate.atTime(LocalTime.MAX);
+            }
 
-            LocalDateTime start = localStartDate.atStartOfDay();
-            LocalDateTime end = localEndDate.atTime(LocalTime.MAX);
-
-
-            if (end.isBefore(start)) {
-
+            if (start != null && end != null && end.isBefore(start)) {
                 LocalDateTime temp = end;
                 end = start;
                 start = temp;
                 System.out.println("서로 바껴서 선택했을 때");
                 System.out.println("시작날짜" + start);
                 System.out.println("종료날짜" + end);
-                return Expressions.allOf(walkingMate.walkingMateRd.between(start, end));
-
-            }else if(startDate == null){
-                System.out.println("시작날짜가 없어");
-                return Expressions.allOf(walkingMate.walkingMateRd.before(end));
-            }else if(endDate == null){
-                System.out.println("종료날짜가 없어");
-                return Expressions.allOf(walkingMate.walkingMateRd.after(start));
             }
-            else {
+
+            if (start != null && end != null) {
                 System.out.println("정상적인 검색");
                 return Expressions.allOf(walkingMate.walkingMateRd.between(start, end));
+            } else if (start != null) {
+                System.out.println("종료날짜가 없어");
+                return Expressions.allOf(walkingMate.walkingMateRd.after(start));
+            } else if (end != null) {
+                System.out.println("시작날짜가 없어");
+                return Expressions.allOf(walkingMate.walkingMateRd.before(end));
             }
         } catch (DateTimeException e) {
             e.printStackTrace();
-
-
         }
-        return null;
 
+        return null;
     }
 
 

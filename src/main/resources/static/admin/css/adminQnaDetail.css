@@ -116,7 +116,7 @@
 
 
 /* Qna관련 댓글 설정 */
-.qna-reply-title {
+.walk-reply-title {
     display: flex;
 }
 
@@ -124,18 +124,18 @@
     cursor: pointer;
 }
 
-.qna-reply-section {
+.walk-reply-section {
     /* border: 2px solid red; */
     display: none;
 }
 
-.qna-reply-ul {
+.walk-reply-ul {
     font-size: 13px;
     align-items: center;
     display: flex;
     border-bottom: 1px solid gray;
 }
-.qna-reply-ul  li {
+.walk-reply-ul  li {
     box-sizing: border-box;
     padding: 10px;
     /* border: 2px solid blue; */
