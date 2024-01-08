@@ -59,11 +59,34 @@ public class GoodsController {
      * 쇼핑 상세 페이지
      */
     @GetMapping("/shopDetail/{id}")
-    public String shopDetail(@PathVariable("id") Long id, Model model){
+    public String shopDetail(@PathVariable("id") Long id, Model model, HttpSession session){
 
      Optional<GoodsDetailDto> detail =  goodsService.goodsDetail(id);
 
      detail.ifPresent(details -> model.addAttribute("detail", details));
+
+
+//    //최근 본 상품
+//        List<RecentViewGoodsDto> recentViewGoodsDtoList = (List<RecentViewGoodsDto>)session.setAttribute("recentView");
+//
+//        if(recentViewGoodsDtoList ==null){
+//            recentViewGoodsDtoList = new ArrayList<>();
+//        }
+//
+//        boolean duplicateCheck = false;
+//        for(RecentViewGoodsDto recentViewGoodsDto : recentViewGoodsDtoList){
+//
+//            if(recentViewGoodsDto.getGoodsId()!= detail.get().getId()){
+//
+//                recentViewGoodsDtoList.add(recentViewGoodsDto);
+//                System.out.println(recentViewGoodsDtoList.toString()+"@@@@@@@@@@@@@@@@@@@@@22");
+//            }
+//
+//        }
+
+
+
+
 
         System.out.println(detail.toString());
 
@@ -106,6 +129,19 @@ public class GoodsController {
     public String shopPay(){
         return "/shopping/shopPay";
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

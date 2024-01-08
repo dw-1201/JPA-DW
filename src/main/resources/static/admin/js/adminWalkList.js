@@ -1,6 +1,37 @@
 import * as page from './module/pagination.js'
 import * as list from './module/list.js'
 
+
+$(document).ready(function (){
+
+    list.list(0,searchForm(),'admins', 'walkList', showWalkList);
+
+    $("input[name='status']").on('change', function (){
+        let status = $(this).val();
+        updateWalkMateState(status);
+    })
+
+
+    $('.admin-walk-lists').on('click','.detail-btn', function (e){
+
+        e.preventDefault();
+        let walkMateId = $(this).closest('.walk-etc').find('.detail-btn').data('walkmateid');
+
+        window.location.href="/admin/walkMateDetail/" + walkMateId;
+
+    })
+
+})
+
+
+
+
+
+
+
+
+
+
 function searchForm(){
 
     let cate =$('#walk-search-cate').val();
@@ -25,18 +56,6 @@ function searchForm(){
 
 }
 
-$(document).ready(function (){
-
-    list.list(0,searchForm(),'admins', 'walkList', showWalkList);
-
-    $("input[name='status']").on('change', function (){
-        let status = $(this).val();
-        updateWalkMateState(status);
-    })
-
-
-
-})
 
 function updateWalkMateState(state){
 
@@ -62,9 +81,6 @@ function showWalkList(result){
     let text='';
     let textInputSection = $('.admin-walk-lists');
 
-
-
-
     result.content.forEach(r=>{
 
         let dateString = `${r.walkingMateRd}`;
@@ -72,8 +88,6 @@ function showWalkList(result){
         let formattedDate = dateObj.getFullYear() + '-' + ('0' + (dateObj.getMonth() + 1)).slice(-2) + '-' + ('0' + dateObj.getDate()).slice(-2) + ' ' + ('0' + dateObj.getHours()).slice(-2) + ':' + ('0' + dateObj.getMinutes()).slice(-2);
 
         console.log(formattedDate);
-
-
 
 
         text += `
@@ -97,7 +111,7 @@ function showWalkList(result){
         text +=`<div class="walk-gether-status row"> ${r.walkingMatePerson} / ${r.walkingMateToday}</div>
                         <div class="walk-date-register row">${formattedDate}</div>
                         <div class="walk-etc btns row">
-                            <a href="/admin/html/adminWalkDetail.html" class="detail-btn">상세</a>
+                            <a href="" class="detail-btn" data-walkmateid="${r.id}">상세</a>
                         </div>
                     </div>
         
