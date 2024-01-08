@@ -88,7 +88,7 @@ function goodsByCategory(result){
         <div class="shop-item-list">
             <ul class="shop-item-list-ul">
           <li>
-            <a href="#">
+            <a href="/shop/shopDetail/${r.goodsId}">
             <div class="item-img">
                 <img src="/indexes/goodsImg?fileFullPath=${r.goodsImgPath +'/'+ r.goodsImgUuid +'_'+ r.goodsImgName}" alt="상품 사진"/>
             </div>

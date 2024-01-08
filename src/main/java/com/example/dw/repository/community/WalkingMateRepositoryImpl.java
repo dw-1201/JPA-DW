@@ -73,7 +73,7 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
                         cityNameEq(searchLocationForm),
                         countyNameEq(searchLocationForm)
                 )
-//                .where(walkingMateState.state.eq(1))
+                .where(walkingMateState.state.eq(1))
                 .groupBy(
                         walkingMate.id,
                         walkingMate.walkingMateTitle,
@@ -228,7 +228,7 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
                         countyNameEq(searchLocationForm),
                         dateEq(searchCateLocationForm.getStartDate(), searchCateLocationForm.getEndDate())
                 )
-//                .where(walkingMateState.state.eq(1))
+                .where(walkingMateState.state.eq(1))
                 .groupBy(
                         walkingMate.id,
                         walkingMate.walkingMateTitle,

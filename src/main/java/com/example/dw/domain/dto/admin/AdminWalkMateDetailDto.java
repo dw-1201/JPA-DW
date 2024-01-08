@@ -55,11 +55,6 @@ public class AdminWalkMateDetailDto {
     }
 
 
-
-
-
-
-
     @QueryProjection
     public AdminWalkMateDetailDto(Long id, Long userId, String userAccount, LocalDateTime regDate, LocalDateTime modDate, Long viewCount, String title, String content, String fullAddress, String mateDate, String mateTime, Long writerPetId, String writerPetName, Long walkMateState, List<ApplierUserList> applierUserListList, List<WalkMateDetailReplyDto> walkMateDetailReplyDtos) {
         this.id = id;
