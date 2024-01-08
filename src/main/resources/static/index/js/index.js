@@ -103,6 +103,7 @@ function getCategoryImage(category) {
         '간식': '/img/goods-snack.jpg',
         '영양제': '/img/goods-nutrition.jpg',
         '위생용품': '/img/goods-hygiene.jpg',
+        '산책용품' : '/img/goods-snack.jpg'
         // 다른 카테고리에 대한 이미지도 추가할 수 있습니다.
     };
 
