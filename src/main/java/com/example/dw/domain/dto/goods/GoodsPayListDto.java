@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class GoodsPayListForm {
+public class GoodsPayListDto {
 
     private Long goodsId;
     private String goodsName;
@@ -15,7 +15,7 @@ public class GoodsPayListForm {
 
     @Builder
 
-    public GoodsPayListForm(Long goodsId, String goodsName, String goodsQuantity, String goodsPrice) {
+    public GoodsPayListDto(Long goodsId, String goodsName, String goodsQuantity, String goodsPrice) {
         this.goodsId = goodsId;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;

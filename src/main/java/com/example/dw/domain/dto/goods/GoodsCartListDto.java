@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class ShopCartListDto {
+public class GoodsCartListDto {
 
 
     private Long cartId;
@@ -15,12 +15,12 @@ public class ShopCartListDto {
     private List<CartItemDetails> cartItemDetails;
 
 
-    public ShopCartListDto(Long cartId, Long userId) {
+    public GoodsCartListDto(Long cartId, Long userId) {
         this.cartId = cartId;
         this.userId = userId;
     }
 
-    public ShopCartListDto(Long cartId, Long userId, List<CartItemDetails> cartItemDetails) {
+    public GoodsCartListDto(Long cartId, Long userId, List<CartItemDetails> cartItemDetails) {
         this.cartId = cartId;
         this.userId = userId;
         this.cartItemDetails = cartItemDetails;

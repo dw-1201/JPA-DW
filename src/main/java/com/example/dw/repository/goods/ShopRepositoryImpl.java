@@ -115,6 +115,15 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
         return contents;
     }
 
+//    @Override
+//    public List<GoodsPickListDto> findGoodsPickListById(Long goodsId) {
+//        List<GoodsPickListDto> contents = jpaQueryFactory
+//                .select(new QGoodsPickListDto(
+//                    goods
+//                ));
+//        return contents;
+//    }
+
 
     @Override
     public Page<GoodsListDto> findGoodsListAll(Pageable pageable, SearchForm searchForm) {

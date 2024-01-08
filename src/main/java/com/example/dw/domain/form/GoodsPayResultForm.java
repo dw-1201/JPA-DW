@@ -1,4 +1,4 @@
-package com.example.dw.domain.dto.goods;
+package com.example.dw.domain.form;
 
 import com.example.dw.domain.entity.goods.Goods;
 import com.example.dw.domain.entity.goods.GoodsPayList;

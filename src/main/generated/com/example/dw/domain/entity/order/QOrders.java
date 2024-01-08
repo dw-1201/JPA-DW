@@ -26,6 +26,8 @@ public class QOrders extends EntityPathBase<Orders> {
 
     public final StringPath orderAddressDetail = createString("orderAddressDetail");
 
+    public final StringPath orderAddressDetails = createString("orderAddressDetails");
+
     public final StringPath orderAddressNormal = createString("orderAddressNormal");
 
     public final QOrderList orderList;

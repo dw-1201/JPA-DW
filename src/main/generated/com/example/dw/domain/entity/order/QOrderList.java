@@ -24,7 +24,7 @@ public class QOrderList extends EntityPathBase<OrderList> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final DateTimePath<java.time.LocalDateTime> orderDate = createDateTime("orderDate", java.time.LocalDateTime.class);
+    public final StringPath orderDate = createString("orderDate");
 
     public final QOrderReview orderReview;
 
