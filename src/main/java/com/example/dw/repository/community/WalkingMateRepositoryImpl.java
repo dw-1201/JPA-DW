@@ -376,6 +376,21 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
     public Page<WalkMateMyListDto> findAllWalkMateAndUserId(Pageable pageable, SearchRecruitmentForm searchRecruitmentForm, Long userId) {
         System.out.println(searchRecruitmentForm.getState());
 
+        WalkMateStateDto walkMateStateDto = jpaQueryFactory.select(new QWalkMateStateDto
+                (
+                        walkingMateState.id,
+                        walkingMate.id,
+                        users.id,
+                        users.userAccount,
+                        users.userNickName,
+                        walkingMateState.state,
+                        walkingMateState.writerCheck
+                ))
+                .from(walkingMateState)
+                .leftJoin(walkingMateState.walkingMate,walkingMate)
+
+                .fetch();
+
             List<WalkMateMyListDto> contents = jpaQueryFactory.select(new QWalkMateMyListDto(
                     walkingMate.id,
                     walkingMate.walkingMateTitle,
@@ -392,21 +407,19 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
                     users.id,
                     users.userNickName,
                     users.userAccount,
-                    pet.id,
-                    petImg.id,
-                    petImg.petFileName,
-                    petImg.petPath,
-                    petImg.petUuid
+                    walkingMateState.id,
+                    walkingMateState.state,
+                    walkingMateState.walkingMate
+
             ))
                     .from(walkingMate)
                     .leftJoin(walkingMate.users, users)
                     .leftJoin(walkingMate.walkingMateStateList, walkingMateState)
-                    .leftJoin(walkingMate.pet, pet)
-                    .leftJoin(walkingMate.pet.petImg,petImg)
                     .where(
                             createStatusCondition(searchRecruitmentForm)
 
                     )
+                    .where(walkingMateState.state.eq(1))
                     .groupBy(
                             walkingMate.id,
                             walkingMate.walkingMateTitle,
@@ -421,12 +434,7 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
                             walkingMate.walkCounty,
                             users.id,
                             users.userNickName,
-                            users.userAccount,
-                            pet.id,
-                            petImg.id,
-                            petImg.petFileName,
-                            petImg.petPath,
-                            petImg.petUuid
+                            users.userAccount
 
                     )
                     .having(
@@ -452,9 +460,22 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
         System.out.println(contents+"항목");
         System.out.println(counts +"수량");
 
+        WalkMateStateDto walkMateStateDto = jpaQueryFactory.select(new QWalkMateStateDto
+                (
+                        walkingMateState.id,
+                        walkingMate.id,
+                        users.id,
+                        users.userAccount,
+                        users.userNickName,
+                        walkingMateState.state,
+                        walkingMateState.writerCheck
+                ))
+                .from(walkingMateState)
+                .leftJoin(walkingMateState.walkingMate,walkingMate)
+                .on(walkingMate.id.eq(wa))
+                .fetch();
 
-
-
+        contents.
         return new PageImpl<>(contents, pageable, counts);
 
     }
@@ -477,6 +498,88 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
             e.printStackTrace();
             return null;
         }
+
+    }
+
+    @Override
+    public Page<WalkMateMyApplicationListDto> findAllWalkMateStateAndUserId(Pageable pageable, Long userId) {
+
+        List<WalkMateMyApplicationListDto> result = jpaQueryFactory.select(new QWalkMateMyApplicationListDto(
+                walkingMate.id,
+                walkingMate.walkingMateTitle,
+                walkingMate.walkingMateContent,
+                walkingMate.walkingMateRd,
+                walkingMate.walkingMateViewCount,
+                walkingMate.walkingMateState,
+                walkingMate.walkingMatePerson,
+                walkingMateState.count(),
+                walkingMate.walkingMateDate,
+                walkingMate.walkingMateTime,
+                walkingMate.walkCity,
+                walkingMate.walkCounty,
+                users.id,
+                users.userNickName,
+                users.userAccount,
+                pet.id,
+                petImg.id,
+                petImg.petFileName,
+                petImg.petPath,
+                petImg.petUuid,
+                walkingMateState.id,
+                walkingMateState.writerCheck
+        ))
+                .from(walkingMate)
+                .leftJoin(walkingMate.users, users)
+                .leftJoin(walkingMate.walkingMateStateList, walkingMateState)
+                .leftJoin(walkingMate.pet,pet)
+                .leftJoin(walkingMate.pet.petImg,petImg)
+                .where(
+                        walkingMate.users.id.eq(userId),
+                        walkingMateState.writerCheck.eq(0),
+                        walkingMateState.state.eq(1)
+
+                )
+                .groupBy(
+                        walkingMate.id,
+                        walkingMate.walkingMateTitle,
+                        walkingMate.walkingMateContent,
+                        walkingMate.walkingMateRd,
+                        walkingMate.walkingMateViewCount,
+                        walkingMate.walkingMateState,
+                        walkingMate.walkingMatePerson,
+                        walkingMate.walkingMateDate,
+                        walkingMate.walkingMateTime,
+                        walkingMate.walkCity,
+                        walkingMate.walkCounty,
+                        users.id,
+                        users.userNickName,
+                        users.userAccount,
+                        pet.id,
+                        petImg.id,
+                        petImg.petFileName,
+                        petImg.petPath,
+                        petImg.petUuid,
+                        walkingMateState.id,
+                        walkingMateState.writerCheck
+
+                )
+                .orderBy(walkingMate.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        Long counts =  jpaQueryFactory.select(
+                walkingMateState.count()
+        )
+                .from(walkingMateState)
+                .where(
+//                        createStatusCondition(searchRecruitmentForm),
+                        walkingMateState.users.id.eq(userId)
+
+                )
+                .fetchOne();
+        result.forEach(r-> System.out.println(r.getWalkingMateTitle()+"이고"+r.getWalkingMateStateId()+"입니다."));
+        return new PageImpl<>(result, pageable, counts);
 
     }
 }

@@ -3,18 +3,15 @@ package com.example.dw.api;
 
 import com.example.dw.domain.dto.community.FreeBoardDto;
 import com.example.dw.domain.dto.community.QuestionListDto;
+import com.example.dw.domain.dto.community.WalkMateMyApplicationListDto;
 import com.example.dw.domain.dto.community.WalkMateMyListDto;
-import com.example.dw.domain.form.SearchLocationForm;
 import com.example.dw.domain.form.SearchRecruitmentForm;
-import com.example.dw.repository.admin.FaqBoardRepositoryCustom;
 import com.example.dw.repository.community.QuestionRepositoryCustom;
-import com.example.dw.repository.community.WalkingMateCommentCustom;
 import com.example.dw.repository.community.WalkingMateRepositoryCustom;
+import com.example.dw.repository.community.WalkingMateStateRepositoryCustom;
 import com.example.dw.repository.freeBoard.FreeBoardRepositoryCustom;
-import com.example.dw.repository.pet.PetRepository;
 import com.example.dw.service.FreeBoardService;
 import com.example.dw.service.MypageService;
-import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -39,6 +36,8 @@ public class MypageApiController {
     private final FreeBoardRepositoryCustom freeBoardRepositoryCustom;
     private final FreeBoardService freeBoardService;
     private final WalkingMateRepositoryCustom walkingMateRepositoryCustom;
+    private final WalkingMateStateRepositoryCustom walkingMateStateRepositoryCustom;
+
 
     @Value("${file.pet}")
     private String filepetImg;
@@ -130,18 +129,28 @@ public class MypageApiController {
         return new PageImpl<>(updatedList, pageable, result.getTotalElements());
     }
 
-    @GetMapping("/mypgs/myregisterwalkmatewrite/{page}/{userId}")
-    public Page<WalkMateMyListDto> findmyregisterwalkmatewriteList(
-            @PathVariable("page") int page, @PathVariable("userId") Long userId, SearchRecruitmentForm searchRecruitmentForm
-    ) {
+//    @GetMapping("/mypgs/myregisterwalkmatewrite/{page}/{userId}")
+//    public Page<WalkMateMyListDto> findmyregisterwalkmatewriteList(
+//            @PathVariable("page") int page, @PathVariable("userId") Long userId, SearchRecruitmentForm searchRecruitmentForm
+//    ) {
+//
+//        Pageable pageable = PageRequest.of(page, 5);
+//        Page<WalkMateMyListDto> result = walkingMateRepositoryCustom.findAllWalkMateAndUserId(pageable, searchRecruitmentForm, userId);
+//        System.out.println(result);
+//        return result;
+//    }
 
+    @GetMapping("/mypgs/applicationwalkmate/{page}/{userId}")
+    public Page<WalkMateMyApplicationListDto> findapplicationwalkmateList(
+            @PathVariable("page") int page, @PathVariable("userId") Long userId
+    ) {
+//        SearchRecruitmentForm searchRecruitmentForm1 =new SearchRecruitmentForm();
+//        searchRecruitmentForm1.setState("");
         Pageable pageable = PageRequest.of(page, 5);
-        Page<WalkMateMyListDto> result = walkingMateRepositoryCustom.findAllWalkMateAndUserId(pageable, searchRecruitmentForm, userId);
-        System.out.println(result);
+        Page<WalkMateMyApplicationListDto> result = walkingMateRepositoryCustom.findAllWalkMateStateAndUserId(pageable, userId);
+        result.forEach(r-> System.out.println(r.getWalkingMateTitle()+"이고"+r.getWalkingMateStateId()+"입니다."));
         return result;
     }
-
-
 
 
 }

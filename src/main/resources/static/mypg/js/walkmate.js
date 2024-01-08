@@ -60,12 +60,12 @@ function showList(result){
                                         <span class="recruit-count">${r.walkingMateToday}/${r.walkingMatePerson}</span>
                                     </div>
                                     `;
-                                    if(r.currentState==0 || (r.walkingMateToday != r.walkingMatePerson)) {
+                                    if(r.walkingMateState==0 ) {
                                       text += `   <div class="recruit-btn-box">
                                             <button>모집 대기</button>
                                         </div>
                                         `;
-                                    }else if(r.currentState==1 || (r.walkingMateToday == r.walkingMatePerson)){
+                                    }else if(r.walkingMateState==1 ){
                                         text +=`
                                               <div class="recruit-box" >
                                         <span>모집 완료</span>
