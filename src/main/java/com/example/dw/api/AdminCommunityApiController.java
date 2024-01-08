@@ -1,5 +1,6 @@
 package com.example.dw.api;
 
+import com.example.dw.domain.dto.admin.AdminWalkMateDetailDto;
 import com.example.dw.domain.dto.community.WalkMateListDto;
 import com.example.dw.domain.form.SearchCateLocationForm;
 import com.example.dw.service.AdminCommunityService;
@@ -33,6 +34,14 @@ public class AdminCommunityApiController {
 
        return result;
 
+    }
+
+    //시험용
+    @GetMapping("/walkDetail/{walkMateId}")
+    public AdminWalkMateDetailDto walkMateDetail(@PathVariable("walkMateId") Long walkMateId){
+        AdminWalkMateDetailDto adminWalkMateDetailDto = adminCommunityService.walkMateDetailPage(walkMateId);
+
+        return adminWalkMateDetailDto;
     }
 
 }

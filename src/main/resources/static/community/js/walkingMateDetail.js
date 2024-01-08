@@ -1,4 +1,5 @@
 import * as reply from './module/reply.js';
+import * as date from './module/dateFormatt.js';
 
 let map = null;
 let marker = null;
@@ -49,6 +50,18 @@ function showMarkerOnMap(address) {
 }
 
 $(document).ready(function () {
+
+    //날짜 포맷 변경
+    let regDateString = $('#registeredDate').val();
+    let modifyDateString = $('#modifiedDate').val();
+
+    let formattedDateReg = date.formatDate(regDateString);
+    let formattedDateModify = date.formatDate(modifyDateString);
+
+
+    $('.walk-mate-modified-date span').text(formattedDateModify);
+    $('.walk-mate-registered-date span').text(formattedDateReg);
+
     //지도 로드
     initMap();
     reply.limitText( $('#walkBoardComment'),'.comment-length-Check' )
@@ -349,13 +362,3 @@ $('.reply-list').on('click', '.modify-reply-btn', function (){
 })
 
 
-//임시 post용
-function temp(){
-
-    $.ajax({
-
-
-
-    })
-
-}
