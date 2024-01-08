@@ -109,8 +109,6 @@ public class Users {
     }
 
 
-
-
     //임시비밀번호로 비밀번호 수정
     public Users updatePassword(String rePassword){
         this.userPassword=rePassword;

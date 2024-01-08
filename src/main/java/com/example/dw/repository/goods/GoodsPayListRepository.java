@@ -19,4 +19,5 @@ public interface GoodsPayListRepository extends JpaRepository<GoodsPayList, Long
     @Query("SELECT NEW com.example.dw.domain.dto.goods.GoodsPayDto(gp.id, gp.goods.id, gp.goods.goodsName, gp.goodsQuantity, gp.goodsPrice, gp.users.id) FROM GoodsPayList gp LEFT JOIN gp.goods g LEFT JOIN gp.users u WHERE gp.users.id = :userId")
     List<GoodsPayDto> findGoodsPayList(@Param("userId") Long userId);
 
+
 }
