@@ -43,24 +43,24 @@
 
         $(document).ready(function (){
 
-            let floatPosition = parseInt($('.side-banner-fragment').css('top'))
-
-            $(window).scroll(function (){
-
-
-                let scrollTop = $(window).scrollTop();
-                let attachedPosition  ;
-
-                if(scrollTop >= 50){
-                    attachedPosition = scrollTop + floatPosition - 50 + "px";
-                } else {
-                    attachedPosition = "7px";
-                }
-
-                $('.side-banner-fragment').css('top', attachedPosition);
-
-
-            }).scroll();
+            // let floatPosition = parseInt($('.side-banner-fragment').css('top'))
+            //
+            // $(window).scroll(function (){
+            //
+            //
+            //     let scrollTop = $(window).scrollTop();
+            //     let attachedPosition  ;
+            //
+            //     if(scrollTop >= 50){
+            //         attachedPosition = scrollTop + floatPosition - 50 + "px";
+            //     } else {
+            //         attachedPosition = "7px";
+            //     }
+            //
+            //     $('.side-banner-fragment').css('top', attachedPosition);
+            //
+            //
+            // }).scroll();
 
 
             $('.top-btn').click(function (e){
