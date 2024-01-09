@@ -58,10 +58,15 @@ public class WalkBoardController {
         walkMateForm.setUserId(userId);
         System.out.println(walkMateForm.toString());
 
+
+
         walkingMateService.registerWalkingMate(walkMateForm);
 
         return new RedirectView("/walk/walkList");
     }
+
+
+
 
     //산책글 상세보기
     @GetMapping("/detail/{id}/{userId}")

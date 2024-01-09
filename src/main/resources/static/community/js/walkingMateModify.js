@@ -190,6 +190,7 @@ $('.submit-btn').on('click', function (){
     $('#walk-write-form').submit();
     return true;
 
+    
 
 })
 
