@@ -11,7 +11,6 @@ function getGoodsPickList(callback){
     $.ajax({
         url : `/shops/goodsPickList`,
         type : "get",
-        dataType : "json",
         success : function(result){
             console.log(result);
 

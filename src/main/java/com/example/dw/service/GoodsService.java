@@ -8,7 +8,6 @@ import com.example.dw.domain.entity.goods.GoodsQue;
 import com.example.dw.domain.entity.user.Users;
 import com.example.dw.domain.form.CartForm;
 import com.example.dw.domain.form.CartItemForm;
-import com.example.dw.domain.form.GoodsPayResultForm;
 import com.example.dw.domain.form.GoodsQandaWritingForm;
 import com.example.dw.repository.goods.*;
 import com.example.dw.repository.user.UsersRepository;
@@ -37,9 +36,6 @@ public class GoodsService {
     private final GoodsMainImgRepository goodsMainImgRepository;
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
-    private final GoodsPayListRepository goodsPayListRepository;
-    private final GoodsPayListRepositoryCustom goodsPayListRepositoryCustom;
-    private final GoodsPayListRepositoryImpl goodsPayListRepositoryImpl;
 
 
     //모달 글쓰기
@@ -161,58 +157,6 @@ public class GoodsService {
                 .flatMap(cartItemDetails -> cartItemDetails.stream())
                 .collect(Collectors.toList());
         return new GoodsCartListDto(cartDto.getId(), userId, mergedItems);
-    }
-
-    //결제페이지에 담길 물건 리스트
-    @Transactional
-    public void goodsPayList(List<GoodsPayListDto> goodsPayListDto, HttpSession session){
-
-        Long userId = (Long) session.getAttribute("userId");
-
-        try{
-            List<GoodsPayDto> beforeList = goodsPayListRepository.findGoodsPayList(userId);
-            System.out.println(beforeList.toString());
-
-            //이미 상품 결제정보가 존재한다면
-            if (beforeList.size() > 0) {
-
-                for(GoodsPayDto goodsPayDtos : beforeList){
-
-                    //개수만큼 삭제
-                    goodsPayListRepository.deleteById(goodsPayDtos.getId());
-                }
-
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        GoodsPayResultForm goodsPayResultForm = new GoodsPayResultForm();
-        //상품 결제정보 등록
-       for(GoodsPayListDto goodsPlay : goodsPayListDto){
-           goodsPayResultForm.setGoodsId(goodsPlay.getGoodsId());
-           goodsPayResultForm.setGoodsPrice(goodsPlay.getGoodsPrice());
-           goodsPayResultForm.setGoodsQuantity(goodsPlay.getGoodsQuantity());
-           goodsPayResultForm.setUserId(userId);
-
-           goodsPayListRepository.save(goodsPayResultForm.toEntity());
-       }
-    }
-
-
-    //결제 페이지 주문내역 리스트
-    @Transactional
-    public List<GoodsPickListDto> goodsPickList(HttpSession session){
-
-        Long userId = (Long) session.getAttribute("userId");
-
-        if (userId == null) {
-            throw new IllegalArgumentException("유저 정보가 없습니다.");
-        }
-
-        System.out.println("서비스");
-
-        return goodsPayListRepositoryCustom.findGoodPayListIdByUserId(userId);
     }
 
 }

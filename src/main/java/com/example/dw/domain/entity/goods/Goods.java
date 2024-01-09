@@ -56,7 +56,6 @@ public class Goods {
         this.goodsCategory=goodsCategory;
     }
 
-
     @Builder
     public Goods(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate, GoodsCategory goodsCategory, List<GoodsMainImg> goodsMainImg, List<GoodsDetailImg> goodsDetailImg, List<GoodsQue> goodsQues, List<CartItem> cartItem) {
         this.id = id;
@@ -74,11 +73,6 @@ public class Goods {
         this.goodsQues = goodsQues;
         this.cartItem = cartItem;
     }
-
-
-
-
-
 
     //상품 수정
     public Goods update(GoodsForm goodsForm){

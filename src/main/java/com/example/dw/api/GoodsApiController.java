@@ -2,7 +2,7 @@ package com.example.dw.api;
 
 import com.example.dw.domain.dto.goods.*;
 import com.example.dw.domain.form.CartItemForm;
-import com.example.dw.domain.dto.goods.GoodsPayListDto;
+import com.example.dw.domain.form.GoodsPayListFrom;
 import com.example.dw.domain.form.GoodsQandaWritingForm;
 import com.example.dw.domain.form.SearchForm;
 import com.example.dw.repository.goods.ShopRepositoryCustom;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,11 +67,6 @@ public class GoodsApiController {
         System.out.println(detail.toString());
         return detail;
     }
-
-    /**
-     * 쇼핑 리뷰 페이지
-     */
-
 
     /**
      * 쇼핑 Q and A 페이지
@@ -141,23 +137,35 @@ public class GoodsApiController {
 
     //장바구니 정보 넣기
     @PostMapping("/cartGoods")
-    public void cartGoods(@RequestBody List<GoodsPayListDto> goodsPayListDto, HttpSession session){
+    public void cartGoods(@RequestBody List<GoodsPayListFrom> goodsPayListFrom, HttpSession session){
 
-        System.out.println(goodsPayListDto.toString()+"@@@@@@@@@@@@@@@@");
+        List<GoodsPayListFrom> goodsPayList = (List<GoodsPayListFrom>)session.getAttribute("goodsPayList");
 
-            goodsService.goodsPayList(goodsPayListDto, session);
+        if(goodsPayList == null){
+            goodsPayList = new ArrayList<>();
+        }
+
+        for(GoodsPayListFrom goodsPayListDtos : goodsPayListFrom) {
+
+            goodsPayList.add(goodsPayListDtos);
+
+        }
+
+        System.out.println(goodsPayList+"!!!!!!!!!!!!!!");
+        session.setAttribute("goodsPayList", goodsPayList);
+        System.out.println(goodsPayListFrom.toString()+"@@@@@@@@@@@@@@@@@@@@@");
+
     }
 
     //가져오기
     @GetMapping("/goodsPickList")
-    public List<GoodsPickListDto> payGoodsList(HttpSession session){
+    public List<GoodsPayListFrom> payGoodsList(HttpSession session){
+       List<GoodsPayListFrom> goodsPayListDtoList = (List<GoodsPayListFrom>) session.getAttribute("goodsPayList");
 
-        System.out.println("컨트롤러");
-        List<GoodsPickListDto> list = goodsService.goodsPickList(session);
 
-        System.out.println(list+"!!!!!!!!!!!!!!");
+        System.out.println(goodsPayListDtoList+"((((((((((((((((()))))))))))))))");
 
-        return list;
+        return goodsPayListDtoList;
     }
 
 }
