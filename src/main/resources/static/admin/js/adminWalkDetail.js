@@ -1,4 +1,4 @@
-import * as date from './module/dateFormatt.js';
+import * as date from './module/form.js';
 
 $(document).ready(function(){
 

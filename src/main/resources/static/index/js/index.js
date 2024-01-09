@@ -1,3 +1,4 @@
+
 $(document).ready(function (){
 
 
@@ -20,6 +21,14 @@ $(document).ready(function (){
         indexGoodsByCategoryList(cate, goodsByCategory)
 
     })
+
+
+
+    $('.goodsPrice').each(function(index, element) {
+        let goodsPrice = $(element).val();
+        $(element).closest('.recent-view-goods').find('.recent-goods-price').eq(index).text(addCommas(goodsPrice) + '원');
+    });
+
 })
 
 
@@ -69,6 +78,8 @@ function goodsByCategory(result) {
                 </div>`);
         }
 
+        let commaPrice = addCommas(`${r.goodsPrice}`);
+
         // 각 카테고리별 상품 리스트 추가
         itemWrap.append(`
             <div class="shop-item-list">
@@ -82,7 +93,7 @@ function goodsByCategory(result) {
                                 <ul class="item-detail-ul">
                                     <li class="review-avg">★★★★★</li>
                                     <li class="item-name">${r.goodsName}</li>
-                                    <li class="item-price">${r.goodsPrice}원</li>
+                                    <li class="item-price">${commaPrice}원</li>
                                 </ul>
                             </div>
                         </a>
@@ -103,8 +114,15 @@ function getCategoryImage(category) {
         '간식': '/img/goods-snack.jpg',
         '영양제': '/img/goods-nutrition.jpg',
         '위생용품': '/img/goods-hygiene.jpg',
+        '산책용품' : '/img/goods-snack.jpg'
         // 다른 카테고리에 대한 이미지도 추가할 수 있습니다.
     };
 
     return categoryImages[category] || '/img/default-image.jpg'; // 카테고리에 대응하는 이미지가 없을 경우 디폴트 이미지 반환
+}
+
+
+
+function addCommas(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

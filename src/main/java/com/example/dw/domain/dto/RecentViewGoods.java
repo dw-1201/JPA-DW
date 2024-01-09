@@ -52,8 +52,8 @@ public class RecentViewGoods {
     // 본 시간을 기준으로 내림차순으로 정렬
         recentViews.sort(Comparator.comparing((RecentViewGoods recentViewGoods) -> recentViewGoods.getLastViewed()).reversed());
 
-    // 최근 본 6개의 상품만 유지
-    int maxSize = 6;
+    // 최근 본 5개의 상품만 유지
+    int maxSize = 5;
         if (recentViews.size() > maxSize) {
         recentViews = recentViews.subList(0, maxSize);
     }

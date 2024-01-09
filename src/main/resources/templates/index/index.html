@@ -17,17 +17,23 @@
 
     </div>
     <!-- header 끝 -->
+    <div class="side-banner" style="position: sticky; top: 130px">
+        <div class="side-banner-fragment" th:replace="fragment/sideBanner :: side-banner-fragment">
 
+        </div>
+    </div>
     
     <!-- main 시작 -->
     <main class="main">
-        <div class="side-banner" style="position: sticky; width: 100%">
-            <div class="side-banner-fragment" th:replace="fragment/sideBanner :: side-banner-fragment">
 
-            </div>
-        </div>
 
-        <div class="main-container">    
+        <div class="main-container">
+<!--            <div class="main-title">-->
+<!--                <span>"</span>-->
+<!--                <h4>우리, 오늘..-->
+<!--                <br>산책메이트를 구해볼까요?</h4>-->
+<!--                <span class="right">"</span>-->
+<!--            </div>-->
 <!--            <div class="main-banner">-->
 <!--                <img src="/img/indeximg.png" alt="메인배너"/>-->
 <!--            </div>-->
@@ -178,16 +184,22 @@
             <div class="community-notice-section">
                 <ul class="community-notice community-ul">
                     <li class="qna-community community-li">
+                        <div class="title-section">
                         <h5>주간 QnA 인기글</h5>
+                            <p><a href="/qna/qnaLists">더 보기</a></p>
+                        </div>
                         <div class="weekly-qna weekly-div">
                             <ul class="weekly-qna-ul weekly-ul">
                                 <li class="weekly-qna-li weekly-li">
-                                    <img src="/img/dogImg.jpg" alt="qna인기글 사진"/>
-                                    <div class="qna-detail detail">
-                                        <div class="qna-writer writer">bokbok1234</div>
-                                        <div class="qna-title title">이건 머에용?</div>
-                                        <div class="qna-rank">1위</div>
-                                    </div>
+                                    <a href="">
+                                        <img src="/img/dogImg.jpg" alt="qna인기글 사진"/>
+                                        <div class="qna-detail detail">
+                                            <div class="qna-writer writer">bokbok1234</div>
+                                            <div class="qna-title title">이건 머에용?</div>
+                                            <div class="qna-rank">1위</div>
+                                        </div>
+                                    </a>
+
                                 </li>
                                 <li class="weekly-qna-li weekly-li">
                                     <img src="/img/dogImg.jpg" alt="qna인기글 사진"/>
@@ -212,15 +224,20 @@
                         </div>
                     </li>
                     <li class="free-community">
+                        <div class="title-section">
                         <h5>주간 자유게시판 인기글</h5>
+                            <p><a href="/community/freeBoardList">더 보기</a></p>
+                        </div>
                         <div class="weekly-free weekly-div">
                             <ul class="weekly-free-ul weekly-ul">
                                 <li class="weekly-free-li weekly-li">
-                                    <div class="free-detail detail">
-                                        <div class="free-rank rank">1위</div>
-                                        <div class="free-title title">이건 머에용?</div>
-                                        <div class="free-view-count count">3</div>
-                                    </div>
+                                    <a href="">
+                                        <div class="free-detail detail">
+                                            <div class="free-rank rank">1위</div>
+                                            <div class="free-title title">이건 머에용?</div>
+                                            <div class="free-view-count count">3</div>
+                                        </div>
+                                    </a>
                                 </li>
                                 <li class="weekly-free-li weekly-li">
                                     <div class="free-detail detail">
@@ -275,7 +292,7 @@
                             <li>위생용품</li>
                             <li>이동장</li>
                             <li>장난감</li>
-                            <li>하네스/줄</li>
+                            <li>산책용품</li>
                         </ul>
                     </div>
                     <div class="shop-lists">
@@ -299,18 +316,21 @@
                 <div class="recent-view-goods-list">
                     <ul class="recent-view-goods-list-ul">
                         <li th:if="${recentGoods != null && recentGoods.size() > 0}" th:each="recent : ${recentGoods}">
+                            <input type="hidden" th:value="${recent.goodsPrice}" class="goodsPrice"/>
+                            <a th:href="@{/shop/shopDetail/{id} (id=${recent.goodsId})}">
+
                             <div class="recent-view-goods">
                                 <dl class="recent-view-goods-dl">
                                     <dt>
-                                        <a th:href="@{/shop/shopDetail/{id} (id=${recent.goodsId})}">
 
                                         <img th:src="'/jpa_dw/goods/' + ${recent.goodsImgPath} +'/' + ${recent.goodsImgUuid} + '_' + ${recent.goodsImgName}" alt="최근 본 상품"/>
-                                        </a>
                                     </dt>
                                     <dd class="recent-goods-name" th:text="${recent.goodsName}"></dd>
-                                    <dd class="recent-goods-price" th:text="${recent.goodsPrice}"></dd>
+                                    <dd class="recent-goods-price"></dd>
                                 </dl>
                             </div>
+                            </a>
+
                         </li>
                         <li class="non-recent-goods" th:if="${recentGoods == null || recentGoods.size() == 0}">최근 본 상품이 없습니다.</li>
                     </ul>
