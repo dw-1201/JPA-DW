@@ -16,6 +16,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admins/*")
@@ -31,6 +35,17 @@ public class AdminGoodsApiController {
 
         Pageable pageable = PageRequest.of(page, 15);
         Page<AdminGoodsDto> result = goodsRepositoryCustom.findGoodsAll(pageable, searchForm);
+
+
+        //해당 날짜가 껴있는 전주 날짜 구하기
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime lastWeekStart = now.minusWeeks(1).with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).toLocalDate().atStartOfDay();
+        LocalDateTime lastWeekEnd = now.minusWeeks(1).with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)).toLocalDate().atTime(23, 59, 59);
+
+        System.out.println("Last week's start date: " + lastWeekStart);
+        System.out.println("Last week's end date: " + lastWeekEnd);
+
+
         return result;
 
     }
