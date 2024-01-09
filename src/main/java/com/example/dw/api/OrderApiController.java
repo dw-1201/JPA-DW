@@ -1,7 +1,6 @@
 package com.example.dw.api;
 
 import com.example.dw.domain.form.OrderForm;
-import com.example.dw.domain.form.OrdersItemForm;
 import com.example.dw.service.OrderService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +32,7 @@ public class OrderApiController {
             System.out.println(orderForm+"@@@@@@@@@@");
             System.out.println("55555555555555555555555");
 
-            orderService.registerItem(OrdersItemForm.builder().build(),httpSession);
+//            orderService.registerItem(OrdersItemForm.builder().build(),httpSession);
 //            orderService.registerList(OrderListForm.builder().build());
             System.out.println("OrdersItemForm+OrderListForm = 저장완료");
 
