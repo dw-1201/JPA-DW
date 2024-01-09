@@ -7,14 +7,15 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Entity
 @Getter
 @Table(name="order_list")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EntityListeners(AuditingEntityListener.class)
 public class OrderList {
 
     @Id
@@ -23,25 +24,16 @@ public class OrderList {
     private Long id;
 
     @CreatedDate
-    private String orderDate;
+    private LocalDateTime orderDate;
 
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Orders orders;
 
-    @OneToOne(mappedBy = "orderList",fetch = FetchType.LAZY)
-    private OrderReview orderReview;
-
     @Builder
-    public OrderList(Long id, String orderDate, Orders orders, OrderReview orderReview) {
+    public OrderList(Long id, LocalDateTime orderDate, Orders orders) {
         this.id = id;
         this.orderDate = orderDate;
         this.orders = orders;
-        this.orderReview = orderReview;
-    }
-
-    @PrePersist
-    public void onPrePersist(){
-        this.orderDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
     }
 }

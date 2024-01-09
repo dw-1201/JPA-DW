@@ -24,9 +24,7 @@ public class QOrderList extends EntityPathBase<OrderList> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final StringPath orderDate = createString("orderDate");
-
-    public final QOrderReview orderReview;
+    public final DateTimePath<java.time.LocalDateTime> orderDate = createDateTime("orderDate", java.time.LocalDateTime.class);
 
     public final QOrders orders;
 
@@ -48,7 +46,6 @@ public class QOrderList extends EntityPathBase<OrderList> {
 
     public QOrderList(Class<? extends OrderList> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.orderReview = inits.isInitialized("orderReview") ? new QOrderReview(forProperty("orderReview"), inits.get("orderReview")) : null;
         this.orders = inits.isInitialized("orders") ? new QOrders(forProperty("orders"), inits.get("orders")) : null;
     }
 
