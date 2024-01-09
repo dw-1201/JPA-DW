@@ -10,24 +10,17 @@ import lombok.*;
 @NoArgsConstructor
 public class OrderListForm {
 
-    private Long id;
-    private String orderDate;
-
     //주문서 Id
     private Long orderId;
 
     public OrderList toEntity(){
         return OrderList.builder()
-                .id(id)
-                .orderDate(orderDate)
                 .orders(Orders.builder().id(orderId).build())
                 .build();
     }
 
     @Builder
-    public OrderListForm(Long id, String orderDate, Long orderId) {
-        this.id = id;
-        this.orderDate = orderDate;
+    public OrderListForm(Long orderId) {
         this.orderId = orderId;
     }
 }

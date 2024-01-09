@@ -30,11 +30,6 @@ public class OrderApiController {
         try {
             orderService.register(orderForm, httpSession);
             System.out.println(orderForm+"@@@@@@@@@@");
-            System.out.println("55555555555555555555555");
-
-//            orderService.registerItem(OrdersItemForm.builder().build(),httpSession);
-//            orderService.registerList(OrderListForm.builder().build());
-            System.out.println("OrdersItemForm+OrderListForm = 저장완료");
 
         }catch (Exception e){
             e.printStackTrace();

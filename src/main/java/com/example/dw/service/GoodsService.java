@@ -103,23 +103,29 @@ public class GoodsService {
     public void cartItemRegister(Long userId, CartItemForm cartItemForm){
 
         try {
+            //유저Id를 이용하여 장바구니 생성
             CartDto cartDto = shopRepositoryCustom.findCartIdByUserId(userId);
 
+            //장바구니 정보가 없다면 새로운 장바구니 생성 후 유저Id를 다시 받아옴
             if (cartDto == null) {
                 CartForm cartForm = new CartForm();
                 cartForm.setUserId(userId);
                 Long newCartId = cartRegister(cartForm);
                 cartItemForm.setCartId(newCartId);
             } else {
+                //장바구니 존재시, 해당 장바구니로 진행
                 cartItemForm.setCartId(cartDto.getId());
             }
 
+            //장바구니 존재 확인
             boolean itemExistsInCart = shopRepositoryCustom.checkGoodsId(cartItemForm.getGoodsId(), userId, cartItemForm.getCartId());
 
+            //장바구니 존재시 수량 업데이트
             if (itemExistsInCart) {
                 CartItem cartItem = cartItemRepository.findByCartIdAndGoodsId(cartItemForm.getCartId(), cartItemForm.getGoodsId());
                 cartItem.itemCount(cartItemForm);
             } else {
+                //존재 하지 않는 경우 새로운 상품, 장바구니에 추가
                 cartItemRepository.save(cartItemForm.toEntity());
             }
         } catch (NullPointerException e) {

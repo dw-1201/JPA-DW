@@ -1,13 +1,15 @@
 package com.example.dw.service;
 
-import com.example.dw.domain.form.GoodsPayListFrom;
+import com.example.dw.domain.entity.goods.Cart;
 import com.example.dw.domain.entity.order.Orders;
+import com.example.dw.domain.form.GoodsPayListFrom;
 import com.example.dw.domain.form.OrderForm;
 import com.example.dw.domain.form.OrderListForm;
+import com.example.dw.repository.goods.CartItemRepository;
+import com.example.dw.repository.goods.CartRepository;
 import com.example.dw.repository.order.OrderItemRepository;
 import com.example.dw.repository.order.OrderListRepository;
 import com.example.dw.repository.order.OrderRepository;
-import com.example.dw.repository.user.UsersRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,11 +23,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderService {
 
-    private final HttpSession httpSession;
-    private final UsersRepository usersRepository;
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
     private final OrderListRepository orderListRepository;
+    private final CartItemRepository cartItemRepository;
+    private final CartRepository cartRepository;
 
     //주문서 작성
     @Transactional
@@ -33,22 +35,36 @@ public class OrderService {
 
         Long userId = (Long)httpSession.getAttribute("userId");
         orderForm.setUserId(userId);
+//        Long cartId = cartRepository.findCartByUsersId(userId);
         System.out.println("1111111111111111111111");
+//        System.out.println("카트아뒤"+cartId);
         try {
             Orders order = orderRepository.save(orderForm.toEntity());
             System.out.println(orderForm+"2222222222222222222");
 
             Long orderId = order.getId();
+            Cart cartId = cartRepository.findCartIdByUsersId(userId);
+
 
             List<GoodsPayListFrom> goodsPayListDtoList = (List<GoodsPayListFrom>)httpSession.getAttribute("goodsPayList");
             for(GoodsPayListFrom goodsPayListFrom : goodsPayListDtoList)
             {
                 goodsPayListFrom.setOrderId(orderId);
+                //주문 상품 저장
                 orderItemRepository.save(goodsPayListFrom.toEntity());
-
-
-
+                cartItemRepository.deleteByCartId(cartId.getId());
             }
+
+
+            OrderListForm orderListForm = new OrderListForm();
+            orderListForm.setOrderId(orderId);
+            orderListRepository.save(orderListForm.toEntity());
+
+            //주문 상품 삭제
+//            cartRepository.deleteById(cartId.getId());
+            httpSession.removeAttribute("goodsPayList");
+
+                System.out.println("카트 삭제 완료");
 
 
         }catch (Exception e){
@@ -57,14 +73,4 @@ public class OrderService {
         System.out.println("33333333333333333333");
     }
 
-    @Transactional
-    public void registerList(OrderListForm orderListForm) throws IOException{
-        try{
-            orderListRepository.save(orderListForm.toEntity());
-            System.out.println("OrderListForm save");
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        System.out.println("OrderListForm no save");
-    }
 }

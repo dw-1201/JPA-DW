@@ -7,10 +7,15 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name="orders")
 @Getter
+@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Orders {
     @Id
@@ -27,6 +32,9 @@ public class Orders {
     private String orderUserEmail;
     private String orderMemo;
 
+    @CreatedDate
+    private LocalDateTime orderRegisterDate;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private Users user;
@@ -35,7 +43,7 @@ public class Orders {
     private OrderList orderList;
 
     @Builder
-    public Orders(Long id, String orderUserName, String orderUserAddressNumber, String orderAddressNormal, String orderAddressDetail, String orderAddressDetails, String orderUserPhoneNumber, String orderUserEmail, String orderMemo, Users user, OrderList orderList) {
+    public Orders(Long id, String orderUserName, String orderUserAddressNumber, String orderAddressNormal, String orderAddressDetail, String orderAddressDetails, String orderUserPhoneNumber, String orderUserEmail, String orderMemo, LocalDateTime orderRegisterDate, Users user, OrderList orderList) {
         this.id = id;
         this.orderUserName = orderUserName;
         this.orderUserAddressNumber = orderUserAddressNumber;
@@ -45,6 +53,7 @@ public class Orders {
         this.orderUserPhoneNumber = orderUserPhoneNumber;
         this.orderUserEmail = orderUserEmail;
         this.orderMemo = orderMemo;
+        this.orderRegisterDate = orderRegisterDate;
         this.user = user;
         this.orderList = orderList;
     }

@@ -162,7 +162,6 @@ public class GoodsApiController {
     public List<GoodsPayListFrom> payGoodsList(HttpSession session){
        List<GoodsPayListFrom> goodsPayListDtoList = (List<GoodsPayListFrom>) session.getAttribute("goodsPayList");
 
-
         System.out.println(goodsPayListDtoList+"((((((((((((((((()))))))))))))))");
 
         return goodsPayListDtoList;
