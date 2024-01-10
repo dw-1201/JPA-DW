@@ -1,4 +1,4 @@
-package com.example.dw.domain.dto;
+package com.example.dw.domain.dto.goods;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.Data;
@@ -15,17 +15,26 @@ public class RecentViewGoods {
 
 
     private Long goodsId;
+    private String goodsName;
+    private Integer goodsPrice;
+    private String goodsImgPath;
+    private String goodsImgUuid;
+    private String goodsImgName;
     private LocalDateTime lastViewed;
 
 
-    public RecentViewGoods(Long goodsId, LocalDateTime lastViewed) {
+    public RecentViewGoods(Long goodsId, String goodsName, Integer goodsPrice, String goodsImgPath, String goodsImgUuid, String goodsImgName, LocalDateTime lastViewed) {
         this.goodsId = goodsId;
+        this.goodsName = goodsName;
+        this.goodsPrice = goodsPrice;
+        this.goodsImgPath = goodsImgPath;
+        this.goodsImgUuid = goodsImgUuid;
+        this.goodsImgName = goodsImgName;
         this.lastViewed = lastViewed;
     }
 
-
     // 상품이 클릭되었을 때 최근 본 상품을 session에 담는 메소드
-    public void productClicked(Long productId, HttpSession session) {
+    public void productClicked(GoodsDetailDto goodsDetailDto, HttpSession session) {
 
         List<RecentViewGoods> recentViews = (List<RecentViewGoods>) session.getAttribute("recentViews");
 
@@ -37,7 +46,7 @@ public class RecentViewGoods {
         // 상품 ID로 조회된 상품이 이미 최근 본 상품 목록에 있는지 확인
         boolean exists = false;
         for (RecentViewGoods recent : recentViews) {
-            if (recent.getGoodsId().equals(productId)) {
+            if (recent.getGoodsId().equals(goodsDetailDto.getId())) {
                 exists = true;
                 recent.setLastViewed(LocalDateTime.now()); // 기존에 있던 상품이면 시간 갱신
                 break;
@@ -46,7 +55,8 @@ public class RecentViewGoods {
 
         // 기존에 없던 상품이면 목록에 추가
         if (!exists) {
-        recentViews.add(new RecentViewGoods(productId, LocalDateTime.now()));
+        recentViews.add(new RecentViewGoods(goodsDetailDto.getId(), goodsDetailDto.getGoodsName(), goodsDetailDto.getGoodsPrice(), goodsDetailDto.getGoodsMainImgPath(),
+                goodsDetailDto.getGoodsMainImgUuid(), goodsDetailDto.getGoodsMainImgName(), LocalDateTime.now()));
     }
 
     // 본 시간을 기준으로 내림차순으로 정렬

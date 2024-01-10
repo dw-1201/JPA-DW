@@ -41,6 +41,7 @@ public class WalkMateForm {
 
 
 
+
     public WalkingMate toEntity(){
         return WalkingMate.builder()
                 .id(id)
@@ -56,5 +57,6 @@ public class WalkMateForm {
                 .users(Users.builder().id(userId).build())
                 .build();
     }
+
 
 }

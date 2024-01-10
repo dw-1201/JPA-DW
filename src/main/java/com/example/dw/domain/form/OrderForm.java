@@ -33,7 +33,7 @@ public class OrderForm {
                 .orderUserPhoneNumber(orderUserPhoneNumber)
                 .orderUserEmail(orderUserEmail)
                 .orderMemo(orderMemo)
-                .user(Users.builder().id(userId).build())
+                .users(Users.builder().id(userId).build())
                 .build();
     }
 

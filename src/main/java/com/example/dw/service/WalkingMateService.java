@@ -176,7 +176,12 @@ public class WalkingMateService {
     public void walkModify(WalkMateForm walkMateForm){
 
         WalkingMate walkingMate = walkingMateRepository.findById(walkMateForm.getId()).get();
-        walkingMate.update(walkMateForm);
+
+        if(walkMateForm.getWalkingMateDate().equals(walkingMate.getWalkingMateDate())){
+            walkingMate.updateExceptDate(walkMateForm);
+        }else {
+            walkingMate.update(walkMateForm);
+        }
 
     }
     
