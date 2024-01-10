@@ -60,6 +60,7 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
                         goods.id,
                         goods.goodsName,
                         goods.goodsQuantity,
+                        goods.saleCount,
                         goods.goodsPrice,
                         goods.goodsCategory.stringValue(),
                         goods.goodsRegisterDate,
@@ -114,7 +115,8 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
                         goodsDetailImg.id,
                         goodsDetailImg.goodsDetailImgName,
                         goodsDetailImg.goodsDetailImgPath,
-                        goodsDetailImg.goodsDetailImgUuid
+                        goodsDetailImg.goodsDetailImgUuid,
+                        goods.saleCount
                 ))
                 .from(goods)
                 .leftJoin(goods.goodsMainImg, goodsMainImg)

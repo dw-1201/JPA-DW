@@ -13,8 +13,8 @@ public class QAdminGoodsDto extends ConstructorExpression<AdminGoodsDto> {
 
     private static final long serialVersionUID = 142333418L;
 
-    public QAdminGoodsDto(com.querydsl.core.types.Expression<Long> id, com.querydsl.core.types.Expression<String> goodsName, com.querydsl.core.types.Expression<Integer> goodsQuantity, com.querydsl.core.types.Expression<Integer> goodsPrice, com.querydsl.core.types.Expression<String> categoryName, com.querydsl.core.types.Expression<String> goodsRegisterDate, com.querydsl.core.types.Expression<String> goodsModifyDate) {
-        super(AdminGoodsDto.class, new Class<?>[]{long.class, String.class, int.class, int.class, String.class, String.class, String.class}, id, goodsName, goodsQuantity, goodsPrice, categoryName, goodsRegisterDate, goodsModifyDate);
+    public QAdminGoodsDto(com.querydsl.core.types.Expression<Long> id, com.querydsl.core.types.Expression<String> goodsName, com.querydsl.core.types.Expression<Integer> goodsQuantity, com.querydsl.core.types.Expression<Integer> goodsSaleCount, com.querydsl.core.types.Expression<Integer> goodsPrice, com.querydsl.core.types.Expression<String> goodsCategory, com.querydsl.core.types.Expression<String> goodsRegisterDate, com.querydsl.core.types.Expression<String> goodsModifyDate) {
+        super(AdminGoodsDto.class, new Class<?>[]{long.class, String.class, int.class, int.class, int.class, String.class, String.class, String.class}, id, goodsName, goodsQuantity, goodsSaleCount, goodsPrice, goodsCategory, goodsRegisterDate, goodsModifyDate);
     }
 
 }

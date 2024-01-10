@@ -1,6 +1,6 @@
 package com.example.dw.repository.goods;
 
-import com.example.dw.domain.dto.RecentViewGoods;
+import com.example.dw.domain.dto.goods.RecentViewGoods;
 import com.example.dw.domain.dto.goods.*;
 import com.example.dw.domain.form.SearchForm;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -119,42 +119,6 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
         return contents;
     }
 
-
-    //최근 본 상품
-    @Override
-    public List<RecentViewGoodsDto> recentViewGoods(HttpSession session) {
-        // session에서 최근 본 상품 목록을 가져옴(시간 순서대로 goodsId가 저장되어있음)
-        List<RecentViewGoods> recentViews = (List<RecentViewGoods>) session.getAttribute("recentViews");
-
-        // 최근 본 상품 목록을 기반으로 쿼리하여 상품 정보 조회
-        List<Long> goodsIds = recentViews.stream()
-                .map(RecentViewGoods::getGoodsId)
-                .collect(Collectors.toList());
-
-        List<RecentViewGoodsDto> recentGoods = jpaQueryFactory.select(new QRecentViewGoodsDto(
-                goods.id,
-                goods.goodsName,
-                goods.goodsPrice,
-                goodsMainImg.goodsMainImgPath,
-                goodsMainImg.goodsMainImgUuid,
-                goodsMainImg.goodsMainImgName
-        ))
-                .from(goods)
-                .leftJoin(goods.goodsMainImg, goodsMainImg)
-                .where(goods.id.in(goodsIds))
-                .fetch();
-
-        // 최근 본 상품 ID 목록의 순서대로 결과를 정렬하여 반환
-        List<RecentViewGoodsDto> sortedRecentGoods = recentGoods.stream()
-                //sorted 메소드를 사용하여 recentGoods 리스트안의 객체들을 정렬
-                //Comparator.comparing을 사용하여 정렬기준 지정
-                .sorted(Comparator.comparing(goods -> goodsIds.indexOf(goods.getGoodsId()))) //goods는 아무 이름이나 붙어도된다.
-                                            //goodsIds.indexOf(goods.getGoodsId())를 사용하여 현재 객체의 goodsId가 goodsIds리스트에서 몇 번째 위치하는지 비교하여 정렬
-                                            //즉 recentGoods에 시간 순서대로 정렬되어있는 goodsId와 비교하여 정렬. 서로의 값이 같으면 같은 순서대로 리스트로 정렬
-                .collect(Collectors.toList());
-
-        return sortedRecentGoods;
-    }
 
 
     @Override

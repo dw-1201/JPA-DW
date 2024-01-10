@@ -14,6 +14,7 @@ import java.util.List;
 @Entity
 @Table(name="goods")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 @Getter
 @ToString(exclude={"goodsMainImg", "goodsDetailImg"})
 public class Goods {
@@ -48,6 +49,16 @@ public class Goods {
     @OneToMany(mappedBy = "goods", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<CartItem> cartItem = new ArrayList<>();
 
+    @Builder.Default
+    private int saleCount=0;
+
+
+
+
+
+
+
+
     public Goods(Long id, String goodsName, int goodsQuantity, int goodsPrice, GoodsCategory goodsCategory){
         this.id=id;
         this.goodsName=goodsName;
@@ -57,7 +68,7 @@ public class Goods {
     }
 
     @Builder
-    public Goods(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate, GoodsCategory goodsCategory, List<GoodsMainImg> goodsMainImg, List<GoodsDetailImg> goodsDetailImg, List<GoodsQue> goodsQues, List<CartItem> cartItem) {
+    public Goods(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate, GoodsCategory goodsCategory, List<GoodsMainImg> goodsMainImg, List<GoodsDetailImg> goodsDetailImg, List<GoodsQue> goodsQues, List<CartItem> cartItem, Integer saleCount) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;
@@ -72,7 +83,11 @@ public class Goods {
         this.goodsDetailImg = goodsDetailImg;
         this.goodsQues = goodsQues;
         this.cartItem = cartItem;
+        this.saleCount = saleCount;
     }
+
+
+
 
     //상품 수정
     public Goods update(GoodsForm goodsForm){

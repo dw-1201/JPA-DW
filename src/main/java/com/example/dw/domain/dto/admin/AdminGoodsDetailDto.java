@@ -26,10 +26,11 @@ public class AdminGoodsDetailDto {
     private String goodsDetailImgName;
     private String goodsDetailImgPath;
     private String goodsDetailImgUuid;
+    private int saleCount;
 
     @QueryProjection
-    public AdminGoodsDetailDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate, String goodsCategory, Long goodsMainImgId,
-                               String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid, Long goodsDetailImgId, String goodsDetailImgName, String goodsDetailImgPath, String goodsDetailImgUuid) {
+
+    public AdminGoodsDetailDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate, String goodsCategory, Long goodsMainImgId, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid, Long goodsDetailImgId, String goodsDetailImgName, String goodsDetailImgPath, String goodsDetailImgUuid, int saleCount) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;
@@ -48,6 +49,7 @@ public class AdminGoodsDetailDto {
         this.goodsDetailImgName = goodsDetailImgName;
         this.goodsDetailImgPath = goodsDetailImgPath;
         this.goodsDetailImgUuid = goodsDetailImgUuid;
+        this.saleCount = saleCount;
     }
 }
 
