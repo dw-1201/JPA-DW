@@ -16,9 +16,11 @@ public class WalkMateStateDto {
     private String userNickName;
     private Integer state;
     private Integer writerCheck;
+    private String address;
+    private String detail;
 
     @QueryProjection
-    public WalkMateStateDto(Long id, Long walkMateId, Long userId, String userAccount, String userNickName, Integer state, Integer writerCheck) {
+    public WalkMateStateDto(Long id, Long walkMateId, Long userId, String userAccount, String userNickName, Integer state, Integer writerCheck, String address, String detail) {
         this.id = id;
         this.walkMateId = walkMateId;
         this.userId = userId;
@@ -26,5 +28,7 @@ public class WalkMateStateDto {
         this.userNickName = userNickName;
         this.state = state;
         this.writerCheck = writerCheck;
+        this.address = address;
+        this.detail = detail;
     }
 }

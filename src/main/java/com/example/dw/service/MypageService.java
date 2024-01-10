@@ -8,6 +8,8 @@ import com.example.dw.domain.form.GoodsForm;
 import com.example.dw.domain.form.PetForm;
 import com.example.dw.domain.form.PetUpdateForm;
 import com.example.dw.domain.form.UserUpdateForm;
+import com.example.dw.repository.community.WalkingMateRepository;
+import com.example.dw.repository.community.WalkingMateStateRepository;
 import com.example.dw.repository.pet.PetRepository;
 import com.example.dw.repository.user.UsersRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,8 @@ public class MypageService {
     private final FileService fileService;
     private final UsersRepository usersRepository;
     private final PetRepository petRepository;
+    private final WalkingMateStateRepository walkingMateStateRepository;
+    private final WalkingMateRepository walkingMateRepository;
 
 
     //회원정보 수정
@@ -133,5 +137,48 @@ public class MypageService {
 
     }
 
+    // 산책글 신청인원 승인 처리
+    @Transactional
+    public Integer walkmatestateupdate(Long walkmatestateId){
+        System.out.println(walkmatestateId);
+
+        walkingMateStateRepository.upDateWalkMateState(walkmatestateId);
+
+        Integer state = walkingMateStateRepository.findById(walkmatestateId).get().getState();
+        System.out.println(state + "로 변경");
+        System.out.println(walkmatestateId +"번 승인 완료");
+
+        return state;
+    }
+
+    //산책글 신청인원 취소 처리
+
+    @Transactional
+    public Integer walkmatestatedown(Long walkmatestateId){
+        System.out.println(walkmatestateId);
+
+        walkingMateStateRepository.downWalkMateState(walkmatestateId);
+
+        Integer state = walkingMateStateRepository.findById(walkmatestateId).get().getState();
+        System.out.println(state + "로 변경");
+        System.out.println(walkmatestateId +"번 승인 완료");
+
+        return state;
+    }
+
+    //산책글 모집완료 상태로 변경
+    @Transactional
+    public Long walkingmatestateupdate(Long walkingmateId){
+
+        System.out.println(walkingmateId);
+
+        walkingMateRepository.updateWalkMateState(walkingmateId);
+
+        Long walkingmatestate = walkingMateRepository.findById(walkingmateId).get().getWalkingMateState();
+
+        System.out.println(walkingmatestate+"으로 값 변경");
+
+        return  walkingmatestate;
+    }
 
 }

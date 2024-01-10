@@ -36,4 +36,8 @@ public interface WalkingMateRepository extends JpaRepository<WalkingMate, Long> 
             "left join PetImg pi on p.id=pi.pet.id " +
             "where wm.id=:walkMateId and wms.state=1 and wms.writerCheck=0")
     List<WalkDetailStateDto> applierPetsInfo(@Param("walkMateId")Long walkMateId);
+
+
+
+
 }

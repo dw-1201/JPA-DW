@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -73,81 +73,41 @@
                     <div class="walk-list">
                         <div class="list-content">
                             <div class="content-text-box">
-                                <div class="list-content-title">산책 메이트를 찾아요~</div>
-                                <div class="list-content-content">
-                                    <div class="list-content-content-detail">
-                                        노원구 근처 공원에서 저희 집 댕댕이와 산책할 매너있는 메이트를 찾습니다.
-                                        산책을 희망하시면 댓글남겨주세요~~
-                                    </div> 
-                                </div>
-                                <div class="list-content-etc">
-                                    <div class="list-content-address">
-                                        <span>서울시 노원구</span>
+
+
+                                <td class="permit-area" style="display: none">
+                                    <div class="y-y">
+                                        <div class="y">
+                                            <span class="y-click" data-number="${e.id}" >승인</span>
+                                        </div>
                                     </div>
-                                    <div class="list-content-recruit">
-                                        <span>모집인원</span>
-                                        <span class="recruit-count">1/5</span>
+                                </td>
+                                <td class="permit-area" style="display: none">
+                                    <div class="n">
+                                        <div class="n-area">
+                                            <div class="y-a">
+                                                <span class="succes">완료</span>
+                                            </div>
+
+                                            <div class="cencel-area" >
+                                                <span class="cencel" data-numbers="${e.id}">취소</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="recruit-btn-box">
-                                        <button>모집 대기</button>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="content-img-box">
-                                <div class="content-img">
-                                    <img src="/mypg/img/강아지.png" alt="">
-                                </div>
-                            </div>
-                          
-                        </div>
-                        <div class="list-content">
-                            <div class="content-text-box">
-                                <div class="list-content-title">산책 메이트를 찾아요~</div>
-                                <div class="list-content-content">
-                                    <div class="list-content-content-detail">
-                                        노원구 근처 공원에서 저희 집 댕댕이와 산책할 매너있는 메이트를 찾습니다.
-                                        산책을 희망하시면 댓글남겨주세요~~
-                                    </div>
-                                </div>
-                                <div class="list-content-etc">
-                                    <div class="list-content-address">
-                                        <span>서울시 노원구</span>
-                                    </div>
-                                    <div class="list-content-recruit">
-                                        <span>모집인원</span>
-                                        <span class="recruit-count">1/5</span>
-                                    </div>
-                                    <div class="recruit-box">
-                                        <span>모집 완료</span>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="content-img-box">
-                                <div class="content-img">
-                                    <img src="/mypg/img/강아지.png" alt="">
-                                </div>
-                            </div>
-
-                        </div>
-
-
-
-
-
-
-                        <div class="list-page-container">
-                            <div class="list-pages">
-                                <ul class="pagination-ul">
-
-                                </ul>
+                                </td>
                             </div>
                         </div>
+
 
                     </div>
 
-                
+                </div>
+                <div class="list-page-container">
+                    <div class="list-pages">
+                        <ul class="pagination-ul">
+
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>    

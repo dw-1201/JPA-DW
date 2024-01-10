@@ -103,11 +103,9 @@ function showList(result){
                 text +=`
             <td><img src="/img/001.png" alt="모집중" class="mate-status"/></td>
             `;
-<<<<<<< HEAD
-            }else if(r.curren1tState==1 || (r.walkingMateToday == r.walkingMatePerson)){
-=======
+
             }else if(r.walkingMateState==1 ){
->>>>>>> main
+
                 text += `
             <td><img src="/img/002.png" alt="모집완료" class="mate-status"/></td>
 

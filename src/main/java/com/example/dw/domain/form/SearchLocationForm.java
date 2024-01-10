@@ -27,14 +27,11 @@ public class SearchLocationForm {
     }
 
 
-<<<<<<< HEAD
 
-
-=======
     public SearchLocationForm(String area, String city, String county) {
         this.area = area;
         this.city = city;
         this.county = county;
     }
->>>>>>> main
+
 }
