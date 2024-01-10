@@ -2,15 +2,20 @@ package com.example.dw.domain.entity.order;
 
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Setter
 @Table(name="order_list")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EntityListeners(AuditingEntityListener.class)
 public class OrderList {
 
     @Id
@@ -18,13 +23,17 @@ public class OrderList {
     @Column(name = "order_list_id")
     private Long id;
 
+    @CreatedDate
     private LocalDateTime orderDate;
 
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Orders orders;
 
-    @OneToOne(mappedBy = "orderList",fetch = FetchType.LAZY)
-    private OrderReview orderReview;
-
+    @Builder
+    public OrderList(Long id, LocalDateTime orderDate, Orders orders) {
+        this.id = id;
+        this.orderDate = orderDate;
+        this.orders = orders;
+    }
 }

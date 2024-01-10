@@ -7,6 +7,32 @@
 
 }
 
+.main-title{
+    display: flex;
+    margin-top: 76px;
+    align-items: center;
+    justify-content: center;
+    height: 65px;
+}
+
+
+.main-title span {
+    font-size: 131px;
+    display: block;
+    width: 80px;
+    height: 90px;
+    color: white;
+    text-shadow: 2px 2px 7px gray;
+}
+.right {
+    text-align: right;
+}
+
+.main-title h4 {
+    text-shadow: 1px 2px 4px black;
+    color: white;
+    font-size: 21px;
+}
 
 /*메인페이지 배너*/
 .main-img-container{
@@ -232,6 +258,8 @@
     padding: 10px;
     display: grid;
     height: 100%;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    place-items: center;
 }
 .walk-mate-index-list-ul li {
     width: 702px;
@@ -345,12 +373,16 @@
     width: 1024px;
     margin: 30px auto;
     height: 100%;
+    border: 1px solid #80808059;
+    border-radius: 20px;
 }
 
 .community-ul {
     display: flex;
     width: 1024px;
     justify-content: space-between;
+    box-sizing: border-box;
+    padding: 20px;
 }
 
 .qna-community, .free-community{
@@ -359,15 +391,20 @@
     display: flex;
     width: 450px;
     justify-content: space-between;
+    margin-top: 17px;
 
 }
 
 .community-li h5 {
-    padding: 0px 0px 10px 3px;
+    padding: 0px 0px 0px 3px;
 }
 
 .weekly-qna-li {
     width: 140px;
+}
+
+.weekly-li a {
+    color: black;
 }
 .weekly-qna-li img {
     width: 140px;
@@ -394,9 +431,10 @@
     font-size: 13px;
     display: flex;
     align-items: center;
+    height: 38px;
     border-bottom: 1px solid #8080806b;
     box-sizing: border-box;
-    padding: 10px 0px 8px 3px;
+    padding: 10px 0px 0px 3px;
 }
 
 .rank {
@@ -424,7 +462,7 @@
 
 
 .free-community {
-    width: 555px;
+    width: 515px;
     border-left: 1px solid gray;
     box-sizing: border-box;
     padding-left: 20px;
@@ -436,10 +474,27 @@
 }
 
 
+.title-section{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
 
 
+.title-section h5 {
+    width: 390px;
+}
+.title-section p {
+    font-size: 10px;
+    display: inline;
+    border-bottom: 1px solid gray;
+    height: 100%;
+}
+.title-section p a {
+    color: black;
 
-
+}
 
 
 
@@ -681,7 +736,7 @@
 
 .shop-main-img {
     width: 265px;
-    height: 614px;
+    height: 562px;
 }
 .shop-main-img img {
     width: 100%;
@@ -692,15 +747,17 @@
     padding-top: 10px;
 }
 
-
-.shop-item-list-ul {
+.shop-item-list-wrap {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 19px;
+}
+.shop-item-list-ul {
+
     width: 100%;
     box-sizing: border-box;
     padding: 10px;
-    grid-column-gap: 34px;
-    grid-row-gap: 75px;
+
 }
 .shop-item-list-ul a {
     color: black;
@@ -709,7 +766,7 @@
 .shop-item-list-ul li {
 
     width: 180px;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .item-img {
@@ -946,3 +1003,84 @@
 
 
 
+
+
+
+.recent-view-goods {
+    width: 1024px;
+    height: 100%;
+
+}
+.recent-view-goods-title{
+    margin-bottom: 20px;
+}
+
+.recent-view-goods-title h4 {
+
+}
+
+
+.recent-view-goods-list {
+
+}
+
+
+.recent-view-goods-list-ul{
+
+    width: 1024px;
+    display: grid;
+    box-sizing: border-box;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    place-items: center;
+    padding: 25px 15px 25px 15px;
+    border:1px solid #80808057}
+
+.recent-view-goods-list-ul li {
+    width: 170px;
+    height: 273px;
+    box-sizing: border-box;
+}
+
+.recent-view-goods{
+    margin-bottom: 190px;
+}
+
+.recent-view-goods-dl {
+}
+.recent-view-goods-dl dt {
+    width: 170px;
+    height: 175px;
+}
+
+.recent-view-goods-dl dt img {
+    width: 100%;
+    height: 100%;
+}
+
+
+.recent-goods-name {
+    width: 170px;
+    color: gray;
+    font-size: 11px;
+    padding: 10px 0px 0px 10px;
+    max-height: 50px;
+    box-sizing: border-box;
+}
+
+.recent-goods-price{
+    width: 170px;
+    color: gray;
+    font-size: 11px;
+    height: 25px;
+    padding: 10px 10px 0px 10px;
+    box-sizing: border-box;
+}
+
+.non-recent-goods {
+    width: 1024px !important;
+    font-size: 13px;
+    height: 130px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

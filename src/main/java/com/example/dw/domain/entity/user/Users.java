@@ -80,9 +80,6 @@ public class Users {
     @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<GoodsQueReply> goodsQueReplyList=new ArrayList<>();
 
-
-
-
     @Builder.Default
     private int userState = 1;
 
@@ -110,8 +107,6 @@ public class Users {
         this.goodsQueReplyList = goodsQueReplyList;
         this.userState = userState;
     }
-
-
 
 
     //임시비밀번호로 비밀번호 수정

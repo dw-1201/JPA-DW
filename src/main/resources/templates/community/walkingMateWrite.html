@@ -18,14 +18,14 @@
 
 </div>
 <!-- header 끝 -->
+<div class="side-banner" style="position: sticky; top: 130px">
+    <div class="side-banner-fragment" th:replace="fragment/sideBanner :: side-banner-fragment">
 
+    </div>
+</div>
 <!-- main 시작 -->
 <main class="main">
-    <div class="side-banner" style="position: sticky; width: 100%">
-        <div class="side-banner-fragment" th:replace="fragment/sideBanner :: side-banner-fragment">
 
-        </div>
-    </div>
     <form action="/walk/registerWalkMate" method="post" id="walk-write-form">
 
         <div class="main-container">

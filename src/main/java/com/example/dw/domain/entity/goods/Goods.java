@@ -48,7 +48,6 @@ public class Goods {
     @OneToMany(mappedBy = "goods", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<CartItem> cartItem = new ArrayList<>();
 
-
     public Goods(Long id, String goodsName, int goodsQuantity, int goodsPrice, GoodsCategory goodsCategory){
         this.id=id;
         this.goodsName=goodsName;
@@ -56,7 +55,6 @@ public class Goods {
         this.goodsPrice=goodsPrice;
         this.goodsCategory=goodsCategory;
     }
-
 
     @Builder
     public Goods(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate, GoodsCategory goodsCategory, List<GoodsMainImg> goodsMainImg, List<GoodsDetailImg> goodsDetailImg, List<GoodsQue> goodsQues, List<CartItem> cartItem) {
@@ -75,11 +73,6 @@ public class Goods {
         this.goodsQues = goodsQues;
         this.cartItem = cartItem;
     }
-
-
-
-
-
 
     //상품 수정
     public Goods update(GoodsForm goodsForm){

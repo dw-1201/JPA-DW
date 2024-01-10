@@ -50,7 +50,7 @@ function getCartList(result){
                   <a href="/shop/shopDetail/${r.goodsId}">
                   <input type="hidden" class="goodsId" value="${r.goodsId}">
                     <p class="goodsName">${r.goodsName}</p>
-                    <p id="price" class="item-price" data-price="${r.goodsPrice}">${addCommas(r.goodsPrice)}</p>
+                    <p id="price" class="item-price" data-price="${r.goodsPrice}">${addCommas(r.goodsPrice * r.cartItemQuantity)}</p>
                     <input type="hidden" value="${r.goodsPrice}" id="goodsPrice">
                   </a>
                 </div>
@@ -115,6 +115,7 @@ function updateTotalPrice() {
     /**
      * collectData : 특정 선택자의 텍스트 데이터를 수집
      * collectInputData : 특정 선택자의 입력 필드 값을 수집
+     * collectDataName : 특정 선택자의 데이터 이름의 값을 수집
      */
     function collectData(selector) {
         let data = [];
@@ -130,7 +131,6 @@ function updateTotalPrice() {
         });
         return data;
     }
-
     function collectDataName(selector, dataName) {
         let data = [];
         $(selector).each(function () {
@@ -149,7 +149,7 @@ function updateTotalPrice() {
         let goodsName = collectData('.thumbnail-dox-div .goodsName');
         let goodsId = collectInputData('.thumbnail-dox-div .goodsId');
         let cartItemQuantity = collectData('.quantity-box .quantity');
-        let userId = $('#userId').val();
+        userId = $('#userId').val();
 
         for (let i = 0; i < goodsId.length; i++) {
             let product = {

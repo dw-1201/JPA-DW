@@ -34,7 +34,7 @@
         <label>이름&nbsp; 
           <addr class="required">*</addr>
         </label>
-        <input type="text" placeholder="이름 입력" class="inputbox" id="userName">
+        <input type="text" placeholder="이름 입력" class="inputbox" id="userName" name="orderUserName">
       </div>
   
       <div class="name-box2">
@@ -42,9 +42,9 @@
           <addr class="required">*</addr>
         </label>
 
-        <input type="text" class="postalCode" placeholder="우편 번호" id="addressPost" name="addressPost" disabled/>
-        <input type="text" placeholder="도로명 및 번지" class="inputbox1" id="address" name="address"  disabled/>
-        <input type="text" class="inputbox2" id="addressDetail" name="addressDetail" disabled/>
+        <input type="text" class="postalCode" placeholder="우편 번호" id="addressPost" name="orderUserAddressNumber" disabled/>
+        <input type="text" placeholder="도로명 및 번지" class="inputbox1" id="orderAddressNormal" name="orderAddressNormal"  disabled/>
+        <input type="text" class="inputbox2" id="addressDetail" name="orderAddressDetail" disabled/>
         <input type="text" placeholder="상세 도로명을 입력해주세요" class="inputbox1" id="addressDetails" name="addressDetails" >
           <button class="box2-serch" value="우편번호 찾기" onclick="addressFind()">주소 찾기</button>
       </div>
@@ -53,21 +53,21 @@
         <label>전화 번호&nbsp;
           <addr class="required">*</addr>
         </label>
-        <input type="text" placeholder="전화 번호 입력" class="inputbox2" id="userPhone">
+        <input type="text" placeholder="전화 번호 입력" class="inputbox2" id="userPhone" name="orderUserPhoneNumber">
       </div>
 
       <div class="name-box4">
         <label>이메일 주소&nbsp;
           <addr class="required">*</addr>
         </label>
-        <input type="text" placeholder="이메일 입력" class="inputbox2" id="userEmail">
+        <input type="text" placeholder="이메일 입력" class="inputbox2" id="userEmail" name="orderUserEmail">
       </div>
 
       <div class="name-box4">
         <label>주문 메모&nbsp;
           <!-- <addr class="required">*</addr> -->
         </label>
-        <textarea name="" id="" cols="30" rows="10" placeholder="주문 관련 메시지, 예) 배송 관련 메모." class="inputbox3" ></textarea>
+        <textarea name="orderMemo" id="orderMemo" cols="30" rows="10" placeholder="주문 관련 메시지, 예) 배송 관련 메모." class="inputbox3" ></textarea>
       </div>
 
 
@@ -76,25 +76,33 @@
 
 
 <!-- 미들 -->
-
 <div class="product">
   고객님의 주문내역
 </div>
-<div class="content-price">
-  <div class="name">
-    삼색이 필로우 고양이 인형
-  </div>
-  <div class="product-total">
-    <span>33,000</span>
-    <span>x</span>
-    <span>1</span>
-    <span>=</span>
-    <span>33,000</span>
-  </div>
+
+<div class="cart_list">
+<!--주문 내역 리스트 시작-->
+  <!--<div class="content-price">-->
+  <!--  <div class="name">-->
+  <!--    삼색이 필로우 고양이 인형-->
+  <!--  </div>-->
+  <!--  <div class="product-total">-->
+  <!--    <span>33,000</span>-->
+  <!--    <span>x</span>-->
+  <!--    <span>1</span>-->
+  <!--    <span>=</span>-->
+  <!--    <span>33,000</span>-->
+  <!--  </div>-->
+  <!--</div>-->
+<!--주문 내역 리스트 끝-->
 </div>
 <div class="content-price3">
-  <span>총 결제 금액 :&nbsp;</span><span>33,000</span><span>&nbsp;원</span>
+  <span>총 결제 금액 :&nbsp;</span>
+  <span id="total"></span>
+  <span>&nbsp;</span>
 </div>
+
+
 
 <div class="cartButton-Box">
   <button class="cart-button">결제 진행하기</button>
@@ -106,7 +114,7 @@
 </main>
 <!-- main 끝 -->
 
-
+<input type="hidden" th:value="${session.userId}" id="userId">
 <!-- footer 시작 -->
 <div class="footer" th:replace="fragment/footer :: footer">
 
@@ -117,4 +125,5 @@
 <script defer src="/shopping/js/shopPay.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" ></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </html>

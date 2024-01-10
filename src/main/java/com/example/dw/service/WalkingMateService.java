@@ -180,7 +180,31 @@ public class WalkingMateService {
 
     }
     
-    
+
+    //작성제한
+    @Transactional
+    public Integer limitWriteByDay(Long userId, String walkMateDate){
+
+        try{
+            Long id  =walkingMateRepository.limitWrite(userId, walkMateDate);
+
+
+            if(id != null){
+                return 1;
+            }else {
+                return 0;
+            }
+
+
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            return 0;
+        }
+
+    }
+
+
+
     
     //댓글
 

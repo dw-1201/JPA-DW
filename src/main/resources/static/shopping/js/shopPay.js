@@ -1,3 +1,150 @@
+let userId = $('#userId').val();
+console.log(userId)
+
+$(document).ready(function () {
+    getGoodsPickList(getPickList);
+    getGoodsPickList(updateTotalPrice);
+});
+
+function getGoodsPickList(callback){
+
+    $.ajax({
+        url : `/shops/goodsPickList`,
+        type : "get",
+        success : function(result){
+            console.log(result);
+
+            if (callback){
+                callback(result)
+            }
+        },
+        error: function(a, b, c) {
+            console.error(c);
+        }
+    })
+}
+
+function getPickList(result){
+    let text = '';
+    let inputSection = $('.cart_list')
+
+    result.forEach(r=>{
+        text += `
+
+        <div className="product-total">
+            <span> ${r.goodsName} </span>
+            <span class="goodsPrice">${addCommas(r.goodsPrice)}</span> x
+            <span class="goodsQuantity">${r.goodsQuantity}</span> =
+            <span id="price" class="goodsTotal" data-price="${r.goodsPrice}">${addCommas(r.goodsPrice * r.goodsQuantity)}</span>
+        </div>
+
+        `
+    })
+    inputSection.html(text);
+}
+
+// 콤마 찍기 함수
+function addCommas(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
+// 총 결제 금액 업데이트 함수
+function updateTotalPrice() {
+    let dynamicPricesArray = [];
+
+    $('.goodsTotal').each(function () {
+        dynamicPricesArray.push(parseInt($(this).text().replace(/[^\d]+/g, ''), 10));
+        // 숫자만 추출하여 배열에 추가
+    });
+
+    let totalPrice = dynamicPricesArray.reduce((sum, price) => sum + price, 0);
+    $('#total').text(addCommas(totalPrice) + ' 원');
+}
+
+// 카카오 페이 API
+$(".cart-button").click(function () {
+
+    const payAmount = parseInt($('#total').text().replace(',',''))
+    const orderUserName = ($('#userName')).val()
+    const orderUserAddressNumber = ($('#addressPost')).val();
+    const orderAddressNormal = $('#orderAddressNormal').val();
+    const orderAddressDetail = ($('#addressDetail')).val();
+    const orderAddressDetails = ($('#addressDetails')).val();
+    const orderUserPhoneNumber = ($('#userPhone')).val();
+    const orderUserEmail = ($('#userEmail')).val();
+    const orderMemo = ($('#orderMemo')).val();
+
+    console.log("주문자 이름: " + orderUserName);
+    console.log("도로명 및 번지: " + orderAddressNormal);
+    console.log("주문 메모: " + orderMemo);
+
+    var IMP = window.IMP; // 생략가능
+    IMP.init('imp24106650');
+    // i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+    // ''안에 띄어쓰기 없이 가맹점 식별코드를 붙여넣어주세요. 안그러면 결제창이 안뜹니다.
+    IMP.request_pay({
+        pg: 'kakaopay.TC0ONETIME',
+        pay_method: 'card',
+        merchant_uid: 'merchant_' + new Date().getTime(),
+
+        name: '(주)산책갈께 카카오 결제',
+        amount: payAmount,
+
+        buyer_name: orderUserName,
+        buyer_postcode: orderUserAddressNumber,
+        buyer_addr : orderAddressNormal,
+        buyer_addr_d : orderAddressDetail,
+        buyer_addr_ds : orderAddressDetails,
+        buyer_tel : orderUserPhoneNumber,
+        buyer_email : orderUserEmail,
+        buyer_memo : orderMemo,
+
+    }, function (rsp) {
+        console.log(rsp);
+        if (rsp.success) {
+            var msg = '결제가 완료되었습니다.';
+            msg += '결제 금액 : ' + rsp.paid_amount;
+
+            console.log("주소노말"+orderAddressNormal)
+            console.log("메모"+orderMemo)
+
+            $.ajax({
+                url : `/orders/orderList`,
+                type : "post",
+                data : JSON.stringify({
+                    payAmount : payAmount,
+                    orderUserName : orderUserName,
+                    orderUserAddressNumber : orderUserAddressNumber,
+                    orderAddressNormal : orderAddressNormal,
+                    orderAddressDetail : orderAddressDetail,
+                    orderAddressDetails : orderAddressDetails,
+                    orderUserPhoneNumber : orderUserPhoneNumber,
+                    orderUserEmail : orderUserEmail,
+                    orderMemo : orderMemo
+                }),
+                contentType : "application/json; charset=utf-8",
+                success : function(response){
+                    console.log(response);
+
+
+                    // location.href = '';
+                }
+            })
+
+        } else {
+            var msg = '결제에 실패하였습니다.';
+            msg += '에러내용 : ' + rsp.error_msg;
+        }
+        alert(msg);
+    });
+});
+
+
+
+
+
+
 //다음 주소API
 function addressFind() {
     new daum.Postcode({
@@ -40,7 +187,7 @@ function addressFind() {
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById('addressPost').value = data.zonecode;
-            document.getElementById('address').value = addr;
+            document.getElementById('orderAddressNormal').value = addr;
             // 커서를 상세주소 필드로 이동한다.
             document.getElementById('addressDetails').focus();
         }
@@ -86,7 +233,7 @@ function join(){
         let userEmail = $("#userEmail").val();
         let userPhone = $("#userPhone").val();
         let userPostCode = $('#addressPost').val();
-        let userAddress = $("#address").val();
+        let userAddress = $("#orderAddressNormal").val();
         let userAddressDetails = $("#addressDetails").val();
 
             if($('.userPhoneCh').css('display')=='block'){

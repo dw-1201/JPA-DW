@@ -104,6 +104,9 @@ body,html,input {
   border-radius: 10px;
 }
 .form3-left-box1 img{
+  width: 100%;
+  height: 100%;
+
   border-radius: 10px;
   cursor: pointer;
 }

@@ -73,6 +73,12 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     });
+
+
+
+
+
+
 });
 
 
@@ -87,6 +93,7 @@ $('.submit-btn').on('click', function (){
     let person = $('#walkingMatePerson').val();
     let petName = $('#petName').val();
     let place =$('#addr').val();
+    let userId = $('#userId').val();
 
 
     if($('.non-registered-pet').is(':visible')){
@@ -105,13 +112,32 @@ $('.submit-btn').on('click', function (){
         return false;
     }
 
+    $.ajax({
+
+        url : `/walks/limitCheck/${userId}`,
+        type :'post',
+        data : {
+            walkingMateDate : date
+        },
+        success : function (result){
+            console.log(result)
+            if(result ==1){
+                alert("동일한 날짜에 1회만 작성만 가능합니다.")
+
+            }else {
+                $('#walk-write-form').submit();
+                return true;
+            }
+        }
+
+    })
 
 
 
-    $('#walk-write-form').submit();
-    return true;
 
 
 })
+
+
 
 
