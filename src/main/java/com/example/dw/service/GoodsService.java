@@ -36,7 +36,6 @@ public class GoodsService {
     private final GoodsMainImgRepository goodsMainImgRepository;
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
-    private final GoodsPayListRepository goodsPayListRepository;
 
 
     //모달 글쓰기
@@ -84,17 +83,13 @@ public class GoodsService {
 
     }
 
+
     //추가 정보
     @Transactional
     public Optional<GoodsAddInfoDto> goodsAddInfo(Long goodsId){
         return shopRepositoryCustom.findGoodsAddInfoById(goodsId);
     }
 
-    //카트 리스트
-//    @Transactional
-//    public List<GoodsCartDto> cartList(Long userId){
-//        return shopRepositoryCustom.findGoodsCartById(userId);
-//    }
 
     //카트 번호 생성
     @Transactional
@@ -108,23 +103,29 @@ public class GoodsService {
     public void cartItemRegister(Long userId, CartItemForm cartItemForm){
 
         try {
+            //유저Id를 이용하여 장바구니 생성
             CartDto cartDto = shopRepositoryCustom.findCartIdByUserId(userId);
 
+            //장바구니 정보가 없다면 새로운 장바구니 생성 후 유저Id를 다시 받아옴
             if (cartDto == null) {
                 CartForm cartForm = new CartForm();
                 cartForm.setUserId(userId);
                 Long newCartId = cartRegister(cartForm);
                 cartItemForm.setCartId(newCartId);
             } else {
+                //장바구니 존재시, 해당 장바구니로 진행
                 cartItemForm.setCartId(cartDto.getId());
             }
 
+            //장바구니 존재 확인
             boolean itemExistsInCart = shopRepositoryCustom.checkGoodsId(cartItemForm.getGoodsId(), userId, cartItemForm.getCartId());
 
+            //장바구니 존재시 수량 업데이트
             if (itemExistsInCart) {
                 CartItem cartItem = cartItemRepository.findByCartIdAndGoodsId(cartItemForm.getCartId(), cartItemForm.getGoodsId());
                 cartItem.itemCount(cartItemForm);
             } else {
+                //존재 하지 않는 경우 새로운 상품, 장바구니에 추가
                 cartItemRepository.save(cartItemForm.toEntity());
             }
         } catch (NullPointerException e) {
@@ -146,13 +147,13 @@ public class GoodsService {
      * @return
      */
     @Transactional
-    public ShopCartListDto findCartItems(Long userId){
+    public GoodsCartListDto findCartItems(Long userId){
         CartDto cartDto = shopRepositoryCustom.findCartIdByUserId(userId);
 
         List<GoodsCartItemDto> cartItems = shopRepositoryCustom.findGoodsCartItemById(cartDto.getId(), userId);
 
-        Map<ShopCartListDto, List<CartItemDetails>> groupedItems = cartItems.stream()
-                .collect(groupingBy(o -> new ShopCartListDto(o.getCartId(), o.getUserId()),
+        Map<GoodsCartListDto, List<CartItemDetails>> groupedItems = cartItems.stream()
+                .collect(groupingBy(o -> new GoodsCartListDto(o.getCartId(), o.getUserId()),
                         mapping(o -> new CartItemDetails(
                                         o.getId(), o.getCartItemQuantity(), o.getGoodsId(), o.getGoodsName(), o.getGoodsPrice(),
                                         o.getGoodsMainImgId(), o.getGoodsMainImgName(), o.getGoodsMainImgPath(), o.getGoodsMainImgUuid()),
@@ -161,43 +162,7 @@ public class GoodsService {
         List<CartItemDetails> mergedItems = groupedItems.values().stream()
                 .flatMap(cartItemDetails -> cartItemDetails.stream())
                 .collect(Collectors.toList());
-        return new ShopCartListDto(cartDto.getId(), userId, mergedItems);
-    }
-
-    //결제페이지에 담길 물건 리스트
-    @Transactional
-    public void goodsPayList(List<GoodsPayListForm> goodsPayListForm,HttpSession session){
-
-        Long userId = (Long) session.getAttribute("userId");
-
-        try{
-            List<GoodsPayDto> beforeList = goodsPayListRepository.findGoodsPayList(userId);
-            System.out.println(beforeList.toString());
-
-            //이미 상품 결제정보가 존재한다면
-            if (beforeList.size() > 0) {
-
-                for(GoodsPayDto goodsPayDtos : beforeList){
-
-                    //개수만큼 삭제
-                    goodsPayListRepository.deleteById(goodsPayDtos.getId());
-                }
-
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        GoodsPayResultForm goodsPayResultForm = new GoodsPayResultForm();
-        //상품 결제정보 등록
-       for(GoodsPayListForm goodsPlay : goodsPayListForm){
-           goodsPayResultForm.setGoodsId(goodsPlay.getGoodsId());
-           goodsPayResultForm.setGoodsPrice(goodsPlay.getGoodsPrice());
-           goodsPayResultForm.setGoodsQuantity(goodsPlay.getGoodsQuantity());
-           goodsPayResultForm.setUserId(userId);
-
-           goodsPayListRepository.save(goodsPayResultForm.toEntity());
-       }
+        return new GoodsCartListDto(cartDto.getId(), userId, mergedItems);
     }
 
 }

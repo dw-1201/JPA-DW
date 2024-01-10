@@ -350,6 +350,32 @@ public class WalkingMateRepositoryImpl implements WalkingMateRepositoryCustom {
         return adminWalkMateDetailDto;
     }
 
+    //메인페이지 산책글 리스트
+    @Override
+    public List<IndexWalkMateDto> IndexWalkMateList() {
+        return jpaQueryFactory.select(new QIndexWalkMateDto(
+                walkingMate.id,
+                walkingMate.walkCity,
+                walkingMate.walkCounty,
+                walkingMate.walkingMateTitle,
+                walkingMate.walkingMateState,
+                users.id,
+                petImg.petPath,
+                petImg.petUuid,
+                petImg.petFileName
+        ))
+                .from(walkingMate)
+                .leftJoin(walkingMate.users, users)
+                .leftJoin(walkingMate.pet, pet)
+                .leftJoin(pet.petImg, petImg)
+                .where(walkingMate.walkingMateState.eq(0L))
+                .orderBy(walkingMate.id.desc())
+                .limit(7)
+                .fetch();
+    }
+
+
+
     //산책메이트 리스트 전체-모집중-모집완료
     private BooleanExpression createRecruitmentStatusCondition(SearchLocationForm searchLocationForm) {
         try{

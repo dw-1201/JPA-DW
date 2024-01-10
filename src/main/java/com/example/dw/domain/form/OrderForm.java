@@ -15,6 +15,7 @@ public class OrderForm {
     private String orderUserAddressNumber;
     private String orderAddressNormal;
     private String orderAddressDetail;
+    private String orderAddressDetails;
     private String orderUserPhoneNumber;
     private String orderUserEmail;
     private String orderMemo;
@@ -26,7 +27,9 @@ public class OrderForm {
                 .id(id)
                 .orderUserName(orderUserName)
                 .orderUserAddressNumber(orderUserAddressNumber)
+                .orderAddressNormal(orderAddressNormal)
                 .orderAddressDetail(orderAddressDetail)
+                .orderAddressDetails(orderAddressDetails)
                 .orderUserPhoneNumber(orderUserPhoneNumber)
                 .orderUserEmail(orderUserEmail)
                 .orderMemo(orderMemo)
@@ -35,12 +38,13 @@ public class OrderForm {
     }
 
     @Builder
-    public OrderForm(Long id, String orderUserName, String orderUserAddressNumber, String orderAddressNormal, String orderAddressDetail, String orderUserPhoneNumber, String orderUserEmail, String orderMemo, Long userId) {
+    public OrderForm(Long id, String orderUserName, String orderUserAddressNumber, String orderAddressNormal, String orderAddressDetail, String orderAddressDetails, String orderUserPhoneNumber, String orderUserEmail, String orderMemo, Long userId) {
         this.id = id;
         this.orderUserName = orderUserName;
         this.orderUserAddressNumber = orderUserAddressNumber;
         this.orderAddressNormal = orderAddressNormal;
         this.orderAddressDetail = orderAddressDetail;
+        this.orderAddressDetails = orderAddressDetails;
         this.orderUserPhoneNumber = orderUserPhoneNumber;
         this.orderUserEmail = orderUserEmail;
         this.orderMemo = orderMemo;

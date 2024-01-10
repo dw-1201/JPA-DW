@@ -43,12 +43,16 @@ $('.list-btn').on('click', function () {
   window.location.href = "/community/freeBoardList";
 });
 
+
 /**
  * 여기서부터 댓글 js
  */
 // 댓글 목록을 보여주는 함수를 호출하여 초기화면에 댓글을 표시
 let freeBoardId = $('#freeBoardId').val();
 showReplyList(freeBoardId);
+
+let loginNumber = $('#userId').val();
+console.log(loginNumber)
 
 // '댓글 저장' 버튼 클릭 이벤트 핸들러
 $('.btn-reply').on('click', function () {
@@ -86,7 +90,7 @@ function getReply(object){
     data:JSON.stringify(object),
     contentType:'application/json; charset=utf-8',
     success : function (result){
-
+    console.log(result)
     // 댓글 저장 후 댓글 목록 갱신
     showReplyList(freeBoardId);
     }

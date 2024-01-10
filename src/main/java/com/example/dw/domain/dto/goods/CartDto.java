@@ -11,10 +11,13 @@ public class CartDto {
     private Long id;
     private Long userId;
 
-
     @QueryProjection
     public CartDto(Long id, Long userId) {
         this.id = id;
         this.userId = userId;
+    }
+
+    public CartDto(Long id) {
+        this.id = id;
     }
 }

@@ -45,6 +45,8 @@ public interface WalkingMateStateRepository extends JpaRepository<WalkingMateSta
 //                            @Param("userId") Long userId);
 
 
+
+
 //    @Query("select wms.walkingMate.id, wms.id, , p.PET_ID, p.NAME, p.WEIGHT, p.PET_GENDER, p.BIRTH_DATE, p.PET_CATEGORY, p.NEUTERING, pi.PET_FILE_NAME, pi.PET_PATH, pi.PET_UUID, WALKING_MATE_STATE from WalkingMateState wms join WALKING_MATE wm on wm.WALKING_MATE_ID=wms.WALKING_MATE_ID join users u on u.USER_ID = wms.USER_ID join pet p on u.USER_ID = p.USER_ID join PET_IMG pi on p.PET_ID=pi.PET_ID where wm.WALKING_MATE_ID=:walkMateId and WALKING_MATE_STATE=1")
 //    List<WalkDetailStateDto> findApplierPetInfo(@Param("walkMateId") Long walkMateId);
 

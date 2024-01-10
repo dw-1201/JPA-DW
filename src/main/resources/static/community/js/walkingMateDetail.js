@@ -1,5 +1,5 @@
 import * as reply from './module/reply.js';
-import * as date from './module/dateFormatt.js';
+import * as date from './module/form.js';
 
 let map = null;
 let marker = null;

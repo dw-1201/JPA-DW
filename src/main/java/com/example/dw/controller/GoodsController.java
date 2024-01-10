@@ -1,5 +1,6 @@
 package com.example.dw.controller;
 
+import com.example.dw.domain.dto.RecentViewGoods;
 import com.example.dw.domain.dto.goods.GoodsDetailDto;
 import com.example.dw.repository.goods.GoodsRepository;
 import com.example.dw.repository.goods.ShopRepositoryCustom;
@@ -66,25 +67,10 @@ public class GoodsController {
      detail.ifPresent(details -> model.addAttribute("detail", details));
 
 
-//    //최근 본 상품
-//        List<RecentViewGoodsDto> recentViewGoodsDtoList = (List<RecentViewGoodsDto>)session.setAttribute("recentView");
-//
-//        if(recentViewGoodsDtoList ==null){
-//            recentViewGoodsDtoList = new ArrayList<>();
-//        }
-//
-//        boolean duplicateCheck = false;
-//        for(RecentViewGoodsDto recentViewGoodsDto : recentViewGoodsDtoList){
-//
-//            if(recentViewGoodsDto.getGoodsId()!= detail.get().getId()){
-//
-//                recentViewGoodsDtoList.add(recentViewGoodsDto);
-//                System.out.println(recentViewGoodsDtoList.toString()+"@@@@@@@@@@@@@@@@@@@@@22");
-//            }
-//
-//        }
 
-
+     //최근 본 상품
+        RecentViewGoods recentViewGoods = new RecentViewGoods();
+        recentViewGoods.productClicked(detail.get().getId(),session);
 
 
 
@@ -92,13 +78,7 @@ public class GoodsController {
 
      return "/shopping/shopDetail";
     }
-    /**
-     * 쇼핑 추가정보 페이지
-     */
-//    @GetMapping("/shopAddInfo")
-//    public String shopAddInfo(){
-//        return "/shopping/shopAddInfo";
-//    }
+
     /**
      * 쇼핑 리뷰 페이지
      */
@@ -107,11 +87,6 @@ public class GoodsController {
         model.addAttribute("id", id);
         return "/shopping/shopReview";
     }
-
-    /**
-     * 쇼핑 Q and A 문의 글 작성 페이지
-     */
-
 
     /**
      * 쇼핑 카트 페이지
@@ -127,6 +102,7 @@ public class GoodsController {
      */
     @GetMapping("/shopPay/{userId}")
     public String shopPay(){
+
         return "/shopping/shopPay";
     }
 
