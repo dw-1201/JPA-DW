@@ -30,6 +30,8 @@ public class QOrders extends EntityPathBase<Orders> {
 
     public final StringPath orderAddressNormal = createString("orderAddressNormal");
 
+    public final ListPath<OrderItem, QOrderItem> orderItemList = this.<OrderItem, QOrderItem>createList("orderItemList", OrderItem.class, QOrderItem.class, PathInits.DIRECT2);
+
     public final QOrderList orderList;
 
     public final StringPath orderMemo = createString("orderMemo");

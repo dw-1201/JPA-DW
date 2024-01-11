@@ -17,7 +17,7 @@
     <!-- header 끝 -->
     <main>
         <div class="main-container">
-            <div class="menu-area">
+            <div class="menu-area" th:data-userid ="${session.userId}">
                 <nav class="menu-choice-area">
                     <ul class="menu-choice">
                         <li class="choice-p">
@@ -35,180 +35,62 @@
             <div class="buyboxp">
                 <ul class="buy-area">
                     <li class="buy-text">
-                        <div class="buylistbox">
-                            <div class="img-area-2">
-                
+                        <div class="order-date">
+                            <p class="orderregisterdate">2024. 01.11</p>
+                        </div>
+
+                        <div class="buylistbox-overflow">
+                            <div class="buylistbox">
+                                <div class="img-area-2">
+
                                     <!--데이터에서 파일 불러오기-->
                                     <img src="/mypg/img/520-4186007894906074-29c2102e-95d7-4ab3-ac4d-82bf1a149c8c.jpg" class="productimg"/>
-                                
+
+                                </div>
+                                <div class="buy-text-area-2">
+                                    <!--클릭시 url이동-->
+                                    <a href="#">
+                                        <p>[산책갈개]</p>
+                                        <p >상품 이름</p>
+                                    </a>
+                                </div>
+
+                                <div class="price-2">
+                                    <a href="/mypg/html/productreview.html" class="text-page-2">
+                                        <p>리뷰작성</p>
+                                    </a>
+                                    <span class="pricequntity">5개</span>
+                                    <span class="pricetotal">50,000원</span>
+                                </div>
                             </div>
-                            <div class="buy-text-area-2">
-                                <!--클릭시 url이동-->
-                                <a href="#">
-                                    <p>[산책갈개]</p>
-                                    <p >상품 이름</p>
-                                </a>
-                            </div>
-            
-                            <div class="price-2">
-                                <a href="/mypg/html/productreview.html" class="text-page-2">
-                                    <p>리뷰작성</p>
-                                </a>
-                                <span>50,000원</span>
-                            </div>
-                        </div>    
+                        </div>
                     </li>
-                    <li class="buy-text">
-                        <div class="buylistbox">
-                            <div class="img-area-2">
-                
-                                    <img src="/mypg/img/520-4186007894906074-29c2102e-95d7-4ab3-ac4d-82bf1a149c8c.jpg" class="productimg"/>
-                                
-                            </div>
-                            <div class="buy-text-area-2">
-                                <a href="#">
-                                    <p>[산책갈개]</p>
-                                    <p >상품 이름</p>
-                                </a>
-                            </div>
-            
-                            <div class="price-2">
-                                <a href="" class="text-page-2">
-                                    <p>리뷰작성</p>
-                                </a>
-                                <span>50,000원</span>
-                            </div>
-                        </div>    
-                    </li>
-                    <li class="buy-text">
-                        <div class="buylistbox">
-                            <div class="img-area-2">
-                
-                                    <img src="/mypg/img/520-4186007894906074-29c2102e-95d7-4ab3-ac4d-82bf1a149c8c.jpg" class="productimg"/>
-                                
-                            </div>
-                            <div class="buy-text-area-2">
-                                <a href="#">
-                                    <p>[산책갈개]</p>
-                                    <p >상품 이름</p>
-                                </a>
-                            </div>
-            
-                            <div class="price-2">
-                                <a href="" class="text-page-2">
-                                    <p>리뷰작성</p>
-                                </a>
-                                <span>50,000원</span>
-                            </div>
-                        </div>    
-                    </li>
-                    <li class="buy-text">
-                        <div class="buylistbox">
-                            <div class="img-area-2">
-                
-                                    <img src="/mypg/img/520-4186007894906074-29c2102e-95d7-4ab3-ac4d-82bf1a149c8c.jpg" class="productimg"/>
-                                
-                            </div>
-                            <div class="buy-text-area-2">
-                                <a href="#">
-                                    <p>[산책갈개]</p>
-                                    <p >상품 이름</p>
-                                </a>
-                            </div>
-            
-                            <div class="price-2">
-                                <a href="" class="text-page-2">
-                                    <p>리뷰작성</p>
-                                </a>
-                                <span>50,000원</span>
-                            </div>
-                        </div>    
-                    </li>
-                    <li class="buy-text">
-                        <div class="buylistbox">
-                            <div class="img-area-2">
-                
-                                    <img src="/mypg/img/520-4186007894906074-29c2102e-95d7-4ab3-ac4d-82bf1a149c8c.jpg" class="productimg"/>
-                                
-                            </div>
-                            <div class="buy-text-area-2">
-                              
-                                <a href="#">
-                                    <p>[산책갈개]</p>
-                                    <p >상품 이름</p>
-                                </a>
-                            </div>
-            
-                            <div class="price-2">
-                                <a href="" class="text-page-2">
-                                    <p>리뷰작성</p>
-                                </a>
-                                <span>50,000원</span>
-                            </div>
-                        </div>    
-                    </li>
+
                 </ul>
-                <div class="list-page-container">
-                    <div class="list-pages">
-                        <ul>
-                            <li><a href="">&lt;</a></li>
-                            <li><a href="">1</a></li>
-                            <li><a href="">2</a></li>
-                            <li><a href="">3</a></li>
-                            <li><a href="">4</a></li>
-                            <li><a href="">5</a></li>
-                            <li><a href="">&gt;</a></li>
-                        </ul>
-                    </div>
+
             </div>
+            <div class="list-page-container">
+                <div class="list-pages">
+                    <ul class="pagination-ul">
+                        <li><a href="">&lt;</a></li>
+                        <li><a href="">1</a></li>
+                        <li><a href="">2</a></li>
+                        <li><a href="">3</a></li>
+                        <li><a href="">4</a></li>
+                        <li><a href="">5</a></li>
+                        <li><a href="">&gt;</a></li>
+                    </ul>
+                </div>
             </div>
-         
-            <div class="nonepage">
-                <div class="none-img-area">
-                    <div class="none-img">
-                        <img src="../img/b556fdf429d8de25c3acf62f8186ddb9.png"/>
-                    </div>
-                </div>
-                <div class="nonetext-area">
-                    <p>등록된 내용이 없습니다.</p>
-                </div>
-            </div> 
         </div>
-      
     </main>
         <!-- footer 시작 -->
-        <div class="footer">
-            <div class="footer-container01">
-                <div class="footer-containerbox01">
-                    <div class="footer-container01-nav">
-                        <ul>
-                            <li>(주)산책갈개</li>
-                            <li>복영헌 임형준 노의진 이지윤</li>
-                            <li>서울특별시 노원구 상계로1길 34 세일학원 5층</li>
-                            <li>02-933-5890</li>
-                        </ul>
-                    </div>
-                    <div class="footer-container01-img">
-                        <img src="/img/dog02.png" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="footer-container02">
-                <div class="footer-containerbox02">
-                    <div>Copyright ©SCGG All Rights Reserved.</div>
-                    <div class="footer-container02-nav">
-                        <ul>
-                            <li><a href="">이용약관</a></li>
-                            <li><a href="">개인정보처리방침</a></li>
-                            <li><a href="">사업자정보확인</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+       <div class="footer" th:replace="fragment/footer :: footer">
+
+       </div>
         <!--footer 끝-->
         <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-        <script src="../js/buylist.js"></script>
+        <script type="module" src="../js/buylist.js"></script>
     </body>
     </html>              

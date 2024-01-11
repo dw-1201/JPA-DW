@@ -14,7 +14,7 @@ public class QuestionListDto {
     private Long id;
     private String questionTitle;
     private String questionContent;
-    private String questionRd;
+    private LocalDateTime questionRd;
     private LocalDateTime questionMd;
     //조회수
 
@@ -30,7 +30,7 @@ public class QuestionListDto {
 
     @QueryProjection
 
-    public QuestionListDto(Long id, String questionTitle, String questionContent, String questionRd, LocalDateTime questionMd, Long userId, String userName, Long commentCount, List<QuestionImgDto> questionImgDtoList) {
+    public QuestionListDto(Long id, String questionTitle, String questionContent, LocalDateTime questionRd, LocalDateTime questionMd, Long userId, String userName, Long commentCount, List<QuestionImgDto> questionImgDtoList) {
         this.id = id;
         this.questionTitle = questionTitle;
         this.questionContent = questionContent;

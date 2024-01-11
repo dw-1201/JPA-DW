@@ -7,6 +7,7 @@ import com.example.dw.domain.dto.admin.UserDetailListDto;
 import com.example.dw.domain.form.PetForm;
 import com.example.dw.domain.form.PetUpdateForm;
 import com.example.dw.domain.form.UserUpdateForm;
+import com.example.dw.repository.order.OrderItemRepository;
 import com.example.dw.repository.pet.PetRepositoryCustom;
 import com.example.dw.repository.user.UsersRepository;
 import com.example.dw.repository.user.UsersRepositoryCustom;
@@ -34,6 +35,7 @@ public class MypageController {
     private final MypageService mypageService;
     private final PetRepositoryCustom petRepositoryCustom;
     private final FileService fileService;
+    private final OrderItemRepository orderItemRepository;
     @GetMapping("/main/{userId}")
     public String mypg(@PathVariable("userId")Long userId, Model model){
         System.out.println(userId +"회원 정보");
@@ -186,5 +188,19 @@ public class MypageController {
         return "/mypg/myapplication";
     }
 
+    @GetMapping("/orderpage/{userId}")
+    public String orderpage(){
 
+        return "/mypg/buylist";
+    }
+
+    @GetMapping("/productreview/{orderItemId}")
+    public String productreview(@PathVariable("orderItemId")Long orderItemId,Model model){
+
+
+
+        model.addAttribute("result",orderItemRepository.findById(orderItemId));
+
+        return "/mypg/productreview";
+    }
 }

@@ -21,15 +21,17 @@
               
                 <div class="review-container">
                   <form class="new-post-form" action="" method="" enctype="multipart/form-data" >
+                      <th:block th:value="${result.id}" name="orderItemId"></th:block>
+                      <th:block th:value="${session.userId}" name="userId"></th:block>
                     <div class="form-group">
                       <label for="post-title"  class="title">제목
                       </label>
                 
-                      <input type="text" id="post-title" readonly />
+                      <input type="text" id="post-title" name="title" readonly />
                     </div>
                     <div class="form-group">
                       <label for="post-content">내용</label>
-                      <textarea id="post-content" name="eventBoardContent" rows="10" required></textarea>
+                      <textarea id="post-content" name="content" rows="10" required></textarea>
                       <div class="grade-group">
                         <fieldset class="grade" required>
                           <legend>
@@ -53,7 +55,7 @@
                     <div class="file-group">
                       <ul class="file-wrap">
                         <li>
-                          <input type="file" id="post-image" name="" accept="image/*" multiple/>
+                          <input type="file" id="post-image" name="reviewImg" accept="image/*" multiple/>
                         </li>
                         <li class="img-list"></li>
                         <li class="img-list"></li>
@@ -67,35 +69,9 @@
             </div>
         </div>
     </main>
-    <div class="footer">
-        <div class="footer-container01">
-            <div class="footer-containerbox01">
-                <div class="footer-container01-nav">
-                    <ul>
-                        <li>(주)산책갈개</li>
-                        <li>복영헌 임형준 노의진 이지윤</li>
-                        <li>서울특별시 노원구 상계로1길 34 세일학원 5층</li>
-                        <li>02-933-5890</li>
-                    </ul>
-                </div>
-                <div class="footer-container01-img">
-                    <img src="/img/dog02.png" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="footer-container02">
-            <div class="footer-containerbox02">
-                <div>Copyright ©SCGG All Rights Reserved.</div>
-                <div class="footer-container02-nav">
-                    <ul>
-                        <li><a href="">이용약관</a></li>
-                        <li><a href="">개인정보처리방침</a></li>
-                        <li><a href="">사업자정보확인</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+       <div class="footer" th:replace="fragment/footer :: footer">
+
+       </div>
     <!--footer 끝-->
     <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>

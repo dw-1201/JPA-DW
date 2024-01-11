@@ -11,6 +11,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name="orders")
@@ -42,8 +43,13 @@ public class Orders {
     @OneToOne(mappedBy = "orders",fetch = FetchType.LAZY)
     private OrderList orderList;
 
+    @OneToMany(mappedBy = "orders",fetch = FetchType.LAZY)
+    private List<OrderItem> orderItemList;
+
+
     @Builder
-    public Orders(Long id, String orderUserName, String orderUserAddressNumber, String orderAddressNormal, String orderAddressDetail, String orderAddressDetails, String orderUserPhoneNumber, String orderUserEmail, String orderMemo, LocalDateTime orderRegisterDate, Users user, OrderList orderList) {
+
+    public Orders(Long id, String orderUserName, String orderUserAddressNumber, String orderAddressNormal, String orderAddressDetail, String orderAddressDetails, String orderUserPhoneNumber, String orderUserEmail, String orderMemo, LocalDateTime orderRegisterDate, Users user, OrderList orderList, List<OrderItem> orderItemList) {
         this.id = id;
         this.orderUserName = orderUserName;
         this.orderUserAddressNumber = orderUserAddressNumber;
@@ -56,5 +62,6 @@ public class Orders {
         this.orderRegisterDate = orderRegisterDate;
         this.user = user;
         this.orderList = orderList;
+        this.orderItemList = orderItemList;
     }
 }

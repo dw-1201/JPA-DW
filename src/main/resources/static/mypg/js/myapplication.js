@@ -45,9 +45,9 @@ function showList(result){
     let text ='';
     let textInput = $('.walkapplication-list');
 
-    if(result.content.length == 0){
+    if(result.content.length === 0){
         text =`
-             <div class="mateapplicationmain">
+            
                 <div class="nonepage">
                     <div class="none-img-area">
                         <div class="none-img">
@@ -58,7 +58,7 @@ function showList(result){
                         <p>등록된 내용이 없습니다.</p>
                     </div>
                 </div>
-             </div>   
+              
             `;
     }else {
         result.content.forEach(r => {

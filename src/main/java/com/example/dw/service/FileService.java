@@ -53,6 +53,9 @@ public class FileService {
     @Value("${file.pet}")
     private String petImg;
 
+    @Value("${file.review}")
+    private String reviewImg;
+
     private final GoodsMainImgRepository goodsMainImgRepository;
     private final GoodsDetailImgRepository goodsDetailImgRepository;
     private final GoodsRepository goodsRepository;
@@ -426,5 +429,52 @@ public class FileService {
 
         }
     }
+
+
+//    //qna 게시판 등록 파일 저장(로컬) 최대 5장
+//    @Transactional
+//    public QuestionImgForm savequestionImg(MultipartFile file) throws IOException {
+//
+//
+//        String originName = file.getOriginalFilename();
+//        UUID uuid = UUID.randomUUID();
+//        String sysName = uuid.toString() + "_" + originName;
+//
+//        File uploadPath = new File(questionImg, getUploadPath());
+//
+//        if (!uploadPath.exists()) {
+//            uploadPath.mkdirs();
+//        }
+//        File upLoadFile = new File(uploadPath, sysName);
+//        file.transferTo(upLoadFile);
+//
+//        return
+//                QuestionImgForm.builder()
+//                        .questionImgName(originName)
+//                        .questionImgRoute(getUploadPath())
+//                        .questionImgUuid(uuid.toString())
+//                        .build();
+//
+//
+//    }
+//
+//
+//    //que 이미지 DB 저장
+//    @Transactional
+//    public void registerquestionImg(List<MultipartFile> files, Long questionId) throws IOException {
+//        System.out.println("파일 처리 질문 아이기 : " + questionId);
+//
+//        for (MultipartFile file : files) {
+//            QuestionImgForm questionImgForm = savequestionImg(file);
+//            Optional<Question> question = questionRepository.findById(questionId);
+//
+//            questionImgForm.setQuestion(question.get());
+//            questionImgRepository.save(questionImgForm.toEntity());
+//        }
+//
+//    }
+
+
+
 
 }

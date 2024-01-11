@@ -26,8 +26,9 @@ function showList(result){
     let text = '';
     let textInput = $('.walk-list');
 
-    if(result.content.length ==0){
-        text = `<div class="nonepage">
+    if(result.content.length === 0){
+        text = `
+                <div class="nonepage">
                     <div class="none-img-area">
                         <div class="none-img">
                             <img src="../img/b556fdf429d8de25c3acf62f8186ddb9.png"/>
@@ -38,7 +39,7 @@ function showList(result){
                     </div>
                 </div>
         `;
-        $('.nonepage').css('display','block');
+
     }else {
         result.content.forEach(r => {
 

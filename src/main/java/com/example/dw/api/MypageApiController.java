@@ -2,12 +2,16 @@ package com.example.dw.api;
 
 
 import com.example.dw.domain.dto.community.*;
+import com.example.dw.domain.dto.order.OrderItemDto;
+import com.example.dw.domain.dto.order.OrderListResultDto;
 import com.example.dw.domain.form.SearchRecruitmentForm;
 import com.example.dw.repository.community.QuestionRepositoryCustom;
 import com.example.dw.repository.community.WalkingMateRepositoryCustom;
 import com.example.dw.repository.community.WalkingMateStateRepository;
 import com.example.dw.repository.community.WalkingMateStateRepositoryCustom;
 import com.example.dw.repository.freeBoard.FreeBoardRepositoryCustom;
+import com.example.dw.repository.order.OrderItemRepositoryCustom;
+import com.example.dw.repository.order.OrderListRepositoryCustom;
 import com.example.dw.service.FreeBoardService;
 import com.example.dw.service.MypageService;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +41,8 @@ public class MypageApiController {
     private final WalkingMateRepositoryCustom walkingMateRepositoryCustom;
     private final WalkingMateStateRepositoryCustom walkingMateStateRepositoryCustom;
     private final WalkingMateStateRepository walkingMateStateRepository;
+    private final OrderItemRepositoryCustom orderItemRepositoryCustom;
+    private final OrderListRepositoryCustom orderListRepositoryCustom;
 
     @Value("${file.pet}")
     private String filepetImg;
@@ -46,6 +52,13 @@ public class MypageApiController {
         return FileCopyUtils.copyToByteArray(new File(filepetImg, fileFullPath));
     }
 
+    @Value("${file.dir}")
+    private String filegoods;
+
+    @GetMapping("/mypgs/goods")
+    public byte[] getGoodsImg(String fileFullPath) throws IOException {
+        return FileCopyUtils.copyToByteArray(new File(filegoods, fileFullPath));
+    }
 
     @PostMapping("/mypgs/phone/check")
     public boolean checkPhoneDuplication(@RequestParam("userPhone") String userPhone) {
@@ -183,4 +196,18 @@ public class MypageApiController {
 
         return walkingmatestate;
     }
+
+    @GetMapping("/mypgs/orderList/{page}/{userId}")
+    public Page<OrderListResultDto> orderList(@PathVariable("page") int page,@PathVariable("userId") Long userId){
+
+        Pageable pageable =PageRequest.of(page,4);
+
+        Page<OrderListResultDto> result = orderListRepositoryCustom.findAllbyId(pageable,userId) ;
+
+        result.forEach(r -> System.out.println(r.getUserId()+"의 주문내역은" + r +"입니다\n"));
+
+        return result;
+    }
+
+
 }
