@@ -105,6 +105,11 @@ public class GoodsController {
 
         return "/shopping/shopPay";
     }
+    @GetMapping("/shopSinglePay/{userId}")
+    public String shopSinglePay(){
+
+        return "/shopping/shopSinglePay";
+    }
 
 
 

@@ -1,10 +1,7 @@
 package com.example.dw.api;
 
 import com.example.dw.domain.dto.goods.*;
-import com.example.dw.domain.form.CartItemForm;
-import com.example.dw.domain.form.GoodsPayListFrom;
-import com.example.dw.domain.form.GoodsQandaWritingForm;
-import com.example.dw.domain.form.SearchForm;
+import com.example.dw.domain.form.*;
 import com.example.dw.repository.goods.ShopRepositoryCustom;
 import com.example.dw.service.GoodsService;
 import jakarta.servlet.http.HttpSession;
@@ -20,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -154,7 +153,26 @@ public class GoodsApiController {
         System.out.println(goodsPayList+"!!!!!!!!!!!!!!");
         session.setAttribute("goodsPayList", goodsPayList);
         System.out.println(goodsPayListFrom.toString()+"@@@@@@@@@@@@@@@@@@@@@");
+    }
 
+    //바로가기 정보 넣기
+    @PostMapping("/payGoods")
+    public void payGoods(@RequestBody List<GoodsPaySingleFrom> goodsPaySingleFrom, HttpSession session){
+
+        List<GoodsPaySingleFrom> goodsPaySingle = (List<GoodsPaySingleFrom>) session.getAttribute("goodsPaySingle");
+
+        if (goodsPaySingle == null) {
+            goodsPaySingle = new ArrayList<>();
+        }
+
+        for(GoodsPaySingleFrom goodsPaySingleDto : goodsPaySingleFrom) {
+
+            goodsPaySingle.add(goodsPaySingleDto);
+
+        }
+        System.out.println(goodsPaySingle+"!!!!!!!!!!!!!!");
+        session.setAttribute("goodsPaySingle", goodsPaySingle);
+        System.out.println(goodsPaySingleFrom.toString()+"@@@@@@@@@@@@@@@@@@@@@");
     }
 
     //가져오기
@@ -162,9 +180,40 @@ public class GoodsApiController {
     public List<GoodsPayListFrom> payGoodsList(HttpSession session){
        List<GoodsPayListFrom> goodsPayListDtoList = (List<GoodsPayListFrom>) session.getAttribute("goodsPayList");
 
-        System.out.println(goodsPayListDtoList+"((((((((((((((((()))))))))))))))");
+        System.out.println(goodsPayListDtoList+"goodsPayListDtoList");
 
         return goodsPayListDtoList;
+    }
+
+    //싱글 결제 정보 가져오기
+    @GetMapping("/goodsSinglePickList")
+    public List<GoodsPaySingleFrom> payGoodsSingle(HttpSession httpSession) {
+        List<GoodsPaySingleFrom> goodsPaySingleFrom = (List<GoodsPaySingleFrom>) httpSession.getAttribute("goodsPaySingle");
+
+
+        //주문서 비우고 새로 저장
+        if (goodsPaySingleFrom != null) {
+            //세션삭제
+            httpSession.removeAttribute("goodsPaySingle");
+            System.out.println("세션삭제 후 새로 저장");
+        }
+
+        for(GoodsPaySingleFrom goodsPaySingleFroms : goodsPaySingleFrom){
+            goodsPaySingleFroms.setInputTime(LocalDateTime.now());
+        }
+        goodsPaySingleFrom.sort(Comparator.comparing((GoodsPaySingleFrom goodsPaySingleForm )->goodsPaySingleForm.getInputTime()).reversed());
+
+
+        int max = 1;
+        if(goodsPaySingleFrom.size()>max){
+            goodsPaySingleFrom=goodsPaySingleFrom.subList(0, max);
+
+        }
+        System.out.println(goodsPaySingleFrom.toString()+"()()()()()");
+        httpSession.setAttribute("goodsPaySingle", goodsPaySingleFrom);
+
+        System.out.println(goodsPaySingleFrom + "goodsPaySingleFrom");
+        return goodsPaySingleFrom;
     }
 
 }

@@ -12,7 +12,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name="goods_que_reply")
@@ -32,17 +31,16 @@ public class GoodsQueReply {
     private String queReplyContent;
 
     @CreatedDate
-    private String queReplyRegisterDate;
+    private LocalDateTime queReplyRegisterDate;
     @LastModifiedDate
-    private String queReplyModifyDate;
+    private LocalDateTime queReplyModifyDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private Users users;
 
-
     @Builder
-    public GoodsQueReply(Long id, GoodsQue goodsQue, String queReplyContent, String queReplyRegisterDate, String queReplyModifyDate, Users users) {
+    public GoodsQueReply(Long id, GoodsQue goodsQue, String queReplyContent, LocalDateTime queReplyRegisterDate, LocalDateTime queReplyModifyDate, Users users) {
         this.id = id;
         this.goodsQue = goodsQue;
         this.queReplyContent = queReplyContent;
@@ -51,27 +49,9 @@ public class GoodsQueReply {
         this.users = users;
     }
 
-
-
-    //날짜포맷
-    @PrePersist
-    public void onPrePersist(){
-        this.queReplyRegisterDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
-        this.queReplyModifyDate=this.queReplyRegisterDate;
-    }
-
-    @PreUpdate
-    public void onPreUpdate(){
-        this.queReplyModifyDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
-    }
-
-
-
     public GoodsQueReply update(GoodsQueReplyForm goodsQueReplyForm){
         this.queReplyContent=goodsQueReplyForm.getQnaReplyContent();
-        this.queReplyModifyDate=LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
-
-
+        this.queReplyModifyDate=LocalDateTime.now();
         return this;
     }
 
