@@ -54,6 +54,7 @@
                             <th class="mate-th">날짜 선택</th>
                             <td class="mate-date-td">
                                 <input type="text" id="datepicker" name="walkingMateDate" th:value="${detail.mateDate}" readonly placeholder="날짜를 선택해주세요"/>
+                                <input type="hidden" th:value="${detail.mateDate}" id="regDate"/>
                             </td>
                         </tr>
                         <tr>

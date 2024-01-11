@@ -2,11 +2,9 @@ package com.example.dw.service;
 
 import com.example.dw.domain.dto.community.IndexWalkMateDto;
 import com.example.dw.domain.dto.goods.IndexGoodsByCateDto;
-import com.example.dw.domain.dto.goods.RecentViewGoodsDto;
 import com.example.dw.repository.community.WalkingMateRepositoryCustom;
 import com.example.dw.repository.goods.GoodsRepositoryCustom;
 import com.example.dw.repository.goods.ShopRepositoryCustom;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,16 +36,16 @@ public class IndexService {
 
 
     //최근 본 상품
-    @Transactional
-    public List<RecentViewGoodsDto> recentViewGoods(HttpSession session){
-
-
-        try{
-            return shopRepositoryCustom.recentViewGoods(session);
-
-        }catch (NullPointerException e){
-            e.printStackTrace();
-            return null;
-        }
-    }
+//    @Transactional
+//    public List<RecentViewGoodsDto> recentViewGoods(HttpSession session){
+//
+//
+//        try{
+//            return shopRepositoryCustom.recentViewGoods(session);
+//
+//        }catch (NullPointerException e){
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 }

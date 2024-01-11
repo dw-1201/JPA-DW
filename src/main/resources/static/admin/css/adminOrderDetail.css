@@ -83,7 +83,7 @@
 /* 주문 상품 정보 */
 .ordered-goods-info-container {
     box-sizing: border-box;
-    height: 333px;
+    height: 470px;
     padding: 10px 100px 0px 100px;
     overflow: hidden;
 
@@ -94,7 +94,7 @@
     display: flex;
     width: 100%;
     margin-bottom: 20px;
-    padding-bottom: 20px;
+    align-items: center;
 }
 
 .ordered-goods-info-dl:last-child{
@@ -109,9 +109,8 @@
 
 .ordered-goods-img {
     box-sizing: border-box;
-    padding: 5px;
-    width: 180px;
-    height: 130px;
+    width: 265px;
+    height: 100%;
 }
 .ordered-goods-img > img {
     width: 100%;

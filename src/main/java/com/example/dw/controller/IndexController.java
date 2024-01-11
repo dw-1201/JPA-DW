@@ -1,7 +1,7 @@
 package com.example.dw.controller;
 
+import com.example.dw.domain.dto.goods.RecentViewGoods;
 import com.example.dw.domain.dto.community.IndexWalkMateDto;
-import com.example.dw.domain.dto.goods.RecentViewGoodsDto;
 import com.example.dw.service.IndexService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +36,7 @@ public class IndexController {
         
         
         //최근 본 상품
-        List<RecentViewGoodsDto> recentGoods = indexService.recentViewGoods(session);
+        List<RecentViewGoods> recentGoods = (List<RecentViewGoods>)session.getAttribute("recentViews");
 
         model.addAttribute("recentGoods", recentGoods);
         

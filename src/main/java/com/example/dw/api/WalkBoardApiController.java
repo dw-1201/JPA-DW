@@ -46,7 +46,7 @@ public class WalkBoardApiController {
         return walkingMateService.walkMateList(page, searchLocationForm);
     }
 
-    //산책글 작성확인(1일 1회)
+    //산책글 작성확인(동일요일 1회)
     @PostMapping("/limitCheck/{userId}")
     public Integer limitCheck(@PathVariable("userId") Long userId,
                            String walkingMateDate){
@@ -56,7 +56,6 @@ public class WalkBoardApiController {
 
     }
 
-    //산책글 수정(날짜 확인)
 
 
 

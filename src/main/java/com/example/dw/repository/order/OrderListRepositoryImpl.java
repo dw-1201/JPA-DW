@@ -36,8 +36,8 @@ public class OrderListRepositoryImpl implements OrderListRepositoryCustom{
                         users.id
                 ))
                 .from(orders)
-                .leftJoin(orders.user,users)
-                .where(orders.user.id.eq(userId))
+                .leftJoin(orders.users,users)
+                .where(orders.users.id.eq(userId))
                 .fetch();
 
 
@@ -92,7 +92,7 @@ public class OrderListRepositoryImpl implements OrderListRepositoryCustom{
         Long counts = jpaQueryFactory
                 .select(orders.count())
                 .from(orders)
-                .where(orders.user.id.eq(userId))
+                .where(orders.users.id.eq(userId))
                 .fetchOne();
 
 

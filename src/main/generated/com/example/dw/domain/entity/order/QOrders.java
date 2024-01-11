@@ -30,7 +30,7 @@ public class QOrders extends EntityPathBase<Orders> {
 
     public final StringPath orderAddressNormal = createString("orderAddressNormal");
 
-    public final ListPath<OrderItem, QOrderItem> orderItemList = this.<OrderItem, QOrderItem>createList("orderItemList", OrderItem.class, QOrderItem.class, PathInits.DIRECT2);
+    public final ListPath<OrderItem, QOrderItem> orderItems = this.<OrderItem, QOrderItem>createList("orderItems", OrderItem.class, QOrderItem.class, PathInits.DIRECT2);
 
     public final QOrderList orderList;
 
@@ -46,7 +46,7 @@ public class QOrders extends EntityPathBase<Orders> {
 
     public final StringPath orderUserPhoneNumber = createString("orderUserPhoneNumber");
 
-    public final com.example.dw.domain.entity.user.QUsers user;
+    public final com.example.dw.domain.entity.user.QUsers users;
 
     public QOrders(String variable) {
         this(Orders.class, forVariable(variable), INITS);
@@ -67,7 +67,7 @@ public class QOrders extends EntityPathBase<Orders> {
     public QOrders(Class<? extends Orders> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.orderList = inits.isInitialized("orderList") ? new QOrderList(forProperty("orderList"), inits.get("orderList")) : null;
-        this.user = inits.isInitialized("user") ? new com.example.dw.domain.entity.user.QUsers(forProperty("user"), inits.get("user")) : null;
+        this.users = inits.isInitialized("users") ? new com.example.dw.domain.entity.user.QUsers(forProperty("users"), inits.get("users")) : null;
     }
 
 }

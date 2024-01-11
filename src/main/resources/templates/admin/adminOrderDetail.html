@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,7 +31,7 @@
     <div class="admin-main-bcc">
         <div class="admin-main-wrap">
             <div class="order-user-stan-title">
-                <h4>주문 회원 정보</h4>
+                <h4>주문 정보</h4>
             </div>
             <div class="order-stan-info">
                 <div class="order-img">
@@ -48,27 +48,27 @@
                             </colgroup>
                         </tr>
                         <tr>
-                            <th scope="row">아이디</th>
-                            <td>bokbok1234</td>
+                            <th scope="row">주문자 계정</th>
+                            <td th:text="${orderDetail.adminOrderDetailDto.orderAccount}"></td>
                             <th scope="row" rowspan="3">주소</th>
-                            <td class="postal-code">020202</td>
+                            <td class="postal-code" th:text="${orderDetail.adminOrderDetailDto.orderZipcode}"></td>
                         </tr>
                         <tr>
-                            <th scope="row">이름</th>
-                            <td>복영헌</td>
-                            <td class="address">서울특별시 노원구</td>
+                            <th scope="row">주문자명</th>
+                            <td ></td>
+                            <td class="address" th:text="${orderDetail.adminOrderDetailDto.orderAddress}">서울특별시 노원구</td>
                         </tr>
                         <tr>
-                            <th scope="row">닉네임</th>
-                            <td>Bokka</td>
-                            <td class="detail-address">3층 3333호</td>
+                            <th scope="row">이메일</th>
+                            <td th:text="${orderDetail.adminOrderDetailDto.oderEmail}"></td>
+                            <td class="detail-address" th:text="${orderDetail.adminOrderDetailDto.orderAddressDetail}">3층 3333호</td>
                         </tr>
                         <tr>
                             <th scope="row">휴대전화</th>
-                            <td>01055555555</td>
+                            <td th:text="${orderDetail.adminOrderDetailDto.orderPhone}"></td>
                             <th scope="row">주문 일자</th>
-                            <td>2023-11-11</td>
-                           
+                            <td class="order-date"></td>
+                           <input type="hidden" th:value="${orderDetail.adminOrderDetailDto.orderDate}" id="orderDate"/>
                             
                         </tr>
                     </table>
@@ -85,113 +85,26 @@
                 <h4>주문 상품 정보</h4>
             </div>
             <div class="ordered-goods-info-container">
-                <dl class="ordered-goods-info-dl">
+                <dl class="ordered-goods-info-dl" th:each="orderGoodsList : ${orderDetail.adminOrderDetailDto.adminOrderDetailGoodsListDtoList}">
                     <dt class="ordered-goods-img">
-                        <img src="/user/img/user-default-img.png" alt="ordered-goods-img" />
+                        <img th:src="'/jpa_dw/goods/' + ${orderGoodsList.orderGoodsMainImgPath} + '/' + ${orderGoodsList.orderGoodsMainImgUuid} +'_' + ${orderGoodsList.orderGoodsMainImgName}" alt="ordered-goods-img" />
                     </dt>
                     <dd class="ordered-goods-dd">
                         <div class="ordered-goods-detail-info">
                             <ul class="ordered-goods-detail-info-ul">
-                                <li class="goods-name"><span>냠냠이가 좋아하는 냠냠이</span></li>
-                                <li class="goods-quantity"><span>10 EA</span></li>
-                                <li class="goods-per-price"><span>13,000원</span></li>
-                                <li class="goods-totla-price"><span>130,000원</span></li>
+                                <li class="goods-name"><span th:text="${orderGoodsList.orderGoodsName}"> </span></li>
+                                <li class="goods-quantity"><span th:text="${orderGoodsList.orderGoodsQuantity +' ea'}"></span></li>
+                                <li class="goods-per-price"><span ></span></li>
+                                <li class="goods-total-price"><span th:text="${orderGoodsList.orderGoodsQuantity * orderGoodsList.orderGoodsPrice +'원'}"></span></li>
+
+                                <input type="hidden" th:value="${orderGoodsList.orderGoodsPrice}" class="each-price"/>
+                                <input type="hidden" th:value="${orderGoodsList.orderGoodsQuantity * orderGoodsList.orderGoodsPrice}" class="total-price"/>
+
                             </ul>
                         </div>
                     </dd>
                 </dl>
-                <dl class="ordered-goods-info-dl">
-                    <dt class="ordered-goods-img">
-                        <img src="/user/img/user-default-img.png" alt="ordered-goods-img" />
-                    </dt>
-                    <dd class="ordered-goods-dd">
-                        <div class="ordered-goods-detail-info">
-                            <ul class="ordered-goods-detail-info-ul">
-                                <li class="goods-name"><span>냠냠이가 좋아하는 냠냠이</span></li>
-                                <li class="goods-quantity"><span>10 EA</span></li>
-                                <li class="goods-per-price"><span>13,000원</span></li>
-                                <li class="goods-totla-price"><span>130,000원</span></li>
-                            </ul>
-                        </div>
-                    </dd>
-                </dl>
-                <dl class="ordered-goods-info-dl">
-                    <dt class="ordered-goods-img">
-                        <img src="/user/img/user-default-img.png" alt="ordered-goods-img" />
-                    </dt>
-                    <dd class="ordered-goods-dd">
-                        <div class="ordered-goods-detail-info">
-                            <ul class="ordered-goods-detail-info-ul">
-                                <li class="goods-name"><span>냠냠이가 좋아하는 냠냠이</span></li>
-                                <li class="goods-quantity"><span>10 EA</span></li>
-                                <li class="goods-per-price"><span>13,000원</span></li>
-                                <li class="goods-totla-price"><span>130,000원</span></li>
-                            </ul>
-                        </div>
-                    </dd>
-                </dl>
-                <dl class="ordered-goods-info-dl">
-                    <dt class="ordered-goods-img">
-                        <img src="/user/img/user-default-img.png" alt="ordered-goods-img" />
-                    </dt>
-                    <dd class="ordered-goods-dd">
-                        <div class="ordered-goods-detail-info">
-                            <ul class="ordered-goods-detail-info-ul">
-                                <li class="goods-name"><span>냠냠이가 좋아하는 냠냠이</span></li>
-                                <li class="goods-quantity"><span>10 EA</span></li>
-                                <li class="goods-per-price"><span>13,000원</span></li>
-                                <li class="goods-totla-price"><span>130,000원</span></li>
-                            </ul>
-                        </div>
-                    </dd>
-                </dl>
-                <dl class="ordered-goods-info-dl">
-                    <dt class="ordered-goods-img">
-                        <img src="/user/img/user-default-img.png" alt="ordered-goods-img" />
-                    </dt>
-                    <dd class="ordered-goods-dd">
-                        <div class="ordered-goods-detail-info">
-                            <ul class="ordered-goods-detail-info-ul">
-                                <li class="goods-name"><span>냠냠이가 좋아하는 냠냠이</span></li>
-                                <li class="goods-quantity"><span>10 EA</span></li>
-                                <li class="goods-per-price"><span>13,000원</span></li>
-                                <li class="goods-totla-price"><span>130,000원</span></li>
-                            </ul>
-                        </div>
-                    </dd>
-                </dl>
-                <dl class="ordered-goods-info-dl">
-                    <dt class="ordered-goods-img">
-                        <img src="/user/img/user-default-img.png" alt="ordered-goods-img" />
-                    </dt>
-                    <dd class="ordered-goods-dd">
-                        <div class="ordered-goods-detail-info">
-                            <ul class="ordered-goods-detail-info-ul">
-                                <li class="goods-name"><span>냠냠이가 좋아하는 냠냠이</span></li>
-                                <li class="goods-quantity"><span>10 EA</span></li>
-                                <li class="goods-per-price"><span>13,000원</span></li>
-                                <li class="goods-totla-price"><span>130,000원</span></li>
-                            </ul>
-                        </div>
-                    </dd>
-                </dl>
-                <dl class="ordered-goods-info-dl">
-                    <dt class="ordered-goods-img">
-                        <img src="/user/img/user-default-img.png" alt="ordered-goods-img" />
-                    </dt>
-                    <dd class="ordered-goods-dd">
-                        <div class="ordered-goods-detail-info">
-                            <ul class="ordered-goods-detail-info-ul">
-                                <li class="goods-name"><span>냠냠이가 좋아하는 냠냠이</span></li>
-                                <li class="goods-quantity"><span>10 EA</span></li>
-                                <li class="goods-per-price"><span>13,000원</span></li>
-                                <li class="goods-totla-price"><span>130,000원</span></li>
-                            </ul>
-                        </div>
-                    </dd>
-                </dl>
-                
-               
+
                
 
             </div>
@@ -205,7 +118,7 @@
         </div>
         <div class="admin-main-wrap" style="margin-top: 10px;">
             <div class="order-result">
-                <p>총 주문 금액 : <span>333,000원</span></p>
+                <p>총 주문 금액 : <span></span></p>
             </div>
         </div>
 
@@ -216,7 +129,7 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-<script src="/admin/js/adminOrderDetail.js"></script>
+<script type="module" src="/admin/js/adminOrderDetail.js"></script>
 <script src="/fragment/js/adminSide.js"></script>
 
 </body>

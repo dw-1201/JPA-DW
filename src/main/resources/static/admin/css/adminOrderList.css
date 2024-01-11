@@ -49,103 +49,155 @@
     border-bottom: 2px solid black;
     margin-bottom: 20px;
 }
-#search-form {
+
+.search-table {
+    border-collapse: collapse;
+    height: 40px;
+}
+
+.date-select-container {
+    padding: 0px 10px 0px 10px;
+    position: relative;
+}
+
+#prev-order, #next-order{
+    height: 26px;
+    width: 108px;
+    text-indent: 10px;
+}
+
+.calendar-search{
+    width: 500px;
     display: flex;
     align-items: center;
+    height: 100%;
+    border: none;
+}
+.ui-datepicker-trigger {
+width: 31px;
+height: 31px;
+right: 10px;
+bottom: 0px;
+position: absolute;
+}
+
+.cate-keyword{
+    display: flex;
+    width: 500px;
+    justify-content: start;
+    border: none;
+    height: 100%;
+    align-items: center;
+
+}
+
+#search-form {
+display: flex;
+align-items: center;
 }
 
 #search-cate {
     width: 100px;
-    height: 25px;
+    height: 38px;
+    border: none;
 
+}
+
+.search-table th {
+font-size: 13px;
 }
 
 .input-form {
-    padding-left: 10px;
+padding-left: 10px;
 }
 #search-keyword {
-    height: 21px;
-    width: 200px;
+height: 38px;
+width: 200px;
+border: none;
 }
 .result-btn {
     padding-left: 5px;
+    width: 100%;
+    text-align: end;
+    padding-right: 3px;
 }
 .result-submit-btn {
     width: 90px;
-    height: 23px;
+    height: 32px;
     cursor: pointer;
 }
 
 
 
 .order-info-list-container {
-    width: 1232px;
-    min-height: 614px;
+width: 1232px;
+min-height: 614px;
 
 }
 
 .order-info-table {
-    font-size: 13px;
-    box-sizing: border-box;
-    padding: 10px;
-    width: 100%;
-    line-height: 2;
+font-size: 13px;
+box-sizing: border-box;
+padding: 10px;
+width: 100%;
+line-height: 2;
+border-collapse: collapse;
+text-align: center;
 }
 
 
 
 .order-info-table tr td {
-    cursor: pointer;
-    padding: 4px;
+cursor: pointer;
 }
 
 .table-column > th{
-    text-align: start;
-    padding: 4px;
-    
+text-align: center;
+padding: 4px;
+
 }
 .order-info-table tr td:nth-child(7) {
-    padding: 0;
+padding: 0;
 }
 
 
 .btn {
-    font-family: 'GmarketSansMedium';
-    font-size: 12px;
-    height: 35px;
-    width: 100%;
-    padding: 3px;
-    cursor: pointer;
-    border: 1px solid rgba(128, 128, 128, 0.277);    
-    position: relative;
-    z-index: 1;
-    -webkit-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    -ms-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    transition: all 0.4s;
+font-family: 'GmarketSansMedium';
+font-size: 12px;
+height: 35px;
+width: 100%;
+padding: 3px;
+cursor: pointer;
+border: 1px solid rgba(128, 128, 128, 0.277);
+position: relative;
+z-index: 1;
+-webkit-transition: all 0.4s;
+-moz-transition: all 0.4s;
+-ms-transition: all 0.4s;
+-o-transition: all 0.4s;
+transition: all 0.4s;
 }
 .btn:after {
-    content: "";
-    width: 0%;
-    height: 100%;
-    top: 0;
-    position: absolute;
-    left: 0;
-    -webkit-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    -ms-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    transition: all 0.4s;
-    background-color: #F8BE41;
+content: "";
+width: 0%;
+height: 100%;
+top: 0;
+position: absolute;
+left: 0;
+-webkit-transition: all 0.4s;
+-moz-transition: all 0.4s;
+-ms-transition: all 0.4s;
+-o-transition: all 0.4s;
+transition: all 0.4s;
+background-color: #F8BE41;
 }
 .btn:hover:after {
-    width: 100%;
-    z-index: -1;
+width: 100%;
+z-index: -1;
 }
 
 .order-info-table tr:hover:not(.table-column){
-    background-color: rgba(6, 141, 141, 0.3);
+background-color: rgba(6, 141, 141, 0.3);
 }
 
 
@@ -156,17 +208,17 @@
 
 
 .pagination-ul {
-    margin: 0 auto;
-    width: 200px;
-    display: flex;
-    align-items: center;
+margin: 0 auto;
+width: 200px;
+display: flex;
+align-items: center;
 }
 
 .pagination-ul li {
-    text-align: center;
-    width: 100%;
+text-align: center;
+width: 100%;
 }
 .pagination-ul li a {
-    color: black;
+color: black;
 }
 

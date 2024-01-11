@@ -92,7 +92,7 @@ public class WalkingMate {
 
 
 
-    //산책글 수정
+    //산책글 전체수정
     public WalkingMate update(WalkMateForm walkMateForm){
         this.walkingMateTitle=walkMateForm.getWalkingMateTitle();
         this.walkingMateContent=walkMateForm.getWalkingMateContent();
@@ -107,19 +107,19 @@ public class WalkingMate {
         return this;
     }
 
-
-
-    //날짜포맷
-//    @PrePersist
-//    public void onPrePersist(){
-//        this.walkingMateRd = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
-//        this.walkingMateMd=this.walkingMateRd;
-//    }
-//
-//    @PreUpdate
-//    public void onPreUpdate(){
-//        this.walkingMateMd = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
-//    }
+    //산책글 부분수정(요일제외)
+    public WalkingMate updateExceptDate(WalkMateForm walkMateForm){
+        this.walkingMateTitle=walkMateForm.getWalkingMateTitle();
+        this.walkingMateContent=walkMateForm.getWalkingMateContent();
+        this.walkingMateMd = LocalDateTime.now();
+        this.walkingMatePerson=walkMateForm.getWalkingMatePerson();
+        this.walkingMateTime=walkMateForm.getWalkingMateTime();
+        this.walkingMateFullAddress=getWalkingMateFullAddress();
+        this.walkCity = walkMateForm.getWalkCity();
+        this.walkCounty = walkMateForm.getWalkCounty();
+        this.pet=walkMateForm.toEntity().getPet();
+        return this;
+    }
 
 
 }
