@@ -76,6 +76,7 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
                 .limit(pageable.getPageSize())
                 .fetch();
 
+        System.out.println(contents+"@@@@@@@@@@@");
 
         Long count = jpaQueryFactory
                 .select(goods.count())
