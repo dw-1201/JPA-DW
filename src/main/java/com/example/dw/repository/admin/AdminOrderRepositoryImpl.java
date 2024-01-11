@@ -52,7 +52,7 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
                 orders.users.userAccount,
                 orders.orderUserAddressNumber,
                 orders.orderAddressNormal,
-                orders.orderAddressDetail,
+                orders.orderAddressDetails,
                 orders.orderUserEmail,
                 orders.orderUserName,
                 orders.orderUserPhoneNumber,
@@ -114,11 +114,13 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
         AdminOrderDetailDto adminOrderDetailDto = jpaQueryFactory.select(new QAdminOrderDetailDto(
                 orders.users.id,
                 orders.users.userAccount,
+                orders.orderUserName,
                 orders.orderUserEmail,
                 orders.orderUserPhoneNumber,
                 orders.orderUserAddressNumber,
                 orders.orderAddressNormal,
-                orders.orderAddressDetail,
+                orders.orderAddressDetails,
+                orders.orderMemo,
                 orders.orderRegisterDate
                 ))
                 .from(orders)
@@ -134,9 +136,11 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
                     ,
             new AdminOrderDetailDto(
                     adminOrderDetailDto.getUserId(), adminOrderDetailDto.getOrderAccount(),
+                    adminOrderDetailDto.getOrderUserName(),
                     adminOrderDetailDto.getOderEmail(),
                     adminOrderDetailDto.getOrderPhone(), adminOrderDetailDto.getOrderZipcode(),
                     adminOrderDetailDto.getOrderAddress(), adminOrderDetailDto.getOrderAddressDetail(),
+                    adminOrderDetailDto.getOrderMemo(),
                     adminOrderDetailDto.getOrderDate(),
                     adminOrderDetailGoodsList)
             );

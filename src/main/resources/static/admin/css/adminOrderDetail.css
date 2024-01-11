@@ -57,12 +57,12 @@
 .order-info-table {
     font-size: 13px;
     border: 1px solid gray;
-    height: 180px;
+    height: 240px;
+    width: 100%;
 }
 .order-info-table tr th {
     box-sizing: border-box;
-    padding-left: 7px;
-    text-align: start;
+    text-align: center;
     border: 1px solid gray;
 }
 .order-info-table tr td {
@@ -77,7 +77,9 @@
     background-color: rgb(209, 209, 202);
 }
 
-
+.order-memo {
+    height: 100px;
+}
 
 
 /* 주문 상품 정보 */
@@ -112,8 +114,8 @@
     width: 265px;
     height: 100%;
 }
-.ordered-goods-img > img {
-    width: 100%;
+.ordered-goods-img img {
+    width: 210px;
     height: 100%;
 }
 
