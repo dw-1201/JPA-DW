@@ -2,6 +2,9 @@ package com.example.dw.repository.goods;
 
 import com.example.dw.domain.entity.goods.Goods;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
@@ -12,6 +15,9 @@ public interface GoodsRepository extends JpaRepository<Goods, Long> {
 
 
 
+        @Modifying
+        @Query("Update Goods g set g.saleCount =g.saleCount+:sale where g.id=:id")
+        void updateSaleCount(@Param("sale") int sale, @Param("id") Long id);
 
 
 }

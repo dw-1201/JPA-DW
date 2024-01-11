@@ -1006,11 +1006,6 @@
 
 
 
-.recent-view-goods {
-    width: 1024px;
-    height: 100%;
-
-}
 .recent-view-goods-title{
     margin-bottom: 20px;
 }
@@ -1042,6 +1037,7 @@
 }
 
 .recent-view-goods{
+    width: 100%;
     margin-bottom: 190px;
 }
 

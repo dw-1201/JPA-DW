@@ -11,6 +11,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="orders")
@@ -37,13 +39,17 @@ public class Orders {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private Users user;
+    private Users users;
 
     @OneToOne(mappedBy = "orders",fetch = FetchType.LAZY)
     private OrderList orderList;
 
+    @OneToMany(mappedBy = "orders", fetch = FetchType.LAZY)
+    private List<OrderItem> orderItems=new ArrayList<>();
+
+
     @Builder
-    public Orders(Long id, String orderUserName, String orderUserAddressNumber, String orderAddressNormal, String orderAddressDetail, String orderAddressDetails, String orderUserPhoneNumber, String orderUserEmail, String orderMemo, LocalDateTime orderRegisterDate, Users user, OrderList orderList) {
+    public Orders(Long id, String orderUserName, String orderUserAddressNumber, String orderAddressNormal, String orderAddressDetail, String orderAddressDetails, String orderUserPhoneNumber, String orderUserEmail, String orderMemo, LocalDateTime orderRegisterDate, Users users, OrderList orderList, List<OrderItem> orderItems) {
         this.id = id;
         this.orderUserName = orderUserName;
         this.orderUserAddressNumber = orderUserAddressNumber;
@@ -54,7 +60,8 @@ public class Orders {
         this.orderUserEmail = orderUserEmail;
         this.orderMemo = orderMemo;
         this.orderRegisterDate = orderRegisterDate;
-        this.user = user;
+        this.users = users;
         this.orderList = orderList;
+        this.orderItems = orderItems;
     }
 }

@@ -12,6 +12,7 @@ public class AdminGoodsDto {
     private Long id;
     private String goodsName;
     private int goodsQuantity;
+    private int goodsSaleCount;
     private int goodsPrice;
     private String goodsCategory;
     private String goodsRegisterDate;
@@ -19,12 +20,13 @@ public class AdminGoodsDto {
 
 
     @QueryProjection
-    public AdminGoodsDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String categoryName, String goodsRegisterDate, String goodsModifyDate) {
+    public AdminGoodsDto(Long id, String goodsName, int goodsQuantity, int goodsSaleCount, int goodsPrice, String goodsCategory, String goodsRegisterDate, String goodsModifyDate) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;
+        this.goodsSaleCount = goodsSaleCount;
         this.goodsPrice = goodsPrice;
-        this.goodsCategory = categoryName;
+        this.goodsCategory = goodsCategory;
         this.goodsRegisterDate = goodsRegisterDate;
         this.goodsModifyDate = goodsModifyDate;
     }

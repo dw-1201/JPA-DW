@@ -22,12 +22,11 @@ public class AdminGoodsDetailResultDto {
     private String goodsMainImgName;
     private String goodsMainImgPath;
     private String goodsMainImgUuid;
+    private int saleCount;
     private List<AdminGoodsDetailImgDto> goodsDetailImgs;
 
 
-    public AdminGoodsDetailResultDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade,
-                                     String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate,
-                                     String goodsCategory, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid) {
+    public AdminGoodsDetailResultDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate, String goodsCategory, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid, int saleCount) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;
@@ -41,12 +40,11 @@ public class AdminGoodsDetailResultDto {
         this.goodsMainImgName = goodsMainImgName;
         this.goodsMainImgPath = goodsMainImgPath;
         this.goodsMainImgUuid = goodsMainImgUuid;
+        this.saleCount = saleCount;
     }
 
-    public AdminGoodsDetailResultDto(Long id, String goodsName, int goodsQuantity, int goodsPrice,
-                                     String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate,
-                                     String goodsCategory, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid,
-                                     List<AdminGoodsDetailImgDto> goodsDetailImgs) {
+
+    public AdminGoodsDetailResultDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate, String goodsCategory, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid, int saleCount, List<AdminGoodsDetailImgDto> goodsDetailImgs) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;
@@ -60,8 +58,7 @@ public class AdminGoodsDetailResultDto {
         this.goodsMainImgName = goodsMainImgName;
         this.goodsMainImgPath = goodsMainImgPath;
         this.goodsMainImgUuid = goodsMainImgUuid;
+        this.saleCount = saleCount;
         this.goodsDetailImgs = goodsDetailImgs;
     }
-
-
 }
