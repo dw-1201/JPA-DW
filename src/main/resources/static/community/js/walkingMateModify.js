@@ -46,6 +46,29 @@ function onClickAddr() {
 }
 
 
+// 주소를 지도에 표시하는 함수
+function showMarkerOnMap(address) {
+    const geocoder = new window.kakao.maps.services.Geocoder();
+
+    // 주소를 좌표로 변환
+    geocoder.addressSearch(address, function (result, status) {
+        if (status === window.kakao.maps.services.Status.OK) {
+            const currentPos = new window.kakao.maps.LatLng(result[0].y, result[0].x);
+
+            // 기존 마커 삭제 후 새로운 마커 추가
+            marker.setMap(null);
+            marker.setPosition(currentPos);
+            marker.setMap(map);
+
+            // 지도 중심 이동
+            map.panTo(currentPos);
+        } else {
+            console.error('주소를 찾을 수 없습니다.');
+        }
+    });
+}
+
+
 document.addEventListener('DOMContentLoaded', function () {
     //산책글 시간 초기값 설정
     modifyMateTime()
@@ -156,7 +179,8 @@ $('.submit-btn').on('click', function (){
     let petName = $('#petName').val();
     let place =$('#addr').val();
     let currentPerson = $('#currentPerson').val();
-
+    let regFirst = $('#regDate').val();
+    let userId = $('#userId').val();
 
 
     if($('.non-registered-pet').is(':visible')){
@@ -184,12 +208,42 @@ $('.submit-btn').on('click', function (){
         return false;
     }
 
+    if(regFirst == date){
+
+        $('#walk-write-form').submit();
+        return true;
+
+
+    }else if (regFirst != date){
+
+        $.ajax({
+            url :`/walks/limitCheck/${userId}`,
+            type:'post',
+            data : {
+                walkingMateDate : date
+            },
+            success : function (result){
+                if(result==1){
+                    alert("이미 동일 요일에 작성된 글이 존재합니다.")
+                }else{
+
+                    $('#walk-write-form').submit();
+
+                }
+
+            },error : function (a,b,c){
+                console.error(c)
+            }
+
+        })
+
+    }
 
 
 
-    $('#walk-write-form').submit();
-    return true;
 
+
+    
 
 })
 

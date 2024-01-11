@@ -49,8 +49,8 @@ function showGoodsList(result){
                         <td>${r.goodsCategory}</td>
                         <td>${r.goodsName}</td>
                         <td>${r.goodsPrice}원</td>
-                        <td>${r.goodsQuantity} ea</td>
-                        <td>추후 조인</td>
+                        <td>${r.goodsQuantity - r.goodsSaleCount} ea</td>
+                        <td>${r.goodsSaleCount} ea</td>
                         <td>${r.goodsRegisterDate}</td>
                         `;
         if(r.goodsRegisterDate == r.goodsModifyDate){

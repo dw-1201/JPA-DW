@@ -46,6 +46,18 @@ public class WalkBoardApiController {
         return walkingMateService.walkMateList(page, searchLocationForm);
     }
 
+    //산책글 작성확인(동일요일 1회)
+    @PostMapping("/limitCheck/{userId}")
+    public Integer limitCheck(@PathVariable("userId") Long userId,
+                           String walkingMateDate){
+
+        System.out.println(walkingMateDate+"!@#@!#!@#!@");
+        return walkingMateService.limitWriteByDay(userId, walkingMateDate);
+
+    }
+
+
+
 
     //산책메이트 상세보기 댓글 등록
     @PostMapping("/detailReply")

@@ -48,6 +48,8 @@ public class QGoods extends EntityPathBase<Goods> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final NumberPath<Integer> saleCount = createNumber("saleCount", Integer.class);
+
     public QGoods(String variable) {
         super(Goods.class, forVariable(variable));
     }

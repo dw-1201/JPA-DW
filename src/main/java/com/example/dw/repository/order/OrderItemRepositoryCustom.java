@@ -1,6 +1,12 @@
 package com.example.dw.repository.order;
 
-public interface OrderItemRepositoryCustom {
+import com.example.dw.domain.dto.order.OrderItemDto;
 
-//    List<OrderItemDto> findOrderItemAll(Long userId);
+import java.util.List;
+import java.util.Optional;
+
+public interface OrderItemRepositoryCustom {
+////
+//    Optional<OrderItemDto> findById(Long orderItemId);
+
 }

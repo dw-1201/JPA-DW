@@ -2,6 +2,7 @@ package com.example.dw.domain.entity.order;
 
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,4 +22,13 @@ public class OrderReviewImg {
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "order_review_id")
     private OrderReview orderReview;
+
+    @Builder
+    public OrderReviewImg(Long id, String reviewimgFileName, String reviewimgPath, String reviewimgUuid, OrderReview orderReview) {
+        this.id = id;
+        this.reviewimgFileName = reviewimgFileName;
+        this.reviewimgPath = reviewimgPath;
+        this.reviewimgUuid = reviewimgUuid;
+        this.orderReview = orderReview;
+    }
 }

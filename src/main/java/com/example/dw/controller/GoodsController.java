@@ -1,6 +1,6 @@
 package com.example.dw.controller;
 
-import com.example.dw.domain.dto.RecentViewGoods;
+import com.example.dw.domain.dto.goods.RecentViewGoods;
 import com.example.dw.domain.dto.goods.GoodsDetailDto;
 import com.example.dw.repository.goods.GoodsRepository;
 import com.example.dw.repository.goods.ShopRepositoryCustom;
@@ -70,7 +70,7 @@ public class GoodsController {
 
      //최근 본 상품
         RecentViewGoods recentViewGoods = new RecentViewGoods();
-        recentViewGoods.productClicked(detail.get().getId(),session);
+        recentViewGoods.productClicked(detail.get(),session);
 
 
 

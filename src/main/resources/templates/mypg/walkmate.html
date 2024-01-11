@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,13 +21,13 @@
                 <nav class="menu-choice-area">
                     <ul class="menu-choice">
                         <li class="choice-p">
-                            <a href="/mypg/html/mypgmain.html" class="pro"> 프로필</a>
+                            <a th:href="@{/mypg/main/{userid}(userid = ${session.userId})}" class="pro"> 프로필</a>
                         </li>
                         <li class="choice-w">
-                            <a href="/mypg/html/mywrite.html" class="mywrite">내가 작성한 글</a>
+                            <a th:href="@{/mypg/writepage/{userid}(userid = ${session.userId})}" class="mywrite">내가 작성한 글</a>
                         </li>
                         <li>
-                            <a href="/mypg/html/buylist.html" class="mybuy">주문내역</a>
+                            <a th:href="@{/mypg/orderpage/{userid}(userid = ${session.userId})}" class="mybuy">주문내역</a>
                         </li>
                     </ul>
                 </nav>
@@ -35,37 +35,37 @@
             <div class="detail-mywrite-choice">
                 <ul class="detail-choice">
                     <li class="my-QnA">
-                        <a href="/mypg/html/mywrite.html" class="my-QnA-detail">QnA</a>
+                        <a th:href="@{/mypg/writepage/{userid}(userid = ${session.userId})}" class="my-QnA-detail">QnA</a>
                     </li>
                     <li class="my-freeboard">
-                        <a href="/mypg/html/myfreeboard.html" class="my-freeboard-detail">자유게시판</a>
+                        <a th:href="@{/mypg/myfreeboard/{userid}(userid =${session.userId})}" class="my-freeboard-detail">자유게시판</a>
                     </li>
                     <li class="my-walk">
-                        <a href="/mypg/html/walkmate.html" class="my-walk-detail">나의 산책 메이트 글</a>
+                        <a th:href="@{/mypg/mywalking/{userid}(userid =${session.userId})}"  class="my-walk-detail">나의 산책 메이트 글</a>
                     </li>
                     <li class="my-walkapplication">
-                        <a href="/mypg/html/mateapplication.html" class="my-walkapplication-detail">나의 산책 메이트 신청</a>
+                        <a th:href="@{/mypg/myapplicationwalk/{userid}(userid =${session.userId})}"  class="my-walkapplication-detail">나의 산책 메이트 신청</a>
                     </li>
                     <li class="my-review">
-                        <a href="/mypg/html/productreviewlist.html" class="my-review-detail">리뷰 내역</a>
+                        <a th:href="@{/mypg/myreview/{userid}(userid =${session.userId})}"  class="my-review-detail">리뷰 내역</a>
                     </li>
                 </ul>
             </div>
             <div class="matemain">
-                <div class="walkmate">
+                <div class="walkmate" th:data-userid="${session.userId}">
                     <div class="walkchoice-form">   
                         <div class="walkchoice-form-box">          
                             <label for="recruit">
-                                <input type="radio" name="recruit" id="recruit" checked/> 
+                                <input type="radio" name="state" id="recruit" checked value=""/>
                             전체보기
                             </label>
                             <label for="recruit-y">
-                                <input type="radio" name="recruit" id="recruit-y"/>
-                            모집 완료
+                                <input type="radio" name="state" id="recruit-y" value="0"/>
+                            모집 대기
                             </label>
                             <label for="recruit-n">
-                                <input type="radio" name="recruit" id="recruit-n"/> 
-                            모집 대기 
+                                <input type="radio" name="state" id="recruit-n" value="1"/>
+                                모집 완료
                             </label>
                         </div>
                     </div>
@@ -73,184 +73,53 @@
                     <div class="walk-list">
                         <div class="list-content">
                             <div class="content-text-box">
-                                <div class="list-content-title">산책 메이트를 찾아요~</div>
-                                <div class="list-content-content">
-                                    <div class="list-content-content-detail">
-                                        노원구 근처 공원에서 저희 집 댕댕이와 산책할 매너있는 메이트를 찾습니다.
-                                        산책을 희망하시면 댓글남겨주세요~~
-                                    </div> 
-                                </div>
-                                <div class="list-content-etc">
-                                    <div class="list-content-address">
-                                        <span>서울시 노원구</span>
-                                    </div>
-                                    <div class="list-content-recruit">
-                                        <span>모집인원</span>
-                                        <span class="recruit-count">1/5</span>
-                                    </div>
-                                    <div class="recruit-btn-box">
-                                        <button>모집 대기</button>
-                                    </div>
 
-                                </div>
+
+                                <td class="permit-area" style="display: none">
+                                    <div class="y-y">
+                                        <div class="y">
+                                            <span class="y-click" data-number="${e.id}" >승인</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="permit-area" style="display: none">
+                                    <div class="n">
+                                        <div class="n-area">
+                                            <div class="y-a">
+                                                <span class="succes">완료</span>
+                                            </div>
+
+                                            <div class="cencel-area" >
+                                                <span class="cencel" data-numbers="${e.id}">취소</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
                             </div>
-                            <div class="content-img-box">
-                                <div class="content-img">
-                                    <img src="/mypg/img/강아지.png" alt="">
-                                </div>
-                            </div>
-                          
                         </div>
 
-                        <div class="list-content">
-                            <div class="content-text-box">
-                                <div class="list-content-title">산책 메이트를 찾아요~</div>
-                                <div class="list-content-content">
-                                    <div class="list-content-content-detail">
-                                        노원구 근처 공원에서 저희 집 댕댕이와 산책할 매너있는 메이트를 찾습니다.
-                                        산책을 희망하시면 댓글남겨주세요~~
-                                    </div> 
-                                </div>
-                                <div class="list-content-etc">
-                                    <div class="list-content-address">
-                                        <span>서울시 노원구</span>
-                                    </div>
-                                    <div class="list-content-recruit">
-                                        <span>모집인원</span>
-                                        <span class="recruit-count">1/5</span>
-                                    </div>
-                                    <div class="recruit-box">
-                                        <span>모집 완료</span>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                            <div class="content-img-box">
-                                <div class="content-img">
-                                    <img src="/mypg/img/강아지.png" alt="">
-                                </div>
-                            </div>
-                          
-                        </div>
-
-                        <div class="list-content">
-                            <div class="content-text-box">
-                                <div class="list-content-title">산책 메이트를 찾아요~</div>
-                                <div class="list-content-content">
-                                    <div class="list-content-content-detail">
-                                        노원구 근처 공원에서 저희 집 댕댕이와 산책할 매너있는 메이트를 찾습니다.
-                                        산책을 희망하시면 댓글남겨주세요~~
-                                    </div> 
-                                </div>
-                                <div class="list-content-etc">
-                                    <div class="list-content-address">
-                                        <span>서울시 노원구</span>
-                                    </div>
-                                    <div class="list-content-recruit">
-                                        <span>모집인원</span>
-                                        <span class="recruit-count">1/5</span>
-                                    </div>
-                                    <div class="recruit-btn-box">
-                                        <button>모집 대기</button>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                            <div class="content-img-box">
-                                <div class="content-img">
-                                    <img src="/mypg/img/강아지.png" alt="">
-                                </div>
-                            </div>
-                          
-                        </div>
-
-                        <div class="list-content">
-                            <div class="content-text-box">
-                                <div class="list-content-title">산책 메이트를 찾아요~</div>
-                                <div class="list-content-content">
-                                    <div class="list-content-content-detail">
-                                        노원구 근처 공원에서 저희 집 댕댕이와 산책할 매너있는 메이트를 찾습니다.
-                                        산책을 희망하시면 댓글남겨주세요~~
-                                    </div> 
-                                </div>
-                                <div class="list-content-etc">
-                                    <div class="list-content-address">
-                                        <span>서울시 노원구</span>
-                                    </div>
-                                    <div class="list-content-recruit">
-                                        <span>모집인원</span>
-                                        <span class="recruit-count">1/5</span>
-                                    </div>
-                                    <div class="recruit-btn-box">
-                                        <button>모집 대기</button>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                            <div class="content-img-box">
-                                <div class="content-img">
-                                    <img src="/mypg/img/강아지.png" alt="">
-                                </div>
-                            </div>
-                          
-                        </div>
-
-
-                        <div class="list-page-container">
-                            <div class="list-pages">
-                                <ul>
-                                    <li><a href="">&lt;</a></li>
-                                    <li><a href="">1</a></li>
-                                    <li><a href="">2</a></li>
-                                    <li><a href="">3</a></li>
-                                    <li><a href="">4</a></li>
-                                    <li><a href="">5</a></li>
-                                    <li><a href="">&gt;</a></li>
-                                </ul>
-                            </div>
-                        </div>
 
                     </div>
 
-                
+                </div>
+                <div class="list-page-container">
+                    <div class="list-pages">
+                        <ul class="pagination-ul">
+
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>    
 
     </main>
     <!-- footer 시작 -->
-    <div class="footer">
-        <div class="footer-container01">
-            <div class="footer-containerbox01">
-                <div class="footer-container01-nav">
-                    <ul>
-                        <li>(주)산책갈개</li>
-                        <li>복영헌 임형준 노의진 이지윤</li>
-                        <li>서울특별시 노원구 상계로1길 34 세일학원 5층</li>
-                        <li>02-933-5890</li>
-                    </ul>
-                </div>
-                <div class="footer-container01-img">
-                    <img src="/img/dog02.png" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="footer-container02">
-            <div class="footer-containerbox02">
-                <div>Copyright ©SCGG All Rights Reserved.</div>
-                <div class="footer-container02-nav">
-                    <ul>
-                        <li><a href="">이용약관</a></li>
-                        <li><a href="">개인정보처리방침</a></li>
-                        <li><a href="">사업자정보확인</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+       <div class="footer" th:replace="fragment/footer :: footer">
+
+       </div>
     <!--footer 끝-->
     <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="../js/walkmate.js"></script>
+    <script type="module"  src="../js/walkmate.js"></script>
 </body>
 </html>      

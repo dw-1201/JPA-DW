@@ -2,6 +2,7 @@ package com.example.dw.domain.dto.admin;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 //전체조회한 것들 중에 상품 상세사진(여러개)를 리스트로 담기위한 DTO
@@ -16,18 +17,16 @@ public class AdminGoodsDetailResultDto {
     private String goodsMade;
     private String goodsCertify;
     private String goodsDetailContent;
-    private String goodsRegisterDate;
-    private String goodsModifyDate;
+    private LocalDateTime goodsRegisterDate;
+    private LocalDateTime goodsModifyDate;
     private String goodsCategory;
     private String goodsMainImgName;
     private String goodsMainImgPath;
     private String goodsMainImgUuid;
+    private int saleCount;
     private List<AdminGoodsDetailImgDto> goodsDetailImgs;
 
-
-    public AdminGoodsDetailResultDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade,
-                                     String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate,
-                                     String goodsCategory, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid) {
+    public AdminGoodsDetailResultDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, LocalDateTime goodsRegisterDate, LocalDateTime goodsModifyDate, String goodsCategory, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid, int saleCount) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;
@@ -41,12 +40,10 @@ public class AdminGoodsDetailResultDto {
         this.goodsMainImgName = goodsMainImgName;
         this.goodsMainImgPath = goodsMainImgPath;
         this.goodsMainImgUuid = goodsMainImgUuid;
+        this.saleCount = saleCount;
     }
 
-    public AdminGoodsDetailResultDto(Long id, String goodsName, int goodsQuantity, int goodsPrice,
-                                     String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate,
-                                     String goodsCategory, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid,
-                                     List<AdminGoodsDetailImgDto> goodsDetailImgs) {
+    public AdminGoodsDetailResultDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, LocalDateTime goodsRegisterDate, LocalDateTime goodsModifyDate, String goodsCategory, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid, int saleCount, List<AdminGoodsDetailImgDto> goodsDetailImgs) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;
@@ -60,8 +57,7 @@ public class AdminGoodsDetailResultDto {
         this.goodsMainImgName = goodsMainImgName;
         this.goodsMainImgPath = goodsMainImgPath;
         this.goodsMainImgUuid = goodsMainImgUuid;
+        this.saleCount = saleCount;
         this.goodsDetailImgs = goodsDetailImgs;
     }
-
-
 }

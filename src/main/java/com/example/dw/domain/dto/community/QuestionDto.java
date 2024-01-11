@@ -16,7 +16,7 @@ public class QuestionDto {
     private Long id;
     private String questionTitle;
     private String questionContent;
-    private String questionRd;
+    private LocalDateTime questionRd;
     private LocalDateTime questionMd;
     //조회수
 //    private Long questionViewCount;
@@ -29,7 +29,8 @@ public class QuestionDto {
 //    List<QuestionImgDto> questionImgDtoList;
 
     @QueryProjection
-    public QuestionDto(Long id, String questionTitle, String questionContent, String questionRd, LocalDateTime questionMd, Long userId, String userName) {
+
+    public QuestionDto(Long id, String questionTitle, String questionContent, LocalDateTime questionRd, LocalDateTime questionMd, Long userId, String userName) {
         this.id = id;
         this.questionTitle = questionTitle;
         this.questionContent = questionContent;

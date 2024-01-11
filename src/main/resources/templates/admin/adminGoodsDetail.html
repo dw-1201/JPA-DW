@@ -75,7 +75,7 @@
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">상품 수량</th>
-                                <td><input type="number" name="goodsQuantity" id="goods-quantity" min="0" th:value="${goods.goodsQuantity}" readonly/></td>
+                                <td><input type="number" name="goodsQuantity" id="goods-quantity" min="0" th:value="${goods.goodsQuantity - goods.saleCount}" readonly/></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">상품 가격</th>
@@ -102,9 +102,9 @@
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">판매량</th>
-                                <td><input type="text" name="goods-sale-count" id="goods-sale-count" readonly/></td>
+                                <td><input type="text" name="goods-sale-count" id="goods-sale-count" readonly th:value="${goods.saleCount}"/></td>
                                 <th class="goods-table-column" scope="row">총 판매금액</th>
-                                <td><input type="text" name="goods-total-sale" id="goods-total-sale" readonly/></td>
+                                <td><input type="text" name="goods-total-sale" id="goods-total-sale" readonly th:value="${goods.saleCount * goods.goodsPrice +'원'}"/></td>
                             </tr>
 
                         </table>

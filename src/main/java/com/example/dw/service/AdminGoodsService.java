@@ -77,7 +77,8 @@ public class AdminGoodsService {
                                         r.getGoodsCategory(),
                                         r.getGoodsMainImgName(),
                                         r.getGoodsMainImgPath(),
-                                        r.getGoodsMainImgUuid()
+                                        r.getGoodsMainImgUuid(),
+                                        r.getSaleCount()
                                 ),
                                 mapping(
                                         r -> new AdminGoodsDetailImgDto(

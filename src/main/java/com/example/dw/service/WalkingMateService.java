@@ -176,11 +176,40 @@ public class WalkingMateService {
     public void walkModify(WalkMateForm walkMateForm){
 
         WalkingMate walkingMate = walkingMateRepository.findById(walkMateForm.getId()).get();
-        walkingMate.update(walkMateForm);
+
+        if(walkMateForm.getWalkingMateDate().equals(walkingMate.getWalkingMateDate())){
+            walkingMate.updateExceptDate(walkMateForm);
+        }else {
+            walkingMate.update(walkMateForm);
+        }
 
     }
     
-    
+
+    //작성제한
+    @Transactional
+    public Integer limitWriteByDay(Long userId, String walkMateDate){
+
+        try{
+            Long id  =walkingMateRepository.limitWrite(userId, walkMateDate);
+
+
+            if(id != null){
+                return 1;
+            }else {
+                return 0;
+            }
+
+
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            return 0;
+        }
+
+    }
+
+
+
     
     //댓글
 

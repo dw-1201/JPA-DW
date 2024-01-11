@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/common/css/common.css">
     <link rel="stylesheet" href="/fragment/css/adminSide.css">
     <link rel="stylesheet" href="/admin/css/adminOrderList.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <title>관리자 페이지</title>
 </head>
 <body class="body">
@@ -32,24 +33,53 @@
     </div>
     <div class="admin-main-bcc">
         <div class="admin-main-wrap" >
+
+
             <div class="order-info-search-container">
                 <form action="" method="" id="search-form">
-                    <div class="select-form">
-                        <select id="search-cate" name="search-cate">
-                            <option value="1">아이디</option>
-                            <option value="2">이름</option>
-                            <option value="3">상품명</option>
-                            
-                        </select>
-                    </div>
-                    <div class="input-form">
-                        <input type="text" name="search-keword" id="search-keyword" />
-                    </div>
-                    <div class="result-btn">
-                        <button type="button" class="result-submit-btn">검색</button>
-                    </div>
+                    <table border="1" cellspacing="0" class="search-table">
+                        <colgroup>
+                            <col width="120"/>
+                            <col/>
+                            <col width="120"/>
+                            <col/>
+                        </colgroup>
+                        <tr>
+                            <th>주문 일자 </th>
+                            <td class="calendar-search">
+                                <div class="date-select-container">
+
+                                <input type="text" id="prev-order" readonly>
+                                </div>
+                                <div class="blank-line"> - </div>
+                                <div class="date-select-container">
+
+                                <input type="text" id="next-order" readonly>
+                                </div>
+                            </td>
+                            <th>키워드</th>
+                            <td class="cate-keyword">
+                                <div class="select-form">
+                                    <select id="search-cate" name="search-cate">
+                                        <option value="orderNumber">주문번호</option>
+                                        <option value="orderAccount">주문자</option>
+                                    </select>
+                                </div>
+                                <div class="input-form">
+                                    <input type="text" name="search-keyword" id="search-keyword" />
+                                </div>
+                                <div class="result-btn">
+                                    <button type="button" class="result-submit-btn">검색</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
                 </form>
             </div>
+
+
+
             <div class="order-info-list-container">
                 <table class="order-info-table" border="1" cellspacing="0">
                     <tr class="table-column">
@@ -61,173 +91,13 @@
                         <th width="200">주문 날짜</th>
                         <th>비고</th>
                     </tr>
-                    
-                    <tr>
-                        <td>15</td>
-                        <td>bokbok1234</td>
-                        <td>냠냠이가 좋아하는 영양제</td>
-                        <td>3EA</td>
-                        <td>45,000원</td>
-                        <td>2023-11-25</td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>14</td>
-                        <td>bokbok1234</td>
-                        <td>냠냠이가 좋아하는 영양제</td>
-                        <td>3EA</td>
-                        <td>45,000원</td>
-                        <td>2023-11-25</td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>13</td>
-                        <td>bokbok1234</td>
-                        <td>냠냠이가 좋아하는 영양제</td>
-                        <td>3EA</td>
-                        <td>45,000원</td>
-                        <td>2023-11-25</td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>12</td>
-                        <td>bokbok1234</td>
-                        <td>냠냠이가 좋아하는 영양제</td>
-                        <td>3EA</td>
-                        <td>45,000원</td>
-                        <td>2023-11-25</td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11</td>
-                        <td>bokbok1234</td>
-                        <td>냠냠이가 좋아하는 영양제</td>
-                        <td>3EA</td>
-                        <td>45,000원</td>
-                        <td>2023-11-25</td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td>bokbok1234</td>
-                        <td>냠냠이가 좋아하는 영양제</td>
-                        <td>3EA</td>
-                        <td>45,000원</td>
-                        <td>2023-11-25</td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>bokbok1234</td>
-                        <td>냠냠이가 좋아하는 영양제</td>
-                        <td>3EA</td>
-                        <td>45,000원</td>
-                        <td>2023-11-25</td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>bokbok1234</td>
-                        <td>냠냠이가 좋아하는 영양제</td>
-                        <td>3EA</td>
-                        <td>45,000원</td>
-                        <td>2023-11-25</td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>bokbok1234</td>
-                        <td>냠냠이가 좋아하는 영양제</td>
-                        <td>3EA</td>
-                        <td>45,000원</td>
-                        <td>2023-11-25</td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>bokbok1234</td>
-                        <td>냠냠이가 좋아하는 영양제</td>
-                        <td>3EA</td>
-                        <td>45,000원</td>
-                        <td>2023-11-25</td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>bokbok1234</td>
-                        <td>냠냠이가 좋아하는 영양제</td>
-                        <td>3EA</td>
-                        <td>45,000원</td>
-                        <td>2023-11-25</td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>bokbok1234</td>
-                        <td>냠냠이가 좋아하는 영양제</td>
-                        <td>3EA</td>
-                        <td>45,000원</td>
-                        <td>2023-11-25</td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>bokbok1234</td>
-                        <td>냠냠이가 좋아하는 영양제</td>
-                        <td>3EA</td>
-                        <td>45,000원</td>
-                        <td>2023-11-25</td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>bokbok1234</td>
-                        <td>냠냠이가 좋아하는 영양제</td>
-                        <td>3EA</td>
-                        <td>45,000원</td>
-                        <td>2023-11-25</td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>bokbok1234</td>
-                        <td>냠냠이가 좋아하는 영양제</td>
-                        <td>3EA</td>
-                        <td>45,000원</td>
-                        <td>2023-11-25</td>
-                        <td class="list-btns">
-                            <button type="button" class="detail-btn btn">상세보기</button>
-                        </td>
-                    </tr>
-                   
+                    <tbody class="order-list">
+
+
+
+                    </tbody>
+
+
                 </table>
             </div>
         </div>
@@ -249,7 +119,8 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-<script src="/admin/js/adminOrderList.js"></script>
+<script type="module" src="/admin/js/adminOrderList.js"></script>
 <script src="/fragment/js/adminSide.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 </body>
 </html>

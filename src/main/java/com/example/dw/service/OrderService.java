@@ -5,6 +5,7 @@ import com.example.dw.domain.entity.order.Orders;
 import com.example.dw.domain.form.*;
 import com.example.dw.repository.goods.CartItemRepository;
 import com.example.dw.repository.goods.CartRepository;
+import com.example.dw.repository.goods.GoodsRepository;
 import com.example.dw.repository.order.OrderItemRepository;
 import com.example.dw.repository.order.OrderListRepository;
 import com.example.dw.repository.order.OrderRepository;
@@ -26,7 +27,7 @@ public class OrderService {
     private final OrderListRepository orderListRepository;
     private final CartItemRepository cartItemRepository;
     private final CartRepository cartRepository;
-    private Object Optional;
+    private final GoodsRepository goodsRepository;
 
     //주문서 작성
     @Transactional
@@ -50,11 +51,20 @@ public class OrderService {
                 //주문 상품 저장
                 orderItemRepository.save(goodsPayListFrom.toEntity());
                 cartItemRepository.deleteByCartId(cartId.getId());
+
+
+                //상품 판매량 업데이트
+                goodsRepository.updateSaleCount(Integer.valueOf(goodsPayListFrom.getGoodsQuantity()), Long.valueOf(goodsPayListFrom.getGoodsId()));
+
             }
 
             OrderListForm orderListForm = new OrderListForm();
             orderListForm.setOrderId(orderId);
             orderListRepository.save(orderListForm.toEntity());
+
+
+
+
 
             //주문 상품 삭제
             httpSession.removeAttribute("goodsPayList");

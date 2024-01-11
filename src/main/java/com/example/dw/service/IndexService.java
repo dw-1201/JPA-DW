@@ -1,10 +1,10 @@
 package com.example.dw.service;
 
+import com.example.dw.domain.dto.community.IndexWalkMateDto;
 import com.example.dw.domain.dto.goods.IndexGoodsByCateDto;
-import com.example.dw.domain.dto.goods.RecentViewGoodsDto;
+import com.example.dw.repository.community.WalkingMateRepositoryCustom;
 import com.example.dw.repository.goods.GoodsRepositoryCustom;
 import com.example.dw.repository.goods.ShopRepositoryCustom;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +16,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class IndexService {
 
+    private final WalkingMateRepositoryCustom walkingMateRepositoryCustom;
     private final GoodsRepositoryCustom goodsRepositoryCustom;
     private final ShopRepositoryCustom shopRepositoryCustom;
 
@@ -25,17 +26,26 @@ public class IndexService {
         return goodsRepositoryCustom.indexGoodsListByCategory(cate);
     }
 
-    //최근 본 상품
+    //산책글 리스트
     @Transactional
-    public List<RecentViewGoodsDto> recentViewGoods(HttpSession session){
+    public List<IndexWalkMateDto> indexWalkMateList(){
 
+        return walkingMateRepositoryCustom.IndexWalkMateList();
 
-        try{
-            return shopRepositoryCustom.recentViewGoods(session);
-
-        }catch (NullPointerException e){
-            e.printStackTrace();
-            return null;
-        }
     }
+
+
+    //최근 본 상품
+//    @Transactional
+//    public List<RecentViewGoodsDto> recentViewGoods(HttpSession session){
+//
+//
+//        try{
+//            return shopRepositoryCustom.recentViewGoods(session);
+//
+//        }catch (NullPointerException e){
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 }

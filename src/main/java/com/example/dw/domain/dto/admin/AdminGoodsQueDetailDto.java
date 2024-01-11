@@ -4,14 +4,16 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 public class AdminGoodsQueDetailDto {
 
     private Long id;
     private String qnaContent;
-    private String qndRd;
-    private String qnaMd;
+    private LocalDateTime qndRd;
+    private LocalDateTime qnaMd;
     private Integer state;
     private Long userId;
     private String userAccount;
@@ -23,8 +25,8 @@ public class AdminGoodsQueDetailDto {
     private String goodsMade;
     private String goodsCertify;
     private String goodsDetailContent;
-    private String goodsRegisterDate;
-    private String goodsModifyDate;
+    private LocalDateTime goodsRegisterDate;
+    private LocalDateTime goodsModifyDate;
     private String goodsCategory;
     private String goodsMainImgName;
     private String goodsMainImgPath;
@@ -32,7 +34,7 @@ public class AdminGoodsQueDetailDto {
 
 
     @QueryProjection
-    public AdminGoodsQueDetailDto(Long id, String qnaContent, String qndRd, String qnaMd, Integer state, Long userId, String userAccount, String userNickName, Long goodsId, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate, String goodsCategory, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid) {
+    public AdminGoodsQueDetailDto(Long id, String qnaContent, LocalDateTime qndRd, LocalDateTime qnaMd, Integer state, Long userId, String userAccount, String userNickName, Long goodsId, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, LocalDateTime goodsRegisterDate, LocalDateTime goodsModifyDate, String goodsCategory, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid) {
         this.id = id;
         this.qnaContent = qnaContent;
         this.qndRd = qndRd;

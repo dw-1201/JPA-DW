@@ -53,125 +53,24 @@
                         </div>
                         <div class="walk-mate-index-list">
                             <ul class="walk-mate-index-list-ul">
-                                <li>
-                                    <a href="#">
+                                <li th:each="indexWalkList : ${indexWalkList}">
+                                    <a th:href="@{/walk/detail/{walkMateId}/{userId} (walkMateId=${indexWalkList.walkMateId}, userId=${indexWalkList.userId})}">
                                         <div class="walk-mate-list-wrap">
                                             <div class="walk-mate-pet-img">
-                                                <img src="/img/dogImg.jpg" alt="메인 산책글 사진"/>
+                                                <img th:src="'/jpa_dw/petimg/' + ${indexWalkList.writerPetImgPath} + '/' + ${indexWalkList.writerPetImgUuid} + '_' + ${indexWalkList.writerPetImgName}" alt="메인 산책글 사진"/>
                                             </div>
                                             <div class="walk-mate-wrap">
-                                                <div class="walk-mate-location">서울 성북구</div>
+                                                <div class="walk-mate-location" th:text="${indexWalkList.walkCity + ' ' + indexWalkList.walkCounty}">서울 성북구</div>
                                                 <div class="blank-line"> | </div>
-                                                <div class="walk-mate-content">산책하실분 찾아요!!</div>
+                                                <div class="walk-mate-content" th:text="${indexWalkList.walkMateTitle}">산책하실분 찾아요!!</div>
                                             </div>
-                                            <div class="walk-mate-state">
+                                            <div class="walk-mate-state" th:if="${indexWalkList.walkMateState==0}">
                                                 <img src="/img/001.png" alt="모집중"/>
                                             </div>
                                         </div>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="walk-mate-list-wrap">
-                                            <div class="walk-mate-pet-img">
-                                                <img src="/img/dogImg.jpg" alt="메인 산책글 사진"/>
-                                            </div>
-                                            <div class="walk-mate-wrap">
-                                                <div class="walk-mate-location">서울 성북구</div>
-                                                <div class="blank-line"> | </div>
-                                                <div class="walk-mate-content">산책하실분 찾아요!!</div>
-                                            </div>
-                                            <div class="walk-mate-state">
-                                                <img src="/img/001.png" alt="모집중"/>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="walk-mate-list-wrap">
-                                            <div class="walk-mate-pet-img">
-                                                <img src="/img/dogImg.jpg" alt="메인 산책글 사진"/>
-                                            </div>
-                                            <div class="walk-mate-wrap">
-                                                <div class="walk-mate-location">서울 성북구</div>
-                                                <div class="blank-line"> | </div>
-                                                <div class="walk-mate-content">산책하실분 찾아요!!</div>
-                                            </div>
-                                            <div class="walk-mate-state">
-                                                <img src="/img/001.png" alt="모집중"/>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="walk-mate-list-wrap">
-                                            <div class="walk-mate-pet-img">
-                                                <img src="/img/dogImg.jpg" alt="메인 산책글 사진"/>
-                                            </div>
-                                            <div class="walk-mate-wrap">
-                                                <div class="walk-mate-location">서울 성북구</div>
-                                                <div class="blank-line"> | </div>
-                                                <div class="walk-mate-content">산책하실분 찾아요!!</div>
-                                            </div>
-                                            <div class="walk-mate-state">
-                                                <img src="/img/001.png" alt="모집중"/>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="walk-mate-list-wrap">
-                                            <div class="walk-mate-pet-img">
-                                                <img src="/img/dogImg.jpg" alt="메인 산책글 사진"/>
-                                            </div>
-                                            <div class="walk-mate-wrap">
-                                                <div class="walk-mate-location">서울 성북구</div>
-                                                <div class="blank-line"> | </div>
-                                                <div class="walk-mate-content">산책하실분 찾아요!!</div>
-                                            </div>
-                                            <div class="walk-mate-state">
-                                                <img src="/img/001.png" alt="모집중"/>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="walk-mate-list-wrap">
-                                            <div class="walk-mate-pet-img">
-                                                <img src="/img/dogImg.jpg" alt="메인 산책글 사진"/>
-                                            </div>
-                                            <div class="walk-mate-wrap">
-                                                <div class="walk-mate-location">서울 성북구</div>
-                                                <div class="blank-line"> | </div>
-                                                <div class="walk-mate-content">산책하실분 찾아요!!</div>
-                                            </div>
-                                            <div class="walk-mate-state">
-                                                <img src="/img/001.png" alt="모집중"/>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="walk-mate-list-wrap">
-                                            <div class="walk-mate-pet-img">
-                                                <img src="/img/dogImg.jpg" alt="메인 산책글 사진"/>
-                                            </div>
-                                            <div class="walk-mate-wrap">
-                                                <div class="walk-mate-location">서울 성북구</div>
-                                                <div class="blank-line"> | </div>
-                                                <div class="walk-mate-content">산책하실분 찾아요!!</div>
-                                            </div>
-                                            <div class="walk-mate-state">
-                                                <img src="/img/001.png" alt="모집중"/>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
+
                             </ul>
                         </div>
                     </div>

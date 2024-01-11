@@ -5,6 +5,8 @@ import com.example.dw.domain.form.QuestionWritingForm;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -17,6 +19,7 @@ import static lombok.Builder.*;
 @Getter
 @Builder
 @Table(name = "question")
+@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Question {
     @Id
@@ -28,9 +31,9 @@ public class Question {
     private String questionContent;
 
     @CreatedDate
-    private String questionRd;
-    @Default
-    private LocalDateTime questionMd=LocalDateTime.now();
+    private LocalDateTime questionRd;
+    @LastModifiedDate
+    private LocalDateTime questionMd;
 
     @Builder.Default
     private Long questionViewCount=0L;
@@ -44,12 +47,14 @@ public class Question {
     @OneToOne(mappedBy = "question" ,fetch = FetchType.LAZY)
     private QuestionLike questionLike;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private Users users;
 
+
     @Builder
-    public Question(Long id, String questionTitle, String questionContent, String questionRd, LocalDateTime questionMd, Long questionViewCount, List<QuestionImg> questionImg, List<QuestionComment> questionComment, QuestionLike questionLike, Users users) {
+    public Question(Long id, String questionTitle, String questionContent, LocalDateTime questionRd, LocalDateTime questionMd, Long questionViewCount, List<QuestionImg> questionImg, List<QuestionComment> questionComment, QuestionLike questionLike, Users users) {
         this.id = id;
         this.questionTitle = questionTitle;
         this.questionContent = questionContent;
@@ -62,20 +67,14 @@ public class Question {
         this.users = users;
     }
 
-    public Question(Long id,String questionTitle,String questionContent,List<QuestionImg>questionImg, Users users ,Long questionViewCount){
-        this.id = id;
-        this.questionTitle=questionTitle;
-        this.questionImg=questionImg;
-        this.users =users;
-        this.questionViewCount = questionViewCount;
-        this.questionContent=questionContent;
-    }
 
 
-    @PrePersist
-    public void onPrePersist(){
-        this.questionRd = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
-    }
+
+
+//    @PrePersist
+//    public void onPrePersist(){
+//        this.questionRd = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+//    }
 
 
 
