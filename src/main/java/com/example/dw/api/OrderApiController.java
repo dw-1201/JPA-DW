@@ -36,4 +36,23 @@ public class OrderApiController {
         }
         System.out.println("6666666666666666666666666666");
     }
+
+    /**
+     * 결제시 데이터 받아오기
+     */
+    @PostMapping("/orderSinglePay")
+    public void orderSinglePay(@RequestBody OrderForm orderForm, HttpSession httpSession) throws IOException {
+        Long userId = (Long)httpSession.getAttribute("userId");
+        orderForm.setUserId(userId);
+
+        System.out.println("4444444444444444444444");
+        try {
+            orderService.registerSingle(orderForm, httpSession);
+            System.out.println(orderForm+"@@@@@@@@@@");
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        System.out.println("6666666666666666666666666666");
+    }
 }

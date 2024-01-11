@@ -3,6 +3,8 @@ package com.example.dw.domain.dto.goods;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 //상품 문의 조회 DTO
 @Data
 public class GoodsQueDto {
@@ -10,14 +12,14 @@ public class GoodsQueDto {
     //상품 문의
     private Long id;
     private String queContent;
-    private String queRegisterDate;
-    private String queModifyDate;
+    private LocalDateTime queRegisterDate;
+    private LocalDateTime queModifyDate;
 
     //상품 답변
     private Long goodsQueReplyId;
     private String queReplyContent;
-    private String queReplyRegisterDate;
-    private String queReplyModifyDate;
+    private LocalDateTime queReplyRegisterDate;
+    private LocalDateTime queReplyModifyDate;
 
     //유저정보
     private Long userId;
@@ -25,7 +27,7 @@ public class GoodsQueDto {
     private String userNickName;
 
     @QueryProjection
-    public GoodsQueDto(Long id, String queContent, String queRegisterDate, String queModifyDate, Long goodsQueReplyId, String queReplyContent, String queReplyRegisterDate, String queReplyModifyDate, Long userId, String userAccount, String userNickName) {
+    public GoodsQueDto(Long id, String queContent, LocalDateTime queRegisterDate, LocalDateTime queModifyDate, Long goodsQueReplyId, String queReplyContent, LocalDateTime queReplyRegisterDate, LocalDateTime queReplyModifyDate, Long userId, String userAccount, String userNickName) {
         this.id = id;
         this.queContent = queContent;
         this.queRegisterDate = queRegisterDate;

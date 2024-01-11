@@ -3,6 +3,8 @@ package com.example.dw.domain.dto.goods;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 //상품 리스트 조회 DTO
 @Data
 public class GoodsListDto {
@@ -12,8 +14,8 @@ public class GoodsListDto {
     private int goodsQuantity; //수량
     private int goodsPrice;
     private String goodsMade;
-    private String goodsRegisterDate;
-    private String goodsModifyDate;
+    private LocalDateTime goodsRegisterDate;
+    private LocalDateTime goodsModifyDate;
     private String goodsCategory;
     //상품 이미지
     private Long goodsMainImgId;
@@ -22,11 +24,7 @@ public class GoodsListDto {
     private String goodsMainImgUuid;
 
     @QueryProjection
-
-    public GoodsListDto(Long id, String goodsName, int goodsQuantity, int goodsPrice,
-                        String goodsMade, String goodsRegisterDate, String goodsModifyDate,
-                        String goodsCategory, Long goodsMainImgId, String goodsMainImgName,
-                        String goodsMainImgPath, String goodsMainImgUuid) {
+    public GoodsListDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, LocalDateTime goodsRegisterDate, LocalDateTime goodsModifyDate, String goodsCategory, Long goodsMainImgId, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;

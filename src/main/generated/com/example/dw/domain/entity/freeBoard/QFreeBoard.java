@@ -32,9 +32,9 @@ public class QFreeBoard extends EntityPathBase<FreeBoard> {
 
     public final QFreeBoardLike freeBoardLike;
 
-    public final StringPath freeBoardMd = createString("freeBoardMd");
+    public final DateTimePath<java.time.LocalDateTime> freeBoardMd = createDateTime("freeBoardMd", java.time.LocalDateTime.class);
 
-    public final StringPath freeBoardRd = createString("freeBoardRd");
+    public final DateTimePath<java.time.LocalDateTime> freeBoardRd = createDateTime("freeBoardRd", java.time.LocalDateTime.class);
 
     public final StringPath freeBoardTitle = createString("freeBoardTitle");
 
