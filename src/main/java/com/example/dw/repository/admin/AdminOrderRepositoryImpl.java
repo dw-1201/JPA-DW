@@ -24,10 +24,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.example.dw.domain.entity.goods.QGoods.goods;
+import static com.example.dw.domain.entity.goods.QGoodsMainImg.goodsMainImg;
 import static com.example.dw.domain.entity.order.QOrderItem.orderItem;
 import static com.example.dw.domain.entity.order.QOrderList.orderList;
 import static com.example.dw.domain.entity.order.QOrders.orders;
 import static com.example.dw.domain.entity.user.QUsers.users;
+import static java.util.stream.Collectors.groupingBy;
 
 @Repository
 @RequiredArgsConstructor
@@ -91,13 +93,73 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
 
 
     }
+    //관리자 페이지 주문 상세
+    @Override
+    public AdminOrderDetailResultDto orderDetail(Long userId, Long orderId) {
+        List<AdminOrderDetailGoodsListDto> adminOrderDetailGoodsList = jpaQueryFactory.select(new QAdminOrderDetailGoodsListDto(
+                goods.id,
+                goods.goodsName,
+                orderItem.orderQuantity,
+                orderItem.orderPrice,
+                goodsMainImg.goodsMainImgPath,
+                goodsMainImg.goodsMainImgUuid,
+                goodsMainImg.goodsMainImgName
+        ))
+                .from(orderItem)
+                .leftJoin(orderItem.goods, goods)
+                .leftJoin(goods.goodsMainImg, goodsMainImg)
+                .where(orders.id.eq(orderId))
+                .fetch();
+
+        AdminOrderDetailDto adminOrderDetailDto = jpaQueryFactory.select(new QAdminOrderDetailDto(
+                orders.users.id,
+                orders.users.userAccount,
+                orders.orderUserEmail,
+                orders.orderUserPhoneNumber,
+                orders.orderUserAddressNumber,
+                orders.orderAddressNormal,
+                orders.orderAddressDetail,
+                orders.orderRegisterDate
+                ))
+                .from(orders)
+                .leftJoin(orders.users, users)
+                .leftJoin(orders.orderItems, orderItem)
+                .where(orders.users.id.eq(userId).and(orders.id.eq(orderId)))
+                .fetchFirst();
+
+
+    return new AdminOrderDetailResultDto
+            (
+                  orderId
+                    ,
+            new AdminOrderDetailDto(
+                    adminOrderDetailDto.getUserId(), adminOrderDetailDto.getOrderAccount(),
+                    adminOrderDetailDto.getOderEmail(),
+                    adminOrderDetailDto.getOrderPhone(), adminOrderDetailDto.getOrderZipcode(),
+                    adminOrderDetailDto.getOrderAddress(), adminOrderDetailDto.getOrderAddressDetail(),
+                    adminOrderDetailDto.getOrderDate(),
+                    adminOrderDetailGoodsList)
+            );
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     // AdminOrderListDto 목록을 AdminOrderListResultDto로 변환하는 메서드
     private List<AdminOrderListResultDto> convertOrderList(List<AdminOrderListDto> orderList) {
 
         //.collect stream()을 자료구조로 담을떄 사용
         Map<Long, List<AdminOrderListDto>> groupedOrders = orderList.stream()
-                .collect(Collectors.groupingBy(AdminOrderListDto::getOrderListId));
+                .collect(groupingBy(AdminOrderListDto::getOrderListId));
         //orderListId로 그룹화한다. 즉 Map의 Key값이 orderListId로 들어가게되며
         //value값은 List<>모든 값들이 차례대로 들어간다.
 
