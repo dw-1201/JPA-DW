@@ -13,12 +13,12 @@ public class QuestionDetailResultDto {
     private Long id;
     private String questionTitle;
     private String questionContent;
-    private String questionRd;
+    private LocalDateTime questionRd;
     private Long userId;
     private String userName;
     private List<QuestionImgDto> questionDetailDtoList;
 
-    public QuestionDetailResultDto(Long id, String questionTitle, String questionContent, String questionRd, Long userId, String userName, List<QuestionImgDto> questionDetailDtoList) {
+    public QuestionDetailResultDto(Long id, String questionTitle, String questionContent, LocalDateTime questionRd, Long userId, String userName, List<QuestionImgDto> questionDetailDtoList) {
         this.id = id;
         this.questionTitle = questionTitle;
         this.questionContent = questionContent;
@@ -28,7 +28,7 @@ public class QuestionDetailResultDto {
         this.questionDetailDtoList = questionDetailDtoList;
     }
 
-    public QuestionDetailResultDto(Long id, String questionTitle, String questionContent, String questionRd, Long userId, String userName) {
+    public QuestionDetailResultDto(Long id, String questionTitle, String questionContent, LocalDateTime questionRd, Long userId, String userName) {
         this.id = id;
         this.questionTitle = questionTitle;
         this.questionContent = questionContent;

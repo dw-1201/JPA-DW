@@ -3,6 +3,7 @@ package com.example.dw.repository.community;
 import com.example.dw.domain.dto.community.WalkDetailStateDto;
 import com.example.dw.domain.entity.walkingMate.WalkingMateState;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -25,6 +26,23 @@ public interface WalkingMateStateRepository extends JpaRepository<WalkingMateSta
     @Query("select count(wm.id) from WalkingMateState wm where wm.walkingMate.id=:walkingMateId")
     Long stateCount(@Param("walkingMateId") Long walkingMateId);
 
+
+    //walkingmatestate에 신청한 stateId를 통해 해당 데이터를 찾기
+    @Modifying
+    @Query("update WalkingMateState wms set wms.state=1 where wms.id=:walkingmatestateId")
+    void upDateWalkMateState(@Param("walkingmatestateId") Long walkingmatestateId);
+
+    // walkingmatestate에 신청한 stateId를 통해 해당 데이터를 찾기
+    @Modifying
+    @Query("update WalkingMateState wms set wms.state=0 where wms.id=:walkingmatestateId")
+    void downWalkMateState(@Param("walkingmatestateId") Long walkingmatestateId);
+
+
+
+    // state의 변경된 값만 가져오기
+//    @Query("select wms.state from WalkingMateState wms where wms.id=:walkingmatestateId and wms.users.id=:userId")
+//    Integer updateStatefind(@Param("walkingmatestateId") Long walkingmatestateId,
+//                            @Param("userId") Long userId);
 
 
 

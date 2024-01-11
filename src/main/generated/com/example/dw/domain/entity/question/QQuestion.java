@@ -34,7 +34,7 @@ public class QQuestion extends EntityPathBase<Question> {
 
     public final DateTimePath<java.time.LocalDateTime> questionMd = createDateTime("questionMd", java.time.LocalDateTime.class);
 
-    public final StringPath questionRd = createString("questionRd");
+    public final DateTimePath<java.time.LocalDateTime> questionRd = createDateTime("questionRd", java.time.LocalDateTime.class);
 
     public final StringPath questionTitle = createString("questionTitle");
 

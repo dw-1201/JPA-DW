@@ -48,6 +48,7 @@ public class Orders {
     private List<OrderItem> orderItems=new ArrayList<>();
 
 
+
     @Builder
     public Orders(Long id, String orderUserName, String orderUserAddressNumber, String orderAddressNormal, String orderAddressDetail, String orderAddressDetails, String orderUserPhoneNumber, String orderUserEmail, String orderMemo, LocalDateTime orderRegisterDate, Users users, OrderList orderList, List<OrderItem> orderItems) {
         this.id = id;

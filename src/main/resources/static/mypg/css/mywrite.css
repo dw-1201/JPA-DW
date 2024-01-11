@@ -251,9 +251,8 @@ a{color: black;}
 .nonepage{
     /* border: 1px solid black; */
     height: 800px;
-    display: none;
     text-align: center;
-    padding-top: 300px;
+    padding-top: 100px;
 
 }
 

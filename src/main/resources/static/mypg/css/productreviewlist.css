@@ -1,7 +1,7 @@
 body{
     font-family: 'Pretendard-Regular';
 }
-  
+
 a{color: black;}
 
 *{
@@ -19,7 +19,7 @@ a{color: black;}
 .menu-choice-area{
     /* border: 1px solid black; */
     padding-top: 20px;
-    
+
 }
 .menu-choice{
     display: flex;
@@ -35,7 +35,7 @@ a{color: black;}
     font-size: 18px;
     /* color: #868688; */
     margin: 0px 40px;
- 
+
 }
 
 .pro{
@@ -51,11 +51,11 @@ a{color: black;}
 
 .mybuy{
     color: #868688;
-} 
+}
 
 .mybuy:hover{
     color: black;
-} 
+}
 
 
 
@@ -76,7 +76,7 @@ a{color: black;}
     margin: 0px 20px;
     font-weight: 700;
     padding: 10px 0px;
- 
+
 }
 
 
@@ -86,11 +86,11 @@ a{color: black;}
 }
 
 .my-QnA-detail:hover{
-    
+
     font-size: 15px;
     color: black;
     border-bottom: 6px solid #fcd11e;
-    
+
 }
 
 .my-freeboard-detail:hover{
@@ -100,7 +100,7 @@ a{color: black;}
 }
 
 .my-freeboard-detail{
-    
+
     font-size: 15px;
     color: #868688;
 }
@@ -112,7 +112,7 @@ a{color: black;}
 }
 
 .my-walk-detail{
-    
+
     font-size: 15px;
     color: #868688;
 }
@@ -126,7 +126,7 @@ a{color: black;}
 }
 
 .my-walkapplication-detail{
-    
+
     font-size: 15px;
     color: #868688;
 }
@@ -138,7 +138,7 @@ a{color: black;}
 }
 
 .my-review-detail{
-    
+
     font-size: 15px;
     color: black;
     border-bottom: 6px solid #fcd11e;
@@ -146,7 +146,7 @@ a{color: black;}
 
 .reviewlistmain{
     /* border: 1px solid black; */
-    
+
 }
 
 .list-contents-box{
@@ -163,7 +163,7 @@ a{color: black;}
     /* border: 1px solid black; */
     box-sizing: border-box;
     border-radius: 30px;
-    box-shadow: 0 2px 4px rgba(0,0,0,.50); 
+    box-shadow: 0 2px 4px rgba(0,0,0,.50);
     padding: 0 20px;
     /* background-color: olivedrab; */
 }
@@ -174,7 +174,7 @@ a{color: black;}
     border: 1px solid black;
     box-sizing: border-box;
     border-radius: 30px;
-    box-shadow: inset 2px 4px rgba(0,0,0,.50); 
+    box-shadow: inset 2px 4px rgba(0,0,0,.50);
     padding: 0 20px;
     /* background-color: olivedrab; */
 }
@@ -185,20 +185,20 @@ a{color: black;}
     display: flex;
     align-items: end;
     font-size: 15px;
-    font-weight: bolder;
+    /* font-weight: bolder; */
     /* background-color: greenyellow; */
 }
 .list-content-content{
     /* border: 1px solid black; */
     width: 500px;
-    height: 50px;
+    height: 40px;
     display: flex;
     font-size: 13.5px;
     color: gray;
-    align-items: center;
+    align-items: end;
     /* background-color: papayawhip; */
-  
-  
+
+
 }
 .list-content-content-detail{
     width: 4000px;
@@ -208,7 +208,7 @@ a{color: black;}
     text-overflow: ellipsis;
     white-space: normal;
     text-align: left;
-   display: -webkit-box;
+    display: -webkit-box;
 }
 
 .list-content-etc{
@@ -222,9 +222,9 @@ a{color: black;}
 }
 .list-content-rating{
     display: flex;
-    align-items: center; 
+    align-items: center;
     box-sizing: border-box;
-    padding: 8px 20px 8px 0; 
+    padding: 8px 20px 8px 0;
 }
 .list-content-id img{
     width: 25px;
@@ -236,7 +236,7 @@ a{color: black;}
     margin: 0 3px;
     color: yellow;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-    
+
 }
 
 .list-remove{
@@ -249,20 +249,21 @@ a{color: black;}
 .rebtn{
     border: 1px solid rgb(215, 96, 96);
     width: 50px;
-    height: 30px;
+    height: 20px;
     border-radius: 10px;
     background-color: white;
-    font-weight: bold;    
+    font-weight: bold;
+    font-size: 13px;
 }
 
 .rebtn:hover{
-    
+
     width: 50px;
     height: 30px;
     border-radius: 10px;
     background-color: rgb(215, 96, 96);
-    font-weight: bold;   
-    color: white; 
+    font-weight: bold;
+    color: white;
 }
 
 
@@ -299,7 +300,7 @@ a{color: black;}
 
 .none-img-area{
     /* border: 1px solid black; */
-   padding-top: 150px;
+    padding-top: 150px;
 }
 
 .none-img{
@@ -318,10 +319,23 @@ a{color: black;}
 .nonetext-area{
     /* border: 1px solid black; */
     padding-top: 15px;
-    
+
 }
 
 .nonetext-area p{
     text-align: center;
     font-size: 20px;
+}
+
+.reviewRd{
+    font-size: 13px;
+    padding-left: 10px;
+}
+
+.orderproduct{
+    font-size: 13px;
+    padding-top: 5px;
+}
+.reviewTitle{
+    font-weight:bolder;
 }

@@ -103,7 +103,9 @@ function showList(result){
                 text +=`
             <td><img src="/img/001.png" alt="모집중" class="mate-status"/></td>
             `;
+
             }else if(r.walkingMateState==1 ){
+
                 text += `
             <td><img src="/img/002.png" alt="모집완료" class="mate-status"/></td>
 
@@ -162,6 +164,8 @@ function showList(result){
         const page = parseInt($(this).data('page'));
         searchLoca.state =  $("input[name='status']:checked").val()
         list.list(page, searchLoca(),'walks','walkList', showList)
+
+
 
     });
 

@@ -18,16 +18,18 @@ function showUserQnAList(result) {
     console.log(result.length);
     if (result.content.length === 0) {
         console.log("값이 없다")
-        text = `<div className="nonepage">
-            <div className="none-img-area">
-                <div className="none-img">
-                    <img src="../img/b556fdf429d8de25c3acf62f8186ddb9.png"/>
-                </div>
-            </div>
-            <div className="nonetext-area">
-                <p>등록된 내용이 없습니다.</p>
-            </div>
-        </div>
+        text = `
+                    <div class="nonepage">
+                        <div class="none-img-area">
+                            <div class="none-img">
+                                <img src="../img/b556fdf429d8de25c3acf62f8186ddb9.png"/>
+                            </div>
+                        </div>
+                        <div class="nonetext-area">
+                            <p>등록된 내용이 없습니다.</p>
+                        </div>
+                    </div>
+                   
         `;
 
         $('.nonepage').css('display','block');

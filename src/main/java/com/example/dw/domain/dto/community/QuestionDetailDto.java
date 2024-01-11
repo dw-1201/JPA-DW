@@ -14,7 +14,7 @@ public class QuestionDetailDto {
     private Long id; // questionId
     private String questionTitle;
     private String questionContent;
-    private String questionRd;
+    private LocalDateTime questionRd;
 
     private Long questionImgId;
     private String questionImgRoute;
@@ -27,7 +27,8 @@ public class QuestionDetailDto {
     private String userName;
 
     @QueryProjection
-    public QuestionDetailDto(Long id, String questionTitle, String questionContent, String questionRd, Long questionImgId, String questionImgRoute, String questionImgUuid, String questionImgName, Long userId, String userName) {
+
+    public QuestionDetailDto(Long id, String questionTitle, String questionContent, LocalDateTime questionRd, Long questionImgId, String questionImgRoute, String questionImgUuid, String questionImgName, Long userId, String userName) {
         this.id = id;
         this.questionTitle = questionTitle;
         this.questionContent = questionContent;
