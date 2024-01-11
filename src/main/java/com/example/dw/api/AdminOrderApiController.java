@@ -1,5 +1,6 @@
 package com.example.dw.api;
 
+import com.example.dw.domain.dto.admin.AdminOrderDetailResultDto;
 import com.example.dw.domain.dto.admin.AdminOrderListResultDto;
 import com.example.dw.domain.form.AdminSearchOrderForm;
 import com.example.dw.service.AdminOrderService;
@@ -23,7 +24,7 @@ public class AdminOrderApiController {
     private final AdminOrderService adminOrderService;
 
 
-
+    //관리자 페이지 주문 리스트
     @GetMapping("/orderList/{page}")
     public Page<AdminOrderListResultDto> orderList(@PathVariable("page")int page,
                                                    AdminSearchOrderForm adminSearchOrderForm){
@@ -35,4 +36,11 @@ public class AdminOrderApiController {
 
     }
 
+    
+    //통신확인용
+    //관리자 페이지 주문 상세
+    @GetMapping("/orderDetail/{userId}/{orderId}")
+    public AdminOrderDetailResultDto orderDetail(@PathVariable("userId")Long userId, @PathVariable("orderId") Long orderId){
+        return adminOrderService.orderDetail(userId, orderId);
+    }
 }

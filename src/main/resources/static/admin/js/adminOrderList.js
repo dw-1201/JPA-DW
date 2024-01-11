@@ -15,9 +15,10 @@ $(document).ready(function (){
     //상세보기 이동
 
     $('.order-list').on('click', '.detail-btn', function (){
+        let userId = $(this).closest('.list-btns').find('#userId').val();
         let orderId = $(this).closest('.list-btns').find('.detail-btn').data('orderid')
 
-        window.location.href="/admin/orderDetail/" + orderId;
+        window.location.href="/admin/orderDetail/" +userId +'/'  + orderId;
 
     })
 
@@ -125,8 +126,8 @@ function showList(result) {
 
         text+=` <td>${totalPrice}원</td>
                 <td>${date.formatDates(order.payDatetime)}</td>
-                <input type="hidden" value="${order.payDatetime}" id="payDatetime"/>
                 <td class="list-btns">
+                    <input type="hidden" value="${order.adminOrderInfo.userId}" id="userId"/>
                     <button type="button" class="detail-btn btn" data-orderid="${order.adminOrderInfo.orderId}">상세보기</button>
                 </td>
             </tr>
