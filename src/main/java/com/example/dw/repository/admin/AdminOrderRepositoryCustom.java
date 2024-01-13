@@ -2,9 +2,13 @@ package com.example.dw.repository.admin;
 
 import com.example.dw.domain.dto.admin.AdminOrderDetailResultDto;
 import com.example.dw.domain.dto.admin.AdminOrderListResultDto;
+import com.example.dw.domain.dto.admin.AdminWeeklyOrderState;
+import com.example.dw.domain.dto.admin.GoodsSaleByCategory;
 import com.example.dw.domain.form.AdminSearchOrderForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface AdminOrderRepositoryCustom {
 
@@ -16,4 +20,10 @@ public interface AdminOrderRepositoryCustom {
     //관리자 페이지 주문 상세
     AdminOrderDetailResultDto orderDetail(Long userId, Long orderId);
 
+
+    //일별 주문 현황
+    List<AdminWeeklyOrderState> weeklyOrderState();
+    
+    //상품 카테고리별 판매 비율
+    List<GoodsSaleByCategory> saleByCategory();
 }

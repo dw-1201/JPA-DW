@@ -4,6 +4,8 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 public class AdminNoticeBoardDto {
@@ -12,12 +14,11 @@ public class AdminNoticeBoardDto {
     private String noticeBoardTitle;
     private String noticeBoardContent;
     private Long noticeBoardViewCount;
-    private String noticeBoardRd;
-    private String noticeBoardMd;
+    private LocalDateTime noticeBoardRd;
+    private LocalDateTime noticeBoardMd;
 
     @QueryProjection
-    public AdminNoticeBoardDto(Long id, String noticeBoardTitle, String noticeBoardContent,
-                               Long noticeBoardViewCount, String noticeBoardRd, String noticeBoardMd) {
+    public AdminNoticeBoardDto(Long id, String noticeBoardTitle, String noticeBoardContent, Long noticeBoardViewCount, LocalDateTime noticeBoardRd, LocalDateTime noticeBoardMd) {
         this.id = id;
         this.noticeBoardTitle = noticeBoardTitle;
         this.noticeBoardContent = noticeBoardContent;
@@ -25,6 +26,4 @@ public class AdminNoticeBoardDto {
         this.noticeBoardRd = noticeBoardRd;
         this.noticeBoardMd = noticeBoardMd;
     }
-
-
 }

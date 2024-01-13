@@ -25,6 +25,13 @@ public class QuestionImgDto {
         this.questionId = questionId;
     }
 
+    @QueryProjection
+    public QuestionImgDto(Long id, String questionImgRoute, String questionImgName, String questionImgUuid) {
+        this.id = id;
+        this.questionImgRoute = questionImgRoute;
+        this.questionImgName = questionImgName;
+        this.questionImgUuid = questionImgUuid;
+    }
 
     public QuestionImgDto(Long id, String questionImgRoute, String questionImgUuid, Long questionId) {
 

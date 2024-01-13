@@ -38,8 +38,8 @@
                 <form action="" method="" id="search-form">
                     <div class="select-form">
                         <select id="qna-search-cate" name="qna-search-cate">
-                            <option value="1">제목</option>
-                            <option value="2">작성자</option>
+                            <option value="title">제목</option>
+                            <option value="writer">작성자</option>
                         </select>
                     </div>
                     <div class="input-form">
@@ -64,16 +64,7 @@
                     
                 </div>
                 <div class="admin-qna-lists">
-                    <div class="admin-qna-list-table rr">
-                        <div class="notie-number row">10</div>
-                        <div class="qna-id row">bokbok1234</div>
-                        <div class="qna-title row">질문있어요!</div>
-                        <div class="qna-reg-date row">2023-11-11</div>
-                        <div class="qna-view-count row">30</div>
-                        <div class="qna-etc btns row">
-                            <a href="/admin/html/adminQnaDetail.html" class="detail-btn">상세</a>
-                        </div>
-                    </div>
+
                  </div>
                
                 
@@ -82,13 +73,7 @@
         <div class="admin-main-wrap pagination-wrap" style="margin-top: 5px;">
             <div class="pagination-container">
                 <ul class="pagination-ul">
-                    <li><a href="#">&lt;</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">&gt;</a></li>
+
                 </ul>
             </div>
         </div>
@@ -97,7 +82,7 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-<script src="/admin/js/adminQnaList.js"></script>
+<script type="module" src="/admin/js/adminQnaList.js"></script>
 <script src="/fragment/js/adminSide.js"></script>
 </body>
 </html>

@@ -2,6 +2,7 @@ package com.example.dw.controller;
 
 import com.example.dw.domain.dto.goods.RecentViewGoods;
 import com.example.dw.domain.dto.community.IndexWalkMateDto;
+import com.example.dw.domain.dto.index.WeeklyQnaList;
 import com.example.dw.service.IndexService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +34,13 @@ public class IndexController {
         model.addAttribute("indexWalkList", indexWalkMateDtoList);
         System.out.println(indexWalkMateDtoList.toString()+"!@#@!#@!");
 
-        
+
+
+        //주간 인기글
+        //Qna
+        List<WeeklyQnaList> weeklyQnaList = indexService.weeklyQnaList();
+        model.addAttribute("weeklyQnaBest", weeklyQnaList);
+
         
         //최근 본 상품
         List<RecentViewGoods> recentGoods = (List<RecentViewGoods>)session.getAttribute("recentViews");

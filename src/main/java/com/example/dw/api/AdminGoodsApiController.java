@@ -37,13 +37,7 @@ public class AdminGoodsApiController {
         Page<AdminGoodsDto> result = goodsRepositoryCustom.findGoodsAll(pageable, searchForm);
 
 
-        //해당 날짜가 껴있는 전주 날짜 구하기
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime lastWeekStart = now.minusWeeks(1).with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).toLocalDate().atStartOfDay();
-        LocalDateTime lastWeekEnd = now.minusWeeks(1).with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)).toLocalDate().atTime(23, 59, 59);
 
-        System.out.println("Last week's start date: " + lastWeekStart);
-        System.out.println("Last week's end date: " + lastWeekEnd);
 
 
         return result;

@@ -17,5 +17,9 @@ public class QQuestionImgDto extends ConstructorExpression<QuestionImgDto> {
         super(QuestionImgDto.class, new Class<?>[]{long.class, String.class, String.class, String.class, long.class}, id, questionImgRoute, questionImgName, questionImgUuid, questionId);
     }
 
+    public QQuestionImgDto(com.querydsl.core.types.Expression<Long> id, com.querydsl.core.types.Expression<String> questionImgRoute, com.querydsl.core.types.Expression<String> questionImgName, com.querydsl.core.types.Expression<String> questionImgUuid) {
+        super(QuestionImgDto.class, new Class<?>[]{long.class, String.class, String.class, String.class}, id, questionImgRoute, questionImgName, questionImgUuid);
+    }
+
 }
 

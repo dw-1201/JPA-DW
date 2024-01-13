@@ -12,7 +12,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -135,8 +137,9 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
 
     //주단위 일별 회원가입자 수
     public List<AdminUserChartDto> getDailyJoinCount() {
-        LocalDate endDate = LocalDate.now(); // 현재 날짜
-        LocalDate startDate = endDate.minusWeeks(1); // 일주일 전 날짜
+        LocalDate nowDate = LocalDate.now();
+        LocalDate startDate = nowDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).atStartOfDay().toLocalDate();
+        LocalDate endDate = nowDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)).atStartOfDay().toLocalDate();
 
         // 일주일 간의 날짜 목록 생성
         List<LocalDate> datesInRange = startDate.datesUntil(endDate.plusDays(1))

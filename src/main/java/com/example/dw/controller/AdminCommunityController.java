@@ -1,6 +1,7 @@
 package com.example.dw.controller;
 
 import com.example.dw.aspect.annotation.LoggingPointCut;
+import com.example.dw.domain.dto.admin.AdminQnaDetailResultDto;
 import com.example.dw.domain.dto.admin.AdminWalkMateDetailDto;
 import com.example.dw.service.AdminCommunityService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,20 @@ public class AdminCommunityController {
     public String qnaList(){
         return "/admin/adminQnaList";
     }
+
+    //qna상세
+    @GetMapping("/questionDetail/{qnaId}")
+    public String qnaDetail(@PathVariable("qnaId") Long qnaId,
+                            Model model){
+
+
+        AdminQnaDetailResultDto detail = adminCommunityService.qnaBoardDetail(qnaId);
+        model.addAttribute("qnaDetail", detail);
+        System.out.println("[ Qna상세정보 ] : " + detail.toString());
+
+        return "/admin/adminQnaDetail";
+    }
+
 
     @GetMapping("/freeBoardList")
     public String freeBoardList(){

@@ -1,3 +1,7 @@
+import * as form from './module/form.js';
+
+
+
 $(document).ready(function(){
     $('.showBtn').on('click', function(){
 
@@ -5,6 +9,12 @@ $(document).ready(function(){
         $('.walk-reply-section').stop().slideToggle(400);
 
     })
+
+
+
+    $('.questionRegisterDate').text(form.formatDates($('.questionRd').val()));
+
+
 })
 
 

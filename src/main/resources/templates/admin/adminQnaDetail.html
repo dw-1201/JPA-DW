@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,11 +47,12 @@
                     </tr>
                     <tr class="qna-info-column">
                         <th>작성자</th>
-                        <td>bokbok1234</td>
+                        <td th:text="${qnaDetail.userAccount}"></td>
                         <th>작성일자</th>
-                        <td>2011-11-11</td>
+                        <td class="questionRegisterDate"></td>
+                        <input type="hidden" th:value="${qnaDetail.questionRd}" class="questionRd"/>
                         <th>조회수</th>
-                        <td>20</td>
+                        <td th:text="${qnaDetail.viewCount}"></td>
                         
                         <td class="delete-td">
                             <button class="delete-qna-btn">삭제
@@ -60,19 +61,19 @@
                     </tr>
                     <tr class="qna-info-title">
                         <th>제목</th>
-                        <td colspan="6">dd</td>
+                        <td colspan="6" th:text="${qnaDetail.questionTitle}"></td>
                     </tr>
                     <tr class="qna-info-img">
                         <th>사진</th>
                         <td colspan="6">
-                            <div class="qna-registerd-imgs">
-                                <img src="/admin/img/리뷰1.jpg" alt="qna-img">
+                            <div class="qna-registerd-imgs" >
+                                <img th:each="imgs : ${qnaDetail.adminQnaDetailImgsDtoList}" th:src="'/jpa_dw/question/' + ${imgs.questionImgRoute} + '/' + ${imgs.questionImgUuid} + '_' + ${imgs.questionImgName}" alt="qna-img">
                             </div>
                         </td>
                     </tr>
                     <tr class="qna-info-content">
                         <th>내용</th>
-                        <td colspan="6"><textarea class="content-textarea" readonly>얄랴리랴라어야러일</textarea></td>
+                        <td colspan="6"><textarea class="content-textarea" readonly th:text="${qnaDetail.questionContent}"></textarea></td>
                     </tr>
                 </table>
             </div>
@@ -85,35 +86,16 @@
                     </span>
             </div>
             <div class="walk-reply-section">
-                <ul class="walk-reply-ul">
-                    <li class="reply-writer">bokbok1234</li>
-                    <li class="reply-content">제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!</li>
+                <ul class="walk-reply-ul" th:each="reply : ${qnaDetail.adminQnaDetailCommentDtoList}">
+                    <li class="reply-writer" th:text="${reply.userAccount}"></li>
+                    <li class="reply-content" th:text="${reply.questionCommentContent}"></li>
                     <li class="reply-reg-date">2011-11-11</li>
-                    <li class="reply-btn">
-                        <div class="delete-btn">
-                            <button class="delete-submit-btn">삭제</button>
-                        </div>
-                    </li>
-                </ul>
-                <ul class="walk-reply-ul">
-                    <li class="reply-writer">bokbok1234</li>
-                    <li class="reply-content">제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!</li>
-                    <li class="reply-reg-date">2011-11-11</li>
-                    <li class="reply-btn">
-                        <div class="delete-btn">
-                            <button class="delete-submit-btn">삭제</button>
-                        </div>
-                    </li>
-                </ul>
-                <ul class="walk-reply-ul">
-                    <li class="reply-writer">bokbok1234</li>
-                    <li class="reply-content">제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!</li>
-                    <li class="reply-reg-date">2011-11-11</li>
-                    <li class="reply-btn">
-                        <div class="delete-btn">
-                            <button class="delete-submit-btn">삭제</button>
-                        </div>
-                    </li>
+                    <input type="hidden" th:value="${reply.questionCommentRd}" class="questionCommentRd"/>
+<!--                    <li class="reply-btn">-->
+<!--                        <div class="delete-btn">-->
+<!--                            <button class="delete-submit-btn">삭제</button>-->
+<!--                        </div>-->
+<!--                    </li>-->
                 </ul>
             </div>
         </div>
@@ -122,7 +104,7 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-<script src="/admin/js/adminQnaDetail.js"></script>
+<script type="module" src="/admin/js/adminQnaDetail.js"></script>
 <script src="/fragment/js/adminSide.js"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.example.dw.api;
 
 import com.example.dw.domain.dto.goods.IndexGoodsByCateDto;
+import com.example.dw.domain.dto.index.WeeklyQnaList;
 import com.example.dw.service.IndexService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,7 +26,14 @@ public class IndexApiController {
 
 
 
+    //시험용
+    @GetMapping("/weeklyQnaBest")
+    public List<WeeklyQnaList> weeklyQnaLists(){
+        return indexService.weeklyQnaList();
+    }
 
+
+    //카테고리별 상품 리스트
     @GetMapping("/goodsByCate")
     public List<IndexGoodsByCateDto> goodsByCategory(String cate){
 
@@ -33,6 +41,7 @@ public class IndexApiController {
 
     }
 
+    //상품 리스트 사진
     @GetMapping("/goodsImg")
     public byte[] getEmpImg(String fileFullPath) throws IOException {
         return FileCopyUtils.copyToByteArray(new File(goodsImg, fileFullPath));
