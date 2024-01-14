@@ -1,7 +1,7 @@
 package com.example.dw.api;
 
 import com.example.dw.domain.dto.admin.AdminUserChartDto;
-import com.example.dw.domain.dto.admin.AdminUserDetailOrderResultDto;
+import com.example.dw.domain.dto.admin.AdminUserDetailOrderResultWithTotalPriceDto;
 import com.example.dw.domain.dto.admin.AdminUserDetailResultDto;
 import com.example.dw.domain.dto.admin.UserListDto;
 import com.example.dw.repository.user.UsersRepositoryCustom;
@@ -52,8 +52,8 @@ public class AdminUserApiController {
 
     //회원 상세 - 주문 내역
     @GetMapping("/userOrderList/{userId}/{page}")
-    public Page<AdminUserDetailOrderResultDto> orderList(@PathVariable("userId") Long userId,
-                                                         @PathVariable("page")int page){
+    public Page<AdminUserDetailOrderResultWithTotalPriceDto> orderList(@PathVariable("userId") Long userId,
+                                                                  @PathVariable("page")int page){
         Pageable pageable = PageRequest.of(page, 5);
 
         return adminUserService.orderList(pageable,userId);

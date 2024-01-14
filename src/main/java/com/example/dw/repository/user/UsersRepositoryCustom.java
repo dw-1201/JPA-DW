@@ -18,7 +18,7 @@ public interface UsersRepositoryCustom {
     AdminUserDetailResultDto findByUserId(Long userId);
     
     //관리자페이지 회원상세 회원 구매내역
-    Page<AdminUserDetailOrderResultDto> userPaymentList(Pageable pageable,Long userId);
+    Page<AdminUserDetailOrderResultWithTotalPriceDto> userPaymentList(Pageable pageable,Long userId);
     
 
     //관리자페이지 일별 회원가입수

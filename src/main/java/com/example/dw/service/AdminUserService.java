@@ -1,6 +1,6 @@
 package com.example.dw.service;
 
-import com.example.dw.domain.dto.admin.AdminUserDetailOrderResultDto;
+import com.example.dw.domain.dto.admin.AdminUserDetailOrderResultWithTotalPriceDto;
 import com.example.dw.domain.dto.admin.AdminUserDetailResultDto;
 import com.example.dw.domain.entity.user.Users;
 import com.example.dw.repository.user.UsersRepository;
@@ -29,7 +29,7 @@ public class AdminUserService {
     }
     //회원 상세보기-주문 내역
     @Transactional
-    public Page<AdminUserDetailOrderResultDto> orderList(Pageable pageable,Long userId){
+    public Page<AdminUserDetailOrderResultWithTotalPriceDto> orderList(Pageable pageable, Long userId){
         return usersRepositoryCustom.userPaymentList(pageable,userId);
     }
 

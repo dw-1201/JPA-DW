@@ -30,60 +30,55 @@ function orderList(userId, page, callback){
     })
 }
 
-function orderListInput(result){
-
+function orderListInput(result) {
+    let userId = $('#userId').val()
     let text = '';
     let textInputSection = $('.order-list');
-    let totalQuantity = 0;
-    let totalPrice = 0;
 
-    result.content.forEach(r=>{
+    result.content.forEach(orderInfo => {
+
+        //총 주문금액
+        $('.total-price').text(form.addCommas(orderInfo.totalPrice) +'원')
 
 
+        orderInfo.orders.forEach(order => {
 
+            let totalQuantity = 0;
+            let eachTotalPrice = 0;
 
-            const orderItems = r.orderGoodsList;
+            const orderItems = order.orderGoodsList;
             const orderItemsCount = orderItems.length;
 
+            orderItems.forEach(item => {
+                totalQuantity += item.orderQuantity;
+                eachTotalPrice += item.orderQuantity * item.orderPrice
+            });
 
-            orderItems.forEach(etc =>{
-                totalQuantity += etc.orderQuantity;
-            })
-
-            for(let i =0; i<orderItemsCount; i++){
-
-                totalPrice += orderItems[i].orderPrice * orderItems[i].orderQuantity
-
-            }
-
-            if(orderItemsCount > 1){
-
+            if (orderItemsCount > 1) {
                 const restItemsCount = orderItemsCount - 1;
+                text += `
+                    <tr>
+                        <td class="community-title"><a href="/admin/orderDetail/${userId}/${order.orderId}">${orderItems[0].goodsName} 외 ${restItemsCount}개 </a></td>
 
+                `;
+            } else {
                 text += `
-                 <tr>
-                    <td class="community-title" >${orderItems[0].goodsName} 외 ${restItemsCount}개 </td>
-            `
-            }else {
-                text += `
-                <tr>
-                    <td class="community-title" >${orderItems[0].goodsName} </td>
-                
+                    <tr>
+                        <td class="community-title"><a href="/admin/orderDetail/${userId}/${order.orderId}">${orderItems[0].goodsName}</a> </td>
+
                 `;
             }
 
-
-            text +=`
-            <td class="community-reg-date">${form.formatDates(r.orderTime)}</td>
+            text += `
+            <td class="community-reg-date">${form.formatDates(order.orderTime)}</td>
             <td class="community-count">${totalQuantity} ea</td>
-            <td class="community-reply">${form.addCommas(totalPrice)}원</td>
-         </tr>
-        
-        `;
+            <td class="community-reply">${form.addCommas(eachTotalPrice)}원</td>
+            </tr>
+            `
 
+        });
 
-
-    })
+    });
 
     textInputSection.html(text);
     let paginations = $('.order-list-pagination');

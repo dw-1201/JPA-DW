@@ -3,6 +3,7 @@ package com.example.dw.repository.user;
 import com.example.dw.domain.dto.admin.*;
 import com.example.dw.domain.dto.user.QUserPetDto;
 import com.example.dw.domain.dto.user.UserPetDto;
+import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +46,7 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
 
         return new PageImpl<>(content, pageable, counts);
     }
-
+    //관리자페이지 회원 상세보기
     @Override
     public AdminUserDetailResultDto findByUserId(Long userId) {
 
@@ -109,10 +110,14 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
 
     //관리자 페이지 회원상세-주문내역
     @Override
-    public Page<AdminUserDetailOrderResultDto> userPaymentList(Pageable pageable,Long userId) {
+    public Page<AdminUserDetailOrderResultWithTotalPriceDto> userPaymentList(Pageable pageable, Long userId) {
 
-        List<AdminUserDetailPaymentListDto> orderList =
-                jpaQueryFactory.select(new QAdminUserDetailPaymentListDto(
+        
+        //QueryResults 
+        //쿼리를 실행한 결과로부터 실제 데이터 리스트와 데이터의 총개수를 제공
+        //페이징처리 시에 사용
+        QueryResults<AdminUserDetailPaymentListDto> results = jpaQueryFactory
+                .select(new QAdminUserDetailPaymentListDto(
                         orders.id,
                         orders.orderRegisterDate,
                         orderItem.goods.id,
@@ -122,28 +127,36 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
                 ))
                 .from(orders)
                 .leftJoin(orders.orderItems, orderItem)
-                        .leftJoin(orderItem.goods, goods)
-                        .where(orders.users.id.eq(userId))
-                .fetch();
-
-
-        Long getTotal = jpaQueryFactory.select(
-                orders.count()
-        )
-                .from(orders)
+                .leftJoin(orderItem.goods, goods)
                 .where(orders.users.id.eq(userId))
-                .fetchOne();
-        
-        List<AdminUserDetailOrderResultDto> orders = orderList.stream().collect(groupingBy(o-> new AdminUserDetailOrderResultDto(
-                o.getOrderId(), o.getOrderTime()), mapping(o-> new AdminUserDetailPaymentGoodsDto(
-                        o.getGoodsId(), o.getGoodsName(), o.getOrderQuantity(), o.getOrderPrice()),toList()
-                )
-        )).entrySet().stream().map(
-                e->new AdminUserDetailOrderResultDto(e.getKey().getOrderId(), e.getKey().getOrderTime(), e.getValue())
-        ).collect(toList());
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
 
-        return new PageImpl<>(orders, pageable, getTotal);
+        List<AdminUserDetailPaymentListDto> orderList = results.getResults();
+        Long getTotal = results.getTotal(); //총 개수
+
+        Integer totalPrice = orderList.stream()
+                .map(result -> result.getOrderQuantity() * result.getOrderPrice())
+                .reduce(0, Integer::sum);
+
+        System.out.println("[ 합계금액 ] : " + totalPrice);
+
+        List<AdminUserDetailOrderResultDto> orders = orderList.stream()
+                .collect(groupingBy(o -> new AdminUserDetailOrderResultDto(
+                                o.getOrderId(), o.getOrderTime()),
+                        mapping(o -> new AdminUserDetailPaymentGoodsDto(
+                                o.getGoodsId(), o.getGoodsName(), o.getOrderQuantity(), o.getOrderPrice()), toList()
+                        )
+                )).entrySet().stream()
+                .map(e -> new AdminUserDetailOrderResultDto(e.getKey().getOrderId(), e.getKey().getOrderTime(), e.getValue()))
+                .collect(toList());
+
+        AdminUserDetailOrderResultWithTotalPriceDto resultDto = new AdminUserDetailOrderResultWithTotalPriceDto(totalPrice, orders);
+
+        return new PageImpl<>(List.of(resultDto), pageable, getTotal);
     }
+
 
 
     //등록된 펫 정보
