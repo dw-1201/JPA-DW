@@ -1,40 +1,9 @@
 
-// let data = {
-//     labels: [
-//
-//         '1','2','3','4','5','6','7'
-//     ],
-//     datasets: [{
-//         data: [21,33,35,36,45,39, 99],
-//         backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 159, 64)', 'rgb(255, 205, 86)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)', 'rgb(153, 102, 255)'],
-//     }]
-// };
-// let barChartDraw = function(){
-//     let OrderCanvas = document.getElementById('weekly-order-chart');
-//
-//     window.barChart = new Chart(OrderCanvas, {
-//         type: 'bar',
-//         data: data,
-//         options: {
-//             reoponsive: false,
-//             legend: {
-//                 display: false
-//             }
-//         },
-//
-//         legendCallback: customLegend
-//     })
-// }
-
-
 $(document).ready(function (){
     orderByDay();
     saleByCategory();
 
 })
-
-
-
 
 
 

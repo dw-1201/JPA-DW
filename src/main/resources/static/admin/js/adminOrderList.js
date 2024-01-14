@@ -1,4 +1,4 @@
-import * as date from './module/form.js'
+import * as form from './module/form.js'
 
 
 $('.detail-btn').on('click', function(){
@@ -24,7 +24,7 @@ $(document).ready(function (){
 
 })
 
-
+//검색버튼
 $('.result-submit-btn').on('click', function (){
 
     orderList(0, searchForm(), showList)
@@ -38,7 +38,7 @@ $('.result-submit-btn').on('click', function (){
 
 
 
-
+//검색 내용 
 function searchForm(){
 
     let cate = $('#search-cate').val();
@@ -124,8 +124,8 @@ function showList(result) {
 
             }
 
-        text+=` <td>${totalPrice}원</td>
-                <td>${date.formatDates(order.payDatetime)}</td>
+        text+=` <td>${form.addCommas(totalPrice)}원</td>
+                <td>${form.formatDates(order.payDatetime)}</td>
                 <td class="list-btns">
                     <input type="hidden" value="${order.adminOrderInfo.userId}" id="userId"/>
                     <button type="button" class="detail-btn btn" data-orderid="${order.adminOrderInfo.orderId}">상세보기</button>
@@ -140,7 +140,7 @@ function showList(result) {
 
 
 
-
+//달력 라이브러리
 $(function (){
 
     $('#prev-order').datepicker({

@@ -1,8 +1,5 @@
 package com.example.dw.domain.dto.admin;
 
-
-import com.example.dw.domain.entity.user.UserFile;
-import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +7,7 @@ import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
-public class UserDetailDto {
+public class AdminUserDetailInfo {
 
     private Long id;
     private String userAccount;
@@ -24,9 +21,11 @@ public class UserDetailDto {
     private String detail;
     private String intro;
 
+    private AdminUserDetailImgDto adminUserDetailImgDto;
 
-    @QueryProjection
-    public UserDetailDto(Long id, String userAccount, String userName, String userNickName, String userPhone, String userEmail, LocalDate userJoinDate, String zipCode, String address, String detail, String intro) {
+
+
+    public AdminUserDetailInfo(Long id, String userAccount, String userName, String userNickName, String userPhone, String userEmail, LocalDate userJoinDate, String zipCode, String address, String detail, String intro, AdminUserDetailImgDto adminUserDetailImgDto) {
         this.id = id;
         this.userAccount = userAccount;
         this.userName = userName;
@@ -38,6 +37,6 @@ public class UserDetailDto {
         this.address = address;
         this.detail = detail;
         this.intro = intro;
-
+        this.adminUserDetailImgDto = adminUserDetailImgDto;
     }
 }

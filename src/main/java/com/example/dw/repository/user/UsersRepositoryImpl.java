@@ -18,11 +18,16 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.example.dw.domain.entity.user.QPet.pet;
 import static com.example.dw.domain.entity.freeBoard.QFreeBoard.freeBoard;
+import static com.example.dw.domain.entity.goods.QGoods.goods;
+import static com.example.dw.domain.entity.order.QOrderItem.orderItem;
+import static com.example.dw.domain.entity.order.QOrders.orders;
 import static com.example.dw.domain.entity.question.QQuestion.question;
+import static com.example.dw.domain.entity.user.QPet.pet;
+import static com.example.dw.domain.entity.user.QPetImg.petImg;
 import static com.example.dw.domain.entity.user.QUserFile.userFile;
 import static com.example.dw.domain.entity.user.QUsers.users;
+import static java.util.stream.Collectors.*;
 
 @Repository
 @RequiredArgsConstructor
@@ -42,11 +47,102 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
     }
 
     @Override
-    public Optional<UserDetailDto> findByUserId(Long userId) {
-        System.out.println(userId);
-        UserDetailDto detail = getUserDetail(userId);
-        System.out.println(detail.getUserName()+"입니다.");
-        return Optional.ofNullable(detail);
+    public AdminUserDetailResultDto findByUserId(Long userId) {
+
+        List<AdminUserDetailDto> userDetailInfo = jpaQueryFactory.select(
+                new QAdminUserDetailDto(
+                        users.id,
+                        users.userAccount,
+                        users.userName,
+                        users.userNickName,
+                        users.userPhone,
+                        users.userEmail,
+                        users.userJoinDate,
+                        users.address.zipCode,
+                        users.address.address,
+                        users.address.detail,
+                        users.userIntroduction,
+                        userFile.id,
+                        userFile.route,
+                        userFile.uuid,
+                        userFile.name,
+                        pet.id,
+                        pet.birthDate,
+                        pet.name,
+                        pet.weight,
+                        pet.petGender,
+                        pet.neutering,
+                        pet.petCategory,
+                        petImg.id,
+                        petImg.petPath,
+                        petImg.petUuid,
+                        petImg.petFileName
+                )
+
+        )       .from(users)
+                .leftJoin(users.userFile, userFile)
+                .leftJoin(users.pet, pet)
+                .leftJoin(pet.petImg, petImg)
+                .where(users.id.eq(userId))
+                .fetch();
+
+        return Optional.ofNullable(
+
+                new AdminUserDetailResultDto(
+
+                        userDetailInfo.stream().findFirst().map(
+                                o-> new AdminUserDetailInfo(o.getId(), o.getUserAccount(), o.getUserName(), o.getUserNickName(), o.getUserPhone(),
+                                        o.getUserEmail(), o.getUserJoinDate(), o.getZipCode(), o.getAddress(), o.getDetail(), o.getIntro(),
+                                        new AdminUserDetailImgDto(o.getUserImgId(), o.getUserImgPath(), o.getUserImgUuid(), o.getUserImgName()))).get()
+
+                        ,
+
+                        userDetailInfo.stream().collect(mapping(r->new AdminUserPetDetailDto(
+                                r.getPetId(), r.getBirthDate(), r.getPetImgName(), r.getWeight(), r.getPetGender(), r.getNeutering(),r.getPetCategory(),
+                                new AdminUserPetImgDto(r.getPetImgId(), r.getPetImgPath(), r.getPetImgUuid(), r.getPetImgName())),toList()
+                        )))
+        ).orElseThrow(()->{
+           throw new IllegalArgumentException("정보 없음");
+        });
+
+    }
+
+    //관리자 페이지 회원상세-주문내역
+    @Override
+    public Page<AdminUserDetailOrderResultDto> userPaymentList(Pageable pageable,Long userId) {
+
+        List<AdminUserDetailPaymentListDto> orderList =
+                jpaQueryFactory.select(new QAdminUserDetailPaymentListDto(
+                        orders.id,
+                        orders.orderRegisterDate,
+                        orderItem.goods.id,
+                        orderItem.goods.goodsName,
+                        orderItem.orderQuantity,
+                        orderItem.orderPrice
+                ))
+                .from(orders)
+                .leftJoin(orders.orderItems, orderItem)
+                        .leftJoin(orderItem.goods, goods)
+                        .where(orders.users.id.eq(userId))
+                .fetch();
+
+
+        Long getTotal = jpaQueryFactory.select(
+                orders.count()
+        )
+                .from(orders)
+                .where(orders.users.id.eq(userId))
+                .fetchOne();
+        
+        List<AdminUserDetailOrderResultDto> orders = orderList.stream().collect(groupingBy(o-> new AdminUserDetailOrderResultDto(
+                o.getOrderId(), o.getOrderTime()), mapping(o-> new AdminUserDetailPaymentGoodsDto(
+                        o.getGoodsId(), o.getGoodsName(), o.getOrderQuantity(), o.getOrderPrice()),toList()
+                )
+        )).entrySet().stream().map(
+                e->new AdminUserDetailOrderResultDto(e.getKey().getOrderId(), e.getKey().getOrderTime(), e.getValue())
+        ).collect(toList());
+
+        return new PageImpl<>(orders, pageable, getTotal);
     }
 
 
@@ -112,26 +208,6 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
 
     }
 
-    //회원 상세 정보
-    private UserDetailDto getUserDetail(Long userId){
-        return jpaQueryFactory.select(new QUserDetailDto(
-                users.id,
-                users.userAccount,
-                users.userName,
-                users.userNickName,
-                users.userPhone,
-                users.userEmail,
-                users.userJoinDate,
-                users.address.zipCode,
-                users.address.address,
-                users.address.detail,
-                users.userIntroduction
-
-        ))
-                .from(users)
-                .where(users.id.eq(userId))
-                .fetchOne();
-    }
 
 
 

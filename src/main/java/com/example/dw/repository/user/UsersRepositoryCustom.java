@@ -11,11 +11,20 @@ import java.util.Optional;
 
 public interface UsersRepositoryCustom {
 
+    //관리자 페이지회원리스트
     Page<UserListDto> findByAll(Pageable pageable, String cate, String keyword, String userState);
 
-    Optional<UserDetailDto> findByUserId(Long userId);
+    //관리자페이지 회원상세
+    AdminUserDetailResultDto findByUserId(Long userId);
+    
+    //관리자페이지 회원상세 회원 구매내역
+    Page<AdminUserDetailOrderResultDto> userPaymentList(Pageable pageable,Long userId);
+    
 
+    //관리자페이지 일별 회원가입수
     List<AdminUserChartDto> findJoinCountByAll();
+
+    
 
 
     Map<String, List> newUserStatus();
