@@ -1,9 +1,6 @@
 package com.example.dw.api;
 
-import com.example.dw.domain.dto.admin.AdminUserChartDto;
-import com.example.dw.domain.dto.admin.AdminUserDetailOrderResultWithTotalPriceDto;
-import com.example.dw.domain.dto.admin.AdminUserDetailResultDto;
-import com.example.dw.domain.dto.admin.UserListDto;
+import com.example.dw.domain.dto.admin.*;
 import com.example.dw.repository.user.UsersRepositoryCustom;
 import com.example.dw.service.AdminUserService;
 import lombok.RequiredArgsConstructor;
@@ -49,6 +46,35 @@ public class AdminUserApiController {
 
         return usersRepositoryCustom.findByUserId(userId);
     }
+    //회원 상세 - qna 내역
+    @GetMapping("/userQnaList/{userId}/{page}")
+    public Page<AdminUserDetailQnaListDto> qnaList(
+            @PathVariable("userId") Long userId,
+            @PathVariable("page") int page
+    ){
+        Pageable pageable = PageRequest.of(page, 5);
+        return adminUserService.qnalist(pageable, userId);
+    }
+
+    //회원 상세 -자유게시판 내역
+
+
+
+    //회원 상세 - 산책내역
+    @GetMapping("/userWalkList/{userId}/{page}")
+    public Page<AdminUserDetailWalkMateDto> walkList(
+            @PathVariable("userId") Long userId,
+            @PathVariable("page") int page
+    ){
+
+        Pageable pageable = PageRequest.of(page, 5);
+
+        return adminUserService.walkMateList(pageable, userId);
+
+    }
+
+
+
 
     //회원 상세 - 주문 내역
     @GetMapping("/userOrderList/{userId}/{page}")

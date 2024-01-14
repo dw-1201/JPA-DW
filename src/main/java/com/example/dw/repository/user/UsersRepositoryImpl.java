@@ -19,11 +19,15 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
+import static com.example.dw.domain.entity.walkingMate.QWalkingMate.walkingMate;
+import static com.example.dw.domain.entity.walkingMate.QWalkingMateComment.walkingMateComment;
 import static com.example.dw.domain.entity.freeBoard.QFreeBoard.freeBoard;
 import static com.example.dw.domain.entity.goods.QGoods.goods;
 import static com.example.dw.domain.entity.order.QOrderItem.orderItem;
 import static com.example.dw.domain.entity.order.QOrders.orders;
 import static com.example.dw.domain.entity.question.QQuestion.question;
+import static com.example.dw.domain.entity.question.QQuestionComment.questionComment;
 import static com.example.dw.domain.entity.user.QPet.pet;
 import static com.example.dw.domain.entity.user.QPetImg.petImg;
 import static com.example.dw.domain.entity.user.QUserFile.userFile;
@@ -134,7 +138,7 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
                 .fetchResults();
 
         List<AdminUserDetailPaymentListDto> orderList = results.getResults();
-        Long getTotal = results.getTotal(); //총 개수
+        Long getTotal = results.getTotal(); 
 
         Integer totalPrice = orderList.stream()
                 .map(result -> result.getOrderQuantity() * result.getOrderPrice())
@@ -157,6 +161,72 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
         return new PageImpl<>(List.of(resultDto), pageable, getTotal);
     }
 
+    //관리자페이지 회원상세-qna리스트
+    @Override
+    public Page<AdminUserDetailQnaListDto> userDetailQnaList(Pageable pageable, Long userId) {
+
+        List<AdminUserDetailQnaListDto> qnaListResults =
+                jpaQueryFactory.select( new QAdminUserDetailQnaListDto(
+                        question.id,
+                        question.questionTitle,
+                        question.questionRd,
+                        question.questionViewCount,
+                        questionComment.count()
+                ))
+                        .from(question)
+                        .leftJoin(question.questionComment, questionComment)
+                        .where(question.users.id.eq(userId))
+                        .orderBy(question.id.desc())
+                        .offset(pageable.getOffset())
+                        .limit(pageable.getPageSize())
+                        .groupBy(question.id, question.questionTitle ,question.questionRd, question.questionViewCount)
+                        .fetch();
+
+
+        Long getTotal = jpaQueryFactory.select(
+                question.count()
+        )
+                .from(question)
+                .where(question.users.id.eq(userId))
+                .fetchOne();
+
+
+
+        return new PageImpl<>(qnaListResults, pageable, getTotal);
+    }
+    
+    //관리자페이지 회원상세-자유게시판 리스트
+    
+
+    //관리자페이지 회원상세-산책리스트
+    @Override
+    public Page<AdminUserDetailWalkMateDto> userDetailWalkMateList(Pageable pageable, Long userId) {
+
+        List<AdminUserDetailWalkMateDto> walkListDtoQueryResults =
+                jpaQueryFactory.select(new QAdminUserDetailWalkMateDto(
+                        walkingMate.id,
+                        walkingMate.walkingMateTitle,
+                        walkingMate.walkingMateRd,
+                        walkingMate.walkingMateViewCount,
+                        walkingMateComment.count()
+                ))
+                        .from(walkingMate)
+                        .leftJoin(walkingMate.walkingMateComment, walkingMateComment)
+                        .where(walkingMate.users.id.eq(userId))
+                        .groupBy(walkingMate.id, walkingMate.walkingMateTitle,walkingMate.walkingMateRd, walkingMate.walkingMateViewCount)
+                        .orderBy(walkingMate.id.desc())
+                        .limit(pageable.getPageSize())
+                        .offset(pageable.getOffset())
+                        .fetch();
+
+
+        Long getTotal = jpaQueryFactory.select(walkingMate.count())
+                .from(walkingMate)
+                .where(walkingMate.users.id.eq(userId))
+                .fetchOne();
+
+        return new PageImpl<>(walkListDtoQueryResults, pageable, getTotal);
+    }
 
 
     //등록된 펫 정보

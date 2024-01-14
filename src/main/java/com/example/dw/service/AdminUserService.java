@@ -1,7 +1,9 @@
 package com.example.dw.service;
 
 import com.example.dw.domain.dto.admin.AdminUserDetailOrderResultWithTotalPriceDto;
+import com.example.dw.domain.dto.admin.AdminUserDetailQnaListDto;
 import com.example.dw.domain.dto.admin.AdminUserDetailResultDto;
+import com.example.dw.domain.dto.admin.AdminUserDetailWalkMateDto;
 import com.example.dw.domain.entity.user.Users;
 import com.example.dw.repository.user.UsersRepository;
 import com.example.dw.repository.user.UsersRepositoryCustom;
@@ -27,6 +29,21 @@ public class AdminUserService {
 
         return usersRepositoryCustom.findByUserId(userId);
     }
+
+
+    //회원 상세보기-qna 내역
+    @Transactional
+    public Page<AdminUserDetailQnaListDto> qnalist(Pageable pageable, Long userId){
+        return usersRepositoryCustom.userDetailQnaList(pageable,userId);
+    }
+
+    //회원 상세보기-산책 내역
+    @Transactional
+    public Page<AdminUserDetailWalkMateDto> walkMateList(Pageable pageable, Long userId){
+        return usersRepositoryCustom.userDetailWalkMateList(pageable, userId);
+    }
+
+
     //회원 상세보기-주문 내역
     @Transactional
     public Page<AdminUserDetailOrderResultWithTotalPriceDto> orderList(Pageable pageable, Long userId){

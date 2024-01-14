@@ -21,6 +21,12 @@ public interface UsersRepositoryCustom {
     Page<AdminUserDetailOrderResultWithTotalPriceDto> userPaymentList(Pageable pageable,Long userId);
     
 
+    //관리자페이지 회원상세 qna게시글 내역
+    Page<AdminUserDetailQnaListDto> userDetailQnaList(Pageable pageable, Long userId);
+
+    //관리자페이지 회원상세 산책게시글 내역
+    Page<AdminUserDetailWalkMateDto> userDetailWalkMateList(Pageable pageable, Long userId);
+
     //관리자페이지 일별 회원가입수
     List<AdminUserChartDto> findJoinCountByAll();
 

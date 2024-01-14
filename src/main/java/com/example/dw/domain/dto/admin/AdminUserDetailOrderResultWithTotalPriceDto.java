@@ -19,10 +19,4 @@ public class AdminUserDetailOrderResultWithTotalPriceDto {
         this.orders = orders;
     }
 
-    public void setList(Integer totalPrice ,List<AdminUserDetailOrderResultDto> orders){
-        this.totalPrice=totalPrice;
-        this.orders=orders;
-
-    }
-
 }
