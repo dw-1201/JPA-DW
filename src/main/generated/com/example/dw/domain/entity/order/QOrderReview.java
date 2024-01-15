@@ -36,8 +36,6 @@ public class QOrderReview extends EntityPathBase<OrderReview> {
 
     public final DateTimePath<java.time.LocalDateTime> reviewRd = createDateTime("reviewRd", java.time.LocalDateTime.class);
 
-    public final NumberPath<Long> state = createNumber("state", Long.class);
-
     public final StringPath title = createString("title");
 
     public QOrderReview(String variable) {

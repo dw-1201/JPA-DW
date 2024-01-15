@@ -39,4 +39,7 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
 
     Optional<Users> findByUserFileId(Long userFileId);
 
+    //유저 삭제
+    void deleteUsersById(Long userid);
+
 }

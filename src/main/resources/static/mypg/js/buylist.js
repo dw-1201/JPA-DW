@@ -26,7 +26,7 @@ function showList(result){
                             </div>
                         </div>
                         <div class="nonetext-area">
-                            <p>등록된 내용이 없습니다.</p>
+                            <p>주문 내역이 없습니다.</p>
                         </div>
                   </div> 
                </div> 
@@ -58,15 +58,15 @@ function showList(result){
                                                         </a>
                                                     </div>
                                          `;
-                                                if(e.orderReviewId == null ){
+                                                if(e.state == null || e.state ==0){
                                                     text += `<div class="price-2">
                                                                 <a href="/mypg/productreview/${e.id}" class="text-page-2">
                                                                     <p>리뷰작성</p>
                                                                 </a>
                                                              `;}
-                                                else{
+                                                else if(e.state == 1){
                                                     text += `<div class="price-2">
-                                                                <a href="/mypg/html/productreview.html" class="text-page-2">
+                                                                <a href="#" class="text-page-2">
                                                                     <p>리뷰작성완료</p>
                                                                 </a>
                                                              `;}

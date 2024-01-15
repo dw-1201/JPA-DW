@@ -21,13 +21,13 @@
                 <nav class="menu-choice-area">
                     <ul class="menu-choice">
                         <li class="choice-p">
-                            <a href="/mypg/html/mypgmain.html" class="pro"> 프로필</a>
+                            <a th:href="@{/mypg/main/{userid}(userid = ${session.userId})}" class="pro"> 프로필</a>
                         </li>
                         <li class="choice-w">
-                            <a href="/mypg/html/mywrite.html" class="mywrite">내가 작성한 글</a>
+                            <a th:href="@{/mypg/writepage/{userid}(userid = ${session.userId})}" class="mywrite">내가 작성한 글</a>
                         </li>
                         <li>
-                            <a href="/mypg/html/buylist.html" class="mybuy">주문내역</a>
+                            <a th:href="@{/mypg/orderpage/{userid}(userid = ${session.userId})}" class="mybuy">주문내역</a>
                         </li>
                     </ul>
                 </nav>
@@ -35,24 +35,25 @@
             <div class="detail-mywrite-choice">
                 <ul class="detail-choice">
                     <li class="my-QnA">
-                        <a href="/mypg/html/mywrite.html" class="my-QnA-detail">QnA</a>
+                        <a th:href="@{/mypg/writepage/{userid}(userid = ${session.userId})}" class="my-QnA-detail">QnA</a>
                     </li>
                     <li class="my-freeboard">
-                        <a href="/mypg/html/myfreeboard.html" class="my-freeboard-detail">자유게시판</a>
+                        <a th:href="@{/mypg/myfreeboard/{userid}(userid =${session.userId})}" class="my-freeboard-detail">자유게시판</a>
                     </li>
                     <li class="my-walk">
-                        <a href="/mypg/html/walkmate.html" class="my-walk-detail">나의 산책 메이트 글</a>
+                        <a th:href="@{/mypg/mywalking/{userid}(userid =${session.userId})}"  class="my-walk-detail">나의 산책 메이트 글</a>
                     </li>
                     <li class="my-walkapplication">
-                        <a href="/mypg/html/mateapplication.html" class="my-walkapplication-detail">나의 산책 메이트 신청</a>
+                        <a th:href="@{/mypg/myapplicationwalk/{userid}(userid =${session.userId})}"  class="my-walkapplication-detail">나의 산책 메이트 신청</a>
                     </li>
                     <li class="my-review">
-                        <a href="/mypg/html/productreviewlist.html" class="my-review-detail">리뷰 내역</a>
+                        <a th:href="@{/mypg/myreviewpage/{userid}(userid =${session.userId})}"  class="my-review-detail">리뷰 내역</a>
                     </li>
                 </ul>
             </div>
-            <div class="reviewlistmain">
+            <div class="reviewlistmain" th:data-userid="${session.userId}">
                 <div class="list-contents-box">
+
                     <div class="list-content" data-id="">
                         <div class="list-content-title">
                             <span class="reviewTitle">건강식이 너무 좋아요</span>
@@ -141,71 +142,36 @@
                             </div>
                         </div>
                     </div>
-                    
-                         
-               
-                    <!--페이징 처리-->   
-                    <div class="list-page-container">
-                        <div class="list-pages">
-                            <ul>
-                                <li><a href="">&lt;</a></li>
-                                <li><a href="">1</a></li>
-                                <li><a href="">2</a></li>
-                                <li><a href="">3</a></li>
-                                <li><a href="">4</a></li>
-                                <li><a href="">5</a></li>
-                                <li><a href="">&gt;</a></li>
-                            </ul>
-                        </div>
                 </div>
-            </div>  
-            <div class="nonepage">
-                <div class="none-img-area">
-                    <div class="none-img">
-                        <img src="../img/b556fdf429d8de25c3acf62f8186ddb9.png"/>
+                <!--페이징 처리-->
+                <div class="list-page-container">
+                    <div class="list-pages">
+                        <ul class="pagination-ul">
+
+                        </ul>
                     </div>
                 </div>
-                <div class="nonetext-area">
-                    <p>등록된 내용이 없습니다.</p>
+                <div class="nonepage">
+                    <div class="none-img-area">
+                        <div class="none-img">
+                            <img src="../img/b556fdf429d8de25c3acf62f8186ddb9.png"/>
+                        </div>
+                    </div>
+                    <div class="nonetext-area">
+                        <p>등록된 내용이 없습니다.</p>
+                    </div>
                 </div>
-            </div>
-            
-        </div>    
+            </div>  
+        </div>
 
     </main>
     <!-- footer 시작 -->
-    <div class="footer">
-        <div class="footer-container01">
-            <div class="footer-containerbox01">
-                <div class="footer-container01-nav">
-                    <ul>
-                        <li>(주)산책갈개</li>
-                        <li>복영헌 임형준 노의진 이지윤</li>
-                        <li>서울특별시 노원구 상계로1길 34 세일학원 5층</li>
-                        <li>02-933-5890</li>
-                    </ul>
-                </div>
-                <div class="footer-container01-img">
-                    <img src="/img/dog02.png" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="footer-container02">
-            <div class="footer-containerbox02">
-                <div>Copyright ©SCGG All Rights Reserved.</div>
-                <div class="footer-container02-nav">
-                    <ul>
-                        <li><a href="">이용약관</a></li>
-                        <li><a href="">개인정보처리방침</a></li>
-                        <li><a href="">사업자정보확인</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+       <div class="footer" th:replace="fragment/footer :: footer">
+
+       </div>
     <!--footer 끝-->
     <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="../js/productreviewlist.js"></script>
+    <script type="module" src="../js/productreviewlist.js"></script>
 </body>
 </html>            

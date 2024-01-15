@@ -151,10 +151,11 @@ function getTextLength(text) {
 
 $('document').ready(function(){
     limitText();
+    checkUserNickName();
 
 })
 
-// 닉네임 유효성 검사
+// 닉네임 양식 검사
 function checkNick() {
 
     let nick = $("#nickname").val();
@@ -166,15 +167,16 @@ function checkNick() {
     $('#nickname').on('keyup',function () {
 
         if(nickCheck) {
-            $('.nicknameck').css("display", "none");
+            $('.nickNameFormat').css("display", "none");
             console.log("실행!");
         } else {
-            $('.nicknameck').css("display", "block");
+            $('.nickNameFormat').css("display", "block");
             console.log("미실행!")
         }
 
     });
 }
+// 비밀번호 양식 체크
 function checkPw() {
 
     let pw = $("#userPassword").val();
@@ -245,13 +247,25 @@ $('#userPhone').keyup(function(){
 
 
 
+
 //회원탈퇴 클리시 확인 이벤트 
 $('.user-delete-btn').on('click',function(){
-
+    let userId = $(this).data('usersid');
     if(confirm("정말로 탈퇴하시겠습니까?")){
 
-    }else{
+        $.ajax({
+            url : `/mypgs/userRemove/${userId}`,
+            type : 'post',
+            success:function (){
+                console.log("삭제 성공");
+                window.location.href = "/user/logout";
+            },error : function (a,b,c){
 
+                console.log(c);
+            }
+        })
+    }else{
+        window.location.href = userId;
     }
 
 });
@@ -288,23 +302,23 @@ function checkPhone(){
     })
 }
 
-
+// 닉네임 유효성 검사
 function checkUserNickName(){
     $('#nickname').change(function (){
 
-        let nickname = $('#nickname').val();
+        let userNickName = $('#nickname').val();
         $.ajax({
 
-            url : '/mypgs/nickname/check',
+            url : '/mypgs/nickName/check',
             type : 'post',
             data : {userNickName : userNickName},
             success : function (result){
                 if(result){
-                    $('.userPhone-unavailable').css('display','none');
-                    $('.userPhone-available').css('display','block')
+                    $('.userNick-unavailable').css('display','none');
+                    $('.userNick-available').css('display','block')
                 }else {
-                    $('.userPhone-unavailable').css('display','block');
-                    $('.userPhone-available').css('display','none')
+                    $('.userNick-unavailable').css('display','block');
+                    $('.userNick-available').css('display','none')
                 }
             },error : function (a,b,c){
                 console.error(c);

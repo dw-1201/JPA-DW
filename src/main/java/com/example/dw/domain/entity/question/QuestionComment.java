@@ -20,7 +20,7 @@ public class QuestionComment {
     private LocalDateTime questionCommentRd;
     private LocalDateTime questionCommentMd;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
     private Question question;
 }
