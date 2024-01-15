@@ -68,16 +68,28 @@
 
                     </div>
                 </div>
+                <input type="hidden" th:value="${session.userId}" id="userId" name="userId">
+                <input type="hidden" th:value="${question.id}" id="questionId" name="questionId">
             </div>
             <!-- 글 끝 -->
 
             <!-- 댓글 시작 -->
             <div class="reply-container">
-                <div class="reply-title">댓글</div>
+                <th:block th:if="${session.userId !=null}">
+                <div class="reply-title" >댓글</div>
                 <div class="reply-input">
-                    <textarea name="" id="" placeholder="댓글을 입력해주세요"></textarea>
-                    <button>등록</button>
+                    <textarea name="questionCommentContent" id="questioncomment" placeholder="댓글을 입력해주세요"></textarea>
+                    <div class="comment-length-Check"></div>
+                    <button class="reply-submit" >등록</button>
                 </div>
+                </th:block>
+                <th:block th:if="${session.userId ==null}">
+                    <div class="required-login-section">
+                        <h5>댓글 기능을 이용하실려면 로그인과 산책메이트 작성자의 승인이 필요합니다.</h5>
+                        <a href="/user/enterLogin"> 로그인 이동하기 </a>
+                    </div>
+                </th:block>
+                <!--댓글 리스트 영역-->
                 <div class="reply-list">
                     <div class="reply">
                         <div class="id-and-date">
@@ -292,6 +304,6 @@
     </div>
     <!-- footer 끝 -->
     <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-<script src="/community/js/qnaDetail.js"></script>
+<script type="module" src="/community/js/qnaDetail.js"></script>
 </body>
 </html>

@@ -35,6 +35,7 @@ public class OrderRepositoryImp implements OrderRepositoryCustom{
                 .from(orders)
                 .leftJoin(orders.users,users)
                 .where(orders.users.id.eq(userId))
+                .orderBy(orders.orderRegisterDate.desc())
                 .fetch();
 
 

@@ -1,8 +1,12 @@
 package com.example.dw.service;
 
 
+import com.example.dw.domain.dto.community.QuestionDetailReplyDto;
 import com.example.dw.domain.entity.question.Question;
+import com.example.dw.domain.form.QuestionCommentForm;
 import com.example.dw.domain.form.QuestionWritingForm;
+import com.example.dw.repository.community.QuestionCommentRepository;
+import com.example.dw.repository.community.QuestionCommentRepositoryCustom;
 import com.example.dw.repository.community.QuestionRepository;
 import com.example.dw.repository.user.UsersRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -23,6 +27,9 @@ public class QnaService {
     private final FileService fileService;
     private final QuestionRepository questionRepository;
     private final UsersRepository usersRepository;
+
+    private final QuestionCommentRepository questionCommentRepository;
+    private final QuestionCommentRepositoryCustom questionCommentRepositoryCustom;
     // 글 작성, 사진 파일 저장
     @Transactional
     public Long register(QuestionWritingForm questionWritingForm) throws IOException {
@@ -93,5 +100,27 @@ public class QnaService {
         questionRepository.deleteById(questionId);
     }
 
+
+    @Transactional
+    public void register(QuestionCommentForm questionCommentForm){
+
+        questionCommentRepository.save(questionCommentForm.toEntity());
+
+
+    }
+
+    @Transactional
+    public List<QuestionDetailReplyDto> getList(Long questionId){
+
+        return questionCommentRepositoryCustom.findReplyByQuestionBoardId(questionId);
+
+    }
+
+    @Transactional
+    public void deleteReply(Long questioncommentid ){
+
+        questionCommentRepository.deleteById(questioncommentid);
+
+    }
 
 }

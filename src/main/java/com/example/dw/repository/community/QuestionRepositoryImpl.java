@@ -67,6 +67,8 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
                             .where(questionComment.question.id.eq(questionDto.getId()))
                             .fetchOne();
 
+                    System.out.println(commentCount+"댓글수 입니다.");
+
                     List<QuestionImgDto> questionImgDto = jpaQueryFactory
                             .select(new QQuestionImgDto(
                                     questionImg.id,
@@ -104,6 +106,9 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
 
                     );
                 }).collect(Collectors.toList());
+
+
+
 
         System.out.println(contents.toString()+"리스트 ");
 
@@ -232,6 +237,8 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
                             .where(questionComment.question.id.eq(questionDto.getId()))
                             .fetchOne();
 
+                    System.out.println(commentCount+"마이 댓글수 ");
+
                     List<QuestionImgDto> questionImgDto = jpaQueryFactory
                             .select(new QQuestionImgDto(
                                     questionImg.id,
@@ -253,7 +260,7 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
                                     imgDtos.getQuestionImgUuid(),
                                     imgDtos.getQuestionId()
                             ))
-                            .collect(Collectors.toList());
+                            .collect(toList());
 
 
                     return new QuestionListDto(

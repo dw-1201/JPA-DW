@@ -41,7 +41,7 @@ public class Question {
     @OneToMany(mappedBy = "question" ,fetch = FetchType.LAZY, orphanRemoval = true)
     private List<QuestionImg> questionImg = new ArrayList<>();
 
-    @OneToMany(mappedBy = "question" ,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "question" ,fetch = FetchType.LAZY, orphanRemoval = true)
     private List<QuestionComment> questionComment = new ArrayList<>();
 
     @OneToOne(mappedBy = "question" ,fetch = FetchType.LAZY)

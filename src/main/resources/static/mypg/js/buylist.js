@@ -1,11 +1,15 @@
 import * as list from "./module/list.js";
 import * as page from "./module/page.js";
-
+import * as form from "./module/form.js";
 
 $(document).ready(function (){
     let userId = $('.menu-area').data('userid');
+
+
     console.log(userId);
     list.list(0,userId,'mypgs','orderList',showList);
+
+
 
 
 })
@@ -38,7 +42,7 @@ function showList(result){
                 text += `
                             <li class="buy-text">
                                 <div class="order-date" data-orderId="${r.id}">
-                                    <p class="orderregisterdate">${r.orderDate}</p>
+                                    <p class="orderregisterdate" value="${r.orderDate}"></p>
                                 </div>
                                     <div class="buylistbox-overflow">
                           `;
@@ -86,6 +90,14 @@ function showList(result){
 
         console.log(text);
         textinput.html(text);
+
+    $('.order-date').each(function () {
+        let date = $(this).find('.orderregisterdate').attr('value');
+        console.log(date);
+        let dateReplace = form.formatDate(date);
+        $(this).find('.orderregisterdate').text(dateReplace);
+    });
+
 
     let paginations = $('.pagination-ul');
     page.pagination(result, paginations)
