@@ -1,20 +1,16 @@
 package com.example.dw.repository.goods;
 
-import com.example.dw.domain.dto.goods.RecentViewGoods;
 import com.example.dw.domain.dto.goods.*;
 import com.example.dw.domain.form.SearchForm;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static com.example.dw.domain.entity.goods.QCart.cart;
 import static com.example.dw.domain.entity.goods.QCartItem.cartItem;

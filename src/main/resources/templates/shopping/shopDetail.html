@@ -84,7 +84,7 @@
                             </div>
 
                             <div class="pay-amount">
-                                <div class="pay-name" th:text="${detail.goodsName}">상품명</div>
+                                <div class="pay-name" id="goodsName" th:text="${detail.goodsName}">상품명</div>
                                 <div class="pay-count">
                                     <button id="increase"><strong>+</strong></button>
                                     <div><span id="number">1</span></div>
@@ -98,7 +98,7 @@
                                     <button type="button" class="basket-button1">장바구니</button>
                                 </div>
                                 <div class="basket2">
-                                    <a href="/shop/shopPay" class="basket-button2">바로구매</a>
+                                    <button type="button" class="basket-button2">바로구매</button>
                                 </div>
                             </div>
                         </div>

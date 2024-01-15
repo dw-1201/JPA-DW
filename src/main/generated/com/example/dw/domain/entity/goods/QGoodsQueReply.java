@@ -28,9 +28,9 @@ public class QGoodsQueReply extends EntityPathBase<GoodsQueReply> {
 
     public final StringPath queReplyContent = createString("queReplyContent");
 
-    public final StringPath queReplyModifyDate = createString("queReplyModifyDate");
+    public final DateTimePath<java.time.LocalDateTime> queReplyModifyDate = createDateTime("queReplyModifyDate", java.time.LocalDateTime.class);
 
-    public final StringPath queReplyRegisterDate = createString("queReplyRegisterDate");
+    public final DateTimePath<java.time.LocalDateTime> queReplyRegisterDate = createDateTime("queReplyRegisterDate", java.time.LocalDateTime.class);
 
     public final com.example.dw.domain.entity.user.QUsers users;
 

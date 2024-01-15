@@ -52,11 +52,13 @@ function getDetailImgs(goodsId, callback){
     })
 }
 
+let userId = $('#userId').val();
+
 //장바구니 버튼 처리
 $('.basket1 button').on('click', function (e){
     e.preventDefault();
 
-    let userId = $('#userId').val();
+    userId = $('#userId').val();
 
     if(confirm("장바구니에 추가하시겠습니까?")){
 
@@ -88,6 +90,50 @@ $('.basket1 button').on('click', function (e){
     }
 })
 
+/**
+ * 바로구매 버튼 클릭 시 데이터를 수집
+ */
+
+$('.basket-button2').on('click', function () {
+    let order = [];
+    let currentPrices = $('#price').text().replace(',','');
+    let goodsName = $('#goodsName').text();
+    let goodsId = $('#goodsId').val();
+    let cartItemQuantity = $('#number').text().replace(',','');
+    userId = $('#userId').val();
+
+
+        let product = {
+            goodsId: goodsId,
+            goodsName: goodsName,
+            goodsQuantity: cartItemQuantity,
+            goodsPrice: currentPrices,
+        };
+        order.push(product);
+
+    console.log(order);
+
+
+    $.ajax({
+        url : '/shops/payGoods',
+        type : 'post',
+        data: JSON.stringify(order),
+        contentType:'application/json; charset=utf-8',
+        success : function (result){
+
+            console.log(result)
+
+            if(confirm("결제페이지로 이동하시겠습니까?")){
+                window.location.href="/shop/shopSinglePay/" + userId;
+            }
+
+        },error : function (a,b,c){
+            console.error(c)
+        }
+
+    })
+
+});
 
 // function cartItemSave(cartId,cartItemQuantity){
 //     $.ajax({
@@ -172,12 +218,3 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 });
-
-//설명 버튼 눌렀을 시
-// $('.img-btn').on('click', function (e){
-//     e.preventDefault();
-//     getDetailImgs(goodsId, detailImgList)
-//
-//     $(this).find('.middle-span').removeClass('middle-span').addClass('middle-span1');
-// })
-

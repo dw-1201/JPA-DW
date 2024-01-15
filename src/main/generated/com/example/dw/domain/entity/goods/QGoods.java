@@ -34,7 +34,7 @@ public class QGoods extends EntityPathBase<Goods> {
 
     public final ListPath<GoodsMainImg, QGoodsMainImg> goodsMainImg = this.<GoodsMainImg, QGoodsMainImg>createList("goodsMainImg", GoodsMainImg.class, QGoodsMainImg.class, PathInits.DIRECT2);
 
-    public final StringPath goodsModifyDate = createString("goodsModifyDate");
+    public final DateTimePath<java.time.LocalDateTime> goodsModifyDate = createDateTime("goodsModifyDate", java.time.LocalDateTime.class);
 
     public final StringPath goodsName = createString("goodsName");
 
@@ -44,7 +44,7 @@ public class QGoods extends EntityPathBase<Goods> {
 
     public final ListPath<GoodsQue, QGoodsQue> goodsQues = this.<GoodsQue, QGoodsQue>createList("goodsQues", GoodsQue.class, QGoodsQue.class, PathInits.DIRECT2);
 
-    public final StringPath goodsRegisterDate = createString("goodsRegisterDate");
+    public final DateTimePath<java.time.LocalDateTime> goodsRegisterDate = createDateTime("goodsRegisterDate", java.time.LocalDateTime.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
