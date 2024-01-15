@@ -24,7 +24,7 @@
                         </div>
                     </a>
                     </li>
-                    <li><a href="">
+                    <li><a href="/user/enterLogin">
                         <div class="top-section">
                             <p>장바구니</p>
                         </div>
@@ -44,11 +44,12 @@
                         </div>
                     </a>
                     </li>
-                    <li><a href="">
+                    <li th:if="${session.userId != null}">
+                        <a th:href="@{'/shop/shopCart/' + ${session.userId}}">
                         <div class="top-section">
                             <p>장바구니</p>
                         </div>
-                    </a>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -63,7 +64,7 @@
                         <li><a href="/community/freeBoardList">커뮤니티</a></li>
                         <li><a href="/shop/shopList">쇼핑</a></li>
                         <li><a href="/walk/walkList">산책메이트</a></li>
-                        <li><a href="/map/html/map.html">병원찾기</a></li>
+                        <li><a href="/index/map">병원찾기</a></li>
                     </ul>
                 </div>
             </div>

@@ -1,9 +1,9 @@
 package com.example.dw.controller;
 
-import com.example.dw.domain.dto.community.FreeBoardDetailDto;
-import com.example.dw.domain.form.FreeBoardModifyForm;
+import com.example.dw.domain.dto.community.FreeBoardResultDetailDto;
 import com.example.dw.domain.form.FreeBoardWritingForm;
 import com.example.dw.repository.freeBoard.FreeBoardRepositoryCustom;
+import com.example.dw.service.FileService;
 import com.example.dw.service.FreeBoardCommentService;
 import com.example.dw.service.FreeBoardService;
 import jakarta.servlet.http.HttpSession;
@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ public class FreeBoardController {
     private final FreeBoardRepositoryCustom freeBoardRepositoryCustom;
     private final FreeBoardCommentService freeBoardCommentService;  // 새로 추가
     private final HttpSession httpSession;
+    private final FileService fileService;
 
     /**
      * 자유게시판 리스트 페이지
@@ -32,10 +34,8 @@ public class FreeBoardController {
      */
     @GetMapping("/freeBoardList")
     public String freeBoard(){
-
         return "/community/freeBoardList";
     }
-
 
     /**
      * 자유게시판 글쓰기 페이지
@@ -47,13 +47,20 @@ public class FreeBoardController {
     }
 
     @PostMapping("/freeBoardWriting")
-    public String write(FreeBoardWritingForm freeBoardWritingForm){
-        // 세션에서 사용자 ID 가져오기
-        Long userId = (Long) httpSession.getAttribute("userId");
+    public String write(FreeBoardWritingForm freeBoardWritingForm,
+                        @RequestParam("freeBoardImg")List<MultipartFile> files) throws IOException{
+        //파일확인
+        files.forEach(r-> System.out.println("[파일목록] : "+r.getOriginalFilename()));
 
-        // 해당 사용자 ID로 글 작성
-        freeBoardWritingForm.setUserId(userId);
-        freeBoardService.saveFreeBoard(freeBoardWritingForm);
+        // 세션에서 사용자 ID 가져오기
+//        Long userId = (Long) httpSession.getAttribute("userId");
+        Long id = freeBoardService.register(freeBoardWritingForm);
+
+        System.out.println(freeBoardWritingForm.getId()+"유저 아이디");
+
+        fileService.registerDBFreeBoardImg(files, id);
+        System.out.println(files);
+        System.out.println(id);
         return "redirect:/community/freeBoardList";
     }
 
@@ -63,7 +70,7 @@ public class FreeBoardController {
      */
     @GetMapping("/freeBoardDetail/{freeBoardId}")
     public String freeBoardDetail(@PathVariable("freeBoardId") Long freeBoardId, Model model){
-        List<FreeBoardDetailDto> result =
+        List<FreeBoardResultDetailDto> result =
                 freeBoardRepositoryCustom.findFreeBoardById(freeBoardId);
 
         // 조회수 증가
@@ -83,10 +90,10 @@ public class FreeBoardController {
     @GetMapping("/modify/{freeBoardId}")
     public String freeBoardModifyPage(@PathVariable("freeBoardId") Long freeBoardId, Model model){
 
-        List<FreeBoardDetailDto> result =
+        List<FreeBoardResultDetailDto> result =
                 freeBoardRepositoryCustom.findFreeBoardById(freeBoardId);
 
-        model.addAttribute("detail", result);
+        model.addAttribute("freeBoard", result);
 
         return "/community/freeBoardModify";
     }
@@ -97,15 +104,17 @@ public class FreeBoardController {
      */
     @PutMapping("/modify/{freeBoardId}/edit")
     public RedirectView freeBoardModify(@PathVariable("freeBoardId") Long freeBoardId,
-                                    FreeBoardModifyForm freeBoardModifyForm)
+                                    FreeBoardWritingForm freeBoardWritingForm,
+                                    @RequestParam("freeBoardImg")List<MultipartFile> files)
             throws IOException {
 
-        freeBoardModifyForm.setId(freeBoardId);
-        System.out.println("받아오는 자유게시판 번호 : "+freeBoardModifyForm.getId());
+        freeBoardWritingForm.setId(freeBoardId);
+        System.out.println("자유게시판 번호 : "+freeBoardWritingForm.getId());
 
-        freeBoardService.modify(freeBoardModifyForm);
+        freeBoardService.modify(freeBoardWritingForm, files);
 
         return new RedirectView("/community/freeBoardDetail/{freeBoardId}");
+//        return new RedirectView("/community/freeBoardList");
     }
 
     /**
@@ -114,7 +123,6 @@ public class FreeBoardController {
      */
     @GetMapping("/delete/{freeBoardId}")
     public RedirectView goodsDelete(@PathVariable("freeBoardId") Long freeBoardId){
-
 
         freeBoardService.delete(freeBoardId);
 

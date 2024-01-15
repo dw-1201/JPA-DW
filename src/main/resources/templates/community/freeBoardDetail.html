@@ -30,11 +30,9 @@
                     <div class="img-box">
                         <div class="imgs">
                             <ul class="slider">
-                                <li><img src="/img/slideDog01.jfif" alt=""></li>
-                                <li><img src="/img/slideDog02.png" alt=""></li>
-                                <li><img src="/img/slideDog03.jfif" alt=""></li>
-                                <li><img src="/img/slideDog04.jpg" alt=""></li>
-                                <li><img src="/img/slideDog05.jpg" alt=""></li>
+                                <th:block th:each="imgs:${freeBoard.freeBoardImgDtoList}">
+                                    <li><img th:src="'/jpa_dw/freeBoard/'+${imgs.freeBoardImgRoute}+'/'+${imgs.freeBoardImgUuid}+'_'+${imgs.freeBoardImgName}" alt=""></li>
+                                </th:block>
                             </ul>
                         </div>
                         <div class="slide-btns">
@@ -51,8 +49,11 @@
                                 <div class="info-img"><img src="/img/dogImg02.jpg" alt=""></div>
                                 <div th:text="${freeBoard.userAccount}"></div>
                             </div>
-                            <div class="text-date" th:if="${freeBoard.freeBoardMd ne null}" th:text="${freeBoard.freeBoardMd}"></div>
-                            <div class="text-date" th:unless="${freeBoard.freeBoardMd ne null}" th:text="${freeBoard.freeBoardRd}"></div>
+                            <div class="info-date">
+                                <div class="text-date" th:if="${freeBoard.freeBoardMd ne null}" th:text="${freeBoard.freeBoardMd}"></div>
+                                <div class="text-date" th:unless="${freeBoard.freeBoardMd ne null}" th:text="${freeBoard.freeBoardRd}"></div>
+                            </div>
+
                         </div>
                         <div class="content-text">
                             <p th:text="${freeBoard.freeBoardContent}">
@@ -105,8 +106,7 @@
 <div class="footer" th:replace="fragment/footer :: footer">
 
 </div>
-<input type="hidden" th:value="${session.userId}" id="userId" />
-<!--<input type="hidden" th:value="${freeBoard.freeBoardId}" class="freeBoard-num">-->
+<!--<input type="hidden" th:value="${session.userId}" id="userId" />]-->
 <!-- footer 끝 -->
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script type="module" src="/community/js/freeBoardDetail.js"></script>

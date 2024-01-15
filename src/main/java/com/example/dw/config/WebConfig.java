@@ -12,6 +12,8 @@ public class WebConfig implements WebMvcConfigurer {
     private String goodsImgPath;
     @Value("${file.que}")
     private String questionPath;
+    @Value("${file.free}")
+    private String freeBoardPath;
 
     // 사용자 프로필 저장 공간
     @Value("${file.user}")
@@ -26,6 +28,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/jpa_dw/**")
                 .addResourceLocations("file:" + goodsImgPath)
                 .addResourceLocations("file:" + questionPath)
+                .addResourceLocations("file:" + freeBoardPath)
                 .addResourceLocations("file:"+ userFilePath)
                 .addResourceLocations("file:"+petImgPath);
 
