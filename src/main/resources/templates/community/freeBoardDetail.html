@@ -19,6 +19,7 @@
     <!-- main 시작 -->
     <main>
         <div class="main-container">
+            <div class="main-content-contaniner">
             <div class="cate-title">
                 <div class="cate-title-text">자유게시판</div>
             </div>
@@ -99,6 +100,7 @@
             <!-- 댓글 입력 끝 -->
             <div class="ad-contaniner"></div>
         </div>
+    </div>
     </main>
     <!-- main 끝 -->
 
@@ -106,7 +108,7 @@
 <div class="footer" th:replace="fragment/footer :: footer">
 
 </div>
-<!--<input type="hidden" th:value="${session.userId}" id="userId" />]-->
+<input type="hidden" th:value="${session.userId}" id="userId" />]
 <!-- footer 끝 -->
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script type="module" src="/community/js/freeBoardDetail.js"></script>
