@@ -176,7 +176,8 @@ public class AdminCommunityImpl implements AdminCommunityRepositoryCustom {
 
                     return new AdminFreeDetailResultDto(
                         o.getFreeBoardId(), o.getFreeBoardTitle(), o.getFreeBoardContent(), o.getFreeBoardRd(), o.getFreeBoardMd(), o.getUserId(), o.getUserAccount(),o.getViewCount(),
-                            imgList, commentDto
+                            imgList,
+                            commentDto
                     );
 
                 }
