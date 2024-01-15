@@ -4,15 +4,9 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Data
 @NoArgsConstructor
 public class AdminUserDetailPaymentListDto {
-
-
-    private Long orderId;
-    private LocalDateTime orderTime;
 
     private Long goodsId;
     private String goodsName;
@@ -21,9 +15,8 @@ public class AdminUserDetailPaymentListDto {
 
 
     @QueryProjection
-    public AdminUserDetailPaymentListDto(Long orderId, LocalDateTime orderTime, Long goodsId, String goodsName, Integer orderQuantity, Integer orderPrice) {
-        this.orderId = orderId;
-        this.orderTime = orderTime;
+
+    public AdminUserDetailPaymentListDto(Long goodsId, String goodsName, Integer orderQuantity, Integer orderPrice) {
         this.goodsId = goodsId;
         this.goodsName = goodsName;
         this.orderQuantity = orderQuantity;

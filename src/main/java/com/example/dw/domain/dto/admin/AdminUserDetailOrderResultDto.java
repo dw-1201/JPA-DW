@@ -1,5 +1,6 @@
 package com.example.dw.domain.dto.admin;
 
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,17 +13,17 @@ public class AdminUserDetailOrderResultDto {
 
     private Long orderId;
     private LocalDateTime orderTime;
-    List<AdminUserDetailPaymentGoodsDto> orderGoodsList;
+    private List<AdminUserDetailPaymentListDto> orderItems;
 
-
+    @QueryProjection
     public AdminUserDetailOrderResultDto(Long orderId, LocalDateTime orderTime) {
         this.orderId = orderId;
         this.orderTime = orderTime;
     }
 
-    public AdminUserDetailOrderResultDto(Long orderId, LocalDateTime orderTime, List<AdminUserDetailPaymentGoodsDto> orderGoodsList) {
+    public AdminUserDetailOrderResultDto(Long orderId, LocalDateTime orderTime, List<AdminUserDetailPaymentListDto> orderItems) {
         this.orderId = orderId;
         this.orderTime = orderTime;
-        this.orderGoodsList = orderGoodsList;
+        this.orderItems = orderItems;
     }
 }

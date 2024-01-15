@@ -103,55 +103,47 @@ function renderWalkBoardList(result) {
 }
 
 
-
 function orderListInput(result) {
-    let userId = $('#userId').val()
+    let userId = $('#userId').val();
     let text = '';
     let textInputSection = $('.order-list');
 
     result.content.forEach(orderInfo => {
+        // 총 주문금액
+        $('.total-price').text(form.addCommas(orderInfo.totalPrice) + '원');
 
-        //총 주문금액
-        $('.total-price').text(form.addCommas(orderInfo.totalPrice) +'원')
-
-
-        orderInfo.orders.forEach(order => {
-
+        orderInfo.orderList.forEach(order => {
             let totalQuantity = 0;
             let eachTotalPrice = 0;
 
-            const orderItems = order.orderGoodsList;
-            const orderItemsCount = orderItems.length;
+            const orderItemList = order.orderItems;
+            const orderItemsCount = orderItemList.length;
 
-            orderItems.forEach(item => {
+            orderItemList.forEach(item => {
                 totalQuantity += item.orderQuantity;
-                eachTotalPrice += item.orderQuantity * item.orderPrice
+                eachTotalPrice += item.orderQuantity * item.orderPrice;
             });
 
             if (orderItemsCount > 1) {
                 const restItemsCount = orderItemsCount - 1;
                 text += `
                     <tr>
-                        <td class="community-title"><a href="/admin/orderDetail/${userId}/${order.orderId}">${orderItems[0].goodsName} 외 ${restItemsCount}개 </a></td>
-
+                        <td class="community-title"><a href="/admin/orderDetail/${userId}/${order.orderId}">${orderItemList[0].goodsName} 외 ${restItemsCount}개 </a></td>
                 `;
             } else {
                 text += `
                     <tr>
-                        <td class="community-title"><a href="/admin/orderDetail/${userId}/${order.orderId}">${orderItems[0].goodsName}</a> </td>
-
+                        <td class="community-title"><a href="/admin/orderDetail/${userId}/${order.orderId}">${orderItemList[0].goodsName}</a> </td>
                 `;
             }
 
             text += `
-            <td class="community-reg-date">${form.formatDates(order.orderTime)}</td>
-            <td class="community-count">${totalQuantity} ea</td>
-            <td class="community-reply">${form.addCommas(eachTotalPrice)}원</td>
+                <td class="community-reg-date">${form.formatDates(order.orderTime)}</td>
+                <td class="community-count">${totalQuantity} ea</td>
+                <td class="community-reply">${form.addCommas(eachTotalPrice)}원</td>
             </tr>
-            `
-
+            `;
         });
-
     });
 
     textInputSection.html(text);

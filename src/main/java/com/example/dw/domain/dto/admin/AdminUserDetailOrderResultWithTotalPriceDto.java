@@ -11,12 +11,11 @@ public class AdminUserDetailOrderResultWithTotalPriceDto {
 
 
     private Integer totalPrice;
-    private List<AdminUserDetailOrderResultDto> orders;
+    private List<AdminUserDetailOrderResultDto> orderList;
 
 
-    public AdminUserDetailOrderResultWithTotalPriceDto(Integer totalPrice, List<AdminUserDetailOrderResultDto> orders) {
+    public AdminUserDetailOrderResultWithTotalPriceDto(Integer totalPrice, List<AdminUserDetailOrderResultDto> orderList) {
         this.totalPrice = totalPrice;
-        this.orders = orders;
+        this.orderList = orderList;
     }
-
 }

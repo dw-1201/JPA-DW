@@ -78,8 +78,10 @@ public class AdminUserApiController {
 
     //회원 상세 - 주문 내역
     @GetMapping("/userOrderList/{userId}/{page}")
-    public Page<AdminUserDetailOrderResultWithTotalPriceDto> orderList(@PathVariable("userId") Long userId,
-                                                                  @PathVariable("page")int page){
+    public Page<AdminUserDetailOrderResultWithTotalPriceDto> orderList(
+            @PathVariable("userId") Long userId,
+            @PathVariable("page")int page){
+
         Pageable pageable = PageRequest.of(page, 5);
 
         return adminUserService.orderList(pageable,userId);

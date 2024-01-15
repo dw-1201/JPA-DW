@@ -4,6 +4,8 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 //freeBoardList 게시판 조회를 위한 DTO
 @Data
 @NoArgsConstructor
@@ -12,8 +14,8 @@ public class FreeBoardDetailDto {
     private Long id;
     private String freeBoardTitle;
     private String freeBoardContent;
-    private String freeBoardRd;
-    private String freeBoardMd;
+    private LocalDateTime freeBoardRd;
+    private LocalDateTime freeBoardMd;
     private Long freeBoardViewCount;
 
     //자유게시판 이미지 추가
@@ -29,7 +31,7 @@ public class FreeBoardDetailDto {
 
     @QueryProjection
     public FreeBoardDetailDto(Long id, String freeBoardTitle, String freeBoardContent,
-                              String freeBoardRd, String freeBoardMd, Long freeBoardViewCount,
+                              LocalDateTime freeBoardRd, LocalDateTime freeBoardMd, Long freeBoardViewCount,
                               Long freeBoardImgId, String freeBoardImgRoute, String freeBoardImgName,
                               String freeBoardImgUuid, Long userId, String userAccount,
                               String userNickName) {

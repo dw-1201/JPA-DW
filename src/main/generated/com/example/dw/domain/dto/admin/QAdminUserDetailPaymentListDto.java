@@ -13,8 +13,8 @@ public class QAdminUserDetailPaymentListDto extends ConstructorExpression<AdminU
 
     private static final long serialVersionUID = -1214761000L;
 
-    public QAdminUserDetailPaymentListDto(com.querydsl.core.types.Expression<Long> orderId, com.querydsl.core.types.Expression<java.time.LocalDateTime> orderTime, com.querydsl.core.types.Expression<Long> goodsId, com.querydsl.core.types.Expression<String> goodsName, com.querydsl.core.types.Expression<Integer> orderQuantity, com.querydsl.core.types.Expression<Integer> orderPrice) {
-        super(AdminUserDetailPaymentListDto.class, new Class<?>[]{long.class, java.time.LocalDateTime.class, long.class, String.class, int.class, int.class}, orderId, orderTime, goodsId, goodsName, orderQuantity, orderPrice);
+    public QAdminUserDetailPaymentListDto(com.querydsl.core.types.Expression<Long> goodsId, com.querydsl.core.types.Expression<String> goodsName, com.querydsl.core.types.Expression<Integer> orderQuantity, com.querydsl.core.types.Expression<Integer> orderPrice) {
+        super(AdminUserDetailPaymentListDto.class, new Class<?>[]{long.class, String.class, int.class, int.class}, goodsId, goodsName, orderQuantity, orderPrice);
     }
 
 }

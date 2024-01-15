@@ -3,7 +3,6 @@ package com.example.dw.repository.user;
 import com.example.dw.domain.dto.admin.*;
 import com.example.dw.domain.dto.user.QUserPetDto;
 import com.example.dw.domain.dto.user.UserPetDto;
-import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -19,20 +18,20 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
-import static com.example.dw.domain.entity.walkingMate.QWalkingMate.walkingMate;
-import static com.example.dw.domain.entity.walkingMate.QWalkingMateComment.walkingMateComment;
 import static com.example.dw.domain.entity.freeBoard.QFreeBoard.freeBoard;
 import static com.example.dw.domain.entity.goods.QGoods.goods;
-import static com.example.dw.domain.entity.order.QOrderItem.orderItem;
 import static com.example.dw.domain.entity.order.QOrders.orders;
+import static com.example.dw.domain.entity.order.QOrderItem.orderItem;
 import static com.example.dw.domain.entity.question.QQuestion.question;
 import static com.example.dw.domain.entity.question.QQuestionComment.questionComment;
 import static com.example.dw.domain.entity.user.QPet.pet;
 import static com.example.dw.domain.entity.user.QPetImg.petImg;
 import static com.example.dw.domain.entity.user.QUserFile.userFile;
 import static com.example.dw.domain.entity.user.QUsers.users;
-import static java.util.stream.Collectors.*;
+import static com.example.dw.domain.entity.walkingMate.QWalkingMate.walkingMate;
+import static com.example.dw.domain.entity.walkingMate.QWalkingMateComment.walkingMateComment;
+import static java.util.stream.Collectors.mapping;
+import static java.util.stream.Collectors.toList;
 
 @Repository
 @RequiredArgsConstructor
@@ -116,50 +115,109 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
     @Override
     public Page<AdminUserDetailOrderResultWithTotalPriceDto> userPaymentList(Pageable pageable, Long userId) {
 
-        
-        //QueryResults 
-        //쿼리를 실행한 결과로부터 실제 데이터 리스트와 데이터의 총개수를 제공
-        //페이징처리 시에 사용
-        QueryResults<AdminUserDetailPaymentListDto> results = jpaQueryFactory
-                .select(new QAdminUserDetailPaymentListDto(
+        //루트 쿼리 조회
+        List<AdminUserDetailOrderDto> content = jpaQueryFactory.select(
+                new QAdminUserDetailOrderDto(
                         orders.id,
-                        orders.orderRegisterDate,
-                        orderItem.goods.id,
-                        orderItem.goods.goodsName,
-                        orderItem.orderQuantity,
-                        orderItem.orderPrice
-                ))
+                        orders.orderRegisterDate
+                )
+        )
+                .from(orders)
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+                .orderBy(orders.id.desc())
+                .where(orders.users.id.eq(userId))
+                .fetch();
+
+
+        List<AdminUserDetailOrderResultDto> result =
+                content.stream().map(
+                        o-> {
+                            List<AdminUserDetailPaymentListDto> orderItems = jpaQueryFactory.select(
+                                    new QAdminUserDetailPaymentListDto(
+                                            orderItem.goods.id,
+                                            orderItem.goods.goodsName,
+                                            orderItem.orderQuantity,
+                                            orderItem.orderPrice
+                                    )
+                            )
+                                    .from(orderItem)
+                                    .leftJoin(orderItem.orders, orders)
+                                    .leftJoin(orderItem.goods, goods)
+                                    .where(orderItem.orders.id.eq(o.getOrderId()))
+                                    .fetch();
+
+                            List<AdminUserDetailPaymentListDto> orderItemDtoList =
+                                    orderItems.stream().map(
+                                            orderItemsDto -> new AdminUserDetailPaymentListDto(
+                                                    orderItemsDto.getGoodsId(),
+                                                    orderItemsDto.getGoodsName(),
+                                                    orderItemsDto.getOrderQuantity(),
+                                                    orderItemsDto.getOrderPrice()
+                                            )
+                                    ).collect(toList());
+
+                            return new AdminUserDetailOrderResultDto(
+                                    o.getOrderId(),
+                                    o.getOrderRd(),
+                                    orderItemDtoList
+
+                            );
+                        }
+                ).collect(toList());
+
+        Long getTotal = jpaQueryFactory.select(
+                orders.count()
+        )
+                .from(orders)
+                .where(orders.users.id.eq(userId))
+                .fetchOne();
+
+
+        Integer totalOrderPrice = jpaQueryFactory.select(
+                orderItem.orderQuantity.multiply(orderItem.orderPrice).sum()
+        )
                 .from(orders)
                 .leftJoin(orders.orderItems, orderItem)
-                .leftJoin(orderItem.goods, goods)
                 .where(orders.users.id.eq(userId))
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetchResults();
+                .fetchOne();
 
-        List<AdminUserDetailPaymentListDto> orderList = results.getResults();
-        Long getTotal = results.getTotal(); 
+        System.out.println("[ 합계금액 ] : " + totalOrderPrice);
 
-        Integer totalPrice = orderList.stream()
-                .map(result -> result.getOrderQuantity() * result.getOrderPrice())
-                .reduce(0, Integer::sum);
 
-        System.out.println("[ 합계금액 ] : " + totalPrice);
-
-        List<AdminUserDetailOrderResultDto> orders = orderList.stream()
-                .collect(groupingBy(o -> new AdminUserDetailOrderResultDto(
-                                o.getOrderId(), o.getOrderTime()),
-                        mapping(o -> new AdminUserDetailPaymentGoodsDto(
-                                o.getGoodsId(), o.getGoodsName(), o.getOrderQuantity(), o.getOrderPrice()), toList()
-                        )
-                )).entrySet().stream()
-                .map(e -> new AdminUserDetailOrderResultDto(e.getKey().getOrderId(), e.getKey().getOrderTime(), e.getValue()))
-                .collect(toList());
-
-        AdminUserDetailOrderResultWithTotalPriceDto resultDto = new AdminUserDetailOrderResultWithTotalPriceDto(totalPrice, orders);
-
-        return new PageImpl<>(List.of(resultDto), pageable, getTotal);
+        return new PageImpl<>(List.of(new AdminUserDetailOrderResultWithTotalPriceDto(totalOrderPrice, result)
+)                   , pageable
+                    , getTotal);
     }
+
+//    private List<Long> toOrderIds(List<AdminUserDetailOrderResultDto> rootQuery){
+//
+//        return rootQuery.stream().map(o->o.getOrderId()).collect(toList());
+//    }
+//
+//    private Map<Long, List<AdminUserDetailPaymentListDto>> findOrderItemMap(List<Long> orderIds){
+//
+//        List<AdminUserDetailPaymentListDto> orderItems = jpaQueryFactory.select(
+//                new QAdminUserDetailPaymentListDto(
+//                        orders.id,
+//                orderItem.goods.id,
+//                orderItem.goods.goodsName,
+//                orderItem.orderQuantity,
+//                orderItem.orderPrice
+//        ))
+//                .from(orderItem)
+//                .leftJoin(orderItem.orders, orders)
+//                .leftJoin(orderItem.goods, goods)
+//                .where(orderItem.orders.id.in(orderIds))
+//                .fetch();
+//
+//        return orderItems.stream().collect(Collectors.groupingBy(
+//                AdminUserDetailPaymentListDto::getGoodsId
+//        ));
+//        //키가 orderId, 값은 orderItems
+//
+//    }
+
 
     //관리자페이지 회원상세-qna리스트
     @Override
