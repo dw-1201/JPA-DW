@@ -9,12 +9,10 @@ $(document).ready(function (){
 
 
 
-})
+    $('.result-qna-submit-btn').on('click', function (){
 
-$('.result-qna-submit-btn').on('click', function (){
-
-    list.list(0, searchForm(), 'admins', 'qnaList', inputList)
-
+        list.list(0, searchForm(), 'admins', 'qnaList', inputList)
+    })
 
 })
 

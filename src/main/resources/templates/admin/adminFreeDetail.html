@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,32 +47,32 @@
                     </tr>
                     <tr class="free-info-column">
                         <th>작성자</th>
-                        <td>bokbok1234</td>
+                        <td th:text="${detail.userAccount}"></td>
                         <th>작성일자</th>
                         <td>2011-11-11</td>
                         <th>조회수</th>
-                        <td>20</td>
-                        
+                        <td th:text="${detail.viewCount}"></td>
                         <td class="delete-td">
                             <button class="delete-free-btn">삭제
                             </button>
                     </td>
+                        <input type="hidden" th:value="${detail.freeBoardRd}" class="freeBoardRd"/>
                     </tr>
                     <tr class="free-info-title">
                         <th>제목</th>
-                        <td colspan="6">dd</td>
+                        <td colspan="6" th:text="${detail.freeBoardTitle}">dd</td>
                     </tr>
                     <tr class="free-info-img">
                         <th>사진</th>
                         <td colspan="6">
                             <div class="free-registerd-imgs">
-                                <img src="/admin/img/리뷰1.jpg" alt="free-img">
+                                <img th:each="img : ${detail.imgList}" th:src="'/jpa_dw/freeBoard/' + ${img.freeBoardImgPath} +'/' + ${img.freeBoardImgUuid} +'_' +${img.freeBoardImgName}" alt="free-img">
                             </div>
                         </td>
                     </tr>
                     <tr class="free-info-content">
                         <th>내용</th>
-                        <td colspan="6"><textarea class="content-textarea" readonly>얄랴리랴라어야러일</textarea></td>
+                        <td colspan="6"><textarea class="content-textarea" readonly th:text="${detail.freeBoardContent}">얄랴리랴라어야러일</textarea></td>
                     </tr>
                 </table>
             </div>

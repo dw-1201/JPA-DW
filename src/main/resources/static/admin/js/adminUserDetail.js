@@ -24,6 +24,14 @@ $(document).ready(function () {
 
     });
 
+
+    $('.free-btn').on('click', function (e){
+        e.preventDefault()
+        list.simpleList('admins', 'userFreeBoardList',userId, 0, renderFreeBoardList)
+
+    })
+
+
     $('.walk-btn').on('click', function (e) {
         e.preventDefault();
         list.simpleList('admins','userWalkList', userId, 0, renderWalkBoardList)
@@ -67,6 +75,43 @@ function renderQnaBoardList(result) {
     })
 }
 
+
+function renderFreeBoardList(result){
+
+    let text = '';
+    let textInputSection = $('.extra-info-list');
+    let totalCount = $('.total-count');
+    let paginations = $('.board-pagination-ul');
+
+    totalCount.empty();
+    totalCount.text(result.totalElements);
+
+    result.content.forEach(r=>{
+
+
+        result.content.forEach(r => {
+
+
+            text += `
+                        <tr>
+                            <td class="community-title"><a href="/admin/freeBoardDetail/${r.freeBoardId}">${r.freeBoardTitle}</a></td>
+                            <td class="community-reg-date">${form.formatDates(r.freeBoardRd)}</td>
+                            <td class="community-count">${r.viewCount}</td>
+                            <td class="community-reply">${r.replyCount}</td>
+                        </tr>`;
+
+        });
+
+        textInputSection.html(text);
+        page.pagination(result, paginations);
+        paginations.find('a').on('click', function (e) {
+            e.preventDefault();
+            const page = parseInt($(this).data('page'));
+            list.simpleList('admins', 'userFreeBoardList', userId, page, renderFreeBoardList);
+        })
+    })
+
+}
 
 
 function renderWalkBoardList(result) {

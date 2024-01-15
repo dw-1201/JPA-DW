@@ -16,6 +16,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.example.dw.domain.entity.freeBoard.QFreeBoard.freeBoard;
+import static com.example.dw.domain.entity.freeBoard.QFreeBoardImg.freeBoardImg;
+import static com.example.dw.domain.entity.freeBoard.QFreeBoardComment.freeBoardComment;
 import static com.example.dw.domain.entity.question.QQuestion.question;
 import static com.example.dw.domain.entity.question.QQuestionComment.questionComment;
 import static com.example.dw.domain.entity.question.QQuestionImg.questionImg;
@@ -123,6 +125,67 @@ public class AdminCommunityImpl implements AdminCommunityRepositoryCustom {
             throw new IllegalArgumentException("정보 없음");
         });
 
+    }
+
+    //자유게시판 상세
+    @Override
+    public AdminFreeDetailResultDto freeBoardDetail(Long freeBoardId) {
+
+        List<AdminFreeDetailDto> freeContent = jpaQueryFactory.select(new QAdminFreeDetailDto(
+                freeBoard.id,
+                freeBoard.freeBoardTitle,
+                freeBoard.freeBoardContent,
+                freeBoard.freeBoardRd,
+                freeBoard.freeBoardMd,
+                freeBoard.users.id,
+                freeBoard.users.userAccount,
+                freeBoard.freeBoardViewCount,
+                freeBoardImg.id,
+                freeBoardImg.freeBoardImgRoute,
+                freeBoardImg.freeBoardImgUuid,
+                freeBoardImg.freeBoardImgName
+        ))
+                .from(freeBoard)
+                .leftJoin(freeBoard.users, users)
+                .leftJoin(freeBoard.freeBoardImg, freeBoardImg)
+                .where(freeBoard.id.eq(freeBoardId))
+                .fetch();
+
+
+        AdminFreeDetailResultDto result = freeContent.stream().map(
+                o -> {
+
+                    List<AdminFreeDetailCommentDto> commentDto = jpaQueryFactory.select(
+                            new QAdminFreeDetailCommentDto(
+                                    freeBoardComment.id,
+                                    freeBoardComment.users.userAccount,
+                                    freeBoardComment.freeBoardCommentContent,
+                                    freeBoardComment.freeBoardCommentRd,
+                                    freeBoardComment.freeBoardCommentMd
+                            )
+
+                    )       .from(freeBoardComment)
+                            .leftJoin(freeBoardComment.users, users)
+                            .where(freeBoardComment.freeBoard.id.eq(freeContent.stream().findFirst().get().getFreeBoardId()))
+                            .fetch();
+
+                    List<AdminFreeDetailImgDto> imgList =
+                            freeContent.stream().map(
+                                    img -> new AdminFreeDetailImgDto(img.getFreeBoardImgId(), img.getFreeBoardImgPath(), img.getFreeBoardImgUuid(), img.getFreeBoardImgName())
+                            ).collect(Collectors.toList());
+
+                    return new AdminFreeDetailResultDto(
+                        o.getFreeBoardId(), o.getFreeBoardTitle(), o.getFreeBoardContent(), o.getFreeBoardRd(), o.getFreeBoardMd(), o.getUserId(), o.getUserAccount(),o.getViewCount(),
+                            imgList, commentDto
+                    );
+
+                }
+        ).findFirst().get();
+
+
+        return Optional.ofNullable(result).orElseThrow(()->{
+            throw new IllegalArgumentException("정보 없음");
+        });
     }
 
 

@@ -33,9 +33,11 @@
                 <h4>회원 기본 정보</h4>
             </div>
             <div class="user-stan-info" >
-                <div class="user-img">
-                    <img th:if="${userDetailInfo.adminUserDetailInfo.adminUserDetailImgDto==null}" src="/user/img/user-default-img.png" alt="user-img" />
-                    <img th:if="${userDetailInfo.adminUserDetailInfo.adminUserDetailImgDto!=null}" th:src="'/jpa_dw/userfile/' + ${userDetailInfo.adminUserDetailInfo.adminUserDetailImgDto.userImgPath} +'/' + ${userDetailInfo.adminUserDetailInfo.adminUserDetailImgDto.userImgUuid}+'_'+${userDetailInfo.adminUserDetailInfo.adminUserDetailImgDto.userImgName}" alt="user-img" />
+                <div class="user-img" th:if="${userDetailInfo.adminUserDetailInfo.adminUserDetailImgDto.userImgId == null}">
+                    <img  src="/user/img/user-default-img.png" alt="user-img" />
+                </div>
+                <div class="user-img" th:unless="${userDetailInfo.adminUserDetailInfo.adminUserDetailImgDto.userImgId == null}">
+                    <img th:src="'/jpa_dw/userfile/' + ${userDetailInfo.adminUserDetailInfo.adminUserDetailImgDto.userImgPath} +'/' + ${userDetailInfo.adminUserDetailInfo.adminUserDetailImgDto.userImgUuid}+'_'+${userDetailInfo.adminUserDetailInfo.adminUserDetailImgDto.userImgName}" alt="user-img" />
                 </div>
                 <div class="user-info first-section" >
                     <table class="user-info-table"  cellspacing="0"  >
@@ -91,7 +93,7 @@
              <div class="user-extra-title">
                 <h4>등록 반려견 정보</h4>
             </div>
-            <div class="registerd-pet-info-container">
+            <div class="registerd-pet-info-container" th:if="${userDetailInfo.adminUserPetDetailDto[0].petId != null}">
                 <dl class="registerd-pet-info-dl" th:each="petInfo : ${userDetailInfo.adminUserPetDetailDto}">
                     <dt class="registerd-pet-img">
                         <img th:if="${petInfo.adminUserPetImgDto == null}" src="/user/img/user-default-img.png" alt="pet-img" />
@@ -112,6 +114,9 @@
                     </dd>
                 </dl>
 
+            </div>
+            <div  th:if="${userDetailInfo.adminUserPetDetailDto[0].petId == null}" >
+                <p>등록된 반려견 정보가 없습니다.</p>
             </div>
         </div>
 

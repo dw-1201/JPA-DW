@@ -19,6 +19,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.example.dw.domain.entity.freeBoard.QFreeBoard.freeBoard;
+import static com.example.dw.domain.entity.freeBoard.QFreeBoardComment.freeBoardComment;
 import static com.example.dw.domain.entity.goods.QGoods.goods;
 import static com.example.dw.domain.entity.order.QOrders.orders;
 import static com.example.dw.domain.entity.order.QOrderItem.orderItem;
@@ -252,9 +253,41 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
 
         return new PageImpl<>(qnaListResults, pageable, getTotal);
     }
-    
+
     //관리자페이지 회원상세-자유게시판 리스트
-    
+    @Override
+    public Page<AdminUserDetailFreeBoardListDto> userDetailFreeBoardList(Pageable pageable, Long userId) {
+        List<AdminUserDetailFreeBoardListDto> freeListDtoQueryResults =
+                jpaQueryFactory.select(new QAdminUserDetailFreeBoardListDto(
+                        freeBoard.id,
+                        freeBoard.freeBoardTitle,
+                        freeBoard.freeBoardRd,
+                        freeBoard.freeBoardViewCount,
+                        freeBoardComment.count()
+                ))
+                    .from(freeBoard)
+                    .leftJoin(freeBoard.freeBoardComment, freeBoardComment)
+                    .where(freeBoard.users.id.eq(userId))
+                        .groupBy(freeBoard.id, freeBoard.freeBoardTitle, freeBoard.freeBoardRd, freeBoard.freeBoardViewCount)
+                        .orderBy(freeBoard.id.desc())
+                        .offset(pageable.getOffset())
+                        .limit(pageable.getPageSize())
+                    .fetch();
+
+        Long getTotal = jpaQueryFactory.select(
+                freeBoard.count()
+        )
+                .from(freeBoard)
+                .where(freeBoard.users.id.eq(userId))
+                .fetchOne();
+
+
+
+
+        return new PageImpl<>(freeListDtoQueryResults, pageable, getTotal);
+    }
+
+
 
     //관리자페이지 회원상세-산책리스트
     @Override

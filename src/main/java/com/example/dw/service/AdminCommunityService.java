@@ -1,10 +1,7 @@
 package com.example.dw.service;
 
 
-import com.example.dw.domain.dto.admin.AdminFreeBoardList;
-import com.example.dw.domain.dto.admin.AdminQnaBoardList;
-import com.example.dw.domain.dto.admin.AdminQnaDetailResultDto;
-import com.example.dw.domain.dto.admin.AdminWalkMateDetailDto;
+import com.example.dw.domain.dto.admin.*;
 import com.example.dw.domain.dto.community.WalkMateListDto;
 import com.example.dw.domain.form.SearchCateLocationForm;
 import com.example.dw.domain.form.SearchForm;
@@ -44,13 +41,19 @@ public class AdminCommunityService {
         return adminCommunityRepositoryCustom.qnaDetail(qnaId);
     }
 
+    //자유게시판 리스트
     @Transactional
     public Page<AdminFreeBoardList> freeBoardList(Pageable pageable, SearchForm searchForm){
 
         return adminCommunityRepositoryCustom.freeBoardList(pageable, searchForm);
 
     }
-
+    
+    //자유게시판 상세
+    @Transactional
+    public AdminFreeDetailResultDto freeBoardDetail(Long freeBoardId){
+        return adminCommunityRepositoryCustom.freeBoardDetail(freeBoardId);
+    }
 
 
 

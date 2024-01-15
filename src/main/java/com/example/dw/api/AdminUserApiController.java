@@ -57,7 +57,16 @@ public class AdminUserApiController {
     }
 
     //회원 상세 -자유게시판 내역
+    @GetMapping("/userFreeBoardList/{userId}/{page}")
+    public Page<AdminUserDetailFreeBoardListDto> freeBoardList(
+            @PathVariable("userId") Long userId,
+            @PathVariable("page") int page
+    ){
+        Pageable pageable = PageRequest.of(page, 5);
 
+        return adminUserService.freeBoardList(pageable, userId);
+
+    }
 
 
     //회원 상세 - 산책내역

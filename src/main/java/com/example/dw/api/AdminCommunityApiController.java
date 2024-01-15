@@ -1,9 +1,6 @@
 package com.example.dw.api;
 
-import com.example.dw.domain.dto.admin.AdminFreeBoardList;
-import com.example.dw.domain.dto.admin.AdminQnaBoardList;
-import com.example.dw.domain.dto.admin.AdminQnaDetailResultDto;
-import com.example.dw.domain.dto.admin.AdminWalkMateDetailDto;
+import com.example.dw.domain.dto.admin.*;
 import com.example.dw.domain.dto.community.WalkMateListDto;
 import com.example.dw.domain.form.SearchCateLocationForm;
 import com.example.dw.domain.form.SearchForm;
@@ -88,4 +85,11 @@ public class AdminCommunityApiController {
         return adminWalkMateDetailDto;
     }
 
+
+    //시험용-자유상세
+    @GetMapping("/freeBoardDetail/{freeBoardId}")
+    public AdminFreeDetailResultDto freeBoardDetail(@PathVariable("freeBoardId") Long freeBoardId){
+
+        return adminCommunityService.freeBoardDetail(freeBoardId);
+    }
 }
