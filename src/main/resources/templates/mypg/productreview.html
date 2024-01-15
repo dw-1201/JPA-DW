@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/common/css/common.css">
     <link rel="stylesheet" href="/fragment/css/footer.css">
     <link rel="stylesheet" href="/fragment/css/header.css">
-    <link rel="stylesheet" href="../css/productreview.css">
+    <link rel="stylesheet" href="/mypg/css/productreview.css">
     <title>상품 리뷰 페이지</title>
 </head>
 <body>
@@ -20,14 +20,15 @@
             <div class="page-view">
               
                 <div class="review-container">
-                  <form class="new-post-form" action="" method="" enctype="multipart/form-data" >
-                      <th:block th:value="${result.id}" name="orderItemId"></th:block>
-                      <th:block th:value="${session.userId}" name="userId"></th:block>
+                  <form class="new-post-form" action="/mypg/reviewregister" method="post" enctype="multipart/form-data" >
+<!--                      <th:block th:value="${result.id}" name="orderItemId"></th:block>-->
+                      <input type="hidden" th:value="${session.userId}" name="userId"/>
+                      <input type="hidden" th:value="${orderItem}" name="orderItemId" class="orderItemId">
                     <div class="form-group">
                       <label for="post-title"  class="title">제목
                       </label>
                 
-                      <input type="text" id="post-title" name="title" readonly />
+                      <input type="text" id="post-title" name="title"  />
                     </div>
                     <div class="form-group">
                       <label for="post-content">내용</label>
@@ -75,6 +76,6 @@
     <!--footer 끝-->
     <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="../js/productreview.js"></script>
+    <script src="/mypg/js/productreview.js"></script>
 </body>
 </html>            

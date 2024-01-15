@@ -4,10 +4,10 @@ package com.example.dw.controller;
 import com.example.dw.domain.dto.admin.PetDetailResultDto;
 import com.example.dw.domain.dto.admin.UserDetailDto;
 import com.example.dw.domain.dto.admin.UserDetailListDto;
-import com.example.dw.domain.form.PetForm;
-import com.example.dw.domain.form.PetUpdateForm;
-import com.example.dw.domain.form.UserUpdateForm;
+import com.example.dw.domain.dto.order.OrderItemDto;
+import com.example.dw.domain.form.*;
 import com.example.dw.repository.order.OrderItemRepository;
+import com.example.dw.repository.order.OrderItemRepositoryCustom;
 import com.example.dw.repository.pet.PetRepositoryCustom;
 import com.example.dw.repository.user.UsersRepository;
 import com.example.dw.repository.user.UsersRepositoryCustom;
@@ -32,10 +32,16 @@ import java.util.Optional;
 public class MypageController {
 
     private final UsersRepositoryCustom usersRepositoryCustom;
+    private final UsersRepository usersRepository;
+
     private final MypageService mypageService;
+
     private final PetRepositoryCustom petRepositoryCustom;
+
     private final FileService fileService;
+
     private final OrderItemRepository orderItemRepository;
+    private final OrderItemRepositoryCustom orderItemRepositoryCustom;
     @GetMapping("/main/{userId}")
     public String mypg(@PathVariable("userId")Long userId, Model model){
         System.out.println(userId +"회원 정보");
@@ -68,9 +74,18 @@ public class MypageController {
         System.out.println(file+"파일이름");
         userUpdateForm.setId(userId);
         System.out.println("user 번호 : "+ userUpdateForm.getId());
+        System.out.println(userUpdateForm.getUserPassword());
+        System.out.println(userUpdateForm.getUserPassword().equals("")+"입니다.");
+        if(userUpdateForm.getUserPassword().equals("")){
+            System.out.println(userUpdateForm.getUserPassword() + "입니다. 따라서 if 문을 실행합니다.");
+           String passward= usersRepository.findById(userId).get().getUserPassword();
+           userUpdateForm.setUserPassword(passward);
+           mypageService.modify(userUpdateForm,file);
+        }else{
+            System.out.println(userUpdateForm.getUserPassword() + "입니다. 따라서 else if 문을 실행합니다.");
+            mypageService.modify(userUpdateForm,file);
+        }
 
-        mypageService.modify(userUpdateForm,file);
-        System.out.println("여기까지 완료!!");
 
         return new RedirectView("/mypg/main/{userId}");
     }
@@ -195,12 +210,40 @@ public class MypageController {
     }
 
     @GetMapping("/productreview/{orderItemId}")
-    public String productreview(@PathVariable("orderItemId")Long orderItemId,Model model){
+    public String productreview(@PathVariable("orderItemId") Long id,Model model){
 
 
-        
-        model.addAttribute("result",orderItemRepository.findById(orderItemId));
+        Long itemId =id;
 
+        model.addAttribute("orderItem",itemId);
         return "/mypg/productreview";
+    }
+
+    @PostMapping("/reviewregister")
+    public RedirectView writeregister(OrderReviewForm orderReviewForm,
+                                      @RequestParam("reviewImg")List<MultipartFile> files,
+                                      @RequestParam("userId") Long userId
+
+    ) throws IOException
+    {
+        //정보 확인
+        System.out.println("[review 등록 정보] :"+ orderReviewForm.toString());
+        files.forEach(r-> System.out.println("[파일목록] : "+r.getOriginalFilename()));
+
+        Long id = mypageService.registerreview(orderReviewForm);
+        System.out.println(orderReviewForm.getId()+"리뷰 아이디");
+        System.out.println(orderReviewForm.getContent()+"리뷰내용");
+
+        fileService.registerreviewImg(files, id);
+        System.out.println(id);
+        System.out.println("리뷰저장완료");
+        return new RedirectView("/mypg/myreviewpage/"+userId);
+    }
+
+
+    @GetMapping("/myreviewpage/{userId}")
+    public String myreviewpage(){
+
+        return "/mypg/productreviewlist";
     }
 }
