@@ -61,15 +61,19 @@ body,html,input {
   /* overflow: hidden; */
   /* border: 2px solid #FCD11E; */
 }
+.searchbox button{
+  border: none;
+  background: none;
+  cursor: pointer;
+}
 .input-img{
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
 
   position :absolute;
   z-index: 2;
   top: 50%;
-  left: 15px;
-  cursor: pointer;
+  left: 18px;
   transform: translateY(-50%);
 }
 .inputbox{

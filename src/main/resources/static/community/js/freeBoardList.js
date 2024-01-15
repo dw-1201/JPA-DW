@@ -53,7 +53,6 @@ function showFreeBoardList(result) {
         <a href="/community/freeBoardDetail/${r.id}">
             <div class="list-content">
                 <div class="content-text-box">
-<!--                    <input type="hidden" value="${r.id}" name="freeBoardId">-->
                     <div class="list-content-title">${r.freeBoardTitle}</div>
                     <div class="list-content-content">${r.freeBoardContent}</div>
                     <div class="list-content-etc">
@@ -72,7 +71,6 @@ function showFreeBoardList(result) {
                 </div>
             `;
 
-        // if (r.freeBoardImgDtoList && r.freeBoardImgDtoList.length > 0) {
             r.freeBoardImgDtoList.slice(0, 1).forEach(s => {
                 text += `
             <div class="content-img-box">
@@ -81,12 +79,12 @@ function showFreeBoardList(result) {
                 </div>
             </div>
         `;
-            });
-        // }
+    })
 
-        text += `
-    </a>
-    `;
+    text += `
+                </div>
+            </a>
+        `;
     })
 
     console.log($('.userAccount').text());

@@ -19,6 +19,7 @@
     <!-- main 시작 -->
     <main>
         <div class="main-container" th:each="modify : ${freeBoard}">
+            <div class="main-content-contaniner">
 
             <!--글수정 시작-->
             <form th:action="@{/community/modify/{id}/edit (id=${modify.id})}" th:method="put" class="writingForm" enctype="multipart/form-data">
@@ -80,7 +81,7 @@
 
             </form>
         </div>
-
+        </div>
     </main>
     <!-- main 끝 -->
 

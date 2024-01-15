@@ -21,10 +21,21 @@ main{
 }
 
 .main-container{
+    /* width: 1024px; */
+    width: 100%;
+    /*display: flex;*/
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+.main-content-contaniner{
     width: 1024px;
-    min-width: 1024px;
-    height: 100%;
-    /* background-color: pink; */
+    /* width: 100%; */
+
+    height: 1700px;
+    margin: 0px auto;
+    padding: 10px 0;
+    /* background-color: rgb(97, 25, 25); */
 }
 .cate-title{
     width: 100%;
@@ -128,7 +139,7 @@ main{
 
     background-color: #f0eeee;
     left: 20px;
-    top: 200px;
+    top: 225px;
 
     cursor: pointer;
 }
@@ -151,7 +162,7 @@ main{
 
     background-color: #f0eeee;
     right: 20px;
-    top: 200px;
+    top: 225px;
 
     cursor: pointer;
 }
@@ -223,6 +234,9 @@ main{
     justify-content: center;
 
     /* background-color: greenyellow; */
+}
+.content-text{
+    text-align: start;
 }
 .content-text p{
     white-space: pre-wrap;
@@ -403,7 +417,7 @@ main{
 .reply-content-n-btns{
     width: 100%;
     height: auto;
-
+    text-align: start;
     display: flex;
     align-items: end;
     /* background-color: pink; */
