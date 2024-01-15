@@ -13,8 +13,8 @@ public class QAdminNoticeBoardDto extends ConstructorExpression<AdminNoticeBoard
 
     private static final long serialVersionUID = -533331310L;
 
-    public QAdminNoticeBoardDto(com.querydsl.core.types.Expression<Long> id, com.querydsl.core.types.Expression<String> noticeBoardTitle, com.querydsl.core.types.Expression<String> noticeBoardContent, com.querydsl.core.types.Expression<Long> noticeBoardViewCount, com.querydsl.core.types.Expression<String> noticeBoardRd, com.querydsl.core.types.Expression<String> noticeBoardMd) {
-        super(AdminNoticeBoardDto.class, new Class<?>[]{long.class, String.class, String.class, long.class, String.class, String.class}, id, noticeBoardTitle, noticeBoardContent, noticeBoardViewCount, noticeBoardRd, noticeBoardMd);
+    public QAdminNoticeBoardDto(com.querydsl.core.types.Expression<Long> id, com.querydsl.core.types.Expression<String> noticeBoardTitle, com.querydsl.core.types.Expression<String> noticeBoardContent, com.querydsl.core.types.Expression<Long> noticeBoardViewCount, com.querydsl.core.types.Expression<java.time.LocalDateTime> noticeBoardRd, com.querydsl.core.types.Expression<java.time.LocalDateTime> noticeBoardMd) {
+        super(AdminNoticeBoardDto.class, new Class<?>[]{long.class, String.class, String.class, long.class, java.time.LocalDateTime.class, java.time.LocalDateTime.class}, id, noticeBoardTitle, noticeBoardContent, noticeBoardViewCount, noticeBoardRd, noticeBoardMd);
     }
 
 }
