@@ -68,3 +68,6 @@ function appendImg(files) {
         }
     }
 }
+
+let orderItemId=$('.orderItemId').val
+console.log(orderItemId);

@@ -159,7 +159,7 @@ input[type='file'] {
 
 #nickname{
     /* border: 1px solid black; */
-    width: 340px;
+    width: 400px;
     text-indent: 15px;
     padding: 30px 0px 10px 0px;
     font-size: 13px;
@@ -363,4 +363,37 @@ input[type='file'] {
     word-wrap: normal;
     direction: ltr;
     -webkit-font-smoothing: antialiased;
+    top : 11px;
+    right: 130px;
+}
+
+.nickNameFormat{
+    display: none;
+    color: red;
+    font-size: 13px;
+}
+
+.userNick-unavailable span{
+    display: inline-block;
+    width: 400px;
+    padding-left: 10px;
+    padding-top: 3px;
+    font-size: 13px;
+    text-align: left;
+}
+
+.userPw-unavailable span{
+    display: inline-block;
+    width: 400px;
+    padding-left: 10px;
+    padding-top: 3px;
+    font-size: 13px;
+    text-align: left;
+}
+.nickNameFormat span{
+    width: 400px;
+    display: inline-block;
+    text-align: left;
+    padding-left: 10px;
+    font-size: 13px;
 }

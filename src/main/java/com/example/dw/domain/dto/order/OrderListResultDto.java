@@ -24,7 +24,6 @@ public class OrderListResultDto {
 
 
     @QueryProjection
-
     public OrderListResultDto(Long id, LocalDateTime orderDate, Long userId, List<OrderItemDto> orderItemDtoList) {
         this.id = id;
         this.orderDate = orderDate;

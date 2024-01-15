@@ -13,12 +13,12 @@ import java.time.LocalDateTime;
 public class OrderReviewForm {
 
     //리뷰 번호
-    Long id;
-    Long orderItemId;
-    String title;
-    String content;
-    LocalDateTime reviewRd;
-    Integer rating;
+    private Long id;
+    private Long orderItemId;
+    private String title;
+    private String content;
+    private LocalDateTime reviewRd;
+    private Integer rating;
 
     @Builder
     public OrderReviewForm(Long id, Long orderItemId, String title, String content, LocalDateTime reviewRd, Integer rating) {
@@ -28,13 +28,17 @@ public class OrderReviewForm {
         this.content = content;
         this.reviewRd = reviewRd;
         this.rating = rating;
+
     }
+
+
 
     public OrderReview toEntity(){
         return OrderReview.builder()
                 .id(id)
                 .orderItem(OrderItem.builder().id(orderItemId).build())
                 .title(title)
+                .content(content)
                 .reviewRd(reviewRd)
                 .rating(rating)
                 .build();
