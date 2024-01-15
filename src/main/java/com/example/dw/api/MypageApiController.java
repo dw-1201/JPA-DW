@@ -1,6 +1,8 @@
 package com.example.dw.api;
 
-
+import com.example.dw.domain.dto.community.QuestionListDto;
+import com.example.dw.domain.dto.community.WalkMateMyApplicationListDto;
+import com.example.dw.domain.dto.community.WalkMateMyDetailListDto;
 import com.example.dw.domain.dto.community.*;
 import com.example.dw.domain.dto.order.OrderItemDto;
 import com.example.dw.domain.dto.order.OrderItemReviewListDto;
@@ -19,10 +21,8 @@ import com.example.dw.service.FileService;
 import com.example.dw.service.FreeBoardService;
 import com.example.dw.service.MypageService;
 import lombok.RequiredArgsConstructor;
-import org.apache.el.stream.Optional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.util.FileCopyUtils;
@@ -30,8 +30,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -155,32 +153,32 @@ public class MypageApiController {
 
     }
 
-    @GetMapping("/mypgs/myfreeBoardList/{page}/{userId}")
-    public Page<FreeBoardDto> freeBoardDtoList(
-            @PathVariable("page") int page, @PathVariable("userId") Long userId) {
-
-        Pageable pageable = PageRequest.of(page, 5);
-
-        System.out.println("userId: " + userId);
-
-        Page<FreeBoardDto> result = freeBoardRepositoryCustom.findFreeBoardListById(pageable, userId);
-
-        // 댓글 수를 추가
-        List<FreeBoardDto> updatedList = result.getContent().stream()
-                .map(dto -> {
-                    Long commentCount = freeBoardService.countCommentsByFreeBoardId(dto.getId());
-                    dto.setFreeBoardCommentCount(commentCount);
-
-                    // 댓글 수를 출력
-                    System.out.println("게시물 ID: " + dto.getId() + ", 댓글 수: " + commentCount);
-                    return dto;
-                })
-                .collect(Collectors.toList());
-
-        System.out.println("자유게시판 글 개수 : " + result.stream().count());
-        System.out.println(updatedList + " 게시판 보여지는 곳");
-        return new PageImpl<>(updatedList, pageable, result.getTotalElements());
-    }
+//    @GetMapping("/mypgs/myfreeBoardList/{page}/{userId}")
+//    public Page<FreeBoardListDto> freeBoardDtoList(
+//            @PathVariable("page") int page, @PathVariable("userId") Long userId) {
+//
+//        Pageable pageable = PageRequest.of(page, 5);
+//
+//        System.out.println("userId: " + userId);
+//
+//        Page<FreeBoardListDto> result = freeBoardRepositoryCustom.findFreeBoardListById(pageable, userId);
+//
+//        // 댓글 수를 추가
+//        List<FreeBoardListDto> updatedList = result.getContent().stream()
+//                .map(dto -> {
+//                    Long commentCount = freeBoardService.countCommentsByFreeBoardId(dto.getId());
+//                    dto.setFreeBoardCommentCount(commentCount);
+//
+//                    // 댓글 수를 출력
+//                    System.out.println("게시물 ID: " + dto.getId() + ", 댓글 수: " + commentCount);
+//                    return dto;
+//                })
+//                .collect(Collectors.toList());
+//
+//        System.out.println("자유게시판 글 개수 : " + result.stream().count());
+//        System.out.println(updatedList + " 게시판 보여지는 곳");
+//        return new PageImpl<>(updatedList, pageable, result.getTotalElements());
+//    }
 
     @GetMapping("/mypgs/myregisterwalkmatewrite/{page}/{userId}")
     public Page<WalkMateMyDetailListDto> findmyregisterwalkmatewriteList(

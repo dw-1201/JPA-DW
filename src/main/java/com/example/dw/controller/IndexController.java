@@ -18,11 +18,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class IndexController {
 
-
     private final IndexService indexService;
 
-    
-    
     //Index
     @GetMapping("")
     public String index(HttpSession session, Model model){
@@ -51,7 +48,11 @@ public class IndexController {
         return "/index/index";
     }
 
-
+    //병원찾기
+    @GetMapping("/map")
+    public String seachMap(){
+        return "/map/map";
+    }
 
 
 }

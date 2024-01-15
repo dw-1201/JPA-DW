@@ -95,10 +95,6 @@ function showQnaBoardList(result) {
             `;
     })
 
-
-
-
-
     console.log($('.userName').text());
     textInput.html(text);
 

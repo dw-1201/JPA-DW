@@ -6,13 +6,12 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface FreeBoardRepository extends JpaRepository<FreeBoard, Long> {
 
     //기본키로 검색
-    Optional<FreeBoard> findById(Long id);
+    Optional<FreeBoard> findById(Long freeBoardId);
 
     // 조회수 증가
     @Modifying

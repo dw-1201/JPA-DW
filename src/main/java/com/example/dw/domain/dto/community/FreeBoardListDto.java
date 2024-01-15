@@ -5,11 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 //freeBoardList 게시판 조회를 위한 DTO
 @Data
 @NoArgsConstructor
-public class FreeBoardDto {
+public class FreeBoardListDto {
 
     private Long id;
     private String freeBoardTitle;
@@ -24,8 +25,14 @@ public class FreeBoardDto {
     private String userAccount;
     private String userNickName;
 
+//    private Long commentCount;
+
+
+    //자유게시판 이미지 추가
+    List<FreeBoardImgDto> freeBoardImgDtoList;
+
     @QueryProjection
-    public FreeBoardDto(Long id, String freeBoardTitle, String freeBoardContent, LocalDateTime freeBoardRd, LocalDateTime freeBoardMd, Long freeBoardViewCount, Long freeBoardCommentCount, Long userId, String userAccount, String userNickName) {
+    public FreeBoardListDto(Long id, String freeBoardTitle, String freeBoardContent, LocalDateTime freeBoardRd, LocalDateTime freeBoardMd, Long freeBoardViewCount, Long freeBoardCommentCount, Long userId, String userAccount, String userNickName, List<FreeBoardImgDto> freeBoardImgDtoList) {
         this.id = id;
         this.freeBoardTitle = freeBoardTitle;
         this.freeBoardContent = freeBoardContent;
@@ -36,6 +43,10 @@ public class FreeBoardDto {
         this.userId = userId;
         this.userAccount = userAccount;
         this.userNickName = userNickName;
+        this.freeBoardImgDtoList = freeBoardImgDtoList;
     }
 
+    public void setFreeBoardCommentCount(Long freeBoardCommentCount) {
+        this.freeBoardCommentCount = freeBoardCommentCount;
+    }
 }

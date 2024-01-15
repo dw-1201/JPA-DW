@@ -30,28 +30,19 @@ public class FreeBoardDetailDto {
     private String userNickName;
 
     @QueryProjection
-    public FreeBoardDetailDto(Long id, String freeBoardTitle, String freeBoardContent,
-                              LocalDateTime freeBoardRd, LocalDateTime freeBoardMd, Long freeBoardViewCount,
-                              Long freeBoardImgId, String freeBoardImgRoute, String freeBoardImgName,
-                              String freeBoardImgUuid, Long userId, String userAccount,
-                              String userNickName) {
+    public FreeBoardDetailDto(Long id, String freeBoardTitle, String freeBoardContent, LocalDateTime freeBoardRd, LocalDateTime freeBoardMd, Long freeBoardViewCount, Long freeBoardImgId, String freeBoardImgRoute, String freeBoardImgName, String freeBoardImgUuid, Long userId, String userAccount, String userNickName) {
         this.id = id;
         this.freeBoardTitle = freeBoardTitle;
         this.freeBoardContent = freeBoardContent;
         this.freeBoardRd = freeBoardRd;
         this.freeBoardMd = freeBoardMd;
         this.freeBoardViewCount = freeBoardViewCount;
-
-        //자유게시판 이미지 추가
         this.freeBoardImgId = freeBoardImgId;
         this.freeBoardImgRoute = freeBoardImgRoute;
         this.freeBoardImgName = freeBoardImgName;
         this.freeBoardImgUuid = freeBoardImgUuid;
-
-        // 유저 정보 추가
         this.userId = userId;
         this.userAccount = userAccount;
         this.userNickName = userNickName;
-
     }
 }

@@ -1,3 +1,6 @@
+let userId = $('#userId').val()
+console.log(userId)
+
 // 검색폼 (카테, 키워드 반환)
 function searchGoodsForm(){
     let cate = $('#search-cate').val();
@@ -64,7 +67,7 @@ $('.result-submit-btn').on('click', function () {
     shopList(0, searchGoodsForm());
 });
 
-//자유게시판 리스트
+//리스트
 function showShopList(result) {
     let text = '';
     let textInput = $('.ul-list');
@@ -111,7 +114,18 @@ function createShopListItem(r) {
         </div>
     </a>
     <div class="basket">
-        <a href="/shop/shopCart"><img src="/img/shoppingcart.png" alt=""></a>
+    `;
+    if(userId != null){
+        listItem += `
+     <a href="/shop/shopCart/${userId}"><img src="/img/shoppingcart.png" alt=""></a>
+    `;
+    }else{
+        listItem += `
+     <a href="/user/enterLogin"><img src="/img/shoppingcart.png" alt=""></a>
+    `;
+    }
+    listItem += `
+    
     </div>
     </li>
     `;
