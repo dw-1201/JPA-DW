@@ -1,26 +1,21 @@
 package com.example.dw.repository.community;
 
 import com.example.dw.domain.dto.community.*;
-
-import com.example.dw.domain.entity.question.QQuestion;
 import com.querydsl.core.types.dsl.BooleanExpression;
-
 import com.querydsl.jpa.impl.JPAQueryFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
-import static com.example.dw.domain.entity.question.QQuestion.question;
-import static com.example.dw.domain.entity.question.QQuestionImg.questionImg;
-import static com.example.dw.domain.entity.user.QUsers.users;
-import static com.example.dw.domain.entity.question.QQuestionComment.questionComment;
-import static java.util.stream.Collectors.*;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.example.dw.domain.entity.question.QQuestion.question;
+import static com.example.dw.domain.entity.question.QQuestionComment.questionComment;
+import static com.example.dw.domain.entity.question.QQuestionImg.questionImg;
+import static java.util.stream.Collectors.*;
 
 
 @Repository
@@ -90,7 +85,6 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
                             ))
                             .collect(toList());
 
-
                     return new QuestionListDto(
                             questionDto.getId(),
                             questionDto.getQuestionTitle(),
@@ -152,7 +146,7 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
 
         return result;
     }
-//
+
     @Override
     public List<QuestionImgDto> findAllByQuestionId(Long questionId) {
         return jpaQueryFactory.select(new QQuestionImgDto(

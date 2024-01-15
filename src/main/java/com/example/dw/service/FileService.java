@@ -1,9 +1,13 @@
 package com.example.dw.service;
 
 
-import com.example.dw.domain.dto.admin.*;
-
+import com.example.dw.domain.dto.admin.AdminGoodsDetailImgDto;
+import com.example.dw.domain.dto.admin.AdminGoodsMainImgDto;
+import com.example.dw.domain.dto.admin.PetImgDto;
+import com.example.dw.domain.dto.admin.UserFileDto;
+import com.example.dw.domain.dto.community.FreeBoardImgDto;
 import com.example.dw.domain.dto.community.QuestionImgDto;
+import com.example.dw.domain.entity.freeBoard.FreeBoard;
 import com.example.dw.domain.entity.goods.Goods;
 import com.example.dw.domain.entity.question.Question;
 import com.example.dw.domain.entity.user.Pet;
@@ -12,6 +16,9 @@ import com.example.dw.domain.form.*;
 import com.example.dw.repository.community.QuestionImgRepository;
 import com.example.dw.repository.community.QuestionRepository;
 import com.example.dw.repository.community.QuestionRepositoryCustom;
+import com.example.dw.repository.freeBoard.FreeBoardImgRepository;
+import com.example.dw.repository.freeBoard.FreeBoardRepository;
+import com.example.dw.repository.freeBoard.FreeBoardRepositoryCustom;
 import com.example.dw.repository.goods.GoodsDetailImgRepository;
 import com.example.dw.repository.goods.GoodsMainImgRepository;
 import com.example.dw.repository.goods.GoodsRepository;
@@ -47,6 +54,9 @@ public class FileService {
     @Value("${file.que}")
     private String questionImg;
 
+    @Value("${file.free}")
+    private String freeBoardImg;
+
     @Value("${file.user}")
     private String userFileImg;
 
@@ -63,6 +73,11 @@ public class FileService {
     private final QuestionRepository questionRepository;
     private final QuestionImgRepository questionImgRepository;
     private final QuestionRepositoryCustom questionRepositoryCustom;
+
+    private final FreeBoardRepository freeBoardRepository;
+    private final FreeBoardRepositoryCustom freeBoardRepositoryCustom;
+    private final FreeBoardImgRepository freeBoardImgRepository;
+
 
     private final UsersRepository usersRepository;
     private final UserFileRepository userFileRepository;
@@ -214,6 +229,71 @@ public class FileService {
             }
         }
 
+    }
+
+    //자유게시판 게시판 등록 파일 저장(로컬) 최대 5장
+    @Transactional
+    public FreeBoardImgForm registerLocalFreeBoardImg(MultipartFile file) throws IOException {
+
+
+        String originName = file.getOriginalFilename();
+        UUID uuid = UUID.randomUUID();
+        String sysName = uuid.toString() + "_" + originName;
+
+        File uploadPath = new File(freeBoardImg, getUploadPath());
+
+        if (!uploadPath.exists()) {
+            uploadPath.mkdirs();
+        }
+        File upLoadFile = new File(uploadPath, sysName);
+        file.transferTo(upLoadFile);
+
+        return
+                FreeBoardImgForm.builder()
+                        .freeBoardImgName(originName)
+                        .freeBoardImgRoute(getUploadPath())
+                        .freeBoardImgUuid(uuid.toString())
+                        .build();
+    }
+
+    //자유게시판 이미지 DB 저장
+    @Transactional
+    public void registerDBFreeBoardImg(List<MultipartFile> files, Long freeBoardId) throws IOException {
+        System.out.println("파일 처리 질문 아이기 : " + freeBoardId);
+
+        for (MultipartFile file : files) {
+            FreeBoardImgForm freeBoardImgForm = registerLocalFreeBoardImg(file);
+            Optional<FreeBoard> freeBoard = freeBoardRepository.findById(freeBoardId);
+
+            freeBoardImgForm.setFreeBoard(freeBoard.get());
+            freeBoardImgRepository.save(freeBoardImgForm.toEntity());
+        }
+    }
+
+
+    //자유게시판 기존 사진 삭제
+    @Transactional
+    public void removeFreeBoardDetailImgs(Long freeBoardId) {
+        System.out.println("파일 삭제 아이디 : " + freeBoardId);
+        if (freeBoardId == null) {
+            throw new IllegalArgumentException("유효하지 않은 상품 번호");
+        }
+        System.out.println(freeBoardRepositoryCustom.findFreeBoardById(freeBoardId).toString() + "1-------1");
+        List<FreeBoardImgDto> freeBoardImgDtos = freeBoardRepositoryCustom.findFreeBoardImgByFreeBoardId(freeBoardId);
+        System.out.println(freeBoardImgDtos.toString() + "나는 누구이인가");
+
+        for (FreeBoardImgDto freeBoardImgDto : freeBoardImgDtos) {
+            File detailImgTarget = new File(freeBoardImg, freeBoardImgDto.getFreeBoardImgRoute() + "/" + freeBoardImgDto.getFreeBoardImgUuid() + "_" + freeBoardImgDto.getFreeBoardImgName());
+            System.out.println(freeBoardImgDto.toString() + "삭제 파일 입니다.");
+            if (detailImgTarget.exists()) {
+                detailImgTarget.delete();
+
+                System.out.println("[ 삭제 상품사진 ]" + freeBoardImgDto.getFreeBoardImgRoute() + "/" + freeBoardImgDto.getFreeBoardImgUuid() + "_" + freeBoardImgDto.getFreeBoardImgName() + "\n");
+                freeBoardImgRepository.deleteFreeBoardImgById(freeBoardImgDto.getId());
+                System.out.println("자유게시판 삭제 완료");
+            }
+
+        }
     }
 
 

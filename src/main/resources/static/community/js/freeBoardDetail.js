@@ -1,28 +1,39 @@
-// const slides = document.querySelector('.slider'); // 전체 슬라이드 컨테이너
-// const slideImg = document.querySelectorAll('.slider li'); // 모든 슬라이드들
-// let currentIdx = 0; // 현재 슬라이드 index
-// const slideCount = slideImg.length; // 슬라이드 개수
-// const prev = document.querySelector('.prev'); // 이전 버튼
-// const next = document.querySelector('.next'); // 다음 버튼
-// const slideWidth = 300; // 한개의 슬라이드 넓이
-//
-// // 전체 슬라이드 컨테이너 넓이 설정
-// slides.style.width = slideWidth * slideCount + 'px';
-//
-// function moveSlide(num) {
-//   slides.style.left = -num * slideWidth + 'px';
-//   currentIdx = num;
-// }
-//
-// prev.addEventListener('click', function () {
-//   if (currentIdx !== 0) moveSlide(currentIdx - 1);
-// });
-//
-// next.addEventListener('click', function () {
-//   if (currentIdx !== slideCount - 1) {
-//     moveSlide(currentIdx + 1);
-//   }
-// });
+const slides = document.querySelector('.slider'); // 전체 슬라이드 컨테이너
+const slideImg = document.querySelectorAll('.slider li'); // 모든 슬라이드들
+let currentIdx = 0; // 현재 슬라이드 index
+const slideCount = slideImg.length; // 슬라이드 개수
+const prev = document.querySelector('.prev'); // 이전 버튼
+const next = document.querySelector('.next'); // 다음 버튼
+const slideWidth = 300; // 한개의 슬라이드 넓이
+
+// 전체 슬라이드 컨테이너 넓이 설정
+slides.style.width = slideWidth * slideCount + 'px';
+
+function moveSlide(num) {
+  slides.style.left = -num * slideWidth + 'px';
+  currentIdx = num;
+}
+
+prev.addEventListener('click', function () {
+  if (currentIdx !== 0) moveSlide(currentIdx - 1);
+});
+
+next.addEventListener('click', function () {
+  if (currentIdx !== slideCount - 1) {
+    moveSlide(currentIdx + 1);
+  }
+});
+
+//포맷변경
+//날짜
+function formatDates(dateString) {
+  let dateObj = new Date(dateString);
+  let formattedDate = dateObj.getFullYear() +'-' + ('0' + (dateObj.getMonth() + 1)).slice(-2) +'-' +('0' + dateObj.getDate()).slice(-2) +' ' + ('0' + dateObj.getHours()).slice(-2) +':' +('0' + dateObj.getMinutes()).slice(-2);
+  return formattedDate;
+}
+$('.info-date').text(formatDates($('.text-date').text()))
+
+
 
 // 자유게시판 글 수정
 $('.update-btn').on('click', function () {

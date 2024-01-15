@@ -1,8 +1,6 @@
 package com.example.dw.service;
 
 import com.example.dw.domain.entity.freeBoard.FreeBoard;
-import com.example.dw.domain.entity.user.Users;
-import com.example.dw.domain.form.FreeBoardModifyForm;
 import com.example.dw.domain.form.FreeBoardWritingForm;
 import com.example.dw.repository.freeBoard.FreeBoardCommentRepository;
 import com.example.dw.repository.freeBoard.FreeBoardRepository;
@@ -11,8 +9,10 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,37 +26,26 @@ public class FreeBoardService {
     private final FileService fileService;
     private final FreeBoardCommentRepository freeBoardCommentRepository;
 
-
     //글쓰기
     @Transactional
-    public Long saveFreeBoard(FreeBoardWritingForm freeBoardWritingForm){
-        // 세션에서 사용자 ID 가져오기
-        Long userId = (Long) httpSession.getAttribute("userId");
-
-        // 해당 사용자 ID로 Users 엔티티 가져오기
-        Users user = usersRepository.findById(userId).orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
-
-        // FreeBoard 엔티티 생성 및 Users 엔티티 설정
-        FreeBoard freeBoard = FreeBoard.builder()
-                .freeBoardTitle(freeBoardWritingForm.getFreeBoardTitle())
-                .freeBoardContent(freeBoardWritingForm.getFreeBoardContent())
-                .users(user)
-                .build();
-
-        FreeBoard savedFreeBoard = freeBoardRepository.save(freeBoard);
-
-        return savedFreeBoard.getId();
+    public Long register(FreeBoardWritingForm freeBoardWritingForm) throws IOException{
+        FreeBoard freeBoard = freeBoardRepository.save(freeBoardWritingForm.toEntity());
+        return freeBoard.getId();
     }
 
     //글 수정
     @Transactional
-    public FreeBoard modify(FreeBoardModifyForm freeBoardModifyForm)
+    public FreeBoard modify(FreeBoardWritingForm freeBoardWritingForm, List<MultipartFile> files)
             throws IOException {
-        Long freeBoardId = freeBoardModifyForm.getId();
-        FreeBoard freeBoard = freeBoardRepository.findById(freeBoardModifyForm.getId()).get();
+        if (!files.get(0).isEmpty()) {
 
+            fileService.removeFreeBoardDetailImgs(freeBoardWritingForm.getId());
+            fileService.registerDBFreeBoardImg(files, freeBoardWritingForm.getId());
+        }
+
+        FreeBoard freeBoard = freeBoardRepository.findById(freeBoardWritingForm.getId()).get();
         //자유게시판 기본 내용 업데이트
-        freeBoard.update(freeBoardModifyForm);
+        freeBoard.update(freeBoardWritingForm);
 
         return Optional.ofNullable(freeBoard).orElseThrow(()->{
             throw new IllegalArgumentException("조회 정보 없음");
@@ -68,13 +57,9 @@ public class FreeBoardService {
     public void delete(Long freeBoardId){
 
         if (freeBoardId == null) {
-
-            throw new IllegalArgumentException("유효하지 않은 번호");
+            throw new IllegalArgumentException("존재하지 않는 자유게시판 글 번호 입니다.");
         }
-
-//        fileService.removeMainImg(freeBoardId);
-//        fileService.removeDetailImgs(freeBoardId);
-
+        fileService.removeDetailImgs(freeBoardId);
         freeBoardRepository.deleteById(freeBoardId);
     }
 

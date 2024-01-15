@@ -4,16 +4,15 @@ import com.example.dw.domain.entity.freeBoard.FreeBoard;
 import com.example.dw.domain.entity.user.Users;
 import lombok.*;
 
-@Getter
-@Setter
-@ToString
+//자유게시판 글쓰기 폼
+@Data
 @NoArgsConstructor
 public class FreeBoardWritingForm {
 
     private Long id;
     private String freeBoardTitle;
     private String freeBoardContent;
-    private Long userId;  // 추가: 사용자 ID
+    private Long userId;
 
 
     public FreeBoard toEntity(){

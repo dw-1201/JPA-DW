@@ -150,9 +150,8 @@ public class GoodsApiController {
 
         }
 
-        System.out.println(goodsPayList+"!!!!!!!!!!!!!!");
+        System.out.println(goodsPayList);
         session.setAttribute("goodsPayList", goodsPayList);
-        System.out.println(goodsPayListFrom.toString()+"@@@@@@@@@@@@@@@@@@@@@");
     }
 
     //바로가기 정보 넣기
@@ -170,9 +169,8 @@ public class GoodsApiController {
             goodsPaySingle.add(goodsPaySingleDto);
 
         }
-        System.out.println(goodsPaySingle+"!!!!!!!!!!!!!!");
+        System.out.println(goodsPaySingle);
         session.setAttribute("goodsPaySingle", goodsPaySingle);
-        System.out.println(goodsPaySingleFrom.toString()+"@@@@@@@@@@@@@@@@@@@@@");
     }
 
     //가져오기
@@ -180,7 +178,7 @@ public class GoodsApiController {
     public List<GoodsPayListFrom> payGoodsList(HttpSession session){
        List<GoodsPayListFrom> goodsPayListDtoList = (List<GoodsPayListFrom>) session.getAttribute("goodsPayList");
 
-        System.out.println(goodsPayListDtoList+"goodsPayListDtoList");
+        System.out.println(goodsPayListDtoList);
 
         return goodsPayListDtoList;
     }
@@ -198,21 +196,22 @@ public class GoodsApiController {
             System.out.println("세션삭제 후 새로 저장");
         }
 
+        //저장 후 시간 받아오기
         for(GoodsPaySingleFrom goodsPaySingleFroms : goodsPaySingleFrom){
             goodsPaySingleFroms.setInputTime(LocalDateTime.now());
         }
+        //시간 순 정렬 하기
         goodsPaySingleFrom.sort(Comparator.comparing((GoodsPaySingleFrom goodsPaySingleForm )->goodsPaySingleForm.getInputTime()).reversed());
 
-
         int max = 1;
+        //리스트 배열 자르기
         if(goodsPaySingleFrom.size()>max){
             goodsPaySingleFrom=goodsPaySingleFrom.subList(0, max);
 
         }
-        System.out.println(goodsPaySingleFrom.toString()+"()()()()()");
         httpSession.setAttribute("goodsPaySingle", goodsPaySingleFrom);
 
-        System.out.println(goodsPaySingleFrom + "goodsPaySingleFrom");
+        System.out.println(goodsPaySingleFrom);
         return goodsPaySingleFrom;
     }
 
