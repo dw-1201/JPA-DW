@@ -64,7 +64,7 @@ public class Users {
     @OneToMany(mappedBy = "users", orphanRemoval = true)
     private List<Pet> pet = new ArrayList<>();
 
-    @OneToMany(mappedBy = "users" ,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "users" ,fetch = FetchType.LAZY, orphanRemoval = true)
     private List<FreeBoard> freeBoard = new ArrayList<>();
     @OneToMany(mappedBy = "users",fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Question> questions =new ArrayList<>();

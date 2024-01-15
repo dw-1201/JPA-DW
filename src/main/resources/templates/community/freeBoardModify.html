@@ -18,44 +18,61 @@
 
     <!-- main 시작 -->
     <main>
-        <div class="main-container" th:each="freeBoard : ${detail}">
+        <div class="main-container" th:each="modify : ${freeBoard}">
+            <div class="main-content-contaniner">
 
             <!--글수정 시작-->
-            <form th:action="@{/community/modify/{id}/edit (id=${freeBoard.id})}" th:method="put" class="writingForm" enctype="multipart/form-data">
+            <form th:action="@{/community/modify/{id}/edit (id=${modify.id})}" th:method="put" class="writingForm" enctype="multipart/form-data">
+            <input type="hidden" name="userId" th:value="${session.userId}">
             <div class="content-box">
                 <div class="content-title-box">
                     <div class="content-title">자유게시판 글 수정</div>
                     <div class="content-title-input">
-                        <input type="text"  name="freeBoardTitle" placeholder="제목을 입력해주세요" th:value="${freeBoard.freeBoardTitle}">
+                        <input type="text"  name="freeBoardTitle" placeholder="제목을 입력해주세요" th:value="${modify.freeBoardTitle}">
                     </div>
                 </div>
                 <div class="content-content-box">
-                    <textarea name="freeBoardContent" id="Content" th:text="${freeBoard.freeBoardContent}"></textarea>
+                    <textarea name="freeBoardContent" id="Content" th:text="${modify.freeBoardContent}"></textarea>
                 </div>
             </div>
             <div class="file-box">
+            <!--추가-->
+                <div class="file-box-title">사진</div>
+                <div class="file-box-imgs">
+                    <ul class="file-wrap">
+                        <th:block th:each="imgs:${modify.freeBoardImgDtoList}">
+                            <li class="img-list">
+                                <img class="addimg" th:src="'/jpa_dw/freeBoard/'+${imgs.freeBoardImgRoute}+'/'+${imgs.freeBoardImgUuid}+'_'+${imgs.freeBoardImgName}" alt="">
+                            </li>
+                        </th:block>
+                    </ul>
+                </div>
+            </div>
+
+                <div class="update-img">
                 <div class="file-box-title">사진 업로드</div>
                 <div class="file-box-imgs">
                     <ul class="file-wrap">
-                        <li class="img-list"></li>
-                        <li class="img-list"></li>
-                        <li class="img-list"></li>
-                        <li class="img-list"></li>
-                        <li class="img-list"></li>
+                        <li class="imgs-list"></li>
+                        <li class="imgs-list"></li>
+                        <li class="imgs-list"></li>
+                        <li class="imgs-list"></li>
+                        <li class="imgs-list"></li>
                     </ul>
                 </div>
                 <div class="file-box-etc">
                     <div class="file-input-btn">
-                        <label for="file">
+                        <label for="files">
                             <div class="btn-upload">
                                 <img src="/img/addfile.png" alt="">
                             </div>
                         </label>
-                        <input type="file" name="freeBoardImg" id="file" accept="image/*" multiple>
+                        <input type="file" name="freeBoardImg" id="files" accept="image/*" multiple>
                     </div>
                     <div class="file-input-text">개당 업로드 용량: 20MB, 최대 5개 업로드 가능합니다.</div>
                 </div>
             </div>
+
             <div class="btn-box">
                 <button class="add-content-btn" type="submit">글 수정</button>
             </div>
@@ -64,7 +81,7 @@
 
             </form>
         </div>
-
+        </div>
     </main>
     <!-- main 끝 -->
 
@@ -73,5 +90,7 @@
 
 </div>
 <!-- footer 끝 -->
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<script src="/community/js/freeBoardModify.js"></script>
 </body>
 </html>

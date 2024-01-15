@@ -2,9 +2,7 @@ package com.example.dw.service;
 
 import com.example.dw.domain.entity.goods.Cart;
 import com.example.dw.domain.entity.order.Orders;
-import com.example.dw.domain.form.GoodsPayListFrom;
-import com.example.dw.domain.form.OrderForm;
-import com.example.dw.domain.form.OrderListForm;
+import com.example.dw.domain.form.*;
 import com.example.dw.repository.goods.CartItemRepository;
 import com.example.dw.repository.goods.CartRepository;
 import com.example.dw.repository.goods.GoodsRepository;
@@ -37,16 +35,12 @@ public class OrderService {
 
         Long userId = (Long)httpSession.getAttribute("userId");
         orderForm.setUserId(userId);
-//        Long cartId = cartRepository.findCartByUsersId(userId);
-        System.out.println("1111111111111111111111");
-//        System.out.println("카트아뒤"+cartId);
+
         try {
             Orders order = orderRepository.save(orderForm.toEntity());
-            System.out.println(orderForm+"2222222222222222222");
 
             Long orderId = order.getId();
             Cart cartId = cartRepository.findCartIdByUsersId(userId);
-
 
             List<GoodsPayListFrom> goodsPayListDtoList = (List<GoodsPayListFrom>)httpSession.getAttribute("goodsPayList");
             for(GoodsPayListFrom goodsPayListFrom : goodsPayListDtoList)
@@ -56,32 +50,53 @@ public class OrderService {
                 orderItemRepository.save(goodsPayListFrom.toEntity());
                 cartItemRepository.deleteByCartId(cartId.getId());
 
-
                 //상품 판매량 업데이트
                 goodsRepository.updateSaleCount(Integer.valueOf(goodsPayListFrom.getGoodsQuantity()), Long.valueOf(goodsPayListFrom.getGoodsId()));
 
             }
 
+            OrderListForm orderListForm = new OrderListForm();
+            orderListForm.setOrderId(orderId);
+            orderListRepository.save(orderListForm.toEntity());
+
+            //주문 상품 삭제
+            httpSession.removeAttribute("goodsPayList");
+            System.out.println("카트 삭제 완료");
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    //주문서 단건 작성
+    @Transactional
+    public void registerSingle(OrderForm orderForm, HttpSession httpSession) throws IOException {
+
+        Long userId = (Long)httpSession.getAttribute("userId");
+        orderForm.setUserId(userId);
+        try {
+            Orders order = orderRepository.save(orderForm.toEntity());
+
+            Long orderId = order.getId();
+
+            List<GoodsPaySingleFrom> goodsPaySingleDto = (List<GoodsPaySingleFrom>)httpSession.getAttribute("goodsPaySingle");
+            for(GoodsPaySingleFrom goodsPaySingleFrom : goodsPaySingleDto)
+            {
+                goodsPaySingleFrom.setOrderId(orderId);
+                //주문 상품 저장
+                orderItemRepository.save(goodsPaySingleFrom.toEntity());
+            }
 
             OrderListForm orderListForm = new OrderListForm();
             orderListForm.setOrderId(orderId);
             orderListRepository.save(orderListForm.toEntity());
 
 
-
-
-
-            //주문 상품 삭제
-//            cartRepository.deleteById(cartId.getId());
-            httpSession.removeAttribute("goodsPayList");
-
-                System.out.println("카트 삭제 완료");
-
-
         }catch (Exception e){
             e.printStackTrace();
         }
-        System.out.println("33333333333333333333");
     }
 
 }

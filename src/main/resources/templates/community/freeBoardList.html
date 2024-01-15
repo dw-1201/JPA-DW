@@ -20,6 +20,7 @@
     <!-- main 시작 -->
     <main>
         <div class="main-container">
+            <div class="main-content-contaniner">
             <div class="nav-container">
                 <ul>
 
@@ -32,8 +33,9 @@
             </div>
             <div class="search-container">
                 <div class="searchbox"  > <!--id="searchForm" -->
-                <a href="" class="result-btn"><img src="/img/magnifier.png" alt=""></a>
-                <input type="text" name="keyword" id="freeBoard-search-keyword"  placeholder="찾으시는 인기글이 있으신가요?">
+                <button type="button" class="ddd" ><img src="/img/magnifier.png" alt=""></button>
+<!--                <a href="" class="result-btn"><img src="/img/magnifier.png" alt=""></a>-->
+                <input type="text" name="keyword" class="search-freeBoard" id="freeBoard-search-keyword"  placeholder="찾으시는 인기글이 있으신가요?">
 <!--                <button type="button" class="ddd" >버튼</button>-->
 
             </div>
@@ -102,23 +104,27 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="write-btn-box">
+                    <div class="write-btn-box" th:if="${session.userId == null}">
+                        <a class="write-btn" href="/user/enterLogin">글쓰기</a>
+                    </div>
+                    <div class="write-btn-box" th:if="${session.userId != null}">
                         <a class="write-btn" href="/community/freeBoardWriting">글쓰기</a>
                     </div>
                 </div>
                 <div class="list-contents-box" >
 
-            </div>
+                </div>
 
             <div class="list-page-container">
                 <div class="list-pages">
                     <ul class="pagination-ul">
-
+                        <!--게시판 리스트-->
                     </ul>
                 </div>
             </div>
             <div class="ad-container"></div>
         </div>
+            </div>
     </main>
 
 <!-- footer 시작 -->
@@ -126,8 +132,9 @@
 
 </div>
 <!-- footer 끝 -->
+<input type="hidden" th:value="${session.userId}" id="userId">
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-<script src="/community/js/freeBoardList.js"></script>
+<script type="module" src="/community/js/freeBoardList.js"></script>
 </body>
 
 </html>

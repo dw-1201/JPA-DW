@@ -23,9 +23,9 @@ public class QNoticeBoard extends EntityPathBase<NoticeBoard> {
 
     public final StringPath noticeBoardContent = createString("noticeBoardContent");
 
-    public final StringPath noticeBoardMd = createString("noticeBoardMd");
+    public final DateTimePath<java.time.LocalDateTime> noticeBoardMd = createDateTime("noticeBoardMd", java.time.LocalDateTime.class);
 
-    public final StringPath noticeBoardRd = createString("noticeBoardRd");
+    public final DateTimePath<java.time.LocalDateTime> noticeBoardRd = createDateTime("noticeBoardRd", java.time.LocalDateTime.class);
 
     public final StringPath noticeBoardTitle = createString("noticeBoardTitle");
 

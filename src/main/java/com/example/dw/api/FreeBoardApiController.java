@@ -1,7 +1,7 @@
 package com.example.dw.api;
 
 
-import com.example.dw.domain.dto.community.FreeBoardDto;
+import com.example.dw.domain.dto.community.FreeBoardListDto;
 import com.example.dw.repository.freeBoard.FreeBoardRepositoryCustom;
 import com.example.dw.service.FreeBoardService;
 import lombok.RequiredArgsConstructor;
@@ -35,18 +35,16 @@ public class FreeBoardApiController {
     }
 
     @GetMapping("/freeBoardList/{page}")
-    public Page<FreeBoardDto> freeBoardDtoList(
-            @PathVariable("page") int page,
-            @RequestParam(value = "keyword", required = false) String keyword) {
+    public Page<FreeBoardListDto> freeBoardDtoList(
+            @PathVariable("page") int page, String keyword) {
 
-        Pageable pageable = PageRequest.of(page, 10);
-
+        Pageable pageable = PageRequest.of(page, 5);
         System.out.println("자유게시판 키워드: " + keyword);
 
-        Page<FreeBoardDto> result = freeBoardRepositoryCustom.findFreeBoardListBySearch(pageable, keyword);
+        Page<FreeBoardListDto> result = freeBoardRepositoryCustom.findFreeBoardListBySearch(pageable, keyword);
 
         // 댓글 수를 추가
-        List<FreeBoardDto> updatedList = result.getContent().stream()
+        List<FreeBoardListDto> updatedList = result.getContent().stream()
                 .map(dto -> {
                     Long commentCount = freeBoardService.countCommentsByFreeBoardId(dto.getId());
                     dto.setFreeBoardCommentCount(commentCount);

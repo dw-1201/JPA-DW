@@ -4,17 +4,19 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 public class AdminGoodsQueReplyDto {
 
     private Long id;
     private String qnaReplyContent;
-    private String qnaReplyRd;
-    private String qnaReplyMd;
+    private LocalDateTime qnaReplyRd;
+    private LocalDateTime qnaReplyMd;
 
     @QueryProjection
-    public AdminGoodsQueReplyDto(Long id, String qnaReplyContent, String qnaReplyRd, String qnaReplyMd) {
+    public AdminGoodsQueReplyDto(Long id, String qnaReplyContent, LocalDateTime qnaReplyRd, LocalDateTime qnaReplyMd) {
         this.id = id;
         this.qnaReplyContent = qnaReplyContent;
         this.qnaReplyRd = qnaReplyRd;

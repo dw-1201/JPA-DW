@@ -18,7 +18,7 @@ public class FreeBoardImg {
     private String freeBoardImgName;
     private String freeBoardImgUuid;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "free_board_id")
     private FreeBoard freeBoard;
 

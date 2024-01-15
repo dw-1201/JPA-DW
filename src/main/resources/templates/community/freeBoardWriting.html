@@ -19,9 +19,10 @@
     <!-- main 시작 -->
     <main>
         <div class="main-container">
-
+            <div class="main-content-contaniner">
             <!--글쓰기 시작-->
             <form action="/community/freeBoardWriting" method="POST" class="writingForm" enctype="multipart/form-data">
+            <input type="hidden" name="userId" th:value="${session.userId}">
             <div class="content-box">
                 <div class="content-title-box">
                     <div class="content-title">자유게시판 글 작성</div>
@@ -46,12 +47,12 @@
                 </div>
                 <div class="file-box-etc">
                     <div class="file-input-btn">
-                        <label for="file">
+                        <label for="files">
                             <div class="btn-upload">
                                 <img src="/img/addfile.png" alt="">
                             </div>
                           </label>
-                          <input type="file" name="freeBoardImg" id="file" accept="image/*" multiple>
+                          <input type="file" name="freeBoardImg" id="files" accept="image/*" multiple>
                     </div>
                     <div class="file-input-text">개당 업로드 용량: 20MB, 최대 5개 업로드 가능합니다.</div>
                 </div>
@@ -64,6 +65,7 @@
 
             </form>
         </div>
+        </div>
     </main>
     <!-- main 끝 -->
 
@@ -72,5 +74,7 @@
 
 </div>
 <!-- footer 끝 -->
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<script type="module" src="/community/js/freeBoardWriting.js"></script>
 </body>
 </html>

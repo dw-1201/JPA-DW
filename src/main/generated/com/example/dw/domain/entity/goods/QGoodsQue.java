@@ -30,9 +30,9 @@ public class QGoodsQue extends EntityPathBase<GoodsQue> {
 
     public final StringPath queContent = createString("queContent");
 
-    public final StringPath queModifyDate = createString("queModifyDate");
+    public final DateTimePath<java.time.LocalDateTime> queModifyDate = createDateTime("queModifyDate", java.time.LocalDateTime.class);
 
-    public final StringPath queRegisterDate = createString("queRegisterDate");
+    public final DateTimePath<java.time.LocalDateTime> queRegisterDate = createDateTime("queRegisterDate", java.time.LocalDateTime.class);
 
     public final NumberPath<Integer> state = createNumber("state", Integer.class);
 

@@ -91,7 +91,6 @@ public class GoodsController {
     /**
      * 쇼핑 카트 페이지
      */
-
     @GetMapping("/shopCart/{userId}")
     public String shopCart() {
             return "/shopping/shopCart";
@@ -105,20 +104,10 @@ public class GoodsController {
 
         return "/shopping/shopPay";
     }
+    @GetMapping("/shopSinglePay/{userId}")
+    public String shopSinglePay(){
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return "/shopping/shopSinglePay";
+    }
 
 }

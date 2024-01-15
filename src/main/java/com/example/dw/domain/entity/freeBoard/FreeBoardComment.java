@@ -5,9 +5,11 @@ import com.example.dw.domain.form.FreeBoardCommentForm;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
-import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
@@ -18,6 +20,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
         (access = AccessLevel.PROTECTED)
+@EntityListeners(AuditingEntityListener.class)
 public class FreeBoardComment {
     @Id
     @GeneratedValue
@@ -26,10 +29,10 @@ public class FreeBoardComment {
 
     private String freeBoardCommentContent;
 
-    @Default
-    private LocalDateTime freeBoardCommentRd = LocalDateTime.now();
-    @Default
-    private LocalDateTime freeBoardCommentMd = LocalDateTime.now();
+    @CreatedDate
+    private LocalDateTime freeBoardCommentRd;
+    @LastModifiedDate
+    private LocalDateTime freeBoardCommentMd;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "free_board_id")

@@ -19,10 +19,21 @@ main{
     justify-content: center;
 }
 .main-container{
+    /* width: 1024px; */
+    width: 100%;
+    /*display: flex;*/
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+.main-content-contaniner{
     width: 1024px;
-    min-width: 1024px;
-    height: 100%;
-    /* background-color: pink; */
+    /* width: 100%; */
+
+    height: 1700px;
+    margin: 0px auto;
+    padding: 10px 0;
+    /* background-color: rgb(97, 25, 25); */
 }
 .breed-input-box{
     width: 100%;
@@ -51,6 +62,7 @@ main{
     margin: 10px 0;
     font-size: 14px;
     font-weight: bolder;
+    text-align: start;
 }
 .content-box{
     width: 100%;
@@ -167,7 +179,7 @@ main{
     cursor: pointer;
 }
 /* 파일 이미지 */
-#file{
+#files{
     display: none;
 }
 .file-wrap{
@@ -201,4 +213,35 @@ main{
     /*right: 860px;*/
     text-align: center;
     line-height: 13px;
+}
+
+/*추가css*/
+.file-title{
+    padding-bottom: 5px;
+}
+.file-imges{
+    width: 100%;
+    height: 150px;
+
+}
+
+.file-wraps{
+    width: 100%;
+    height: 150px;
+    display: flex;
+    position: relative;
+}
+.imgs-list{
+    border: 1px solid black;
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    margin-left: 10px;
+    background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNiIgaGVpZ2h0PSIzNiI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48ZyBzdHJva2U9IiNCNUI1QjUiIHN0cm9rZS13aWR0aD0iMS41IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0IDQpIj48cmVjdCB3aWR0aD0iMjgiIGhlaWdodD0iMjgiIHJ4PSIzLjUiLz48Y2lyY2xlIGN4PSI4LjU1NiIgY3k9IjguNTU2IiByPSIyLjMzMyIvPjxwYXRoIGQ9Ik0yOCAxOC42NjdsLTcuNzc3LTcuNzc4TDMuMTExIDI4Ii8+PC9nPjxwYXRoIGQ9Ik0wIDBoMzZ2MzZIMHoiLz48L2c+PC9zdmc+) no-repeat 50% #f2f2f2;
+}
+
+.addimg{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
 }

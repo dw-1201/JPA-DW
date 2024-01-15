@@ -5,9 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +17,7 @@ import java.util.List;
 @Builder
 @Getter
 @ToString(exclude={"goodsMainImg", "goodsDetailImg"})
+@EntityListeners(AuditingEntityListener.class)
 public class Goods {
     @Id
     @GeneratedValue
@@ -30,9 +31,9 @@ public class Goods {
     private String goodsCertify;
     private String goodsDetailContent;
     @CreatedDate
-    private String goodsRegisterDate ;
+    private LocalDateTime goodsRegisterDate ;
     @LastModifiedDate
-    private String goodsModifyDate;
+    private LocalDateTime goodsModifyDate;
 
     @Enumerated(EnumType.STRING)
     private GoodsCategory goodsCategory;
@@ -52,13 +53,6 @@ public class Goods {
     @Builder.Default
     private int saleCount=0;
 
-
-
-
-
-
-
-
     public Goods(Long id, String goodsName, int goodsQuantity, int goodsPrice, GoodsCategory goodsCategory){
         this.id=id;
         this.goodsName=goodsName;
@@ -68,7 +62,7 @@ public class Goods {
     }
 
     @Builder
-    public Goods(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, String goodsRegisterDate, String goodsModifyDate, GoodsCategory goodsCategory, List<GoodsMainImg> goodsMainImg, List<GoodsDetailImg> goodsDetailImg, List<GoodsQue> goodsQues, List<CartItem> cartItem, Integer saleCount) {
+    public Goods(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, LocalDateTime goodsRegisterDate, LocalDateTime goodsModifyDate, GoodsCategory goodsCategory, List<GoodsMainImg> goodsMainImg, List<GoodsDetailImg> goodsDetailImg, List<GoodsQue> goodsQues, List<CartItem> cartItem, int saleCount) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;
@@ -86,9 +80,6 @@ public class Goods {
         this.saleCount = saleCount;
     }
 
-
-
-
     //상품 수정
     public Goods update(GoodsForm goodsForm){
         this.goodsName= goodsForm.getGoodsName();
@@ -97,23 +88,10 @@ public class Goods {
         this.goodsDetailContent=goodsForm.getGoodsDetailContent();
         this.goodsMade= goodsForm.getGoodsMade();
         this.goodsCertify= goodsForm.getGoodsCertify();
-        this.goodsModifyDate=LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+        this.goodsModifyDate=LocalDateTime.now();
         this.goodsCategory=goodsForm.getGoodsCategory();
 
         return this;
     }
-
-    //날짜포맷
-    @PrePersist
-    public void onPrePersist(){
-        this.goodsRegisterDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
-        this.goodsModifyDate=this.goodsRegisterDate;
-    }
-    
-    @PreUpdate
-    public void onPreUpdate(){
-        this.goodsModifyDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
-    }
-
 
 }
