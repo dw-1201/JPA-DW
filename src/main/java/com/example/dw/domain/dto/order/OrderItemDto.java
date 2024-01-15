@@ -18,16 +18,10 @@ public class OrderItemDto {
     private String goodsMainImgName;
     private String goodsMainImgPath;
     private String goodsMainImgUuid;
-
-
-
-
-    private Long orderReviewId;
-    //리뷰 체크
-    private Long state;
+    private Long state =0L;
 
     @QueryProjection
-    public OrderItemDto(Long id, Integer orderQuantity, Integer orderPrice, Long goodsid, String goodsName, Long goodsMainImgId, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid, Long orderReviewId, Long state) {
+    public OrderItemDto(Long id, Integer orderQuantity, Integer orderPrice, Long goodsid, String goodsName, Long goodsMainImgId, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid, Long state) {
         this.id = id;
         this.orderQuantity = orderQuantity;
         this.orderPrice = orderPrice;
@@ -37,7 +31,6 @@ public class OrderItemDto {
         this.goodsMainImgName = goodsMainImgName;
         this.goodsMainImgPath = goodsMainImgPath;
         this.goodsMainImgUuid = goodsMainImgUuid;
-        this.orderReviewId = orderReviewId;
         this.state = state;
     }
 }

@@ -4,6 +4,7 @@ package com.example.dw.domain.entity.order;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import static lombok.Builder.*;
 
+@NoArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Getter
@@ -30,8 +32,7 @@ public class OrderReview {
     @CreatedDate
     private LocalDateTime reviewRd;
 
-    @Default
-    private Long state=0L;
+
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_item_id")
@@ -45,13 +46,12 @@ public class OrderReview {
 
 
     @Builder
-    public OrderReview(Long id, String title, String content, Integer rating, LocalDateTime reviewRd, Long state, OrderItem orderItem, List<OrderReviewImg> orderReviewImgList, GoodsReviewReply goodsReviewReply) {
+    public OrderReview(Long id, String title, String content, Integer rating, LocalDateTime reviewRd, OrderItem orderItem, List<OrderReviewImg> orderReviewImgList, GoodsReviewReply goodsReviewReply) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.rating = rating;
         this.reviewRd = reviewRd;
-        this.state = state;
         this.orderItem = orderItem;
         this.orderReviewImgList = orderReviewImgList;
         this.goodsReviewReply = goodsReviewReply;

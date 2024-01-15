@@ -8,7 +8,9 @@ import com.example.dw.domain.dto.admin.UserFileDto;
 import com.example.dw.domain.dto.community.FreeBoardImgDto;
 import com.example.dw.domain.dto.community.QuestionImgDto;
 import com.example.dw.domain.entity.freeBoard.FreeBoard;
+import com.example.dw.domain.dto.order.OrderReviewImgDto;
 import com.example.dw.domain.entity.goods.Goods;
+import com.example.dw.domain.entity.order.OrderReview;
 import com.example.dw.domain.entity.question.Question;
 import com.example.dw.domain.entity.user.Pet;
 import com.example.dw.domain.entity.user.Users;
@@ -22,6 +24,9 @@ import com.example.dw.repository.freeBoard.FreeBoardRepositoryCustom;
 import com.example.dw.repository.goods.GoodsDetailImgRepository;
 import com.example.dw.repository.goods.GoodsMainImgRepository;
 import com.example.dw.repository.goods.GoodsRepository;
+import com.example.dw.repository.order.OrderReviewImgRepository;
+import com.example.dw.repository.order.OrderReviewImgRepositoryCustom;
+import com.example.dw.repository.order.OrderReviewRepository;
 import com.example.dw.repository.pet.PetImgRepository;
 import com.example.dw.repository.pet.PetRepository;
 import com.example.dw.repository.pet.PetRepositoryCustom;
@@ -86,6 +91,11 @@ public class FileService {
     private final PetRepository petRepository;
     private final PetImgRepository petImgRepository;
     private final PetRepositoryCustom petRepositoryCustom;
+
+    private final OrderReviewRepository orderReviewRepository;
+    private final OrderReviewImgRepository orderReviewImgRepository;
+    private final OrderReviewImgRepositoryCustom orderReviewImgRepositoryCustom;
+
     //상품 메인 사진 로컬서버 저장
     @Transactional
     public GoodsMainImgForm saveImg(MultipartFile file) throws IOException {
@@ -511,50 +521,70 @@ public class FileService {
     }
 
 
-//    //qna 게시판 등록 파일 저장(로컬) 최대 5장
-//    @Transactional
-//    public QuestionImgForm savequestionImg(MultipartFile file) throws IOException {
-//
-//
-//        String originName = file.getOriginalFilename();
-//        UUID uuid = UUID.randomUUID();
-//        String sysName = uuid.toString() + "_" + originName;
-//
-//        File uploadPath = new File(questionImg, getUploadPath());
-//
-//        if (!uploadPath.exists()) {
-//            uploadPath.mkdirs();
-//        }
-//        File upLoadFile = new File(uploadPath, sysName);
-//        file.transferTo(upLoadFile);
-//
-//        return
-//                QuestionImgForm.builder()
-//                        .questionImgName(originName)
-//                        .questionImgRoute(getUploadPath())
-//                        .questionImgUuid(uuid.toString())
-//                        .build();
-//
-//
-//    }
-//
-//
-//    //que 이미지 DB 저장
-//    @Transactional
-//    public void registerquestionImg(List<MultipartFile> files, Long questionId) throws IOException {
-//        System.out.println("파일 처리 질문 아이기 : " + questionId);
-//
-//        for (MultipartFile file : files) {
-//            QuestionImgForm questionImgForm = savequestionImg(file);
-//            Optional<Question> question = questionRepository.findById(questionId);
-//
-//            questionImgForm.setQuestion(question.get());
-//            questionImgRepository.save(questionImgForm.toEntity());
-//        }
-//
-//    }
+    //review 게시판 등록 파일 저장(로컬) 최대 3장
+    @Transactional
+    public OrderReviewImgForm savereviewImg(MultipartFile file) throws IOException {
 
 
+        String originName = file.getOriginalFilename();
+        UUID uuid = UUID.randomUUID();
+        String sysName = uuid.toString() + "_" + originName;
 
+        File uploadPath = new File(reviewImg, getUploadPath());
+
+        if (!uploadPath.exists()) {
+            uploadPath.mkdirs();
+        }
+        File upLoadFile = new File(uploadPath, sysName);
+        file.transferTo(upLoadFile);
+
+        return
+                OrderReviewImgForm.builder()
+                        .reviewimgFileName(originName)
+                        .reviewimgPath(getUploadPath())
+                        .reviewimgUuid(uuid.toString())
+                        .build();
+
+
+    }
+
+
+    //review 이미지 DB 저장
+    @Transactional
+    public void registerreviewImg(List<MultipartFile> files, Long reviewId) throws IOException {
+        System.out.println("리뷰파일저장 번호 : " + reviewId);
+
+        for (MultipartFile file : files) {
+            OrderReviewImgForm orderReviewImgForm= savereviewImg(file);
+            Optional<OrderReview> orderReview = orderReviewRepository.findById(reviewId);
+
+            orderReviewImgForm.setOrderReview(orderReview.get());
+            orderReviewImgRepository.save(orderReviewImgForm.toEntity());
+        }
+
+    }
+
+
+    @Transactional
+    public void removeReviewImgs(Long reviewId) {
+        System.out.println("파일 삭제 아이디 : " + reviewId);
+        if (reviewId == null) {
+            throw new IllegalArgumentException("유효하지 않은 펫 번호");
+        }
+
+          List<OrderReviewImgDto> orderImgDtos = orderReviewImgRepositoryCustom.findReviewImgById(reviewId);
+        System.out.println(orderImgDtos.toString() + "나는 누구이인가");
+
+        for (OrderReviewImgDto orderImgDto : orderImgDtos) {
+            File detailImgTarget = new File(reviewImg, orderImgDto.getReviewimgPath() + "/" + orderImgDto.getReviewimgUuid() + "_" + orderImgDto.getReviewimgFileName());
+            System.out.println(orderImgDto.toString() + "삭제 파일 입니다.");
+            if (detailImgTarget.exists()) {
+                detailImgTarget.delete();
+                orderReviewImgRepository.deleteById(orderImgDto.getId());
+                System.out.println("제발");
+            }
+
+        }
+    }
 
 }

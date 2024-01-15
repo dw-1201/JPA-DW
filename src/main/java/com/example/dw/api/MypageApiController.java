@@ -1,9 +1,11 @@
 package com.example.dw.api;
 
-
 import com.example.dw.domain.dto.community.QuestionListDto;
 import com.example.dw.domain.dto.community.WalkMateMyApplicationListDto;
 import com.example.dw.domain.dto.community.WalkMateMyDetailListDto;
+import com.example.dw.domain.dto.community.*;
+import com.example.dw.domain.dto.order.OrderItemDto;
+import com.example.dw.domain.dto.order.OrderItemReviewListDto;
 import com.example.dw.domain.dto.order.OrderListResultDto;
 import com.example.dw.domain.form.SearchRecruitmentForm;
 import com.example.dw.repository.community.QuestionRepositoryCustom;
@@ -13,6 +15,9 @@ import com.example.dw.repository.community.WalkingMateStateRepositoryCustom;
 import com.example.dw.repository.freeBoard.FreeBoardRepositoryCustom;
 import com.example.dw.repository.order.OrderItemRepositoryCustom;
 import com.example.dw.repository.order.OrderListRepositoryCustom;
+import com.example.dw.repository.order.OrderRepositoryCustom;
+import com.example.dw.repository.order.OrderReviewRepositoryCustom;
+import com.example.dw.service.FileService;
 import com.example.dw.service.FreeBoardService;
 import com.example.dw.service.MypageService;
 import lombok.RequiredArgsConstructor;
@@ -32,14 +37,23 @@ import java.io.IOException;
 public class MypageApiController {
 
     private final MypageService mypageService;
+    private final FileService fileService;
+
     private final QuestionRepositoryCustom questionRepositoryCustom;
+
     private final FreeBoardRepositoryCustom freeBoardRepositoryCustom;
     private final FreeBoardService freeBoardService;
+
     private final WalkingMateRepositoryCustom walkingMateRepositoryCustom;
     private final WalkingMateStateRepositoryCustom walkingMateStateRepositoryCustom;
     private final WalkingMateStateRepository walkingMateStateRepository;
+
     private final OrderItemRepositoryCustom orderItemRepositoryCustom;
     private final OrderListRepositoryCustom orderListRepositoryCustom;
+    private final OrderRepositoryCustom orderRepositoryCustom;
+    private final OrderReviewRepositoryCustom orderReviewRepositoryCustom;
+
+
 
     @Value("${file.pet}")
     private String filepetImg;
@@ -57,6 +71,15 @@ public class MypageApiController {
         return FileCopyUtils.copyToByteArray(new File(filegoods, fileFullPath));
     }
 
+    @Value("${file.review}")
+    private String reviewImg;
+
+    @GetMapping("/mypgs/reviews")
+    public byte[] getreviewImg(String fileFullPath) throws IOException {
+        return FileCopyUtils.copyToByteArray(new File(reviewImg, fileFullPath));
+    }
+
+
     @PostMapping("/mypgs/phone/check")
     public boolean checkPhoneDuplication(@RequestParam("userPhone") String userPhone) {
         if (userPhone == null) {
@@ -70,6 +93,25 @@ public class MypageApiController {
             return true;
         }
     }
+
+    //닉네임 검사
+    @PostMapping("/mypgs/nickName/check")
+    public boolean checkUserNickName(@RequestParam("userNickName") String userNickName) {
+        if (userNickName == null) {
+            throw new IllegalArgumentException("폰 번혼 누락");
+
+        }
+        System.out.println("기입된 닉네임 : " + userNickName);
+        if (mypageService.existsByUserNickName(userNickName) == true) {
+            System.out.println("여기입니다.");
+            return false;
+        } else {
+            System.out.println("true입니다.");
+            return true;
+        }
+    }
+
+
 
     @PostMapping("/mypgs/name/check")
     public boolean checkPetNameDuplication(@RequestParam("name") String name,
@@ -199,11 +241,43 @@ public class MypageApiController {
 
         Pageable pageable =PageRequest.of(page,4);
 
-        Page<OrderListResultDto> result = orderListRepositoryCustom.findAllbyId(pageable,userId) ;
+        Page<OrderListResultDto> result = orderRepositoryCustom.findAllbyId(pageable,userId) ;
 
         result.forEach(r -> System.out.println(r.getUserId()+"의 주문내역은" + r +"입니다\n"));
 
         return result;
+    }
+
+    @GetMapping("/mypgs/myreviewlist/{page}/{userId}")
+    public Page<OrderItemReviewListDto> myreviewlist(@PathVariable("page")int page,@PathVariable("userId")Long userId){
+
+        Pageable pageable = PageRequest.of(page,5);
+
+        Page<OrderItemReviewListDto> result = orderReviewRepositoryCustom.findAllReview(pageable,userId);
+
+
+        return result;
+    }
+
+    @PostMapping("/mypgs/deletereview/{id}")
+    public void removeReview(@PathVariable("id")Long id){
+
+        System.out.println("[orderItemId 번호] : " + id);
+
+        mypageService.removeReview(id);
+
+
+        System.out.println("완료");
+
+    }
+
+    @PostMapping("/mypgs/userRemove/{userId}")
+    public void removeUser(@PathVariable("userId")Long userId){
+        if(userId == null){
+            throw new IllegalArgumentException("회원번호가 없습니다.");
+        }
+        mypageService.removeUser(userId);
+        System.out.println("회원 탈퇴 완료!!");
     }
 
 

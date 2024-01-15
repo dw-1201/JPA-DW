@@ -4,12 +4,14 @@ package com.example.dw.domain.entity.order;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name="order_review_img")
 @Getter
-@Setter
+@NoArgsConstructor
+
 public class OrderReviewImg {
     @Id
     @GeneratedValue
@@ -19,7 +21,7 @@ public class OrderReviewImg {
     private String reviewimgPath;
     private String reviewimgUuid;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_review_id")
     private OrderReview orderReview;
 

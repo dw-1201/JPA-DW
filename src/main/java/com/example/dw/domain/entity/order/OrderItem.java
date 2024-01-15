@@ -6,11 +6,12 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import static lombok.Builder.*;
 
 @Getter
 @Entity
 @Table(name = "order_item")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class OrderItem {
     @Id @GeneratedValue
     @Column(name = "order_item_id")
@@ -24,21 +25,24 @@ public class OrderItem {
     @JoinColumn(name = "goods_id")
     private Goods goods;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_review_id")
-    private OrderReview orderReview;
+//    @OneToOne(fetch = FetchType.LAZY,orphanRemoval = true)
+//    @JoinColumn(name = "order_review_id")
+//    private OrderReview orderReview;
 
     private Integer orderQuantity;
     private Integer orderPrice;
 
-    @Builder
+    @Default
+    private Long state = 0L;
 
-    public OrderItem(Long id, Orders orders, Goods goods, OrderReview orderReview, Integer orderQuantity, Integer orderPrice) {
+    @Builder
+    public OrderItem(Long id, Orders orders, Goods goods, Integer orderQuantity, Integer orderPrice, Long state) {
         this.id = id;
         this.orders = orders;
         this.goods = goods;
-        this.orderReview = orderReview;
+//        this.orderReview = orderReview;
         this.orderQuantity = orderQuantity;
         this.orderPrice = orderPrice;
+        this.state = state;
     }
 }
