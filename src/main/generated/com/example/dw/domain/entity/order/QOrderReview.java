@@ -22,9 +22,11 @@ public class QOrderReview extends EntityPathBase<OrderReview> {
 
     public static final QOrderReview orderReview = new QOrderReview("orderReview");
 
+    public final NumberPath<Integer> adminReplyState = createNumber("adminReplyState", Integer.class);
+
     public final StringPath content = createString("content");
 
-    public final QGoodsReviewReply goodsReviewReply;
+    public final ListPath<GoodsReviewReply, QGoodsReviewReply> goodsReviewReply = this.<GoodsReviewReply, QGoodsReviewReply>createList("goodsReviewReply", GoodsReviewReply.class, QGoodsReviewReply.class, PathInits.DIRECT2);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
@@ -56,7 +58,6 @@ public class QOrderReview extends EntityPathBase<OrderReview> {
 
     public QOrderReview(Class<? extends OrderReview> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.goodsReviewReply = inits.isInitialized("goodsReviewReply") ? new QGoodsReviewReply(forProperty("goodsReviewReply"), inits.get("goodsReviewReply")) : null;
         this.orderItem = inits.isInitialized("orderItem") ? new QOrderItem(forProperty("orderItem"), inits.get("orderItem")) : null;
     }
 

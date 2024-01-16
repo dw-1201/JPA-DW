@@ -84,6 +84,7 @@ function addReply(qnaReplyContent, goodsQueId, userId, callback){
             userId : userId
         },
         success:function (){
+
             $('.admin-reply-section').css('display', 'none')
 
             if(callback){

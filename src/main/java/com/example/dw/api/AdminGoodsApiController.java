@@ -1,12 +1,11 @@
 package com.example.dw.api;
 
 
-import com.example.dw.domain.dto.admin.AdminGoodsDetailResultDto;
-import com.example.dw.domain.dto.admin.AdminGoodsDto;
-import com.example.dw.domain.dto.admin.AdminGoodsQnaListDto;
-import com.example.dw.domain.dto.admin.AdminGoodsQueReplyDto;
+import com.example.dw.domain.dto.admin.*;
 import com.example.dw.domain.form.GoodsQueReplyForm;
+import com.example.dw.domain.form.GoodsReviewReplyForm;
 import com.example.dw.domain.form.SearchForm;
+import com.example.dw.domain.form.SearchReviewForm;
 import com.example.dw.repository.goods.GoodsRepositoryCustom;
 import com.example.dw.service.AdminGoodsService;
 import lombok.RequiredArgsConstructor;
@@ -15,10 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.DayOfWeek;
-import java.time.LocalDateTime;
-import java.time.temporal.TemporalAdjusters;
 
 @RestController
 @RequiredArgsConstructor
@@ -131,5 +126,61 @@ public class AdminGoodsApiController {
     }
 
 
+    //관리자 상품 리뷰 리스트
+    @GetMapping("/goodsReviewList/{page}")
+    public Page<AdminGoodsReviewResultDto> goodsReviewList(@PathVariable("page") int page,
+                                                           SearchReviewForm searchReviewForm){
+
+        System.out.println(searchReviewForm.toString()+"!!!");
+        Pageable pageable = PageRequest.of(page, 15);
+
+        return adminGoodsService.reviewList(pageable, searchReviewForm);
+
+    }
+
+    //관리자 상품 리뷰 상세(통신용)
+    @GetMapping("/goodsReviewDetail/{orderReviewId}")
+    public AdminGoodsReviewDetailResultDto reviewDetail(@PathVariable("orderReviewId") Long orderReviewId){
+        return adminGoodsService.reviewDetail(orderReviewId);
+    }
+    
+    //관리자 상품 리뷰 답변 등록
+    @PostMapping("/addGoodsReviewReply")
+    public void addGoodsReviewReply(GoodsReviewReplyForm goodsReviewReplyForm){
+
+        System.out.println(goodsReviewReplyForm.toString()+"!#@!#!@");
+
+        adminGoodsService.addGoodsReviewReply(goodsReviewReplyForm);
+
+    }
+
+    //관리자 상품 리뷰 가져오기
+    @GetMapping("/goodsReviewReplyList/{orderReviewId}")
+    public AdminGoodsReviewReplyDto goodsReviewReply(@PathVariable("orderReviewId")Long orderReviewId){
+
+        return adminGoodsService.goodsReviewReplyList(orderReviewId);
+    }
+
+    //관리자 상품 리뷰 답변 삭제
+    @DeleteMapping("/deleteGoodsReviewReply/{replyId}")
+    public void deleteGoodsReviewReply(@PathVariable("replyId") Long replyId){
+
+        adminGoodsService.goodsReviewReplyDelete(replyId);
+
+    }
+
+    //관리자 상품 리뷰 답변 수정
+    @PatchMapping("/modifyingGoodsReviewReply")
+    public void modifyGoodsReviewReply(String modContent, Long id){
+        GoodsReviewReplyForm form = new GoodsReviewReplyForm();
+        form.setGoodsReviewReplyContent(modContent);
+        form.setId(id);
+
+
+        System.out.println(form.toString()+"!@#!@#!@#");
+
+        adminGoodsService.goodsReviewReplyModify(form);
+
+    }
 
 }

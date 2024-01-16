@@ -1,31 +1,55 @@
 package com.example.dw.domain.entity.order;
 
 
+import com.example.dw.domain.form.GoodsReviewReplyForm;
 import jakarta.persistence.*;
-
-import static lombok.Builder.*;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
 @Entity
+
 @Table(name="goods_review_reply")
 @Getter
-@NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class GoodsReviewReply {
     @Id
     @GeneratedValue
+    @Column(name="goods_review_reply_id")
     private Long id;
 
     private String goodsReviewReplyContent;
+    @CreatedDate
     private LocalDateTime  goodsReviewReplyRD;
+    @LastModifiedDate
     private LocalDateTime  goodsReviewReplyMD;
-    @Default
-    private Integer state=0;
 
-    @OneToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="order_review_id")
     private OrderReview orderReview;
+
+
+    @Builder
+    public GoodsReviewReply(Long id, String goodsReviewReplyContent, LocalDateTime goodsReviewReplyRD, LocalDateTime goodsReviewReplyMD, OrderReview orderReview) {
+        this.id = id;
+        this.goodsReviewReplyContent = goodsReviewReplyContent;
+        this.goodsReviewReplyRD = goodsReviewReplyRD;
+        this.goodsReviewReplyMD = goodsReviewReplyMD;
+        this.orderReview = orderReview;
+    }
+
+
+    public GoodsReviewReply update(GoodsReviewReplyForm goodsReviewReplyForm){
+        this.goodsReviewReplyContent = goodsReviewReplyForm.getGoodsReviewReplyContent();
+        this.goodsReviewReplyMD=LocalDateTime.now();
+        return this;
+    }
 }

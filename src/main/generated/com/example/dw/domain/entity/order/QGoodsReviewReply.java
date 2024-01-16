@@ -32,8 +32,6 @@ public class QGoodsReviewReply extends EntityPathBase<GoodsReviewReply> {
 
     public final QOrderReview orderReview;
 
-    public final NumberPath<Integer> state = createNumber("state", Integer.class);
-
     public QGoodsReviewReply(String variable) {
         this(GoodsReviewReply.class, forVariable(variable), INITS);
     }
