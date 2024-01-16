@@ -95,7 +95,7 @@ $(document).ready(function (){
         let replyId=$(this).closest('.btns').find('.delete-reply-btn').data('replyid');
 
         if(confirm("삭제하시겠습니까?")){
-            deleteReply(replyId, function (){
+            deleteReply(replyId, orderReviewId,function (){
                 replyList(orderReviewId,getReplyList);
             });
 
@@ -144,11 +144,11 @@ function goodsReviewReplyForm(){
 
 }
 
-function deleteReply(replyId, callback){
+function deleteReply(replyId, orderReviewId, callback){
 
     $.ajax({
 
-        url : `/admins/deleteGoodsReviewReply/${replyId}`,
+        url : `/admins/deleteGoodsReviewReply/${replyId}/${orderReviewId}`,
         type: 'delete',
         success : function (){
 

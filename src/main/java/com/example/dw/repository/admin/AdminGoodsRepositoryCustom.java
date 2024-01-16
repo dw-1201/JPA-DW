@@ -18,4 +18,5 @@ public interface AdminGoodsRepositoryCustom {
     AdminGoodsReviewReplyDto goodsReviewReplyList(Long orderReviewId);
 
 
+
 }

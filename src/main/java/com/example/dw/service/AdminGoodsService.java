@@ -279,6 +279,8 @@ public class AdminGoodsService {
 
         adminGoodsReviewRepository.save(goodsReviewReplyForm.toEntity());
 
+        adminGoodsReviewRepository.updateOrderReviewState(goodsReviewReplyForm.getOrderReviewId());
+
     }
 
     //상퓸 리뷰 답변 가져오기
@@ -290,8 +292,10 @@ public class AdminGoodsService {
 
     //상품 리뷰 답변 삭제
     @Transactional
-    public void goodsReviewReplyDelete(Long replyId){
+    public void goodsReviewReplyDelete(Long replyId, Long orderReviewId){
 
+
+        adminGoodsReviewRepository.deleteOrderReviewState(orderReviewId);
         adminGoodsReviewRepository.deleteById(replyId);
 
     }

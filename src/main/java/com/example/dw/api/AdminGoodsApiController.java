@@ -162,10 +162,11 @@ public class AdminGoodsApiController {
     }
 
     //관리자 상품 리뷰 답변 삭제
-    @DeleteMapping("/deleteGoodsReviewReply/{replyId}")
-    public void deleteGoodsReviewReply(@PathVariable("replyId") Long replyId){
+    @DeleteMapping("/deleteGoodsReviewReply/{replyId}/{orderReviewId}")
+    public void deleteGoodsReviewReply(@PathVariable("replyId") Long replyId,
+                                       @PathVariable("orderReviewId") Long orderReviewId){
 
-        adminGoodsService.goodsReviewReplyDelete(replyId);
+        adminGoodsService.goodsReviewReplyDelete(replyId, orderReviewId);
 
     }
 
