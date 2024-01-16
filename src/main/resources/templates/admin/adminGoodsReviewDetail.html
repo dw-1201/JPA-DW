@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,7 +36,7 @@
         
            <div class="goods-img-reg-section">
                 <div class="goods-stan-info-title">
-                    <h4>상품 기본 정보</h4>
+                    <h4>리뷰 상품 간략 정보</h4>
                 </div>
                     
                     <div class="goods-info-container">
@@ -53,43 +53,28 @@
                             <tr>
                                 <th class="goods-table-column" scope="row">카테고리</th>
                                 <td>
-                                    <select name="goods-cate" id="goods-cate" disabled >
-                                        <option value="1">간식</option>
-                                        <option value="2">영양제</option>
-                                        <option value="3">장난감</option>
-                                        <option value="4">간식</option>
-                                        <option value="5">간식</option>
+                                    <select id="goods-cate" name="search-cate" disabled>
+                                        <option th:selected="${detail.goodsInfo.goodsCategory=='간식'}" value="간식">간식</option>
+                                        <option th:selected="${detail.goodsInfo.goodsCategory=='영양제'}" value="영양제">영양제</option>
+                                        <option th:selected="${detail.goodsInfo.goodsCategory=='위생용품'}" value="위생용품">위생용품</option>
+                                        <option th:selected="${detail.goodsInfo.goodsCategory=='이동장'}" value="이동장">이동장</option>
+                                        <option th:selected="${detail.goodsInfo.goodsCategory=='장난감'}" value="장난감">장난감</option>
+                                        <option th:selected="${detail.goodsInfo.goodsCategory=='산책용품'}" value="산책용품">산책용품</option>
                                     </select>
                                 </td>
                                 <th scope="row" rowspan="6">상품 설명</th>
-                                <td rowspan="6" class="goods-detail-textarea"><textarea id="goods-detail" name="goods-detail" rows="4" disabled></textarea></td>
+                                <td rowspan="6" class="goods-detail-textarea"><textarea id="goods-detail" name="goods-detail" rows="4" readonly th:text="${detail.goodsInfo.goodsDetailContent}" ></textarea></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">상품명</th>
-                                <td><input type="text" name="goods-name" id="goods-name" maxlength="30" disabled/></td>
+                                <td><input type="text" name="goods-name" id="goods-name" th:value="${detail.goodsInfo.goodsName}" readonly/></td>
                             </tr>
+
                             <tr>
-                                <th class="goods-table-column" scope="row">상품 수량</th>
-                                <td><input type="number" name="goods-quantity" id="goods-quantity" min="0" disabled/></td>
+                                <th class="goods-table-column" scope="row">상품 평점</th>
+                                <td><input type="text" name="goods-price" id="goods-price" readonly th:value="${detail.goodsInfo.ratingAvg + ' / 5'}"/></td>
                             </tr>
-                            <tr>
-                                <th class="goods-table-column" scope="row">상품 가격</th>
-                                <td><input type="number" name="goods-price" id="goods-price" min="0" disabled/></td>
-                            </tr>
-                            <tr>
-                                <th class="goods-table-column" scope="row">제조국(원산지)</th>
-                                <td><input type="text" name="goods-made-in" id="goods-made-in" disabled/></td>
-                            </tr>
-                            <tr>
-                                <th class="goods-table-column" scope="row">인증허가</th>
-                                <td><input type="text" name="goods-certify" id="goods-certify" disabled/></td>
-                            </tr>
-                            <tr>
-                                <th class="goods-table-column" scope="row">최초 등록일</th>
-                                <td><input type="text" name="goods-reg-date" id="goods-reg-date" disabled/></td>
-                                <th class="goods-table-column" scope="row">마지막 수정일</th>
-                                <td><input type="text" name="goods-last-modify-date" id="goods-last-modify-date" disabled/></td>
-                            </tr>
+
                            
 
                         </table>
@@ -102,47 +87,37 @@
                             <ul class="image-lists-ul">
                                 <li class="goods-main-img-p">
                                     <div class="img-title">
-                                        <img src="/img/thumbnail.png" alt="goods-main-img">
+                                        <img th:src="'/jpa_dw/goods/' + ${detail.goodsInfo.goodsImg.goodsMainImgPath} +'/' + ${detail.goodsInfo.goodsImg.goodsMainImgUuid} +'_'+${detail.goodsInfo.goodsImg.goodsMainImgName} "alt="goods-main-img">
                                         <span>상품 메인 사진</span>
                                     </div>
                                 </li>
                                 <li class="goods-review-content-container">
-                                   <div class="goods-reivew-content">
+                                   <div class="goods-review-content">
                                         <div class="review-imgs-slide">
                                         
                                             <div class="review-imgs">
-                                                <div class="review-img">
-                                                    <img src="/admin/img/리뷰1.jpg" alt="review-img-1">
-                                                <span>리뷰 사진 1</span>
+                                                <div class="review-img"  th:each="reviewImgs, iterState : ${detail.reviewContent.reviewImg}">
+                                                    <img th:src="'/jpa_dw/reviewimg/' + ${reviewImgs.oderReviewImgPath} + '/' + ${reviewImgs.orderReviewImgUuid} +'_'+ ${reviewImgs.orderReviewImgName}" alt="review-img-1">
+                                                <span th:text="'리뷰 사진 ' + ${iterState.index+1}"></span>
                                                 </div>
-                                                <div class="review-img">
-                                                    <img src="/admin/img/리뷰2.jpg" alt="review-img-1">
-                                                <span>리뷰 사진 2</span>
-                                                </div>
-                                                <div class="review-img">
-                                                    <img src="/admin/img/리뷰3.jpg" alt="review-img-1">
-                                                <span>리뷰 사진 3</span>
-                                                </div>
+
                                             </div>
                                         </div>
+
                                         <div class="content">
-                                            <h5>리뷰 내용</h5>
-                                            <p>sdfsdfsdfsdfsdfsdfsdfㄴ아리ㅓㄴ이라ㅓㄴㅇ리ㅏㄴ어리낭러니아런이ㅏ런ㅇ리ㅏㄴ어리ㅏㄴㅇ러ㅣㅏㄴ아러ㅣㄴㅇ런이ㅏ런ㅇ리ㅏㄴ어리ㅏㄴㅇ러ㅣ나러니아러닝ㄹ</p>
+                                            <div class="content-flex">
+                                                <h5>리뷰 내용</h5>
+                                                <h6>작성자 <span th:text="${detail.reviewContent.userAccount}"></span></h6>
+                                                <h6>작성일 <span th:text="${detail.reviewContent.orderReviewRd}"></span></h6>
+                                            </div>
+                                            <p th:text="${detail.reviewContent.orderReviewContent}"></p>
                                         </div>
                                         <button class="review-imgs-btn">리뷰 사진 열기</button>
                                         
                                     </div>
                                    
                                     <div class="goods-review-reply-container">
-                                        <h5>답변 내용</h5>
-                                        <!-- 답변이 없으면 '등록된 답변이 없습니다.'라는 문구가 나옴 -->
-                                            <div class="if-reply">
-                                                <div class="review-reply">답변이 없으면 등록된 답변이 없습니다로 처리</div>
-                                                <div class="btns btn-none">
-                                                    <button class="modify-reply-btn btn">수정</button>
-                                                    <button class="delete-reply-btn btn">삭제</button>
-                                                </div>
-                                            </div>
+
                                     </div>
                                 </li>
                             </ul>
@@ -153,20 +128,13 @@
         </div>
 
         <!-- 답변이 없을 때만 나타남 -->
-        <div class="admin-main-wrap" style="margin-top: 10px;">
-            <div class="reply-section">
-                <form action="" method="" id="reply-form">
-                    <textarea name="reply-content" id="reply-content" rows="0" cols="20" wrap="hard" >답변을 달면 이 영역은 사라짐
-                    </textarea>
-                    <div class="reply-btn">
-                        <button class="reply-section-btn btn">답변제출</button>
-                    </div>
-                </form>
-            </div>
+        <div class="admin-main-wrap admin-reply-section" style="margin-top: 10px;">
+
         </div>
     </div>
 </main>
 </div>
+<input type="hidden" th:value="${detail.orderReviewId}" class="orderReviewId"/>
 
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script type="module" src="/admin/js/adminGoodsReviewDetail.js"></script>

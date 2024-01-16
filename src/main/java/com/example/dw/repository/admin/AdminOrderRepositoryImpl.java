@@ -3,6 +3,7 @@ package com.example.dw.repository.admin;
 import com.example.dw.domain.dto.admin.*;
 import com.example.dw.domain.form.AdminSearchOrderForm;
 import com.example.dw.domain.form.SearchForm;
+import com.querydsl.core.Tuple;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -13,11 +14,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
-import java.time.DateTimeException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +52,7 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
                 orders.users.userAccount,
                 orders.orderUserAddressNumber,
                 orders.orderAddressNormal,
-                orders.orderAddressDetail,
+                orders.orderAddressDetails,
                 orders.orderUserEmail,
                 orders.orderUserName,
                 orders.orderUserPhoneNumber,
@@ -114,11 +114,13 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
         AdminOrderDetailDto adminOrderDetailDto = jpaQueryFactory.select(new QAdminOrderDetailDto(
                 orders.users.id,
                 orders.users.userAccount,
+                orders.orderUserName,
                 orders.orderUserEmail,
                 orders.orderUserPhoneNumber,
                 orders.orderUserAddressNumber,
                 orders.orderAddressNormal,
-                orders.orderAddressDetail,
+                orders.orderAddressDetails,
+                orders.orderMemo,
                 orders.orderRegisterDate
                 ))
                 .from(orders)
@@ -134,21 +136,77 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
                     ,
             new AdminOrderDetailDto(
                     adminOrderDetailDto.getUserId(), adminOrderDetailDto.getOrderAccount(),
+                    adminOrderDetailDto.getOrderUserName(),
                     adminOrderDetailDto.getOderEmail(),
                     adminOrderDetailDto.getOrderPhone(), adminOrderDetailDto.getOrderZipcode(),
                     adminOrderDetailDto.getOrderAddress(), adminOrderDetailDto.getOrderAddressDetail(),
+                    adminOrderDetailDto.getOrderMemo(),
                     adminOrderDetailDto.getOrderDate(),
                     adminOrderDetailGoodsList)
             );
     }
 
+    //일별 주문 건수
+    @Override
+    public List<AdminWeeklyOrderState> weeklyOrderState() {
+        LocalDate nowDate = LocalDate.now();
+        LocalDate startWeeklyDateTime = nowDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        LocalDate endWeeklyDateTime = nowDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+
+        List<LocalDate> weeklyDates = new ArrayList<>();
+        LocalDate current = startWeeklyDateTime;
+
+        // 주간 요일 입력
+        while (!current.isAfter(endWeeklyDateTime)) {
+            weeklyDates.add(current);
+            current = current.plusDays(1);
+        }
+
+        Map<LocalDate, Long> weeklySales = jpaQueryFactory.select(
+                orders.orderRegisterDate,  // 이 부분을 그대로 사용
+                orders.count()
+        )
+                .from(orders)
+                .where(orders.orderRegisterDate.between(startWeeklyDateTime.atStartOfDay(), endWeeklyDateTime.atTime(23, 59, 59)))
+                .orderBy(orders.orderRegisterDate.desc())
+                .groupBy(orders.orderRegisterDate)  // 이 부분을 변경하지 않음
+                .fetch()
+                .stream().collect(Collectors.toMap(
+                        tuple -> tuple.get(orders.orderRegisterDate).toLocalDate(),
+                        tuple -> tuple.get(orders.count()),
+                        Long::sum   //같은 키의 값들을 모두 더함 즉, 날짜가 같으면 걍 다 더함
+                ));
+
+        for (LocalDate date : weeklyDates) {
+            weeklySales.putIfAbsent(date, 0L);
+        }
+
+        return weeklySales.entrySet().stream()
+                .map(sales -> new AdminWeeklyOrderState(sales.getKey(), sales.getValue()))
+                .collect(Collectors.toList());
+    }
 
 
 
+    //카테고리별 상품 판매 비율
+    @Override
+    public List<GoodsSaleByCategory> saleByCategory() {
+        //집합함수 결과반환타입은 보통 Tuple
+        List<Tuple> tuples = jpaQueryFactory
+                .select(
+                        goods.goodsCategory,
+                        goods.saleCount.sum().coalesce(0) //null이면 0을 반환
+                )
+                .from(goods)
+                .groupBy(goods.goodsCategory)
+                .fetch();
 
-
-
-
+        return tuples.stream()
+                .map(tuple ->new GoodsSaleByCategory(
+                        tuple.get(goods.goodsCategory),
+                        tuple.get(goods.saleCount.sum().coalesce(0))))
+                .collect(Collectors.toList());
+    }
 
 
 

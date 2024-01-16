@@ -30,8 +30,9 @@ public class Goods {
     private String goodsMade;
     private String goodsCertify;
     private String goodsDetailContent;
+
     @CreatedDate
-    private LocalDateTime goodsRegisterDate ;
+    private LocalDateTime goodsRegisterDate;
     @LastModifiedDate
     private LocalDateTime goodsModifyDate;
 

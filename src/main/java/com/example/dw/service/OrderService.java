@@ -43,6 +43,8 @@ public class OrderService {
             Cart cartId = cartRepository.findCartIdByUsersId(userId);
 
             List<GoodsPayListFrom> goodsPayListDtoList = (List<GoodsPayListFrom>)httpSession.getAttribute("goodsPayList");
+
+
             for(GoodsPayListFrom goodsPayListFrom : goodsPayListDtoList)
             {
                 goodsPayListFrom.setOrderId(orderId);

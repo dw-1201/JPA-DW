@@ -2,6 +2,8 @@ package com.example.dw.api;
 
 import com.example.dw.domain.dto.admin.AdminOrderDetailResultDto;
 import com.example.dw.domain.dto.admin.AdminOrderListResultDto;
+import com.example.dw.domain.dto.admin.AdminWeeklyOrderState;
+import com.example.dw.domain.dto.admin.GoodsSaleByCategory;
 import com.example.dw.domain.form.AdminSearchOrderForm;
 import com.example.dw.service.AdminOrderService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admins")
@@ -23,6 +27,20 @@ public class AdminOrderApiController {
 
     private final AdminOrderService adminOrderService;
 
+
+    //관리자 페이지 일별 주문 현황
+    @GetMapping("/weeklyOrderState")
+    public List<AdminWeeklyOrderState> weeklyOrderStateList(){
+
+        return adminOrderService.weeklyOrderStateList();
+    }
+
+
+    //상품 카테고리별 판매 비율
+    @GetMapping("/salesByCategory")
+    public List<GoodsSaleByCategory> salesByCategory(){
+        return adminOrderService.saleByCategory();
+    }
 
     //관리자 페이지 주문 리스트
     @GetMapping("/orderList/{page}")

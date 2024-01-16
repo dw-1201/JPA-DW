@@ -1,5 +1,6 @@
-import * as list from './module/list.js'
+import * as list from './module/list.js';
 import  * as page from './module/pagination.js';
+import * as form from './module/form.js';
 
 
 //등록 페이지 이동
@@ -51,12 +52,12 @@ function showGoodsList(result){
                         <td>${r.goodsPrice}원</td>
                         <td>${r.goodsQuantity - r.goodsSaleCount} ea</td>
                         <td>${r.goodsSaleCount} ea</td>
-                        <td>${r.goodsRegisterDate}</td>
+                        <td>${form.formatDates(r.goodsRegisterDate)}</td>
                         `;
         if(r.goodsRegisterDate == r.goodsModifyDate){
            text += `    <td>-</td>`;
         } else {
-            text += `   <td>${r.goodsModifyDate}</td>`;
+            text += `   <td>${form.formatDates(r.goodsModifyDate)}</td>`;
 
         }
         text+=`

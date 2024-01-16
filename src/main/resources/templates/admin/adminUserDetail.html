@@ -33,11 +33,14 @@
                 <h4>회원 기본 정보</h4>
             </div>
             <div class="user-stan-info" >
-                <div class="user-img">
-                    <img src="/user/img/user-default-img.png" alt="user-img" />
+                <div class="user-img" th:if="${userDetailInfo.adminUserDetailInfo.adminUserDetailImgDto.userImgId == null}">
+                    <img  src="/user/img/user-default-img.png" alt="user-img" />
+                </div>
+                <div class="user-img" th:unless="${userDetailInfo.adminUserDetailInfo.adminUserDetailImgDto.userImgId == null}">
+                    <img th:src="'/jpa_dw/userfile/' + ${userDetailInfo.adminUserDetailInfo.adminUserDetailImgDto.userImgPath} +'/' + ${userDetailInfo.adminUserDetailInfo.adminUserDetailImgDto.userImgUuid}+'_'+${userDetailInfo.adminUserDetailInfo.adminUserDetailImgDto.userImgName}" alt="user-img" />
                 </div>
                 <div class="user-info first-section" >
-                    <table class="user-info-table"  cellspacing="0" th:each="userDetail : ${detail}" >
+                    <table class="user-info-table"  cellspacing="0"  >
                         <tr>
                             <colgroup>
                                 <col style="width: 100px;">
@@ -48,34 +51,34 @@
                         </tr>
                         <tr >
                             <th scope="row">아이디</th>
-                            <td th:text="${userDetail.userAccount}"></td>
+                            <td th:text="${userDetailInfo.adminUserDetailInfo.userAccount}"></td>
                             <th scope="row" rowspan="3">주소</th>
-                            <td class="postal-code" th:text="${userDetail.zipCode}"></td>
+                            <td class="postal-code" th:text="${userDetailInfo.adminUserDetailInfo.zipCode}"></td>
                         </tr>
                         <tr>
                             <th scope="row">이름</th>
-                            <td th:text="${userDetail.userName}"></td>
-                            <td class="address" th:text="${userDetail.address}"></td>
+                            <td th:text="${userDetailInfo.adminUserDetailInfo.userName}"></td>
+                            <td class="address" th:text="${userDetailInfo.adminUserDetailInfo.address}"></td>
                         </tr>
                         <tr>
                             <th scope="row">닉네임</th>
-                            <td th:text="${userDetail.userNickName}"></td>
-                            <td class="detail-address" th:text="${userDetail.detail}">3층 3333호</td>
+                            <td th:text="${userDetailInfo.adminUserDetailInfo.userNickName}"></td>
+                            <td class="detail-address" th:text="${userDetailInfo.adminUserDetailInfo.detail}">3층 3333호</td>
                         </tr>
                         <tr>
                             <th scope="row">휴대전화</th>
-                            <td th:text="${userDetail.userPhone}"></td>
+                            <td th:text="${userDetailInfo.adminUserDetailInfo.userPhone}"></td>
                             <th scope="row" rowspan="3">자기소개</th>
-                            <td rowspan="3" id="self-intro" th:text="${userDetail.intro}"></td>
+                            <td rowspan="3" id="self-intro" th:text="${userDetailInfo.adminUserDetailInfo.intro}"></td>
                             
                         </tr>
                         <tr>
                             <th scope="row">이메일</th>
-                            <td th:text="${userDetail.userEmail}"></td>
+                            <td th:text="${userDetailInfo.adminUserDetailInfo.userEmail}"></td>
                         </tr>
                         <tr>
                             <th scope="row">가입일</th>
-                            <td th:text="${userDetail.userJoinDate}"></td>
+                            <td th:text="${userDetailInfo.adminUserDetailInfo.userJoinDate}"></td>
                         </tr>
                     </table>
                 </div>
@@ -90,69 +93,44 @@
              <div class="user-extra-title">
                 <h4>등록 반려견 정보</h4>
             </div>
-            <div class="registerd-pet-info-container">
-                <dl class="registerd-pet-info-dl">
+            <div class="registerd-pet-info-container" th:if="${userDetailInfo.adminUserPetDetailDto[0].petId != null}">
+                <dl class="registerd-pet-info-dl" th:each="petInfo : ${userDetailInfo.adminUserPetDetailDto}">
                     <dt class="registerd-pet-img">
-                        <img src="/user/img/user-default-img.png" alt="pet-img" />
+                        <img th:if="${petInfo.adminUserPetImgDto == null}" src="/user/img/user-default-img.png" alt="pet-img" />
+                        <img th:if="${petInfo.adminUserPetImgDto != null}"
+                             th:src="'/jpa_dw/petimg/' + ${petInfo.adminUserPetImgDto.petImgPath} +'/' +${petInfo.adminUserPetImgDto.petImgUuid} +'_' +${petInfo.adminUserPetImgDto.petImgName}" alt="pet-img" />
                     </dt>
                     <dd class="registerd-pet-dd">
                         <div class="registerd-pet-detail-info">
                             <ul class="registerd-pet-detail-info-ul">
-                                <li class="pet-name">이름 : <span>구찌</span></li>
-                                <li class="pet-species">견종 : <span>말티즈</span></li>
-                                <li class="pet-birth">생일 : <span>2014-05-04</span></li>
-                                <li class="pet-gender">성별 : <span>남아</span></li>
-                                <li class="pet-x">중성화 여부 : 예 </li>
-                                <li class="pet-weight">몸무게 : 5.2kg </li>
-                            </ul>
-                        </div>
-                    </dd>
-                </dl>
-                <dl class="registerd-pet-info-dl">
-                    <dd class="registerd-pet-img">
-                        <img src="/user/img/user-default-img.png" alt="pet-img" />
-                    </dd>
-                    <dd class="registerd-pet-dd">
-                        <div class="registerd-pet-detail-info">
-                            <ul class="registerd-pet-detail-info-ul">
-                                <li class="pet-name">이름 : <span>구찌</span></li>
-                                <li class="pet-species">견종 : <span>말티즈</span></li>
-                                <li class="pet-birth">생일 : <span>2014-05-04</span></li>
-                                <li class="pet-gender">성별 : <span>남아</span></li>
-                                <li class="pet-x">중성화 여부 : 예 </li>
-                                <li class="pet-weight">몸무게 : 5.2kg </li>
-                            </ul>
-                        </div>
-                    </dd>
-                </dl>
-                <dl class="registerd-pet-info-dl">
-                    <dt class="registerd-pet-img">
-                        <img src="/user/img/user-default-img.png" alt="pet-img" />
-                    </dt>
-                    <dd class="registerd-pet-dd">
-                        <div class="registerd-pet-detail-info">
-                            <ul class="registerd-pet-detail-info-ul">
-                                <li class="pet-name">이름 : <span>구찌</span></li>
-                                <li class="pet-species">견종 : <span>말티즈</span></li>
-                                <li class="pet-birth">생일 : <span>2014-05-04</span></li>
-                                <li class="pet-gender">성별 : <span>남아</span></li>
-                                <li class="pet-x">중성화 여부 : 예 </li>
-                                <li class="pet-weight">몸무게 : 5.2kg </li>
+                                <li class="pet-name">이름 : <span th:text="${petInfo.name}">구찌</span></li>
+                                <li class="pet-species">견종 : <span th:text="${petInfo.petCategory}">말티즈</span></li>
+                                <li class="pet-birth">생일 : <span th:text="${petInfo.birthDate}">2014-05-04</span></li>
+                                <li class="pet-gender">성별 : <span th:text="${petInfo.petGender}"></span></li>
+                                <li class="pet-x">중성화 여부 : <span th:text="${petInfo.neutering}"></span> </li>
+                                <li class="pet-weight">몸무게 : <span th:text="${petInfo.weight +'kg'}"></span> </li>
                             </ul>
                         </div>
                     </dd>
                 </dl>
 
-
+            </div>
+            <div  th:if="${userDetailInfo.adminUserPetDetailDto[0].petId == null}" >
+                <p>등록된 반려견 정보가 없습니다.</p>
             </div>
         </div>
 
         <!-- 기타 회원 추가 정보 -->
         <div class="extra-wrap">
-            <div class="admin-main-wrap admin-extra-wrap" style="margin-top: 10px; width: 620px;">
+            <div class="admin-main-wrap admin-extra-wrap" style="margin-top: 10px; width: 620px;  height: 315px">
                 <div class="user-extra-title">
-                <h5>게시글</h5>
-                <p>총 게시글 : <span>5</span></p>
+                    <ul class="board-tap-ul">
+                        <li class="qna-btn active-btn"><a href=""><h5>QnA</h5></a></li>
+                        <li class="free-btn"><a href=""><h5>자유게시판</h5></a></li>
+                        <li class="walk-btn"><a href=""><h5>산책게시판</h5></a></li>
+
+                    </ul>
+                <p>총 게시글 : <span class="total-count">5</span></p>
             </div>
             <div class="community-info-container">
                 <table class="community-info-list">
@@ -162,54 +140,21 @@
                        <th width="40">조회수</th>
                        <th width="40">댓글수</th>
                     </tr>
-                    <tr>
-                        <td class="community-title" >냠냠이와 함께냠냠이와 함께냠냠이와 함께냠냠이와 함께냠냠이와 함께냠냠이와 함께</td>
-                        <td class="community-reg-date">2011-11-11</td>
-                        <td class="community-count">22</td>
-                        <td class="community-reply">10</td>
-                    </tr>
-                    <tr>
-                        <td class="community-title">냠냠이와 함께</td>
-                        <td class="community-reg-date">2011-11-11</td>
-                        <td class="community-count">22</td>
-                        <td class="community-reply">10</td>
-                    </tr>
-                    <tr>
-                        <td class="community-title">냠냠이와 함께</td>
-                        <td class="community-reg-date">2011-11-11</td>
-                        <td class="community-count">22</td>
-                        <td class="community-reply">10</td>
-                    </tr>
-                    <tr>
-                        <td class="community-title">냠냠이와 함께</td>
-                        <td class="community-reg-date">2011-11-11</td>
-                        <td class="community-count">22</td>
-                        <td class="community-reply">10</td>
-                    </tr>
-                    <tr>
-                        <td class="community-title">냠냠이와 함께</td>
-                        <td class="community-reg-date">2011-11-11</td>
-                        <td class="community-count">22</td>
-                        <td class="community-reply">10</td>
-                    </tr>
+                    <tbody class="extra-info-list">
+
+                    </tbody>
                 </table>
             </div>
             <div class="pagination-container">
-                <ul class="pagination-ul">
-                    <li><a href="#">&lt;</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">&gt;</a></li>
+                <ul class="pagination-ul board-pagination-ul">
+
                 </ul>
             </div>
         </div>
-        <div class="admin-main-wrap admin-extra-wrap" style="margin-top: 10px; width: 620px;">
+        <div class="admin-main-wrap admin-extra-wrap" style="margin-top: 10px; width: 620px; height: 315px">
             <div class="user-extra-title">
-                <h5>주문내역</h5>
-                <p>총 주문 금액 : <span>409,000원</span></p>
+                <h5 class="order-list-title">주문내역</h5>
+                <p>총 주문 금액 : <span class="total-price"></span></p>
 
             </div>
             <div class="community-info-container">
@@ -220,47 +165,15 @@
                        <th width="40">수량</th>
                        <th width="80">금액</th>
                     </tr>
-                    <tr>
-                        <td class="community-title" >냠냠이가 좋아하는 영양제</td>
-                        <td class="community-reg-date">2011-11-11</td>
-                        <td class="community-count">22</td>
-                        <td class="community-reply">19,000</td>
-                    </tr>
-                    <tr>
-                        <td class="community-title">냠냠이와 함께</td>
-                        <td class="community-reg-date">2011-11-11</td>
-                        <td class="community-count">22</td>
-                        <td class="community-reply">10</td>
-                    </tr>
-                    <tr>
-                        <td class="community-title">냠냠이와 함께</td>
-                        <td class="community-reg-date">2011-11-11</td>
-                        <td class="community-count">22</td>
-                        <td class="community-reply">10</td>
-                    </tr>
-                    <tr>
-                        <td class="community-title">냠냠이와 함께</td>
-                        <td class="community-reg-date">2011-11-11</td>
-                        <td class="community-count">22</td>
-                        <td class="community-reply">10</td>
-                    </tr>
-                    <tr>
-                        <td class="community-title">냠냠이와 함께</td>
-                        <td class="community-reg-date">2011-11-11</td>
-                        <td class="community-count">22</td>
-                        <td class="community-reply">10</td>
-                    </tr>
+                    <tbody class="order-list">
+
+
+                    </tbody>
                 </table>
             </div>
             <div class="pagination-container">
-                <ul class="pagination-ul">
-                    <li><a href="#">&lt;</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">&gt;</a></li>
+                <ul class="pagination-ul order-list-pagination">
+
                 </ul>
             </div>
         </div>
@@ -269,9 +182,10 @@
 </main>
 </div>
 
+    <input type="hidden" th:value="${userDetailInfo.adminUserDetailInfo.id}" id="userId"/>
 
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-<script src="/admin/js/adminUserDetail.js"></script>
+<script type="module" src="/admin/js/adminUserDetail.js"></script>
 <script src="/fragment/js/adminSide.js"></script>
 
 </body>

@@ -11,8 +11,8 @@ export function list(page,searchForm, name ,section, callback){
             console.log(result.content)
             console.log(result.pageable)
 
-            if(callback){
-                callback(result)
+            if (typeof callback === 'function') {
+                callback(result);
             }
 
 
@@ -22,6 +22,38 @@ export function list(page,searchForm, name ,section, callback){
 
     })
 }
+
+
+export function simpleList(name, section, urlPram1, urlPram2,  callback){
+
+    $.ajax({
+
+        url : `/${name}/${section}/${urlPram1}/${urlPram2}`,
+        type: 'get',
+        dataType:'json',
+        success : function (result){
+
+            console.log(result)
+
+            if(callback){
+                callback(result);
+            }
+
+        }, error : function (a,b,c){
+            console.error(c);
+        }
+    })
+
+}
+
+
+
+
+
+
+
+
+
 export function sliding(a,b){
         // Use event delegation to bind click event to a static parent element
         $(a).on('click', '.admin-notice-lists .rr', function() {

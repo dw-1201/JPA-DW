@@ -80,10 +80,11 @@
     height: 200px;
 }
 .free-registerd-imgs {
-    width:100% ;
+    width: 100%;
     display: grid;
     grid-gap: 5px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    place-items: center;
 }
 .free-info-img td {
     padding: 7px;
@@ -93,7 +94,7 @@
 }
 .free-info-img img {
     width: 100%;
-    height: 100%;
+    height: 250px;
 }
 
 

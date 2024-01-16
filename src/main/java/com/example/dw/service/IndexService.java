@@ -2,9 +2,11 @@ package com.example.dw.service;
 
 import com.example.dw.domain.dto.community.IndexWalkMateDto;
 import com.example.dw.domain.dto.goods.IndexGoodsByCateDto;
+import com.example.dw.domain.dto.index.WeeklyQnaList;
 import com.example.dw.repository.community.WalkingMateRepositoryCustom;
 import com.example.dw.repository.goods.GoodsRepositoryCustom;
 import com.example.dw.repository.goods.ShopRepositoryCustom;
+import com.example.dw.repository.index.IndexRepositoryCustom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,13 +21,12 @@ public class IndexService {
     private final WalkingMateRepositoryCustom walkingMateRepositoryCustom;
     private final GoodsRepositoryCustom goodsRepositoryCustom;
     private final ShopRepositoryCustom shopRepositoryCustom;
-
-    @Transactional
-    public List<IndexGoodsByCateDto> indexGoodsByCategory(String cate){
-
-        return goodsRepositoryCustom.indexGoodsListByCategory(cate);
-    }
-
+    private final IndexRepositoryCustom indexRepositoryCustom;
+    
+    
+    
+    
+   
     //산책글 리스트
     @Transactional
     public List<IndexWalkMateDto> indexWalkMateList(){
@@ -35,17 +36,22 @@ public class IndexService {
     }
 
 
-    //최근 본 상품
-//    @Transactional
-//    public List<RecentViewGoodsDto> recentViewGoods(HttpSession session){
-//
-//
-//        try{
-//            return shopRepositoryCustom.recentViewGoods(session);
-//
-//        }catch (NullPointerException e){
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
+    
+    //주간 인기글
+    //Qna Best3
+    @Transactional
+    public List<WeeklyQnaList> weeklyQnaList(){
+        return indexRepositoryCustom.weeklyQnaList();
+    }
+
+
+    
+    
+    //카테고리별 상품 리스트
+    @Transactional
+    public List<IndexGoodsByCateDto> indexGoodsByCategory(String cate){
+
+        return goodsRepositoryCustom.indexGoodsListByCategory(cate);
+    }
+
 }

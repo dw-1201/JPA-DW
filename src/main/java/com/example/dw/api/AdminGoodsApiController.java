@@ -1,12 +1,11 @@
 package com.example.dw.api;
 
 
-import com.example.dw.domain.dto.admin.AdminGoodsDetailResultDto;
-import com.example.dw.domain.dto.admin.AdminGoodsDto;
-import com.example.dw.domain.dto.admin.AdminGoodsQnaListDto;
-import com.example.dw.domain.dto.admin.AdminGoodsQueReplyDto;
+import com.example.dw.domain.dto.admin.*;
 import com.example.dw.domain.form.GoodsQueReplyForm;
+import com.example.dw.domain.form.GoodsReviewReplyForm;
 import com.example.dw.domain.form.SearchForm;
+import com.example.dw.domain.form.SearchReviewForm;
 import com.example.dw.repository.goods.GoodsRepositoryCustom;
 import com.example.dw.service.AdminGoodsService;
 import lombok.RequiredArgsConstructor;
@@ -15,10 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.DayOfWeek;
-import java.time.LocalDateTime;
-import java.time.temporal.TemporalAdjusters;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,13 +32,7 @@ public class AdminGoodsApiController {
         Page<AdminGoodsDto> result = goodsRepositoryCustom.findGoodsAll(pageable, searchForm);
 
 
-        //해당 날짜가 껴있는 전주 날짜 구하기
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime lastWeekStart = now.minusWeeks(1).with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).toLocalDate().atStartOfDay();
-        LocalDateTime lastWeekEnd = now.minusWeeks(1).with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)).toLocalDate().atTime(23, 59, 59);
 
-        System.out.println("Last week's start date: " + lastWeekStart);
-        System.out.println("Last week's end date: " + lastWeekEnd);
 
 
         return result;
@@ -137,5 +126,62 @@ public class AdminGoodsApiController {
     }
 
 
+    //관리자 상품 리뷰 리스트
+    @GetMapping("/goodsReviewList/{page}")
+    public Page<AdminGoodsReviewResultDto> goodsReviewList(@PathVariable("page") int page,
+                                                           SearchReviewForm searchReviewForm){
+
+        System.out.println(searchReviewForm.toString()+"!!!");
+        Pageable pageable = PageRequest.of(page, 15);
+
+        return adminGoodsService.reviewList(pageable, searchReviewForm);
+
+    }
+
+    //관리자 상품 리뷰 상세(통신용)
+    @GetMapping("/goodsReviewDetail/{orderReviewId}")
+    public AdminGoodsReviewDetailResultDto reviewDetail(@PathVariable("orderReviewId") Long orderReviewId){
+        return adminGoodsService.reviewDetail(orderReviewId);
+    }
+    
+    //관리자 상품 리뷰 답변 등록
+    @PostMapping("/addGoodsReviewReply")
+    public void addGoodsReviewReply(GoodsReviewReplyForm goodsReviewReplyForm){
+
+        System.out.println(goodsReviewReplyForm.toString()+"!#@!#!@");
+
+        adminGoodsService.addGoodsReviewReply(goodsReviewReplyForm);
+
+    }
+
+    //관리자 상품 리뷰 가져오기
+    @GetMapping("/goodsReviewReplyList/{orderReviewId}")
+    public AdminGoodsReviewReplyDto goodsReviewReply(@PathVariable("orderReviewId")Long orderReviewId){
+
+        return adminGoodsService.goodsReviewReplyList(orderReviewId);
+    }
+
+    //관리자 상품 리뷰 답변 삭제
+    @DeleteMapping("/deleteGoodsReviewReply/{replyId}/{orderReviewId}")
+    public void deleteGoodsReviewReply(@PathVariable("replyId") Long replyId,
+                                       @PathVariable("orderReviewId") Long orderReviewId){
+
+        adminGoodsService.goodsReviewReplyDelete(replyId, orderReviewId);
+
+    }
+
+    //관리자 상품 리뷰 답변 수정
+    @PatchMapping("/modifyingGoodsReviewReply")
+    public void modifyGoodsReviewReply(String modContent, Long id){
+        GoodsReviewReplyForm form = new GoodsReviewReplyForm();
+        form.setGoodsReviewReplyContent(modContent);
+        form.setId(id);
+
+
+        System.out.println(form.toString()+"!@#!@#!@#");
+
+        adminGoodsService.goodsReviewReplyModify(form);
+
+    }
 
 }

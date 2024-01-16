@@ -388,10 +388,11 @@
 .qna-community, .free-community{
 }
 .weekly-qna-ul {
-    display: flex;
+    display: grid;
     width: 450px;
-    justify-content: space-between;
     margin-top: 17px;
+    grid-template-columns: 1fr 1fr 1fr;
+    place-items: center;
 
 }
 
@@ -452,6 +453,7 @@
     font-size: 10px;
     width: 140px;
     height: 25px;
+    word-break: break-word;
 }
 
 .count {

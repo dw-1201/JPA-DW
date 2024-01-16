@@ -6,6 +6,10 @@ import com.example.dw.domain.entity.goods.GoodsQue;
 import com.example.dw.domain.entity.goods.GoodsQueReply;
 import com.example.dw.domain.form.GoodsForm;
 import com.example.dw.domain.form.GoodsQueReplyForm;
+import com.example.dw.domain.form.GoodsReviewReplyForm;
+import com.example.dw.domain.form.SearchReviewForm;
+import com.example.dw.repository.admin.AdminGoodsRepositoryCustom;
+import com.example.dw.repository.admin.AdminGoodsReviewRepository;
 import com.example.dw.repository.goods.GoodsQueReplyRepository;
 import com.example.dw.repository.goods.GoodsQueRepository;
 import com.example.dw.repository.goods.GoodsRepository;
@@ -32,6 +36,8 @@ import static java.util.stream.Collectors.*;
 @RequiredArgsConstructor
 public class AdminGoodsService {
 
+    private final AdminGoodsReviewRepository adminGoodsReviewRepository;
+    private final AdminGoodsRepositoryCustom adminGoodsRepositoryCustom;
     private final GoodsQueRepository goodsQueRepository;
     private final GoodsQueReplyRepository goodsQueReplyRepository;
     private final GoodsRepositoryCustom goodsRepositoryCustom;
@@ -53,13 +59,6 @@ public class AdminGoodsService {
     public AdminGoodsDetailResultDto goodsDetail(Long goodsId){
 
        List<AdminGoodsDetailDto> lists = goodsRepositoryCustom.findGoodsById(goodsId);
-//
-//        lists.stream().collect(groupingBy(r->new AdminGoodsDetailResultDto(r.getId(),r.getGoodsName(), r.getGoodsQuantity(), r.getGoodsPrice(), r.getGoodsMade(), r.getGoodsCertify(), r.getGoodsDetailContent()
-//        r.getGoodsRegisterDate(),r.getGoodsModifyDate(), r.getGoodsCategory(), r.getGoodsMainImgName(), r.getGoodsMainImgPath(), r.getGoodsMainImgUuid()), Collectors.mapping(r->new AdminGoodsDetailImgDto(
-//                r.getId(), r.getGoodsDetailImgName(), r.getGoodsDetailImgPath(), r.getGoodsDetailImgUuid(), r.getGoodsDetailImgId()),toList()
-//        ))).entrySet().stream().map(e->new AdminGoodsDetailResultDto(e.getKey().getId(), e.getKey().getGoodsName(), e.getKey().getGoodsQuantity(), e.getKey().getGoodsPrice(), e.getKey().getGoodsMade(), e.getKey().getGoodsCertify(),
-//                e.getKey().getGoodsDetailContent(), e.getKey().getGoodsRegisterDate(), e.getKey().getGoodsModifyDate(), e.getKey().getGoodsCategory(), e.getKey().getGoodsMainImgName(),
-//                e.getKey().getGoodsMainImgPath(), e.getKey().getGoodsMainImgUuid(), e.getValue())).collect(Collectors.toList());
 
         Map<AdminGoodsDetailResultDto, List<AdminGoodsDetailImgDto>> groupedItems =
                 lists.stream()
@@ -252,6 +251,63 @@ public class AdminGoodsService {
 
         goodsQueReplyRepository.deleteById(replyId);
 
+
+    }
+
+
+    //상품 리뷰 리스트
+    @Transactional
+    public Page<AdminGoodsReviewResultDto> reviewList(Pageable pageable, SearchReviewForm searchReviewForm){
+
+        return adminGoodsRepositoryCustom.reviewList(pageable, searchReviewForm);
+    }
+
+    //상품 리뷰 상세보기
+    @Transactional
+    public AdminGoodsReviewDetailResultDto reviewDetail(Long orderReviewId){
+
+
+
+        return Optional.ofNullable(adminGoodsRepositoryCustom.goodsReviewDetail(orderReviewId))
+                .orElseThrow(()->{throw new IllegalArgumentException("정보없음");});
+    }
+
+
+    //상품 리뷰 답변 등록
+    @Transactional
+    public void addGoodsReviewReply(GoodsReviewReplyForm goodsReviewReplyForm){
+
+        adminGoodsReviewRepository.save(goodsReviewReplyForm.toEntity());
+
+        adminGoodsReviewRepository.updateOrderReviewState(goodsReviewReplyForm.getOrderReviewId());
+
+    }
+
+    //상퓸 리뷰 답변 가져오기
+    @Transactional
+    public AdminGoodsReviewReplyDto goodsReviewReplyList(Long orderReviewId){
+        return adminGoodsRepositoryCustom.goodsReviewReplyList(orderReviewId);
+    }
+
+
+    //상품 리뷰 답변 삭제
+    @Transactional
+    public void goodsReviewReplyDelete(Long replyId, Long orderReviewId){
+
+
+        adminGoodsReviewRepository.deleteOrderReviewState(orderReviewId);
+        adminGoodsReviewRepository.deleteById(replyId);
+
+    }
+
+    //상품 리뷰 답변 수정
+    @Transactional
+    public void goodsReviewReplyModify(GoodsReviewReplyForm goodsReviewReplyForm){
+
+
+        adminGoodsReviewRepository.updateReviewReply
+                (goodsReviewReplyForm.getGoodsReviewReplyContent(),
+                        goodsReviewReplyForm.getId());
 
     }
 }

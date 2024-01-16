@@ -2,6 +2,7 @@ package com.example.dw.controller;
 
 import com.example.dw.domain.dto.admin.AdminGoodsDetailResultDto;
 import com.example.dw.domain.dto.admin.AdminGoodsQueDetailDto;
+import com.example.dw.domain.dto.admin.AdminGoodsReviewDetailResultDto;
 import com.example.dw.domain.form.GoodsForm;
 import com.example.dw.service.AdminGoodsService;
 import com.example.dw.service.FileService;
@@ -128,18 +129,11 @@ public class AdminGoodsController {
         return new RedirectView("/admin/goodsList");
     }
 
-
+    //상품 문의 리스트
     @GetMapping("/goodsQna")
     public String goodsQna(){
         return "admin/adminGoodsQue";
     }
-
-    @GetMapping("/goodsReview")
-    public String goodsReview(){
-        return "admin/adminGoodsReview";
-    }
-
-
 
 
     //상품 문의 상세보기
@@ -153,9 +147,27 @@ public class AdminGoodsController {
 
         detail.ifPresent(details -> model.addAttribute("details", details));
 
-
         return "/admin/adminGoodsQueDetail";
 
     }
+
+
+    //상품 리뷰 리스트
+    @GetMapping("/goodsReview")
+    public String goodsReview(){
+
+        return "admin/adminGoodsReview";
+    }
+
+    //상품 리뷰 상세
+    @GetMapping("/goodsReviewDetail/{orderReviewId}")
+    public String goodsReviewDetail(@PathVariable("orderReviewId") Long orderReviewId, Model model){
+
+        AdminGoodsReviewDetailResultDto detail = adminGoodsService.reviewDetail(orderReviewId);
+        model.addAttribute("detail", detail);
+
+        return "/admin/adminGoodsReviewDetail";
+    }
+
 
 }

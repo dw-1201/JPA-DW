@@ -34,17 +34,14 @@
                 <h4>주문 정보</h4>
             </div>
             <div class="order-stan-info">
-                <div class="order-img">
-                    <img src="/user/img/user-default-img.png" alt="order-img" />
-                </div>
                 <div class="order-info first-section">
                     <table class="order-info-table"  cellspacing="0">
                         <tr>
                             <colgroup>
                                 <col style="width: 100px;">
-                                <col style="width: 415px;">
+                                <col style="width: 530px;">
                                 <col style="width: 100px;">
-                                <col style="width: 415px;">
+                                <col style="width: 530px;">
                             </colgroup>
                         </tr>
                         <tr>
@@ -55,7 +52,7 @@
                         </tr>
                         <tr>
                             <th scope="row">주문자명</th>
-                            <td ></td>
+                            <td th:text="${orderDetail.adminOrderDetailDto.orderUserName}"></td>
                             <td class="address" th:text="${orderDetail.adminOrderDetailDto.orderAddress}">서울특별시 노원구</td>
                         </tr>
                         <tr>
@@ -70,6 +67,10 @@
                             <td class="order-date"></td>
                            <input type="hidden" th:value="${orderDetail.adminOrderDetailDto.orderDate}" id="orderDate"/>
                             
+                        </tr>
+                        <tr>
+                            <th>주문 메모</th>
+                            <td colspan="3" class="order-memo" th:text="${orderDetail.adminOrderDetailDto.orderMemo}"></td>
                         </tr>
                     </table>
                 </div>
@@ -87,7 +88,9 @@
             <div class="ordered-goods-info-container">
                 <dl class="ordered-goods-info-dl" th:each="orderGoodsList : ${orderDetail.adminOrderDetailDto.adminOrderDetailGoodsListDtoList}">
                     <dt class="ordered-goods-img">
+                        <a th:href="@{/admin/detail/{id} (id=${orderGoodsList.orderGoodsId})}">
                         <img th:src="'/jpa_dw/goods/' + ${orderGoodsList.orderGoodsMainImgPath} + '/' + ${orderGoodsList.orderGoodsMainImgUuid} +'_' + ${orderGoodsList.orderGoodsMainImgName}" alt="ordered-goods-img" />
+                        </a>
                     </dt>
                     <dd class="ordered-goods-dd">
                         <div class="ordered-goods-detail-info">
