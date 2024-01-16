@@ -16,6 +16,10 @@ import java.util.stream.Collectors;
 import static com.example.dw.domain.entity.freeBoard.QFreeBoard.freeBoard;
 import static com.example.dw.domain.entity.freeBoard.QFreeBoardImg.freeBoardImg;
 import static com.example.dw.domain.entity.user.QUsers.users;
+import static com.example.dw.domain.entity.user.QUserFile.userFile;
+import static com.example.dw.domain.entity.freeBoard.QFreeBoardComment.freeBoardComment;
+
+
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
@@ -222,5 +226,91 @@ public class FreeBoardRepositoryImpl implements FreeBoardRepositoryCustom{
                 .from(freeBoardImg)
                 .where(freeBoardImg.freeBoard.id.eq(freeBoardId))
                 .fetch();
+    }
+
+
+    @Override
+    public Page<MyFreeBoardResultListDto> findAllById(Pageable pageable,Long userId) {
+
+        List<MyFreeBoardDto> contents = jpaQueryFactory
+                .select(new QMyFreeBoardDto(
+                        freeBoard.id,
+                        freeBoard.freeBoardTitle,
+                        freeBoard.freeBoardContent,
+                        users.id,
+                        users.userAccount,
+                        users.userNickName,
+                        userFile.id,
+                        userFile.route,
+                        userFile.name,
+                        userFile.uuid
+                ))
+                .from(freeBoard)
+                .leftJoin(freeBoard.users,users)
+                .leftJoin(users.userFile,userFile)
+                .where(users.id.eq(userId))
+                .orderBy(freeBoard.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+
+        Long counts = jpaQueryFactory
+                .select(freeBoard.count())
+                .from(freeBoard)
+                .where(users.id.eq(userId))
+                .fetchOne();
+
+        List<MyFreeBoardResultListDto> result = contents.stream().map(r ->{
+
+            Long commentCounts = jpaQueryFactory
+                    .select(freeBoardComment.id.count())
+                    .from(freeBoardComment)
+                    .where(freeBoard.id.eq(r.getId()))
+                    .fetchOne();
+
+            System.out.println("[댓글 수 ] : "+ commentCounts);
+
+            List<FreeBoardImgDto> freeBoardImgDtos = jpaQueryFactory
+                    .select(new QFreeBoardImgDto(
+                            freeBoardImg.id,
+                            freeBoardImg.freeBoardImgRoute,
+                            freeBoardImg.freeBoardImgName,
+                            freeBoardImg.freeBoardImgUuid,
+                            freeBoard.id
+                    ))
+                    .from(freeBoardImg)
+                    .leftJoin(freeBoardImg.freeBoard,freeBoard)
+                    .where(freeBoard.id.eq(r.getId()))
+                    .fetch();
+
+            List<FreeBoardImgDto> freeBoardImgDto = freeBoardImgDtos.stream().
+                    map(freeBoardImg -> new FreeBoardImgDto(
+                            freeBoardImg.getId(),
+                            freeBoardImg.getFreeBoardImgRoute(),
+                            freeBoardImg.getFreeBoardImgName(),
+                            freeBoardImg.getFreeBoardImgUuid(),
+                            freeBoardImg.getFreeBoarId()
+                    )).collect(toList());
+
+                return new MyFreeBoardResultListDto(
+                        r.getId(),
+                        r.getFreeBoardTitle(),
+                        r.getFreeBoardContent(),
+                        r.getUserId(),
+                        r.getUserAccount(),
+                        r.getUserNickName(),
+                        r.getUserFileId(),
+                        r.getRoute(),
+                        r.getName(),
+                        r.getUuid(),
+                        commentCounts,
+                        freeBoardImgDto
+                );
+        }).collect(toList());
+
+        System.out.println(result.toString()+" 내가 작성한 자유게시판 입니다.");
+
+    return new PageImpl<>(result,pageable,counts);
     }
 }
