@@ -123,4 +123,13 @@ public class QnaService {
 
     }
 
+
+    @Transactional
+    public void modifyQuestionComment(QuestionCommentForm questionCommentForm){
+
+        questionCommentRepository.updateQuestionComment(questionCommentForm.getQuestionCommentContent(),questionCommentForm.getId());
+
+    }
+
+
 }

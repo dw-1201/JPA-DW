@@ -502,3 +502,81 @@ main{
     width: 120px;
     bottom: 26px;
     right: 26px;}
+
+.modify-reply-content {
+    width: 890px;
+    height: 20px;
+    resize: none;
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    border-right: none;
+    border-bottom: none;
+    font-size: 17px;
+    padding: 10px 10px;
+    border-radius: 5px;
+    white-space: break-spaces;
+    font-size: 13px;
+}
+
+.modify-reply-btn {
+    width: 69px;
+    height: 40px;
+    margin: 0 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background-color: #f1efef;
+    cursor: pointer;
+    border: none;
+    color: #898787;
+}
+
+.modify-limit {
+    display: flex;
+}
+
+.textLengthCheck, .overWrite {
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+}
+
+.reply-section-btns {
+    background-image: linear-gradient(transparent, transparent), url(https://ssl.pstatic.net/static/comic/comment_new/sp_comment.svg);
+    display: inline-block;
+    overflow: hidden;
+    font-size: 0;
+    line-height: 0;
+    vertical-align: top;
+    background-position: -320px -96px;
+    background-repeat: no-repeat;
+    width: 10px;
+    height: 15px;
+    margin: 7px 0 0 13px;
+    cursor: pointer;
+}
+
+.none {
+    display: none;
+}
+
+.required-login-section {
+    width: 1024px;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.required-login-section a {
+    color: black;
+    font-size: 12px;
+}
+
+.modify-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}

@@ -1,11 +1,24 @@
 package com.example.dw.repository.community;
 
 import com.example.dw.domain.dto.community.*;
+import com.example.dw.domain.entity.question.QQuestion;
+import com.example.dw.domain.entity.question.QQuestionComment;
+import com.example.dw.domain.form.SearchForm;
+import com.example.dw.domain.form.SearchLocationForm;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.core.types.dsl.NumberTemplate;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+
+import org.springframework.data.domain.Sort;
+import org.springframework.data.querydsl.QSort;
+import org.springframework.data.querydsl.QuerydslUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -15,6 +28,7 @@ import java.util.stream.Collectors;
 import static com.example.dw.domain.entity.question.QQuestion.question;
 import static com.example.dw.domain.entity.question.QQuestionComment.questionComment;
 import static com.example.dw.domain.entity.question.QQuestionImg.questionImg;
+import static com.example.dw.domain.entity.walkingMate.QWalkingMate.walkingMate;
 import static java.util.stream.Collectors.*;
 
 
@@ -27,9 +41,11 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
 
     // qna 리스트 확인
     @Override
-    public Page<QuestionListDto> findQnaListBySearch(Pageable pageable, String keyword) {
+    public Page<QuestionListDto> findQnaListBySearch(Pageable pageable, SearchForm searchForm) {
         //검색어
-        BooleanExpression keywordTitle = qnatitleEq(keyword);
+        BooleanExpression keywordTitle = qnatitleEq(searchForm.getKeyword());
+
+        System.out.println(getDynamicSort(searchForm)+"여기닷!");
 
         //페이징 및 검색조건을 적용하여 question 엔티티 조회
         List<QuestionDto> content = jpaQueryFactory
@@ -44,13 +60,15 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
                 ))
                 .from(question)
                 .where( keywordTitle )
-                .orderBy(question.id.desc())
+                .orderBy(
+                        getDynamicSort(searchForm)
+                    )
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
 
         // 페이징을 위한 전체 데이터 수 조회
-        Long count = getCount(keyword);
+        Long count = getCount(searchForm.getKeyword());
 
 
         List<QuestionListDto> contents =
@@ -301,6 +319,28 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
 //    private Long getComment(Long questionId){
 //
 //    }
+
+
+
+    // qnaList 라디오 버튼 별 검색 결과 코드 임시
+    private OrderSpecifier<?> getDynamicSort(SearchForm searchForm) {
+
+
+        switch (searchForm.getCate()) {
+            case "questionRd":
+                System.out.println("questionRd 여기로 왔다");
+                return question.questionRd.desc();
+            case "commentCount":
+                System.out.println("commentCount 여기로 왔다");
+                return question.questionComment.size().desc();
+            case "questionViewCount":
+                System.out.println("questionViewCount 여기로 왔다");
+                return question.questionViewCount.desc();
+            default:
+                return question.questionRd.desc();
+        }
+    }
+
 
 }
 

@@ -136,23 +136,37 @@ public class GoodsApiController {
 
     //장바구니 정보 넣기
     @PostMapping("/cartGoods")
-    public void cartGoods(@RequestBody List<GoodsPayListFrom> goodsPayListFrom, HttpSession session){
+    public void cartGoods(@RequestBody List<GoodsPayListFrom> goodsPayListFrom, HttpSession session) {
 
-        List<GoodsPayListFrom> goodsPayList = (List<GoodsPayListFrom>)session.getAttribute("goodsPayList");
+        List<GoodsPayListFrom> goodsPayList = (List<GoodsPayListFrom>) session.getAttribute("goodsPayList");
 
-        if(goodsPayList == null){
+        if (goodsPayList == null) {
             goodsPayList = new ArrayList<>();
         }
 
-        for(GoodsPayListFrom goodsPayListDtos : goodsPayListFrom) {
+        for (GoodsPayListFrom goodsPayListDto : goodsPayListFrom) {
+            boolean found = false;
 
-            goodsPayList.add(goodsPayListDtos);
+            // goodsId를 기준으로 기존 리스트에서 아이템 찾기
+            for (GoodsPayListFrom existingItem : goodsPayList) {
+                if (existingItem.getGoodsId().equals(goodsPayListDto.getGoodsId())) {
+                    // 기존 아이템이 존재하면 업데이트
+                    existingItem.setGoodsQuantity(goodsPayListDto.getGoodsQuantity());
+                    found = true;
+                    break;
+                }
+            }
 
+            // 기존 리스트에 해당 goodsId가 없으면 새로 추가
+            if (!found) {
+                goodsPayList.add(goodsPayListDto);
+            }
         }
 
-        System.out.println(goodsPayList);
+        System.out.println(goodsPayList.toString() + "여기보세요 세상사람들");
         session.setAttribute("goodsPayList", goodsPayList);
     }
+
 
     //바로가기 정보 넣기
     @PostMapping("/payGoods")

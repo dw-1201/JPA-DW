@@ -36,6 +36,8 @@ public class OrderRepositoryImp implements OrderRepositoryCustom{
                 .leftJoin(orders.users,users)
                 .where(orders.users.id.eq(userId))
                 .orderBy(orders.orderRegisterDate.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch();
 
 
@@ -86,13 +88,13 @@ public class OrderRepositoryImp implements OrderRepositoryCustom{
 
 
         Long counts = jpaQueryFactory
-                .select(orders.count())
+                .select(orders.id.count())
                 .from(orders)
                 .where(orders.users.id.eq(userId))
                 .fetchOne();
 
 
-
+        System.out.println(counts);
 
 
         return new PageImpl<>(result, pageable,counts);

@@ -22,7 +22,7 @@
             <div class="nav-container">
                 <ul>
                     <li class="menu-title"><a href="/qna/qnaLists">QnA</a></li>
-                    <li><a href="">자유게시판</a></li>
+                    <li><a href="/community/freeBoardList">자유게시판</a></li>
                     <li><a href="">공지사항</a></li>
                 </ul>
             </div>
@@ -81,26 +81,33 @@
                         <ul>
                             <li>
                                 <label>
-                                    <input type="radio" value="recent" name="radio-btn" class="radio-btn">
+                                    <input type="radio" value="questionRd" name="state" class="radio-btn" checked>
                                     <span>최신 순</span>
                                 </label>
                             </li>
                             <li>
                                 <label>
-                                    <input type="radio" value="reply" name="radio-btn" class="radio-btn">
+                                    <input type="radio" value="commentCount" name="state" class="radio-btn">
                                     <span>댓글 순</span>
                                 </label>
                             </li>
                             <li>
                                 <label>
-                                    <input type="radio" value="best" name="radio-btn" class="radio-btn">
+                                    <input type="radio" value="questionViewCount" name="state" class="radio-btn">
                                     <span>인기 순</span>
                                 </label>
                             </li>
                         </ul>
                     </div>
                     <div class="write-btn-box">
-                        <div class="write-btn"><a href="/qna/qnawrite">글쓰기</a></div>
+                            <div class="write-btn" th:if="${session.userId == null}">
+                                <a href="/user/enterLogin">로그인</a>
+                            </div>
+
+                            <div class="write-btn" th:if="${session.userId != null}">
+                                <a href="/qna/qnawrite">글쓰기</a>
+                            </div>
+
                     </div>
                 </div>
                 <div class="list-contents-box">

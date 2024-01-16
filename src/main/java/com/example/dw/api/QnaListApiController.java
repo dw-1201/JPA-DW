@@ -5,6 +5,7 @@ import com.example.dw.domain.dto.community.QuestionDetailReplyDto;
 import com.example.dw.domain.dto.community.QuestionListDto;
 import com.example.dw.domain.dto.community.WalkMateDetailReplyDto;
 import com.example.dw.domain.form.QuestionCommentForm;
+import com.example.dw.domain.form.SearchForm;
 import com.example.dw.repository.community.QuestionCommentRepository;
 import com.example.dw.repository.community.QuestionRepositoryCustom;
 import com.example.dw.service.QnaService;
@@ -46,11 +47,12 @@ public class QnaListApiController {
 
     @GetMapping("/qnalist/{page}")
     public Page<QuestionListDto> findQnAList(
-            @PathVariable("page") int page, String keyword){
+            @PathVariable("page") int page, SearchForm searchForm){
         Pageable pageable = PageRequest.of(page,5);
-        Page<QuestionListDto> result = questionRepositoryCustom.findQnaListBySearch(pageable,keyword);
+        Page<QuestionListDto> result = questionRepositoryCustom.findQnaListBySearch(pageable,searchForm);
         System.out.println(result+"안뇽");
-        System.out.println(keyword+"검색 내용!");
+        System.out.println(searchForm.getKeyword()+"검색 내용!");
+        System.out.println(searchForm.getCate()+"검색 내용!");
         System.out.println("여기는 레스트");
 
 
@@ -79,7 +81,16 @@ public class QnaListApiController {
         qnaService.deleteReply(questioncommentid);
     }
 
+//댓글수정
+    @PatchMapping("/questionReply")
+    public void modifyQuestionReply(QuestionCommentForm questionCommentForm){
 
+        System.out.println(questionCommentForm.toString());
+
+        qnaService.modifyQuestionComment(questionCommentForm);
+
+
+    }
 
 
 }

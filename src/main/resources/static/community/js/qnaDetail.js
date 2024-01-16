@@ -63,6 +63,8 @@ $('.remove-btn').on('click',function (){
 
 $(document).ready(function () {
 
+
+    reply.limitText( $('#questioncomment'),'.comment-length-Check' )
     //댓글 목록
     showQuestionReplyList(questionId,replyList);
 
@@ -71,6 +73,18 @@ $(document).ready(function () {
 
 $('.reply-submit').on('click',function (){
     let questionComment = $('#questioncomment').val();
+
+    if(!questionComment){
+        alert("댓글 내용을 입력해 주세요");
+        return false;
+
+    }
+
+    if(reply.getTextLength(questionComment)>200){
+        alert("200자 내로 작성해 주세요")
+        return;
+    }
+
 
     registerReply();
 
@@ -161,9 +175,7 @@ function replyList(result){
                             <div class="reply-date"> ${reply.timeForToday(r.questionCommentRd) + (r.questionCommentRd == r.questionCommentMd ? ' 작성' : ' 수정')}</div>
                         </div>
                         <div class="reply-content-n-btns">
-                            <div class="reply-content">
-                                ${r.questionCommentContent}
-                            </div>
+                            <div class="reply-content">${r.questionCommentContent}</div>
         
                      `;
 
@@ -203,14 +215,14 @@ $('.reply-list').on('click', '.reply-section-btns', function () {
 });
 
 
-$('body').click(function (e) {
-    if ($(e.target).hasClass('reply-section-btns')) {
-        return;
-    }
-    if (!$('.reply-btns').has(e.target).length) {
-        $('.reply-btns').addClass('none');
-    }
-});
+// $('body').click(function (e) {
+//     if ($(e.target).hasClass('reply-section-btns')) {
+//         return;
+//     }
+//     if (!$('.reply-btns').has(e.target).length) {
+//         $('.reply-btns').addClass('none');
+//     }
+// });
 
 //삭제버튼
 $('.reply-list').on('click', '.delete-reply a', function (e){
@@ -230,3 +242,83 @@ $('.reply-list').on('click', '.delete-reply a', function (e){
         })
     }
 })
+
+
+
+//수정하기
+$('.reply-list').on('click', '.update-reply a', function (e) {
+
+    e.preventDefault();
+        console.log(e.preventDefault());
+
+
+    let letterLimit = $(this).closest('.reply').find('.reply-date');
+    let modifyContentPopUp = $(this).closest('.reply-content-n-btns').find('.reply-content');
+    let btnBox = $(this).closest('.reply-content-n-btns').find('.reply-btns');
+
+
+
+
+    letterLimit.replaceWith(
+        `
+          <div class=modify-limit>
+                <span class="textLengthCheck">
+                ${reply.getTextLength(modifyContentPopUp.text()) + ' / 200 '}
+                </span>
+          </div>
+          
+        `
+    );
+
+    modifyContentPopUp.replaceWith(
+        ` <div class="modify-box">
+            <textarea class="modify-reply-content">${modifyContentPopUp.text()}</textarea>
+            <button type="button" class="modify-reply-btn">수정</button>
+          </div>
+        `
+    );
+
+    //수정, 삭제버튼 감추기
+    btnBox.css('display', 'none')
+
+    //수정창 글자 수 실시간 카운팅
+    reply.limitModifyText('.reply-list', '.modify-reply-content', '.textLengthCheck' ,'.modify-limit');
+
+})
+
+$('.reply-list').on('click', '.modify-reply-btn', function (){
+
+    let commentId = $(this).closest('.reply-content-n-btns').find('.update-reply a').data('questioncommentid');
+    let modifyContentVal = $(this).closest('.modify-box').find('.modify-reply-content').val();
+
+    if(!modifyContentVal){
+        alert("댓글 내용을 입력해주세요")
+        return;
+    }
+
+    if(reply.getTextLength(modifyContentVal)>200){
+        alert("200자 이내로 작성해주세요")
+        return;
+    }
+
+    $.ajax({
+
+        url:'/qnar/questionReply',
+        type:'patch',
+        data : {
+            id : commentId,
+            questionCommentContent : modifyContentVal,
+
+        },
+        success : function (){
+            showQuestionReplyList(questionId,replyList);
+        },error : function (a,b,c){
+            console.error(c);
+        }
+
+    })
+
+})
+
+
+
