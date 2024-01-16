@@ -11,6 +11,7 @@ import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.NumberTemplate;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -33,11 +34,11 @@ import static java.util.stream.Collectors.*;
 
 
 @Repository
+@RequiredArgsConstructor
 public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
 
     private final JPAQueryFactory jpaQueryFactory;
 
-    public QuestionRepositoryImpl(JPAQueryFactory jpaQueryFactory){this.jpaQueryFactory=jpaQueryFactory;}
 
     // qna 리스트 확인
     @Override
@@ -322,7 +323,7 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
 
 
 
-    // qnaList 라디오 버튼 별 검색 결과 코드 임시
+    // qnaList 라디오 버튼 
     private OrderSpecifier<?> getDynamicSort(SearchForm searchForm) {
 
 

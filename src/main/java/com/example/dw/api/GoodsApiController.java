@@ -224,6 +224,6 @@ public class GoodsApiController {
         System.out.println("싱글 주문내역 가져오기 : "+goodsPaySingleFrom);
         return goodsPaySingleFrom;
     }
-}
+
 
 }
