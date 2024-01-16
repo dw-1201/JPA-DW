@@ -3,6 +3,7 @@ package com.example.dw.repository.freeBoard;
 import com.example.dw.domain.dto.community.FreeBoardImgDto;
 import com.example.dw.domain.dto.community.FreeBoardListDto;
 import com.example.dw.domain.dto.community.FreeBoardResultDetailDto;
+import com.example.dw.domain.dto.community.MyFreeBoardResultListDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -20,5 +21,9 @@ public interface FreeBoardRepositoryCustom {
     List<FreeBoardImgDto> findFreeBoardImgByFreeBoardId(Long freeBoardId);
 
 //    Page<FreeBoardListDto> findFreeBoardListById(Pageable pageable, Long userId);
+
+    // 마이 페이지 내가 작성한 게시판 리스트 뽑기
+    Page<MyFreeBoardResultListDto> findAllById(Pageable pageable,Long userId);
+
 
 }

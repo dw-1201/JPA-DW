@@ -1,5 +1,6 @@
 import * as list from './module/list.js'
 import  * as page from './module/page.js';
+import {listSearchDto} from "./module/list.js";
 
 
 
@@ -7,25 +8,47 @@ import  * as page from './module/page.js';
 
 $(document).ready(function (){
     console.log("들어왔다")
+    // 초기화면
+    list.listSearchDto(0,searchQnaBoardForm(),'qnar','qnalist',showQnaBoardList);
 
-    list.list(0,searchQnaBoardForm(),'qnar','qnalist',showQnaBoardList);
-    console.log(showQnaBoardList.questionContent);
     page.enterKey('.search-question','.search-btn');
+
+
+    // 라디오 버튼 변경시 마다 동적으로 변경
+    $("input[name='state']").on('change', function (){
+
+        let cate = $(this).val();
+        updateStatus(cate);
+
+    })
+
+
 })
 
 // 검색버튼
 $('.sbtn').on('click',function (){
-    list.list(0,searchQnaBoardForm(),'qnar','qnalist',showQnaBoardList);
+    list.listSearchDto(0,searchQnaBoardForm(),'qnar','qnalist',showQnaBoardList);
 
 })
+
+function updateStatus(cate){
+    searchQnaBoardForm().cate = cate;
+        console.log(searchQnaBoardForm().cate);
+    list.listSearchDto(0,searchQnaBoardForm(),'qnar','qnalist',showQnaBoardList);
+
+}
+
 
 
 //input에서 검색한 내용 넘겨주기
 function searchQnaBoardForm(){
+   let cate = $("input[name='state']:checked").val();
     let keyword = $('.search-question').val();
     console.log(keyword);
+    console.log(cate)
     return {
-        keyword : keyword
+        keyword : keyword,
+        cate : cate
     };
 }
 
@@ -104,7 +127,7 @@ function showQnaBoardList(result) {
     paginations.find('a').on('click', function (e) {
         e.preventDefault();
         const page = parseInt($(this).data('page'));
-        list.list(page, searchQnaBoardForm(),'qnar','qnalist', showQnaBoardList);
+        list.listSearchDto(page, searchQnaBoardForm(),'qnar','qnalist', showQnaBoardList);
     });
     console.log("list~")
 }

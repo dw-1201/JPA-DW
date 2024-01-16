@@ -71,6 +71,8 @@ public class Users {
     @OneToMany(mappedBy = "users", orphanRemoval = true)
     private List<FreeBoardComment> freeBoardComments = new ArrayList<>();
 
+
+
     @OneToMany(mappedBy = "users", orphanRemoval = true)
     private List<WalkingMate> walkingMates = new ArrayList<>();
 

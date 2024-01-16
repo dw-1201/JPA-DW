@@ -32,6 +32,8 @@ public class QQuestionComment extends EntityPathBase<QuestionComment> {
 
     public final DateTimePath<java.time.LocalDateTime> questionCommentRd = createDateTime("questionCommentRd", java.time.LocalDateTime.class);
 
+    public final com.example.dw.domain.entity.user.QUsers users;
+
     public QQuestionComment(String variable) {
         this(QuestionComment.class, forVariable(variable), INITS);
     }
@@ -51,6 +53,7 @@ public class QQuestionComment extends EntityPathBase<QuestionComment> {
     public QQuestionComment(Class<? extends QuestionComment> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.question = inits.isInitialized("question") ? new QQuestion(forProperty("question"), inits.get("question")) : null;
+        this.users = inits.isInitialized("users") ? new com.example.dw.domain.entity.user.QUsers(forProperty("users"), inits.get("users")) : null;
     }
 
 }

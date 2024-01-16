@@ -7,6 +7,7 @@ import com.example.dw.domain.dto.community.*;
 import com.example.dw.domain.dto.order.OrderItemDto;
 import com.example.dw.domain.dto.order.OrderItemReviewListDto;
 import com.example.dw.domain.dto.order.OrderListResultDto;
+import com.example.dw.domain.form.QuestionCommentForm;
 import com.example.dw.domain.form.SearchRecruitmentForm;
 import com.example.dw.repository.community.QuestionRepositoryCustom;
 import com.example.dw.repository.community.WalkingMateRepositoryCustom;
@@ -153,32 +154,20 @@ public class MypageApiController {
 
     }
 
-//    @GetMapping("/mypgs/myfreeBoardList/{page}/{userId}")
-//    public Page<FreeBoardListDto> freeBoardDtoList(
-//            @PathVariable("page") int page, @PathVariable("userId") Long userId) {
-//
-//        Pageable pageable = PageRequest.of(page, 5);
-//
-//        System.out.println("userId: " + userId);
-//
-//        Page<FreeBoardListDto> result = freeBoardRepositoryCustom.findFreeBoardListById(pageable, userId);
-//
-//        // 댓글 수를 추가
-//        List<FreeBoardListDto> updatedList = result.getContent().stream()
-//                .map(dto -> {
-//                    Long commentCount = freeBoardService.countCommentsByFreeBoardId(dto.getId());
-//                    dto.setFreeBoardCommentCount(commentCount);
-//
-//                    // 댓글 수를 출력
-//                    System.out.println("게시물 ID: " + dto.getId() + ", 댓글 수: " + commentCount);
-//                    return dto;
-//                })
-//                .collect(Collectors.toList());
-//
-//        System.out.println("자유게시판 글 개수 : " + result.stream().count());
-//        System.out.println(updatedList + " 게시판 보여지는 곳");
-//        return new PageImpl<>(updatedList, pageable, result.getTotalElements());
-//    }
+    @GetMapping("/mypgs/myfreeBoardList/{page}/{userId}")
+    public Page<MyFreeBoardResultListDto> freeBoardDtoList(
+            @PathVariable("page") int page, @PathVariable("userId") Long userId) {
+
+        Pageable pageable = PageRequest.of(page, 5);
+
+        System.out.println("userId: " + userId);
+
+        Page<MyFreeBoardResultListDto> result = freeBoardRepositoryCustom.findAllById(pageable,userId);
+
+        System.out.println(result.toString()+" 컨트롤러에서 가져온 데이터 입니다.");
+
+        return result;
+    }
 
     @GetMapping("/mypgs/myregisterwalkmatewrite/{page}/{userId}")
     public Page<WalkMateMyDetailListDto> findmyregisterwalkmatewriteList(
@@ -238,9 +227,8 @@ public class MypageApiController {
 
     @GetMapping("/mypgs/orderList/{page}/{userId}")
     public Page<OrderListResultDto> orderList(@PathVariable("page") int page,@PathVariable("userId") Long userId){
-
         Pageable pageable =PageRequest.of(page,4);
-
+        System.out.println(page);
         Page<OrderListResultDto> result = orderRepositoryCustom.findAllbyId(pageable,userId) ;
 
         result.forEach(r -> System.out.println(r.getUserId()+"의 주문내역은" + r +"입니다\n"));
@@ -279,6 +267,5 @@ public class MypageApiController {
         mypageService.removeUser(userId);
         System.out.println("회원 탈퇴 완료!!");
     }
-
 
 }

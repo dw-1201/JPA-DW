@@ -68,217 +68,29 @@
 
                     </div>
                 </div>
+                <input type="hidden" th:value="${session.userId}" id="userId" name="userId">
+                <input type="hidden" th:value="${question.id}" id="questionId" name="questionId">
             </div>
             <!-- 글 끝 -->
 
             <!-- 댓글 시작 -->
             <div class="reply-container">
-                <div class="reply-title">댓글</div>
+                <th:block th:if="${session.userId !=null}">
+                <div class="reply-title" >댓글</div>
                 <div class="reply-input">
-                    <textarea name="" id="" placeholder="댓글을 입력해주세요"></textarea>
-                    <button>등록</button>
+                    <textarea name="questionCommentContent" id="questioncomment" placeholder="댓글을 입력해주세요"></textarea>
+                    <div class="comment-length-Check"></div>
+                    <button class="reply-submit" >등록</button>
                 </div>
+                </th:block>
+                <th:block th:if="${session.userId ==null}">
+                    <div class="required-login-section">
+                        <h5>댓글 기능을 이용하실려면 로그인과 산책메이트 작성자의 승인이 필요합니다.</h5>
+                        <a href="/user/enterLogin"> 로그인 이동하기 </a>
+                    </div>
+                </th:block>
+                <!--댓글 리스트 영역-->
                 <div class="reply-list">
-                    <div class="reply">
-                        <div class="id-and-date">
-                            <div class="reply-info">
-                                <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                                <div class="reply-id">콩콩콩이</div>
-                            </div>
-                            <div class="reply-date">2023-11-24</div>
-                        </div>
-                        <div class="reply-content-n-btns">
-                            <div class="reply-content">
-                                으악 너무 귀엽겠어요. 저는 아이가 4살때 7개월아이를 데리고 왔었는데 너무 원래 있던 아이한테 마음의 준비를 안하고 데려온게 미안했었어요. 
-                                어디서 본 글에 갑자기 아이가 들어오기 전에 몇번 계속 만나게 해주고 해야하는데 갑자기 집에 다른 아이가 덜렁 있으면 당황한다 하더라고요ㅠㅠ 
-                                아이 성향이 입질이 있거나 하진 않으니 괜찮지 않을까요? 
-                            </div>
-                            <div class="reply-btns">
-                                <div class="update-reply"><a href="">수정</a></div>
-                                <div class="delete-reply"><a href="">삭제</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reply">
-                        <div class="id-and-date">
-                            <div class="reply-info">
-                                <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                                <div class="reply-id">콩콩콩이</div>
-                            </div>
-                            <div class="reply-date">2023-11-24</div>
-                        </div>
-                        <div class="reply-content-n-btns">
-                            <div class="reply-content">
-                                으악 너무 귀엽겠어요. 저는 아이가 4살때 7개월아이를 데리고 왔었는데 너무 원래 있던 아이한테 마음의 준비를 안하고 데려온게 미안했었어요. 
-                                어디서 본 글에 갑자기 아이가 들어오기 전에 몇번 계속 만나게 해주고 해야하는데 갑자기 집에 다른 아이가 덜렁 있으면 당황한다 하더라고요ㅠㅠ 
-                                아이 성향이 입질이 있거나 하진 않으니 괜찮지 않을까요? 
-                            </div>
-                            <div class="reply-btns">
-                                <div class="update-reply"><a href="">수정</a></div>
-                                <div class="delete-reply"><a href="">삭제</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reply">
-                        <div class="id-and-date">
-                            <div class="reply-info">
-                                <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                                <div class="reply-id">콩콩콩이</div>
-                            </div>
-                            <div class="reply-date">2023-11-24</div>
-                        </div>
-                        <div class="reply-content-n-btns">
-                            <div class="reply-content">
-                                으악 너무 귀엽겠어요. 저는 아이가 4살때 7개월아이를 데리고 왔었는데 너무 원래 있던 아이한테 마음의 준비를 안하고 데려온게 미안했었어요. 
-                                어디서 본 글에 갑자기 아이가 들어오기 전에 몇번 계속 만나게 해주고 해야하는데 갑자기 집에 다른 아이가 덜렁 있으면 당황한다 하더라고요ㅠㅠ 
-                                아이 성향이 입질이 있거나 하진 않으니 괜찮지 않을까요? 
-                            </div>
-                            <div class="reply-btns">
-                                <div class="update-reply"><a href="">수정</a></div>
-                                <div class="delete-reply"><a href="">삭제</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reply">
-                        <div class="id-and-date">
-                            <div class="reply-info">
-                                <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                                <div class="reply-id">콩콩콩이</div>
-                            </div>
-                            <div class="reply-date">2023-11-24</div>
-                        </div>
-                        <div class="reply-content-n-btns">
-                            <div class="reply-content">
-                                으악 너무 귀엽겠어요. 저는 아이가 4살때 7개월아이를 데리고 왔었는데 너무 원래 있던 아이한테 마음의 준비를 안하고 데려온게 미안했었어요. 
-                                어디서 본 글에 갑자기 아이가 들어오기 전에 몇번 계속 만나게 해주고 해야하는데 갑자기 집에 다른 아이가 덜렁 있으면 당황한다 하더라고요ㅠㅠ 
-                                아이 성향이 입질이 있거나 하진 않으니 괜찮지 않을까요? 
-                            </div>
-                            <div class="reply-btns">
-                                <div class="update-reply"><a href="">수정</a></div>
-                                <div class="delete-reply"><a href="">삭제</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reply">
-                        <div class="id-and-date">
-                            <div class="reply-info">
-                                <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                                <div class="reply-id">콩콩콩이</div>
-                            </div>
-                            <div class="reply-date">2023-11-24</div>
-                        </div>
-                        <div class="reply-content-n-btns">
-                            <div class="reply-content">
-                                으악 너무 귀엽겠어요. 저는 아이가 4살때 7개월아이를 데리고 왔었는데 너무 원래 있던 아이한테 마음의 준비를 안하고 데려온게 미안했었어요. 
-                                어디서 본 글에 갑자기 아이가 들어오기 전에 몇번 계속 만나게 해주고 해야하는데 갑자기 집에 다른 아이가 덜렁 있으면 당황한다 하더라고요ㅠㅠ 
-                                아이 성향이 입질이 있거나 하진 않으니 괜찮지 않을까요? 
-                            </div>
-                            <div class="reply-btns">
-                                <div class="update-reply"><a href="">수정</a></div>
-                                <div class="delete-reply"><a href="">삭제</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reply">
-                        <div class="id-and-date">
-                            <div class="reply-info">
-                                <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                                <div class="reply-id">콩콩콩이</div>
-                            </div>
-                            <div class="reply-date">2023-11-24</div>
-                        </div>
-                        <div class="reply-content-n-btns">
-                            <div class="reply-content">
-                                으악 너무 귀엽겠어요. 저는 아이가 4살때 7개월아이를 데리고 왔었는데 너무 원래 있던 아이한테 마음의 준비를 안하고 데려온게 미안했었어요. 
-                                어디서 본 글에 갑자기 아이가 들어오기 전에 몇번 계속 만나게 해주고 해야하는데 갑자기 집에 다른 아이가 덜렁 있으면 당황한다 하더라고요ㅠㅠ 
-                                아이 성향이 입질이 있거나 하진 않으니 괜찮지 않을까요? 
-                            </div>
-                            <div class="reply-btns">
-                                <div class="update-reply"><a href="">수정</a></div>
-                                <div class="delete-reply"><a href="">삭제</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reply">
-                        <div class="id-and-date">
-                            <div class="reply-info">
-                                <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                                <div class="reply-id">콩콩콩이</div>
-                            </div>
-                            <div class="reply-date">2023-11-24</div>
-                        </div>
-                        <div class="reply-content-n-btns">
-                            <div class="reply-content">
-                                으악 너무 귀엽겠어요. 저는 아이가 4살때 7개월아이를 데리고 왔었는데 너무 원래 있던 아이한테 마음의 준비를 안하고 데려온게 미안했었어요. 
-                                어디서 본 글에 갑자기 아이가 들어오기 전에 몇번 계속 만나게 해주고 해야하는데 갑자기 집에 다른 아이가 덜렁 있으면 당황한다 하더라고요ㅠㅠ 
-                                아이 성향이 입질이 있거나 하진 않으니 괜찮지 않을까요? 
-                            </div>
-                            <div class="reply-btns">
-                                <div class="update-reply"><a href="">수정</a></div>
-                                <div class="delete-reply"><a href="">삭제</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reply">
-                        <div class="id-and-date">
-                            <div class="reply-info">
-                                <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                                <div class="reply-id">콩콩콩이</div>
-                            </div>
-                            <div class="reply-date">2023-11-24</div>
-                        </div>
-                        <div class="reply-content-n-btns">
-                            <div class="reply-content">
-                                으악 너무 귀엽겠어요. 저는 아이가 4살때 7개월아이를 데리고 왔었는데 너무 원래 있던 아이한테 마음의 준비를 안하고 데려온게 미안했었어요. 
-                                어디서 본 글에 갑자기 아이가 들어오기 전에 몇번 계속 만나게 해주고 해야하는데 갑자기 집에 다른 아이가 덜렁 있으면 당황한다 하더라고요ㅠㅠ 
-                                아이 성향이 입질이 있거나 하진 않으니 괜찮지 않을까요? 
-                            </div>
-                            <div class="reply-btns">
-                                <div class="update-reply"><a href="">수정</a></div>
-                                <div class="delete-reply"><a href="">삭제</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reply">
-                        <div class="id-and-date">
-                            <div class="reply-info">
-                                <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                                <div class="reply-id">콩콩콩이</div>
-                            </div>
-                            <div class="reply-date">2023-11-24</div>
-                        </div>
-                        <div class="reply-content-n-btns">
-                            <div class="reply-content">
-                                으악 너무 귀엽겠어요. 저는 아이가 4살때 7개월아이를 데리고 왔었는데 너무 원래 있던 아이한테 마음의 준비를 안하고 데려온게 미안했었어요. 
-                                어디서 본 글에 갑자기 아이가 들어오기 전에 몇번 계속 만나게 해주고 해야하는데 갑자기 집에 다른 아이가 덜렁 있으면 당황한다 하더라고요ㅠㅠ 
-                                아이 성향이 입질이 있거나 하진 않으니 괜찮지 않을까요? 
-                            </div>
-                            <div class="reply-btns">
-                                <div class="update-reply"><a href="">수정</a></div>
-                                <div class="delete-reply"><a href="">삭제</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reply">
-                        <div class="id-and-date">
-                            <div class="reply-info">
-                                <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                                <div class="reply-id">콩콩콩이</div>
-                            </div>
-                            <div class="reply-date">2023-11-24</div>
-                        </div>
-                        <div class="reply-content-n-btns">
-                            <div class="reply-content">
-                                으악 너무 귀엽겠어요. 저는 아이가 4살때 7개월아이를 데리고 왔었는데 너무 원래 있던 아이한테 마음의 준비를 안하고 데려온게 미안했었어요. 
-                                어디서 본 글에 갑자기 아이가 들어오기 전에 몇번 계속 만나게 해주고 해야하는데 갑자기 집에 다른 아이가 덜렁 있으면 당황한다 하더라고요ㅠㅠ 
-                                아이 성향이 입질이 있거나 하진 않으니 괜찮지 않을까요? 
-                            </div>
-                            <div class="reply-btns">
-                                <div class="update-reply"><a href="">수정</a></div>
-                                <div class="delete-reply"><a href="">삭제</a></div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="ad-contaniner"></div>
@@ -292,6 +104,6 @@
     </div>
     <!-- footer 끝 -->
     <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-<script src="/community/js/qnaDetail.js"></script>
+<script type="module" src="/community/js/qnaDetail.js"></script>
 </body>
 </html>

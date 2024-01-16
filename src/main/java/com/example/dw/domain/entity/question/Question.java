@@ -4,6 +4,7 @@ import com.example.dw.domain.entity.user.Users;
 import com.example.dw.domain.form.QuestionWritingForm;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Formula;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -41,7 +42,7 @@ public class Question {
     @OneToMany(mappedBy = "question" ,fetch = FetchType.LAZY, orphanRemoval = true)
     private List<QuestionImg> questionImg = new ArrayList<>();
 
-    @OneToMany(mappedBy = "question" ,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "question" ,fetch = FetchType.LAZY, orphanRemoval = true)
     private List<QuestionComment> questionComment = new ArrayList<>();
 
     @OneToOne(mappedBy = "question" ,fetch = FetchType.LAZY)
@@ -66,6 +67,8 @@ public class Question {
         this.questionLike = questionLike;
         this.users = users;
     }
+
+
 
 
 

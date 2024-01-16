@@ -17,7 +17,7 @@ public class PetForm {
     private String birthDate;
     private String petCategory;
     private String petGender;
-    private String neutering;
+    private String neutering="N";
     private Long weight;
     private Long userId;
 
