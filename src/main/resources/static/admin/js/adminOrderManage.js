@@ -1,8 +1,11 @@
+import * as form from './module/form.js';
+
 
 $(document).ready(function (){
     orderByDay();
     saleByCategory();
 
+    orderMostList(renderOrderMostList)
 })
 
 
@@ -37,7 +40,7 @@ function orderByDay(){
                         label : '',
                         data : saleAmount,
                         backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 159, 64)', 'rgb(255, 205, 86)',
-                            'rgb(75, 192, 192)', 'rgb(93,54,235)', 'rgb(153, 102, 255)','rgb(241,43,209)']
+                            'rgb(75, 192, 192)', 'rgb(93,54,235)', 'rgb(153, 102, 255)','rgb(142,17,115)']
                     }
                 ]
 
@@ -144,3 +147,52 @@ let customLegend = function (chart) {
 
     return ul.outerHTML;
 };
+
+
+function orderMostList(callback){
+
+    $.ajax({
+
+        url:'/admins/mostOrders',
+        type:'get',
+        dataType:'json',
+        success : function (result){
+
+            console.log(result)
+            if(callback){
+                callback(result)
+            }
+
+        },error:function (a,b,c){
+            console.log(c)
+        }
+    })
+}
+
+function renderOrderMostList(result){
+
+    let text = '';
+    let textInputSection = $('.order-most-list');
+    let rank =0;
+    result.forEach(r=>{
+
+        rank++;
+
+        text += `
+        
+        
+                <tr class="best-order-content">
+                    <td>${rank}</td>
+                    <td ><a href="/admin/userDetail/${r.userId}">${r.userAccount}</a></td>
+                    <td>${r.userName}</td>
+                    <td>${r.totalOrderCount}</td>
+                    <td>${form.addCommas(r.totalPrice) + '원'}</td>
+                </tr>
+        `;
+
+    })
+
+    textInputSection.html(text);
+
+
+}

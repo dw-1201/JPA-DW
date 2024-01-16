@@ -21,6 +21,8 @@ import static com.example.dw.domain.entity.goods.QGoodsDetailImg.goodsDetailImg;
 import static com.example.dw.domain.entity.goods.QGoodsMainImg.goodsMainImg;
 import static com.example.dw.domain.entity.goods.QGoodsQue.goodsQue;
 import static com.example.dw.domain.entity.goods.QGoodsQueReply.goodsQueReply;
+import static com.example.dw.domain.entity.order.QOrderItem.orderItem;
+import static com.example.dw.domain.entity.order.QOrderReview.orderReview;
 import static com.example.dw.domain.entity.user.QUsers.users;
 
 @Repository
@@ -171,6 +173,39 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
         return new PageImpl<>(lists, pageable, qnaListCount);
 
     }
+    
+    //상품 상세 - 상품 관련 리뷰
+    @Override
+    public Page<AdminGoodsDetailReviewListDto> getReviewList(Long goodsId, Pageable pageable, String state) {
+        List<AdminGoodsDetailReviewListDto> lists = jpaQueryFactory.select(new QAdminGoodsDetailReviewListDto(
+                orderReview.id,
+                orderReview.content,
+                orderReview.rating,
+                orderReview.reviewRd,
+                orderReview.adminReplyState
+        ))
+                .from(orderReview)
+                .leftJoin(orderReview.orderItem, orderItem)
+                .leftJoin(orderItem.goods, goods)
+                .where(goods.id.eq(goodsId).and(
+                        reviewStateEq(state)
+                ))
+                .fetch();
+
+
+        Long getTotal = jpaQueryFactory.select(
+                orderReview.count()
+        )
+                .from(orderReview)
+                .leftJoin(orderReview.orderItem, orderItem)
+                .leftJoin(orderItem.goods, goods)
+                .where(goods.id.eq(goodsId).and(
+                        reviewStateEq(state)
+                ))
+                .fetchOne();
+
+        return new PageImpl<>(lists, pageable, getTotal);
+    }
 
 
     //관리자 Qna리스트
@@ -211,6 +246,8 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
 
         return new PageImpl<>(lists, pageable, qnaListCount);
     }
+
+
 
     //관리자 상품 문의 상세 - 문의 정보 / 상품 기본 정보 / 상품 메인 사진
     @Override
@@ -287,6 +324,13 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
     private BooleanExpression qnaStateEq(String qnaState){
 
         return StringUtils.hasText(qnaState) ? goodsQue.state.eq(Integer.valueOf(qnaState)) : null;
+    }
+
+
+    //리뷰 답변 상태
+    private BooleanExpression reviewStateEq(String reviewState){
+
+        return StringUtils.hasText(reviewState) ? orderReview.adminReplyState.eq(Integer.valueOf(reviewState)) : null;
     }
 
 

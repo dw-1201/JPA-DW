@@ -249,7 +249,7 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
                 .where(question.users.id.eq(userId))
                 .fetchOne();
 
-
+        System.out.println(qnaListResults.toString()+"!@#!@#!@#!@#!@#!@");
 
         return new PageImpl<>(qnaListResults, pageable, getTotal);
     }

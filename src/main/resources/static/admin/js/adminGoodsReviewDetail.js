@@ -103,6 +103,9 @@ $(document).ready(function (){
         }
 
     })
+
+    //날짜포맷
+    $('.orderReviewRd-form').text(form.formatDates($('#orderReviewRd').val()))
     
 })
 

@@ -121,11 +121,11 @@
 
 
 .cate-wrap {
-    height: 460px;
+    height: 355px;
 }
 
 .pie-chart-container {
-    padding: 45px 20px 20px 20px ;
+    padding: 25px 20px 20px 20px ;
     box-sizing: border-box;
 }
 
@@ -142,7 +142,8 @@
 }
 
 .chart, .best-order-user {
-    border:1px solid gray
+    border:1px solid gray;
+    height: 310px;
 }
 
 .cate-chart {
@@ -152,8 +153,8 @@
 
 
 #cate-sale-ratio {
-    width: 300px !important;
-    height: 300px !important;
+    width: 230px !important;
+    height: 230px !important;
 }
 
 
@@ -161,7 +162,7 @@
     
     position: absolute;
     top: 90px;
-    left: 508px;
+    left: 470px;
 }
 
 .legend-div ul li {
@@ -191,13 +192,14 @@
 }
 
 .best-order-table {
+    border-collapse: collapse;
     width: 100%;
     text-align: center;
     font-size: 13px;
 }
 
 .best-order-content {
-    height: 43px;
+    height: 42px;
 }
 
 .best-order-table th {
@@ -207,3 +209,4 @@
 .best-order-table tr td {
     border: 1px solid gray;
 }
+

@@ -13,7 +13,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,10 +58,10 @@ public class WalkingMate {
     private Pet pet;
 
 
-    @OneToMany(mappedBy = "walkingMate" ,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "walkingMate" ,fetch = FetchType.LAZY, orphanRemoval = true)
     private List<WalkingMateComment> walkingMateComment = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "walkingMate")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "walkingMate", orphanRemoval = true)
     private List<WalkingMateState> walkingMateStateList = new ArrayList<>();
 
 

@@ -1,3 +1,5 @@
+import * as form from './module/form.js';
+
 //페이지 진입 시 첫 화면
 $(document).ready(function (){
     let qnaId = $('#qnaId').val();
@@ -182,13 +184,13 @@ function getReplyList(result) {
         if(result.qnaReplyMd == result.qnaReplyRd){
             text += `
                     <li></li>
-                    <li>작성일 <span>${result.qnaReplyRd}</span></li>
+                    <li>작성일 <span>${form.formatDates(result.qnaReplyRd)}</span></li>
 
                     `;
         }else {
             text +=`
-                    <li>수정일 <span>${result.qnaReplyMd}</span></li>
-                    <li>작성일 <span>${result.qnaReplyRd}</span></li>
+                    <li>수정일 <span>${form.formatDates(result.qnaReplyMd)}</span></li>
+                    <li>작성일 <span>${form.formatDates(result.qnaReplyRd)}</span></li>
             `;
         }
         text +=`     

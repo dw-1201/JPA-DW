@@ -209,6 +209,60 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
     }
 
 
+    //최다 주문회원 top5
+    @Override
+    public List<MostOrderUserDto> mostOrders() {
+        // 주문 횟수와 총 주문 가격을 구하는 쿼리
+        List<Tuple> mostAndTotals = jpaQueryFactory
+                .select(
+                        users.id,
+                        users.userAccount,
+                        users.userName,
+                        orderItem.orderPrice.multiply(orderItem.orderQuantity).sum().as("totalPrice")
+                )
+                .from(orderItem)
+                .leftJoin(orderItem.orders, orders)
+                .leftJoin(orders.users, users)
+                .groupBy(users.id,users.userAccount, users.userName)
+                .orderBy(orders.count().desc())
+                .limit(5)
+                .fetch();
+
+        // 사용자별 주문 횟수 리스트
+        List<Tuple> most = jpaQueryFactory.select(
+                users.id,
+                orders.count().as("totalOrderCount")
+        )
+                .from(orders)
+                .leftJoin(orders.users, users)
+                .groupBy(users.id)
+                .orderBy(orders.count().desc())
+                .fetch();
+
+        return mostAndTotals.stream()
+                .map(tuple -> {
+                    // most에서 해당 사용자의 주문 횟수를 가져오기
+                    Long totalOrderCount = most.stream()
+                            .filter(mostTuple -> mostTuple.get(users.id).equals(tuple.get(users.id)))
+                            //filter()는 원하는거만 뽑아서 필터링 
+                            //즉, most의 유저id값과 mostAndTotals의 유저id의 값이 같은 것만 가져옴
+                            .findFirst()
+                            .map(mostTuple -> mostTuple.get(orders.count().as("totalOrderCount")
+                            ))
+                            .orElse(0L);
+
+                    return new MostOrderUserDto(
+                            tuple.get(users.id),
+                            tuple.get(users.userAccount),
+                            tuple.get(users.userName),
+                            totalOrderCount,
+                            tuple.get( orderItem.orderPrice.multiply(orderItem.orderQuantity).sum().as("totalPrice")
+                            )
+                    );
+                })
+                .collect(Collectors.toList());
+    }
+
 
 
 

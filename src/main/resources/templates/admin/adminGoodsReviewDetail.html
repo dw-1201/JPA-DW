@@ -108,7 +108,8 @@
                                             <div class="content-flex">
                                                 <h5>리뷰 내용</h5>
                                                 <h6>작성자 <span th:text="${detail.reviewContent.userAccount}"></span></h6>
-                                                <h6>작성일 <span th:text="${detail.reviewContent.orderReviewRd}"></span></h6>
+                                                <h6>작성일 <span class="orderReviewRd-form"></span></h6>
+                                                <input type="hidden" th:value="${detail.reviewContent.orderReviewRd}" id="orderReviewRd"/>
                                             </div>
                                             <p th:text="${detail.reviewContent.orderReviewContent}"></p>
                                         </div>

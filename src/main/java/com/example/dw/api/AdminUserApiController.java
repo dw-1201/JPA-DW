@@ -52,7 +52,11 @@ public class AdminUserApiController {
             @PathVariable("userId") Long userId,
             @PathVariable("page") int page
     ){
+
         Pageable pageable = PageRequest.of(page, 5);
+
+
+
         return adminUserService.qnalist(pageable, userId);
     }
 

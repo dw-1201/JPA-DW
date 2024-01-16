@@ -1,9 +1,6 @@
 package com.example.dw.service;
 
-import com.example.dw.domain.dto.admin.AdminOrderDetailResultDto;
-import com.example.dw.domain.dto.admin.AdminOrderListResultDto;
-import com.example.dw.domain.dto.admin.AdminWeeklyOrderState;
-import com.example.dw.domain.dto.admin.GoodsSaleByCategory;
+import com.example.dw.domain.dto.admin.*;
 import com.example.dw.domain.form.AdminSearchOrderForm;
 import com.example.dw.repository.admin.AdminOrderRepositoryCustom;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +37,15 @@ public class AdminOrderService {
     }
 
 
+    //최다주문 회원
+    @Transactional
+    public List<MostOrderUserDto> mostOrders(){
+
+        return adminOrderRepositoryCustom.mostOrders();
+
+    }
+
+
     //관리자 페이지 주문 리스트
     @Transactional
     public Page<AdminOrderListResultDto> orderList(Pageable pageable, AdminSearchOrderForm adminSearchOrderForm){
@@ -60,6 +66,7 @@ public class AdminOrderService {
         });
 
     }
+
 
 
 }

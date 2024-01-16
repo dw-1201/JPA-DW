@@ -221,3 +221,10 @@
 .pagination-ul li a {
     color: black;
 }
+
+
+.no-result {
+    height: 220px;
+    text-align: center;
+    border: none !important;
+}
