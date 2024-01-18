@@ -40,9 +40,12 @@
 
 }
 .goods-stan-info-title h4 {
-    width: 630px;
+    width: 100%;
 }
-
+.goods-stan-info-title button{
+    width: 120px;
+    cursor: pointer;
+}
 .reg-btn {
     text-align: end;
     width: 600px;
@@ -288,11 +291,30 @@
 
 
 
-.goods-review-reply-container h5 {
-    padding: 25px 0px 10px 5px;
+.goods-review-reply-container h5, .reply-content-title {
+    padding-left: 20px;
+    padding-top: 20px;
+    width: 610px;
 }
 
+.if-reply{
+    margin-top: 25px;
+    border: 0.0625rem dashed #e1e1e1;
+    border-radius: 5px;
 
+}
+.review-info-ul{
+    display: flex;
+    align-items: center;
+}
+
+.review-reply-md, .review-reply-rd{
+    padding-top: 20px;
+    font-size: 12px;
+    width: 270px;
+    text-align: end;
+    padding-right: 20px;
+}
 
 .review-reply, .modify-content {
     font-size: 14px;
@@ -300,9 +322,8 @@
     box-sizing: border-box;
     padding: 20px;
     width: 977px;
-    height: 120px;
+    height: 105px;
     resize: none;
-    border: 0.0625rem dashed #e1e1e1;
     border-radius: 5px;
 }
 
@@ -317,8 +338,21 @@
     
     
 }
+.modify-reply-btn, .delete-reply-btn {
+    width: 80px;
+    cursor: pointer;
+}
+.modify-reply-btn {
+    margin-right: 7px;
+}
 .reply-btn {
     width: 100%;
+}
+
+.reply-section-btn {
+    width: 80px;
+    height: 26px;
+    cursor: pointer;
 }
 
 .btn {

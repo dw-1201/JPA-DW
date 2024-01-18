@@ -12,10 +12,10 @@ public class WeeklyFreeBoardList {
 
     private Long freeBoardId;
     private String freeBoardTitle;
-    private Integer viewCount;
+    private Long viewCount;
 
     @QueryProjection
-    public WeeklyFreeBoardList(Long freeBoardId, String freeBoardTitle, Integer viewCount) {
+    public WeeklyFreeBoardList(Long freeBoardId, String freeBoardTitle, Long viewCount) {
         this.freeBoardId = freeBoardId;
         this.freeBoardTitle = freeBoardTitle;
         this.viewCount = viewCount;

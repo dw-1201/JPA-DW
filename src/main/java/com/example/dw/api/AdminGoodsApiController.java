@@ -88,6 +88,18 @@ public class AdminGoodsApiController {
     }
 
     //관리자 상품 상세 - 상품 관련 리뷰 리스트
+    @GetMapping("/goodsRelatedReview/{goodsId}/{page}")
+    public Page<AdminGoodsDetailReviewListDto> findGoodsDetailReviewList(
+            @PathVariable("goodsId") Long goodsId,
+            @PathVariable("page") int page,
+            String state
+    ){
+
+        Pageable pageable = PageRequest.of(page, 10);
+
+        return adminGoodsService.findGoodsDetailReviewList(goodsId, pageable, state);
+
+    }
 
 
 

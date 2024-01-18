@@ -184,6 +184,14 @@ public class WalkingMateService {
         }
 
     }
+
+    //산책글 삭제
+    @Transactional
+    public void walkDelete(Long walkBoardId){
+
+        walkingMateRepository.deleteById(walkBoardId);
+
+    }
     
 
     //작성제한

@@ -4,7 +4,7 @@ import  * as page from './module/pagination.js';
 //상세페이지 진입
 $('.user-list').on('click','.modify-btn', function(){
 
-    let userId = $('.modify-btn').data('userid')
+    let userId = $(this).closest('.list-btns').find('.modify-btn').data('userid')
 
     window.location.href="/admin/userDetail/"+userId;
 
@@ -12,7 +12,7 @@ $('.user-list').on('click','.modify-btn', function(){
 
 //탈퇴 진입
 $('.user-list').on('click','.delete-btn',function (){
-    let userId = $('.delete-btn').data('userid')
+    let userId = $(this).closest('.list-btns').find('.delete-btn').data('userid')
 
     if(confirm("회원 탈퇴 처리하시겠습니까?")){
         window.location.href="/admin/userDelete/" +userId;
@@ -22,7 +22,7 @@ $('.user-list').on('click','.delete-btn',function (){
 
 //회원 복구 진입
 $('.user-list').on('click','.recover-btn', function (){
-    let userId = $('.recover-btn').data('userid');
+    let userId = $(this).closest('.list-btns').find('.recover-btn').data('userid');
 
     if(confirm("회원 복구 처리하시겠습니까?")){
         window.location.href="/admin/userRecover/" + userId;
@@ -105,12 +105,13 @@ function showUserList(result){
         text += `
         
                     <tr>
+                        <td>${r.id}</td>
                         <td>${r.userAccount}</td>
                         <td>${r.userName}</td>
                         <td>${r.userEmail}</td>
                         <td>${r.userPhone}</td>
-                        <td>${r.freeBoardCount + r.qnaBoardCount}</td>
-                        <td>추후 조인</td>
+                        <td>${r.questionBoardCount + r.freeBoardCount + r.walkBoardCount}</td>
+                        <td>${r.joinDate}</td>
                         <td class="list-btns">
                             <button type="button" class="modify-btn btn" data-userid="${r.id}">상세보기</button>
                             `;

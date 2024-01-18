@@ -13,8 +13,8 @@ public class QUserListDto extends ConstructorExpression<UserListDto> {
 
     private static final long serialVersionUID = 1962057064L;
 
-    public QUserListDto(com.querydsl.core.types.Expression<Long> id, com.querydsl.core.types.Expression<String> userAccount, com.querydsl.core.types.Expression<String> userName, com.querydsl.core.types.Expression<String> userEmail, com.querydsl.core.types.Expression<String> userPhone, com.querydsl.core.types.Expression<Integer> userState, com.querydsl.core.types.Expression<Long> freeBoardCount, com.querydsl.core.types.Expression<Long> qnaBoardCount) {
-        super(UserListDto.class, new Class<?>[]{long.class, String.class, String.class, String.class, String.class, int.class, long.class, long.class}, id, userAccount, userName, userEmail, userPhone, userState, freeBoardCount, qnaBoardCount);
+    public QUserListDto(com.querydsl.core.types.Expression<Long> id, com.querydsl.core.types.Expression<String> userAccount, com.querydsl.core.types.Expression<String> userName, com.querydsl.core.types.Expression<String> userEmail, com.querydsl.core.types.Expression<String> userPhone, com.querydsl.core.types.Expression<java.time.LocalDate> joinDate, com.querydsl.core.types.Expression<Integer> userState, com.querydsl.core.types.Expression<Long> questionBoardCount, com.querydsl.core.types.Expression<Long> freeBoardCount, com.querydsl.core.types.Expression<Long> walkBoardCount) {
+        super(UserListDto.class, new Class<?>[]{long.class, String.class, String.class, String.class, String.class, java.time.LocalDate.class, int.class, long.class, long.class, long.class}, id, userAccount, userName, userEmail, userPhone, joinDate, userState, questionBoardCount, freeBoardCount, walkBoardCount);
     }
 
 }

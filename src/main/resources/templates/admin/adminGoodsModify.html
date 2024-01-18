@@ -67,7 +67,7 @@
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">상품 수량</th>
-                                <td><input type="number" name="goodsQuantity" id="goods-quantity" min="0" th:value="${goods.goodsQuantity}"/></td>
+                                <td><input type="number" name="goodsQuantity" id="goods-quantity" min="0" th:value="${goods.goodsQuantity-goods.saleCount}"/></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">상품 가격</th>

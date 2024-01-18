@@ -25,7 +25,8 @@ public interface GoodsRepositoryCustom {
     //관리자 상품 상세 - 상품 관련 문의사항 리스트
     Page<AdminGoodsQnaListDto> getQnaList(Long goodsId, Pageable pageable, String state);
 
-
+    //관리자 상품 리뷰 리스트
+    Page<AdminGoodsDetailReviewListDto> getReviewList(Long goodsId, Pageable pageable, String state);
 
     //관리자 상품 문의 리스트
     Page<AdminGoodsQnaListDto> getQnaList(Pageable pageable, String qnaState, String cate, String keyword);

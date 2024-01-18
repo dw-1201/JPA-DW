@@ -115,7 +115,7 @@ $('.delete-btn').on('click', function (){
     let walkBoardId = $(this).data('walkboardid');
 
     if(confirm("해당 글을 삭제하시겠습니까?")){
-
+            window.location.href="/walk/deleteWalkMate/" + +walkBoardId;
     }
 })
 

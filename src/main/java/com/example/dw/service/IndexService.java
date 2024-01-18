@@ -2,6 +2,7 @@ package com.example.dw.service;
 
 import com.example.dw.domain.dto.community.IndexWalkMateDto;
 import com.example.dw.domain.dto.goods.IndexGoodsByCateDto;
+import com.example.dw.domain.dto.index.WeeklyFreeBoardList;
 import com.example.dw.domain.dto.index.WeeklyQnaList;
 import com.example.dw.repository.community.WalkingMateRepositoryCustom;
 import com.example.dw.repository.goods.GoodsRepositoryCustom;
@@ -43,6 +44,14 @@ public class IndexService {
     public List<WeeklyQnaList> weeklyQnaList(){
         return indexRepositoryCustom.weeklyQnaList();
     }
+
+    //자유게시판 Best5
+    @Transactional
+    public  List<WeeklyFreeBoardList> weeklyFreeBoardList(){
+
+        return indexRepositoryCustom.weeklyFreeBoardList();
+    }
+
 
 
     

@@ -59,10 +59,10 @@ public class FreeBoard {
     @OneToMany(mappedBy = "freeBoard" ,fetch = FetchType.LAZY, orphanRemoval = true)
     private List<FreeBoardImg> freeBoardImg = new ArrayList<>();
 
-    @OneToMany(mappedBy = "freeBoard" ,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "freeBoard" ,fetch = FetchType.LAZY, orphanRemoval = true)
     private List<FreeBoardComment> freeBoardComment = new ArrayList<>();
 
-    @OneToOne(mappedBy = "freeBoard" ,fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "freeBoard" ,fetch = FetchType.LAZY, orphanRemoval = true)
     private FreeBoardLike freeBoardLike;
 
     @ManyToOne(fetch = FetchType.LAZY)

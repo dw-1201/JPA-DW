@@ -12,7 +12,9 @@ public class AdminGoodsReviewContentDto {
 
     private String orderReviewContent;
     private String userAccount;
+    private Integer rating;
     private LocalDateTime orderReviewRd;
+
 
     private Long orderReviewImgId;
     private String oderReviewImgPath;
@@ -20,9 +22,11 @@ public class AdminGoodsReviewContentDto {
     private String orderReviewImgName;
 
     @QueryProjection
-    public AdminGoodsReviewContentDto(String orderReviewContent, String userAccount, LocalDateTime orderReviewRd, Long orderReviewImgId, String oderReviewImgPath, String orderReviewImgUuid, String orderReviewImgName) {
+
+    public AdminGoodsReviewContentDto(String orderReviewContent, String userAccount, Integer rating, LocalDateTime orderReviewRd, Long orderReviewImgId, String oderReviewImgPath, String orderReviewImgUuid, String orderReviewImgName) {
         this.orderReviewContent = orderReviewContent;
         this.userAccount = userAccount;
+        this.rating = rating;
         this.orderReviewRd = orderReviewRd;
         this.orderReviewImgId = orderReviewImgId;
         this.oderReviewImgPath = oderReviewImgPath;

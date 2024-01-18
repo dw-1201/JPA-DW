@@ -13,8 +13,8 @@ public class QWeeklyFreeBoardList extends ConstructorExpression<WeeklyFreeBoardL
 
     private static final long serialVersionUID = 351755244L;
 
-    public QWeeklyFreeBoardList(com.querydsl.core.types.Expression<Long> freeBoardId, com.querydsl.core.types.Expression<String> freeBoardTitle, com.querydsl.core.types.Expression<Integer> viewCount) {
-        super(WeeklyFreeBoardList.class, new Class<?>[]{long.class, String.class, int.class}, freeBoardId, freeBoardTitle, viewCount);
+    public QWeeklyFreeBoardList(com.querydsl.core.types.Expression<Long> freeBoardId, com.querydsl.core.types.Expression<String> freeBoardTitle, com.querydsl.core.types.Expression<Long> viewCount) {
+        super(WeeklyFreeBoardList.class, new Class<?>[]{long.class, String.class, long.class}, freeBoardId, freeBoardTitle, viewCount);
     }
 
 }
