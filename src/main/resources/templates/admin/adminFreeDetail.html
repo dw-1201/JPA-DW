@@ -49,14 +49,14 @@
                         <th>작성자</th>
                         <td th:text="${detail.userAccount}"></td>
                         <th>작성일자</th>
-                        <td>2011-11-11</td>
+                        <td class="freeBoardRd">2011-11-11</td>
                         <th>조회수</th>
                         <td th:text="${detail.viewCount}"></td>
                         <td class="delete-td">
-                            <button class="delete-free-btn">삭제
+                            <button class="delete-free-btn" th:data-boardid="${detail.freeBoardId}">삭제
                             </button>
                     </td>
-                        <input type="hidden" th:value="${detail.freeBoardRd}" class="freeBoardRd"/>
+                        <input type="hidden" th:value="${detail.freeBoardRd}" class="freeBoardRdValue"/>
                     </tr>
                     <tr class="free-info-title">
                         <th>제목</th>
@@ -85,15 +85,11 @@
                     </span>
             </div>
             <div class="free-reply-section">
-                <ul class="free-reply-ul">
-                    <li class="reply-writer">bokbok1234</li>
-                    <li class="reply-content">제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!제가 알려드릴게요!</li>
-                    <li class="reply-reg-date">2011-11-11</li>
-                    <li class="reply-btn">
-                        <div class="delete-btn">
-                            <button class="delete-submit-btn">삭제</button>
-                        </div>
-                    </li>
+                <ul class="free-reply-ul" th:each="reply : ${detail.replyList}">
+                    <li class="reply-writer" th:text="${reply.userAccount}"></li>
+                    <li class="reply-content" th:text="${reply.freeBoardCommentContent}"></li>
+                    <li class="reply-reg-date"></li>
+                    <input type="hidden" th:value="${reply.freeBoardCommentRd}" class="freeBoarCommentRd"/>
                 </ul>
             </div>
         </div>
@@ -102,7 +98,7 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-<script src="/admin/js/adminFreeDetail.js"></script>
+<script type="module" src="/admin/js/adminFreeDetail.js"></script>
 <script src="/fragment/js/adminSide.js"></script>
 </body>
 </html>

@@ -183,7 +183,7 @@ public class AdminCommunityImpl implements AdminCommunityRepositoryCustom {
                 }
         ).findFirst().get();
 
-
+        System.out.println(result.toString()+"!@#!@#");
         return Optional.ofNullable(result).orElseThrow(()->{
             throw new IllegalArgumentException("정보 없음");
         });

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequiredArgsConstructor
@@ -38,6 +39,16 @@ public class AdminCommunityController {
         return "/admin/adminQnaDetail";
     }
 
+    //qna 삭제
+    @GetMapping("/questionDelete/{qnaId}")
+    public RedirectView qnaDelete(@PathVariable("qnaId") Long qnaId){
+
+        adminCommunityService.qnaDelete(qnaId);
+
+        return new RedirectView("/admin/qnaList");
+
+    }
+
     @GetMapping("/freeBoardList")
     public String freeBoardList(){
         return "/admin/adminFreeList";
@@ -54,7 +65,14 @@ public class AdminCommunityController {
         return "/admin/adminFreeDetail";
     }
 
+    //자유게시판 삭제
+    @GetMapping("/freeBoardDelete/{freeBoardId}")
+    public RedirectView freeBoardDelete(@PathVariable("freeBoardId") Long freeBoardId){
 
+        adminCommunityService.freeBoardDelete(freeBoardId);
+
+        return new RedirectView("/admin/freeBoardList");
+    }
 
     @GetMapping("/walkBoardList")
     public String walkBoardList(){

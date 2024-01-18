@@ -55,7 +55,7 @@
                         <td th:text="${qnaDetail.viewCount}"></td>
                         
                         <td class="delete-td">
-                            <button class="delete-qna-btn">삭제
+                            <button class="delete-qna-btn" th:data-boardid="${qnaDetail.qnaBoardId}">삭제
                             </button>
                     </td>
                     </tr>
@@ -91,11 +91,7 @@
                     <li class="reply-content" th:text="${reply.questionCommentContent}"></li>
                     <li class="reply-reg-date">2011-11-11</li>
                     <input type="hidden" th:value="${reply.questionCommentRd}" class="questionCommentRd"/>
-<!--                    <li class="reply-btn">-->
-<!--                        <div class="delete-btn">-->
-<!--                            <button class="delete-submit-btn">삭제</button>-->
-<!--                        </div>-->
-<!--                    </li>-->
+
                 </ul>
             </div>
         </div>

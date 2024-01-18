@@ -91,8 +91,8 @@
                             <ul class="weekly-qna-ul weekly-ul">
                                 <li class="weekly-qna-li weekly-li" th:each="weeklyQnaBest, iterState : ${weeklyQnaBest}">
                                     <a th:href="@{/qna/qnaDetail/{id} (id=${weeklyQnaBest.qnaBoardId})}">
-                                        <th:block th:each="img : ${weeklyQnaBest.questionImgDto}">
-                                        <img th:src="'/jpa_dw/question/' + ${img.questionImgRoute} + '/' + ${img.questionImgUuid} + '_' + ${img.questionImgName}" alt="qna인기글 사진"/>
+                                        <th:block>
+                                        <img th:src="'/jpa_dw/question/' + ${weeklyQnaBest.questionImgRoute} + '/' + ${weeklyQnaBest.questionImgUuid} + '_' + ${weeklyQnaBest.questionImgName}" alt="qna인기글 사진"/>
                                         </th:block>
                                         <div class="qna-detail detail">
                                             <div class="qna-writer writer" th:text="${weeklyQnaBest.writerUserAccount}"></div>
@@ -113,43 +113,15 @@
                         </div>
                         <div class="weekly-free weekly-div">
                             <ul class="weekly-free-ul weekly-ul">
-                                <li class="weekly-free-li weekly-li">
-                                    <a href="">
+                                <li class="weekly-free-li weekly-li" th:each="weeklyFreeBest, iterState : ${weeklyFreeBoardBest}">
+                                    <a th:href="@{/community/freeBoardDetail/{id} (id=${weeklyFreeBest.freeBoardId})}">
                                         <div class="free-detail detail">
-                                            <div class="free-rank rank">1위</div>
-                                            <div class="free-title title">이건 머에용?</div>
-                                            <div class="free-view-count count">3</div>
+                                            <div class="free-rank rank" th:text="${iterState.index+1 + '위'}"></div>
+                                            <div class="free-title title" th:text="${weeklyFreeBest.freeBoardTitle}"></div>
+                                            <div class="free-view-count count" th:text="${weeklyFreeBest.viewCount}"></div>
                                         </div>
                                     </a>
                                 </li>
-                                <li class="weekly-free-li weekly-li">
-                                    <div class="free-detail detail">
-                                        <div class="free-rank rank">1위</div>
-                                        <div class="free-title title">이건 머에용?</div>
-                                        <div class="free-view-count count">3</div>
-                                    </div>
-                                </li>
-                                <li class="weekly-free-li weekly-li">
-                                    <div class="free-detail detail">
-                                        <div class="free-rank rank">1위</div>
-                                        <div class="free-title title">이건 머에용?</div>
-                                        <div class="free-view-count count">3</div>
-                                    </div>
-                                </li>
-                                <li class="weekly-free-li weekly-li">
-                                    <div class="free-detail detail">
-                                        <div class="free-rank rank">1위</div>
-                                        <div class="free-title title">이건 머에용?</div>
-                                        <div class="free-view-count count">3</div>
-                                    </div>
-                                </li>
-                                <li class="weekly-free-li weekly-li">
-                                <div class="free-detail detail">
-                                    <div class="free-rank rank">1위</div>
-                                    <div class="free-title title">이건 머에용?</div>
-                                    <div class="free-view-count count">3</div>
-                                </div>
-                                 </li>
 
                             </ul>
                         </div>

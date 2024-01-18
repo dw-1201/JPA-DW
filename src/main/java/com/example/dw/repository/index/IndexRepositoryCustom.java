@@ -17,6 +17,10 @@ public interface IndexRepositoryCustom {
     List<WeeklyFreeBoardList> weeklyFreeBoardList();
 
 
-
+//
+//    @Query("select distinct q.id, q.users.id, q.users.userAccount, q.users.userNickName, q.questionTitle, q.questionViewCount, (select qi.questionImgRoute, qi.questionImgUuid, qi.qustionImgName from QuestionImg qi where qi.question = q) as imgs from Question q " +
+//            "left join  ")
+//    List<WeeklyQnaList> qnaTop3();
+//
 
 }

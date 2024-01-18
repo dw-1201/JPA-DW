@@ -1,6 +1,5 @@
 package com.example.dw.domain.dto.index;
 
-import com.example.dw.domain.dto.community.QuestionImgDto;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,8 +17,9 @@ public class WeeklyQnaList {
     private String qnaBoardTitle;
     private Long questionViewCount;
 
-
-    private QuestionImgDto questionImgDto;
+    private String questionImgRoute;
+    private String questionImgUuid;
+    private String questionImgName;
 
 
     @QueryProjection
@@ -32,11 +32,28 @@ public class WeeklyQnaList {
         this.questionViewCount = questionViewCount;
     }
 
+    @QueryProjection
 
-    public void setQuestionImgDto(QuestionImgDto questionImgDto) {
-        this.questionImgDto = questionImgDto;
+    public WeeklyQnaList(Long qnaBoardId, Long writerUserId, String writerUserAccount, String writerUserNickName, String qnaBoardTitle, Long questionViewCount, String questionImgRoute, String questionImgUuid, String questionImgName) {
+        this.qnaBoardId = qnaBoardId;
+        this.writerUserId = writerUserId;
+        this.writerUserAccount = writerUserAccount;
+        this.writerUserNickName = writerUserNickName;
+        this.qnaBoardTitle = qnaBoardTitle;
+        this.questionViewCount = questionViewCount;
+        this.questionImgRoute = questionImgRoute;
+        this.questionImgUuid = questionImgUuid;
+        this.questionImgName = questionImgName;
     }
 
 
 
+
+
+    @QueryProjection
+    public WeeklyQnaList(String questionImgRoute, String questionImgUuid, String questionImgName) {
+        this.questionImgRoute = questionImgRoute;
+        this.questionImgUuid = questionImgUuid;
+        this.questionImgName = questionImgName;
+    }
 }
