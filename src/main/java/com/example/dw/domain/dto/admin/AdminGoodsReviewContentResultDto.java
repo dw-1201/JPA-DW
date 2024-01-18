@@ -12,13 +12,15 @@ public class AdminGoodsReviewContentResultDto {
 
     private String orderReviewContent;
     private String userAccount;
+    private Integer rating;
     private LocalDateTime orderReviewRd;
     private List<AdminGoodsReviewImgList> reviewImg;
 
 
-    public AdminGoodsReviewContentResultDto(String orderReviewContent, String userAccount, LocalDateTime orderReviewRd, List<AdminGoodsReviewImgList> reviewImg) {
+    public AdminGoodsReviewContentResultDto(String orderReviewContent, String userAccount, Integer rating, LocalDateTime orderReviewRd, List<AdminGoodsReviewImgList> reviewImg) {
         this.orderReviewContent = orderReviewContent;
         this.userAccount = userAccount;
+        this.rating = rating;
         this.orderReviewRd = orderReviewRd;
         this.reviewImg = reviewImg;
     }

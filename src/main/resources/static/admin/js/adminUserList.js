@@ -105,12 +105,13 @@ function showUserList(result){
         text += `
         
                     <tr>
+                        <td>${r.id}</td>
                         <td>${r.userAccount}</td>
                         <td>${r.userName}</td>
                         <td>${r.userEmail}</td>
                         <td>${r.userPhone}</td>
-                        <td>${r.freeBoardCount + r.qnaBoardCount}</td>
-                        <td>추후 조인</td>
+                        <td>${r.questionBoardCount + r.freeBoardCount + r.walkBoardCount}</td>
+                        <td>${r.joinDate}</td>
                         <td class="list-btns">
                             <button type="button" class="modify-btn btn" data-userid="${r.id}">상세보기</button>
                             `;

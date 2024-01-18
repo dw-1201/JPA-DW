@@ -75,22 +75,24 @@
     padding: 10px;
     width: 100%;
     line-height: 2;
+    border-collapse: collapse;
+    text-align: center;
 }
 
 
 
 .user-info-table tr td {
     cursor: pointer;
-    padding: 4px;
 }
 
 .table-column > th{
-    text-align: start;
+    text-align: center;
     padding: 4px;
     
 }
-.user-info-table tr td:nth-child(7) {
+.user-info-table tr td:nth-child(8) {
     padding: 0;
+    border: none;
 }
 
 .list-btns {

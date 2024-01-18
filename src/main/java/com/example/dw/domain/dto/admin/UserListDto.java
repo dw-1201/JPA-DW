@@ -4,6 +4,8 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @NoArgsConstructor
 public class UserListDto {
@@ -14,22 +16,28 @@ public class UserListDto {
     private String userName;
     private String userEmail;
     private String userPhone;
+    private LocalDate joinDate;
     private Integer userState;
 
+    private Long questionBoardCount;
     private Long freeBoardCount;
-    private Long qnaBoardCount;
+    private Long walkBoardCount;
+
+
 
 
     @QueryProjection
-    public UserListDto(Long id, String userAccount, String userName, String userEmail,
-                       String userPhone, Integer userState, Long freeBoardCount, Long qnaBoardCount) {
+
+    public UserListDto(Long id, String userAccount, String userName, String userEmail, String userPhone, LocalDate joinDate, Integer userState, Long questionBoardCount, Long freeBoardCount, Long walkBoardCount) {
         this.id = id;
         this.userAccount = userAccount;
         this.userName = userName;
         this.userEmail = userEmail;
         this.userPhone = userPhone;
+        this.joinDate = joinDate;
         this.userState = userState;
+        this.questionBoardCount = questionBoardCount;
         this.freeBoardCount = freeBoardCount;
-        this.qnaBoardCount = qnaBoardCount;
+        this.walkBoardCount = walkBoardCount;
     }
 }

@@ -106,6 +106,10 @@
                                 <th class="goods-table-column" scope="row">총 판매금액</th>
                                 <td><input type="text" name="goods-total-sale" id="goods-total-sale" readonly /></td>
                             </tr>
+                            <tr>
+                                <th class="goods-table-column rating-column" scope="row">평균 별점</th>
+                                <td colspan="3" class="rating-avg" th:text="${goods.ratingAvg +' / 5'}"></td>
+                            </tr>
                             <input type="hidden" th:value="${goods.goodsPrice}" class="goodPrice" />
                             <input type="hidden" th:value="${goods.goodsQuantity - goods.saleCount}" class="goodsQuantity" />
                             <input type="hidden" th:value="${goods.saleCount}" class="saleCount"/>

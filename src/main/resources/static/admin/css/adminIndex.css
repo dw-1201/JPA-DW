@@ -22,7 +22,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 30px;
-    height: 382px;
+    height: 468px;
     box-sizing: border-box;
     padding: 20px;
     background-color: white;
@@ -36,8 +36,12 @@
 } 
 
 
+.chart {
+    height: 430px;
+    border: 1px solid gray;
 
-.chart, .recent-join-user {
+}
+.recent-join-user {
     height: 340px;
     border: 1px solid gray;
 }
@@ -56,16 +60,15 @@
     font-size: 14px;
 }
 
-.join-chart, .join-user-table {
+.join-chart {
     box-sizing: border-box;
-    padding-top: 30px;
-    width: 600px !important;
-    height: 300px;
+    width: 1230px !important;
+    height: 398px !important;
 }
 
 .join-user-table {
     box-sizing: border-box;
-    width: 100%;
+    width: 1230px;
     height: 200px;
     text-align: center;
     font-size: 13px;

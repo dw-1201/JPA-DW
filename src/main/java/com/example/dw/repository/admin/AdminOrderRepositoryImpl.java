@@ -150,16 +150,18 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
     @Override
     public List<AdminWeeklyOrderState> weeklyOrderState() {
         LocalDate nowDate = LocalDate.now();
-        LocalDate startWeeklyDateTime = nowDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-        LocalDate endWeeklyDateTime = nowDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+        LocalDate startWeeklyDateTime = nowDate.with(TemporalAdjusters.previous(DayOfWeek.MONDAY)).minusWeeks(3);
 
         List<LocalDate> weeklyDates = new ArrayList<>();
         LocalDate current = startWeeklyDateTime;
 
         // 주간 요일 입력
-        while (!current.isAfter(endWeeklyDateTime)) {
+        while (!current.isAfter(nowDate)) {
             weeklyDates.add(current);
             current = current.plusDays(1);
+
+            System.out.println("요일 : "+current);
+
         }
 
         Map<LocalDate, Long> weeklySales = jpaQueryFactory.select(
@@ -167,7 +169,7 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
                 orders.count()
         )
                 .from(orders)
-                .where(orders.orderRegisterDate.between(startWeeklyDateTime.atStartOfDay(), endWeeklyDateTime.atTime(23, 59, 59)))
+                .where(orders.orderRegisterDate.between(startWeeklyDateTime.atStartOfDay(), nowDate.atTime(23, 59, 59)))
                 .orderBy(orders.orderRegisterDate.desc())
                 .groupBy(orders.orderRegisterDate)  // 이 부분을 변경하지 않음
                 .fetch()
@@ -177,11 +179,13 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
                         Long::sum   //같은 키의 값들을 모두 더함 즉, 날짜가 같으면 걍 다 더함
                 ));
 
+
         for (LocalDate date : weeklyDates) {
             weeklySales.putIfAbsent(date, 0L);
         }
 
         return weeklySales.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey(Comparator.reverseOrder())) //키값 - 날짜 내림차순 정렬
                 .map(sales -> new AdminWeeklyOrderState(sales.getKey(), sales.getValue()))
                 .collect(Collectors.toList());
     }

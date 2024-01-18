@@ -24,9 +24,10 @@ public class AdminGoodsDetailResultDto {
     private String goodsMainImgPath;
     private String goodsMainImgUuid;
     private int saleCount;
+    private double ratingAvg;
     private List<AdminGoodsDetailImgDto> goodsDetailImgs;
 
-    public AdminGoodsDetailResultDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, LocalDateTime goodsRegisterDate, LocalDateTime goodsModifyDate, String goodsCategory, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid, int saleCount) {
+    public AdminGoodsDetailResultDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, LocalDateTime goodsRegisterDate, LocalDateTime goodsModifyDate, String goodsCategory, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid, int saleCount, double ratingAvg) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;
@@ -41,9 +42,11 @@ public class AdminGoodsDetailResultDto {
         this.goodsMainImgPath = goodsMainImgPath;
         this.goodsMainImgUuid = goodsMainImgUuid;
         this.saleCount = saleCount;
+        this.ratingAvg = ratingAvg;
     }
 
-    public AdminGoodsDetailResultDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, LocalDateTime goodsRegisterDate, LocalDateTime goodsModifyDate, String goodsCategory, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid, int saleCount, List<AdminGoodsDetailImgDto> goodsDetailImgs) {
+
+    public AdminGoodsDetailResultDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, LocalDateTime goodsRegisterDate, LocalDateTime goodsModifyDate, String goodsCategory, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid, int saleCount, double ratingAvg, List<AdminGoodsDetailImgDto> goodsDetailImgs) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;
@@ -58,6 +61,7 @@ public class AdminGoodsDetailResultDto {
         this.goodsMainImgPath = goodsMainImgPath;
         this.goodsMainImgUuid = goodsMainImgUuid;
         this.saleCount = saleCount;
+        this.ratingAvg = ratingAvg;
         this.goodsDetailImgs = goodsDetailImgs;
     }
 }

@@ -20,6 +20,7 @@ function orderByDay(){
         dataType: 'json',
         success : function (result){
 
+            console.log(result);
             let OrderCanvas = document.getElementById('weekly-order-chart');
 
             let labels = [];
@@ -28,10 +29,12 @@ function orderByDay(){
 
             result.forEach(function (sales){
 
+
                 labels.push(sales.saleDate);
                 saleAmount.push(sales.saleCounts)
             })
 
+            console.log(labels)
         data = {
 
                 labels : labels,

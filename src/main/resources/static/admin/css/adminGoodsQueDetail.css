@@ -40,9 +40,12 @@
 
 }
 .goods-stan-info-title h4 {
-    width: 630px;
+    width: 100%;
 }
-
+.goods-stan-info-title button {
+    width: 120px;
+    cursor: pointer;
+}
 .reg-btn {
     text-align: end;
     width: 600px;

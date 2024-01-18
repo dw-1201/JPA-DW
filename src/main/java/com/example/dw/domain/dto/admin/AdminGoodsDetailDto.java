@@ -29,6 +29,7 @@ public class AdminGoodsDetailDto {
     private String goodsDetailImgPath;
     private String goodsDetailImgUuid;
     private int saleCount;
+    private double ratingAvg;
 
     @QueryProjection
     public AdminGoodsDetailDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, LocalDateTime goodsRegisterDate, LocalDateTime goodsModifyDate, String goodsCategory, Long goodsMainImgId, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid, Long goodsDetailImgId, String goodsDetailImgName, String goodsDetailImgPath, String goodsDetailImgUuid, int saleCount) {
@@ -51,6 +52,12 @@ public class AdminGoodsDetailDto {
         this.goodsDetailImgPath = goodsDetailImgPath;
         this.goodsDetailImgUuid = goodsDetailImgUuid;
         this.saleCount = saleCount;
+    }
+
+
+    public AdminGoodsDetailDto setRatingAvg(double ratingAvg) {
+        this.ratingAvg = ratingAvg;
+        return this;
     }
 }
 

@@ -24,7 +24,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 30px;
-    height: 393px;
+    height: 468px;
     box-sizing: border-box;
     padding: 20px;
     background-color: white;
@@ -40,7 +40,7 @@
 
 
 .order-chart, .recent-order-user {
-    height: 355px;
+    height: 430px;
     border: 1px solid gray;
 }
 
@@ -57,10 +57,11 @@
 
 .order-user-chart, .order-user-table {
     box-sizing: border-box;
-    width: 600px !important;
+    width: 1230px !important;
+    height: 398px !important;
 }
 .order-user-chart {
-    padding: 30px 8px 8px 8px ;
+    padding: 5px 8px 8px 8px ;
 }
 
 
