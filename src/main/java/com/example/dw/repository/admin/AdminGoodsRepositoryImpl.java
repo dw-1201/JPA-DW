@@ -116,6 +116,7 @@ public class AdminGoodsRepositoryImpl implements AdminGoodsRepositoryCustom{
                 new QAdminGoodsReviewContentDto(
                         orderReview.content,
                         users.userAccount,
+                        orderReview.rating,
                         orderReview.reviewRd,
                         orderReviewImg.id,
                         orderReviewImg.reviewimgPath,
@@ -147,6 +148,7 @@ public class AdminGoodsRepositoryImpl implements AdminGoodsRepositoryCustom{
                 reviews -> new AdminGoodsReviewContentResultDto(
                         reviews.getOrderReviewContent(),
                         reviews.getUserAccount(),
+                        reviews.getRating(),
                         reviews.getOrderReviewRd(),
 
                         reviewInfo.stream().map(o->new AdminGoodsReviewImgList(

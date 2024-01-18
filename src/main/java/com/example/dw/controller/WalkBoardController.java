@@ -140,6 +140,15 @@ public class WalkBoardController {
 
     }
 
+    //산책글 삭제
+    @GetMapping("/deleteWalkMate/{walkBoardId}")
+    public RedirectView deleteWalkMate(@PathVariable("walkBoardId") Long walkBoardId){
+
+        walkingMateService.walkDelete(walkBoardId);
+
+        return new RedirectView("/walk/walkList");
+    }
+
 
     //산책메이트 신청 철회
     @GetMapping("/applyCancel/{walkMateId}/{userId}")

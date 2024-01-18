@@ -77,7 +77,8 @@ public class AdminGoodsService {
                                         r.getGoodsMainImgName(),
                                         r.getGoodsMainImgPath(),
                                         r.getGoodsMainImgUuid(),
-                                        r.getSaleCount()
+                                        r.getSaleCount(),
+                                        r.getRatingAvg()
                                 ),
                                 mapping(
                                         r -> new AdminGoodsDetailImgDto(
@@ -209,6 +210,11 @@ public class AdminGoodsService {
 
     }
 
+    //관리자 상품 상세 - 상품 관련 리뷰사항
+    @Transactional
+    public Page<AdminGoodsDetailReviewListDto> findGoodsDetailReviewList(Long goodsId, Pageable pageable, String state){
+        return goodsRepositoryCustom.getReviewList(goodsId,pageable,state);
+    }
 
 
 

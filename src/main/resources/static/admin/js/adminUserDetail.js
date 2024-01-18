@@ -52,11 +52,12 @@ function renderQnaBoardList(result) {
     totalCount.empty();
     totalCount.text(result.totalElements);
 
+    if(result.content.length>0){
 
         result.content.forEach(r => {
 
 
-                    text += `
+            text += `
                         <tr>
                             <td class="community-title"><a href="/admin/questionDetail/${r.qnaBoardId}">${r.qnaBoardTitle}</a></td>
                             <td class="community-reg-date">${form.formatDates(r.qnaBoardRd)}</td>
@@ -64,7 +65,17 @@ function renderQnaBoardList(result) {
                             <td class="community-reply">${r.replyCount}</td>
                         </tr>`;
 
+
         });
+    }else {
+
+        $('.no-column').css('display', 'none')
+
+        text +=`        <tr>
+                            <td class="no-result" colspan="4" >작성한 글이 없습니다.</td>
+                        </tr>`
+    }
+
 
     textInputSection.html(text);
     page.pagination(result, paginations);
@@ -86,8 +97,7 @@ function renderFreeBoardList(result){
     totalCount.empty();
     totalCount.text(result.totalElements);
 
-    result.content.forEach(r=>{
-
+    if(result.content.length>0){
 
         result.content.forEach(r => {
 
@@ -101,6 +111,14 @@ function renderFreeBoardList(result){
                         </tr>`;
 
         });
+        }else {
+
+        $('.no-column').css('display', 'none')
+
+        text +=`        <tr>
+                            <td class="no-result" colspan="4" >작성한 글이 없습니다.</td>
+                        </tr>`
+        }
 
         textInputSection.html(text);
         page.pagination(result, paginations);
@@ -109,7 +127,6 @@ function renderFreeBoardList(result){
             const page = parseInt($(this).data('page'));
             list.simpleList('admins', 'userFreeBoardList', userId, page, renderFreeBoardList);
         })
-    })
 
 }
 
@@ -124,11 +141,12 @@ function renderWalkBoardList(result) {
     totalCount.empty();
     totalCount.text(result.totalElements);
 
+    if(result.content.length>0) {
 
-    result.content.forEach(r => {
+        result.content.forEach(r => {
 
 
-        text += `
+            text += `
                         <tr>
                             <td class="community-title"><a href="/admin/walkMateDetail/${r.walkMateId}">${r.walkMateTitle}</a></td>
                             <td class="community-reg-date">${form.formatDates(r.walkMateRd)}</td>
@@ -136,7 +154,15 @@ function renderWalkBoardList(result) {
                             <td class="community-reply">${r.replyCount}</td>
                         </tr>`;
 
-    });
+        });
+    }else {
+
+        $('.no-column').css('display', 'none')
+
+        text +=`        <tr>
+                            <td class="no-result" colspan="4" >작성한 글이 없습니다.</td>
+                        </tr>`
+    }
 
     textInputSection.html(text);
     page.pagination(result, paginations);

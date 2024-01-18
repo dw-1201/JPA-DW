@@ -1,5 +1,5 @@
 import  * as page from './module/pagination.js';
-
+import * as form from './module/form.js';
 
 
 //문의 상세 페이지 이동
@@ -92,7 +92,7 @@ function qnaList(result){
                         <td>${r.goodsId}</td>
                         <td>${r.goodsCategory}</td>
                         <td class="q-content">${r.qnaContent}</td>
-                        <td>${r.qnaRd}</td>
+                        <td>${form.formatDates(r.qnaRd)}</td>
                         `;
         if(r.state == 0){
             text += `   <td> X </td>

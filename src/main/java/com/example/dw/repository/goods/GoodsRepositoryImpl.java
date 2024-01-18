@@ -15,12 +15,15 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.example.dw.domain.entity.goods.QGoods.goods;
 import static com.example.dw.domain.entity.goods.QGoodsDetailImg.goodsDetailImg;
 import static com.example.dw.domain.entity.goods.QGoodsMainImg.goodsMainImg;
 import static com.example.dw.domain.entity.goods.QGoodsQue.goodsQue;
 import static com.example.dw.domain.entity.goods.QGoodsQueReply.goodsQueReply;
+import static com.example.dw.domain.entity.order.QOrderItem.orderItem;
+import static com.example.dw.domain.entity.order.QOrderReview.orderReview;
 import static com.example.dw.domain.entity.user.QUsers.users;
 
 @Repository
@@ -96,8 +99,29 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
     //관리자 페이지 상품 상세 페이지
     @Override
     public List<AdminGoodsDetailDto> findGoodsById(Long id) {
+    
+        //npe 방어
+        Optional<Double> avg = Optional.ofNullable(
+                jpaQueryFactory.select(orderReview.rating.avg())
+                        .from(orderReview)
+                        .leftJoin(orderReview.orderItem, orderItem)
+                        .leftJoin(orderItem.goods, goods)
+                        .where(goods.id.eq(id))
+                        .fetchOne()
+        );
+        double avgResult = 0.0;
 
-        return jpaQueryFactory
+        if(avg.isPresent()){
+           avgResult = avg.get();
+        }else {
+            avgResult = 0.0;
+        };
+
+
+        double finalAvgResult = avgResult;
+
+
+        List<AdminGoodsDetailDto> detail= jpaQueryFactory
                 .select(new QAdminGoodsDetailDto(
                         goods.id,
                         goods.goodsName,
@@ -123,18 +147,11 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
                 .leftJoin(goods.goodsMainImg, goodsMainImg)
                 .leftJoin(goods.goodsDetailImg, goodsDetailImg)
                 .where(goods.id.eq(id))
-                .fetch();
-//        return
-//                list.stream().collect(groupingBy(o->new AdminGoodsDetailResultDto(
-//                        o.getId(),o.getGoodsName(),o.getGoodsQuantity(), o.getGoodsPrice(), o.getGoodsMade(), o.getGoodsCertify(), o.getGoodsDetailContent(),
-//                        o.getGoodsRegisterDate(), o.getGoodsModifyDate(), o.getGoodsCategory(), o.getGoodsMainImgName(), o.getGoodsMainImgPath(), o.getGoodsMainImgUuid()), mapping(o->new AdminGoodsDetailImgDto(
-//                                o.getId(), o.getGoodsDetailImgName(), o.getGoodsDetailImgPath(), o.getGoodsDetailImgUuid(), o.getGoodsDetailImgId()),toList())
-//                        )
-//                ).entrySet().stream().map(e->new AdminGoodsDetailResultDto(
-//                        e.getKey().getId(), e.getKey().getGoodsName(), e.getKey().getGoodsQuantity(), e.getKey().getGoodsPrice(), e.getKey().getGoodsMade(), e.getKey().getGoodsCertify(),
-//                        e.getKey().getGoodsDetailContent(), e.getKey().getGoodsRegisterDate(), e.getKey().getGoodsModifyDate(), e.getKey().getGoodsCategory(),
-//                        e.getKey().getGoodsMainImgName(),e.getKey().getGoodsMainImgPath(), e.getKey().getGoodsMainImgUuid(), e.getValue())).collect(toList());
+                .fetch().stream().map(
+                        dto->dto.setRatingAvg(finalAvgResult)
+                ).collect(Collectors.toList());
 
+        return detail;
 
     }
     //상품 상세 - 상품 관련 문의사항
@@ -170,6 +187,39 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
 
         return new PageImpl<>(lists, pageable, qnaListCount);
 
+    }
+    
+    //상품 상세 - 상품 관련 리뷰
+    @Override
+    public Page<AdminGoodsDetailReviewListDto> getReviewList(Long goodsId, Pageable pageable, String state) {
+        List<AdminGoodsDetailReviewListDto> lists = jpaQueryFactory.select(new QAdminGoodsDetailReviewListDto(
+                orderReview.id,
+                orderReview.content,
+                orderReview.rating,
+                orderReview.reviewRd,
+                orderReview.adminReplyState
+        ))
+                .from(orderReview)
+                .leftJoin(orderReview.orderItem, orderItem)
+                .leftJoin(orderItem.goods, goods)
+                .where(goods.id.eq(goodsId).and(
+                        reviewStateEq(state)
+                ))
+                .fetch();
+
+
+        Long getTotal = jpaQueryFactory.select(
+                orderReview.count()
+        )
+                .from(orderReview)
+                .leftJoin(orderReview.orderItem, orderItem)
+                .leftJoin(orderItem.goods, goods)
+                .where(goods.id.eq(goodsId).and(
+                        reviewStateEq(state)
+                ))
+                .fetchOne();
+
+        return new PageImpl<>(lists, pageable, getTotal);
     }
 
 
@@ -212,6 +262,8 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
         return new PageImpl<>(lists, pageable, qnaListCount);
     }
 
+
+
     //관리자 상품 문의 상세 - 문의 정보 / 상품 기본 정보 / 상품 메인 사진
     @Override
     public Optional<AdminGoodsQueDetailDto> getQnaDetail(Long qnaId) {
@@ -226,7 +278,7 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
                 users.userNickName,
                 goods.id,
                 goods.goodsName,
-                goods.goodsQuantity,
+                goods.goodsQuantity.subtract(goods.saleCount),
                 goods.goodsPrice,
                 goods.goodsMade,
                 goods.goodsCertify,
@@ -287,6 +339,13 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
     private BooleanExpression qnaStateEq(String qnaState){
 
         return StringUtils.hasText(qnaState) ? goodsQue.state.eq(Integer.valueOf(qnaState)) : null;
+    }
+
+
+    //리뷰 답변 상태
+    private BooleanExpression reviewStateEq(String reviewState){
+
+        return StringUtils.hasText(reviewState) ? orderReview.adminReplyState.eq(Integer.valueOf(reviewState)) : null;
     }
 
 

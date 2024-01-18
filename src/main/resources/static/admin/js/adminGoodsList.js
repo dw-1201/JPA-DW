@@ -49,9 +49,9 @@ function showGoodsList(result){
                         <td>${r.id}</td>
                         <td>${r.goodsCategory}</td>
                         <td>${r.goodsName}</td>
-                        <td>${r.goodsPrice}원</td>
-                        <td>${r.goodsQuantity - r.goodsSaleCount} ea</td>
-                        <td>${r.goodsSaleCount} ea</td>
+                        <td>${form.addCommas(r.goodsPrice)}원</td>
+                        <td>${form.addCommas(r.goodsQuantity - r.goodsSaleCount)} ea</td>
+                        <td>${form.addCommas(r.goodsSaleCount)} ea</td>
                         <td>${form.formatDates(r.goodsRegisterDate)}</td>
                         `;
         if(r.goodsRegisterDate == r.goodsModifyDate){

@@ -1,75 +1,106 @@
+import * as form from './module/form.js';
+
 //페이지 진입 시 첫 화면
 $(document).ready(function (){
     let qnaId = $('#qnaId').val();
         replyList(qnaId, getReplyList);
-})
 
-
-//상품 문의 답변 등록
-$('.admin-reply-section').on('click', '.reply-section-btn',function (){
-    let qnaReplyContent = $('#reply-content').val();
-    let goodsQueId = $('#qnaId').val();
-    let userId = $('#userId').val();
-
-    addReply(qnaReplyContent, goodsQueId, userId, function (){
-        replyList(goodsQueId, getReplyList);
-
-    })
-    $('#reply-content').val('');
-})
-
-
-
-//상품 문의 답변 수정창 팝업
-$('.goods-q-content-container').on('click', '.modify-reply-btn', function () {
-
-    let $content = $(this).closest('.goods-q-reply-container').find('.q-reply');
-    $content.replaceWith(`
-      <div class='modify-box'>
-        <textarea class='modify-content' cols="30" rows="2">${$content.text()}</textarea>
-        <div class="modify-btn">
-        <button type='button' class='modify-content-btn'>수정 완료</button>
-        </div>
-      </div>
     
-    `);
-     $('.btns').addClass('none');
+        
+    //포맷변경 -- 상품
+    //날짜포맷
+    $('#goods-reg-date').val(form.formatDates($('.goodsRegDate').val()))
+    $('#goods-last-modify-date').val(form.formatDates($('.goodsModDate').val()))
 
-});
+    //숫자포맷
+    $('#goods-quantity').val(form.addCommas($('.goodsQuantity').val()))
+    $('#goods-price').val(form.addCommas($('.goodPrice').val()))
 
-//상품 문의 답변 수정 완료
-$('.goods-q-reply-container').on('click', '.modify-content-btn', function (){
 
-    let goodsQueId = $('#qnaId').val();
-    let modifyContent = $(this).closest('.if-reply').find('.modify-content').val();
-    let replyId = $(this).closest('.if-reply').find('.modify-reply-btn').data('replyid')
+    //포맷변경 -- 문의
+    //날짜포맷
+    $('.qna-input-rd').text(form.formatDates($('.qnaRd').val()))
+    $('.qna-input-md').text(form.formatDates($('.qnaMd').val()))
 
-    replyModify(replyId, modifyContent, function (){
-        replyList(goodsQueId, getReplyList);
+    //상품 정보로 이동
+    $('.move-to-detail').on('click', function (){
 
+        let goodsId = $(this).data('goodsid')
+
+        window.location.href="/admin/detail/" + goodsId;
     })
 
 
-})
-
-//상품 문의 답변 삭제
-$('.goods-q-reply-container').on('click', '.delete-reply-btn', function () {
-
-    let replyId = $(this).closest('.if-reply').find('.delete-reply-btn').data('replyid')
-    let goodsQueId = $('#qnaId').val();
-
-    if (confirm("삭제하시겠습니까?")) {
-
-        replyDelete(replyId, function () {
-
-            replyList(goodsQueId, getReplyList);
-
-
+    //상품 문의 답변 등록
+        $('.admin-reply-section').on('click', '.reply-section-btn',function (){
+            let qnaReplyContent = $('#reply-content').val();
+            let goodsQueId = $('#qnaId').val();
+            let userId = $('#userId').val();
+    
+            addReply(qnaReplyContent, goodsQueId, userId, function (){
+                replyList(goodsQueId, getReplyList);
+    
+            })
+            $('#reply-content').val('');
         })
-        $('#reply-content').val('');
+    
+    
+    
+    //상품 문의 답변 수정창 팝업
+        $('.goods-q-content-container').on('click', '.modify-reply-btn', function () {
+    
+            let $content = $(this).closest('.goods-q-reply-container').find('.q-reply');
+            $content.replaceWith(`
+          <div class='modify-box'>
+            <textarea class='modify-content' cols="30" rows="2">${$content.text()}</textarea>
+            <div class="modify-btn">
+            <button type='button' class='modify-content-btn'>수정 완료</button>
+            </div>
+          </div>
+        
+        `);
+            $('.btns').addClass('none');
+    
+        });
+    
+    //상품 문의 답변 수정 완료
+        $('.goods-q-reply-container').on('click', '.modify-content-btn', function (){
+    
+            let goodsQueId = $('#qnaId').val();
+            let modifyContent = $(this).closest('.if-reply').find('.modify-content').val();
+            let replyId = $(this).closest('.if-reply').find('.modify-reply-btn').data('replyid')
+    
+            replyModify(replyId, modifyContent, function (){
+                replyList(goodsQueId, getReplyList);
+    
+            })
+    
+    
+        })
+    
+    //상품 문의 답변 삭제
+        $('.goods-q-reply-container').on('click', '.delete-reply-btn', function () {
+    
+            let replyId = $(this).closest('.if-reply').find('.delete-reply-btn').data('replyid')
+            let goodsQueId = $('#qnaId').val();
+    
+            if (confirm("삭제하시겠습니까?")) {
+    
+                replyDelete(replyId, function () {
+    
+                    replyList(goodsQueId, getReplyList);
+    
+    
+                })
+                $('#reply-content').val('');
+    
+            }
+        })
 
-    }
+    //
 })
+
+
 
 //상품 문의 답변 등록
 function addReply(qnaReplyContent, goodsQueId, userId, callback){
@@ -182,13 +213,13 @@ function getReplyList(result) {
         if(result.qnaReplyMd == result.qnaReplyRd){
             text += `
                     <li></li>
-                    <li>작성일 <span>${result.qnaReplyRd}</span></li>
+                    <li>작성일 <span>${form.formatDates(result.qnaReplyRd)}</span></li>
 
                     `;
         }else {
             text +=`
-                    <li>수정일 <span>${result.qnaReplyMd}</span></li>
-                    <li>작성일 <span>${result.qnaReplyRd}</span></li>
+                    <li>수정일 <span>${form.formatDates(result.qnaReplyMd)}</span></li>
+                    <li>작성일 <span>${form.formatDates(result.qnaReplyRd)}</span></li>
             `;
         }
         text +=`     

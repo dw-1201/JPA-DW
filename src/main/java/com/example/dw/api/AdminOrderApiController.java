@@ -1,9 +1,6 @@
 package com.example.dw.api;
 
-import com.example.dw.domain.dto.admin.AdminOrderDetailResultDto;
-import com.example.dw.domain.dto.admin.AdminOrderListResultDto;
-import com.example.dw.domain.dto.admin.AdminWeeklyOrderState;
-import com.example.dw.domain.dto.admin.GoodsSaleByCategory;
+import com.example.dw.domain.dto.admin.*;
 import com.example.dw.domain.form.AdminSearchOrderForm;
 import com.example.dw.service.AdminOrderService;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +37,16 @@ public class AdminOrderApiController {
     @GetMapping("/salesByCategory")
     public List<GoodsSaleByCategory> salesByCategory(){
         return adminOrderService.saleByCategory();
+    }
+
+
+    //최다 주문회원
+    @GetMapping("/mostOrders")
+    public List<MostOrderUserDto> mostOrders(){
+
+        List<MostOrderUserDto> mostOrdersInfo = adminOrderService.mostOrders();
+
+        return mostOrdersInfo;
     }
 
     //관리자 페이지 주문 리스트

@@ -101,7 +101,13 @@
 
 }
 
+.rating-avg {
+    text-indent: 13px;
+}
 
+.rating-column {
+    height: 28px;
+}
 
 /* 파일 처리 css */
 

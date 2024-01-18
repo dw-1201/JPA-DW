@@ -150,16 +150,18 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
     @Override
     public List<AdminWeeklyOrderState> weeklyOrderState() {
         LocalDate nowDate = LocalDate.now();
-        LocalDate startWeeklyDateTime = nowDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-        LocalDate endWeeklyDateTime = nowDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+        LocalDate startWeeklyDateTime = nowDate.with(TemporalAdjusters.previous(DayOfWeek.MONDAY)).minusWeeks(3);
 
         List<LocalDate> weeklyDates = new ArrayList<>();
         LocalDate current = startWeeklyDateTime;
 
         // 주간 요일 입력
-        while (!current.isAfter(endWeeklyDateTime)) {
+        while (!current.isAfter(nowDate)) {
             weeklyDates.add(current);
             current = current.plusDays(1);
+
+            System.out.println("요일 : "+current);
+
         }
 
         Map<LocalDate, Long> weeklySales = jpaQueryFactory.select(
@@ -167,7 +169,7 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
                 orders.count()
         )
                 .from(orders)
-                .where(orders.orderRegisterDate.between(startWeeklyDateTime.atStartOfDay(), endWeeklyDateTime.atTime(23, 59, 59)))
+                .where(orders.orderRegisterDate.between(startWeeklyDateTime.atStartOfDay(), nowDate.atTime(23, 59, 59)))
                 .orderBy(orders.orderRegisterDate.desc())
                 .groupBy(orders.orderRegisterDate)  // 이 부분을 변경하지 않음
                 .fetch()
@@ -177,11 +179,13 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
                         Long::sum   //같은 키의 값들을 모두 더함 즉, 날짜가 같으면 걍 다 더함
                 ));
 
+
         for (LocalDate date : weeklyDates) {
             weeklySales.putIfAbsent(date, 0L);
         }
 
         return weeklySales.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey(Comparator.reverseOrder())) //키값 - 날짜 내림차순 정렬
                 .map(sales -> new AdminWeeklyOrderState(sales.getKey(), sales.getValue()))
                 .collect(Collectors.toList());
     }
@@ -208,6 +212,60 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
                 .collect(Collectors.toList());
     }
 
+
+    //최다 주문회원 top5
+    @Override
+    public List<MostOrderUserDto> mostOrders() {
+        // 주문 횟수와 총 주문 가격을 구하는 쿼리
+        List<Tuple> mostAndTotals = jpaQueryFactory
+                .select(
+                        users.id,
+                        users.userAccount,
+                        users.userName,
+                        orderItem.orderPrice.multiply(orderItem.orderQuantity).sum().as("totalPrice")
+                )
+                .from(orderItem)
+                .leftJoin(orderItem.orders, orders)
+                .leftJoin(orders.users, users)
+                .groupBy(users.id,users.userAccount, users.userName)
+                .orderBy(orders.count().desc())
+                .limit(5)
+                .fetch();
+
+        // 사용자별 주문 횟수 리스트
+        List<Tuple> most = jpaQueryFactory.select(
+                users.id,
+                orders.count().as("totalOrderCount")
+        )
+                .from(orders)
+                .leftJoin(orders.users, users)
+                .groupBy(users.id)
+                .orderBy(orders.count().desc())
+                .fetch();
+
+        return mostAndTotals.stream()
+                .map(tuple -> {
+                    // most에서 해당 사용자의 주문 횟수를 가져오기
+                    Long totalOrderCount = most.stream()
+                            .filter(mostTuple -> mostTuple.get(users.id).equals(tuple.get(users.id)))
+                            //filter()는 원하는거만 뽑아서 필터링 
+                            //즉, most의 유저id값과 mostAndTotals의 유저id의 값이 같은 것만 가져옴
+                            .findFirst()
+                            .map(mostTuple -> mostTuple.get(orders.count().as("totalOrderCount")
+                            ))
+                            .orElse(0L);
+
+                    return new MostOrderUserDto(
+                            tuple.get(users.id),
+                            tuple.get(users.userAccount),
+                            tuple.get(users.userName),
+                            totalOrderCount,
+                            tuple.get( orderItem.orderPrice.multiply(orderItem.orderQuantity).sum().as("totalPrice")
+                            )
+                    );
+                })
+                .collect(Collectors.toList());
+    }
 
 
 

@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
 import static com.example.dw.domain.entity.freeBoard.QFreeBoard.freeBoard;
 import static com.example.dw.domain.entity.freeBoard.QFreeBoardComment.freeBoardComment;
 import static com.example.dw.domain.entity.goods.QGoods.goods;
-import static com.example.dw.domain.entity.order.QOrders.orders;
 import static com.example.dw.domain.entity.order.QOrderItem.orderItem;
+import static com.example.dw.domain.entity.order.QOrders.orders;
 import static com.example.dw.domain.entity.question.QQuestion.question;
 import static com.example.dw.domain.entity.question.QQuestionComment.questionComment;
 import static com.example.dw.domain.entity.user.QPet.pet;
@@ -249,7 +249,7 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
                 .where(question.users.id.eq(userId))
                 .fetchOne();
 
-
+        System.out.println(qnaListResults.toString()+"!@#!@#!@#!@#!@#!@");
 
         return new PageImpl<>(qnaListResults, pageable, getTotal);
     }
@@ -356,31 +356,49 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
 
     //회원리스트
     private List<UserListDto> getUserList(Pageable pageable, String cate, String keyword, String userState){
-        return jpaQueryFactory.select(new QUserListDto(
+
+        List<UserListDto> userStanInfo = jpaQueryFactory.select(new QUserListDto(
                 users.id,
                 users.userAccount,
                 users.userName,
                 users.userEmail,
                 users.userPhone,
+                users.userJoinDate,
                 users.userState,
-                freeBoard.count(),
-                question.count()
+                jpaQueryFactory.select(
+                        question.count()
+                )
+                    .from(question)
+                    .where(question.users.id.eq(users.id)),
+                jpaQueryFactory.select(
+                        freeBoard.count()
+                )
+                .from(freeBoard)
+                .where(freeBoard.users.id.eq(users.id)),
+                jpaQueryFactory.select(
+                        walkingMate.count()
+                )
+                .from(walkingMate)
+                .where(walkingMate.users.id.eq(users.id))
 
         ))
                 .from(users)
-                .leftJoin(users.freeBoard, freeBoard)
-                .leftJoin(users.questions, question)
                 .where(
                         userStateEq(userState),
                         cateEq(cate, keyword)
                 )
-                .groupBy(users.id, users.userAccount, users.userName, users.userEmail, users.userPhone, users.userState)
+                .groupBy(users.id, users.userAccount, users.userName, users.userEmail, users.userPhone, users.userJoinDate, users.userState)
                 .orderBy(users.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
 
+
+
+
+        return userStanInfo;
     }
+
 
 
 
@@ -388,17 +406,16 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
     //주단위 일별 회원가입자 수
     public List<AdminUserChartDto> getDailyJoinCount() {
         LocalDate nowDate = LocalDate.now();
-        LocalDate startDate = nowDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).atStartOfDay().toLocalDate();
-        LocalDate endDate = nowDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)).atStartOfDay().toLocalDate();
+        LocalDate startDate = nowDate.with(TemporalAdjusters.previous(DayOfWeek.MONDAY)).atStartOfDay().minusWeeks(3).toLocalDate();
 
         // 일주일 간의 날짜 목록 생성
-        List<LocalDate> datesInRange = startDate.datesUntil(endDate.plusDays(1))
+        List<LocalDate> datesInRange = startDate.datesUntil(nowDate.plusDays(1))
                 .collect(Collectors.toList());
 
         Map<LocalDate, Long> dailyCounts = jpaQueryFactory
                 .select(users.userJoinDate, users.count())
                 .from(users)
-                .where(users.userJoinDate.between(startDate, endDate))
+                .where(users.userJoinDate.between(startDate, nowDate))
                 .orderBy(users.userJoinDate.desc())
                 .groupBy(users.userJoinDate)
                 .fetch()
@@ -421,6 +438,7 @@ public class UsersRepositoryImpl implements UsersRepositoryCustom {
 
         //메소드의 반환타입인 List<AdminUserChartDto>에 맞추기위해 entrySet().map()을 이용하여 변환한다.
         return dailyCounts.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey(Comparator.reverseOrder()))
                 .map(entry -> new AdminUserChartDto(entry.getKey(), entry.getValue()))
                 .collect(Collectors.toList());
     }

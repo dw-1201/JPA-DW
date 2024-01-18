@@ -1,10 +1,9 @@
 package com.example.dw.repository.index;
 
-import com.example.dw.domain.dto.community.QQuestionImgDto;
-import com.example.dw.domain.dto.community.QuestionImgDto;
-import com.example.dw.domain.dto.index.QWeeklyQnaList;
+import com.example.dw.domain.dto.index.QWeeklyFreeBoardList;
 import com.example.dw.domain.dto.index.WeeklyFreeBoardList;
 import com.example.dw.domain.dto.index.WeeklyQnaList;
+import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -12,8 +11,13 @@ import org.springframework.stereotype.Repository;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
+import static com.example.dw.domain.entity.freeBoard.QFreeBoard.freeBoard;
 import static com.example.dw.domain.entity.question.QQuestion.question;
 import static com.example.dw.domain.entity.question.QQuestionImg.questionImg;
 import static com.example.dw.domain.entity.user.QUsers.users;
@@ -34,48 +38,81 @@ public class IndexRepositoryImpl implements IndexRepositoryCustom{
     //주간 Qna인기글 Top3
     @Override
     public List<WeeklyQnaList> weeklyQnaList() {
-
-        System.out.println("이번주 start date: " + thisWeekStart);
-        System.out.println("이번주 end date: " + thisWeekEnd);
-
-        List<WeeklyQnaList> weeklyQnaLists = jpaQueryFactory.select(new QWeeklyQnaList(
-                question.id,
-                question.users.id,
-                question.users.userAccount,
-                question.users.userNickName,
-                question.questionTitle,
-                question.questionViewCount
-        ))
+        List<Tuple> tuples = jpaQueryFactory
+                .selectDistinct(
+                        question.id,
+                        question.users.id,
+                        question.users.userAccount,
+                        question.users.userNickName,
+                        question.questionTitle,
+                        question.questionViewCount,
+                        questionImg.questionImgRoute,
+                        questionImg.questionImgUuid,
+                        questionImg.questionImgName
+                )
                 .from(question)
                 .leftJoin(question.users, users)
+                .leftJoin(question.questionImg, questionImg)
                 .where(question.questionRd.between(thisWeekStart, thisWeekEnd))
-                .orderBy(question.questionViewCount.desc())
-                .limit(3)
+                .orderBy(question.id.desc())
                 .fetch();
+                                                    //삽입순서 보장
+        Map<Long, WeeklyQnaList> resultMap = new LinkedHashMap<>();
 
-        for (WeeklyQnaList weeklyQnaList : weeklyQnaLists) {
-            Long boardId = weeklyQnaList.getQnaBoardId();
+        for (Tuple tuple : tuples) {
+            Long questionId = tuple.get(question.id);
 
-            QuestionImgDto questionImgDto = jpaQueryFactory.select(new QQuestionImgDto(
-                    questionImg.id,
-                    questionImg.questionImgRoute,
-                    questionImg.questionImgName,
-                    questionImg.questionImgUuid
-            ))
-                    .from(questionImg)
-                    .where(questionImg.question.id.eq(boardId))
-                    .fetchFirst();
+            if (!resultMap.containsKey(questionId)) {
+                WeeklyQnaList weeklyQnaList = new WeeklyQnaList(
+                        tuple.get(question.id),
+                        tuple.get(question.users.id),
+                        tuple.get(question.users.userAccount),
+                        tuple.get(question.users.userNickName),
+                        tuple.get(question.questionTitle),
+                        tuple.get(question.questionViewCount),
+                        tuple.get(questionImg.questionImgRoute),
+                        tuple.get(questionImg.questionImgUuid),
+                        tuple.get(questionImg.questionImgName)
+                );
 
-            weeklyQnaList.setQuestionImgDto(questionImgDto);
+                resultMap.put(questionId, weeklyQnaList);
+            }
         }
 
-        return weeklyQnaLists;
+        List<WeeklyQnaList> weeklyQnaLists = new ArrayList<>(resultMap.values());
+
+        // 최대 3개까지만 반환
+        return weeklyQnaLists.stream()
+                .limit(3)
+                .collect(Collectors.toList());
     }
+
+
+
+
+
+
+
 
     @Override
     public List<WeeklyFreeBoardList> weeklyFreeBoardList() {
-        return null;
+
+        //주간 자유게시판 인기글 Top3
+
+        List<WeeklyFreeBoardList> weeklyFreeLists = jpaQueryFactory.select(
+                new QWeeklyFreeBoardList(
+                        freeBoard.id,
+                        freeBoard.freeBoardTitle,
+                        freeBoard.freeBoardViewCount
+                )
+        )
+                .from(freeBoard)
+                .where(freeBoard.freeBoardRd.between(thisWeekStart, thisWeekEnd))
+                .orderBy(freeBoard.freeBoardViewCount.desc())
+                .limit(5)
+                .fetch();
+        return weeklyFreeLists;
     }
 
-    //주간 자유게시판 인기글 Top3
+
 }

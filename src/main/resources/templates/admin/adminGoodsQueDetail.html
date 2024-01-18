@@ -37,6 +37,7 @@
            <div class="goods-img-reg-section">
                 <div class="goods-stan-info-title">
                     <h4>상품 기본 정보</h4>
+                    <button class="move-to-detail" th:data-goodsid="${details.id}">상품으로 이동</button>
                 </div>
                     
                     <div class="goods-info-container">
@@ -70,11 +71,11 @@
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">상품 수량</th>
-                                <td><input type="number" name="goods-quantity" id="goods-quantity" min="0" th:value="${details.goodsQuantity}" readonly/></td>
+                                <td><input type="text" name="goods-quantity" id="goods-quantity" min="0" th:value="${details.goodsQuantity}" readonly/></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">상품 가격</th>
-                                <td><input type="number" name="goods-price" id="goods-price" min="0" th:value="${details.goodsPrice}" readonly/></td>
+                                <td><input type="text" name="goods-price" id="goods-price" min="0" th:value="${details.goodsPrice}" readonly/></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">제조국(원산지)</th>
@@ -95,7 +96,12 @@
                                     <td><input type="text" name="goodsModifyDate" id="goods-last-modify-date"  th:value="${details.goodsModifyDate}" readonly/></td>
                                 </th:block>
                             </tr>
-                           
+
+                            <input type="hidden" th:value="${details.goodsPrice}" class="goodPrice" />
+                            <input type="hidden" th:value="${details.goodsQuantity}" class="goodsQuantity" />
+                            <input type="hidden" th:value="${details.goodsRegisterDate}" class="goodsRegDate"/>
+                            <input type="hidden" th:value="${details.goodsModifyDate}" class="goodsModDate"/>
+
 
                         </table>
                     </div>
@@ -119,14 +125,17 @@
                                                 <li class="qna-content-li" th:if="${details.userNickName == null}">작성자 <a style="color: black" th:href="@{/admin/userDetail/{id} (id=${details.userId})}"><span th:text="${details.userAccount}"></span></a> </li>
                                                 <li class="qna-content-li" th:unless="${details.userNickName == null}">작성자 <a style="color: black"  th:href="@{/admin/userDetail/{id} (id=${details.userId})}"><span th:text="${details.userNickName}"></span></a> </li>
                                                 <th:block th:if="${details.qndRd == details.qnaMd}">
-                                                    <li class="qna-content-li"><span></span></li>
-                                                    <li class="qna-content-li">작성일 <span th:text="${details.qndRd}"></span></li>
+                                                    <li class="qna-content-li"><span class="qna-input-md"></span></li>
+                                                    <li class="qna-content-li">작성일 <span class="qna-input-rd" ></span></li>
                                                 </th:block>
                                                 <th:block th:if="${details.qndRd != details.qnaMd}">
-                                                    <li class="qna-content-li">수정일 <span th:text="${details.qnaMd}"></span></li>
-                                                    <li class="qna-content-li">작성일 <span th:text="${details.qndRd}"></span></li>
+                                                    <li class="qna-content-li">수정일 <span class="qna-input-md"></span></li>
+                                                    <li class="qna-content-li">작성일 <span class="qna-input-rd" ></span></li>
                                                 </th:block>
                                             </ul>
+
+                                           <input type="hidden" th:value="${details.qnaMd}" class="qnaMd">
+                                           <input type="hidden" th:value="${details.qndRd}" class="qnaRd">
 
                                        </div>
                                         <div class="content">
