@@ -136,11 +136,11 @@ public class GoodsApiController {
 
     //장바구니 정보 넣기
     @PostMapping("/cartGoods")
-    public void cartGoods(@RequestBody List<GoodsPayListFrom> goodsPayListFrom, HttpSession session) {
+    public void cartGoods(@RequestBody List<GoodsPayListFrom> goodsPayListFrom, HttpSession session){
 
-        List<GoodsPayListFrom> goodsPayList = (List<GoodsPayListFrom>) session.getAttribute("goodsPayList");
+        List<GoodsPayListFrom> goodsPayList = (List<GoodsPayListFrom>)session.getAttribute("goodsPayList");
 
-        if (goodsPayList == null) {
+        if(goodsPayList == null){
             goodsPayList = new ArrayList<>();
         }
 
@@ -156,18 +156,16 @@ public class GoodsApiController {
                     break;
                 }
             }
+
             // 기존 리스트에 해당 goodsId가 없으면 새로 추가
             if (!found) {
                 goodsPayList.add(goodsPayListDto);
             }
         }
 
-        System.out.println(goodsPayList.toString() + "여기보세요 세상사람들");
+        System.out.println(goodsPayList);
         session.setAttribute("goodsPayList", goodsPayList);
     }
-
-
-
 
     //바로가기 정보 넣기
     @PostMapping("/payGoods")
@@ -191,11 +189,10 @@ public class GoodsApiController {
     //가져오기
     @GetMapping("/goodsPickList")
     public List<GoodsPayListFrom> payGoodsList(HttpSession session){
+        List<GoodsPayListFrom> goodsPayListDtoList = (List<GoodsPayListFrom>) session.getAttribute("goodsPayList");
 
-       List<GoodsPayListFrom> goodsPayListDtoList = (List<GoodsPayListFrom>) session.getAttribute("goodsPayList");
+        System.out.println("총 주문내역 가져오기 : "+goodsPayListDtoList);
 
-        System.out.println(goodsPayListDtoList);
-        System.out.println(goodsPayListDtoList.toString()+"!!!!!!!!!!!!!!!!!!!!!!");
         return goodsPayListDtoList;
     }
 
@@ -204,14 +201,12 @@ public class GoodsApiController {
     public List<GoodsPaySingleFrom> payGoodsSingle(HttpSession httpSession) {
         List<GoodsPaySingleFrom> goodsPaySingleFrom = (List<GoodsPaySingleFrom>) httpSession.getAttribute("goodsPaySingle");
 
-
         //주문서 비우고 새로 저장
         if (goodsPaySingleFrom != null) {
             //세션삭제
             httpSession.removeAttribute("goodsPaySingle");
             System.out.println("세션삭제 후 새로 저장");
         }
-
         //저장 후 시간 받아오기
         for(GoodsPaySingleFrom goodsPaySingleFroms : goodsPaySingleFrom){
             goodsPaySingleFroms.setInputTime(LocalDateTime.now());
@@ -223,12 +218,12 @@ public class GoodsApiController {
         //리스트 배열 자르기
         if(goodsPaySingleFrom.size()>max){
             goodsPaySingleFrom=goodsPaySingleFrom.subList(0, max);
-
         }
         httpSession.setAttribute("goodsPaySingle", goodsPaySingleFrom);
 
-        System.out.println(goodsPaySingleFrom);
+        System.out.println("싱글 주문내역 가져오기 : "+goodsPaySingleFrom);
         return goodsPaySingleFrom;
     }
+
 
 }
