@@ -12,9 +12,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.example.dw.domain.entity.freeBoard.QFreeBoard.freeBoard;
@@ -56,13 +54,16 @@ public class IndexRepositoryImpl implements IndexRepositoryCustom{
                 .where(question.questionRd.between(thisWeekStart, thisWeekEnd))
                 .orderBy(question.id.desc())
                 .fetch();
-                                                    //삽입순서 보장
-        Map<Long, WeeklyQnaList> resultMap = new LinkedHashMap<>();
+
+        List<WeeklyQnaList> weeklyQnaLists = new ArrayList<>();
 
         for (Tuple tuple : tuples) {
             Long questionId = tuple.get(question.id);
 
-            if (!resultMap.containsKey(questionId)) {
+            boolean isQuestionIdExist = weeklyQnaLists.stream()
+                    .anyMatch(item -> item.getQnaBoardId().equals(questionId));
+
+            if (!isQuestionIdExist) {
                 WeeklyQnaList weeklyQnaList = new WeeklyQnaList(
                         tuple.get(question.id),
                         tuple.get(question.users.id),
@@ -75,21 +76,15 @@ public class IndexRepositoryImpl implements IndexRepositoryCustom{
                         tuple.get(questionImg.questionImgName)
                 );
 
-                resultMap.put(questionId, weeklyQnaList);
+                weeklyQnaLists.add(weeklyQnaList);
             }
         }
-
-        List<WeeklyQnaList> weeklyQnaLists = new ArrayList<>(resultMap.values());
 
         // 최대 3개까지만 반환
         return weeklyQnaLists.stream()
                 .limit(3)
                 .collect(Collectors.toList());
     }
-
-
-
-
 
 
 
