@@ -16,6 +16,8 @@ public interface ShopRepositoryCustom {
 
     Optional<GoodsAddInfoDto> findGoodsAddInfoById(Long id);
 
+//    List<GoodsReviewDto> findGoodsReviewById(Long id);
+
     List<GoodsQueDto> findGoodsQueId(Long id);
 
     List<GoodsDetailImgDto> findGoodsDetailImg(Long goodsId);

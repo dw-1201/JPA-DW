@@ -1,3 +1,7 @@
+// 검색어 입력 이벤트 감지
+import * as list from './module/list.js'
+import * as page from './module/page.js';
+
 let userId = $('#userId').val()
 console.log(userId)
 

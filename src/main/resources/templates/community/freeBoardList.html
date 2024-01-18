@@ -25,80 +25,58 @@
                 <ul>
 
                     <li><a href="/qna/qnaLists">QnA</a></li>
-                    <li  class="menu-title">
-                        <a href="/community/freeBoardList">자유게시판</a>
-                    </li>
-                    <li><a href="">공지사항</a></li>
+                    <li class="menu-title"><a href="/community/freeBoardList">자유게시판</a></li>
+                    <li><a href="/notice/noticeList">공지사항</a></li>
                 </ul>
             </div>
             <div class="search-container">
-                <div class="searchbox"  > <!--id="searchForm" -->
-                <button type="button" class="ddd" ><img src="/img/magnifier.png" alt=""></button>
-<!--                <a href="" class="result-btn"><img src="/img/magnifier.png" alt=""></a>-->
-                <input type="text" name="keyword" class="search-freeBoard" id="freeBoard-search-keyword"  placeholder="찾으시는 인기글이 있으신가요?">
-<!--                <button type="button" class="ddd" >버튼</button>-->
-
+                <div class="searchbox">
+                <button type="button" class="search-btn" ><img src="/img/magnifier.png" alt=""></button>
+                <input type="text" name="keyword" class="search-freeBoard" placeholder="찾으시는 인기글이 있으신가요?">
             </div>
 
             </div>
+
             <div class="best-container">
                 <div class="best-container-title">인기글</div>
                 <div class="best-container-contents" >
 
-                    <a href="" class="best-container-content">
-
-                        <div class="best-content-title">쌀강냉이 보고가실래여?</div>
-                        <div class="best-content-content">우리 애 쌀강냉이 구경하고 가셔요</div>
+                    <!--인기글 리스트 시작-->
+                    <a th:href="@{/community/freeBoardDetail/{freeBoardId}(freeBoardId=${freeBoard.id})}" class="best-container-content" th:each="freeBoard : ${rankList}">
+                        <div class="best-content-title"><p th:text="${freeBoard.freeBoardTitle}"></p></div>
+                        <div class="best-content-content"><p th:text="${freeBoard.freeBoardContent}"></p></div>
                         <div class="best-content-etc">
-                            <div class="best-cotnent-reply">댓글<span>5</span></div>
-                            <div class="best-content-date">2023-11-23</div>
+                            <div class="best-cotnent-reply">댓글<span th:text="${freeBoard.freeBoardViewCount}"></span></div>
+                            <div class="info-date">
+                                <div class="best-content-date" th:text="${freeBoard.freeBoardRd}"></div>
+                            </div>
+
                         </div>
-
                     </a>
-
-                    <a href="" class="best-container-content">
-
-                        <div class="best-content-title">쌀강냉이 보고가실래여?</div>
-                        <div class="best-content-content">우리 애 쌀강냉이 구경하고 가셔요</div>
-                        <div class="best-content-etc">
-                            <div class="best-cotnent-reply">댓글<span>5</span></div>
-                            <div class="best-content-date">2023-11-23</div>
-                        </div>
-
-                    </a>
-
-                    <a href="" class="best-container-content">
-
-                        <div class="best-content-title">쌀강냉이 보고가실래여?</div>
-                        <div class="best-content-content">우리 애 쌀강냉이 구경하고 가셔요</div>
-                        <div class="best-content-etc">
-                            <div class="best-cotnent-reply">댓글<span>5</span></div>
-                            <div class="best-content-date">2023-11-23</div>
-                        </div>
-
-                    </a>
+                    <!--인기글 리스트 끝-->
 
                 </div>
             </div>
+
             <div class="list-container">
                 <div class="order-n-writebtn">
                     <div class="list-order-box">
                         <ul>
                             <li>
                                 <label>
-                                    <input type="radio" value="recent" name="radio" class="input-radio">
+                                    <input type="radio" value="freeBoardRd" name="freeBoard_radio" class="input-radio" checked>
                                     <span>최신 순</span>
                                 </label>
                             </li>
                             <li>
                                 <label>
-                                    <input type="radio" value="reply" name="radio" class="input-radio">
+                                    <input type="radio" value="commentCount" name="freeBoard_radio" class="input-radio">
                                     <span>댓글 순</span>
                                 </label>
                             </li>
                             <li>
                                 <label>
-                                    <input type="radio" value="best" name="radio" class="input-radio">
+                                    <input type="radio" value="freeBoardViewCount" name="freeBoard_radio" class="input-radio">
                                     <span>인기 순</span>
                                 </label>
                             </li>
@@ -112,19 +90,20 @@
                     </div>
                 </div>
                 <div class="list-contents-box" >
-
+                    <!--자유게시판 리스트-->
                 </div>
 
             <div class="list-page-container">
                 <div class="list-pages">
                     <ul class="pagination-ul">
-                        <!--게시판 리스트-->
+                        <!--페이징-->
                     </ul>
                 </div>
             </div>
             <div class="ad-container"></div>
         </div>
             </div>
+        </div>
     </main>
 
 <!-- footer 시작 -->

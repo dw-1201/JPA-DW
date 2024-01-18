@@ -4,7 +4,7 @@ let goodsId = $('#goodsId').val();
 shopDetail(goodsId);
 console.log(goodsId)
 // 상품 설명 보여주는 함수
-function shopDetail(goodsId) {
+function shopDetail(goodsId, callback){
     // 댓글 목록을 비동기로 받아오기
     $.ajax({
         url: `/shops/shopReview/${goodsId}`,
@@ -14,6 +14,10 @@ function shopDetail(goodsId) {
             console.log(result)
             const text = shopDetailView(result);
             $('.shop-form').html(text);
+
+            if(callback){
+                callback(result);
+            }
         },
         error: function (a, b, c) {
             console.error(c);
@@ -25,100 +29,42 @@ function shopDetail(goodsId) {
 // 상세 페이지
 function shopDetailView(result) {
     let text = '';
+    let inputSection = $('.row-content');
+    text = `
 
-    result.forEach(r => {
-        text += `
-<div class="main-content-contaniner-form3">
-        <div class="form3-left">
-            <div class="form3-left-box1">
-                <img src="/shops/shopImg?fileFullPath=${r.goodsMainImgPath}/${r.goodsMainImgUuid}_${r.goodsMainImgName}" alt="" class="li-img" >
-            </div>
-        </div>
+          <div class="review-div">
+            <img src="/img/ICON-24px-Search.svg" alt="" class="input-img">
+            <input type="text" placeholder="문의 검색" class="selecReview" maxlength="130">
+         <form action="/shops/shopQandaWriteModal" method="post" class="writingForm">
+             <button type="button" class="review-button">문의하기</button>
+
+                 <tbody class="content">
+
+                    <!-- 모달 창 들어 가는 부분  -->
+                <div class="modal">
+                    <div class="modal_body">
+                        <strong style="font-size: 30px; " class="modal__userName">
+                            문의하기
+                        </strong>
+                      <textarea name="queContent" class="modal_textarea" cols="30" rows="10" placeholder="문의 내용을 입력해주세요"></textarea>
+
+                      <button type="button" class="review-submit">등록</button>
+                    </div>
+                </div>
+                    <!-- 모달 창 들어 가는 부분 끝 -->
+
+                </tbody>
+            </form>
+          </div>
         `;
 
-        text += `
-        <div class="form3-right" >
-            <div class="form3-right-box1">
-                <div class="right-box1-box1">
-                </div>
-                <div class="right-box1-box1">
-                    <span id="goods-name">${r.goodsName}</span>
-                </div>
-                <div class="right-box1-box1-1">
-                    <span>${r.goodsPrice}</span>
-                </div>
-                <div class="right-box1-box2">
-                    <span>
-                    ★★★★★ 4.9점
-                    </span>&nbsp;&nbsp;
-                    <span class="evaluation">(10개의 고객 상품 평가)</span>
-                </div>
 
-                <div class="right-box1-box3">
-                    <span>
-                        제품 요약 설명
-                    </span>
-                </div>
+    result.forEach(r => {
 
-                <div class="right-box1-box4">
-                    <span>${r.goodsDetailContent}</span>
-                </div>
-
-                    <div class="pay-amount">
-                        <div class="pay-name">${r.goodsName}</div>
-                        <div class="pay-count">
-                            <button id="increase"><strong>+</strong></button>
-                            <div><span id="number">1</span></div>
-                            <button id="decrease"><strong>-</strong></button>
-                        </div>
-                        <div class="pay-sum"><p>총 상품금액  : <strong id="price">${r.goodsPrice}</strong> 원</p></div>
-                    </div>
-
-                    <div class="right-box1-box9">
-                        <div class="basket1">
-                            <a href="/shop/shopCart" class="basket-button1">장바구니</a>
-                        </div>
-                        <div class="basket2">
-                            <a href="/shop/shopPay" class="basket-button2">바로구매</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-            
-             <div class="middle-content">
-                <ul>
-                    <span>|</span>
-                    <li>
-                        <a href="/shop/shopDetail/${r.id}" >
-                            <span class="middle-span" >설명</span>
-                        </a>
-                    </li>
-                    <span>|</span>
-                    <li>
-                        <a href="/shop/shopAddInfo/${r.id}">
-                            <span class="middle-span">추가정보</span>
-                        </a>
-                    </li>
-                    <span>|</span>
-                    <li>
-                        <a href="/shop/shopReview/${r.id}" id="descriptionLink">
-                            <span class="middle-span1">리뷰</span>
-                        </a>
-                    </li>
-                    <span>|</span>
-                    <li>
-                        <a href="/shop/shopQandA/${r.id}">
-                            <span class="middle-span">문의</span>
-                        </a>
-                    </li>
-                    <span>|</span>
-                </ul>
-
-            </div>
-
-        <div class="row-content">
-<div class="comments">
+        if(r.id != null){
+            text +=`
+          <!-- 리뷰 li -->
+          <div class="comments">
             <div class="commentlist">
                 <div class="comment-text">
                   <div class="star-div">
@@ -174,11 +120,15 @@ function shopDetailView(result) {
             </div>
           </div>
           <!-- 리뷰 li 끝 -->
-        </div>
+      </div>
         `;
+        }else {
+            text += ` <div>등록된 문의글이 없습니다.</div>
+        `}
+
     });
 
-    return text;
+    inputSection.html(text)
 }
 
 // 수정된 부분

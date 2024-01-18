@@ -1,6 +1,8 @@
 package com.example.dw.repository.freeBoard;
 
 import com.example.dw.domain.dto.community.*;
+import com.example.dw.domain.form.SearchForm;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -81,6 +83,7 @@ public class FreeBoardRepositoryImpl implements FreeBoardRepositoryCustom{
         return freeBoardDetailDtos;
     }
 
+    //페이징을 위한 자유게시판 리스트 개수 조회
     private Long getCount(String keyword) {
         Long count = jpaQueryFactory
                 .select(freeBoard.count())
@@ -90,24 +93,38 @@ public class FreeBoardRepositoryImpl implements FreeBoardRepositoryCustom{
         return count;
     }
 
-    // 마이페이지 해당 유저 작성글 조회
-    private Long getMyFerrboardCount(Long userId) {
-        Long count = jpaQueryFactory
-                .select(freeBoard.count())
-                .from(freeBoard)
-                .where(freeBoard.users.id.eq(userId))
-                .fetchOne();
-        return count;
+    /**
+     * 자유게시판
+     * 최신순, 인기순, 댓글순 리스트를 조회 하기위한 분기 처리
+     */
+    private OrderSpecifier<?> getDynamicSoft(SearchForm searchForm){
+
+        System.out.println(searchForm.getCate());
+        switch (searchForm.getCate()){
+            case "freeBoardRd" :
+                System.out.println("최신순 조회");
+                return freeBoard.freeBoardRd.desc();
+            case "freeBoardCommentCount" :
+                System.out.println("댓글순 조회");
+                return freeBoard.freeBoardComment.size().desc();
+            case "freeBoardViewCount" :
+                System.out.println("인기순 조회");
+                return freeBoard.freeBoardViewCount.desc();
+            default:
+                return freeBoard.freeBoardRd.desc();
+        }
     }
 
     /**
      * 자유게시판 리스트
      */
     @Override
-    public Page<FreeBoardListDto> findFreeBoardListBySearch(Pageable pageable, String keyword) {
+    public Page<FreeBoardListDto> findFreeBoardListBySearch(Pageable pageable,SearchForm searchForm) {
 
         //검색
-        BooleanExpression keywordTitle = freeBoardTitleEq(keyword);
+        BooleanExpression keywordTitle = freeBoardTitleEq(searchForm.getKeyword());
+
+        System.out.println(getDynamicSoft(searchForm)+"조회!!");
 
         //페이징 및 검색조건 적용, freeBoard 엔티티 조회
         List<FreeBoardDto> content = jpaQueryFactory
@@ -125,23 +142,26 @@ public class FreeBoardRepositoryImpl implements FreeBoardRepositoryCustom{
                 ))
                 .from(freeBoard)
                 .where(keywordTitle)
-                .orderBy(freeBoard.id.desc())
+//                .orderBy(freeBoard.id.desc())
+                .orderBy(getDynamicSoft(searchForm))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
 
         //페이징을 위한 전체 데이터 수 조회
-        Long count = getCount(keyword);
+        Long count = getCount(searchForm.getKeyword());
 
         List<FreeBoardListDto> contents
                 = content.stream().map(freeBoardDto -> {
 
             //댓글수 쿼리
-//                    Long commentCount = jpaQueryFactory
-//                            .select(freeBoardComment.id.count())
-//                            .from(freeBoardComment)
-//                            .where(freeBoardComment.freeBoard.id.eq(freeBoardDto.getId()))
-//                            .fetchOne();
+                    Long commentCount = jpaQueryFactory
+                            .select(freeBoardComment.id.count())
+                            .from(freeBoardComment)
+                            .where(freeBoardComment.freeBoard.id.eq(freeBoardDto.getId()))
+                            .fetchOne();
+
+            System.out.println(commentCount+"댓글수 입니다.");
 
             List<FreeBoardImgDto> freeboardImgDto = jpaQueryFactory
                     .select(new QFreeBoardImgDto(
@@ -173,10 +193,11 @@ public class FreeBoardRepositoryImpl implements FreeBoardRepositoryCustom{
                     freeBoardDto.getFreeBoardRd(),
                     freeBoardDto.getFreeBoardMd(),
                     freeBoardDto.getFreeBoardViewCount(),
-                    freeBoardDto.getFreeBoardCommentCount(),
+//                    freeBoardDto.getFreeBoardCommentCount(),
                     freeBoardDto.getUserId(),
                     freeBoardDto.getUserAccount(),
                     freeBoardDto.getUserNickName(),
+                    commentCount,
                     fimgDto
             );
         }).collect(Collectors.toList());
@@ -204,16 +225,7 @@ public class FreeBoardRepositoryImpl implements FreeBoardRepositoryCustom{
         return StringUtils.hasText(keyword) ? freeBoard.freeBoardTitle.containsIgnoreCase(keyword) : null;
     }
 
-//    @Override
-//    public Page<FreeBoardListDto> findFreeBoardListById(Pageable pageable, Long userId) {
-//
-//
-//        List<FreeBoardListDto> content = findFreeBoardListBySearch(pageable, userId);
-//        Long counts = getMyFerrboardCount(userId);
-//        return new PageImpl<>(content, pageable, counts);
-//
-//    }
-
+    //자유게시판 이미지 리스트
     @Override
     public List<FreeBoardImgDto> findFreeBoardImgByFreeBoardId(Long freeBoardId) {
         return jpaQueryFactory.select(new QFreeBoardImgDto(
@@ -312,5 +324,27 @@ public class FreeBoardRepositoryImpl implements FreeBoardRepositoryCustom{
         System.out.println(result.toString()+" 내가 작성한 자유게시판 입니다.");
 
     return new PageImpl<>(result,pageable,counts);
+    }
+
+    @Override
+    public List<FreeBoardDto> findFreeBoardRankByIdId() {
+        List<FreeBoardDto> content = jpaQueryFactory
+                .select(new QFreeBoardDto(
+                        freeBoard.id,
+                        freeBoard.freeBoardTitle,
+                        freeBoard.freeBoardContent,
+                        freeBoard.freeBoardRd,
+                        freeBoard.freeBoardMd,
+                        freeBoard.freeBoardViewCount,
+                        freeBoard.freeBoardCommentCount,
+                        freeBoard.users.id,
+                        freeBoard.users.userAccount,
+                        freeBoard.users.userNickName
+                ))
+                .from(freeBoard)
+                .orderBy(freeBoard.freeBoardViewCount.desc())
+                .limit(3)
+                .fetch();
+        return content;
     }
 }

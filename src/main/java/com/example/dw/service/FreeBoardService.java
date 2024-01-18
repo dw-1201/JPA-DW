@@ -70,8 +70,8 @@ public class FreeBoardService {
     }
 
     // 게시물의 댓글 수 조회
-    public Long countCommentsByFreeBoardId(Long freeBoardId) {
-        return freeBoardCommentRepository.countCommentsByFreeBoardId(freeBoardId);
-    }
+//    public Long countCommentsByFreeBoardId(Long freeBoardId) {
+//        return freeBoardCommentRepository.countCommentsByFreeBoardId(freeBoardId);
+//    }
 
 }

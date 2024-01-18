@@ -122,6 +122,11 @@ main{
     align-items: center;
     /* background-color: blueviolet; */
 }
+.li-list{
+    float: left;
+    list-style: none;
+    /* margin: 5px; */
+}
 .best-container-content{
     width: 30%;
     height: 95%;
@@ -152,6 +157,19 @@ main{
     display: flex;
     align-items: center;
     /* background-color: blanchedalmond; */
+    word-wrap: break-word;
+}
+.best-content-content p{
+    /*word-wrap: break-word;*/
+    /*영역 감추기*/
+    overflow: hidden;
+    /*... 을 만들기*/
+    text-overflow: ellipsis;
+    /*아래줄로 내려가는 것을 막기*/
+    white-space: nowrap;
+    word-break:break-all;
+    width: 150px;
+    text-align: start;
 }
 .best-content-etc{
     width: 90%;
@@ -161,6 +179,7 @@ main{
     color: rgb(71, 71, 71);
     /* background-color: yellow; */
 }
+
 .best-cotnent-reply{
     margin: 0 15px 0 0;
 }
@@ -267,6 +286,18 @@ main{
     color: gray;
     align-items: center;
     /* background-color: papayawhip; */
+}
+.list-content-content p{
+    /*word-wrap: break-word;*/
+    /*영역 감추기*/
+    overflow: hidden;
+    /*... 을 만들기*/
+    text-overflow: ellipsis;
+    /*아래줄로 내려가는 것을 막기*/
+    white-space: nowrap;
+    word-break:break-all;
+    width: 150px;
+    text-align: start;
 }
 .list-content-etc{
     width: 100%;

@@ -1,3 +1,5 @@
+import * as reply from './module/reply.js';
+
 const slides = document.querySelector('.slider'); // 전체 슬라이드 컨테이너
 const slideImg = document.querySelectorAll('.slider li'); // 모든 슬라이드들
 let currentIdx = 0; // 현재 슬라이드 index
@@ -10,7 +12,7 @@ const slideWidth = 300; // 한개의 슬라이드 넓이
 slides.style.width = slideWidth * slideCount + 'px';
 
 function moveSlide(num) {
-  slides.style.left = -num * slideWidth + 'px';
+  slides.style.left = -num * 300 + 'px';
   currentIdx = num;
 }
 
@@ -71,21 +73,32 @@ $('.btn-reply').on('click', function () {
   let freeBoardId = $('#freeBoardId').val();
   let userId = loginNumber;
 
-  let replyObj = {
-
-    freeBoardCommentContent: content,
-    freeBoard : {id :freeBoardId },
-    users : {id:userId}
-
-  };
-  console.log(replyObj.freeBoardCommentContent)
-  console.log(content)
-  if (!(content && loginNumber)) {
-    alert('댓글을 입력해주세요!');
+  // 로그인 여부 체크
+  if (!userId) {
+    alert('로그인 후 사용해주세요!');
     return;
   }
+
+  // 댓글 내용 입력 여부 체크
+  if (!content) {
+    alert('댓글 내용을 입력해주세요!');
+    return;
+  }
+
+  // 댓글 길이 체크 (200자 이내)
+  if (reply.getTextLength(content)>200) {
+    alert('댓글은 200자 이내로 작성해주세요!');
+    return;
+  }
+
+  let replyObj = {
+    freeBoardCommentContent: content,
+    freeBoard: { id: freeBoardId },
+    users: { id: userId },
+  };
+
   // 댓글 저장 함수 호출
-  getReply(replyObj)
+  getReply(replyObj);
 
   // 댓글 저장 후 댓글 목록 갱신
   showReplyList(freeBoardId);
@@ -179,13 +192,29 @@ function freeBoardCommentList(result) {
       <div class="reply" >
         <div class="id-and-date">
           <div class="reply-info">
-            <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>
-            <div class="reply-id">${r.userId}</div>
+                  `;
+
+    if(r.userImgId ==null){
+      text += ` <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>`;
+    }else {
+      text += `<div class="reply-img"><img src="/communities/freeUserImg?userImgPath=${r.userImgPath +'/' + r.userImgUuid +'_' + r.userImgName}" alt=""></div>`
+    }
+
+    if(r.userNickName == null){
+      text += `<div class="reply-id">${r.userAccount}</div>`;
+    }else{
+      text +=`<div class="reply-id">${r.userNickName}</div>`;
+    }
+
+    text += ` 
+            
+            
           </div>
           <div class="reply-date">${r.freeBoardCommentMd ? timeForToday(r.freeBoardCommentMd) : timeForToday(r.freeBoardCommentRd)}</div>
         </div>
         <div class="reply-content-n-btns">
-          <div class="reply-content">${r.freeBoardCommentContent}</div>`;
+          <div class="reply-content"><p>${r.freeBoardCommentContent}</p></div>
+`;
 
     if (r.userId == loginNumber) {
       text += `
@@ -237,6 +266,7 @@ $('.reply-list').on('click', '.reply-modify-btn', function () {
   `);
   $('.reply-btns__box').addClass('none');
 });
+
 
 // 리플 수정 완료 처리
 $('.reply-list').on('click', '.modify-content-btn', function () {

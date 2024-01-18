@@ -18,35 +18,34 @@ public class FreeBoardListDto {
     private LocalDateTime freeBoardRd;
     private LocalDateTime freeBoardMd;
     private Long freeBoardViewCount;
-    private Long freeBoardCommentCount;
+//    private Long freeBoardCommentCount;
 
     //유저 정보 추가
     private Long userId;
     private String userAccount;
     private String userNickName;
 
-//    private Long commentCount;
-
+    //댓글수
+    private Long commentCount;
 
     //자유게시판 이미지 추가
     List<FreeBoardImgDto> freeBoardImgDtoList;
 
     @QueryProjection
-    public FreeBoardListDto(Long id, String freeBoardTitle, String freeBoardContent, LocalDateTime freeBoardRd, LocalDateTime freeBoardMd, Long freeBoardViewCount, Long freeBoardCommentCount, Long userId, String userAccount, String userNickName, List<FreeBoardImgDto> freeBoardImgDtoList) {
+    public FreeBoardListDto(Long id, String freeBoardTitle, String freeBoardContent, LocalDateTime freeBoardRd, LocalDateTime freeBoardMd, Long freeBoardViewCount, Long userId, String userAccount, String userNickName, Long commentCount, List<FreeBoardImgDto> freeBoardImgDtoList) {
         this.id = id;
         this.freeBoardTitle = freeBoardTitle;
         this.freeBoardContent = freeBoardContent;
         this.freeBoardRd = freeBoardRd;
         this.freeBoardMd = freeBoardMd;
         this.freeBoardViewCount = freeBoardViewCount;
-        this.freeBoardCommentCount = freeBoardCommentCount;
         this.userId = userId;
         this.userAccount = userAccount;
         this.userNickName = userNickName;
+        this.commentCount = commentCount;
         this.freeBoardImgDtoList = freeBoardImgDtoList;
     }
-
-    public void setFreeBoardCommentCount(Long freeBoardCommentCount) {
-        this.freeBoardCommentCount = freeBoardCommentCount;
-    }
+//    public void setFreeBoardCommentCount(Long freeBoardCommentCount) {
+//        this.freeBoardCommentCount = freeBoardCommentCount;
+//    }
 }

@@ -67,6 +67,25 @@ main{
     justify-content: center;
     align-items: center;
 }
+.searchbox button{
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+.searchbox img{
+    width: 20px;
+    height: 20px;
+    margin: 0 10px;
+}
+.searchbox{
+    width: 80%;
+    height: 60%;
+    border: 2px solid #FCD11E;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .searchbox img{
     width: 20px;
     height: 20px;
@@ -213,9 +232,9 @@ main{
     /* background-color: paleturquoise; */
 }
 .fixed-date{
-    width: 100px;
-    min-width: 100px;
-    max-width: 100px;
+    width: 110px;
+    /*min-width: 100px;*/
+    /*max-width: 100px;*/
 
     /* background-color: chocolate; */
 }

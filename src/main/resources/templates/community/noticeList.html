@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,80 +10,42 @@
     <title>공지사항</title>
 </head>
 <body>
-    <!-- header 시작 -->
-    <div class="header">
-        <div class="header-section01">
-            <div class="header-section01-nav">
-                <ul>
-                    <li><a href="">로그인</a></li>
-                    <li><a href="">장바구니</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="header-section02">
-            <div class="header-section02-container">
-                <div class="header-logo"><a href=""><img src="/img/logo.png" alt=""></a></div>
-                <div class="header-section02-nav">
-                    <ul>
-                        <li><a href="/shopping/html/shop.html">쇼핑</a></li>
-                        <li><a href="/community/html/freeBoardList.html">커뮤니티</a></li>
-                        <li><a href="/walkingMate/html/walkingMateList.html">산책메이트</a></li>
-                        <li><a href="/map/html/map.html">병원찾기</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- header 끝 -->
+<!-- header 시작 -->
+<div class="header" th:replace="fragment/header :: header">
+
+</div>
+<!-- header 끝 -->
 
     <!-- main 시작 -->
     <main>
         <div class="main-container">
             <div class="nav-container">
                 <ul>
-                    <li><a href="">QnA</a></li>
-                    <li><a href="">자유게시판</a></li>
-                    <li class="menu-title"><a href="">공지사항</a></li>
+                    <li><a href="/qna/qnaLists">QnA</a></li>
+                    <li><a href="/community/freeBoardList">자유게시판</a></li>
+                    <li class="menu-title"><a href="/notice/noticeList">공지사항</a></li>
                 </ul>
             </div>
             <div class="search-container">
                 <div class="searchbox">
-                    <img src="/img/magnifier.png" alt=""><input type="text" placeholder="찾으시는 공지사항이 있으신가요?">
+                    <button type="button" class="search-btn" ><img src="/img/magnifier.png" alt=""></button>
+                    <input type="text" name="keyword" class="search-notice" placeholder="찾으시는 인기글이 있으신가요?">
                 </div>
             </div>
             <div class="best-container">
                 <div class="best-container-title">자주 찾는 공지</div>
                 <div class="best-container-contents">
-                    <a href="">
+                    <!--공지사항 자주찾는글 시작-->
+                    <a th:each="notice : ${rankList}" th:href="@{/notice/noticeDetail/{id}(id=${notice.id})}">
                         <div class="best-container-content">
-                            <div class="best-content-title">공지사항1</div>
-                            <div class="best-content-content">첫번째 공지사항입니다</div>
+                            <div class="best-content-title"><p th:text="${notice.noticeBoardTitle}"></p></div>
+                            <div class="best-content-content"><p th:text="${notice.noticeBoardContent}"></p></div>
                             <div class="best-content-etc">
-                                <div class="best-cotnent-reply">댓글<span>5</span></div>
-                                <div class="best-content-date">2023-11-23</div>
+                                <div class="best-content-date"><p th:text="${notice.noticeBoardRd}"></p></div>
                             </div>
                         </div>
                     </a>
-                    <a href="">
-                        <div class="best-container-content">
-                            <div class="best-content-title">공지사항2</div>
-                            <div class="best-content-content">두번째 공지사항입니다</div>
-                            <div class="best-content-etc">
-                                <div class="best-cotnent-reply">댓글<span>5</span></div>
-                                <div class="best-content-date">2023-11-23</div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="best-container-content">
-                            <div class="best-content-title">공지사항3</div>
-                            <div class="best-content-content">세번째 공지사항입니다</div>
-                            <div class="best-content-etc">
-                                <div class="best-cotnent-reply">댓글<span>5</span></div>
-                                <div class="best-content-date">2023-11-23</div>
-                            </div>
-                        </div>
-                    </a>
+                    <!--공지사항 자주찾는글 끝-->
                 </div>
             </div>
             <div class="list-container">
@@ -100,77 +62,16 @@
                             </tr>
                         </thead>
             
-                        <tbody>
-                            <tr class="body-columns">
-                                <td>1</td>
-                                <td><a href="">공지사항</a></td>
-                                <td>관리자</td>
-                                <td>2023-11-26</td>
-                                <td>123</td>
-                            </tr>
-                            <tr class="body-columns">
-                                <td>2</td>
-                                <td><a href="">공지사항</a></td>
-                                <td>관리자</td>
-                                <td>2023-11-26</td>
-                                <td>123</td>
-                            </tr>
-                            <tr class="body-columns">
-                                <td>3</td>
-                                <td><a href="">공지사항</a></td>
-                                <td>관리자</td>
-                                <td>2023-11-26</td>
-                                <td>123</td>
-                            </tr>
-                            <tr class="body-columns">
-                                <td>4</td>
-                                <td><a href="">공지사항</a></td>
-                                <td>관리자</td>
-                                <td>2023-11-26</td>
-                                <td>123</td>
-                            </tr>
-                            <tr class="body-columns">
-                                <td>5</td>
-                                <td><a href="">공지사항</a></td>
-                                <td>관리자</td>
-                                <td>2023-11-26</td>
-                                <td>123</td>
-                            </tr>
-                            <tr class="body-columns">
-                                <td>6</td>
-                                <td><a href="">공지사항</a></td>
-                                <td>관리자</td>
-                                <td>2023-11-26</td>
-                                <td>123</td>
-                            </tr>
-                            <tr class="body-columns">
-                                <td>7</td>
-                                <td><a href="">공지사항</a></td>
-                                <td>관리자</td>
-                                <td>2023-11-26</td>
-                                <td>123</td>
-                            </tr>
-                            <tr class="body-columns">
-                                <td>8</td>
-                                <td><a href="">공지사항</a></td>
-                                <td>관리자</td>
-                                <td>2023-11-26</td>
-                                <td>123</td>
-                            </tr>
-                            <tr class="body-columns">
-                                <td>9</td>
-                                <td><a href="">공지사항</a></td>
-                                <td>관리자</td>
-                                <td>2023-11-26</td>
-                                <td>123</td>
-                            </tr>
-                            <tr class="body-columns">
-                                <td>10</td>
-                                <td><a href="">공지사항</a></td>
-                                <td>관리자</td>
-                                <td>2023-11-26</td>
-                                <td>123</td>
-                            </tr>
+                        <tbody class="notice-list">
+                        <!--공지사항 리스트-->
+<!--                            <tr class="body-columns">-->
+<!--                                <td>1</td>-->
+<!--                                <td><a href="">공지사항</a></td>-->
+<!--                                <td>관리자</td>-->
+<!--                                <td>2023-11-26</td>-->
+<!--                                <td>123</td>-->
+<!--                            </tr>-->
+
                         </tbody>
 
                     </table>
@@ -178,14 +79,8 @@
             </div>
             <div class="list-page-container">
                 <div class="list-pages">
-                    <ul>
-                        <li><a href="">&lt;</a></li>
-                        <li><a href="">1</a></li>
-                        <li><a href="">2</a></li>
-                        <li><a href="">3</a></li>
-                        <li><a href="">4</a></li>
-                        <li><a href="">5</a></li>
-                        <li><a href="">&gt;</a></li>
+                    <ul class="pagination-ul">
+                        <!--게시판 리스트-->
                     </ul>
                 </div>
             </div>
@@ -193,36 +88,12 @@
         </div>
     </main>
 
-    <!-- footer 시작 -->
-    <div class="footer">
-        <div class="footer-container01">
-            <div class="footer-containerbox01">
-                <div class="footer-container01-nav">
-                    <ul>
-                        <li>(주)산책갈개</li>
-                        <li>복영헌 임형준 노의진 이지윤</li>
-                        <li>서울특별시 노원구 상계로1길 34 세일학원 5층</li>
-                        <li>02-933-5890</li>
-                    </ul>
-                </div>
-                <div class="footer-container01-img">
-                    <img src="/img/dog02.png" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="footer-container02">
-            <div class="footer-containerbox02">
-                <div>Copyright ©SCGG All Rights Reserved.</div>
-                <div class="footer-container02-nav">
-                    <ul>
-                        <li><a href="">이용약관</a></li>
-                        <li><a href="">개인정보처리방침</a></li>
-                        <li><a href="">사업자정보확인</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- footer 끝 -->
+<!-- footer 시작 -->
+<div class="footer" th:replace="fragment/footer :: footer">
+
+</div>
+<!-- footer 끝 -->
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<script type="module" src="/community/js/noticeList.js"></script>
 </body>
 </html>
