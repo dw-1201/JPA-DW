@@ -39,6 +39,7 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
     private final JPAQueryFactory jpaQueryFactory;
 
 
+
     @Override
     public Page<AdminOrderListResultDto> orderList(Pageable pageable, AdminSearchOrderForm adminSearchOrderForm) {
 
