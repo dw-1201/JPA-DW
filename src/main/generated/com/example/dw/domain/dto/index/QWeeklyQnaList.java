@@ -25,7 +25,5 @@ public class QWeeklyQnaList extends ConstructorExpression<WeeklyQnaList> {
         super(WeeklyQnaList.class, new Class<?>[]{String.class, String.class, String.class}, questionImgRoute, questionImgUuid, questionImgName);
     }
 
-
-
 }
 
