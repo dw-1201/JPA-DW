@@ -235,7 +235,7 @@ function getReplyList(result){
     let inputTextSection = $('.admin-reply-section');
 
 
-    if(result.id != null){
+    if(result.goodsReviewApplyId != null){
 
         text += `
         
@@ -266,8 +266,8 @@ function getReplyList(result){
                 </ul>
                     <div class="review-reply">${result.goodsReviewReplyContent}</div>
                     <div class="btns btn-none">
-                        <button class="modify-reply-btn" type="button" data-replyid="${result.id}">수정</button>
-                        <button class="delete-reply-btn" type="button" data-replyid="${result.id}">삭제</button>
+                        <button class="modify-reply-btn" type="button" data-replyid="${result.goodsReviewApplyId}">수정</button>
+                        <button class="delete-reply-btn" type="button" data-replyid="${result.goodsReviewApplyId}">삭제</button>
                     </div>
                 </div>
         `

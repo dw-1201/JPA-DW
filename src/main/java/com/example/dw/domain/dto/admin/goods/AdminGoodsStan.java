@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AdminGoodsStan {
 
+    //제품 기본정보
     private Long goodsId;
     private String goodsName;
     private String goodsCategory;

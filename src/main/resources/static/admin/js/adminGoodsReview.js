@@ -89,15 +89,15 @@ function inputSection(result){
 
     result.content.forEach(r=>{
 
-        const reviewContent = r.orderReviewContent;
+        const reviewContent = r.reviewList;
 
         text +=`
  
                  <tr>
-                    <td class="orderReviewId">${r.orderReviewId}</td>
+                    <td class="orderReviewId">${r.goodsReviewId}</td>
                     <td>${reviewContent.goodsCategory}</td>
                     <td>${reviewContent.goodsName}</td>
-                    <td class="review-content">${reviewContent.orderReviewContent}</td>
+                    <td class="review-content">${reviewContent.goodsReviewContent}</td>
                     `;
 
         if(reviewContent.rating == 5) {
@@ -128,7 +128,7 @@ function inputSection(result){
         }
 
         text +=     ` 
-                    <td>${form.formatDates(reviewContent.orderReviewRd)}</td>
+                    <td>${form.formatDates(reviewContent.goodsReviewRd)}</td>
                     `;
 
         if(reviewContent.adminReplyState==0){
@@ -142,7 +142,7 @@ function inputSection(result){
         }
 
         text+=`     <td class="list-btns">
-                        <button type="button" class="detail-btn btn" data-id="${r.orderReviewId}" >상세보기</button>
+                        <button type="button" class="detail-btn btn" data-id="${r.goodsReviewId}" >상세보기</button>
                     </td>
                 </tr>
         `

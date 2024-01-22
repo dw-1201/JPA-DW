@@ -1,8 +1,8 @@
 package com.example.dw.controller;
 
 import com.example.dw.domain.dto.admin.AdminGoodsQueDetailDto;
-import com.example.dw.domain.dto.admin.AdminGoodsReviewDetailResultDto;
 import com.example.dw.domain.dto.admin.goods.AdminGoods;
+import com.example.dw.domain.dto.admin.goods.AdminGoodsReview;
 import com.example.dw.domain.form.GoodsForm;
 import com.example.dw.service.AdminGoodsService;
 import com.example.dw.service.FileService;
@@ -163,7 +163,7 @@ public class AdminGoodsController {
     @GetMapping("/goodsReviewDetail/{orderReviewId}")
     public String goodsReviewDetail(@PathVariable("orderReviewId") Long orderReviewId, Model model){
 
-        AdminGoodsReviewDetailResultDto detail = adminGoodsService.reviewDetail(orderReviewId);
+        AdminGoodsReview.AdminGoodsReviewDetail.AdminGoodsReviewResultDetail detail = adminGoodsService.reviewDetail(orderReviewId);
         model.addAttribute("detail", detail);
 
         return "/admin/adminGoodsReviewDetail";

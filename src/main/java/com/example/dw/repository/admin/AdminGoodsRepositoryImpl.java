@@ -1,6 +1,9 @@
 package com.example.dw.repository.admin;
 
-import com.example.dw.domain.dto.admin.*;
+import com.example.dw.domain.dto.admin.goods.AdminGoodsReview;
+import com.example.dw.domain.dto.admin.goods.QAdminGoodsReview;
+import com.example.dw.domain.dto.admin.goods.QAdminGoodsReview_AdminGoodsReviewApply;
+import com.example.dw.domain.dto.admin.goods.QAdminGoodsReview_AdminGoodsReviewDetail;
 import com.example.dw.domain.form.SearchReviewForm;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPQLQueryFactory;
@@ -12,11 +15,13 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.example.dw.domain.entity.goods.QGoods.goods;
-import static com.example.dw.domain.entity.order.QGoodsReviewReply.goodsReviewReply;
 import static com.example.dw.domain.entity.goods.QGoodsMainImg.goodsMainImg;
+import static com.example.dw.domain.entity.order.QGoodsReviewReply.goodsReviewReply;
 import static com.example.dw.domain.entity.order.QOrderItem.orderItem;
 import static com.example.dw.domain.entity.order.QOrderReview.orderReview;
 import static com.example.dw.domain.entity.order.QOrderReviewImg.orderReviewImg;
@@ -31,14 +36,14 @@ public class AdminGoodsRepositoryImpl implements AdminGoodsRepositoryCustom{
 
     private final JPQLQueryFactory jpqlQueryFactory;
 
+    
+    //상품 리뷰 리스트
     @Override
-    public Page<AdminGoodsReviewResultDto> reviewList(Pageable pageable, SearchReviewForm searchReviewForm) {
+    public Page<AdminGoodsReview.AdminGoodsReviewList.AdminGoodsReviewResultList> reviewList(Pageable pageable, SearchReviewForm searchReviewForm) {
 
 
-
-
-        List<AdminGoodsReviewListDto> query = jpqlQueryFactory.select(
-                new QAdminGoodsReviewListDto(
+        List<AdminGoodsReview> lists = jpqlQueryFactory.select(
+                new QAdminGoodsReview(
                         orderReview.id,
                         goods.goodsCategory.stringValue(),
                         goods.goodsName,
@@ -47,8 +52,7 @@ public class AdminGoodsRepositoryImpl implements AdminGoodsRepositoryCustom{
                         orderReview.reviewRd,
                         orderReview.adminReplyState
                 )
-        )
-                .from(orderReview)
+        )       .from(orderReview)
                 .leftJoin(orderReview.orderItem, orderItem)
                 .leftJoin(orderItem.goods, goods)
                 .where(
@@ -73,12 +77,16 @@ public class AdminGoodsRepositoryImpl implements AdminGoodsRepositoryCustom{
                 )
                 .fetchOne();
 
-        List<AdminGoodsReviewResultDto> result = query.stream().map(orderReviews ->  new AdminGoodsReviewResultDto(
-                orderReviews.getOrderReviewId(),
-                new AdminGoodsReviewListDtoWithoutId(
-                        orderReviews.getGoodsCategory(), orderReviews.getGoodsName(),
-                        orderReviews.getOrderReviewContent(), orderReviews.getRating(),
-                        orderReviews.getOrderReviewRd(),orderReviews.getAdminReplyState())
+        List<AdminGoodsReview.AdminGoodsReviewList.AdminGoodsReviewResultList> result = lists.stream()
+                .map(goodsReview ->  new AdminGoodsReview.AdminGoodsReviewList.AdminGoodsReviewResultList(
+                goodsReview.getGoodsReviewId(),
+                new AdminGoodsReview.AdminGoodsReviewList(
+                        goodsReview.getGoodsCategory(),
+                        goodsReview.getGoodsName(),
+                        goodsReview.getGoodsReviewContent(),
+                        goodsReview.getRating(),
+                        goodsReview.getGoodsReviewRd(),
+                        goodsReview.getReplyState())
                 )
         ).collect(Collectors.toList());
 
@@ -88,15 +96,17 @@ public class AdminGoodsRepositoryImpl implements AdminGoodsRepositoryCustom{
 
     //상품 리뷰 상세
     @Override
-    public AdminGoodsReviewDetailResultDto goodsReviewDetail(Long orderReviewId) {
+    public AdminGoodsReview.AdminGoodsReviewDetail.AdminGoodsReviewResultDetail goodsReviewDetail(Long orderReviewId) {
 
-        AdminGoodsReviewInfo goodsInfo = jpqlQueryFactory.select(
-                new QAdminGoodsReviewInfo(
+        //리뷰 상품 정보 조회
+        AdminGoodsReview.AdminGoodsReviewDetail goodsInfo = Optional.of(jpqlQueryFactory.select(
+                new QAdminGoodsReview_AdminGoodsReviewDetail(
                         goods.id,
                         goods.goodsCategory.stringValue(),
                         goods.goodsName,
                         goods.goodsDetailContent,
                         orderReview.rating.avg(),
+                        goodsMainImg.id,
                         goodsMainImg.goodsMainImgPath,
                         goodsMainImg.goodsMainImgUuid,
                         goodsMainImg.goodsMainImgName
@@ -109,20 +119,23 @@ public class AdminGoodsRepositoryImpl implements AdminGoodsRepositoryCustom{
                 .leftJoin(goods.goodsMainImg, goodsMainImg)
                 .where(orderReview.id.eq(orderReviewId))
                 .groupBy(goods.id, goods.goodsCategory, goods.goodsName, goods.goodsDetailContent,
+                        goodsMainImg.id,
                         goodsMainImg.goodsMainImgPath, goodsMainImg.goodsMainImgUuid, goodsMainImg.goodsMainImgName)
-                .fetchOne();
+                .fetchOne()).orElseThrow(()-> new NoSuchElementException("조회정보없다"));
 
-        List<AdminGoodsReviewContentDto> reviewInfo = jpqlQueryFactory.select(
-                new QAdminGoodsReviewContentDto(
-                        orderReview.content,
-                        users.userAccount,
-                        orderReview.rating,
-                        orderReview.reviewRd,
-                        orderReviewImg.id,
-                        orderReviewImg.reviewimgPath,
-                        orderReviewImg.reviewimgUuid,
-                        orderReviewImg.reviewimgFileName
-                )
+        
+        //리뷰 내용 조회
+        List<AdminGoodsReview.AdminGoodsReviewDetail> reviewInfo = Optional.of(jpqlQueryFactory.select(
+                new QAdminGoodsReview_AdminGoodsReviewDetail(
+                            orderReview.content,
+                            users.userAccount,
+                            orderReview.rating,
+                            orderReview.reviewRd,
+                            orderReviewImg.id,
+                            orderReviewImg.reviewimgPath,
+                            orderReviewImg.reviewimgUuid,
+                            orderReviewImg.reviewimgFileName
+                                )
 
         ).from(orderReviewImg)
 
@@ -131,43 +144,51 @@ public class AdminGoodsRepositoryImpl implements AdminGoodsRepositoryCustom{
                 .leftJoin(orderItem.orders, orders)
                 .leftJoin(orders.users, users)
                 .where(orderReview.id.eq(orderReviewId))
-                .fetch();
+                .fetch()).orElseThrow(()-> new NoSuchElementException("조회정보없다"));
 
 
-        AdminGoodsReviewInfoDto goodsInfoResult = new AdminGoodsReviewInfoDto(
+        AdminGoodsReview.AdminGoodsReviewDetail.GoodsInfo goodsInfoResult = new AdminGoodsReview.AdminGoodsReviewDetail.GoodsInfo(
 
-                goodsInfo.getGoodsId(), goodsInfo.getGoodsCategory(), goodsInfo.getGoodsName(),
-                goodsInfo.getGoodsContent(), goodsInfo.getRatingAvg(),
+                goodsInfo.getGoodsId(),
+                goodsInfo.getGoodsCategory(),
+                goodsInfo.getGoodsName(),
+                goodsInfo.getGoodsDetailContent(),
+                goodsInfo.getRatingAvg(),
 
-                new AdminGoodsReviewMainImgDto(goodsInfo.getGoodsMainImgPath(),
-                        goodsInfo.getGoodsMainImgUuid(), goodsInfo.getGoodsMainImgName())
+                new AdminGoodsReview.AdminGoodsReviewDetail.GoodsImg(
+                        goodsInfo.getGoodsMainImgId(),
+                        goodsInfo.getGoodsMainImgPath(),
+                        goodsInfo.getGoodsMainImgUuid(),
+                        goodsInfo.getGoodsMainImgName())
         );
 
 
-        AdminGoodsReviewContentResultDto reviewInfoResult = reviewInfo.stream().map(
-                reviews -> new AdminGoodsReviewContentResultDto(
+        AdminGoodsReview.AdminGoodsReviewDetail.ReviewContent reviewInfoResult = reviewInfo.stream().map(
+                reviews -> new AdminGoodsReview.AdminGoodsReviewDetail.ReviewContent(
                         reviews.getOrderReviewContent(),
                         reviews.getUserAccount(),
                         reviews.getRating(),
                         reviews.getOrderReviewRd(),
 
-                        reviewInfo.stream().map(o->new AdminGoodsReviewImgList(
-                                o.getOrderReviewImgId(), o.getOderReviewImgPath(),
-                                o.getOrderReviewImgUuid(), o.getOrderReviewImgName()
+                        reviewInfo.stream().map(o->new AdminGoodsReview.AdminGoodsReviewDetail.ReviewImg(
+                                o.getOrderReviewImgId(),
+                                o.getOrderReviewImgPath(),
+                                o.getOrderReviewImgUuid(),
+                                o.getOrderReviewImgName()
                         )).collect(Collectors.toList()))).
 
-                findFirst().get();
+                findFirst().orElseThrow(()->new NoSuchElementException("조회정보 없음"));
 
 
 
-        return new AdminGoodsReviewDetailResultDto(orderReviewId, goodsInfoResult, reviewInfoResult);
+        return new AdminGoodsReview.AdminGoodsReviewDetail.AdminGoodsReviewResultDetail(orderReviewId, goodsInfoResult, reviewInfoResult);
     }
 
     //상품 리뷰 관리자 답변 가져오기
     @Override
-    public AdminGoodsReviewReplyDto goodsReviewReplyList(Long orderReviewId) {
+    public AdminGoodsReview.AdminGoodsReviewApply goodsReviewReplyList(Long orderReviewId) {
         return jpqlQueryFactory.select(
-                new QAdminGoodsReviewReplyDto(
+                new QAdminGoodsReview_AdminGoodsReviewApply(
                         goodsReviewReply.id,
                         goodsReviewReply.goodsReviewReplyContent,
                         goodsReviewReply.goodsReviewReplyRD,
