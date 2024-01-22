@@ -12,8 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.example.dw.domain.entity.freeBoard.QFreeBoard.freeBoard;
 import static com.example.dw.domain.entity.goods.QCart.cart;
@@ -23,7 +23,13 @@ import static com.example.dw.domain.entity.goods.QGoodsDetailImg.goodsDetailImg;
 import static com.example.dw.domain.entity.goods.QGoodsMainImg.goodsMainImg;
 import static com.example.dw.domain.entity.goods.QGoodsQue.goodsQue;
 import static com.example.dw.domain.entity.goods.QGoodsQueReply.goodsQueReply;
+import static com.example.dw.domain.entity.order.QGoodsReviewReply.goodsReviewReply;
 import static com.example.dw.domain.entity.user.QUsers.users;
+import static com.example.dw.domain.entity.order.QOrderReview.orderReview;
+import static com.example.dw.domain.entity.order.QOrderItem.orderItem;
+import static com.example.dw.domain.entity.order.QOrderReviewImg.orderReviewImg;
+import static com.example.dw.domain.entity.order.QOrders.orders;
+import static java.util.stream.Collectors.groupingBy;
 
 @Repository
 @RequiredArgsConstructor
@@ -236,14 +242,85 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
     }
 
     //리뷰 조회
-//    @Override
-//    public List<GoodsReviewDto> findGoodsReviewById(Long id) {
-//        List<GoodsReviewDto> contens = jpaQueryFactory
-//                .select(new QGoodsReviewDto(
-//                        goodsRe
-//                ))
-//        return null;
-//    }
+    @Override
+    public List<GoodsReviewListDto> findGoodsReviewById(Long id) {
+        List<GoodsReviewDto> reviewDtoList = jpaQueryFactory
+                .select(new QGoodsReviewDto(
+                        orderReview.id,
+                        orderReview.title,
+                        orderReview.content,
+                        orderReview.reviewRd,
+                        orderReview.rating,
+                        goodsReviewReply.id,
+                        goodsReviewReply.goodsReviewReplyContent,
+                        goodsReviewReply.goodsReviewReplyRD,
+                        goodsReviewReply.goodsReviewReplyMD,
+                        goods.id,
+                        orderItem.id,
+                        orders.users.id,
+                        orders.users.userAccount,
+                        orders.users.userNickName,
+                        orderReviewImg.id,
+                        orderReviewImg.reviewimgFileName,
+                        orderReviewImg.reviewimgPath,
+                        orderReviewImg.reviewimgUuid
+                ))
+                .from(orderReview)
+                .leftJoin(orderReview.goodsReviewReply, goodsReviewReply)
+                .leftJoin(orderReview.orderReviewImgList, orderReviewImg)
+                .leftJoin(orderReview.orderItem, orderItem)
+                .leftJoin(orderItem.orders, orders)
+                .leftJoin(orders.users, users)
+                .orderBy(orderReview.id.desc(), orderReviewImg.id.asc())
+                .fetch();
+
+
+        Map<Long, List<GoodsReviewDto>> result = reviewDtoList.stream().
+                collect(groupingBy(
+                dto -> dto.getId()
+                )
+        );
+
+        List<GoodsReviewListDto> rr = result.entrySet().stream().sorted(Map.Entry.comparingByKey(Comparator.reverseOrder()))
+                .map(  dto ->
+                        {
+
+                                List < GoodsReviewDto > resultDtos = dto.getValue();
+
+                                List<GoodsReviewImgDto> imgs = resultDtos.stream().map(
+                                        img -> new GoodsReviewImgDto(img.getReviewimgId(),
+                                                img.getReviewimgFileName(),
+                                                img.getReviewimgPath(),
+                                                img.getReviewimgUuid())
+                                ).collect(Collectors.toList());
+
+                            GoodsReviewListDto resultDto = resultDtos.stream().findFirst()
+                                    .map(
+                                            review -> new GoodsReviewListDto(
+                                                    review.getId(),
+                                                    review.getTitle(),
+                                                    review.getContent(),
+                                                    review.getReviewRd(),
+                                                    review.getRating(),
+                                                    review.getGoodsReviewReplyId(),
+                                                    review.getGoodsReviewReplyContent(),
+                                                    review.getGoodsReviewReplyRD(),
+                                                    review.getGoodsReviewReplyMD(),
+                                                    review.getGoodsId(),
+                                                    review.getOrderItemId(),
+                                                    review.getUserId(),
+                                                    review.getUserAccount(),
+                                                    review.getUserNickName(),
+                                                    imgs
+                                                    )
+                                    ).orElse(null);
+
+                            return resultDto;
+                        }
+                ).collect(Collectors.toList());
+
+                return rr;
+    }
 
     @Override
     public List<GoodsQueDto> findGoodsQueId(Long id) {

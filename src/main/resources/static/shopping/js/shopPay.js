@@ -127,8 +127,7 @@ $(".cart-button").click(function () {
                 success : function(response){
                     console.log(response);
 
-
-                    // location.href = '';
+                    window.location.href="/mypg/orderpage/" +userId;
                 }
             })
 

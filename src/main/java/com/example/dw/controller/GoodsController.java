@@ -82,11 +82,11 @@ public class GoodsController {
     /**
      * 쇼핑 리뷰 페이지
      */
-    @GetMapping("/shopReview/{id}")
-    public String shopReview(@PathVariable("id") Long id, Model model){
-        model.addAttribute("id", id);
-        return "/shopping/shopReview";
-    }
+//    @GetMapping("/shopReview/{id}")
+//    public String shopReview(@PathVariable("id") Long id, Model model){
+//        model.addAttribute("id", id);
+//        return "/shopping/shopReview";
+//    }
 
     /**
      * 쇼핑 카트 페이지

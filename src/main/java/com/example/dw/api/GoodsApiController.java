@@ -75,14 +75,14 @@ public class GoodsApiController {
      * 쇼핑 리뷰 페이지
      * @return
      */
-//    @GetMapping("/shopReview/{goodsId}")
-//    public List<GoodsReviewDto> findReviewList(@PathVariable("goodsId") Long goodsId){
-//        List<GoodsReviewDto> reviewList = goodsService.findReviewList(goodsId);
-//
-//
-//        System.out.println(qnaList.toString());
-//        return qnaList;
-//    }
+    @GetMapping("/shopReview/{goodsId}")
+    public List<GoodsReviewListDto> findReviewList(@PathVariable("goodsId") Long goodsId){
+        List<GoodsReviewListDto> reviewList = goodsService.goodsReviewList(goodsId);
+
+
+        System.out.println(reviewList.toString());
+        return reviewList;
+    }
 
     /**
      * 쇼핑 Q and A 페이지
