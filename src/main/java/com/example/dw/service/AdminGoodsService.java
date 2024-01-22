@@ -1,6 +1,7 @@
 package com.example.dw.service;
 
 import com.example.dw.domain.dto.admin.*;
+import com.example.dw.domain.dto.admin.goods.AdminGoods;
 import com.example.dw.domain.entity.goods.Goods;
 import com.example.dw.domain.entity.goods.GoodsQue;
 import com.example.dw.domain.entity.goods.GoodsQueReply;
@@ -29,8 +30,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static java.util.stream.Collectors.*;
-
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -56,58 +55,12 @@ public class AdminGoodsService {
 
     @Transactional
     //상품 상세 보기
-    public AdminGoodsDetailResultDto goodsDetail(Long goodsId){
+    public AdminGoods.AdminGoodsDetail goodsDetail(Long goodsId){
 
-       List<AdminGoodsDetailDto> lists = goodsRepositoryCustom.findGoodsById(goodsId);
+       AdminGoods.AdminGoodsDetail lists = goodsRepositoryCustom.findGoodsById(goodsId);
 
-        Map<AdminGoodsDetailResultDto, List<AdminGoodsDetailImgDto>> groupedItems =
-                lists.stream()
-                        .collect(groupingBy(
-                                r -> new AdminGoodsDetailResultDto(
-                                        r.getId(),
-                                        r.getGoodsName(),
-                                        r.getGoodsQuantity(),
-                                        r.getGoodsPrice(),
-                                        r.getGoodsMade(),
-                                        r.getGoodsCertify(),
-                                        r.getGoodsDetailContent(),
-                                        r.getGoodsRegisterDate(),
-                                        r.getGoodsModifyDate(),
-                                        r.getGoodsCategory(),
-                                        r.getGoodsMainImgName(),
-                                        r.getGoodsMainImgPath(),
-                                        r.getGoodsMainImgUuid(),
-                                        r.getSaleCount(),
-                                        r.getRatingAvg()
-                                ),
-                                mapping(
-                                        r -> new AdminGoodsDetailImgDto(
-                                                r.getGoodsDetailImgId(),
-                                                r.getGoodsDetailImgName(),
-                                                r.getGoodsDetailImgPath(),
-                                                r.getGoodsDetailImgUuid(),
-                                                r.getId()
-
-                                                ),
-                                        toList()
-                                )
-                        ));
-
-        // 합쳐진 결과를 단일 AdminGoodsDetailResultDto로 변환
-        AdminGoodsDetailResultDto mergedResult = groupedItems.entrySet().stream()
-                .map(e -> {
-                    AdminGoodsDetailResultDto resultDto = e.getKey();
-                    resultDto.setGoodsDetailImgs(e.getValue());
-                    return resultDto;
-                })
-                .findFirst().get();
-//                .orElse(null); //null이 없을거니
-
-
-        System.out.println(mergedResult.toString());
-
-
-        return Optional.ofNullable(mergedResult).orElseThrow(()->{
+        System.out.println(lists.toString()+"!!!!!!!");
+        return Optional.ofNullable(lists).orElseThrow(()->{
             throw new IllegalArgumentException("조회결과 없음");
         });
 

@@ -1,8 +1,8 @@
 package com.example.dw.controller;
 
-import com.example.dw.domain.dto.admin.AdminGoodsDetailResultDto;
 import com.example.dw.domain.dto.admin.AdminGoodsQueDetailDto;
 import com.example.dw.domain.dto.admin.AdminGoodsReviewDetailResultDto;
+import com.example.dw.domain.dto.admin.goods.AdminGoods;
 import com.example.dw.domain.form.GoodsForm;
 import com.example.dw.service.AdminGoodsService;
 import com.example.dw.service.FileService;
@@ -31,7 +31,7 @@ public class AdminGoodsController {
     //상품리스트
     @GetMapping("/goodsList")
     public String GoodsList(){
-        return "/admin/adminGoodsList";
+        return "/admin/AdminGoodsList";
     }
 
     //상품등록 페이지 이동
@@ -79,7 +79,7 @@ public class AdminGoodsController {
     public String goodsDetail(@PathVariable("goodsId") Long goodsId, Model model){
 
 
-        AdminGoodsDetailResultDto detail = adminGoodsService.goodsDetail(goodsId);
+        AdminGoods.AdminGoodsDetail detail = adminGoodsService.goodsDetail(goodsId);
 
 
         System.out.println("[상품 상세 정보] : "+detail.toString());
@@ -95,7 +95,7 @@ public class AdminGoodsController {
     @GetMapping("/modify/{goodsId}")
     public String goodsModifyPage(@PathVariable("goodsId") Long goodsId, Model model){
 
-        AdminGoodsDetailResultDto detail = adminGoodsService.goodsDetail(goodsId);
+        AdminGoods.AdminGoodsDetail detail = adminGoodsService.goodsDetail(goodsId);
 
         model.addAttribute("detail", detail);
 

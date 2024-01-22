@@ -1,11 +1,15 @@
 package com.example.dw.repository.goods;
 
 import com.example.dw.domain.dto.admin.*;
+import com.example.dw.domain.dto.admin.goods.AdminGoods;
+import com.example.dw.domain.dto.admin.goods.AdminGoodsDetailImg;
+import com.example.dw.domain.dto.admin.goods.QAdminGoods;
+import com.example.dw.domain.dto.admin.goods.QAdminGoods_AdminGoodsList;
 import com.example.dw.domain.dto.goods.IndexGoodsByCateDto;
-import com.example.dw.domain.dto.goods.QIndexGoodsByCateDto;
 import com.example.dw.domain.form.SearchForm;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -15,7 +19,6 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static com.example.dw.domain.entity.goods.QGoods.goods;
 import static com.example.dw.domain.entity.goods.QGoodsDetailImg.goodsDetailImg;
@@ -25,47 +28,46 @@ import static com.example.dw.domain.entity.goods.QGoodsQueReply.goodsQueReply;
 import static com.example.dw.domain.entity.order.QOrderItem.orderItem;
 import static com.example.dw.domain.entity.order.QOrderReview.orderReview;
 import static com.example.dw.domain.entity.user.QUsers.users;
+import static java.util.stream.Collectors.toList;
 
 @Repository
 @RequiredArgsConstructor
 public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
 
     private final JPAQueryFactory jpaQueryFactory;
-
+    private final EntityManager em;
 
     //메인페이지 카테고리별 상품리스트
     @Override
     public List<IndexGoodsByCateDto> indexGoodsListByCategory(String cate) {
-        return jpaQueryFactory.select(new QIndexGoodsByCateDto(
-                goods.id,
-                goods.goodsName,
-                goods.goodsPrice,
-                goods.goodsCategory.stringValue(),
-                goodsMainImg.id,
-                goodsMainImg.goodsMainImgPath,
-                goodsMainImg.goodsMainImgUuid,
-                goodsMainImg.goodsMainImgName
-        ))
 
-                .from(goods)
-                .leftJoin(goods.goodsMainImg, goodsMainImg)
-                .limit(6)
-                .where(goods.goodsCategory.stringValue().eq(cate))
-                .orderBy(goods.id.desc())
-                .fetch();
+
+        List<IndexGoodsByCateDto> list = em.createQuery(
+
+                "select NEW com.example.dw.domain.dto.goods.IndexGoodsByCateDto(" +
+                        "g.id, g.goodsName, g.goodsPrice, avg(or.rating), g.goodsCategory, gm.id, gm.goodsMainImgPath, gm.goodsMainImgUuid, gm.goodsMainImgName) FROM Goods g " +
+                        "left join GoodsMainImg gm on gm.goods.id=g.id " +
+                        "left join OrderItem oi on oi.goods.id=g.id " +
+                        "left join OrderReview or on or.orderItem.id=oi.id " +
+                        "group by g.id, g.goodsName, g.goodsPrice, g.goodsCategory, gm.id, gm.goodsMainImgPath, gm.goodsMainImgUuid, gm.goodsMainImgName", IndexGoodsByCateDto.class)
+
+                .getResultList();
+
+
+        return list;
     }
 
     //관리자 페이지 상품 리스트
     @Override
-    public Page<AdminGoodsDto> findGoodsAll(Pageable pageable, SearchForm searchForm) {
-        List<AdminGoodsDto> contents = jpaQueryFactory
-                .select(new QAdminGoodsDto(
+    public Page<AdminGoods.AdminGoodsList> findGoodsAll(Pageable pageable, SearchForm searchForm) {
+        List<AdminGoods.AdminGoodsList> contents = jpaQueryFactory
+                .select(new QAdminGoods_AdminGoodsList(
                         goods.id,
+                        goods.goodsCategory.stringValue(),
                         goods.goodsName,
                         goods.goodsQuantity,
                         goods.saleCount,
                         goods.goodsPrice,
-                        goods.goodsCategory.stringValue(),
                         goods.goodsRegisterDate,
                         goods.goodsModifyDate
                 ))
@@ -79,7 +81,6 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
                 .limit(pageable.getPageSize())
                 .fetch();
 
-        System.out.println(contents+"@@@@@@@@@@@");
 
         Long count = jpaQueryFactory
                 .select(goods.count())
@@ -98,61 +99,64 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
 
     //관리자 페이지 상품 상세 페이지
     @Override
-    public List<AdminGoodsDetailDto> findGoodsById(Long id) {
+    public AdminGoods.AdminGoodsDetail findGoodsById(Long id) {
     
-        //npe 방어
-        Optional<Double> avg = Optional.ofNullable(
-                jpaQueryFactory.select(orderReview.rating.avg())
+        Double avg =
+                jpaQueryFactory.select(
+
+                        orderReview.rating.avg().coalesce(0.0))
                         .from(orderReview)
                         .leftJoin(orderReview.orderItem, orderItem)
                         .leftJoin(orderItem.goods, goods)
                         .where(goods.id.eq(id))
-                        .fetchOne()
-        );
-        double avgResult = 0.0;
+                        .fetchOne();
 
-        if(avg.isPresent()){
-           avgResult = avg.get();
-        }else {
-            avgResult = 0.0;
-        };
-
-
-        double finalAvgResult = avgResult;
-
-
-        List<AdminGoodsDetailDto> detail= jpaQueryFactory
-                .select(new QAdminGoodsDetailDto(
+        List<AdminGoods> detail= jpaQueryFactory
+                .select(new QAdminGoods(
                         goods.id,
                         goods.goodsName,
+                        goods.goodsCategory.stringValue(),
                         goods.goodsQuantity,
                         goods.goodsPrice,
+                        goods.saleCount,
+                        goods.goodsDetailContent,
                         goods.goodsMade,
                         goods.goodsCertify,
-                        goods.goodsDetailContent,
                         goods.goodsRegisterDate,
                         goods.goodsModifyDate,
-                        goods.goodsCategory.stringValue(),
                         goodsMainImg.id,
-                        goodsMainImg.goodsMainImgName,
                         goodsMainImg.goodsMainImgPath,
                         goodsMainImg.goodsMainImgUuid,
+
+                        goodsMainImg.goodsMainImgName,
                         goodsDetailImg.id,
-                        goodsDetailImg.goodsDetailImgName,
                         goodsDetailImg.goodsDetailImgPath,
                         goodsDetailImg.goodsDetailImgUuid,
-                        goods.saleCount
-                ))
-                .from(goods)
-                .leftJoin(goods.goodsMainImg, goodsMainImg)
-                .leftJoin(goods.goodsDetailImg, goodsDetailImg)
-                .where(goods.id.eq(id))
-                .fetch().stream().map(
-                        dto->dto.setRatingAvg(finalAvgResult)
-                ).collect(Collectors.toList());
+                        goodsDetailImg.goodsDetailImgName
+                        ))
+                        .from(goods)
+                        .leftJoin(goods.goodsMainImg, goodsMainImg)
+                        .leftJoin(goods.goodsDetailImg, goodsDetailImg)
+                        .where(goods.id.eq(id))
+                        .fetch();
 
-        return detail;
 
+        AdminGoods.AdminGoodsDetail sss = detail.stream().map(
+                o -> new AdminGoods.AdminGoodsDetail(
+                        o.getGoodsId(), o.getGoodsName(), o.getGoodsCategory(), o.getGoodsQuantity(),
+                        o.getGoodsPrice(), o.getGoodsSaleCount(), o.getGoodsDetailContent(), o.getGoodsMate(),
+                        o.getGoodsCertify(), o.getGoodsRd(), o.getGoodsMd(), avg, o.getGoodsMainImgPath(), o.getGoodsMainImgUuid(), o.getGoodsMainImgName())
+        ).findFirst().get();
+
+        List<AdminGoodsDetailImg> imgs = detail.stream().map(
+                img -> new AdminGoodsDetailImg(img.getGoodsDetailImgId(), img.getGoodsDetailImgPath(), img.getGoodsDetailImgUuid(), img.getGoodsDetailImgName())
+        ).collect(toList());
+
+        sss.setGoodsDetailImg(imgs);
+
+        System.out.println(sss.toString()+"!@@@@@@@@@");
+
+        return sss;
     }
     //상품 상세 - 상품 관련 문의사항
     @Override

@@ -1,7 +1,7 @@
 package com.example.dw.api;
 
 import com.example.dw.domain.dto.goods.IndexGoodsByCateDto;
-import com.example.dw.domain.dto.index.WeeklyQnaList;
+import com.example.dw.domain.dto.index.WeeklyQnaListDto;
 import com.example.dw.service.IndexService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +28,7 @@ public class IndexApiController {
 
     //시험용
     @GetMapping("/weeklyQnaBest")
-    public List<WeeklyQnaList> weeklyQnaLists(){
+    public List<WeeklyQnaListDto> weeklyQnaLists(){
         return indexService.weeklyQnaList();
     }
 

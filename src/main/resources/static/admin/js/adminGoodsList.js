@@ -46,7 +46,7 @@ function showGoodsList(result){
 
         text += `
                       <tr class="goods-lists">
-                        <td>${r.id}</td>
+                        <td>${r.goodsId}</td>
                         <td>${r.goodsCategory}</td>
                         <td>${r.goodsName}</td>
                         <td>${form.addCommas(r.goodsPrice)}원</td>
@@ -62,7 +62,7 @@ function showGoodsList(result){
         }
         text+=`
                         <td class="list-btns">
-                            <a href="/admin/detail/${r.id}"><button type="button" class="detail-btn btn" data-goodsnum="${r.id}">상세보기</button></a>
+                            <a href="/admin/detail/${r.goodsId}"><button type="button" class="detail-btn btn" data-goodsnum="${r.goodsId}">상세보기</button></a>
                         </td>
                       </tr>
 
