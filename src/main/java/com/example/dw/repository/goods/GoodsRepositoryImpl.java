@@ -2,7 +2,6 @@ package com.example.dw.repository.goods;
 
 import com.example.dw.domain.dto.admin.*;
 import com.example.dw.domain.dto.admin.goods.AdminGoods;
-import com.example.dw.domain.dto.admin.goods.AdminGoodsDetailImg;
 import com.example.dw.domain.dto.admin.goods.QAdminGoods;
 import com.example.dw.domain.dto.admin.goods.QAdminGoods_AdminGoodsList;
 import com.example.dw.domain.dto.goods.IndexGoodsByCateDto;
@@ -148,13 +147,12 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
                         o.getGoodsCertify(), o.getGoodsRd(), o.getGoodsMd(), avg, o.getGoodsMainImgPath(), o.getGoodsMainImgUuid(), o.getGoodsMainImgName())
         ).findFirst().get();
 
-        List<AdminGoodsDetailImg> imgs = detail.stream().map(
-                img -> new AdminGoodsDetailImg(img.getGoodsDetailImgId(), img.getGoodsDetailImgPath(), img.getGoodsDetailImgUuid(), img.getGoodsDetailImgName())
+        List<AdminGoods.AdminGoodsDetailImg> imgs = detail.stream().map(
+                img -> new AdminGoods.AdminGoodsDetailImg(img.getGoodsDetailImgId(), img.getGoodsDetailImgPath(), img.getGoodsDetailImgUuid(), img.getGoodsDetailImgName())
         ).collect(toList());
 
         sss.setGoodsDetailImg(imgs);
 
-        System.out.println(sss.toString()+"!@@@@@@@@@");
 
         return sss;
     }

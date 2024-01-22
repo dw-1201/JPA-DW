@@ -35,6 +35,34 @@ public class AdminGoods extends AdminGoodsStan {
         this.goodsDetailImgName = goodsDetailImgName;
     }
 
+
+    @Data
+    public static class AdminGoodsMainImg{
+
+        private Long goodsMainImgId;
+        private String goodsMainImgPath;
+        private String goodsMainImgUuid;
+        private String goodsMainImgName;
+
+    }
+    @Data
+    public static class AdminGoodsDetailImg{
+        private Long goodsDetailImgId;
+        private String goodsDetailImgPath;
+        private String goodsDetailImgUuid;
+        private String goodsDetailImgName;
+
+
+        public AdminGoodsDetailImg(Long goodsDetailImgId, String goodsDetailImgPath, String goodsDetailImgUuid, String goodsDetailImgName) {
+            this.goodsDetailImgId = goodsDetailImgId;
+            this.goodsDetailImgPath = goodsDetailImgPath;
+            this.goodsDetailImgUuid = goodsDetailImgUuid;
+            this.goodsDetailImgName = goodsDetailImgName;
+        }
+    }
+
+
+
     //관리자 페이지 상품 리스트
     @Data
     public static class AdminGoodsList extends AdminGoodsStan {
@@ -56,18 +84,17 @@ public class AdminGoods extends AdminGoodsStan {
         private String goodsMainImgPath;
         private String goodsMainImgUuid;
         private String goodsMainImgName;
-        private List<AdminGoodsDetailImg> adminGoodsDetailImg;
+        private List<AdminGoods.AdminGoodsDetailImg> adminGoodsDetailImg;
 
         public AdminGoodsDetail(Long goodsId, String goodsName, String goodsCategory, Integer goodsQuantity, Integer goodsPrice, Integer goodsSaleCount, String goodsDetailContent, String goodsMate, String goodsCertify, LocalDateTime goodsRd, LocalDateTime goodsMd, Double ratingAvg, String goodsMainImgPath, String goodsMainImgUuid, String goodsMainImgName) {
             super(goodsId, goodsName, goodsCategory, goodsQuantity, goodsPrice, goodsSaleCount, goodsDetailContent, goodsMate, goodsCertify, goodsRd, goodsMd);
-
             this.ratingAvg = ratingAvg;
             this.goodsMainImgPath = goodsMainImgPath;
             this.goodsMainImgUuid = goodsMainImgUuid;
             this.goodsMainImgName = goodsMainImgName;
         }
 
-        public AdminGoodsDetail setGoodsDetailImg(List<AdminGoodsDetailImg> adminGoodsDetailImg){
+        public AdminGoodsDetail setGoodsDetailImg(List<AdminGoods.AdminGoodsDetailImg> adminGoodsDetailImg){
             this.adminGoodsDetailImg=adminGoodsDetailImg;
             return this;
        }
