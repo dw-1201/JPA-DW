@@ -39,6 +39,7 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
     private final JPAQueryFactory jpaQueryFactory;
 
 
+
     @Override
     public Page<AdminOrderListResultDto> orderList(Pageable pageable, AdminSearchOrderForm adminSearchOrderForm) {
 
@@ -135,11 +136,14 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
                   orderId
                     ,
             new AdminOrderDetailDto(
-                    adminOrderDetailDto.getUserId(), adminOrderDetailDto.getOrderAccount(),
+                    adminOrderDetailDto.getUserId(),
+                    adminOrderDetailDto.getOrderAccount(),
                     adminOrderDetailDto.getOrderUserName(),
                     adminOrderDetailDto.getOderEmail(),
-                    adminOrderDetailDto.getOrderPhone(), adminOrderDetailDto.getOrderZipcode(),
-                    adminOrderDetailDto.getOrderAddress(), adminOrderDetailDto.getOrderAddressDetail(),
+                    adminOrderDetailDto.getOrderPhone(),
+                    adminOrderDetailDto.getOrderZipcode(),
+                    adminOrderDetailDto.getOrderAddress(),
+                    adminOrderDetailDto.getOrderAddressDetail(),
                     adminOrderDetailDto.getOrderMemo(),
                     adminOrderDetailDto.getOrderDate(),
                     adminOrderDetailGoodsList)

@@ -34,16 +34,16 @@
            <div class="goods-img-reg-section"  >
                 <div class="goods-stan-info-title">
                     <h4 >상품 기본 정보</h4>
-                    <div class="reg-btn" th:each="goods : ${detail}">
-                        <button class="reg-submit-btn modify-btn" th:data-goodsid="${goods.id}">수정</button>
-                        <button class="reg-submit-btn delete-btn" th:data-goodsid="${goods.id}">삭제</button>
-                        <input type="hidden" th:value="${goods.id}" id="goodsId"/>
+                    <div class="reg-btn" >
+                        <button class="reg-submit-btn modify-btn" th:data-goodsid="${detail.goodsId}">수정</button>
+                        <button class="reg-submit-btn delete-btn" th:data-goodsid="${detail.goodsId}">삭제</button>
+                        <input type="hidden" th:value="${detail.goodsId}" id="goodsId"/>
 
                     </div>
                 </div>
                     
                     <div class="goods-info-container">
-                        <table class="goods-info-table" border="1" cellspacing="0" th:each="goods : ${detail}" >
+                        <table class="goods-info-table" border="1" cellspacing="0"  >
                             <tr>
                                 <colgroup>
                                     <col />
@@ -56,22 +56,22 @@
                                 <th class="goods-table-column" scope="row">카테고리</th>
                                 <td>
                                     <select name="goodsCategory" id="goods-cate" disabled>
-                                        <option th:selected="${goods.goodsCategory=='간식'}">간식</option>
-                                        <option th:selected="${goods.goodsCategory=='영양제'}">영양제</option>
-                                        <option th:selected="${goods.goodsCategory=='위생용품'}">위생용품</option>
-                                        <option th:selected="${goods.goodsCategory=='이동장'}" >이동장</option>
-                                        <option th:selected="${goods.goodsCategory=='장난감'}" >장난감</option>
-                                        <option th:selected="${goods.goodsCategory=='산책용품'}" >산책용품</option>
+                                        <option th:selected="${detail.goodsCategory=='간식'}">간식</option>
+                                        <option th:selected="${detail.goodsCategory=='영양제'}">영양제</option>
+                                        <option th:selected="${detail.goodsCategory=='위생용품'}">위생용품</option>
+                                        <option th:selected="${detail.goodsCategory=='이동장'}" >이동장</option>
+                                        <option th:selected="${detail.goodsCategory=='장난감'}" >장난감</option>
+                                        <option th:selected="${detail.goodsCategory=='산책용품'}" >산책용품</option>
 
 
                                     </select>
                                 </td>
                                 <th scope="row" rowspan="6">상품 설명</th>
-                                <td rowspan="6" class="goods-detail-textarea" th:text="${goods.goodsDetailContent}" ></td>
+                                <td rowspan="6" class="goods-detail-textarea" th:text="${detail.goodsDetailContent}" ></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">상품명</th>
-                                <td><input type="text" name="goodsName" id="goods-name" maxlength="30" th:value="${goods.goodsName}" readonly /></td>
+                                <td><input type="text" name="goodsName" id="goods-name" maxlength="30" th:value="${detail.goodsName}" readonly /></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">상품 수량</th>
@@ -83,20 +83,20 @@
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">제조국(원산지)</th>
-                                <td><input type="text" name="goodsMade" id="goods-made-in" th:value="${goods.goodsMade}" readonly /></td>
+                                <td><input type="text" name="goodsMade" id="goods-made-in" th:value="${detail.goodsMate}" readonly /></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">인증허가</th>
-                                <td><input type="text" name="goodsCertify" id="goods-certify" th:value="${goods.goodsCertify}" readonly/></td>
+                                <td><input type="text" name="goodsCertify" id="goods-certify" th:value="${detail.goodsCertify}" readonly/></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">최초 등록일</th>
                                 <td><input type="text" name="goodsRegisterDate" id="goods-reg-date"  readonly/></td>
                                 <th class="goods-table-column" scope="row">마지막 수정일</th>
-                                <th:block th:if="${goods.goodsRegisterDate==goods.goodsModifyDate}">
+                                <th:block th:if="${detail.goodsRd==detail.goodsMd}">
                                 <td><input type="text" name="goodsModifyDate" id="goods-last-modify-date"  value="" readonly/></td>
                                 </th:block>
-                                <th:block th:unless="${goods.goodsRegisterDate==goods.goodsModifyDate}" >
+                                <th:block th:unless="${detail.goodsRd==detail.goodsMd}" >
                                 <td><input type="text" name="goodsModifyDate" id="goods-last-modify-date"  readonly/></td>
                                 </th:block>
                             </tr>
@@ -108,14 +108,14 @@
                             </tr>
                             <tr>
                                 <th class="goods-table-column rating-column" scope="row">평균 별점</th>
-                                <td colspan="3" class="rating-avg" th:text="${goods.ratingAvg +' / 5'}"></td>
+                                <td colspan="3" class="rating-avg" th:text="${detail.ratingAvg +' / 5'}"></td>
                             </tr>
-                            <input type="hidden" th:value="${goods.goodsPrice}" class="goodPrice" />
-                            <input type="hidden" th:value="${goods.goodsQuantity - goods.saleCount}" class="goodsQuantity" />
-                            <input type="hidden" th:value="${goods.saleCount}" class="saleCount"/>
-                            <input type="hidden" th:value="${goods.saleCount * goods.goodsPrice}" class="totalPrice"/>
-                            <input type="hidden" th:value="${goods.goodsRegisterDate}" class="goodsRegDate"/>
-                            <input type="hidden" th:value="${goods.goodsModifyDate}" class="goodsModDate"/>
+                            <input type="hidden" th:value="${detail.goodsPrice}" class="goodPrice" />
+                            <input type="hidden" th:value="${detail.goodsQuantity - detail.goodsSaleCount}" class="goodsQuantity" />
+                            <input type="hidden" th:value="${detail.goodsSaleCount}" class="saleCount"/>
+                            <input type="hidden" th:value="${detail.goodsSaleCount * detail.goodsPrice}" class="totalPrice"/>
+                            <input type="hidden" th:value="${detail.goodsRd}" class="goodsRegDate"/>
+                            <input type="hidden" th:value="${detail.goodsMd}" class="goodsModDate"/>
 
 
                         </table>
@@ -127,16 +127,16 @@
                         <!-- 상품 메인 및 설명 사진의 미리보기가 나오는 영역 -->
                         <div class="image-lists">
                             <ul class="image-lists-ul">
-                                <li class="goods-main-img-p" th:each="goods : ${detail}" >
+                                <li class="goods-main-img-p"  >
                                     <div class="img-title" >
-                                        <img th:src="'/jpa_dw/goods/'+${goods.goodsMainImgPath}+'/'+${goods.goodsMainImgUuid}+'_'+${goods.goodsMainImgName}" alt="상품 메인사진"/>
+                                        <img th:src="'/jpa_dw/goods/'+${detail.goodsMainImgPath}+'/'+${detail.goodsMainImgUuid}+'_'+${detail.goodsMainImgName}" alt="상품 메인사진"/>
                                         <div class="main-img-title">
                                             <span>상품 메인 사진</span>
                                         </div>
                                     </div>
                                 </li>
                                 <th:block  th:each="detail : ${detail}">
-                                <li class="goods-detail-img-p" th:each="imgs, iterState : ${detail.goodsDetailImgs}">
+                                <li class="goods-detail-img-p" th:each="imgs, iterState : ${detail.adminGoodsDetailImg}">
                                     <div class="img-title">
                                         <img th:src="'/jpa_dw/goods/'+${imgs.goodsDetailImgPath}+'/'+${imgs.goodsDetailImgUuid}+'_'+${imgs.goodsDetailImgName}" alt="상품 상세사진"/>
                                         <div class="detail-img-title">

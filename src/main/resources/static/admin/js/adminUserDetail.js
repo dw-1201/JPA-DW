@@ -54,6 +54,7 @@ function renderQnaBoardList(result) {
 
     if(result.content.length>0){
 
+
         result.content.forEach(r => {
 
 
@@ -69,7 +70,6 @@ function renderQnaBoardList(result) {
         });
     }else {
 
-        $('.no-column').css('display', 'none')
 
         text +=`        <tr>
                             <td class="no-result" colspan="4" >작성한 글이 없습니다.</td>
@@ -113,7 +113,6 @@ function renderFreeBoardList(result){
         });
         }else {
 
-        $('.no-column').css('display', 'none')
 
         text +=`        <tr>
                             <td class="no-result" colspan="4" >작성한 글이 없습니다.</td>
@@ -157,7 +156,6 @@ function renderWalkBoardList(result) {
         });
     }else {
 
-        $('.no-column').css('display', 'none')
 
         text +=`        <tr>
                             <td class="no-result" colspan="4" >작성한 글이 없습니다.</td>
@@ -165,7 +163,7 @@ function renderWalkBoardList(result) {
     }
 
     textInputSection.html(text);
-    page.pagination(result, paginations);
+    page.pagination(result, paginations);s
     paginations.find('a').on('click', function (e) {
         e.preventDefault();
         const page = parseInt($(this).data('page'));
