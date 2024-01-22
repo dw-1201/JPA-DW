@@ -1,6 +1,7 @@
 package com.example.dw.repository.goods;
 
 import com.example.dw.domain.dto.admin.*;
+import com.example.dw.domain.dto.admin.goods.AdminGoods;
 import com.example.dw.domain.dto.goods.IndexGoodsByCateDto;
 import com.example.dw.domain.form.SearchForm;
 import org.springframework.data.domain.Page;
@@ -16,11 +17,11 @@ public interface GoodsRepositoryCustom {
 
 
     //관리자 상품 리스트
-    Page<AdminGoodsDto> findGoodsAll(Pageable pageable, SearchForm searchForm);
+    Page<AdminGoods.AdminGoodsList> findGoodsAll(Pageable pageable, SearchForm searchForm);
 
     
     //관리자 상품 상세
-    List<AdminGoodsDetailDto> findGoodsById(Long id);
+    AdminGoods.AdminGoodsDetail findGoodsById(Long id);
 
     //관리자 상품 상세 - 상품 관련 문의사항 리스트
     Page<AdminGoodsQnaListDto> getQnaList(Long goodsId, Pageable pageable, String state);
@@ -30,7 +31,6 @@ public interface GoodsRepositoryCustom {
 
     //관리자 상품 문의 리스트
     Page<AdminGoodsQnaListDto> getQnaList(Pageable pageable, String qnaState, String cate, String keyword);
-
 
 
     //관리자 상품 문의 상세

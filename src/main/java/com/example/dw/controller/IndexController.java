@@ -3,7 +3,7 @@ package com.example.dw.controller;
 import com.example.dw.domain.dto.community.IndexWalkMateDto;
 import com.example.dw.domain.dto.goods.RecentViewGoods;
 import com.example.dw.domain.dto.index.WeeklyFreeBoardList;
-import com.example.dw.domain.dto.index.WeeklyQnaList;
+import com.example.dw.domain.dto.index.WeeklyQnaListDto;
 import com.example.dw.service.IndexService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +36,7 @@ public class IndexController {
 
         //주간 인기글
         //Qna
-        List<WeeklyQnaList> weeklyQnaList = indexService.weeklyQnaList();
+        List<WeeklyQnaListDto> weeklyQnaList = indexService.weeklyQnaList();
         model.addAttribute("weeklyQnaBest", weeklyQnaList);
         
         //자유게시판

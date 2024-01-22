@@ -1,24 +1,18 @@
 package com.example.dw.repository.index;
 
-import com.example.dw.domain.dto.index.QWeeklyFreeBoardList;
-import com.example.dw.domain.dto.index.WeeklyFreeBoardList;
-import com.example.dw.domain.dto.index.WeeklyQnaList;
-import com.querydsl.core.Tuple;
+import com.example.dw.domain.dto.index.*;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.example.dw.domain.entity.freeBoard.QFreeBoard.freeBoard;
-import static com.example.dw.domain.entity.question.QQuestion.question;
-import static com.example.dw.domain.entity.question.QQuestionImg.questionImg;
-import static com.example.dw.domain.entity.user.QUsers.users;
+import static java.util.stream.Collectors.toList;
 
 @Repository
 @RequiredArgsConstructor
@@ -26,8 +20,10 @@ public class IndexRepositoryImpl implements IndexRepositoryCustom{
 
 
     private final JPAQueryFactory jpaQueryFactory;
+    private final EntityManager em;
 
-    private static final int MAX_RESULTS = 3;
+    private static final int MAX_QUESTION_RESULTS = 3;
+    private static final int MAX_FREE_RESULTS = 5;
 
     //해당 날짜가 껴있는 주간날짜 구하기
     LocalDateTime now = LocalDateTime.now();
@@ -36,64 +32,38 @@ public class IndexRepositoryImpl implements IndexRepositoryCustom{
 
     //주간 Qna인기글 Top3
     @Override
-    public List<WeeklyQnaList> weeklyQnaList() {
-        List<Tuple> tuples = jpaQueryFactory
-                .select(
-                        question.id,
-                        question.users.id,
-                        question.users.userAccount,
-                        question.users.userNickName,
-                        question.questionTitle,
-                        question.questionViewCount,
-                        questionImg.questionImgRoute,
-                        questionImg.questionImgUuid,
-                        questionImg.questionImgName
+    public List<WeeklyQnaListDto> weeklyQnaList() {
+
+
+        List<WeeklyQnaList> query = em.createQuery(
+                "SELECT NEW com.example.dw.domain.dto.index.WeeklyQnaList(" +
+                        "q.id, q.users.id, q.users.userAccount, q.users.userNickName, q.questionTitle, q.questionViewCount, " +
+                        "qi.questionImgRoute, qi.questionImgUuid, qi.questionImgName) " +
+                        "FROM Question q " +
+                        "LEFT JOIN q.questionImg qi " +
+                        "WHERE qi.id = (SELECT MIN(qi2.id) FROM QuestionImg qi2 WHERE q.id = qi2.question.id) " +
+                        "ORDER BY q.questionViewCount desc ", WeeklyQnaList.class)
+                .getResultList();
+
+
+        return query.stream().map(
+                o -> new WeeklyQnaListDto(
+                        o.getQnaBoardId(),
+                        o.getWriterUserId(),
+                        o.getWriterUserAccount(),
+                        o.getWriterUserNickName(),
+                        o.getQnaBoardTitle(),
+                        o.getQuestionViewCount(),
+                        new WeeklyQnaListImg(
+                                o.getQuestionImgRoute(),
+                                o.getQuestionImgUuid(),
+                                o.getQuestionImgName()
+                        )
                 )
-                .from(question)
-                .leftJoin(question.users, users)
-                .leftJoin(question.questionImg, questionImg)
-                .where(question.questionRd.between(thisWeekStart, thisWeekEnd))
-                .orderBy(question.questionViewCount.desc(), questionImg.id.asc())
-                .fetch();
-
-        List<WeeklyQnaList> weeklyQnaLists = new ArrayList<>();
+        ).limit(MAX_QUESTION_RESULTS).collect(toList());
 
 
-        for (Tuple tuple : tuples) {
-            Long questionId = tuple.get(question.id);
-
-            boolean isQuestionIdExist = isQuestionIdExist(weeklyQnaLists, questionId);
-
-            //중복 입력 방지
-            if (!isQuestionIdExist) {
-                WeeklyQnaList weeklyQnaList = new WeeklyQnaList(
-                        tuple.get(question.id),
-                        tuple.get(question.users.id),
-                        tuple.get(question.users.userAccount),
-                        tuple.get(question.users.userNickName),
-                        tuple.get(question.questionTitle),
-                        tuple.get(question.questionViewCount),
-                        tuple.get(questionImg.questionImgRoute),
-                        tuple.get(questionImg.questionImgUuid),
-                        tuple.get(questionImg.questionImgName)
-                );
-
-                weeklyQnaLists.add(weeklyQnaList);
-            }
-        }
-
-        // 최대 3개까지만 반환
-        return weeklyQnaLists.stream()
-                .limit(MAX_RESULTS)
-                .collect(Collectors.toList());
     }
-
-    //중복 확인 메소드
-    private boolean isQuestionIdExist(List<WeeklyQnaList> weeklyQnaLists, Long questionId) {
-        return weeklyQnaLists.stream()
-                .anyMatch(item -> item.getQnaBoardId().equals(questionId));
-    }
-
 
 
     //주간 자유게시판 인기글 Top3
@@ -111,7 +81,7 @@ public class IndexRepositoryImpl implements IndexRepositoryCustom{
                 .from(freeBoard)
                 .where(freeBoard.freeBoardRd.between(thisWeekStart, thisWeekEnd))
                 .orderBy(freeBoard.freeBoardViewCount.desc())
-                .limit(5)
+                .limit(MAX_FREE_RESULTS)
                 .fetch();
         return weeklyFreeLists;
     }

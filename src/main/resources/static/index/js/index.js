@@ -91,7 +91,15 @@ function goodsByCategory(result) {
                             </div>
                             <div class="item-detail">
                                 <ul class="item-detail-ul">
-                                    <li class="review-avg">★★★★★</li>
+                                
+                                    <li class="review-avg">
+                                        ${r.ratingAvg >= 0.5 ? '★' : '☆'}
+                                        ${r.ratingAvg >= 1.5 ? '★' : '☆'}
+                                        ${r.ratingAvg >= 2.5 ? '★' : '☆'}
+                                        ${r.ratingAvg >= 3.5 ? '★' : '☆'}
+                                        ${r.ratingAvg >= 4.5 ? '★' : '☆'}
+                                    </li>
+                                    
                                     <li class="item-name">${r.goodsName}</li>
                                     <li class="item-price">${commaPrice}원</li>
                                 </ul>

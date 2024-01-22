@@ -17,6 +17,10 @@
 }
 
 
+.no-column {
+    display: none;
+}
+
 .admin-main-wrap {
     position: relative;
 

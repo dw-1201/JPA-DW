@@ -92,7 +92,7 @@
                                 <li class="weekly-qna-li weekly-li" th:each="weeklyQnaBest, iterState : ${weeklyQnaBest}">
                                     <a th:href="@{/qna/qnaDetail/{id} (id=${weeklyQnaBest.qnaBoardId})}">
                                         <th:block>
-                                        <img th:src="'/jpa_dw/question/' + ${weeklyQnaBest.questionImgRoute} + '/' + ${weeklyQnaBest.questionImgUuid} + '_' + ${weeklyQnaBest.questionImgName}" alt="qna인기글 사진"/>
+                                        <img  th:each="weeklyImg : ${weeklyQnaBest.weeklyQnaListImg}" th:src="'/jpa_dw/question/' + ${weeklyImg.questionImgRoute} + '/' + ${weeklyImg.questionImgUuid} + '_' + ${weeklyImg.questionImgName}" alt="qna인기글 사진"/>
                                         </th:block>
                                         <div class="qna-detail detail">
                                             <div class="qna-writer writer" th:text="${weeklyQnaBest.writerUserAccount}"></div>

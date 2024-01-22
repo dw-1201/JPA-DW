@@ -3,7 +3,7 @@ package com.example.dw.service;
 import com.example.dw.domain.dto.community.IndexWalkMateDto;
 import com.example.dw.domain.dto.goods.IndexGoodsByCateDto;
 import com.example.dw.domain.dto.index.WeeklyFreeBoardList;
-import com.example.dw.domain.dto.index.WeeklyQnaList;
+import com.example.dw.domain.dto.index.WeeklyQnaListDto;
 import com.example.dw.repository.community.WalkingMateRepositoryCustom;
 import com.example.dw.repository.goods.GoodsRepositoryCustom;
 import com.example.dw.repository.goods.ShopRepositoryCustom;
@@ -41,7 +41,7 @@ public class IndexService {
     //주간 인기글
     //Qna Best3
     @Transactional
-    public List<WeeklyQnaList> weeklyQnaList(){
+    public List<WeeklyQnaListDto> weeklyQnaList(){
         return indexRepositoryCustom.weeklyQnaList();
     }
 
