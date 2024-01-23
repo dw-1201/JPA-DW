@@ -5,6 +5,7 @@ import com.example.dw.domain.form.SearchForm;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -36,7 +37,23 @@ import static java.util.stream.Collectors.groupingBy;
 public class ShopRepositoryImpl implements ShopRepositoryCustom {
 
     private final JPAQueryFactory jpaQueryFactory;
+    private final EntityManager em;
 
+    //쇼핑 카테고리별 리스트
+    @Override
+    public List<GoodsByCateDto> shopListByCategory(String cate) {
+
+        List<GoodsByCateDto> list = em.createQuery(
+                "select NEW com.example.dw.domain.dto.goods.GoodsByCateDto(" +
+                        "g.id, g.goodsName, g.goodsQuantity, g.goodsPrice, g.goodsMade, g.goodsRegisterDate, g.goodsModifyDate, g.goodsCategory, gm.id, gm.goodsMainImgName, gm.goodsMainImgPath, gm.goodsMainImgUuid) " +
+                        "FROM Goods g " +
+                        "left join GoodsMainImg gm on gm.goods.id = g.id " +
+                        "group by g.id, g.goodsName, g.goodsPrice, g.goodsCategory, gm.id, gm.goodsMainImgPath, gm.goodsMainImgUuid, gm.goodsMainImgName", GoodsByCateDto.class)
+
+                .getResultList();
+
+        return list;
+    }
 
     @Override
     public List<GoodsDetailImgDto> findGoodsDetailImg(Long goodsId) {
@@ -124,6 +141,8 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
 
         return contents;
     }
+
+
 
     private BooleanExpression goodsNameEq(String keyword){
         return StringUtils.hasText(keyword) ? goods.goodsName.containsIgnoreCase(keyword) : null;

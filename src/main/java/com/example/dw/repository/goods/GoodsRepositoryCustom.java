@@ -15,7 +15,6 @@ public interface GoodsRepositoryCustom {
     //메인페이지 카테고리별 상품 리스트
     List<IndexGoodsByCateDto> indexGoodsListByCategory(String cate);
 
-
     //관리자 상품 리스트
     Page<AdminGoods.AdminGoodsList> findGoodsAll(Pageable pageable, SearchForm searchForm);
 
