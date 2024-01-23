@@ -57,17 +57,14 @@ let userId = $('#userId').val();
 //장바구니 버튼 처리
 $('.basket1 button').on('click', function (e){
     e.preventDefault();
-
     userId = $('#userId').val();
 
     if(confirm("장바구니에 추가하시겠습니까?")){
-
         let cartItemQuantity = $('#number').text();
         let goodsId = $('#goodsId').val()
 
 
         $.ajax({
-
             url:`/shops/shopCart/${userId}`,
             type: 'get',
             data: {
@@ -75,13 +72,9 @@ $('.basket1 button').on('click', function (e){
                 cartItemQuantity : cartItemQuantity
             },
             success : function (result){
-
                 console.log(result+"장바구니 추가 성공");
-
                 if(confirm("장바구니 페이지로 이동하시겠습니까?")){
-
                     window.location.href="/shop/shopCart/" +userId;
-
                 }
             },error : function (a,b,c){
                 console.error(c)
@@ -93,7 +86,6 @@ $('.basket1 button').on('click', function (e){
 /**
  * 바로구매 버튼 클릭 시 데이터를 수집
  */
-
 $('.basket-button2').on('click', function () {
     let order = [];
     let currentPrices = $('#price').text().replace(',','');
@@ -101,7 +93,6 @@ $('.basket-button2').on('click', function () {
     let goodsId = $('#goodsId').val();
     let cartItemQuantity = $('#number').text().replace(',','');
     userId = $('#userId').val();
-
 
         let product = {
             goodsId: goodsId,
@@ -113,65 +104,31 @@ $('.basket-button2').on('click', function () {
 
     console.log(order);
 
-
     $.ajax({
         url : '/shops/payGoods',
         type : 'post',
         data: JSON.stringify(order),
         contentType:'application/json; charset=utf-8',
         success : function (result){
-
-            console.log(result)
-
             if(confirm("결제페이지로 이동하시겠습니까?")){
                 window.location.href="/shop/shopSinglePay/" + userId;
             }
-
         },error : function (a,b,c){
             console.error(c)
         }
-
     })
-
 });
 
-// function cartItemSave(cartId,cartItemQuantity){
-//     $.ajax({
-//         url : `/shops/addCartItem`,
-//         type : 'post',
-//         data : {
-//             cartItemQuantity : cartItemQuantity,
-//             cartId : cartId,
-//             goodsId : goodsId
-//         },
-//         success : function (result){
-//             console.log(result + "장바구니 Item 저장")
-//         },
-//         error : function (error){
-//             console.error("실패" + error)
-//         }
-//     })
-// }
-
-
 function detailImgList(result){
-
     let text = '';
     let inputSection = $('.row-content');
 
-
     result.forEach(r=>{
-
-
         text += `
-        
             <img src="/shops/shopImg?fileFullPath=${r.goodsDetailImgPath + '/' + r.goodsDetailImgUuid + '_'+ r.goodsDetailImgName}" alt="">
-                    
         `
     })
-
     inputSection.html(text);
-
 }
 
 // 콤마 찍기 함수

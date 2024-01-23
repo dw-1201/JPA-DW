@@ -75,12 +75,16 @@ public class GoodsService {
 
     }
 
+    //상품 리뷰 리스트
+    @Transactional
+    public List<GoodsReviewListDto> goodsReviewList(Long goodsId){
+        return shopRepositoryCustom.findGoodsReviewById(goodsId);
+    }
+
     //상품 문의 리스트
     @Transactional
     public List<GoodsQueDto> goodsQnaList(Long goodsId){
-
         return shopRepositoryCustom.findGoodsQueId(goodsId);
-
     }
 
 

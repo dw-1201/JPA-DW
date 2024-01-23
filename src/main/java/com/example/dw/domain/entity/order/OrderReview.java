@@ -1,6 +1,7 @@
 package com.example.dw.domain.entity.order;
 
 
+import com.example.dw.domain.entity.user.Users;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,8 +31,6 @@ public class OrderReview {
     @CreatedDate
     private LocalDateTime reviewRd;
 
-
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_item_id")
     private OrderItem orderItem;
@@ -42,14 +41,15 @@ public class OrderReview {
     @OneToMany(mappedBy = "orderReview",fetch = FetchType.LAZY, orphanRemoval = true)
     private List<GoodsReviewReply> goodsReviewReply;
 
-
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id")
+//    private Users users;
 
     @Builder.Default
     private Integer adminReplyState = 0;
 
 
     @Builder
-
     public OrderReview(Long id, String title, String content, Integer rating, LocalDateTime reviewRd, OrderItem orderItem, List<OrderReviewImg> orderReviewImgList, List<GoodsReviewReply> goodsReviewReply, Integer adminReplyState) {
         this.id = id;
         this.title = title;

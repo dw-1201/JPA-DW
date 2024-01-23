@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>쇼핑-장난감</title>
+  <title>쇼핑</title>
   <link rel="stylesheet" href="/common/css/common.css">
   <link rel="stylesheet" href="/fragment/css/header.css">
   <link rel="stylesheet" href="/fragment/css/footer.css">
@@ -11,31 +11,11 @@
 <link rel="icon" href="/img/favicon.ico" type="image/x-icosn" sizes="16x16">
 </head>
 <body>
-    <!-- header 시작 -->
-    <div class="header">
-        <div class="header-section01">
-            <div class="header-section01-nav">
-                <ul>
-                    <li><a href="/user/html/login.html">로그인</a></li>
-                    <li><a href="">장바구니</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="header-section02">
-            <div class="header-section02-container">
-                <div class="header-logo"><a href=""><img src="/img/logo.png" alt=""></a></div>
-                <div class="header-section02-nav">
-                    <ul>
-                        <li><a href="/shopping/html/shop.html">쇼핑</a></li>
-                        <li><a href="">커뮤니티</a></li>
-                        <li><a href="">산책메이트</a></li>
-                        <li><a href="/map/html/map.html">병원찾기</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- header 끝 -->
+<!-- header 시작 -->
+<div class="header" th:replace="fragment/header :: header">
+
+</div>
+<!-- header 끝 -->
 <!-- main 시작 -->
 
 <main class="main-content">
@@ -50,42 +30,46 @@
 <!-- 검색 -->
     <div class="main-content-contaniner-form">
         <div class="search-inputbox">
-            <img src="/img/ICON-24px-Search.svg" alt="" class="input-img">
-            <input type="text" placeholder="통합검색" maxlength="130" class="inputbox">
+            <button type="button" class="result-submit-btn goods-list-search-btn">
+                <img src="/img/ICON-24px-Search.svg" alt="" class="input-img">
+            </button>
+<!--            <img src="/img/ICON-24px-Search.svg" alt="" class="input-img">-->
+            <input type="text" placeholder="통합검색" maxlength="130" class="inputbox" name="search-keyword" id="shop-search-keyword">
+<!--            <button type="button" class="result-submit-btn goods-list-search-btn">검색</button>-->
         </div>
     </div>
 <!-- 검색 -->
     <div class="main-content-contaniner-form2">
 
             <ul>
-                <li class="form2-li">
-                    <a href="/shopping/html/shop.html" >전체</a>
-                </li>
-                <li class="form2-li">
-                    <a href="/shopping/html/shop-a.html" >간식</a>
-                </li>
-                <li class="form2-li">
-                    <a href="/shopping/html/shop-b.html">영양제</a>
-                </li>
-                <li class="form2-li">
-                    <a href="/shopping/html/shop-c.html">위생용품</a>
-                </li>
-                <li class="form2-li">
-                    <a href="/shopping/html/shop-d.html">이동장</a>
-                </li>
                 <li class="form2-li-1">
-                    <a href="/shopping/html/shop-e.html">장난감</a>
+                    <a href="/shop/shopList" >전체</a>
                 </li>
                 <li class="form2-li">
-                    <a href="/shopping/html/shop-f.html">하네스/줄</a>
+                    <a href="/shop/shopList-a" >간식</a>
+                </li>
+                <li class="form2-li">
+                    <a href="/shop/shopList-b">영양제</a>
+                </li>
+                <li class="form2-li">
+                    <a href="/shop/shopList-c">위생용품</a>
+                </li>
+                <li class="form2-li">
+                    <a href="/shop/shopList-d">이동장</a>
+                </li>
+                <li class="form2-li">
+                    <a href="/shop/shopList-e">장난감</a>
+                </li>
+                <li class="form2-li">
+                    <a href="/shop/shopList-f">하네스/줄</a>
                 </li>
             </ul>
 
     </div>
         
-        <form action="" class="form-box2">
-            <select name="search-target" id="" class="search-t">
-                <option value="popularity">인기순</option>
+        <form action="" class="form-box2" id="search-form">
+            <select class="search-t" id="search-cate" name="search-cate">
+                <option value="popularity" >인기순</option>
                 <option value="rating">평점순</option>
                 <option value="date">최신순</option>
                 <option value="price-down">낮은가격순</option>
@@ -98,417 +82,14 @@
 </div>
     <div class="main-content-contaniner-form3">
         <ul class="ul-list">
-
-            <!-- 리스트 시작 -->
-            <li class="li-list">
-                <a href="/shopping/html/shopDitail.html" >
-                <div class="list-div">
-                    <div class="li-list-full-img">
-                        <img src="https://image.store.bemypet.kr/content/uploads/2023/05/31141732/lid%EC%8D%B8%EB%84%A4%EC%9D%BC_1.jpg" alt="" class="li-img" width="300px" height="300px">
-                    </div>
-                    <div >
-                        <div class="list-name1">세이오앙</div>
-                        <div class="list-name2"> 세이오앙 강아지 간식 훈련용</div>
-                    </div>
-                        <div class="reviw">
-                            <img src="https://store.bemypet.kr/wp-content/themes/bemypet-store-child/assets/images/star_rate@3x.png" alt="" width="16">
-                            &nbsp;
-                            <div>4.9</div>
-                            <div class="reviw1">
-                                <span>리뷰</span>
-                                <span>&nbsp;10</span>  
-                            </div>
-
-                        </div>
-                        <div class="won">
-                            <span>13,900</span>
-                            <span>&nbsp;원</span>
-                        </div>
-                </div>
-            </a>
-                <div class="basket">
-                    <a href=""><img src="/img/shoppingcart.png" alt=""></a>
-                </div>
-            </li>
-            <!-- 리스트 끝 -->
-                        <!-- 리스트 시작 -->
-                        <li class="li-list">
-                            <a href="/shopping/html/shopDitail.html" >
-                            <div class="list-div">
-                                <div class="li-list-full-img">
-                                    <img src="https://image.store.bemypet.kr/content/uploads/2023/05/31141732/lid%EC%8D%B8%EB%84%A4%EC%9D%BC_1.jpg" alt="" class="li-img" width="300px" height="300px">
-                                </div>
-                                <div >
-                                    <div class="list-name1">세이오앙</div>
-                                    <div class="list-name2"> 세이오앙 강아지 간식 훈련용</div>
-                                </div>
-                                    <div class="reviw">
-                                        <img src="https://store.bemypet.kr/wp-content/themes/bemypet-store-child/assets/images/star_rate@3x.png" alt="" width="16">
-                                        &nbsp;
-                                        <div>4.9</div>
-                                        <div class="reviw1">
-                                            <span>리뷰</span>
-                                            <span>&nbsp;10</span>  
-                                        </div>
-            
-                                    </div>
-                                    <div class="won">
-                                        <span>13,900</span>
-                                        <span>&nbsp;원</span>
-                                    </div>
-                            </div>
-                        </a>
-                            <div class="basket">
-                                <a href=""><img src="/img/shoppingcart.png" alt=""></a>
-                            </div>
-                        </li>
-                        <!-- 리스트 끝 -->
-                                    <!-- 리스트 시작 -->
-            <li class="li-list">
-                <a href="/shopping/html/shopDitail.html" >
-                <div class="list-div">
-                    <div class="li-list-full-img">
-                        <img src="https://image.store.bemypet.kr/content/uploads/2023/05/31141732/lid%EC%8D%B8%EB%84%A4%EC%9D%BC_1.jpg" alt="" class="li-img" width="300px" height="300px">
-                    </div>
-                    <div >
-                        <div class="list-name1">세이오앙</div>
-                        <div class="list-name2"> 세이오앙 강아지 간식 훈련용</div>
-                    </div>
-                        <div class="reviw">
-                            <img src="https://store.bemypet.kr/wp-content/themes/bemypet-store-child/assets/images/star_rate@3x.png" alt="" width="16">
-                            &nbsp;
-                            <div>4.9</div>
-                            <div class="reviw1">
-                                <span>리뷰</span>
-                                <span>&nbsp;10</span>  
-                            </div>
-
-                        </div>
-                        <div class="won">
-                            <span>13,900</span>
-                            <span>&nbsp;원</span>
-                        </div>
-                </div>
-            </a>
-                <div class="basket">
-                    <a href=""><img src="/img/shoppingcart.png" alt=""></a>
-                </div>
-            </li>
-            <!-- 리스트 끝 -->
-                        <!-- 리스트 시작 -->
-                        <li class="li-list">
-                            <a href="/shopping/html/shopDitail.html" >
-                            <div class="list-div">
-                                <div class="li-list-full-img">
-                                    <img src="https://image.store.bemypet.kr/content/uploads/2023/05/31141732/lid%EC%8D%B8%EB%84%A4%EC%9D%BC_1.jpg" alt="" class="li-img" width="300px" height="300px">
-                                </div>
-                                <div >
-                                    <div class="list-name1">세이오앙</div>
-                                    <div class="list-name2"> 세이오앙 강아지 간식 훈련용</div>
-                                </div>
-                                    <div class="reviw">
-                                        <img src="https://store.bemypet.kr/wp-content/themes/bemypet-store-child/assets/images/star_rate@3x.png" alt="" width="16">
-                                        &nbsp;
-                                        <div>4.9</div>
-                                        <div class="reviw1">
-                                            <span>리뷰</span>
-                                            <span>&nbsp;10</span>  
-                                        </div>
-            
-                                    </div>
-                                    <div class="won">
-                                        <span>13,900</span>
-                                        <span>&nbsp;원</span>
-                                    </div>
-                            </div>
-                        </a>
-                            <div class="basket">
-                                <a href=""><img src="/img/shoppingcart.png" alt=""></a>
-                            </div>
-                        </li>
-                        <!-- 리스트 끝 -->
-                                    <!-- 리스트 시작 -->
-            <li class="li-list">
-                <a href="/shopping/html/shopDitail.html" >
-                <div class="list-div">
-                    <div class="li-list-full-img">
-                        <img src="https://image.store.bemypet.kr/content/uploads/2023/05/31141732/lid%EC%8D%B8%EB%84%A4%EC%9D%BC_1.jpg" alt="" class="li-img" width="300px" height="300px">
-                    </div>
-                    <div >
-                        <div class="list-name1">세이오앙</div>
-                        <div class="list-name2"> 세이오앙 강아지 간식 훈련용</div>
-                    </div>
-                        <div class="reviw">
-                            <img src="https://store.bemypet.kr/wp-content/themes/bemypet-store-child/assets/images/star_rate@3x.png" alt="" width="16">
-                            &nbsp;
-                            <div>4.9</div>
-                            <div class="reviw1">
-                                <span>리뷰</span>
-                                <span>&nbsp;10</span>  
-                            </div>
-
-                        </div>
-                        <div class="won">
-                            <span>13,900</span>
-                            <span>&nbsp;원</span>
-                        </div>
-                </div>
-            </a>
-                <div class="basket">
-                    <a href=""><img src="/img/shoppingcart.png" alt=""></a>
-                </div>
-            </li>
-            <!-- 리스트 끝 -->
-                        <!-- 리스트 시작 -->
-                        <li class="li-list">
-                            <a href="/shopping/html/shopDitail.html" >
-                            <div class="list-div">
-                                <div class="li-list-full-img">
-                                    <img src="https://image.store.bemypet.kr/content/uploads/2023/05/31141732/lid%EC%8D%B8%EB%84%A4%EC%9D%BC_1.jpg" alt="" class="li-img" width="300px" height="300px">
-                                </div>
-                                <div >
-                                    <div class="list-name1">세이오앙</div>
-                                    <div class="list-name2"> 세이오앙 강아지 간식 훈련용</div>
-                                </div>
-                                    <div class="reviw">
-                                        <img src="https://store.bemypet.kr/wp-content/themes/bemypet-store-child/assets/images/star_rate@3x.png" alt="" width="16">
-                                        &nbsp;
-                                        <div>4.9</div>
-                                        <div class="reviw1">
-                                            <span>리뷰</span>
-                                            <span>&nbsp;10</span>  
-                                        </div>
-            
-                                    </div>
-                                    <div class="won">
-                                        <span>13,900</span>
-                                        <span>&nbsp;원</span>
-                                    </div>
-                            </div>
-                        </a>
-                            <div class="basket">
-                                <a href=""><img src="/img/shoppingcart.png" alt=""></a>
-                            </div>
-                        </li>
-                        <!-- 리스트 끝 -->
-                                    <!-- 리스트 시작 -->
-            <li class="li-list">
-                <a href="/shopping/html/shopDitail.html" >
-                <div class="list-div">
-                    <div class="li-list-full-img">
-                        <img src="https://image.store.bemypet.kr/content/uploads/2023/05/31141732/lid%EC%8D%B8%EB%84%A4%EC%9D%BC_1.jpg" alt="" class="li-img" width="300px" height="300px">
-                    </div>
-                    <div >
-                        <div class="list-name1">세이오앙</div>
-                        <div class="list-name2"> 세이오앙 강아지 간식 훈련용</div>
-                    </div>
-                        <div class="reviw">
-                            <img src="https://store.bemypet.kr/wp-content/themes/bemypet-store-child/assets/images/star_rate@3x.png" alt="" width="16">
-                            &nbsp;
-                            <div>4.9</div>
-                            <div class="reviw1">
-                                <span>리뷰</span>
-                                <span>&nbsp;10</span>  
-                            </div>
-
-                        </div>
-                        <div class="won">
-                            <span>13,900</span>
-                            <span>&nbsp;원</span>
-                        </div>
-                </div>
-            </a>
-                <div class="basket">
-                    <a href=""><img src="/img/shoppingcart.png" alt=""></a>
-                </div>
-            </li>
-            <!-- 리스트 끝 -->
-                        <!-- 리스트 시작 -->
-                        <li class="li-list">
-                            <a href="/shopping/html/shopDitail.html" >
-                            <div class="list-div">
-                                <div class="li-list-full-img">
-                                    <img src="https://image.store.bemypet.kr/content/uploads/2023/05/31141732/lid%EC%8D%B8%EB%84%A4%EC%9D%BC_1.jpg" alt="" class="li-img" width="300px" height="300px">
-                                </div>
-                                <div >
-                                    <div class="list-name1">세이오앙</div>
-                                    <div class="list-name2"> 세이오앙 강아지 간식 훈련용</div>
-                                </div>
-                                    <div class="reviw">
-                                        <img src="https://store.bemypet.kr/wp-content/themes/bemypet-store-child/assets/images/star_rate@3x.png" alt="" width="16">
-                                        &nbsp;
-                                        <div>4.9</div>
-                                        <div class="reviw1">
-                                            <span>리뷰</span>
-                                            <span>&nbsp;10</span>  
-                                        </div>
-            
-                                    </div>
-                                    <div class="won">
-                                        <span>13,900</span>
-                                        <span>&nbsp;원</span>
-                                    </div>
-                            </div>
-                        </a>
-                            <div class="basket">
-                                <a href=""><img src="/img/shoppingcart.png" alt=""></a>
-                            </div>
-                        </li>
-                        <!-- 리스트 끝 -->
-                                    <!-- 리스트 시작 -->
-            <li class="li-list">
-                <a href="/shopping/html/shopDitail.html" >
-                <div class="list-div">
-                    <div class="li-list-full-img">
-                        <img src="https://image.store.bemypet.kr/content/uploads/2023/05/31141732/lid%EC%8D%B8%EB%84%A4%EC%9D%BC_1.jpg" alt="" class="li-img" width="300px" height="300px">
-                    </div>
-                    <div >
-                        <div class="list-name1">세이오앙</div>
-                        <div class="list-name2"> 세이오앙 강아지 간식 훈련용</div>
-                    </div>
-                        <div class="reviw">
-                            <img src="https://store.bemypet.kr/wp-content/themes/bemypet-store-child/assets/images/star_rate@3x.png" alt="" width="16">
-                            &nbsp;
-                            <div>4.9</div>
-                            <div class="reviw1">
-                                <span>리뷰</span>
-                                <span>&nbsp;10</span>  
-                            </div>
-
-                        </div>
-                        <div class="won">
-                            <span>13,900</span>
-                            <span>&nbsp;원</span>
-                        </div>
-                </div>
-            </a>
-                <div class="basket">
-                    <a href=""><img src="/img/shoppingcart.png" alt=""></a>
-                </div>
-            </li>
-            <!-- 리스트 끝 -->
-                        <!-- 리스트 시작 -->
-                        <li class="li-list">
-                            <a href="/shopping/html/shopDitail.html" >
-                            <div class="list-div">
-                                <div class="li-list-full-img">
-                                    <img src="https://image.store.bemypet.kr/content/uploads/2023/05/31141732/lid%EC%8D%B8%EB%84%A4%EC%9D%BC_1.jpg" alt="" class="li-img" width="300px" height="300px">
-                                </div>
-                                <div >
-                                    <div class="list-name1">세이오앙</div>
-                                    <div class="list-name2"> 세이오앙 강아지 간식 훈련용</div>
-                                </div>
-                                    <div class="reviw">
-                                        <img src="https://store.bemypet.kr/wp-content/themes/bemypet-store-child/assets/images/star_rate@3x.png" alt="" width="16">
-                                        &nbsp;
-                                        <div>4.9</div>
-                                        <div class="reviw1">
-                                            <span>리뷰</span>
-                                            <span>&nbsp;10</span>  
-                                        </div>
-            
-                                    </div>
-                                    <div class="won">
-                                        <span>13,900</span>
-                                        <span>&nbsp;원</span>
-                                    </div>
-                            </div>
-                        </a>
-                            <div class="basket">
-                                <a href=""><img src="/img/shoppingcart.png" alt=""></a>
-                            </div>
-                        </li>
-                        <!-- 리스트 끝 -->
-                                    <!-- 리스트 시작 -->
-            <li class="li-list">
-                <a href="/shopping/html/shopDitail.html" >
-                <div class="list-div">
-                    <div class="li-list-full-img">
-                        <img src="https://image.store.bemypet.kr/content/uploads/2023/05/31141732/lid%EC%8D%B8%EB%84%A4%EC%9D%BC_1.jpg" alt="" class="li-img" width="300px" height="300px">
-                    </div>
-                    <div >
-                        <div class="list-name1">세이오앙</div>
-                        <div class="list-name2"> 세이오앙 강아지 간식 훈련용</div>
-                    </div>
-                        <div class="reviw">
-                            <img src="https://store.bemypet.kr/wp-content/themes/bemypet-store-child/assets/images/star_rate@3x.png" alt="" width="16">
-                            &nbsp;
-                            <div>4.9</div>
-                            <div class="reviw1">
-                                <span>리뷰</span>
-                                <span>&nbsp;10</span>  
-                            </div>
-
-                        </div>
-                        <div class="won">
-                            <span>13,900</span>
-                            <span>&nbsp;원</span>
-                        </div>
-                </div>
-            </a>
-                <div class="basket">
-                    <a href=""><img src="/img/shoppingcart.png" alt=""></a>
-                </div>
-            </li>
-            <!-- 리스트 끝 -->
-                        <!-- 리스트 시작 -->
-                        <li class="li-list">
-                            <a href="/shopping/html/shopDitail.html" >
-                            <div class="list-div">
-                                <div class="li-list-full-img">
-                                    <img src="https://image.store.bemypet.kr/content/uploads/2023/05/31141732/lid%EC%8D%B8%EB%84%A4%EC%9D%BC_1.jpg" alt="" class="li-img" width="300px" height="300px">
-                                </div>
-                                <div >
-                                    <div class="list-name1">세이오앙</div>
-                                    <div class="list-name2"> 세이오앙 강아지 간식 훈련용</div>
-                                </div>
-                                    <div class="reviw">
-                                        <img src="https://store.bemypet.kr/wp-content/themes/bemypet-store-child/assets/images/star_rate@3x.png" alt="" width="16">
-                                        &nbsp;
-                                        <div>4.9</div>
-                                        <div class="reviw1">
-                                            <span>리뷰</span>
-                                            <span>&nbsp;10</span>  
-                                        </div>
-            
-                                    </div>
-                                    <div class="won">
-                                        <span>13,900</span>
-                                        <span>&nbsp;원</span>
-                                    </div>
-                            </div>
-                        </a>
-                            <div class="basket">
-                                <a href=""><img src="/img/shoppingcart.png" alt=""></a>
-                            </div>
-                        </li>
-                        <!-- 리스트 끝 -->
-                        
-
-            
-            
-            
+            <!-- 쇼핑 리스트-->
         </ul>
     </div>
 
     
     <nav class="nav-class">
-        <ul class="pagetotal">
-            <li>
-                <a href="">&lt;</a>
-            </li>
-            <li>
-                <a href="">1</a>
-            </li>
-            <li>
-                <a href="">2</a>
-            </li>
-            <li>
-                <a href="">3</a>
-            </li>
-            <li>
-                <a href="">&gt;</a>
-            </li>
+        <ul class="pagination-ul">
+            <!-- 페이징 처리-->
         </ul>
     </nav>
 
@@ -519,36 +100,12 @@
 
 
 <!-- footer 시작 -->
-<div class="footer">
-    <div class="footer-container01">
-        <div class="footer-containerbox01">
-            <div class="footer-container01-nav">
-                <ul>
-                    <li>(주)산책갈개</li>
-                    <li>복영헌 임형준 노의진 이지윤</li>
-                    <li>서울특별시 노원구 상계로1길 34 세일학원 5층</li>
-                    <li>02-933-5890</li>
-                </ul>
-            </div>
-            <div class="footer-container01-img">
-                <img src="/img/dog02.png" alt="">
-            </div>
-        </div>
-    </div>
-    <div class="footer-container02">
-        <div class="footer-containerbox02">
-            <div>Copyright ©SCGG All Rights Reserved.</div>
-            <div class="footer-container02-nav">
-                <ul>
-                    <li><a href="/fragment/html/terms.html">이용약관</a></li>
-                    <li><a href="/fragment/html/privacy.html">개인정보처리방침</a></li>
-                    <li><a href="">사업자정보확인</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- footer 끝 -->
+<div class="footer" th:replace="fragment/footer :: footer">
 
+</div>
+<input type="hidden" th:value="${session.userId}" id="userId" />
+<!-- footer 끝 -->
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<script src="/shopping/js/shopList.js"></script>
 </body>
 </html>

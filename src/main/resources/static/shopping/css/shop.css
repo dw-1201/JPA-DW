@@ -72,7 +72,7 @@ body,html,input {
 
   position :absolute;
   z-index: 2;
-  top: 50%;
+  top: 69px;
   left: 18px;
   transform: translateY(-50%);
 }

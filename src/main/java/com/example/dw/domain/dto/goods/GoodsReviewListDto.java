@@ -2,14 +2,13 @@ package com.example.dw.domain.dto.goods;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 //문의 리스트 조회 DTO
 @Data
-public class GoodsReviewDto {
+public class GoodsReviewListDto {
     //리뷰 번호
     private Long id;
     private String title;
@@ -29,15 +28,10 @@ public class GoodsReviewDto {
     private Long userId;
     private String userAccount;
     private String userNickName;
+    //리뷰 이미지 조회
+    List<GoodsReviewImgDto> goodsReviewImgDtos;
 
-    private Long reviewimgId;
-    private String reviewimgFileName;
-    private String reviewimgPath;
-    private String reviewimgUuid;
-
-
-    @QueryProjection
-    public GoodsReviewDto(Long id, String title, String content, LocalDateTime reviewRd, Integer rating, Long goodsReviewReplyId, String goodsReviewReplyContent, LocalDateTime goodsReviewReplyRD, LocalDateTime goodsReviewReplyMD, Long goodsId, Long orderItemId, Long userId, String userAccount, String userNickName, Long reviewimgId, String reviewimgFileName, String reviewimgPath, String reviewimgUuid) {
+    public GoodsReviewListDto(Long id, String title, String content, LocalDateTime reviewRd, Integer rating, Long goodsReviewReplyId, String goodsReviewReplyContent, LocalDateTime goodsReviewReplyRD, LocalDateTime goodsReviewReplyMD, Long goodsId, Long orderItemId, Long userId, String userAccount, String userNickName, List<GoodsReviewImgDto> goodsReviewImgDtos) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -52,10 +46,7 @@ public class GoodsReviewDto {
         this.userId = userId;
         this.userAccount = userAccount;
         this.userNickName = userNickName;
-        this.reviewimgId = reviewimgId;
-        this.reviewimgFileName = reviewimgFileName;
-        this.reviewimgPath = reviewimgPath;
-        this.reviewimgUuid = reviewimgUuid;
+        this.goodsReviewImgDtos = goodsReviewImgDtos;
     }
 }
 

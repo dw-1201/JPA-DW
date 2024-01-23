@@ -18,6 +18,8 @@ public class SearchForm {
         this.keyword = keyword;
     }
 
+
+
     public SearchForm(String keyword) {
         this.keyword = keyword;
     }

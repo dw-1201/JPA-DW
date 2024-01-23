@@ -16,6 +16,8 @@ public interface ShopRepositoryCustom {
 
     Optional<GoodsAddInfoDto> findGoodsAddInfoById(Long id);
 
+    List<GoodsReviewListDto> findGoodsReviewById(Long id);
+
     List<GoodsQueDto> findGoodsQueId(Long id);
 
     List<GoodsDetailImgDto> findGoodsDetailImg(Long goodsId);
@@ -26,7 +28,8 @@ public interface ShopRepositoryCustom {
 
     List<GoodsCartItemDto> findGoodsCartItemById(Long cartId, Long userId);
 
-
+    //쇼핑 카테고리별 리스트
+    List<GoodsByCateDto> shopListByCategory(String cate);
 
 
 
