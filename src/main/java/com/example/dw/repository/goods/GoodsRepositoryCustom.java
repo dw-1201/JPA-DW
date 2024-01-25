@@ -1,8 +1,12 @@
 package com.example.dw.repository.goods;
 
-import com.example.dw.domain.dto.admin.*;
+import com.example.dw.domain.dto.admin.AdminGoodsQnaListDto;
+import com.example.dw.domain.dto.admin.AdminGoodsQueDetailDto;
+import com.example.dw.domain.dto.admin.AdminGoodsQueReplyDto;
 import com.example.dw.domain.dto.admin.goods.AdminGoods;
+import com.example.dw.domain.dto.admin.goods.AdminGoodsReview;
 import com.example.dw.domain.dto.goods.IndexGoodsByCateDto;
+import com.example.dw.domain.entity.goods.GoodsCategory;
 import com.example.dw.domain.form.SearchForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +17,7 @@ import java.util.Optional;
 public interface GoodsRepositoryCustom {
 
     //메인페이지 카테고리별 상품 리스트
-    List<IndexGoodsByCateDto> indexGoodsListByCategory(String cate);
+    List<IndexGoodsByCateDto> indexGoodsListByCategory(GoodsCategory goodsCategory);
 
 
     //관리자 상품 리스트
@@ -27,7 +31,7 @@ public interface GoodsRepositoryCustom {
     Page<AdminGoodsQnaListDto> getQnaList(Long goodsId, Pageable pageable, String state);
 
     //관리자 상품 리뷰 리스트
-    Page<AdminGoodsDetailReviewListDto> getReviewList(Long goodsId, Pageable pageable, String state);
+    Page<AdminGoodsReview.AdminGoodsRelatedReview> getReviewList(Long goodsId, Pageable pageable, String state);
 
     //관리자 상품 문의 리스트
     Page<AdminGoodsQnaListDto> getQnaList(Pageable pageable, String qnaState, String cate, String keyword);

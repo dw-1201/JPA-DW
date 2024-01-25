@@ -41,8 +41,10 @@ public class IndexRepositoryImpl implements IndexRepositoryCustom{
                         "qi.questionImgRoute, qi.questionImgUuid, qi.questionImgName) " +
                         "FROM Question q " +
                         "LEFT JOIN q.questionImg qi " +
-                        "WHERE qi.id = (SELECT MIN(qi2.id) FROM QuestionImg qi2 WHERE q.id = qi2.question.id) " +
+                        "WHERE qi.id = (SELECT MIN(qi2.id) FROM QuestionImg qi2 WHERE q.id = qi2.question.id) and q.questionRd between :thisWeekStart And :thisWeekEnd " +
                         "ORDER BY q.questionViewCount desc ", WeeklyQnaList.class)
+                .setParameter("thisWeekStart", thisWeekStart)
+                .setParameter("thisWeekEnd", thisWeekEnd)
                 .getResultList();
 
 

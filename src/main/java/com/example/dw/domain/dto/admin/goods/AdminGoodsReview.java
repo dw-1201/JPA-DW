@@ -31,6 +31,28 @@ public class AdminGoodsReview {
         this.replyState = replyState;
     }
 
+    //관리자 상품 상세 - 상품 관련 리뷰사항
+    @Data
+    public static class AdminGoodsRelatedReview{
+
+        private Long goodsReviewId;
+        private String goodsReviewContent;
+        private Integer rating;
+        private LocalDateTime goodsReviewRd;
+        private Integer replyState;
+
+        @QueryProjection
+        public AdminGoodsRelatedReview(Long goodsReviewId, String goodsReviewContent, Integer rating, LocalDateTime goodsReviewRd, Integer replyState) {
+            this.goodsReviewId = goodsReviewId;
+            this.goodsReviewContent = goodsReviewContent;
+            this.rating = rating;
+            this.goodsReviewRd = goodsReviewRd;
+            this.replyState = replyState;
+        }
+    }
+
+
+
 
     //상품 리뷰 리스트
     @Data
@@ -199,7 +221,6 @@ public class AdminGoodsReview {
                 this.reviewContent = reviewContent;
             }
         }
-
 
     }
     

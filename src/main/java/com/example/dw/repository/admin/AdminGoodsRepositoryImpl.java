@@ -147,24 +147,28 @@ public class AdminGoodsRepositoryImpl implements AdminGoodsRepositoryCustom{
                 .fetch()).orElseThrow(()-> new NoSuchElementException("조회정보없다"));
 
 
-        AdminGoodsReview.AdminGoodsReviewDetail.GoodsInfo goodsInfoResult = new AdminGoodsReview.AdminGoodsReviewDetail.GoodsInfo(
 
-                goodsInfo.getGoodsId(),
-                goodsInfo.getGoodsCategory(),
-                goodsInfo.getGoodsName(),
-                goodsInfo.getGoodsDetailContent(),
-                goodsInfo.getRatingAvg(),
+        return new AdminGoodsReview.AdminGoodsReviewDetail.AdminGoodsReviewResultDetail(
 
-                new AdminGoodsReview.AdminGoodsReviewDetail.GoodsImg(
-                        goodsInfo.getGoodsMainImgId(),
-                        goodsInfo.getGoodsMainImgPath(),
-                        goodsInfo.getGoodsMainImgUuid(),
-                        goodsInfo.getGoodsMainImgName())
-        );
+                orderReviewId,
 
+                new AdminGoodsReview.AdminGoodsReviewDetail.GoodsInfo(
 
-        AdminGoodsReview.AdminGoodsReviewDetail.ReviewContent reviewInfoResult = reviewInfo.stream().map(
-                reviews -> new AdminGoodsReview.AdminGoodsReviewDetail.ReviewContent(
+                        goodsInfo.getGoodsId(),
+                        goodsInfo.getGoodsCategory(),
+                        goodsInfo.getGoodsName(),
+                        goodsInfo.getGoodsDetailContent(),
+                        goodsInfo.getRatingAvg(),
+                        new AdminGoodsReview.AdminGoodsReviewDetail.GoodsImg(
+
+                                goodsInfo.getGoodsMainImgId(),
+                                goodsInfo.getGoodsMainImgPath(),
+                                goodsInfo.getGoodsMainImgUuid(),
+                                goodsInfo.getGoodsMainImgName())
+
+                ),
+                reviewInfo.stream().map(reviews -> new AdminGoodsReview.AdminGoodsReviewDetail.ReviewContent(
+
                         reviews.getOrderReviewContent(),
                         reviews.getUserAccount(),
                         reviews.getRating(),
@@ -175,13 +179,11 @@ public class AdminGoodsRepositoryImpl implements AdminGoodsRepositoryCustom{
                                 o.getOrderReviewImgPath(),
                                 o.getOrderReviewImgUuid(),
                                 o.getOrderReviewImgName()
-                        )).collect(Collectors.toList()))).
 
-                findFirst().orElseThrow(()->new NoSuchElementException("조회정보 없음"));
+                        )).collect(Collectors.toList()))).findFirst().orElseThrow(()->new NoSuchElementException("조회정보없음"))
+        );
 
 
-
-        return new AdminGoodsReview.AdminGoodsReviewDetail.AdminGoodsReviewResultDetail(orderReviewId, goodsInfoResult, reviewInfoResult);
     }
 
     //상품 리뷰 관리자 답변 가져오기

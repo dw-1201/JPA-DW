@@ -1,6 +1,8 @@
 package com.example.dw.service;
 
-import com.example.dw.domain.dto.admin.*;
+import com.example.dw.domain.dto.admin.AdminGoodsQnaListDto;
+import com.example.dw.domain.dto.admin.AdminGoodsQueDetailDto;
+import com.example.dw.domain.dto.admin.AdminGoodsQueReplyDto;
 import com.example.dw.domain.dto.admin.goods.AdminGoods;
 import com.example.dw.domain.dto.admin.goods.AdminGoodsReview;
 import com.example.dw.domain.entity.goods.Goods;
@@ -166,7 +168,7 @@ public class AdminGoodsService {
 
     //관리자 상품 상세 - 상품 관련 리뷰사항
     @Transactional
-    public Page<AdminGoodsDetailReviewListDto> findGoodsDetailReviewList(Long goodsId, Pageable pageable, String state){
+    public Page<AdminGoodsReview.AdminGoodsRelatedReview> findGoodsDetailReviewList(Long goodsId, Pageable pageable, String state){
         return goodsRepositoryCustom.getReviewList(goodsId,pageable,state);
     }
 

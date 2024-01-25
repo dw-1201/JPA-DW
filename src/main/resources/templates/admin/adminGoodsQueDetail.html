@@ -63,7 +63,7 @@
                                     </select>
                                 </td>
                                 <th scope="row" rowspan="6">상품 설명</th>
-                                <td rowspan="6" class="goods-detail-textarea"><textarea id="goods-detail" name="goods-detail" rows="4" readonly th:text="${details.qnaContent}"></textarea></td>
+                                <td rowspan="6" class="goods-detail-textarea"><textarea id="goods-detail" name="goods-detail" rows="4" readonly th:text="${details.goodsDetailContent}"></textarea></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">상품명</th>
@@ -113,7 +113,9 @@
                             <ul class="image-lists-ul">
                                 <li class="goods-main-img-p">
                                     <div class="img-title">
+                                        <div class="img-wrap">
                                         <img th:src="'/jpa_dw/goods/' + ${details.goodsMainImgPath} + '/' + ${details.goodsMainImgUuid} +'_' + ${details.goodsMainImgName}" alt="goods-main-img">
+                                        </div>
                                         <span>상품 메인 사진</span>
                                     </div>
                                 </li>
@@ -125,7 +127,7 @@
                                                 <li class="qna-content-li" th:if="${details.userNickName == null}">작성자 <a style="color: black" th:href="@{/admin/userDetail/{id} (id=${details.userId})}"><span th:text="${details.userAccount}"></span></a> </li>
                                                 <li class="qna-content-li" th:unless="${details.userNickName == null}">작성자 <a style="color: black"  th:href="@{/admin/userDetail/{id} (id=${details.userId})}"><span th:text="${details.userNickName}"></span></a> </li>
                                                 <th:block th:if="${details.qndRd == details.qnaMd}">
-                                                    <li class="qna-content-li"><span class="qna-input-md"></span></li>
+                                                    <li class="qna-content-li"></li>
                                                     <li class="qna-content-li">작성일 <span class="qna-input-rd" ></span></li>
                                                 </th:block>
                                                 <th:block th:if="${details.qndRd != details.qnaMd}">

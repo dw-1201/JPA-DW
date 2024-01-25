@@ -96,7 +96,7 @@ function inputSection(result){
                  <tr>
                     <td class="orderReviewId">${r.goodsReviewId}</td>
                     <td>${reviewContent.goodsCategory}</td>
-                    <td>${reviewContent.goodsName}</td>
+                    <td class="goodsName">${reviewContent.goodsName}</td>
                     <td class="review-content">${reviewContent.goodsReviewContent}</td>
                     `;
 
@@ -131,7 +131,7 @@ function inputSection(result){
                     <td>${form.formatDates(reviewContent.goodsReviewRd)}</td>
                     `;
 
-        if(reviewContent.adminReplyState==0){
+        if(reviewContent.replyState==0){
             text+= `                    
                     <td> X </td>
                     `

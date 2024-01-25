@@ -22,6 +22,7 @@ public class AdminGoods extends AdminGoodsStan {
     private String goodsDetailImgUuid;
     private String goodsDetailImgName;
 
+
     @QueryProjection
     public AdminGoods(Long goodsId, String goodsName, String goodsCategory, Integer goodsQuantity, Integer goodsPrice, Integer goodsSaleCount, String goodsDetailContent, String goodsMate, String goodsCertify, LocalDateTime goodsRd, LocalDateTime goodsMd, Long goodsMainImgId, String goodsMainImgPath, String goodsMainImgUuid, String goodsMainImgName, Long goodsDetailImgId, String goodsDetailImgPath, String goodsDetailImgUuid, String goodsDetailImgName) {
         super(goodsId, goodsName, goodsCategory, goodsQuantity, goodsPrice, goodsSaleCount, goodsDetailContent, goodsMate, goodsCertify, goodsRd, goodsMd);
@@ -34,6 +35,9 @@ public class AdminGoods extends AdminGoodsStan {
         this.goodsDetailImgUuid = goodsDetailImgUuid;
         this.goodsDetailImgName = goodsDetailImgName;
     }
+
+
+
 
     //제품 메인 사진
     @Data

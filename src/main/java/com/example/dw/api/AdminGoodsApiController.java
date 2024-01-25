@@ -2,7 +2,8 @@ package com.example.dw.api;
 
 
 import com.example.dw.controller.Message;
-import com.example.dw.domain.dto.admin.*;
+import com.example.dw.domain.dto.admin.AdminGoodsQnaListDto;
+import com.example.dw.domain.dto.admin.AdminGoodsQueReplyDto;
 import com.example.dw.domain.dto.admin.goods.AdminGoods;
 import com.example.dw.domain.dto.admin.goods.AdminGoodsReview;
 import com.example.dw.domain.enums.StatusEnum;
@@ -95,7 +96,7 @@ public class AdminGoodsApiController {
 
     //관리자 상품 상세 - 상품 관련 리뷰 리스트
     @GetMapping("/goodsRelatedReview/{goodsId}/{page}")
-    public Page<AdminGoodsDetailReviewListDto> findGoodsDetailReviewList(
+    public Page<AdminGoodsReview.AdminGoodsRelatedReview> findGoodsDetailReviewList(
             @PathVariable("goodsId") Long goodsId,
             @PathVariable("page") int page,
             String state

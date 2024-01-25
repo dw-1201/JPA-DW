@@ -2,6 +2,7 @@ package com.example.dw.domain.entity.goods;
 
 import com.example.dw.domain.form.GoodsForm;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -29,6 +30,7 @@ public class Goods {
     private int goodsPrice;
     private String goodsMade;
     private String goodsCertify;
+    @Size(max = 500)
     private String goodsDetailContent;
 
     @CreatedDate

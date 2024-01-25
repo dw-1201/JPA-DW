@@ -11,7 +11,7 @@ public interface AdminOrderRepositoryCustom {
 
 
     //관리자 페이지 주문 리스트
-    Page<AdminOrderListResultDto> orderList(Pageable pageable, AdminSearchOrderForm adminSearchOrderForm);
+    Page<AdminOrderListResultDto> orderLists(Pageable pageable, AdminSearchOrderForm adminSearchOrderForm);
 
 
     //관리자 페이지 주문 상세

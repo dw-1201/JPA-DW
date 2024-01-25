@@ -51,7 +51,7 @@ public class AdminOrderService {
     public Page<AdminOrderListResultDto> orderList(Pageable pageable, AdminSearchOrderForm adminSearchOrderForm){
 
 
-        return  adminOrderRepositoryCustom.orderList(pageable, adminSearchOrderForm);
+        return  adminOrderRepositoryCustom.orderLists(pageable, adminSearchOrderForm);
 
 
     }
