@@ -112,6 +112,15 @@
     line-height: 2;
 }
 
+.goodsName{
+    width: 250px;
+    height: 35px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    white-space: nowrap;
+    line-height: 2.7;
+}
 
 
 .goods-review-table tr td {
@@ -132,10 +141,8 @@
     height: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: normal;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient:vertical;
-    display: -webkit-box;
+    white-space: nowrap;
+
     line-height: 2.7;
 }
 

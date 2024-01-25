@@ -1,7 +1,10 @@
 package com.example.dw.service;
 
-import com.example.dw.domain.dto.admin.*;
+import com.example.dw.domain.dto.admin.AdminGoodsQnaListDto;
+import com.example.dw.domain.dto.admin.AdminGoodsQueDetailDto;
+import com.example.dw.domain.dto.admin.AdminGoodsQueReplyDto;
 import com.example.dw.domain.dto.admin.goods.AdminGoods;
+import com.example.dw.domain.dto.admin.goods.AdminGoodsReview;
 import com.example.dw.domain.entity.goods.Goods;
 import com.example.dw.domain.entity.goods.GoodsQue;
 import com.example.dw.domain.entity.goods.GoodsQueReply;
@@ -165,7 +168,7 @@ public class AdminGoodsService {
 
     //관리자 상품 상세 - 상품 관련 리뷰사항
     @Transactional
-    public Page<AdminGoodsDetailReviewListDto> findGoodsDetailReviewList(Long goodsId, Pageable pageable, String state){
+    public Page<AdminGoodsReview.AdminGoodsRelatedReview> findGoodsDetailReviewList(Long goodsId, Pageable pageable, String state){
         return goodsRepositoryCustom.getReviewList(goodsId,pageable,state);
     }
 
@@ -216,14 +219,14 @@ public class AdminGoodsService {
 
     //상품 리뷰 리스트
     @Transactional
-    public Page<AdminGoodsReviewResultDto> reviewList(Pageable pageable, SearchReviewForm searchReviewForm){
+    public Page<AdminGoodsReview.AdminGoodsReviewList.AdminGoodsReviewResultList> reviewList(Pageable pageable, SearchReviewForm searchReviewForm){
 
         return adminGoodsRepositoryCustom.reviewList(pageable, searchReviewForm);
     }
 
     //상품 리뷰 상세보기
     @Transactional
-    public AdminGoodsReviewDetailResultDto reviewDetail(Long orderReviewId){
+    public AdminGoodsReview.AdminGoodsReviewDetail.AdminGoodsReviewResultDetail reviewDetail(Long orderReviewId){
 
 
 
@@ -244,7 +247,7 @@ public class AdminGoodsService {
 
     //상퓸 리뷰 답변 가져오기
     @Transactional
-    public AdminGoodsReviewReplyDto goodsReviewReplyList(Long orderReviewId){
+    public AdminGoodsReview.AdminGoodsReviewApply goodsReviewReplyList(Long orderReviewId){
         return adminGoodsRepositoryCustom.goodsReviewReplyList(orderReviewId);
     }
 

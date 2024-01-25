@@ -198,8 +198,8 @@ function getGoodsRelatedReview(page, state, goodsId){
 
 
                 text +=`        
-                        <td class="q-content">${r.orderReviewContent}</td>
-                        <td>${form.formatDates(r.orderReviewRd)}</td>
+                        <td class="q-content">${r.goodsReviewContent}</td>
+                        <td>${form.formatDates(r.goodsReviewRd)}</td>
                         
                         `;
 
@@ -209,13 +209,13 @@ function getGoodsRelatedReview(page, state, goodsId){
     
     
     
-                         <td id="reply-td"><button type="button" class="reply-complete reply-btn"><a href="/admin/goodsReviewDetail/${r.orderReviewId}">답변완료</a></button></td>
+                         <td id="reply-td"><button type="button" class="reply-complete reply-btn"><a href="/admin/goodsReviewDetail/${r.goodsReviewId}">답변완료</a></button></td>
                     </tr>
                 
                 `;
                 }else {
                     text += `
-                     <td id="reply-td"><button type="button" class="reply-wait reply-btn"><a href="/admin/goodsReviewDetail/${r.orderReviewId}">답변대기</a></button></td>
+                     <td id="reply-td"><button type="button" class="reply-wait reply-btn"><a href="/admin/goodsReviewDetail/${r.goodsReviewId}">답변대기</a></button></td>
                     </tr>
                     
                     `;
