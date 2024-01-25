@@ -4,10 +4,16 @@ import * as page from './module/page.js';
 
 $(document).ready(function (){
     console.log("리스트")
-    let userId = $('.qnamain').data('userid');
+    let userId = $('.myfreeboardmain').data('userid');
     console.log(userId);
-    list.list(0,userId,'mypgs','myfreeBoardList',showUserFreeboardList);
+    list.list(0,userId,'mypgs','myfreeBoardLists',showUserFreeboardList);
 
+// 리스트 클리시 세부 페이지 이동
+    $('.list-content').on('click',function (){
+        let id = $(this).data('id');
+        console.log((id));
+        window.location.href = "/community/freeBoardDetail/"+id;
+    })
 
 })
 
@@ -20,16 +26,18 @@ function showUserFreeboardList(result) {
     console.log(result.length);
     if (result.content.length === 0) {
         console.log("값이 없다")
-        text = `<div className="nonepage">
-            <div className="none-img-area">
-                <div className="none-img">
-                    <img src="../img/b556fdf429d8de25c3acf62f8186ddb9.png"/>
-                </div>
-            </div>
-            <div className="nonetext-area">
-                <p>등록된 내용이 없습니다.</p>
-            </div>
-        </div>
+        text = `
+                    <div class="nonepage">
+                        <div class="none-img-area">
+                            <div class="none-img">
+                                <img src="../img/b556fdf429d8de25c3acf62f8186ddb9.png"/>
+                            </div>
+                        </div>
+                        <div class="nonetext-area">
+                            <p>등록된 내용이 없습니다.</p>
+                        </div>
+                    </div>
+                 
         `;
 
         $('.nonepage').css('display','block');
@@ -111,17 +119,19 @@ function showUserFreeboardList(result) {
     console.log(text);
     textInput.html(text);
 
-    let paginations = $('.list-pagestion');
+    let paginations = $('.pagination-ul');
     console.log("페이징 실행!")
     page.pagination(result,paginations)
     console.log("페이징 미실행!")
     paginations.find('a').on('click', function (e) {
         e.preventDefault();
-        let userId = $('.qnamain').data('userid');
+        let userId = $('.myfreeboardmain').data('userid');
         const page = parseInt($(this).data('page'));
-        list.list(page, userId,'mypgs','myWriteList', showUserQnAList);
+        list.list(page, userId,'mypgs','myfreeBoardLists',showUserFreeboardList);
     });
     console.log("list~")
 
 
 }
+
+
