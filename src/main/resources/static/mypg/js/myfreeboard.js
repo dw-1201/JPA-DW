@@ -37,7 +37,7 @@ function showUserFreeboardList(result) {
         console.log("값이 있다.")
         result.content.forEach(r => {
 
-            text += ` <div class="list-content" th:value="${r.id}">
+            text += ` <div class="list-content" th:data-id="${r.id}">
                         <div class="content-text-box">
                             <div class="list-content-title">${r.freeBoardTitle}</div>
                             <div class="list-content-content">
@@ -46,45 +46,65 @@ function showUserFreeboardList(result) {
                                 </div> 
                             </div>
                         `;
-                    if(r.userNickName == null){
 
-
-                    text +=`<div class="list-content-etc">
+            text +=`<div class="list-content-etc">
                                 <div class="list-content-id">
-                                    <div class="list-content-id-img"><img src="/mypg/img/b556fdf429d8de25c3acf62f8186ddb9.png" alt=""></div>
-                                    <span>${r.userAccount}</span>
-                                </div>
-                                <div class="list-content-reply">
-                                    <span>댓글</span>
-                                    <span class="reply-count">${r.freeBoardCommentCount}</span>
-                                </div>
-                              
-                            </div>
                             `;
-                            }else{
-                        text +=`        <div class="list-content-etc">
-                                <div class="list-content-id">
-                                    <div class="list-content-id-img"><img src="/mypg/img/b556fdf429d8de25c3acf62f8186ddb9.png" alt=""></div>
+            if(r.userFileDtos.userFileId ==null){
+                text += `
+                                <div class="list-content-id-img"><img src="/mypg/img/b556fdf429d8de25c3acf62f8186ddb9.png" alt=""></div>
+                                    `;
+
+            }else if(r.userFileDtos.userFileId !=null){
+
+                text += `
+                                <div class="list-content-id-img"><img src="/mypgs/userImg?fileFullPath=${r.userFileDtos.route + '/' + r.userFileDtos.uuid + '_' + r.userFileDtos.name}"  alt=""></div>
+                                                `;
+
+            }
+
+            if(r.userNickName == null){
+                text +=`
+                                     <span>${r.userAccount}</span>
+                                    `;
+
+            } else if(r.userNickName != null){
+                text += `
                                     <span>${r.userNickName}</span>
+                                    `;
+
+            }
+            text +=`
                                 </div>
                                 <div class="list-content-reply">
                                     <span>댓글</span>
-                                    <span class="reply-count">${r.freeBoardCommentCount}</span>
+                                    <span class="reply-count">${r.commentCount}</span>
                                 </div>
                               
                             </div>
+                            
+                          </div>  
                             `;
-                    }
 
-                     text+=`</div>
-                        <div class="content-img-box">
-                            <div class="content-img">
-                                <img src="/mypg/img/강아지.png" alt="">
+
+
+            text += `
+                                    
+                                       <div class="content-img-box">
+                                            <div class="content-img">
+                                                <img src="/mypgs/freeImg?fileFullPath=${r.freeBoardImgDtos.freeBoardImgRoute + '/' + r.freeBoardImgDtos.freeBoardImgUuid + '_' + r.freeBoardImgDtos.freeBoardImgName}" alt="">
+                                            </div>
+                                       </div>
+                                    `;
+
+
+
+            text += `
                             </div>
-                        </div>
-                      
-                    </div>
-        `;
+                        
+                        `;
+
+
         })
 
     }
