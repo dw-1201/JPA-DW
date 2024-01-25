@@ -33,7 +33,8 @@ public class FreeBoardController {
      * @return
      */
     @GetMapping("/freeBoardList")
-    public String freeBoard(){
+    public String freeBoard(Model model){
+        model.addAttribute("rankList",freeBoardRepositoryCustom.findFreeBoardRankByIdId());
         return "/community/freeBoardList";
     }
 
@@ -80,7 +81,7 @@ public class FreeBoardController {
 
         model.addAttribute("detail",result);
 
-        return "/community/freeBoardDetail";
+        return "community/freeBoardDetail";
     }
 
     /**

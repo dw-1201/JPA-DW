@@ -38,9 +38,13 @@ public class GoodsApiController {
     public Page<GoodsListDto> findShopList(
             @PathVariable("page") int page, SearchForm searchForm){
 
+        System.out.println(searchForm.getCate());
+        System.out.println(searchForm.getKeyword());
+
         Pageable pageable = PageRequest.of(page,12);
         Page<GoodsListDto> result = shopRepositoryCustom.findGoodsListAll(pageable, searchForm);
-        System.out.println(result.toString()+"############");
+        System.out.println("쇼핑 글 개수 : " + result.stream().count());
+
         return result;
     }
 
@@ -65,6 +69,19 @@ public class GoodsApiController {
 
         System.out.println(detail.toString());
         return detail;
+    }
+
+    /**
+     * 쇼핑 리뷰 페이지
+     * @return
+     */
+    @GetMapping("/shopReview/{goodsId}")
+    public List<GoodsReviewListDto> findReviewList(@PathVariable("goodsId") Long goodsId){
+        List<GoodsReviewListDto> reviewList = goodsService.goodsReviewList(goodsId);
+
+
+        System.out.println(reviewList.toString());
+        return reviewList;
     }
 
     /**

@@ -5,6 +5,7 @@ import com.example.dw.domain.entity.freeBoard.FreeBoard;
 import com.example.dw.domain.entity.freeBoard.FreeBoardComment;
 import com.example.dw.domain.entity.goods.GoodsQue;
 import com.example.dw.domain.entity.goods.GoodsQueReply;
+import com.example.dw.domain.entity.order.OrderReview;
 import com.example.dw.domain.entity.question.Question;
 import com.example.dw.domain.entity.walkingMate.WalkingMate;
 import com.example.dw.domain.form.UserUpdateForm;
@@ -82,9 +83,11 @@ public class Users {
     @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<GoodsQueReply> goodsQueReplyList=new ArrayList<>();
 
+//    @OneToMany(mappedBy = "users" ,fetch = FetchType.LAZY, orphanRemoval = true)
+//    private List<OrderReview> orderReviews = new ArrayList<>();
+
     @Builder.Default
     private int userState = 1;
-
 
     @Builder
     public Users(Long id, String userAccount, String userName, String userPassword, String userEmail, String userPhone, LocalDate userJoinDate, LocalDate userDeleteDate, String userNickName, String userIntroduction, Address address, List<UserFile> userFile, List<Pet> pet, List<FreeBoard> freeBoard, List<Question> questions, List<FreeBoardComment> freeBoardComments, List<WalkingMate> walkingMates, List<GoodsQue> goodsQues, List<GoodsQueReply> goodsQueReplyList, int userState) {
@@ -109,7 +112,6 @@ public class Users {
         this.goodsQueReplyList = goodsQueReplyList;
         this.userState = userState;
     }
-
 
     //임시비밀번호로 비밀번호 수정
     public Users updatePassword(String rePassword){
