@@ -40,8 +40,10 @@ $(document).ready(function (){
 function showGoodsList(result){
     let text ='';
     let textInput = $('.goods-table-lists');
-    
-    result.content.forEach(r=>{
+
+    console.log(result.data)
+
+    result.data.content.forEach(r=>{
 
 
         text += `
@@ -52,12 +54,12 @@ function showGoodsList(result){
                         <td>${form.addCommas(r.goodsPrice)}원</td>
                         <td>${form.addCommas(r.goodsQuantity - r.goodsSaleCount)} ea</td>
                         <td>${form.addCommas(r.goodsSaleCount)} ea</td>
-                        <td>${form.formatDates(r.goodsRegisterDate)}</td>
+                        <td>${form.formatDates(r.goodsRd)}</td>
                         `;
-        if(r.goodsRegisterDate == r.goodsModifyDate){
+        if(r.goodsRd == r.goodsMd){
            text += `    <td>-</td>`;
         } else {
-            text += `   <td>${form.formatDates(r.goodsModifyDate)}</td>`;
+            text += `   <td>${form.formatDates(r.goodsMd)}</td>`;
 
         }
         text+=`
@@ -74,7 +76,7 @@ function showGoodsList(result){
     let paginations = $('.pagination-ul');
 
 
-    page.pagination(result, paginations)
+    page.pagination(result.data, paginations)
     paginations.find('a').on('click', function (e) {
         e.preventDefault();
         const page = parseInt($(this).data('page'));

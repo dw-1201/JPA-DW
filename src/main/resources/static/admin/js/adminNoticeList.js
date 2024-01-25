@@ -1,6 +1,6 @@
 import * as list from './module/list.js';
 import  * as page from './module/pagination.js';
-
+import * as form from './module/form.js'
 
 //공지게시판
 //마우스 클릭 효과
@@ -166,10 +166,10 @@ function showNoticeList(result){
                     <div class="admin-notice-list-table rr">
                         <div class="notice-number row">${r.id}</div>
                         <div class="notice-title row">${r.noticeBoardTitle}</div>
-                        <div class="notice-reg-date row">${r.noticeBoardRd}</div>
+                        <div class="notice-reg-date row">${form.formatDates(r.noticeBoardRd)}</div>
                         `;
         if(r.noticeBoardMd != r.noticeBoardRd){
-            text+=`        <div class="notice-reg-date row">${r.noticeBoardMd}</div>`;
+            text+=`        <div class="notice-reg-date row">${form.formatDates(r.noticeBoardMd)}</div>`;
 
         }else {
             text+=`        <div class="notice-reg-date row"> - </div>`;

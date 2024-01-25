@@ -1,8 +1,12 @@
 package com.example.dw.api;
 
 
-import com.example.dw.domain.dto.admin.*;
+import com.example.dw.controller.Message;
+import com.example.dw.domain.dto.admin.AdminGoodsQnaListDto;
+import com.example.dw.domain.dto.admin.AdminGoodsQueReplyDto;
 import com.example.dw.domain.dto.admin.goods.AdminGoods;
+import com.example.dw.domain.dto.admin.goods.AdminGoodsReview;
+import com.example.dw.domain.enums.StatusEnum;
 import com.example.dw.domain.form.GoodsQueReplyForm;
 import com.example.dw.domain.form.GoodsReviewReplyForm;
 import com.example.dw.domain.form.SearchForm;
@@ -13,7 +17,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.nio.charset.Charset;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,17 +35,21 @@ public class AdminGoodsApiController {
 
     //관리자 상품 목록
     @GetMapping("/goodsList/{page}")
-    public Page<AdminGoods.AdminGoodsList> findGoodsList(
+    public ResponseEntity<Message> findGoodsList(
             @PathVariable("page") int page, SearchForm searchForm){
 
         Pageable pageable = PageRequest.of(page, 15);
         Page<AdminGoods.AdminGoodsList> result = goodsRepositoryCustom.findGoodsAll(pageable, searchForm);
 
+        Message message = new Message();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 
+        message.setStatus(StatusEnum.OK);
+        message.setMessage("성공 코드");
+        message.setData(result);
 
-
-
-        return result;
+        return new ResponseEntity<>(message, headers, HttpStatus.OK);
 
     }
 
@@ -82,7 +96,7 @@ public class AdminGoodsApiController {
 
     //관리자 상품 상세 - 상품 관련 리뷰 리스트
     @GetMapping("/goodsRelatedReview/{goodsId}/{page}")
-    public Page<AdminGoodsDetailReviewListDto> findGoodsDetailReviewList(
+    public Page<AdminGoodsReview.AdminGoodsRelatedReview> findGoodsDetailReviewList(
             @PathVariable("goodsId") Long goodsId,
             @PathVariable("page") int page,
             String state
@@ -133,8 +147,8 @@ public class AdminGoodsApiController {
 
     //관리자 상품 리뷰 리스트
     @GetMapping("/goodsReviewList/{page}")
-    public Page<AdminGoodsReviewResultDto> goodsReviewList(@PathVariable("page") int page,
-                                                           SearchReviewForm searchReviewForm){
+    public Page<AdminGoodsReview.AdminGoodsReviewList.AdminGoodsReviewResultList> goodsReviewList(@PathVariable("page") int page,
+                                                                                                  SearchReviewForm searchReviewForm){
 
         System.out.println(searchReviewForm.toString()+"!!!");
         Pageable pageable = PageRequest.of(page, 15);
@@ -145,7 +159,7 @@ public class AdminGoodsApiController {
 
     //관리자 상품 리뷰 상세(통신용)
     @GetMapping("/goodsReviewDetail/{orderReviewId}")
-    public AdminGoodsReviewDetailResultDto reviewDetail(@PathVariable("orderReviewId") Long orderReviewId){
+    public AdminGoodsReview.AdminGoodsReviewDetail.AdminGoodsReviewResultDetail reviewDetail(@PathVariable("orderReviewId") Long orderReviewId){
         return adminGoodsService.reviewDetail(orderReviewId);
     }
     
@@ -161,7 +175,7 @@ public class AdminGoodsApiController {
 
     //관리자 상품 리뷰 가져오기
     @GetMapping("/goodsReviewReplyList/{orderReviewId}")
-    public AdminGoodsReviewReplyDto goodsReviewReply(@PathVariable("orderReviewId")Long orderReviewId){
+    public AdminGoodsReview.AdminGoodsReviewApply goodsReviewReply(@PathVariable("orderReviewId")Long orderReviewId){
 
         return adminGoodsService.goodsReviewReplyList(orderReviewId);
     }

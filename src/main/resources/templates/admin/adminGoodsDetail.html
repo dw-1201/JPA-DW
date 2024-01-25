@@ -94,7 +94,7 @@
                                 <td><input type="text" name="goodsRegisterDate" id="goods-reg-date"  readonly/></td>
                                 <th class="goods-table-column" scope="row">마지막 수정일</th>
                                 <th:block th:if="${detail.goodsRd==detail.goodsMd}">
-                                <td><input type="text" name="goodsModifyDate" id="goods-last-modify-date"  value="" readonly/></td>
+                                <td></td>
                                 </th:block>
                                 <th:block th:unless="${detail.goodsRd==detail.goodsMd}" >
                                 <td><input type="text" name="goodsModifyDate" id="goods-last-modify-date"  readonly/></td>
@@ -129,7 +129,9 @@
                             <ul class="image-lists-ul">
                                 <li class="goods-main-img-p"  >
                                     <div class="img-title" >
+                                        <div class="img-wrap">
                                         <img th:src="'/jpa_dw/goods/'+${detail.goodsMainImgPath}+'/'+${detail.goodsMainImgUuid}+'_'+${detail.goodsMainImgName}" alt="상품 메인사진"/>
+                                        </div>
                                         <div class="main-img-title">
                                             <span>상품 메인 사진</span>
                                         </div>
@@ -138,7 +140,9 @@
                                 <th:block  th:each="detail : ${detail}">
                                 <li class="goods-detail-img-p" th:each="imgs, iterState : ${detail.adminGoodsDetailImg}">
                                     <div class="img-title">
+                                        <div class="img-wrap">
                                         <img th:src="'/jpa_dw/goods/'+${imgs.goodsDetailImgPath}+'/'+${imgs.goodsDetailImgUuid}+'_'+${imgs.goodsDetailImgName}" alt="상품 상세사진"/>
+                                        </div>
                                         <div class="detail-img-title">
                                             <span th:text="'상품 상세 사진 -' + ${iterState.index+1}"></span>
                                         </div>

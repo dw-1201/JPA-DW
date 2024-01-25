@@ -2,6 +2,7 @@ package com.example.dw.api;
 
 import com.example.dw.domain.dto.goods.IndexGoodsByCateDto;
 import com.example.dw.domain.dto.index.WeeklyQnaListDto;
+import com.example.dw.domain.entity.goods.GoodsCategory;
 import com.example.dw.service.IndexService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,9 +36,11 @@ public class IndexApiController {
 
     //카테고리별 상품 리스트
     @GetMapping("/goodsByCate")
-    public List<IndexGoodsByCateDto> goodsByCategory(String cate){
+    public List<IndexGoodsByCateDto> goodsByCategory(GoodsCategory goodsCategory){
 
-        return indexService.indexGoodsByCategory(cate);
+
+        System.out.println(goodsCategory+"!@#!@#!@#");
+        return indexService.indexGoodsByCategory(goodsCategory);
 
     }
 

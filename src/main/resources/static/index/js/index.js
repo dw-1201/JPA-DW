@@ -44,9 +44,11 @@ function indexGoodsByCategoryList(cate, callback){
         url : '/indexes/goodsByCate',
         type:'get',
         data : {
-            cate : cate
+            goodsCategory : cate
         },
         success : function (result){
+
+            console.log(result)
             if(callback){
                 callback(result)
             }
@@ -123,7 +125,6 @@ function getCategoryImage(category) {
         '영양제': '/img/goods-nutrition.jpg',
         '위생용품': '/img/goods-hygiene.jpg',
         '산책용품' : '/img/goods-snack.jpg'
-        // 다른 카테고리에 대한 이미지도 추가할 수 있습니다.
     };
 
     return categoryImages[category] || '/img/default-image.jpg'; // 카테고리에 대응하는 이미지가 없을 경우 디폴트 이미지 반환

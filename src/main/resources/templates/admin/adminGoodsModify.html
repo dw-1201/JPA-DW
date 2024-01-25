@@ -32,7 +32,7 @@
                 <div class="goods-stan-info-title">
                     <h4>상품 기본 정보</h4>
                 </div>
-                <form th:action="@{/admin/modify/{id}/edit (id=${goods.id})}" th:method="put"   id="goods-img-form" enctype="multipart/form-data">
+                <form th:action="@{/admin/modify/{id}/edit (id=${goods.goodsId})}" th:method="put"   id="goods-img-form" enctype="multipart/form-data">
                     <!-- 상품 기본 정보 수정 영역 -->
                     
                     <div class="goods-info-container">
@@ -67,7 +67,7 @@
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">상품 수량</th>
-                                <td><input type="number" name="goodsQuantity" id="goods-quantity" min="0" th:value="${goods.goodsQuantity-goods.saleCount}"/></td>
+                                <td><input type="number" name="goodsQuantity" id="goods-quantity" min="0" th:value="${goods.goodsQuantity-goods.goodsSaleCount}"/></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">상품 가격</th>
@@ -75,7 +75,7 @@
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">제조국(원산지)</th>
-                                <td><input type="text" name="goodsMade" id="goods-made-in" th:value="${goods.goodsMade}"/></td>
+                                <td><input type="text" name="goodsMade" id="goods-made-in" th:value="${goods.goodsMate}"/></td>
                             </tr>
                             <tr>
                                 <th class="goods-table-column" scope="row">인증허가</th>
@@ -93,16 +93,21 @@
                             <ul class="image-lists-ul">
                                 <li class="goods-main-img-p"  >
                                     <div class="img-title" >
+                                        <div class="img-wrap">
+
                                         <img th:src="'/jpa_dw/goods/'+${goods.goodsMainImgPath}+'/'+${goods.goodsMainImgUuid}+'_'+${goods.goodsMainImgName}" alt="상품 메인사진"/>
+                                        </div>
                                         <div class="main-img-title">
                                             <span>상품 메인 사진</span>
                                         </div>
                                     </div>
                                 </li>
                                 <th:block >
-                                    <li class="goods-detail-img-p" th:each="imgs, iterState : ${goods.goodsDetailImgs}">
+                                    <li class="goods-detail-img-p" th:each="imgs, iterState : ${goods.adminGoodsDetailImg}">
                                         <div class="img-title">
+                                            <div class="img-wrap">
                                             <img th:src="'/jpa_dw/goods/'+${imgs.goodsDetailImgPath}+'/'+${imgs.goodsDetailImgUuid}+'_'+${imgs.goodsDetailImgName}" alt="상품 상세사진"/>
+                                            </div>
                                             <div class="detail-img-title">
                                                 <span th:text="'상품 상세 사진 -' + ${iterState.index+1}"></span>
                                             </div>

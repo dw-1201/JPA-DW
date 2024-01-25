@@ -139,14 +139,19 @@
 
 }
 
-
+.img-wrap {
+    width: 246px;
+    height: 350px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 .active-img{
     display: none;
 }
 
 .main-img-title,
 .detail-img-title {
-    padding:0px 5px 5px 5px;
+    padding:10px 5px 5px 5px;
 }
 
 .img-title span {
@@ -177,7 +182,7 @@
         position: relative;
         list-style-type: none;
         width: 220px;
-        height: 350px;
+    min-height: 328px;
         margin: 0.5rem;
         border: 0.0625rem dashed #e1e1e1;
         border-radius: 8px;
