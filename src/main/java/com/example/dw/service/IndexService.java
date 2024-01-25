@@ -4,6 +4,7 @@ import com.example.dw.domain.dto.community.IndexWalkMateDto;
 import com.example.dw.domain.dto.goods.IndexGoodsByCateDto;
 import com.example.dw.domain.dto.index.WeeklyFreeBoardList;
 import com.example.dw.domain.dto.index.WeeklyQnaListDto;
+import com.example.dw.domain.entity.goods.GoodsCategory;
 import com.example.dw.repository.community.WalkingMateRepositoryCustom;
 import com.example.dw.repository.goods.GoodsRepositoryCustom;
 import com.example.dw.repository.goods.ShopRepositoryCustom;
@@ -58,9 +59,9 @@ public class IndexService {
     
     //카테고리별 상품 리스트
     @Transactional
-    public List<IndexGoodsByCateDto> indexGoodsByCategory(String cate){
+    public List<IndexGoodsByCateDto> indexGoodsByCategory(GoodsCategory goodsCategory){
 
-        return goodsRepositoryCustom.indexGoodsListByCategory(cate);
+        return goodsRepositoryCustom.indexGoodsListByCategory(goodsCategory);
     }
 
 }

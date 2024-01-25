@@ -99,7 +99,7 @@
                                         
                                             <div class="review-imgs">
                                                 <div class="review-img"  th:each="reviewImgs, iterState : ${detail.reviewContent.reviewImg}">
-                                                    <img th:src="'/jpa_dw/reviewimg/' + ${reviewImgs.oderReviewImgPath} + '/' + ${reviewImgs.orderReviewImgUuid} +'_'+ ${reviewImgs.orderReviewImgName}" alt="review-img-1">
+                                                    <img th:src="'/jpa_dw/reviewimg/' + ${reviewImgs.orderReviewImgPath} + '/' + ${reviewImgs.orderReviewImgUuid} +'_'+ ${reviewImgs.orderReviewImgName}" alt="review-img-1">
                                                 <span th:text="'리뷰 사진 ' + ${iterState.index+1}"></span>
                                                 </div>
 

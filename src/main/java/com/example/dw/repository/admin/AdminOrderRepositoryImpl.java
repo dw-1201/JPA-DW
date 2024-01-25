@@ -7,6 +7,7 @@ import com.querydsl.core.Tuple;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -37,20 +38,33 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
 
 
     private final JPAQueryFactory jpaQueryFactory;
+    private final EntityManager em;
 
 
 
     @Override
-    public Page<AdminOrderListResultDto> orderList(Pageable pageable, AdminSearchOrderForm adminSearchOrderForm) {
-
-
+    public Page<AdminOrderListResultDto> orderLists(Pageable pageable, AdminSearchOrderForm adminSearchOrderForm) {
         SearchForm searchForm = new SearchForm(adminSearchOrderForm.getCate(), adminSearchOrderForm.getKeyword());
+
+        List<Long> orderListIds = jpaQueryFactory
+                .selectDistinct(orderList.id)
+                .from(orderList)
+                .where(
+                        cateKeywordEq(searchForm),
+                        dateEq(adminSearchOrderForm.getPrev(), adminSearchOrderForm.getNext())
+                )
+
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+                .fetch();
+
+        System.out.println(orderListIds);
 
         List<AdminOrderListDto> list = jpaQueryFactory.select(new QAdminOrderListDto(
                 orderList.id,
                 orders.id,
-                orders.users.id,
-                orders.users.userAccount,
+                users.id,
+                users.userAccount,
                 orders.orderUserAddressNumber,
                 orders.orderAddressNormal,
                 orders.orderAddressDetails,
@@ -62,20 +76,14 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
                 goods.goodsName,
                 orderItem.orderPrice,
                 orderItem.orderQuantity,
-                orderList.orderDate
+                orders.orderRegisterDate
         ))
                 .from(orderList)
                 .leftJoin(orderList.orders, orders)
                 .leftJoin(orders.users, users)
                 .leftJoin(orders.orderItems, orderItem)
                 .leftJoin(orderItem.goods, goods)
-                .where(
-                        cateKeywordEq(searchForm),
-                        dateEq(adminSearchOrderForm.getPrev(), adminSearchOrderForm.getNext())
-
-                )
-                .limit(pageable.getPageSize())
-                .offset(pageable.getOffset())
+                .where(orderList.id.in(orderListIds))
                 .fetch();
 
         Long getTotal = jpaQueryFactory.select(
@@ -85,15 +93,12 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
                 .where(
                         cateKeywordEq(searchForm),
                         dateEq(adminSearchOrderForm.getPrev(), adminSearchOrderForm.getNext())
-
                 )
                 .fetchOne();
 
-
-        return new PageImpl<>(convertOrderList(list),pageable, getTotal);
-
-
+        return new PageImpl<>(convertOrderList(list), pageable, getTotal);
     }
+
     //관리자 페이지 주문 상세
     @Override
     public AdminOrderDetailResultDto orderDetail(Long userId, Long orderId) {
@@ -247,12 +252,14 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
                 .orderBy(orders.count().desc())
                 .fetch();
 
+        System.out.println(most.toString()+"!@#!@#");
+
         return mostAndTotals.stream()
                 .map(tuple -> {
                     // most에서 해당 사용자의 주문 횟수를 가져오기
                     Long totalOrderCount = most.stream()
                             .filter(mostTuple -> mostTuple.get(users.id).equals(tuple.get(users.id)))
-                            //filter()는 원하는거만 뽑아서 필터링 
+                            //filter()는 원하는거만 뽑아서 필터링
                             //즉, most의 유저id값과 mostAndTotals의 유저id의 값이 같은 것만 가져옴
                             .findFirst()
                             .map(mostTuple -> mostTuple.get(orders.count().as("totalOrderCount")
@@ -268,6 +275,7 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
                             )
                     );
                 })
+                .sorted(Comparator.comparing(MostOrderUserDto::getTotalOrderCount, Comparator.reverseOrder()))
                 .collect(Collectors.toList());
     }
 
@@ -303,7 +311,7 @@ public class AdminOrderRepositoryImpl implements AdminOrderRepositoryCustom{
                             ))
                             .collect(Collectors.toList());
 
-
+                    System.out.println(adminOrderItems.toString()+"!@@@@@@@@@@@@@");
 
                     AdminOrderInfo adminOrderInfo = orderListDtos.stream()
                             .findFirst() // 중복되는 주문자 정보가 동일하다면 첫 번째 정보만 가져옴

@@ -1,5 +1,6 @@
-import * as form from './module/form.js'
-
+import * as form from './module/form.js';
+import * as page from './module/pagination.js';
+import * as list from "./module/list.js";
 
 $('.detail-btn').on('click', function(){
 
@@ -84,6 +85,7 @@ function orderList(page, searchForm,callback){
 function showList(result) {
     let text = '';
     let textInputSection = $('.order-list');
+    let paginations = $('.pagination-ul');
 
     result.content.forEach(order => {
 
@@ -135,6 +137,15 @@ function showList(result) {
     });
 
     textInputSection.html(text);
+
+    page.pagination(result, paginations);
+    paginations.find('a').on('click', function (e) {
+        e.preventDefault();
+        const page = parseInt($(this).data('page'));
+        orderList(page, searchForm(), showList)
+    });
+
+
 }
 
 

@@ -1,10 +1,9 @@
 package com.example.dw.repository.goods;
 
 import com.example.dw.domain.dto.admin.*;
-import com.example.dw.domain.dto.admin.goods.AdminGoods;
-import com.example.dw.domain.dto.admin.goods.QAdminGoods;
-import com.example.dw.domain.dto.admin.goods.QAdminGoods_AdminGoodsList;
+import com.example.dw.domain.dto.admin.goods.*;
 import com.example.dw.domain.dto.goods.IndexGoodsByCateDto;
+import com.example.dw.domain.entity.goods.GoodsCategory;
 import com.example.dw.domain.form.SearchForm;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -38,23 +37,28 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
 
     //메인페이지 카테고리별 상품리스트
     @Override
-    public List<IndexGoodsByCateDto> indexGoodsListByCategory(String cate) {
+    public List<IndexGoodsByCateDto> indexGoodsListByCategory(GoodsCategory goodsCategory) {
+
 
 
         List<IndexGoodsByCateDto> list = em.createQuery(
-
                 "select NEW com.example.dw.domain.dto.goods.IndexGoodsByCateDto(" +
                         "g.id, g.goodsName, g.goodsPrice, avg(or.rating), g.goodsCategory, gm.id, gm.goodsMainImgPath, gm.goodsMainImgUuid, gm.goodsMainImgName) FROM Goods g " +
                         "left join GoodsMainImg gm on gm.goods.id=g.id " +
                         "left join OrderItem oi on oi.goods.id=g.id " +
                         "left join OrderReview or on or.orderItem.id=oi.id " +
-                        "group by g.id, g.goodsName, g.goodsPrice, g.goodsCategory, gm.id, gm.goodsMainImgPath, gm.goodsMainImgUuid, gm.goodsMainImgName", IndexGoodsByCateDto.class)
-
+                        "where g.goodsCategory =:goodsCategory " +
+                        "group by g.id, g.goodsName, g.goodsPrice, g.goodsCategory, gm.id, gm.goodsMainImgPath, gm.goodsMainImgUuid, gm.goodsMainImgName " +
+                        "order by g.id desc", IndexGoodsByCateDto.class)
+                .setParameter("goodsCategory", goodsCategory)
+                .setMaxResults(6)  // 최대 6개 결과를 가져오도록 설정
                 .getResultList();
 
 
         return list;
     }
+
+
 
     //관리자 페이지 상품 리스트
     @Override
@@ -193,8 +197,8 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
     
     //상품 상세 - 상품 관련 리뷰
     @Override
-    public Page<AdminGoodsDetailReviewListDto> getReviewList(Long goodsId, Pageable pageable, String state) {
-        List<AdminGoodsDetailReviewListDto> lists = jpaQueryFactory.select(new QAdminGoodsDetailReviewListDto(
+    public Page<AdminGoodsReview.AdminGoodsRelatedReview> getReviewList(Long goodsId, Pageable pageable, String state) {
+        List<AdminGoodsReview.AdminGoodsRelatedReview> lists = jpaQueryFactory.select(new QAdminGoodsReview_AdminGoodsRelatedReview(
                 orderReview.id,
                 orderReview.content,
                 orderReview.rating,
@@ -333,9 +337,13 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
         return StringUtils.hasText(cate) ? goods.goodsCategory.stringValue().eq(cate) : null;
     }
 
+
+
     private BooleanExpression goodsNameEq(String keyword){
         return StringUtils.hasText(keyword) ? goods.goodsName.containsIgnoreCase(keyword) : null;
     }
+
+
 
     //문의상태
     private BooleanExpression qnaStateEq(String qnaState){
