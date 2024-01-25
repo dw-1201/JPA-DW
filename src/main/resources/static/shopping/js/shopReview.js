@@ -27,6 +27,12 @@ function shopDetail(goodsId, callback){
     })
 }
 
+// 날짜 포맷을 변경하는 함수
+function formatDate(dateString) {
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
+    const formattedDate = new Date(dateString).toLocaleString('en-US', options);
+    return formattedDate;
+}
 
 // 상세 페이지
 function shopDetailView(result) {
@@ -61,7 +67,7 @@ function shopDetailView(result) {
                   <p class="reviewWriter">
                     <strong>${r.userAccount}</strong>
                     <span> - </span>
-                    <time>${r.reviewRd}</time>
+                    <time>${formatDate(r.reviewRd)}</time>
                   </p>
 
                   <div class="description">
@@ -88,20 +94,20 @@ function shopDetailView(result) {
               </div>
 
 <!-- 관리자 리뷰 -->
-            
+
+${r.goodsReviewReplyContent !== null ? `
 <div class="admin-review-box">
     <div class="admin-review">
     <div>
     <span>관리자 - </span>
-<span>${r.goodsReviewReplyRD}</span>
+<span>${formatDate(r.goodsReviewReplyRD)}</span>
 <p>${r.goodsReviewReplyContent}</p>
 </div>
 
 </div>
-</div>
+</div>` : ''}
 
 <!-- 관리자 리뷰 끝 -->
-
 
             </div>
           </div>
