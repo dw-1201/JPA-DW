@@ -449,7 +449,7 @@ body,html,input {
 }
 .middle-content{
   padding: 10px;
-  width: 100%;
+  /*width: 100%;*/
   height: 50px;
   /* border: 1px solid rgb(190, 16, 16); */
   border-bottom: 1px solid rgb(194, 194, 194)

@@ -1,6 +1,7 @@
-
 let goodsId = $('#goodsId').val();
 console.log(goodsId)
+let userId = $('#userId').val();
+console.log(userId)
 //문의리스트 가져오기
 function getGoodsQna(goodsId, callback){
 
@@ -26,12 +27,17 @@ function getGoodsQna(goodsId, callback){
 }
 
 
-
 $('.qna-btn').on('click', function (e){
     e.preventDefault();
     getGoodsQna(goodsId, shopDetailView);
 })
 
+// 날짜 포맷을 변경하는 함수
+function formatDate(dateString) {
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
+    const formattedDate = new Date(dateString).toLocaleString('en-US', options);
+    return formattedDate;
+}
 
 // 상세 페이지
 function shopDetailView(result) {
@@ -40,10 +46,11 @@ function shopDetailView(result) {
         text = `
 
           <div class="review-div">
-            <img src="/img/ICON-24px-Search.svg" alt="" class="input-img">
-            <input type="text" placeholder="문의 검색" class="selecReview" maxlength="130">
+<!--            <img src="/img/ICON-24px-Search.svg" alt="" class="input-img">-->
+<!--            <input type="text" placeholder="문의 검색" class="selecReview" maxlength="130">-->
          <form action="/shops/shopQandaWriteModal" method="post" class="writingForm">
-             <button type="button" class="review-button">문의하기</button>
+
+<button type="button" class="review-button">문의하기</button>
 
                  <tbody class="content">
 
@@ -74,14 +81,11 @@ function shopDetailView(result) {
           <div class="comments">
             <div class="commentlist">
                 <div class="comment-text">
-                  <div class="star-div">
-                    <!-- <span>★★★★★</span> -->
-                  </div>
 
                   <p class="reviewWriter">
                     <strong>${r.userAccount}</strong>
                     <span>-</span>
-                    <time>${r.queRegisterDate}</time>
+                    <time>${formatDate(r.queRegisterDate)}</time>
                   </p>
 
                   <div class="description">
@@ -89,16 +93,17 @@ function shopDetailView(result) {
                   </div>
 
               </div>
-            <!-- 관리자 리뷰 -->
+            <!-- 관리자 QandA -->
+            ${r.queReplyContent !== null ? `
             <div class="admin-review-box">
             <div class="admin-review">
               <div>
-                <span>관리자</span>
-                <span>- 2023년 11월 22일</span>
-                <p>소중한 후기 감사합니다~ 견주님과 멍이 맘에 쏙! 들도록 더더욱 연구해서 좋은 제품으로 찾아뵐게요 😀</p>
+                <span>관리자 - </span>
+                <span>${formatDate(r.queReplyRegisterDate)}</span>
+                <p>${r.queReplyContent}</p>
               </div>
 
-            </div>
+            </div>` : ''}
           </div>
             <!-- 관리자 QandA 끝 -->
             </div>
@@ -113,17 +118,24 @@ function shopDetailView(result) {
     });
 
     inputSection.html(text)
-}
 
-$('.shop-form').on('click', '.review-button', function() {
-    // 모달 창에 'show' 클래스를 추가하여 모달을 표시
-    $('.modal').addClass('show');
+}
+// 문의 하기 버튼 클릭시 이벤트
+$('.shop-form').on('click', '.review-button', function () {
+    let userId = $('#userId').val();
+    console.log(userId);
+    console.log("넘어왔나?");
+
+    if (userId !== null && userId !== undefined && userId !== "") {
+        // 모달 창에 'show' 클래스를 추가하여 모달을 표시
+        $('.modal').addClass('show');
+    } else {
+        // userId가 null 또는 빈 문자열이면 로그인 페이지로 이동
+        window.location.href = '/user/enterLogin';
+    }
 });
 
 $(document).ready(function() {
-
-
-
 
         $('.shop-form').on('click', '.modal', function (e){
             let modal = $('.modal');
@@ -170,38 +182,4 @@ $(document).ready(function() {
                 }
             });
         });
-
-
 });
-
-// 수정된 부분
-// document.addEventListener("DOMContentLoaded", function () {
-//     const numberElement = document.getElementById("number"); // 갯수
-//     const priceElement = document.getElementById("price"); // 금액
-//     const increaseButton = document.getElementById("increase"); // 증가
-//     const decreaseButton = document.getElementById("decrease"); // 감소
-//
-//     let quantity = 1;
-//     let unitPrice = parseFloat(priceElement.innerText.replace(" ", "").replace(",", ""));
-//
-//     // 수량과 가격을 계산한 후에 해당 값을 화면에 업데이트
-//     function updatePriceAndQuantity() {
-//         const totalPrice = quantity * unitPrice;
-//         priceElement.innerText = totalPrice.toLocaleString() + " 원";
-//         numberElement.innerText = quantity;
-//     }
-//
-//     // 수량을 증가
-//     increaseButton.onclick = () => {
-//         quantity++;
-//         updatePriceAndQuantity();
-//     };
-//
-//     // 수량을 감소
-//     decreaseButton.onclick = () => {
-//         if (quantity > 1) {
-//             quantity--;
-//             updatePriceAndQuantity();
-//         }
-//     };
-// });
