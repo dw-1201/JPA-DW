@@ -34,7 +34,7 @@ public class GoodsApiController {
     /**
      * 쇼핑 리스트 페이지
      */
-    @GetMapping("/shopList/{page}")
+    @GetMapping("/shop/{page}")
     public Page<GoodsListDto> findShopList(
             @PathVariable("page") int page, SearchForm searchForm){
 
@@ -47,21 +47,57 @@ public class GoodsApiController {
 
         return result;
     }
-
-    /**
-     * 쇼핑 리스트 간식 페이지
-     */
-    @GetMapping("/shopListA/{page}")
+    // 간식 페이지 이동용
+    @GetMapping("/shop-a/{page}")
     public Page<GoodsListDto> findShopAList(
             @PathVariable("page") int page, SearchForm searchForm){
-
-        System.out.println(searchForm.getCate());
-        System.out.println(searchForm.getKeyword());
-
         Pageable pageable = PageRequest.of(page,12);
         Page<GoodsListDto> result = shopRepositoryCustom.findGoodsAList(pageable, searchForm);
+        return result;
+    }
+    // 영양제 페이지 이동용
+    @GetMapping("/shop-b/{page}")
+    public Page<GoodsListDto> findShopBList(
+            @PathVariable("page") int page, SearchForm searchForm){
+        Pageable pageable = PageRequest.of(page,12);
+        Page<GoodsListDto> result = shopRepositoryCustom.findGoodsBList(pageable, searchForm);
         System.out.println("쇼핑 글 개수 : " + result.stream().count());
-
+        return result;
+    }
+    // 위생용품 페이지 이동용
+    @GetMapping("/shop-c/{page}")
+    public Page<GoodsListDto> findShopCList(
+            @PathVariable("page") int page, SearchForm searchForm){
+        Pageable pageable = PageRequest.of(page,12);
+        Page<GoodsListDto> result = shopRepositoryCustom.findGoodsCList(pageable, searchForm);
+        System.out.println("쇼핑 글 개수 : " + result.stream().count());
+        return result;
+    }
+    // 이동장 페이지 이동용
+    @GetMapping("/shop-d/{page}")
+    public Page<GoodsListDto> findShopDList(
+            @PathVariable("page") int page, SearchForm searchForm){
+        Pageable pageable = PageRequest.of(page,12);
+        Page<GoodsListDto> result = shopRepositoryCustom.findGoodsDList(pageable, searchForm);
+        System.out.println("쇼핑 글 개수 : " + result.stream().count());
+        return result;
+    }
+    // 장난감 페이지 이동용
+    @GetMapping("/shop-e/{page}")
+    public Page<GoodsListDto> findShopEList(
+            @PathVariable("page") int page, SearchForm searchForm){
+        Pageable pageable = PageRequest.of(page,12);
+        Page<GoodsListDto> result = shopRepositoryCustom.findGoodsEList(pageable, searchForm);
+        System.out.println("쇼핑 글 개수 : " + result.stream().count());
+        return result;
+    }
+    //산책용품 페이지 이동용
+    @GetMapping("/shop-f/{page}")
+    public Page<GoodsListDto> findShopFList(
+            @PathVariable("page") int page, SearchForm searchForm){
+        Pageable pageable = PageRequest.of(page,12);
+        Page<GoodsListDto> result = shopRepositoryCustom.findGoodsFList(pageable, searchForm);
+        System.out.println("쇼핑 글 개수 : " + result.stream().count());
         return result;
     }
 

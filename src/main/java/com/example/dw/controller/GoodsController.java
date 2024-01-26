@@ -28,31 +28,31 @@ public class GoodsController {
     /**
      * 쇼핑 리스트 페이지
      */
-    @GetMapping("/shopList")
+    @GetMapping("/shop")
     public String shopList(){
         return "/shopping/shop";
     }
-    @GetMapping("/shopList-a")
+    @GetMapping("/shop-a")
     public String shopLista(){
         return "/shopping/shop-a";
     }
-    @GetMapping("/shopList-b")
+    @GetMapping("/shop-b")
     public String shopListb(){
         return "/shopping/shop-b";
     }
-    @GetMapping("/shopList-c")
+    @GetMapping("/shop-c")
     public String shopListc(){
         return "/shopping/shop-c";
     }
-    @GetMapping("/shopList-d")
+    @GetMapping("/shop-d")
     public String shopListd(){
         return "/shopping/shop-d";
     }
-    @GetMapping("/shopList-e")
+    @GetMapping("/shop-e")
     public String shopListe(){
         return "/shopping/shop-e";
     }
-    @GetMapping("/shopList-f")
+    @GetMapping("/shop-f")
     public String shopListf(){
         return "/shopping/shop-f";
     }

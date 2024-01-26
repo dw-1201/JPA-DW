@@ -35,7 +35,7 @@ $(document).ready(function (){
 
 function shopList(page, searchForm){
     $.ajax({
-        url:`/shops/shopList/${page}`,
+        url:`/shops/shop-f/${page}`,
         type:'get',
         data: searchForm,
         dataType:'json',
