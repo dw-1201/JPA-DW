@@ -68,11 +68,11 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
                         users.userAccount,
                         users.userNickName,
                         jpaQueryFactory.select(
+
                                 questionComment.count()
                         )
                                 .from(questionComment)
-                                .leftJoin(questionComment.question, question)
-                                .where(questionComment.question.id.eq(question.id))
+                                .where(questionComment.question.eq(question))
 
                         ,
                         userFile.id.coalesce(0L),
@@ -115,7 +115,7 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
                         tuple.get(users.id),
                         tuple.get(users.userAccount),
                         tuple.get(users.userNickName),
-                        tuple.get(questionComment.count()),
+                        tuple.get(8,Long.class),
                         tuple.get(userFile.id),
                         tuple.get(userFile.route),
                         tuple.get(userFile.name),
@@ -240,10 +240,12 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
                         users.userAccount,
                         users.userNickName,
                         jpaQueryFactory.select(
+
                                 questionComment.count()
                         )
                                 .from(questionComment)
-                                .leftJoin(questionComment.question, question)
+                                .where(questionComment.question.eq(question))
+
                         ,
                         userFile.id.coalesce(0L),
                         userFile.route.coalesce("0"),
@@ -265,12 +267,13 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
                 )
                 .fetch();
 
+        contents.forEach(r-> System.out.println(r.toString()+" 입니다."));
         List<QuestionListDto> result = new ArrayList<>();
-        System.out.println(contents.toString());
+
 
         for(Tuple tuple : contents){
             Long queId = tuple.get(question.id);
-            System.out.println(queId+"조건 번호");
+//            System.out.println(queId+"조건 번호");
             if(!result.stream().anyMatch(
                     dto -> dto.getId().equals(queId))){
 
@@ -283,7 +286,7 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
                         tuple.get(users.id),
                         tuple.get(users.userAccount),
                         tuple.get(users.userNickName),
-                        tuple.get(questionComment.count()),
+                        tuple.get(8, Long.class),
                         tuple.get(userFile.id),
                         tuple.get(userFile.route),
                         tuple.get(userFile.name),
@@ -294,11 +297,12 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
                         tuple.get(questionImg.questionImgName)
                 );
                 result.add(questionListDto);
+                System.out.println(questionListDto.getCommentCount()+"댓글수 입니다.");
             }
 
         }
 
-        System.out.println(result+"@@@@@@@@@@@@@");
+//        System.out.println(result+"@@@@@@@@@@@@@");
 
         return new PageImpl<>(result, pageable, count);
 
