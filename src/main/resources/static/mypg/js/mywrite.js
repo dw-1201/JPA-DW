@@ -48,12 +48,12 @@ function showUserQnAList(result) {
             text +=`<div class="list-content-etc">
                            <div class="list-content-id">
                             `;
-            if(r.userFileId == null){
+            if(r.userFileId == 0){
                 text += `
                   <div class="list-content-id-img"><img src="/mypg/img/b556fdf429d8de25c3acf62f8186ddb9.png" alt=""></div>
                                     `;
 
-            }else if(r.userFileId != null){
+            }else if(r.userFileId != 0){
 
                     text += `
                     <div class="list-content-id-img"><img src="/mypgs/userImg?fileFullPath=${r.route + '/' + r.uuid + '_' + r.name}"  alt=""></div>

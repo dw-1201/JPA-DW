@@ -93,13 +93,13 @@ function showQnaBoardList(result) {
                         `;
 
 
-        if(r.userFileId == null){
+        if(r.userFileId == 0){
             console.log("여기다");
             text +=`   <div class="list-content-id-img">
                                          <img src= "/img/dogImg.jpg" alt="">
                                             </div>
                                      `;
-        }else if(r.userFileId != null){
+        }else if(r.userFileId != 0){
 
             text +=`   <div class="list-content-id-img">
                                                 <img src= "/qnar/qnaUserImg?userImgPath=${r.route + '/' + r.uuid + '_' + r.name}" alt="">

@@ -115,11 +115,11 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
                         tuple.get(users.id),
                         tuple.get(users.userAccount),
                         tuple.get(users.userNickName),
-                        tuple.get(8,Long.class),
-                        tuple.get(userFile.id),
-                        tuple.get(userFile.route),
-                        tuple.get(userFile.name),
-                        tuple.get(userFile.uuid),
+                        tuple.get(8, Long.class),
+                        tuple.get(9,Long.class),
+                        tuple.get(10,String.class),
+                        tuple.get(11,String.class),
+                        tuple.get(12,String.class),
                         tuple.get(questionImg.id),
                         tuple.get(questionImg.questionImgRoute),
                         tuple.get(questionImg.questionImgUuid),
@@ -287,10 +287,10 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
                         tuple.get(users.userAccount),
                         tuple.get(users.userNickName),
                         tuple.get(8, Long.class),
-                        tuple.get(userFile.id),
-                        tuple.get(userFile.route),
-                        tuple.get(userFile.name),
-                        tuple.get(userFile.uuid),
+                        tuple.get(9,Long.class),
+                        tuple.get(10,String.class),
+                        tuple.get(11,String.class),
+                        tuple.get(12,String.class),
                         tuple.get(questionImg.id),
                         tuple.get(questionImg.questionImgRoute),
                         tuple.get(questionImg.questionImgUuid),
@@ -298,6 +298,8 @@ public class QuestionRepositoryImpl implements QuestionRepositoryCustom {
                 );
                 result.add(questionListDto);
                 System.out.println(questionListDto.getCommentCount()+"댓글수 입니다.");
+                System.out.println(questionListDto.getUserFileId()+"유저 파일 아이디 입니다.");
+                System.out.println(questionListDto.getRoute());
             }
 
         }
