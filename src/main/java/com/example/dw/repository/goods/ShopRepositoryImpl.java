@@ -1,6 +1,7 @@
 package com.example.dw.repository.goods;
 
 import com.example.dw.domain.dto.goods.*;
+import com.example.dw.domain.entity.goods.GoodsCategory;
 import com.example.dw.domain.form.SearchForm;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -40,20 +41,20 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
     private final EntityManager em;
 
     //쇼핑 카테고리별 리스트
-    @Override
-    public List<GoodsByCateDto> shopListByCategory(String cate) {
-
-        List<GoodsByCateDto> list = em.createQuery(
-                "select NEW com.example.dw.domain.dto.goods.GoodsByCateDto(" +
-                        "g.id, g.goodsName, g.goodsQuantity, g.goodsPrice, g.goodsMade, g.goodsRegisterDate, g.goodsModifyDate, g.goodsCategory, gm.id, gm.goodsMainImgName, gm.goodsMainImgPath, gm.goodsMainImgUuid) " +
-                        "FROM Goods g " +
-                        "left join GoodsMainImg gm on gm.goods.id = g.id " +
-                        "group by g.id, g.goodsName, g.goodsPrice, g.goodsCategory, gm.id, gm.goodsMainImgPath, gm.goodsMainImgUuid, gm.goodsMainImgName", GoodsByCateDto.class)
-
-                .getResultList();
-
-        return list;
-    }
+//    @Override
+//    public List<GoodsByCateDto> shopListByCategory(String cate) {
+//
+//        List<GoodsByCateDto> list = em.createQuery(
+//                "select NEW com.example.dw.domain.dto.goods.GoodsByCateDto(" +
+//                        "g.id, g.goodsName, g.goodsQuantity, g.goodsPrice, g.goodsMade, g.goodsRegisterDate, g.goodsModifyDate, g.goodsCategory, gm.id, gm.goodsMainImgName, gm.goodsMainImgPath, gm.goodsMainImgUuid) " +
+//                        "FROM Goods g " +
+//                        "left join GoodsMainImg gm on gm.goods.id = g.id " +
+//                        "group by g.id, g.goodsName, g.goodsPrice, g.goodsCategory, gm.id, gm.goodsMainImgPath, gm.goodsMainImgUuid, gm.goodsMainImgName", GoodsByCateDto.class)
+//
+//                .getResultList();
+//
+//        return list;
+//    }
 
     @Override
     public List<GoodsDetailImgDto> findGoodsDetailImg(Long goodsId) {
@@ -217,7 +218,44 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
         return new PageImpl<>(contents, pageable,count);
     }
 
+    //쇼핑 상품 리스트 조회
+    @Override
+    public Page<GoodsListDto> findGoodsAList(Pageable pageable, SearchForm searchForm) {
+        //검색
+        BooleanExpression keywordTitle = goodsNameEq(searchForm.getKeyword());
+        System.out.println(getDynamicSoft(searchForm)+"조회!!");
+        BooleanExpression categorySnack = goods.goodsCategory.eq(GoodsCategory.간식);
 
+        List<GoodsListDto> contents = jpaQueryFactory
+                .select(new QGoodsListDto(
+                        goods.id,
+                        goods.goodsName,
+                        goods.goodsQuantity,
+                        goods.goodsPrice,
+                        goods.goodsMade,
+                        goods.goodsRegisterDate,
+                        goods.goodsModifyDate,
+                        goods.goodsCategory.stringValue(),
+                        goodsMainImg.id,
+                        goodsMainImg.goodsMainImgName,
+                        goodsMainImg.goodsMainImgPath,
+                        goodsMainImg.goodsMainImgUuid
+                ))
+                .from(goods)
+                .leftJoin(goods.goodsMainImg, goodsMainImg)
+                .where(keywordTitle.and(categorySnack))
+                .orderBy(getDynamicSoft(searchForm))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        //페이징을 위한 전체 데이터 수 조회
+        Long count = getCount(searchForm.getKeyword());
+
+        System.out.println(contents.toString()+"리스트");
+
+        return new PageImpl<>(contents, pageable,count);
+    }
 
 
     //쇼핑 상품 상세 조회

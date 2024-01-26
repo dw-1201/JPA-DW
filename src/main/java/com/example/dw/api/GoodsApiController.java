@@ -49,6 +49,23 @@ public class GoodsApiController {
     }
 
     /**
+     * 쇼핑 리스트 간식 페이지
+     */
+    @GetMapping("/shopListA/{page}")
+    public Page<GoodsListDto> findShopAList(
+            @PathVariable("page") int page, SearchForm searchForm){
+
+        System.out.println(searchForm.getCate());
+        System.out.println(searchForm.getKeyword());
+
+        Pageable pageable = PageRequest.of(page,12);
+        Page<GoodsListDto> result = shopRepositoryCustom.findGoodsAList(pageable, searchForm);
+        System.out.println("쇼핑 글 개수 : " + result.stream().count());
+
+        return result;
+    }
+
+    /**
      * 쇼핑 설명 페이지(이미지)
      * @return
      */

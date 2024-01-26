@@ -10,7 +10,10 @@ import java.util.Optional;
 
 public interface ShopRepositoryCustom {
 
+    // 쇼핑 페이지 전체 리스트, 페이징, 검색
     Page<GoodsListDto> findGoodsListAll(Pageable pageable, SearchForm searchForm);
+
+    Page<GoodsListDto> findGoodsAList(Pageable pageable, SearchForm searchForm);
 
     Optional<GoodsDetailDto> findGoodsById(Long id);
 
@@ -28,14 +31,8 @@ public interface ShopRepositoryCustom {
 
     List<GoodsCartItemDto> findGoodsCartItemById(Long cartId, Long userId);
 
-    //쇼핑 카테고리별 리스트
-    List<GoodsByCateDto> shopListByCategory(String cate);
-
-
-
-
-
-
+    //쇼핑 카테고리별 리스트 ( 일딴
+//    List<GoodsByCateDto> shopListByCategory(String cate);
 
 
 
