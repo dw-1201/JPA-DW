@@ -81,9 +81,15 @@ function shopDetailView(result) {
           <div class="comments">
             <div class="commentlist">
                 <div class="comment-text">
-
                   <p class="reviewWriter">
-                    <strong>${r.userAccount}</strong>
+                  `;
+        //사용자 닉네임 처리
+        if(r.userNickName ==null){
+            text+=`<span class="userName">${r.userAccount}</span>`;
+        }else if(r.userNickName != null){
+            text+=`<span class="userName">${r.userNickName}</span>`;
+        }
+        text +=`
                     <span>-</span>
                     <time>${formatDate(r.queRegisterDate)}</time>
                   </p>
@@ -143,43 +149,38 @@ $(document).ready(function() {
                 modal.removeClass("show");
             }
         })
-        // 모달 바깥을 클릭하면 모달 창 닫기
-        // modal.on("click", function(e) {
-        //
-        // });
 
-        // 모달 안의 등록 버튼 클릭 시 모달 창 닫기 및 폼 전송
-
+    // 모달 안의 등록 버튼 클릭 시 모달 창 닫기 및 폼 전송
     $('.shop-form').on("click", '.review-submit',function(e) {
 
         let modal = $('.modal');
         let id =$('#goodsId').val()
         let modalTextarea = $(".modal_textarea").val();
-        console.log(modalTextarea)
+
+        if (modalTextarea !== null && modalTextarea !== undefined && modalTextarea !== "") {
+
+            console.log(modalTextarea)
             e.preventDefault();
             modal.removeClass("show");
 
             console.log(id)
-            // 비동기 통신으로 서버에 데이터 전송 및 처리
             $.ajax({
                 url: '/shops/shopQandaWriteModal',
                 type: 'post',
                 data: {
-                    // 여기에 필요한 데이터를 추가 (예: goodsQandaWritingForm의 필드들)
                     queContent: modalTextarea,
                     goodsId: id,
-                    // 필요한 다른 데이터도 추가
                 },
                 success: function (result) {
                     console.log(result);
                     getGoodsQna(goodsId, shopDetailView);
-
-                    // 성공적으로 처리된 경우 추가적인 동작을 수행
                 },
                 error: function (error) {
                     console.error(error);
-                    // 에러 처리 로직을 추가
                 }
             });
-        });
+        }else{
+            alert("내용을 입력해 주세요!")
+        }
+    });
 });

@@ -47,8 +47,11 @@
                         </div>
                         <div class="info">
                             <div class="info-id">
-                                <div class="info-img"><img src="/img/dogImg02.jpg" alt=""></div>
-                                <div th:text="${freeBoard.userAccount}"></div>
+                                <div class="info-img" th:if="freeBoard.userFileId == 0"><img src="/img/dogImg02.jpg" alt=""></div>
+                                <div class="info-img" th:if="freeBoard.userFileId != 0"><img th:src="'/jpa_dw/userfile/'+${freeBoard.route}+'/'+${freeBoard.uuid}+'_'+${freeBoard.name}" alt=""></div>
+
+                                <div th:if="${freeBoard.userNickName == null}" th:text="${freeBoard.userAccount}"></div>
+                                <div th:if="${freeBoard.userNickName != null}" th:text="${freeBoard.userNickName}"></div>
                             </div>
                             <div class="info-date">
                                 <div class="text-date" th:if="${freeBoard.freeBoardMd ne null}" th:text="${freeBoard.freeBoardMd}"></div>
@@ -63,16 +66,7 @@
                     </div>
                 </div>
                 <div class="btn-box">
-<!--                    좋아요, 싫어요 버튼 주석 -->
                     <div class="like-box">
-<!--                        <div class="like-btns" id="like">-->
-<!--                            <div class="like-btn-imgs"><img src="/img/like.png" alt=""></div>-->
-<!--                            <div class="likes" name="freeBoardLike" >5</div>-->
-<!--                        </div>-->
-<!--                        <div class="like-btns" id="dislike">-->
-<!--                            <div class="like-btn-imgs"><img src="/img/dislike.png" alt=""></div>-->
-<!--                            <div class="likes" name="freeBoardLike">0</div>-->
-<!--                        </div>-->
                     </div>
                     <div class="btns-box">
 

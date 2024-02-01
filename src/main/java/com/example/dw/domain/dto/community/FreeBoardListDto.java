@@ -24,7 +24,11 @@ public class FreeBoardListDto {
     private Long userId;
     private String userAccount;
     private String userNickName;
-
+    //유저 간판 이미지
+    private Long userFileId;
+    private String route;
+    private String name;
+    private String uuid;
     //댓글수
     private Long commentCount;
 
@@ -32,7 +36,7 @@ public class FreeBoardListDto {
     List<FreeBoardImgDto> freeBoardImgDtoList;
 
     @QueryProjection
-    public FreeBoardListDto(Long id, String freeBoardTitle, String freeBoardContent, LocalDateTime freeBoardRd, LocalDateTime freeBoardMd, Long freeBoardViewCount, Long userId, String userAccount, String userNickName, Long commentCount, List<FreeBoardImgDto> freeBoardImgDtoList) {
+    public FreeBoardListDto(Long id, String freeBoardTitle, String freeBoardContent, LocalDateTime freeBoardRd, LocalDateTime freeBoardMd, Long freeBoardViewCount, Long userId, String userAccount, String userNickName, Long userFileId, String route, String name, String uuid, Long commentCount, List<FreeBoardImgDto> freeBoardImgDtoList) {
         this.id = id;
         this.freeBoardTitle = freeBoardTitle;
         this.freeBoardContent = freeBoardContent;
@@ -42,8 +46,11 @@ public class FreeBoardListDto {
         this.userId = userId;
         this.userAccount = userAccount;
         this.userNickName = userNickName;
+        this.userFileId = userFileId;
+        this.route = route;
+        this.name = name;
+        this.uuid = uuid;
         this.commentCount = commentCount;
         this.freeBoardImgDtoList = freeBoardImgDtoList;
     }
-
 }

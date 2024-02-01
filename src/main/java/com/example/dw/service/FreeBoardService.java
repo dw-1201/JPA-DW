@@ -5,6 +5,9 @@ import com.example.dw.domain.form.FreeBoardWritingForm;
 import com.example.dw.repository.freeBoard.FreeBoardCommentRepository;
 import com.example.dw.repository.freeBoard.FreeBoardRepository;
 import com.example.dw.repository.user.UsersRepository;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +30,8 @@ public class FreeBoardService {
     private final HttpSession httpSession;
     private final FileService fileService;
     private final FreeBoardCommentRepository freeBoardCommentRepository;
+
+    private final static String VIEWCOOKIENAME = "alreadyViewCookie";
 
     //글쓰기
     @Transactional
@@ -65,13 +72,47 @@ public class FreeBoardService {
 
     //자유게시판 조회수
     @Transactional
-    public void increaseViewCount(Long freeBoarId){
-        freeBoardRepository.increaseViewCount(freeBoarId);
+    public int increaseViewCount(Long freeBoarId, HttpServletRequest request, HttpServletResponse response){
+
+        Cookie[] cookies = request.getCookies();
+        boolean checkCookie = false;
+        int result = 0;
+        if(cookies != null){
+            for (Cookie cookie : cookies)
+            {
+                // 이미 조회를 한 경우 체크
+                if (cookie.getName().equals(VIEWCOOKIENAME+freeBoarId)) checkCookie = true;
+            }
+            if(!checkCookie){
+                Cookie newCookie = createCookieForForNotOverlap(freeBoarId);
+                response.addCookie(newCookie);
+                result = freeBoardRepository.increaseViewCount(freeBoarId);
+            }
+        } else {
+            Cookie newCookie = createCookieForForNotOverlap(freeBoarId);
+            response.addCookie(newCookie);
+            result = freeBoardRepository.increaseViewCount(freeBoarId);
+        }
+        return result;
     }
 
-    // 게시물의 댓글 수 조회
-//    public Long countCommentsByFreeBoardId(Long freeBoardId) {
-//        return freeBoardCommentRepository.countCommentsByFreeBoardId(freeBoardId);
-//    }
+    /*
+     * 조회수 중복 방지를 위한 쿠키 생성 메소드
+     * @param cookie
+     * @return
+     * */
+    private Cookie createCookieForForNotOverlap(Long postId) {
+        Cookie cookie = new Cookie(VIEWCOOKIENAME+postId, String.valueOf(postId));
+        cookie.setComment("조회수 중복 증가 방지 쿠키");	// 쿠키 용도 설명 기재
+        cookie.setMaxAge(getRemainSecondForTommorow()); 	// 하루를 준다.
+        cookie.setHttpOnly(true);				// 서버에서만 조작 가능
+        return cookie;
+    }
 
+    // 다음 날 정각까지 남은 시간(초)
+    private int getRemainSecondForTommorow() {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime tommorow = LocalDateTime.now().plusDays(1L).truncatedTo(ChronoUnit.DAYS);
+        return (int) now.until(tommorow, ChronoUnit.SECONDS);
+    }
 }

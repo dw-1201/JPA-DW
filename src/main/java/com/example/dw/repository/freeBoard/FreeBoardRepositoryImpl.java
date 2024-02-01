@@ -40,13 +40,15 @@ public class FreeBoardRepositoryImpl implements FreeBoardRepositoryCustom{
 
         List<FreeBoardResultDetailDto> result = list.stream().collect(groupingBy(r -> new FreeBoardResultDetailDto(
                         r.getId(),r.getFreeBoardTitle(),r.getFreeBoardContent(),r.getFreeBoardRd(),r.getFreeBoardMd(),
-                        r.getFreeBoardViewCount(),r.getUserId(),r.getUserAccount(),r.getUserNickName()),
+                        r.getFreeBoardViewCount(),r.getUserId(),r.getUserAccount(),r.getUserNickName(),r.getUserFileId(),
+                        r.getRoute(),r.getName(),r.getUuid()),
                 Collectors.mapping(r -> new FreeBoardImgDto(r.getFreeBoardImgId(),r.getFreeBoardImgRoute(),r.getFreeBoardImgName(),
                         r.getFreeBoardImgUuid(),r.getId()),toList())
         )).entrySet().stream().map(s -> new FreeBoardResultDetailDto(
                 s.getKey().getId(), s.getKey().getFreeBoardTitle(),s.getKey().getFreeBoardContent(),
                 s.getKey().getFreeBoardRd(), s.getKey().getFreeBoardMd(), s.getKey().getUserId(),
                 s.getKey().getFreeBoardViewCount(), s.getKey().getUserAccount(),s.getKey().getUserNickName(),
+                s.getKey().getUserFileId(),s.getKey().getRoute(),s.getKey().getName(),s.getKey().getUuid(),
                 s.getValue()))
                 .collect(Collectors.toList());
 
@@ -73,11 +75,16 @@ public class FreeBoardRepositoryImpl implements FreeBoardRepositoryCustom{
                         freeBoardImg.freeBoardImgUuid,
                         freeBoard.users.id,
                         freeBoard.users.userAccount,
-                        freeBoard.users.userNickName
+                        freeBoard.users.userNickName,
+                        userFile.id.coalesce(0L),
+                        userFile.route.coalesce("0"),
+                        userFile.name.coalesce("0"),
+                        userFile.uuid.coalesce("0")
                 ))
                 .from(freeBoard)
                 .leftJoin(freeBoardImg).on(freeBoard.id.eq(freeBoardImg.freeBoard.id))
                 .leftJoin(freeBoard.users).on(freeBoard.users.id.eq(users.id))
+                .leftJoin(users.userFile,userFile)
                 .where(freeBoard.id.eq(id))
                 .fetch();
 
@@ -141,10 +148,15 @@ public class FreeBoardRepositoryImpl implements FreeBoardRepositoryCustom{
                         freeBoard.freeBoardCommentCount,
                         freeBoard.users.id,
                         freeBoard.users.userAccount,
-                        freeBoard.users.userNickName
+                        freeBoard.users.userNickName,
+                        userFile.id.coalesce(0L),
+                        userFile.route.coalesce("0"),
+                        userFile.name.coalesce("0"),
+                        userFile.uuid.coalesce("0")
                 ))
                 .from(freeBoard)
                 .where(keywordTitle)
+                .leftJoin(users.userFile,userFile)
 //                .orderBy(freeBoard.id.desc())
                 .orderBy(getDynamicSoft(searchForm))
                 .offset(pageable.getOffset())
@@ -196,10 +208,13 @@ public class FreeBoardRepositoryImpl implements FreeBoardRepositoryCustom{
                     freeBoardDto.getFreeBoardRd(),
                     freeBoardDto.getFreeBoardMd(),
                     freeBoardDto.getFreeBoardViewCount(),
-//                    freeBoardDto.getFreeBoardCommentCount(),
                     freeBoardDto.getUserId(),
                     freeBoardDto.getUserAccount(),
                     freeBoardDto.getUserNickName(),
+                    freeBoardDto.getUserFileId(),
+                    freeBoardDto.getRoute(),
+                    freeBoardDto.getName(),
+                    freeBoardDto.getUuid(),
                     commentCount,
                     fimgDto
             );
@@ -258,9 +273,14 @@ public class FreeBoardRepositoryImpl implements FreeBoardRepositoryCustom{
                         freeBoard.freeBoardCommentCount,
                         freeBoard.users.id,
                         freeBoard.users.userAccount,
-                        freeBoard.users.userNickName
+                        freeBoard.users.userNickName,
+                        userFile.id.coalesce(0L),
+                        userFile.route.coalesce("0"),
+                        userFile.name.coalesce("0"),
+                        userFile.uuid.coalesce("0")
                 ))
                 .from(freeBoard)
+                .leftJoin(users.userFile,userFile)
                 .orderBy(freeBoard.freeBoardViewCount.desc())
                 .limit(3)
                 .fetch();

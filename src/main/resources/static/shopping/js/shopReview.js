@@ -65,7 +65,14 @@ function shopDetailView(result) {
                   </div>
                   
                   <p class="reviewWriter">
-                    <strong>${r.userAccount}</strong>
+                  `;
+        //사용자 닉네임 처리
+        if(r.userNickName ==null){
+            text+=`<span class="userName">${r.userAccount}</span>`;
+        }else if(r.userNickName != null){
+            text+=`<span class="userName">${r.userNickName}</span>`;
+        }
+        text +=`
                     <span> - </span>
                     <time>${formatDate(r.reviewRd)}</time>
                   </p>

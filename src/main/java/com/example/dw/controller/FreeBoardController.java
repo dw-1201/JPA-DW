@@ -6,6 +6,8 @@ import com.example.dw.repository.freeBoard.FreeBoardRepositoryCustom;
 import com.example.dw.service.FileService;
 import com.example.dw.service.FreeBoardCommentService;
 import com.example.dw.service.FreeBoardService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -70,12 +72,14 @@ public class FreeBoardController {
      * @return
      */
     @GetMapping("/freeBoardDetail/{freeBoardId}")
-    public String freeBoardDetail(@PathVariable("freeBoardId") Long freeBoardId, Model model){
+    public String freeBoardDetail(@PathVariable("freeBoardId") Long freeBoardId, Model model,
+                                  HttpServletRequest request,
+                                  HttpServletResponse response){
         List<FreeBoardResultDetailDto> result =
                 freeBoardRepositoryCustom.findFreeBoardById(freeBoardId);
 
         // 조회수 증가
-        freeBoardService.increaseViewCount(freeBoardId);
+        freeBoardService.increaseViewCount(freeBoardId,request,response);
 
         System.out.println("[자유게시판 상세 페이지] : "+result.toString());
 
