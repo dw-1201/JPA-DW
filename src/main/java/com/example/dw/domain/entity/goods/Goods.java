@@ -1,5 +1,6 @@
 package com.example.dw.domain.entity.goods;
 
+import com.example.dw.domain.entity.order.OrderItem;
 import com.example.dw.domain.form.GoodsForm;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -53,6 +54,9 @@ public class Goods {
     @OneToMany(mappedBy = "goods", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<CartItem> cartItem = new ArrayList<>();
 
+    @OneToMany(mappedBy = "goods", fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<OrderItem> orderItem = new ArrayList<>();
+
     @Builder.Default
     private int saleCount=0;
 
@@ -63,9 +67,8 @@ public class Goods {
         this.goodsPrice=goodsPrice;
         this.goodsCategory=goodsCategory;
     }
-
     @Builder
-    public Goods(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, LocalDateTime goodsRegisterDate, LocalDateTime goodsModifyDate, GoodsCategory goodsCategory, List<GoodsMainImg> goodsMainImg, List<GoodsDetailImg> goodsDetailImg, List<GoodsQue> goodsQues, List<CartItem> cartItem, int saleCount) {
+    public Goods(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, String goodsCertify, String goodsDetailContent, LocalDateTime goodsRegisterDate, LocalDateTime goodsModifyDate, GoodsCategory goodsCategory, List<GoodsMainImg> goodsMainImg, List<GoodsDetailImg> goodsDetailImg, List<GoodsQue> goodsQues, List<CartItem> cartItem, List<OrderItem> orderItem, int saleCount) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;
@@ -80,6 +83,7 @@ public class Goods {
         this.goodsDetailImg = goodsDetailImg;
         this.goodsQues = goodsQues;
         this.cartItem = cartItem;
+        this.orderItem = orderItem;
         this.saleCount = saleCount;
     }
 

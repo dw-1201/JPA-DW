@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Optional;
 
@@ -28,31 +29,31 @@ public class GoodsController {
     /**
      * 쇼핑 리스트 페이지
      */
-    @GetMapping("/shopList")
+    @GetMapping("/shop")
     public String shopList(){
         return "/shopping/shop";
     }
-    @GetMapping("/shopList-a")
+    @GetMapping("/shop-a")
     public String shopLista(){
         return "/shopping/shop-a";
     }
-    @GetMapping("/shopList-b")
+    @GetMapping("/shop-b")
     public String shopListb(){
         return "/shopping/shop-b";
     }
-    @GetMapping("/shopList-c")
+    @GetMapping("/shop-c")
     public String shopListc(){
         return "/shopping/shop-c";
     }
-    @GetMapping("/shopList-d")
+    @GetMapping("/shop-d")
     public String shopListd(){
         return "/shopping/shop-d";
     }
-    @GetMapping("/shopList-e")
+    @GetMapping("/shop-e")
     public String shopListe(){
         return "/shopping/shop-e";
     }
-    @GetMapping("/shopList-f")
+    @GetMapping("/shop-f")
     public String shopListf(){
         return "/shopping/shop-f";
     }
@@ -61,33 +62,15 @@ public class GoodsController {
      */
     @GetMapping("/shopDetail/{id}")
     public String shopDetail(@PathVariable("id") Long id, Model model, HttpSession session){
-
      Optional<GoodsDetailDto> detail =  goodsService.goodsDetail(id);
-
      detail.ifPresent(details -> model.addAttribute("detail", details));
-
-
-
      //최근 본 상품
         RecentViewGoods recentViewGoods = new RecentViewGoods();
         recentViewGoods.productClicked(detail.get(),session);
-
-
-
         System.out.println(detail.toString());
 
      return "/shopping/shopDetail";
     }
-
-    /**
-     * 쇼핑 리뷰 페이지
-     */
-//    @GetMapping("/shopReview/{id}")
-//    public String shopReview(@PathVariable("id") Long id, Model model){
-//        model.addAttribute("id", id);
-//        return "/shopping/shopReview";
-//    }
-
     /**
      * 쇼핑 카트 페이지
      */
@@ -95,19 +78,16 @@ public class GoodsController {
     public String shopCart() {
             return "/shopping/shopCart";
         }
-
     /**
      * 쇼핑 결제 페이지
      */
     @GetMapping("/shopPay/{userId}")
     public String shopPay(){
-
         return "/shopping/shopPay";
     }
+    //단건 결제 페이지
     @GetMapping("/shopSinglePay/{userId}")
     public String shopSinglePay(){
-
         return "/shopping/shopSinglePay";
     }
-
 }

@@ -127,14 +127,7 @@ public class AdminGoods extends AdminGoodsStan {
             this.adminGoodsDetailImg = adminGoodsDetailImg;
             return this;
         }
-
     }
-
-
-
-
-
-
 }
 
 

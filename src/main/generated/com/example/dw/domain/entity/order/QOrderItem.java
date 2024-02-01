@@ -30,6 +30,8 @@ public class QOrderItem extends EntityPathBase<OrderItem> {
 
     public final NumberPath<Integer> orderQuantity = createNumber("orderQuantity", Integer.class);
 
+    public final QOrderReview orderReview;
+
     public final QOrders orders;
 
     public final NumberPath<Long> state = createNumber("state", Long.class);
@@ -53,6 +55,7 @@ public class QOrderItem extends EntityPathBase<OrderItem> {
     public QOrderItem(Class<? extends OrderItem> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.goods = inits.isInitialized("goods") ? new com.example.dw.domain.entity.goods.QGoods(forProperty("goods")) : null;
+        this.orderReview = inits.isInitialized("orderReview") ? new QOrderReview(forProperty("orderReview"), inits.get("orderReview")) : null;
         this.orders = inits.isInitialized("orders") ? new QOrders(forProperty("orders"), inits.get("orders")) : null;
     }
 

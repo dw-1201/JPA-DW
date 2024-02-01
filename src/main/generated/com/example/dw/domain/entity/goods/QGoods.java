@@ -48,6 +48,8 @@ public class QGoods extends EntityPathBase<Goods> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final ListPath<com.example.dw.domain.entity.order.OrderItem, com.example.dw.domain.entity.order.QOrderItem> orderItem = this.<com.example.dw.domain.entity.order.OrderItem, com.example.dw.domain.entity.order.QOrderItem>createList("orderItem", com.example.dw.domain.entity.order.OrderItem.class, com.example.dw.domain.entity.order.QOrderItem.class, PathInits.DIRECT2);
+
     public final NumberPath<Integer> saleCount = createNumber("saleCount", Integer.class);
 
     public QGoods(String variable) {

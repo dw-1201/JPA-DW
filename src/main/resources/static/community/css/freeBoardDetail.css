@@ -315,7 +315,7 @@ main{
     width: 60px;
     height: 30px;
 
-    display: flex;
+    /*display: flex;*/
     justify-content: center;
     align-items: center;
 

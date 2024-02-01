@@ -73,25 +73,21 @@ function shopDetailView(result) {
                   <div class="description">
                   <p>${r.content}</p>
                   </div>
-
-                <div class="reviewImg">
-<!--                  <div class="imgbox">-->
-<!--                    <a href="/img/reviewImg01.jpg">-->
-<!--                      <img src="/img/reviewImg01.jpg" alt="" class="imgs">-->
-<!--                    </a>-->
-<!--                  </div>-->
-<!--                  <div class="imgbox">-->
-<!--                    <a href="/img/reviewImg02.jpg">-->
-<!--                      <img src="/img/reviewImg02.jpg" alt="" class="imgs">-->
-<!--                    </a>-->
-<!--                  </div>-->
-<!--                  <div class="imgbox">-->
-<!--                    <a href="/img/reviewImg03.jpg">-->
-<!--                      <img src="/img/reviewImg03.jpg" alt="" class="imgs">-->
-<!--                    </a>-->
-<!--                  </div>-->
+                
+                  <div class="reviewImg">
+                  `;
+                r.goodsReviewImgDtos.forEach(e => {
+                text += `
+                <div class="imgbox">
+                    <img src="/mypgs/reviews?fileFullPath=${e.reviewimgPath + '/' + e.reviewimgUuid + '_' + e.reviewimgFileName}" alt="" class="imgs" >
                 </div>
+                `;
+                });
+            text += `
+                  </div>
+                 
               </div>
+
 
 <!-- 관리자 리뷰 -->
 
@@ -122,57 +118,3 @@ ${r.goodsReviewReplyContent !== null ? `
 
     inputSection.html(text)
 }
-
-// 수정된 부분
-// document.addEventListener("DOMContentLoaded", function () {
-//     const numberElement = document.getElementById("number"); // 갯수
-//     const priceElement = document.getElementById("price"); // 금액
-//     const increaseButton = document.getElementById("increase"); // 증가
-//     const decreaseButton = document.getElementById("decrease"); // 감소
-//
-//     let quantity = 1;
-//     let unitPrice = parseFloat(priceElement.innerText.replace(" ", "").replace(",", ""));
-//
-//     // 수량과 가격을 계산한 후에 해당 값을 화면에 업데이트
-//     function updatePriceAndQuantity() {
-//         const totalPrice = quantity * unitPrice;
-//         priceElement.innerText = totalPrice.toLocaleString() + " 원";
-//         numberElement.innerText = quantity;
-//     }
-//
-//     // 수량을 증가
-//     increaseButton.onclick = () => {
-//         quantity++;
-//         updatePriceAndQuantity();
-//     };
-//
-//     // 수량을 감소
-//     decreaseButton.onclick = () => {
-//         if (quantity > 1) {
-//             quantity--;
-//             updatePriceAndQuantity();
-//         }
-//     };
-// });
-
-
-// `;
-//             <!-- 관리자 리뷰 -->
-//
-//             if(r.goodsReviewReplyId ==null){
-//                 text += ``;
-//             }else {
-//                 text += `
-// <div class="admin-review-box">
-//     <div class="admin-review">
-//     <div>
-//     <span>관리자 - </span>
-// <span>${r.goodsReviewReplyRD}</span>
-// <p>${r.goodsReviewReplyContent}</p>
-// </div>
-//
-// </div>
-// </div>`;
-// }
-// <!-- 관리자 리뷰 끝 -->
-// text += `
