@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/fragment/css/header.css">
     <link rel="stylesheet" href="/fragment/css/footer.css">
     <link rel="stylesheet" href="/community/css/noticeDetail.css">
+    <link rel="stylesheet" href="/fragment/css/sideBanner.css">
     <title>공지사항 상세페이지</title>
 </head>
 <body>
@@ -15,6 +16,10 @@
 
 </div>
 <!-- header 끝 -->
+<div class="side-banner" style="position: sticky; top: 130px">
+    <div class="side-banner-fragment" th:replace="fragment/sideBanner :: side-banner-fragment">
+    </div>
+</div>
 <!-- main 시작 -->
 <main>
     <div class="main-container" th:each="notice : ${detail}">
