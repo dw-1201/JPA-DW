@@ -8,14 +8,17 @@
   <link rel="stylesheet" href="/fragment/css/header.css">
   <link rel="stylesheet" href="/fragment/css/footer.css">
   <link rel="stylesheet" href="/shopping/css/shopPay.css">
+  <link rel="stylesheet" href="/fragment/css/sideBanner.css">
 <link rel="icon" href="/img/favicon.ico" type="image/x-icosn" sizes="16x16">
 </head>
 <body>
 <!-- header 시작 -->
-<div class="header" th:replace="fragment/header :: header">
-
-</div>
+<div class="header" th:replace="fragment/header :: header"></div>
 <!-- header 끝 -->
+<div class="side-banner" style="position: sticky; top: 130px">
+  <div class="side-banner-fragment" th:replace="fragment/sideBanner :: side-banner-fragment">
+  </div>
+</div>
 <!-- main 시작 -->
 
 <main class="main-content">

@@ -30,7 +30,7 @@
                 <a th:href="@{'/mypg/main/' + ${session.userId}}">마이페이지</a>
             </li>
             <li class="side-banner-li">
-                <a href="" th:data-sessionuserid="${session.userId}" >장바구니</a>
+                <a th:href="@{'/shop/shopCart/' + ${session.userId}}" th:data-sessionuserid="${session.userId}" >장바구니</a>
             </li>
             <li class="side-banner-li top-btn">
                 <a href="">TOP</a>

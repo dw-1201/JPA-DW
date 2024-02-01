@@ -7,13 +7,17 @@
     <link rel="stylesheet" href="/fragment/css/header.css">
     <link rel="stylesheet" href="/fragment/css/footer.css">
     <link rel="stylesheet" href="/community/css/freeBoardList.css">
+    <link rel="stylesheet" href="/fragment/css/sideBanner.css">
     <title>자유게시판</title>
 </head>
-
 <body>
 <!-- header 시작 -->
 <div class="header" th:replace="fragment/header :: header"></div>
 <!-- header 끝 -->
+<div class="side-banner" style="position: sticky; top: 130px">
+    <div class="side-banner-fragment" th:replace="fragment/sideBanner :: side-banner-fragment">
+    </div>
+</div>
     <!-- main 시작 -->
     <main>
         <div class="main-container">
