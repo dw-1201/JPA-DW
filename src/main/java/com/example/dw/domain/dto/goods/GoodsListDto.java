@@ -1,6 +1,7 @@
 package com.example.dw.domain.dto.goods;
 
 import com.querydsl.core.annotations.QueryProjection;
+import com.querydsl.core.types.dsl.NumberExpression;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -22,9 +23,13 @@ public class GoodsListDto {
     private String goodsMainImgName;
     private String goodsMainImgPath;
     private String goodsMainImgUuid;
+    //평균 저장
+    private Double ratingAvg;
+    //리뷰 갯수 저장
+    private Long reviewCount;
 
     @QueryProjection
-    public GoodsListDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, LocalDateTime goodsRegisterDate, LocalDateTime goodsModifyDate, String goodsCategory, Long goodsMainImgId, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid) {
+    public GoodsListDto(Long id, String goodsName, int goodsQuantity, int goodsPrice, String goodsMade, LocalDateTime goodsRegisterDate, LocalDateTime goodsModifyDate, String goodsCategory, Long goodsMainImgId, String goodsMainImgName, String goodsMainImgPath, String goodsMainImgUuid, Double ratingAvg, Long reviewCount) {
         this.id = id;
         this.goodsName = goodsName;
         this.goodsQuantity = goodsQuantity;
@@ -37,7 +42,7 @@ public class GoodsListDto {
         this.goodsMainImgName = goodsMainImgName;
         this.goodsMainImgPath = goodsMainImgPath;
         this.goodsMainImgUuid = goodsMainImgUuid;
+        this.ratingAvg = ratingAvg;
+        this.reviewCount = reviewCount;
     }
 }
-
-

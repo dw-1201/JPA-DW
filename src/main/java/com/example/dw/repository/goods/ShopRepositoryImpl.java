@@ -3,6 +3,7 @@ package com.example.dw.repository.goods;
 import com.example.dw.domain.dto.goods.*;
 import com.example.dw.domain.entity.goods.GoodsCategory;
 import com.example.dw.domain.form.SearchForm;
+import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -147,25 +148,48 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
             case "goodsPriceDown" :
                 System.out.println("낮은 가격 순 조회");
                 return goods.goodsPrice.asc();
-//            평점순 + 인기순
-//            case "" :
-//                System.out.println("평점순 조회");
-//                return goods..desc();
-//            case "" :
-//                System.out.println("인기순 조회");
-//                return goods..desc();
+            //판매량 기준
+            case "goodsPopularitySort" :
+                System.out.println("인기순 조회");
+                return goods.saleCount.desc();
             default:
-                return goods.goodsRegisterDate.desc();
+                return goods.saleCount.desc();
         }
     }
+    // 카테고리 검색
+//    private BooleanExpression getCategoryEq(String cate) {
+//        System.out.println("나는카테2"+cate);
+//        if (cate == null) {
+//            return null;
+//        }
+//        switch (cate) {
+//            case "간식":
+//                return goods.goodsCategory.eq(GoodsCategory.간식);
+////                .and(goods.goodsName.eq(keyword))
+//            case "영양제":
+//                return goods.goodsCategory.eq(GoodsCategory.영양제);
+//            case "위생용품":
+//                return goods.goodsCategory.eq(GoodsCategory.위생용품);
+//            case "이동장":
+//                return goods.goodsCategory.eq(GoodsCategory.이동장);
+//            case "장난감":
+//                return goods.goodsCategory.eq(GoodsCategory.장난감);
+//            case "산책용품":
+//                return goods.goodsCategory.eq(GoodsCategory.산책용품);
+//            default:
+//                return null;
+//        }
+//    }
 
-    //쇼핑 상품 리스트 조회
+    // 쇼핑 상품 리스트 조회
     @Override
     public Page<GoodsListDto> findGoodsListAll(Pageable pageable, SearchForm searchForm) {
-
-        //검색
+        // 검색
         BooleanExpression keywordTitle = goodsNameEq(searchForm.getKeyword());
-        System.out.println(getDynamicSoft(searchForm)+"조회!!");
+        // 카테고리별 검색
+//        BooleanExpression categoryEq = getCategoryEq(searchForm.getCate());
+        // 동적 정렬 설정
+        OrderSpecifier<?> dynamicOrder = getDynamicSoft(searchForm);
 
         List<GoodsListDto> contents = jpaQueryFactory
                 .select(new QGoodsListDto(
@@ -180,31 +204,46 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
                         goodsMainImg.id,
                         goodsMainImg.goodsMainImgName,
                         goodsMainImg.goodsMainImgPath,
-                        goodsMainImg.goodsMainImgUuid
+                        goodsMainImg.goodsMainImgUuid,
+                        jpaQueryFactory.select(
+                                orderReview.rating.avg().coalesce(0.0)
+                        )
+                        .from(orderReview)
+                        .where(orderReview.orderItem.goods.id.eq(goods.id)),
+                        jpaQueryFactory.select(
+                                orderReview.count()
+                        )
+                        .from(orderReview)
+                        .where(orderReview.orderItem.goods.id.eq(goods.id))
                 ))
                 .from(goods)
                 .leftJoin(goods.goodsMainImg, goodsMainImg)
                 .where(keywordTitle)
-//                .orderBy(goods.id.desc())
-                .orderBy(getDynamicSoft(searchForm))
+                .orderBy(dynamicOrder)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
 
-        //페이징을 위한 전체 데이터 수 조회
+//        contents.stream().forEach(r-> System.out.println(r.getGoodsName()));
+//        contents.stream().forEach(r-> System.out.println(r.getRatingAvg()));
+//        contents.stream().forEach(r-> System.out.println(r.getReviewCount()));
+
+        System.out.println(contents);
+        // 페이징을 위한 전체 데이터 수 조회
         Long count = getCount(searchForm.getKeyword());
 
-
-        System.out.println(contents.toString()+"리스트");
-
-        return new PageImpl<>(contents, pageable,count);
+        return new PageImpl<>(contents, pageable, count);
     }
+
 
     //쇼핑 간식 리스트 조회
     @Override
     public Page<GoodsListDto> findGoodsAList(Pageable pageable, SearchForm searchForm) {
+        // 검색
+        BooleanExpression keywordTitle = goodsNameEq(searchForm.getKeyword());
+        // 동적 정렬 설정
+        OrderSpecifier<?> dynamicOrder = getDynamicSoft(searchForm);
 
-        System.out.println(getDynamicSoft(searchForm)+"조회!!");
         BooleanExpression categorySnack = goods.goodsCategory.eq(GoodsCategory.간식);
 
         List<GoodsListDto> contents = jpaQueryFactory
@@ -220,24 +259,37 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
                         goodsMainImg.id,
                         goodsMainImg.goodsMainImgName,
                         goodsMainImg.goodsMainImgPath,
-                        goodsMainImg.goodsMainImgUuid
+                        goodsMainImg.goodsMainImgUuid,
+                        jpaQueryFactory.select(
+                                orderReview.rating.avg().coalesce(0.0)
+                        )
+                                .from(orderReview)
+                                .where(orderReview.orderItem.goods.id.eq(goods.id)),
+                        jpaQueryFactory.select(
+                                orderReview.count()
+                        )
+                                .from(orderReview)
+                                .where(orderReview.orderItem.goods.id.eq(goods.id))
                 ))
                 .from(goods)
                 .leftJoin(goods.goodsMainImg, goodsMainImg)
-                .where(categorySnack)
-                .orderBy(getDynamicSoft(searchForm))
+                .where(keywordTitle, categorySnack)
+                .orderBy(dynamicOrder)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
-
+        // 페이징을 위한 전체 데이터 수 조회
         Long count = getCount(searchForm.getKeyword());
-        return new PageImpl<>(contents, pageable,count);
-    }
 
+        return new PageImpl<>(contents, pageable, count);
+    }
     @Override
     public Page<GoodsListDto> findGoodsBList(Pageable pageable, SearchForm searchForm) {
+        // 검색
+        BooleanExpression keywordTitle = goodsNameEq(searchForm.getKeyword());
+        // 동적 정렬 설정
+        OrderSpecifier<?> dynamicOrder = getDynamicSoft(searchForm);
 
-        System.out.println(getDynamicSoft(searchForm)+"조회!!");
         BooleanExpression categorySnack = goods.goodsCategory.eq(GoodsCategory.영양제);
 
         List<GoodsListDto> contents = jpaQueryFactory
@@ -253,24 +305,38 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
                         goodsMainImg.id,
                         goodsMainImg.goodsMainImgName,
                         goodsMainImg.goodsMainImgPath,
-                        goodsMainImg.goodsMainImgUuid
+                        goodsMainImg.goodsMainImgUuid,
+                        jpaQueryFactory.select(
+                                orderReview.rating.avg().coalesce(0.0)
+                        )
+                                .from(orderReview)
+                                .where(orderReview.orderItem.goods.id.eq(goods.id)),
+                        jpaQueryFactory.select(
+                                orderReview.count()
+                        )
+                                .from(orderReview)
+                                .where(orderReview.orderItem.goods.id.eq(goods.id))
                 ))
                 .from(goods)
                 .leftJoin(goods.goodsMainImg, goodsMainImg)
-                .where(categorySnack)
-                .orderBy(getDynamicSoft(searchForm))
+                .where(keywordTitle, categorySnack)
+                .orderBy(dynamicOrder)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
-
+        // 페이징을 위한 전체 데이터 수 조회
         Long count = getCount(searchForm.getKeyword());
-        return new PageImpl<>(contents, pageable,count);
+
+        return new PageImpl<>(contents, pageable, count);
     }
 
     @Override
     public Page<GoodsListDto> findGoodsCList(Pageable pageable, SearchForm searchForm) {
+        // 검색
+        BooleanExpression keywordTitle = goodsNameEq(searchForm.getKeyword());
+        // 동적 정렬 설정
+        OrderSpecifier<?> dynamicOrder = getDynamicSoft(searchForm);
 
-        System.out.println(getDynamicSoft(searchForm)+"조회!!");
         BooleanExpression categorySnack = goods.goodsCategory.eq(GoodsCategory.위생용품);
 
         List<GoodsListDto> contents = jpaQueryFactory
@@ -286,24 +352,38 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
                         goodsMainImg.id,
                         goodsMainImg.goodsMainImgName,
                         goodsMainImg.goodsMainImgPath,
-                        goodsMainImg.goodsMainImgUuid
+                        goodsMainImg.goodsMainImgUuid,
+                        jpaQueryFactory.select(
+                                orderReview.rating.avg().coalesce(0.0)
+                        )
+                                .from(orderReview)
+                                .where(orderReview.orderItem.goods.id.eq(goods.id)),
+                        jpaQueryFactory.select(
+                                orderReview.count()
+                        )
+                                .from(orderReview)
+                                .where(orderReview.orderItem.goods.id.eq(goods.id))
                 ))
                 .from(goods)
                 .leftJoin(goods.goodsMainImg, goodsMainImg)
-                .where(categorySnack)
-                .orderBy(getDynamicSoft(searchForm))
+                .where(keywordTitle, categorySnack)
+                .orderBy(dynamicOrder)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
-
+        // 페이징을 위한 전체 데이터 수 조회
         Long count = getCount(searchForm.getKeyword());
-        return new PageImpl<>(contents, pageable,count);
+
+        return new PageImpl<>(contents, pageable, count);
     }
 
     @Override
     public Page<GoodsListDto> findGoodsDList(Pageable pageable, SearchForm searchForm) {
+        // 검색
+        BooleanExpression keywordTitle = goodsNameEq(searchForm.getKeyword());
+        // 동적 정렬 설정
+        OrderSpecifier<?> dynamicOrder = getDynamicSoft(searchForm);
 
-        System.out.println(getDynamicSoft(searchForm)+"조회!!");
         BooleanExpression categorySnack = goods.goodsCategory.eq(GoodsCategory.이동장);
 
         List<GoodsListDto> contents = jpaQueryFactory
@@ -319,24 +399,38 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
                         goodsMainImg.id,
                         goodsMainImg.goodsMainImgName,
                         goodsMainImg.goodsMainImgPath,
-                        goodsMainImg.goodsMainImgUuid
+                        goodsMainImg.goodsMainImgUuid,
+                        jpaQueryFactory.select(
+                                orderReview.rating.avg().coalesce(0.0)
+                        )
+                                .from(orderReview)
+                                .where(orderReview.orderItem.goods.id.eq(goods.id)),
+                        jpaQueryFactory.select(
+                                orderReview.count()
+                        )
+                                .from(orderReview)
+                                .where(orderReview.orderItem.goods.id.eq(goods.id))
                 ))
                 .from(goods)
                 .leftJoin(goods.goodsMainImg, goodsMainImg)
-                .where(categorySnack)
-                .orderBy(getDynamicSoft(searchForm))
+                .where(keywordTitle, categorySnack)
+                .orderBy(dynamicOrder)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
-
+        // 페이징을 위한 전체 데이터 수 조회
         Long count = getCount(searchForm.getKeyword());
-        return new PageImpl<>(contents, pageable,count);
+
+        return new PageImpl<>(contents, pageable, count);
     }
 
     @Override
     public Page<GoodsListDto> findGoodsEList(Pageable pageable, SearchForm searchForm) {
+        // 검색
+        BooleanExpression keywordTitle = goodsNameEq(searchForm.getKeyword());
+        // 동적 정렬 설정
+        OrderSpecifier<?> dynamicOrder = getDynamicSoft(searchForm);
 
-        System.out.println(getDynamicSoft(searchForm)+"조회!!");
         BooleanExpression categorySnack = goods.goodsCategory.eq(GoodsCategory.장난감);
 
         List<GoodsListDto> contents = jpaQueryFactory
@@ -352,24 +446,38 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
                         goodsMainImg.id,
                         goodsMainImg.goodsMainImgName,
                         goodsMainImg.goodsMainImgPath,
-                        goodsMainImg.goodsMainImgUuid
+                        goodsMainImg.goodsMainImgUuid,
+                        jpaQueryFactory.select(
+                                orderReview.rating.avg().coalesce(0.0)
+                        )
+                                .from(orderReview)
+                                .where(orderReview.orderItem.goods.id.eq(goods.id)),
+                        jpaQueryFactory.select(
+                                orderReview.count()
+                        )
+                                .from(orderReview)
+                                .where(orderReview.orderItem.goods.id.eq(goods.id))
                 ))
                 .from(goods)
                 .leftJoin(goods.goodsMainImg, goodsMainImg)
-                .where(categorySnack)
-                .orderBy(getDynamicSoft(searchForm))
+                .where(keywordTitle, categorySnack)
+                .orderBy(dynamicOrder)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
-
+        // 페이징을 위한 전체 데이터 수 조회
         Long count = getCount(searchForm.getKeyword());
-        return new PageImpl<>(contents, pageable,count);
+
+        return new PageImpl<>(contents, pageable, count);
     }
 
     @Override
     public Page<GoodsListDto> findGoodsFList(Pageable pageable, SearchForm searchForm) {
+        // 검색
+        BooleanExpression keywordTitle = goodsNameEq(searchForm.getKeyword());
+        // 동적 정렬 설정
+        OrderSpecifier<?> dynamicOrder = getDynamicSoft(searchForm);
 
-        System.out.println(getDynamicSoft(searchForm)+"조회!!");
         BooleanExpression categorySnack = goods.goodsCategory.eq(GoodsCategory.산책용품);
 
         List<GoodsListDto> contents = jpaQueryFactory
@@ -385,20 +493,30 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
                         goodsMainImg.id,
                         goodsMainImg.goodsMainImgName,
                         goodsMainImg.goodsMainImgPath,
-                        goodsMainImg.goodsMainImgUuid
+                        goodsMainImg.goodsMainImgUuid,
+                        jpaQueryFactory.select(
+                                orderReview.rating.avg().coalesce(0.0)
+                        )
+                                .from(orderReview)
+                                .where(orderReview.orderItem.goods.id.eq(goods.id)),
+                        jpaQueryFactory.select(
+                                orderReview.count()
+                        )
+                                .from(orderReview)
+                                .where(orderReview.orderItem.goods.id.eq(goods.id))
                 ))
                 .from(goods)
                 .leftJoin(goods.goodsMainImg, goodsMainImg)
-                .where(categorySnack)
-                .orderBy(getDynamicSoft(searchForm))
+                .where(keywordTitle, categorySnack)
+                .orderBy(dynamicOrder)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
-
+        // 페이징을 위한 전체 데이터 수 조회
         Long count = getCount(searchForm.getKeyword());
-        return new PageImpl<>(contents, pageable,count);
-    }
 
+        return new PageImpl<>(contents, pageable, count);
+    }
 
     //쇼핑 상품 상세 조회
     @Override
@@ -417,7 +535,17 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
                         goodsMainImg.id,
                         goodsMainImg.goodsMainImgName,
                         goodsMainImg.goodsMainImgPath,
-                        goodsMainImg.goodsMainImgUuid
+                        goodsMainImg.goodsMainImgUuid,
+                        jpaQueryFactory.select(
+                                orderReview.rating.avg().coalesce(0.0)
+                        )
+                                .from(orderReview)
+                                .where(orderReview.orderItem.goods.id.eq(goods.id)),
+                        jpaQueryFactory.select(
+                                orderReview.count()
+                        )
+                                .from(orderReview)
+                                .where(orderReview.orderItem.goods.id.eq(goods.id))
                 ))
                 .from(goods)
                 .leftJoin(goods.goodsMainImg, goodsMainImg)
@@ -470,6 +598,7 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
                 .leftJoin(orderReview.orderItem, orderItem)
                 .leftJoin(orderItem.orders, orders)
                 .leftJoin(orders.users, users)
+                .where(goods.id.eq(id))
                 .orderBy(orderReview.id.desc(), orderReviewImg.id.asc())
                 .fetch();
 

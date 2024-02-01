@@ -41,12 +41,13 @@
 <!-- 검색 -->
     <div class="main-content-contaniner-form2">
 
+        <ul class="search-category" id="search-category" name="search-category">
             <ul>
                 <li class="form2-li">
-                    <a href="/shop/shop" >전체</a>
+                    <a href="/shop/shop">전체</a>
                 </li>
                 <li class="form2-li-1">
-                    <a href="/shop/shop-a" >간식</a>
+                    <a href="/shop/shop-a">간식</a>
                 </li>
                 <li class="form2-li">
                     <a href="/shop/shop-b">영양제</a>
@@ -66,14 +67,13 @@
             </ul>
 
     </div>
-        
+
         <form action="" class="form-box2" id="search-form">
             <select class="search-t" id="search-cate" name="search-cate">
-                <option value="popularity" >인기순</option>
-                <option value="rating">평점순</option>
-                <option value="date">최신순</option>
-                <option value="price-down">낮은가격순</option>
-                <option value="price-up">높은가격순</option>
+                <option value="goodsPopularitySort" name="shop_option">인기순</option>
+                <option value="goodsRegisterDate" name="shop_option">최신순</option>
+                <option value="goodsPriceDown" name="shop_option">낮은가격순</option>
+                <option value="goodsPriceUp" name="shop_option">높은가격순</option>
             </select>
 
         </form>

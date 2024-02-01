@@ -9,31 +9,34 @@ console.log(userId)
 function searchGoodsForm(){
     let cate = $('#search-cate').val();
     let keyword = $('#shop-search-keyword').val();
-
-    if(cate ==='최신순'){
-        cate = '';
-    }
+    console.log("카테"+cate)
+    console.log("키워"+keyword)
     return {
         cate : cate,
         keyword : keyword
     };
 }
-
+// 검색폼의 선택값에 따라 카테고리 값을 설정하는 함수
+function updateCategory(cate) {
+    searchGoodsForm.cate = cate;
+    console.log($('#search-cate').val())
+    shop(0,searchGoodsForm(),'goods', 'goodsList', showShopList);
+}
 // 검색 결과 조회
 $('.result-submit-btn').on('click', function (){
-    shopList(0,searchGoodsForm(),'goods', 'goodsList', showShopList);
-
+    shop(0,searchGoodsForm(),'goods', 'goodsList', showShopList);
 });
-
-// 문서가 준비되면 초기 데이터로 쇼핑 리스트 조회
+//초기 데이터(쇼핑 리스트 조회)
 $(document).ready(function (){
-
-    shopList(0,searchGoodsForm(),'goods', 'goodsList', showShopList);
+    shop(0,searchGoodsForm(),'goods', 'goodsList', showShopList);
     enterKey('#shop-search-keyword', '.goods-list-search-btn');
-
+    // 검색폼 변경시 조회
+    $('#search-cate').change(function() {
+        updateCategory();
+    });
 })
 
-function shopList(page, searchForm){
+function shop(page, searchForm){
     $.ajax({
         url:`/shops/shop-a/${page}`,
         type:'get',
@@ -68,7 +71,7 @@ function enterKey(a,b){
 // 검색어 입력창에서 검색 버튼 클릭 시 동작
 $('.result-submit-btn').on('click', function () {
     // 전역 변수에 할당하지 않고, 함수 호출 시에 값을 전달
-    shopList(0, searchGoodsForm());
+    shop(0, searchGoodsForm());
 });
 
 //리스트
@@ -105,10 +108,16 @@ function createShopListItem(r) {
             <div class="reviw">
                 <img src="https://store.bemypet.kr/wp-content/themes/bemypet-store-child/assets/images/star_rate@3x.png" alt="" width="16">
                 &nbsp;
-                <div>4.9</div>
+                <div class="review-avg">
+                    ${r.ratingAvg >= 0.5 ? '★' : '☆'}
+                    ${r.ratingAvg >= 1.5 ? '★' : '☆'}
+                    ${r.ratingAvg >= 2.5 ? '★' : '☆'}
+                    ${r.ratingAvg >= 3.5 ? '★' : '☆'}
+                    ${r.ratingAvg >= 4.5 ? '★' : '☆'}
+                </div>
                 <div class="reviw1">
                     <span>리뷰</span>
-                    <span>&nbsp;10</span>
+                    <span>&nbsp; ${r.reviewCount}</span>
                 </div>
             </div>
             <div class="won">
@@ -118,18 +127,7 @@ function createShopListItem(r) {
         </div>
     </a>
     <div class="basket">
-    `;
-    if(userId != null){
-        listItem += `
-     <a href="/shop/shopCart/${userId}"><img src="/img/shoppingcart.png" alt=""></a>
-    `;
-    }else{
-        listItem += `
-     <a href="/user/enterLogin"><img src="/img/shoppingcart.png" alt=""></a>
-    `;
-    }
-    listItem += `
-    
+     <a class="" href="" data-id="${r.id}"><img src="/img/shoppingcart.png" alt="" ></a>
     </div>
     </li>
     `;
@@ -172,11 +170,61 @@ function pagination(result) {
     paginations.find('a').on('click', function (e) {
         e.preventDefault();
         const page = parseInt($(this).data('page'));
-        shopList(page, searchGoodsForm());
+        shop(page, searchGoodsForm());
     });
 }
+
+// 장바구니에 상품 추가
+$('.ul-list').on('click','.basket a', function (e){
+    e.preventDefault();
+    userId = $('#userId').val();
+    let goodsId = $(this).data('id');
+    let cartItemQuantity = '1';
+    console.log(goodsId)
+    console.log(cartItemQuantity)
+
+    if (userId !== null && userId !== undefined && userId !== "") {
+        if(confirm("장바구니에 추가하시겠습니까?")){
+            // 서버로 장바구니에 추가하는 요청을 보냄
+            $.ajax({
+                url:`/shops/shopCart/${userId}`,
+                type: 'get',
+                data: {
+                    goodsId: goodsId,
+                    cartItemQuantity : cartItemQuantity
+                },
+                success : function (result){
+                    console.log(result + "장바구니 추가 성공");
+                    if(confirm("장바구니 페이지로 이동하시겠습니까?")){
+                        window.location.href="/shop/shopCart/" + userId;
+                    }
+                }, error : function (a, b, c){
+                    console.error(c);
+                }
+            });
+        }
+    } else {
+        // userId가 null 또는 빈 문자열이면 로그인 페이지로 이동
+        window.location.href = '/user/enterLogin';
+    }
+});
 
 // 콤마 찍기 함수
 function addCommas(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+// 문의 하기 버튼 클릭시 이벤트
+$('.shop-form').on('click', '.review-button', function () {
+    let userId = $('#userId').val();
+    console.log(userId);
+    console.log("넘어왔나?");
+
+    if (userId !== null && userId !== undefined && userId !== "") {
+        // 모달 창에 'show' 클래스를 추가하여 모달을 표시
+        $('.modal').addClass('show');
+    } else {
+        // userId가 null 또는 빈 문자열이면 로그인 페이지로 이동
+        window.location.href = '/user/enterLogin';
+    }
+});

@@ -306,7 +306,10 @@ margin: 0;
   height: 25px;
 }
 
-
+.review-avg{
+  height: 20px;
+  color: #fcbe20 !important;
+}
 
 
 

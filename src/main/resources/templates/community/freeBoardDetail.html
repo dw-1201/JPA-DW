@@ -75,8 +75,13 @@
 <!--                        </div>-->
                     </div>
                     <div class="btns-box">
+
+                        <div th:if="${session.userId != null}">
                         <button class="update-btn" th:data-freeBoardId="${freeBoard.id}">수정</button>
                         <button class="remove-btn" th:data-freeBoardId="${freeBoard.id}">삭제</button>
+                        </div>
+
+                        <div th:if="${session.userId == null}"></div>
                         <button class="list-btn">목록</button>
                     </div>
                 </div>

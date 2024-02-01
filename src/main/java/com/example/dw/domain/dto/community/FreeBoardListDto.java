@@ -45,7 +45,5 @@ public class FreeBoardListDto {
         this.commentCount = commentCount;
         this.freeBoardImgDtoList = freeBoardImgDtoList;
     }
-//    public void setFreeBoardCommentCount(Long freeBoardCommentCount) {
-//        this.freeBoardCommentCount = freeBoardCommentCount;
-//    }
+
 }

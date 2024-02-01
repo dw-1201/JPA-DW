@@ -21,7 +21,6 @@ public interface GoodsRepositoryCustom {
 
     //관리자 상품 리스트
     Page<AdminGoods.AdminGoodsList> findGoodsAll(Pageable pageable, SearchForm searchForm);
-
     
     //관리자 상품 상세
     AdminGoods.AdminGoodsDetail findGoodsById(Long id);
@@ -34,7 +33,6 @@ public interface GoodsRepositoryCustom {
 
     //관리자 상품 문의 리스트
     Page<AdminGoodsQnaListDto> getQnaList(Pageable pageable, String qnaState, String cate, String keyword);
-
 
     //관리자 상품 문의 상세
     Optional<AdminGoodsQueDetailDto> getQnaDetail(Long qnaId);

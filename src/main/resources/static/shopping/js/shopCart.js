@@ -206,6 +206,8 @@ function removeCartItem(cartItemId, callback){
     })
 }
 
+
+
 //카트 아이템 삭제 버튼 이벤트
 $('.cart_list').on('click', '.remove-btn',function(){
     let cartItemId = $(this).data('cartitemid');
@@ -219,81 +221,27 @@ $('.cart_list').on('click', '.remove-btn',function(){
     }
 })
 
-// $('.cart-button').on('click', function(){
-//     window.location.href="/order/order";
-// })
+//카트 삭제
+function removeCart(callback){
+    $.ajax({
+        url : `/shops/deleteAll`,
+        type : "get",
+        success : function (result){
+            console.log(result)
+            if (callback){
+                callback(result);
+            }
+        }
+    })
+}
 
-//수정전
-// 결제 버튼 클릭시 값을 받아 오는 이벤트
-//     $('.cart-button').on('click',  function (){
-//
-//         let order = [];
-//         let goodsId = [];
-//         let goodsName= [];
-//         let cartItemQuantity= [];
-//         let currentPrices = [];
-//
-//
-//         $('.item-price').each(function() {
-//             currentPrices.push($(this).text());
-//         });
-//         $('.thumbnail-dox-div .goodsName').each(function() {
-//             goodsName.push($(this).text());
-//         });
-//         $('.thumbnail-dox-div .goodsId').each(function() {
-//             goodsId.push($(this).val());
-//         });
-//         $('.quantity-box .quantity').each(function() {
-//             cartItemQuantity.push($(this).text());
-//         });
-//
-//
-//         for(let i=0; i<currentPrices.length;i++){
-//         let Product = {
-//                 goodsId : goodsId[i],
-//                 goodsName : goodsName[i],
-//                 goodsQuantity : cartItemQuantity[i],
-//                 goodsTotalPrice : currentPrices[i]
-//
-//             }
-//
-//             order.push(Product)
-//             console.log(order)
-//         }
-//
-//     } )
-// 수정전
-// // Increase 버튼 클릭 시
-//     $('.cart_list').on('click','.increase-btn', function() {
-//         const quantityElement = $(this).closest('.quantity-box').find('.quantity');
-//         let quantity = parseInt(quantityElement.text(), 10);
-//
-//
-//         quantity++;
-//         quantityElement.text(quantity);
-//
-//         let goodsPrice = $(this).closest('.thumbnail-dox').find('.item-price').data('price')
-//
-//         let dynamicPrice = $(this).closest('.thumbnail-dox').find('.item-price');
-//
-//         dynamicPrice.text(addCommas(goodsPrice * quantity)+ ' 원');
-//
-//         updateTotalPrice(); // 호출하여 총 결제 금액 업데이트
-//     });
-//
-// // Decrease 버튼 클릭 시
-// $('.cart_list').on('click','.decrease-btn', function (){
-//     const quantityElement = $(this).closest('.quantity-box').find('.quantity');
-//     let quantity = parseInt(quantityElement.text(), 10);
-//
-//     quantity--;
-//     quantityElement.text(quantity);
-//
-//     let goodsPrice = $(this).closest('.thumbnail-dox').find('.item-price').data('price');
-//
-//     let dynamicPrice = $(this).closest('.thumbnail-dox').find('.item-price');
-//
-//     dynamicPrice.text(addCommas(goodsPrice * quantity) + ' 원');
-//
-//     updateTotalPrice();
-// });
+//카트 삭제 버튼 이벤트
+$('.remove-all-btn').on('click', function(){
+    if(confirm("상품을 모두 삭제 하시겠습니까?")){
+        removeCart(function (){
+            getCart(userId, getCartList)
+
+        })
+
+    }
+})

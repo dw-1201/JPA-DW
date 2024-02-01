@@ -37,7 +37,6 @@ public class GoodsService {
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
 
-
     //모달 글쓰기
     @Transactional
     public Long writeModal(GoodsQandaWritingForm goodsQandaWritingForm){
@@ -62,7 +61,6 @@ public class GoodsService {
     //상품 상세 정보
     @Transactional
     public Optional<GoodsDetailDto> goodsDetail(Long goodsId){
-
         return shopRepositoryCustom.findGoodsById(goodsId);
     }
 
@@ -70,9 +68,7 @@ public class GoodsService {
     //상품 상세 상세사진
     @Transactional
     public List<GoodsDetailImgDto> goodsDetailImgs(Long goodsId){
-
         return shopRepositoryCustom.findGoodsDetailImg(goodsId);
-
     }
 
     //상품 리뷰 리스트
@@ -87,13 +83,11 @@ public class GoodsService {
         return shopRepositoryCustom.findGoodsQueId(goodsId);
     }
 
-
     //추가 정보
     @Transactional
     public Optional<GoodsAddInfoDto> goodsAddInfo(Long goodsId){
         return shopRepositoryCustom.findGoodsAddInfoById(goodsId);
     }
-
 
     //카트 번호 생성
     @Transactional
@@ -137,13 +131,15 @@ public class GoodsService {
         }
     }
 
-
-    @Transactional//카트 아이템 제거
+    @Transactional//카트 단건 삭제
     public void deleteCartItem(Long cartItemId){
-
         cartItemRepository.deleteById(cartItemId);
     };
 
+    // 카트 전체 삭제
+    public void deleteAllCartItems() {
+        cartItemRepository.deleteAll();
+    }
 
     /**
      * flatMap() : 리스트의 리스트가 있을 때 이를 평탄화하여 단일 리스트로 만들 수 있다.

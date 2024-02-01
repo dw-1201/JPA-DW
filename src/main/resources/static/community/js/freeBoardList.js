@@ -42,25 +42,33 @@ function searchFreeBoardForm(){
 /**
  * 자유게시판 비동기 리스트
  * 시간, 페이징
+ * freeBoardMd의 존재 여부로 글 수정시 시간 변경.
  */
 function showFreeBoardList(result) {
     let text = '';
     let textInput = $('.list-contents-box');
     console.log("list")
 
+    if(result.content.length !=0){
     result.content.forEach(r => {
         let nowTime = new Date();
-        let rdTime = new Date(r.freeBoardRd);
-        let time = nowTime-rdTime;
-        let timedi = Math.floor(time/(1000*60));
+        let time;
+        if (r.freeBoardMd) {
+            time = new Date(r.freeBoardMd);
+        } else if (r.freeBoardRd) {
+            time = new Date(r.freeBoardRd);
+        } else {
+            time = nowTime;
+        }
+        let timedi = Math.floor((nowTime - time) / (1000 * 60));
         let timenow = "";
-        if(timedi <60){
-            timenow = timedi +"분 전"
-        }else{
-            let ttdi = Math.floor(timedi/ 60);
-            if(ttdi < 24){
-                timenow = ttdi +"시간 전"
-            }else {
+        if (timedi < 60) {
+            timenow = timedi + "분 전";
+        } else {
+            let ttdi = Math.floor(timedi / 60);
+            if (ttdi < 24) {
+                timenow = ttdi + "시간 전";
+            } else {
                 let ddi = Math.floor(ttdi / 24);
                 timenow = ddi + "일 전";
             }
@@ -86,7 +94,8 @@ function showFreeBoardList(result) {
                     </div>
                 </div>
             `;
-            r.freeBoardImgDtoList.slice(0, 1).forEach(s => {
+        r.freeBoardImgDtoList.slice(0, 1).forEach(s => {
+            if (s.freeBoardImgName !== null) {
                 text += `
             <div class="content-img-box">
                 <div class="content-img">
@@ -94,12 +103,26 @@ function showFreeBoardList(result) {
                 </div>
             </div>
         `;
-    })
-    text += `
+            }
+        });
+
+        text += `
                 </div>
             </a>
         `;
     })
+}else {
+    text = `
+<tr class="no-search-result">
+                    <td colspan="8"><img src="/img/no-search-result.jpg"</td>
+               </tr>
+               <tr class="no-search-result">
+                    <td colspan="8">검색결과가 없습니다. <br>
+                        검색 조건을 다시 확인해주세요.</td>
+           
+           
+               </tr>`
+}
 
     console.log($('.userAccount').text());
     textInput.html(text);

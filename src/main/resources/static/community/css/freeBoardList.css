@@ -371,3 +371,20 @@ main{
     height: 100px;
     /* background-color: blue; */
 }
+.no-search-result {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-search-result td{
+    border: none !important;
+    background-color: white !important;
+}
+
+.no-search-result img {
+    /*width: 34%;*/
+}

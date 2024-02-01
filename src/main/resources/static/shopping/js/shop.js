@@ -9,28 +9,31 @@ console.log(userId)
 function searchGoodsForm(){
     let cate = $('#search-cate').val();
     let keyword = $('#shop-search-keyword').val();
-
-    if(cate ==='최신순'){
-        cate = '';
-    }
+    console.log("카테"+cate)
+    console.log("키워"+keyword)
     return {
         cate : cate,
         keyword : keyword
     };
 }
-
+// 검색폼의 선택값에 따라 카테고리 값을 설정하는 함수
+function updateCategory(cate) {
+    searchGoodsForm.cate = cate;
+    console.log($('#search-cate').val())
+    shop(0,searchGoodsForm(),'goods', 'goodsList', showShopList);
+}
 // 검색 결과 조회
 $('.result-submit-btn').on('click', function (){
     shop(0,searchGoodsForm(),'goods', 'goodsList', showShopList);
-
 });
-
-// 문서가 준비되면 초기 데이터로 쇼핑 리스트 조회
+//초기 데이터(쇼핑 리스트 조회)
 $(document).ready(function (){
-
     shop(0,searchGoodsForm(),'goods', 'goodsList', showShopList);
     enterKey('#shop-search-keyword', '.goods-list-search-btn');
-
+    // 검색폼 변경시 조회
+    $('#search-cate').change(function() {
+        updateCategory();
+    });
 })
 
 function shop(page, searchForm){
@@ -105,10 +108,16 @@ function createShopListItem(r) {
             <div class="reviw">
                 <img src="https://store.bemypet.kr/wp-content/themes/bemypet-store-child/assets/images/star_rate@3x.png" alt="" width="16">
                 &nbsp;
-                <div>4.9</div>
+                <div class="review-avg">
+                    ${r.ratingAvg >= 0.5 ? '★' : '☆'}
+                    ${r.ratingAvg >= 1.5 ? '★' : '☆'}
+                    ${r.ratingAvg >= 2.5 ? '★' : '☆'}
+                    ${r.ratingAvg >= 3.5 ? '★' : '☆'}
+                    ${r.ratingAvg >= 4.5 ? '★' : '☆'}
+                </div>
                 <div class="reviw1">
                     <span>리뷰</span>
-                    <span>&nbsp;10</span>
+                    <span>&nbsp; ${r.reviewCount}</span>
                 </div>
             </div>
             <div class="won">

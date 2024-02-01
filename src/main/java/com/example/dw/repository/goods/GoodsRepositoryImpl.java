@@ -39,8 +39,6 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
     @Override
     public List<IndexGoodsByCateDto> indexGoodsListByCategory(GoodsCategory goodsCategory) {
 
-
-
         List<IndexGoodsByCateDto> list = em.createQuery(
                 "select NEW com.example.dw.domain.dto.goods.IndexGoodsByCateDto(" +
                         "g.id, g.goodsName, g.goodsPrice, avg(or.rating), g.goodsCategory, gm.id, gm.goodsMainImgPath, gm.goodsMainImgUuid, gm.goodsMainImgName) FROM Goods g " +
@@ -54,11 +52,8 @@ public class GoodsRepositoryImpl implements GoodsRepositoryCustom {
                 .setMaxResults(6)  // 최대 6개 결과를 가져오도록 설정
                 .getResultList();
 
-
         return list;
     }
-
-
 
     //관리자 페이지 상품 리스트
     @Override

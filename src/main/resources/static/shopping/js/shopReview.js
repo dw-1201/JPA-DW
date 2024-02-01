@@ -73,25 +73,21 @@ function shopDetailView(result) {
                   <div class="description">
                   <p>${r.content}</p>
                   </div>
-
-                <div class="reviewImg">
-<!--                  <div class="imgbox">-->
-<!--                    <a href="/img/reviewImg01.jpg">-->
-<!--                      <img src="/img/reviewImg01.jpg" alt="" class="imgs">-->
-<!--                    </a>-->
-<!--                  </div>-->
-<!--                  <div class="imgbox">-->
-<!--                    <a href="/img/reviewImg02.jpg">-->
-<!--                      <img src="/img/reviewImg02.jpg" alt="" class="imgs">-->
-<!--                    </a>-->
-<!--                  </div>-->
-<!--                  <div class="imgbox">-->
-<!--                    <a href="/img/reviewImg03.jpg">-->
-<!--                      <img src="/img/reviewImg03.jpg" alt="" class="imgs">-->
-<!--                    </a>-->
-<!--                  </div>-->
+                
+                  <div class="reviewImg">
+                  `;
+                r.goodsReviewImgDtos.forEach(e => {
+                text += `
+                <div class="imgbox">
+                    <img src="/mypgs/reviews?fileFullPath=${e.reviewimgPath + '/' + e.reviewimgUuid + '_' + e.reviewimgFileName}" alt="" class="imgs" >
                 </div>
+                `;
+                });
+            text += `
+                  </div>
+                 
               </div>
+
 
 <!-- 관리자 리뷰 -->
 

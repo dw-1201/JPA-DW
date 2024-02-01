@@ -38,8 +38,8 @@ public class GoodsApiController {
     public Page<GoodsListDto> findShopList(
             @PathVariable("page") int page, SearchForm searchForm){
 
-        System.out.println(searchForm.getCate());
-        System.out.println(searchForm.getKeyword());
+        System.out.println("나는 카테"+searchForm.getCate());
+        System.out.println("나는 키워"+searchForm.getKeyword());
 
         Pageable pageable = PageRequest.of(page,12);
         Page<GoodsListDto> result = shopRepositoryCustom.findGoodsListAll(pageable, searchForm);
@@ -177,19 +177,21 @@ public class GoodsApiController {
 
         goodsService.cartItemRegister(userId, cartItemForm);
     }
-
     //카트에 물건 담기
     @GetMapping("/shopCartList/{userId}")
     public GoodsCartListDto findCartList(@PathVariable("userId") Long userId){
 
        return goodsService.findCartItems(userId);
     }
-
     //카트 물건 삭제
     @GetMapping("/delete/{cartItemId}")
     public void deleteCartItem(@PathVariable("cartItemId")Long cartItemId){
         goodsService.deleteCartItem(cartItemId);
-
+    }
+    // 카트 물건 전체 삭제
+    @GetMapping("/deleteAll")
+    public void deleteCart() {
+        goodsService.deleteAllCartItems();
     }
 
     /**
@@ -203,7 +205,6 @@ public class GoodsApiController {
         return FileCopyUtils.copyToByteArray(new File(fileShopImg, fileFullPath));
     }
 
-
     //장바구니 정보 넣기
     @PostMapping("/cartGoods")
     public void cartGoods(@RequestBody List<GoodsPayListFrom> goodsPayListFrom, HttpSession session){
@@ -213,10 +214,8 @@ public class GoodsApiController {
         if(goodsPayList == null){
             goodsPayList = new ArrayList<>();
         }
-
         for (GoodsPayListFrom goodsPayListDto : goodsPayListFrom) {
             boolean found = false;
-
             // goodsId를 기준으로 기존 리스트에서 아이템 찾기
             for (GoodsPayListFrom existingItem : goodsPayList) {
                 if (existingItem.getGoodsId().equals(goodsPayListDto.getGoodsId())) {
@@ -226,13 +225,11 @@ public class GoodsApiController {
                     break;
                 }
             }
-
             // 기존 리스트에 해당 goodsId가 없으면 새로 추가
             if (!found) {
                 goodsPayList.add(goodsPayListDto);
             }
         }
-
         System.out.println(goodsPayList);
         session.setAttribute("goodsPayList", goodsPayList);
     }
@@ -246,11 +243,8 @@ public class GoodsApiController {
         if (goodsPaySingle == null) {
             goodsPaySingle = new ArrayList<>();
         }
-
         for(GoodsPaySingleFrom goodsPaySingleDto : goodsPaySingleFrom) {
-
             goodsPaySingle.add(goodsPaySingleDto);
-
         }
         System.out.println(goodsPaySingle);
         session.setAttribute("goodsPaySingle", goodsPaySingle);
@@ -294,6 +288,4 @@ public class GoodsApiController {
         System.out.println("싱글 주문내역 가져오기 : "+goodsPaySingleFrom);
         return goodsPaySingleFrom;
     }
-
-
 }

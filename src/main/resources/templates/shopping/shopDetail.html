@@ -1,50 +1,59 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>쇼핑-상세페이지</title>
-  <link rel="stylesheet" href="/common/css/common.css">
-  <link rel="stylesheet" href="/fragment/css/header.css">
-  <link rel="stylesheet" href="/fragment/css/footer.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쇼핑-상세페이지</title>
+    <link rel="stylesheet" href="/common/css/common.css">
+    <link rel="stylesheet" href="/fragment/css/header.css">
+    <link rel="stylesheet" href="/fragment/css/footer.css">
     <link rel="stylesheet" href="/shopping/css/shopDetail.css">
     <link rel="stylesheet" href="/shopping/css/shopQandA.css">
     <link rel="stylesheet" href="/shopping/css/shopAddInfo.css">
     <link rel="stylesheet" href="/shopping/css/shopReview.css">
-
 <link rel="icon" href="/img/favicon.ico" type="image/x-icosn" sizes="16x16">
 </head>
 <body>
 <!-- header 시작 -->
-<div class="header" th:replace="fragment/header :: header">
-
-</div>
+<div class="header" th:replace="fragment/header :: header"></div>
 <!-- header 끝 -->
 <!-- main 시작 -->
-
 <main class="main-content">
     <div class="main-content-contaniner" >
         <div class="title-info">
 
         </div>
-<!--    <input type="hidden" th:value="${id}" id="goodsId">-->
 
     <div class="main-content-contaniner-form2">
     <div>
-            <a href="/shop/shopList">홈</a>
+            <span>홈</span>
         </div>
         <span>/</span>
         <div>
-            <a href="/shop/shopList">상품전체</a>
+            <a href="/shop/shop">상품전체</a>
+        </div>
+        <span>/</span>
+        <div th:if="${detail.goodsCategory == '간식'}">
+            <a href="/shop/shop-a">간식</a>
+        </div>
+        <div th:if="${detail.goodsCategory == '영양제'}">
+            <a href="/shop/shop-b">영양제</a>
+        </div>
+        <div th:if="${detail.goodsCategory == '위생용품'}">
+            <a href="/shop/shop-c">위생용품</a>
+        </div>
+        <div th:if="${detail.goodsCategory == '이동장'}">
+            <a href="/shop/shop-d">이동장</a>
+        </div>
+        <div th:if="${detail.goodsCategory == '장난감'}">
+            <a href="/shop/shop-e">장난감</a>
+        </div>
+        <div th:if="${detail.goodsCategory == '산책용품'}">
+            <a href="/shop/shop-f">산책용품</a>
         </div>
         <span>/</span>
         <div>
-            <a href="/shop/shopList">간식</a>
-        </div>
-        <span>/</span>
-        <div>
-            <span>세이오앙 강아지 간식 훈련용</span>
+            <span th:text="${detail.goodsName}">상품명</span>
         </div>
     </div>
 
@@ -67,94 +76,95 @@
                             <div class="right-box1-box1-1">
                                 <span th:text="${detail.goodsName}">상품명</span>
                             </div>
-                            <div class="right-box1-box2">
-                    <span>
-                    ★★★★★ 4.9점
-                    </span>&nbsp;&nbsp;
-                                <span class="evaluation">(10개의 고객 상품 평가)</span>
-                            </div>
 
-                            <div class="right-box1-box3">
-                    <span>
-                        제품 요약 설명
+                    <div class="right-box1-box2">
+                        <span>
+                    <!-- 별점 표시 -->
+                    <span th:each="i : ${#numbers.sequence(1, 5)}">
+                        <span th:if="${detail.ratingAvg >= i - 0.5}" class="star">★</span>
+                        <span th:unless="${detail.ratingAvg >= i - 0.5}" class="star">☆</span>
                     </span>
-                            </div>
+                    <span th:text="${detail.ratingAvg} + '점'"></span>
+                    <!-- 평점 표시 -->
+                        </span>&nbsp;
+                            <span class="evaluation">( <span th:text="${detail.reviewCount}">10</span> 개의 고객 상품 평가)</span>
+                    </div>
 
-                            <div class="right-box1-box4">
-                                <span th:text="${detail.goodsDetailContent}">상품설명</span>
-                            </div>
+                <div class="right-box1-box3">
+                    <span>제품 요약 설명</span>
+                </div>
 
-                            <div class="pay-amount">
-                                <div class="pay-name" id="goodsName" th:text="${detail.goodsName}">상품명</div>
-                                <div class="pay-count">
-                                    <button id="increase"><strong>+</strong></button>
-                                    <div><span id="number">1</span></div>
-                                    <button id="decrease"><strong>-</strong></button>
-                                </div>
-                                <div class="pay-sum"><p>총 상품금액  : <strong th:text="${detail.goodsPrice}" id="price">총금액</strong> 원</p></div>
-                            </div>
+                <div class="right-box1-box4">
+                    <span th:text="${detail.goodsDetailContent}">상품설명</span>
+                </div>
 
-                            <div class="right-box1-box9">
-                                <div class="basket1">
-                                    <button type="button" class="basket-button1">장바구니</button>
-                                </div>
-                                <div class="basket2">
-                                    <button type="button" class="basket-button2">바로구매</button>
-                                </div>
-                            </div>
-                        </div>
+                <div class="pay-amount">
+                    <div class="pay-name" id="goodsName" th:text="${detail.goodsName}">상품명</div>
+                    <div class="pay-count">
+                        <button id="increase"><strong>+</strong></button>
+                        <div><span id="number">1</span></div>
+                        <button id="decrease"><strong>-</strong></button>
+                    </div>
+                    <div class="pay-sum"><p>총 상품금액  : <strong th:text="${detail.goodsPrice}" id="price">총금액</strong> 원</p></div>
+                </div>
+
+                <div class="right-box1-box9">
+                    <div class="basket1">
+                        <button type="button" class="basket-button1">장바구니</button>
+                    </div>
+
+                    <div class="basket2">
+                        <button type="button" class="basket-button2">바로구매</button>
                     </div>
                 </div>
-
-                <div class="middle-content">
-                    <ul>
-                        <span>|</span>
-                        <li>
-                            <a href="" class="img-btn">
-                                <span class="middle-span" >설명</span>
-                            </a>
-                        </li>
-                        <span>|</span>
-                        <li>
-                            <a href="" class="info-btn">
-                                <span class="middle-span">추가정보</span>
-                            </a>
-                        </li>
-                        <span>|</span>
-                        <li>
-                            <a href="" class="review-btn">
-                                <span class="middle-span">리뷰</span>
-                            </a>
-                        </li>
-                        <span>|</span>
-                        <li>
-                            <a href="" class="qna-btn">
-                                <span class="middle-span">문의</span>
-                            </a>
-                        </li>
-                        <span>|</span>
-                    </ul>
-
-                </div>
-
-                <div class="row-content">
-
-                </div>
             </div>
+        </div>
+    </div>
 
+    <div class="middle-content">
+        <ul>
+            <span>|</span>
+            <li>
+                <a href="" class="img-btn">
+                    <span class="middle-span" >설명</span>
+                </a>
+            </li>
+            <span>|</span>
+            <li>
+                <a href="" class="info-btn">
+                    <span class="middle-span">추가정보</span>
+                </a>
+            </li>
+            <span>|</span>
+            <li>
+                <a href="" class="review-btn">
+                    <span class="middle-span">리뷰</span>
+                </a>
+            </li>
+            <span>|</span>
+            <li>
+                <a href="" class="qna-btn">
+                    <span class="middle-span">문의</span>
+                </a>
+            </li>
+            <span>|</span>
+        </ul>
+    </div>
+
+            <div class="row-content">
+
+            </div>
+        </div>
 
         </div>
     </div>
+
         <input type="hidden" th:value="${detail.id}" id="goodsId">
         <input type="hidden" th:value="${session.userId}" id="userId" />
-
 </main>
 <!-- main 끝 -->
-
 <!-- footer 시작 -->
-<div class="footer" th:replace="fragment/footer :: footer">
-
-</div>
+<div class="footer" th:replace="fragment/footer :: footer"></div>
 <!-- footer 끝 -->
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script type="module" src="/shopping/js/shopDetail.js"></script>
