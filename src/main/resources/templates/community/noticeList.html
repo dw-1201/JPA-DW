@@ -11,14 +11,12 @@
 </head>
 <body>
 <!-- header 시작 -->
-<div class="header" th:replace="fragment/header :: header">
-
-</div>
+<div class="header" th:replace="fragment/header :: header"></div>
 <!-- header 끝 -->
-
     <!-- main 시작 -->
     <main>
         <div class="main-container">
+            <div class="main-content-contaniner">
             <div class="nav-container">
                 <ul>
                     <li><a href="/qna/qnaLists">QnA</a></li>
@@ -29,7 +27,7 @@
             <div class="search-container">
                 <div class="searchbox">
                     <button type="button" class="search-btn" ><img src="/img/magnifier.png" alt=""></button>
-                    <input type="text" name="keyword" class="search-notice" placeholder="찾으시는 인기글이 있으신가요?">
+                    <input type="text" name="keyword" class="search-notice" placeholder="찾으시는 게시글이 있으신가요?">
                 </div>
             </div>
             <div class="best-container">
@@ -86,12 +84,11 @@
             </div>
             <div class="ad-container"></div>
         </div>
+        </div>
     </main>
 
 <!-- footer 시작 -->
-<div class="footer" th:replace="fragment/footer :: footer">
-
-</div>
+<div class="footer" th:replace="fragment/footer :: footer"></div>
 <!-- footer 끝 -->
 <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
 <script type="module" src="/community/js/noticeList.js"></script>

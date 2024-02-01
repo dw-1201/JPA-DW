@@ -23,12 +23,17 @@ public class FreeBoardResultDetailDto {
     private Long userId;
     private String userAccount;
     private String userNickName;
+    //유저 간판 이미지
+    private Long userFileId;
+    private String route;
+    private String name;
+    private String uuid;
 
     //자유게시판 이미지
     private List<FreeBoardImgDto> freeBoardImgDtoList;
 
 //    @QueryProjection
-    public FreeBoardResultDetailDto(Long id, String freeBoardTitle, String freeBoardContent, LocalDateTime freeBoardRd, LocalDateTime freeBoardMd, Long freeBoardViewCount, Long userId, String userAccount, String userNickName, List<FreeBoardImgDto> freeBoardImgDtoList) {
+    public FreeBoardResultDetailDto(Long id, String freeBoardTitle, String freeBoardContent, LocalDateTime freeBoardRd, LocalDateTime freeBoardMd, Long freeBoardViewCount, Long userId, String userAccount, String userNickName, Long userFileId, String route, String name, String uuid, List<FreeBoardImgDto> freeBoardImgDtoList) {
         this.id = id;
         this.freeBoardTitle = freeBoardTitle;
         this.freeBoardContent = freeBoardContent;
@@ -38,10 +43,14 @@ public class FreeBoardResultDetailDto {
         this.userId = userId;
         this.userAccount = userAccount;
         this.userNickName = userNickName;
+        this.userFileId = userFileId;
+        this.route = route;
+        this.name = name;
+        this.uuid = uuid;
         this.freeBoardImgDtoList = freeBoardImgDtoList;
     }
 
-    public FreeBoardResultDetailDto(Long id, String freeBoardTitle, String freeBoardContent, LocalDateTime freeBoardRd, LocalDateTime freeBoardMd, Long freeBoardViewCount, Long userId, String userAccount, String userNickName) {
+    public FreeBoardResultDetailDto(Long id, String freeBoardTitle, String freeBoardContent, LocalDateTime freeBoardRd, LocalDateTime freeBoardMd, Long freeBoardViewCount, Long userId, String userAccount, String userNickName, Long userFileId, String route, String name, String uuid) {
         this.id = id;
         this.freeBoardTitle = freeBoardTitle;
         this.freeBoardContent = freeBoardContent;
@@ -51,5 +60,9 @@ public class FreeBoardResultDetailDto {
         this.userId = userId;
         this.userAccount = userAccount;
         this.userNickName = userNickName;
+        this.userFileId = userFileId;
+        this.route = route;
+        this.name = name;
+        this.uuid = uuid;
     }
 }

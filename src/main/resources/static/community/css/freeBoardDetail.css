@@ -1,12 +1,7 @@
-*{
+/* 폰트 적용 */
+body,html,input {
     font-family: 'Pretendard-Regular';
-}
-html,body{
-    height: 100%;
-}
-body{
-    display: flex;
-    flex-direction: column;
+    /* font-family: 'NanumSquareNeo-Variable'; */
 }
 a{
     color: black;
@@ -18,6 +13,7 @@ textarea {
     /*resize: none;*/
     /*height: auto;*/
     /*white-space: break-spaces;*/
+    white-space: break-spaces;
 }
 
 /* 여기서 부터 메인*/
@@ -443,7 +439,8 @@ main{
     /* background-color: salmon; */
 }
 .reply-content p {
-    word-wrap: break-word;
+    /*word-wrap: break-word;*/
+    white-space: break-spaces;
 }
 .reply-btns{
     width: 10%;

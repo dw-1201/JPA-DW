@@ -10,6 +10,8 @@ import com.example.dw.service.FileService;
 import com.example.dw.service.FreeBoardCommentService;
 import com.example.dw.service.FreeBoardService;
 import com.example.dw.service.NoticeBoardService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -45,12 +47,14 @@ public class NoticeController {
      * 페이징, 키워드 검색
      */
     @GetMapping("/noticeDetail/{noticeBoardId}")
-    public String noticeDetail(@PathVariable("noticeBoardId") Long noticeBoardId, Model model){
+    public String noticeDetail(@PathVariable("noticeBoardId") Long noticeBoardId, Model model,
+                               HttpServletRequest request,
+                               HttpServletResponse response){
         List<NoticeDetailDto> result =
                 noticeBoardRepositoryCustom.findNoticeById(noticeBoardId);
 
         // 조회수 증가
-        noticeBoardService.increaseViewCount(noticeBoardId);
+        noticeBoardService.increaseViewCount(noticeBoardId, request, response);
         System.out.println(noticeBoardId+"noticeBoardId");
 
         System.out.println("[공지사항 상세 페이지] : "+result.toString());

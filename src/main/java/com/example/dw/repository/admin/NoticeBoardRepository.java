@@ -11,7 +11,7 @@ public interface NoticeBoardRepository extends JpaRepository<NoticeBoard, Long> 
     // 조회수 증가
     @Modifying
     @Query("UPDATE NoticeBoard SET noticeBoardViewCount = noticeBoardViewCount + 1 WHERE id = :noticeBoardId")
-    void increaseViewCount(@Param("noticeBoardId") Long noticeBoardId);
+    int increaseViewCount(@Param("noticeBoardId") Long noticeBoardId);
 
 
 }

@@ -16,6 +16,6 @@ public interface FreeBoardRepository extends JpaRepository<FreeBoard, Long> {
     // 조회수 증가
     @Modifying
     @Query("UPDATE FreeBoard SET freeBoardViewCount = freeBoardViewCount + 1 WHERE id = :freeBoardId")
-    void increaseViewCount(@Param("freeBoardId") Long freeBoardId);
+    int increaseViewCount(@Param("freeBoardId") Long freeBoardId);
 
 }

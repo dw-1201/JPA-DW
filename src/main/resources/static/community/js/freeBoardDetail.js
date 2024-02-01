@@ -26,16 +26,13 @@ next.addEventListener('click', function () {
   }
 });
 
-//포맷변경
-//날짜
+//날짜(포맷변경)
 function formatDates(dateString) {
   let dateObj = new Date(dateString);
   let formattedDate = dateObj.getFullYear() +'-' + ('0' + (dateObj.getMonth() + 1)).slice(-2) +'-' +('0' + dateObj.getDate()).slice(-2) +' ' + ('0' + dateObj.getHours()).slice(-2) +':' +('0' + dateObj.getMinutes()).slice(-2);
   return formattedDate;
 }
 $('.info-date').text(formatDates($('.text-date').text()))
-
-
 
 // 자유게시판 글 수정
 $('.update-btn').on('click', function () {
@@ -55,7 +52,6 @@ $('.remove-btn').on('click', function () {
 $('.list-btn').on('click', function () {
   window.location.href = "/community/freeBoardList";
 });
-
 
 /**
  * 여기서부터 댓글 js
@@ -122,36 +118,29 @@ function getReply(object){
 }
 
 export function modify(freeBoardCommentId, reply, callback){
-  // jQuery의 $.ajax() 메서드를 사용하여 서버로 HTTP PATCH 요청을 보냄
+
   $.ajax({
-    // 요청을 보낼 URL. URL 내에 freeBoardCommentId 변수 값을 포함함
     url : `/replies/modifyComment/${freeBoardCommentId}`,
-    // HTTP 요청의 타입을 'patch'로 설정 (업데이트 요청)
+    // 'patch' 설정 (업데이트 요청)
     type : 'patch',
-    // 서버에 전송할 데이터를 JSON 문자열로 변환하고 전송
+    // JSON 문자열로 변환
     data : JSON.stringify(reply),
-    // 요청의 Content-Type 헤더를 JSON 형식으로 설정
     contentType : 'application/json; charset=utf-8',
-    // 요청이 성공했을 때 실행되는 함수
     success : function (){
-      // 콜백 함수(callback)가 제공되었다면 실행
       if(callback){
         callback();
       }
     },
-    // 요청이 실패했을 때 실행되는 함수
     error : function (a, b, c){
-      // 콘솔에 오류 메시지 출력
       console.error(c);
     }
   });
 }
 
 export function remove(freeBoardCommentId, callback) {
-  // jQuery를 사용하여 AJAX 요청을 보냅니다.
   $.ajax({
     url: `/replies/deleteComment/${freeBoardCommentId}`,
-    // HTTP 요청 메서드를 'delete'로 설정하여 DELETE 요청을 보냅니다.
+    // DELETE 요청
     type: 'delete',
     success: function () {
       if (callback) {
@@ -166,7 +155,6 @@ export function remove(freeBoardCommentId, callback) {
 
 // 댓글 목록을 보여주는 함수 정의
 function showReplyList(freeBoardId) {
-  // 댓글 목록을 비동기로 받아오기
   $.ajax({
     url: `/replies/readComment/${freeBoardId}`,
     type: 'get',
@@ -193,13 +181,13 @@ function freeBoardCommentList(result) {
         <div class="id-and-date">
           <div class="reply-info">
                   `;
-
+    //사용자 이미지 등록 처리
     if(r.userImgId ==null){
       text += ` <div class="reply-img"><img src="/img/dogImg02.jpg" alt=""></div>`;
     }else {
       text += `<div class="reply-img"><img src="/communities/freeUserImg?userImgPath=${r.userImgPath +'/' + r.userImgUuid +'_' + r.userImgName}" alt=""></div>`
     }
-
+    //사용자 닉네임 처리
     if(r.userNickName == null){
       text += `<div class="reply-id">${r.userAccount}</div>`;
     }else{
@@ -207,15 +195,13 @@ function freeBoardCommentList(result) {
     }
 
     text += ` 
-            
-            
           </div>
           <div class="reply-date">${r.freeBoardCommentMd ? timeForToday(r.freeBoardCommentMd) : timeForToday(r.freeBoardCommentRd)}</div>
         </div>
         <div class="reply-content-n-btns">
           <div class="reply-content"><p>${r.freeBoardCommentContent}</p></div>
 `;
-
+    //수정, 삭제 버튼 처리
     if (r.userId == loginNumber) {
       text += `
         <div class="reply-btns__box ">
@@ -233,15 +219,13 @@ function freeBoardCommentList(result) {
   return text;
 }
 
-// 댓글 목록에서 댓글 버튼(.reply-btns)이 클릭되었을 때의 이벤트 핸들러
+// 댓글 버튼 클릭 시
 $('.reply-list').on('click', '.reply-btns', function () {
-  // 클릭된 댓글 버튼의 부모 요소인 .reply-btn-box에서 .reply-btns__box를 찾아 저장
+  // 댓글 버튼의 부모 요소인 .reply-btn-box에서 => 자식 .reply-btns__box을 찾아 저장
   let $replyBtnBox = $(this).closest('.reply-btn-box').find('.reply-btns__box');
-
-  // 현재 화면에 있는 모든 .reply-btns__box에 'none' 클래스 추가 (숨김)
+  // 버든 숨김 처리
   $('.reply-btns__box').addClass('none');
-
-  // 저장된 .reply-btns__box에 'none' 클래스를 토글 (숨김/보임 상태 전환)
+  // 버튼 숨김/보임 상태 전환
   $replyBtnBox.toggleClass('none');
 });
 
@@ -292,7 +276,6 @@ $('.reply-list').on('click', '.modify-content-btn', function () {
 export function timeForToday(value){
   const today = new Date(); //현재 날짜와 시간을 가진 객체
   const timeValue = new Date(value);
-
   // getTime() 1970년 1/1일을 기준으로 지금까지 몇 ms가 지났는지 알려준다.
   //Math.floor() 는 소수점을 버림 처리 해준다.
   const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);

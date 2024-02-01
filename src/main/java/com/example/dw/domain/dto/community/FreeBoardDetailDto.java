@@ -29,8 +29,14 @@ public class FreeBoardDetailDto {
     private String userAccount;
     private String userNickName;
 
+    //유저 간판 이미지
+    private Long userFileId;
+    private String route;
+    private String name;
+    private String uuid;
+
     @QueryProjection
-    public FreeBoardDetailDto(Long id, String freeBoardTitle, String freeBoardContent, LocalDateTime freeBoardRd, LocalDateTime freeBoardMd, Long freeBoardViewCount, Long freeBoardImgId, String freeBoardImgRoute, String freeBoardImgName, String freeBoardImgUuid, Long userId, String userAccount, String userNickName) {
+    public FreeBoardDetailDto(Long id, String freeBoardTitle, String freeBoardContent, LocalDateTime freeBoardRd, LocalDateTime freeBoardMd, Long freeBoardViewCount, Long freeBoardImgId, String freeBoardImgRoute, String freeBoardImgName, String freeBoardImgUuid, Long userId, String userAccount, String userNickName, Long userFileId, String route, String name, String uuid) {
         this.id = id;
         this.freeBoardTitle = freeBoardTitle;
         this.freeBoardContent = freeBoardContent;
@@ -44,5 +50,9 @@ public class FreeBoardDetailDto {
         this.userId = userId;
         this.userAccount = userAccount;
         this.userNickName = userNickName;
+        this.userFileId = userFileId;
+        this.route = route;
+        this.name = name;
+        this.uuid = uuid;
     }
 }

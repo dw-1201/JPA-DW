@@ -81,19 +81,30 @@ function showFreeBoardList(result) {
                     <div class="list-content-content"><p>${r.freeBoardContent}</p></div>
                     <div class="list-content-etc">
                         <div class="list-content-id">
-                            <div class="list-content-id-img"><img src="/img/dogImg.jpg" alt=""></div>
-                            <span>${r.userAccount}</span>
-                        </div>
-                        <div class="list-content-reply">
-                            <span> 조회수 ${r.freeBoardViewCount} </span>
-                            <span class="reply-count"> (댓글 ${r.commentCount}) </span>
-                        </div>
-                        <div class="list-content-time">
-                            <span>${timenow}</span>
-                        </div>
-                    </div>
-                </div>
-            `;
+                        `;
+        //사용자 이미지 등록 처리
+        if(r.userFileId == 0){
+            text +=`<div class="list-content-id-img"><img src= "/img/dogImg.jpg" alt=""></div>`;
+        }else if(r.userFileId != 0){
+            text +=`<div class="list-content-id-img">
+    <img src= "/communities/freeUserImg?userImgPath=${r.route + '/' + r.uuid + '_' + r.name}" alt=""></div>`;
+        }
+        //사용자 닉네임 처리
+        if(r.userNickName ==null){
+            text+=`<span class="userName">${r.userAccount}</span>`;
+        }else if(r.userNickName != null){
+            text+=`<span class="userName">${r.userNickName}</span>`;
+        }
+        text +=`</div>
+            <div class="list-content-reply">
+                <span> 조회수 ${r.freeBoardViewCount} </span>
+                <span class="reply-count"> (댓글 ${r.commentCount}) </span>
+            </div>
+            <div class="list-content-time">
+                <span>${timenow}</span>
+            </div>
+        </div>
+    </div> `;
         r.freeBoardImgDtoList.slice(0, 1).forEach(s => {
             if (s.freeBoardImgName !== null) {
                 text += `
